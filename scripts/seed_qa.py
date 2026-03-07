@@ -46,6 +46,22 @@ def seed():
             ("enc_groc_3", "bolsa", "bag"),
             ("enc_mech_1", "llanta", "tire"),
             ("enc_mech_2", "aceite", "oil"),
+            ("enc_mech_3", "frenos", "brakes"),
+            ("enc_cloth_1", "talla", "size"),
+            ("enc_cloth_2", "probador", "fitting room"),
+            ("enc_cloth_3", "descuento", "discount"),
+            ("enc_int_1", "contrasena", "password"),
+            ("enc_int_2", "wifi", "WiFi"),
+            ("enc_int_3", "plan", "plan"),
+            ("enc_talk_1", "vecino", "neighbor"),
+            ("enc_talk_2", "barrio", "neighborhood"),
+            ("enc_talk_3", "tiempo", "weather"),
+            ("enc_contr_1", "presupuesto", "budget/quote"),
+            ("enc_contr_2", "pintura", "paint"),
+            ("enc_contr_3", "plomero", "plumber"),
+            ("enc_police_1", "licencia", "license"),
+            ("enc_police_2", "seguro", "insurance"),
+            ("enc_police_3", "multa", "fine/ticket"),
         ]
         for wid, spanish, english in encounter_words:
             stmt = insert(Word).values(
@@ -72,7 +88,7 @@ def seed():
             ).on_conflict_do_nothing()
             db.execute(stmt)
 
-        # --- Situations: 2 categories x 3 each ---
+        # --- Situations: all 10 categories (3 each for banking/restaurant, 1 each for others) ---
         situations = [
             ("banking_1", "Opening a Bank Account", "banking", 1, 1, True),
             ("banking_2", "Wire Transfer", "banking", 2, 2, False),
@@ -80,6 +96,14 @@ def seed():
             ("restaurant_1", "Ordering Food", "restaurant", 1, 4, True),
             ("restaurant_2", "Making a Reservation", "restaurant", 2, 5, False),
             ("restaurant_3", "Asking for the Bill", "restaurant", 3, 6, False),
+            ("airport_1", "Checking In", "airport", 1, 7, True),
+            ("clothing_1", "Finding the Right Size", "clothing", 1, 8, True),
+            ("internet_1", "Setting Up WiFi", "internet", 1, 9, True),
+            ("small_talk_1", "Meeting a Neighbor", "small_talk", 1, 10, True),
+            ("contractor_1", "Hiring a Plumber", "contractor", 1, 11, True),
+            ("groceries_1", "At the Supermarket", "groceries", 1, 12, True),
+            ("mechanic_1", "Oil Change", "mechanic", 1, 13, True),
+            ("police_1", "Traffic Stop", "police", 1, 14, True),
         ]
         for sid, title, category, series, order, free in situations:
             stmt = insert(Situation).values(
@@ -96,6 +120,14 @@ def seed():
             ("restaurant_1", "enc_rest_1", 1), ("restaurant_1", "enc_rest_2", 2), ("restaurant_1", "enc_rest_3", 3),
             ("restaurant_2", "enc_rest_4", 1), ("restaurant_2", "enc_rest_5", 2), ("restaurant_2", "enc_rest_6", 3),
             ("restaurant_3", "enc_rest_1", 1), ("restaurant_3", "enc_rest_4", 2), ("restaurant_3", "enc_rest_5", 3),
+            ("airport_1", "enc_air_1", 1), ("airport_1", "enc_air_2", 2), ("airport_1", "enc_air_3", 3),
+            ("clothing_1", "enc_cloth_1", 1), ("clothing_1", "enc_cloth_2", 2), ("clothing_1", "enc_cloth_3", 3),
+            ("internet_1", "enc_int_1", 1), ("internet_1", "enc_int_2", 2), ("internet_1", "enc_int_3", 3),
+            ("small_talk_1", "enc_talk_1", 1), ("small_talk_1", "enc_talk_2", 2), ("small_talk_1", "enc_talk_3", 3),
+            ("contractor_1", "enc_contr_1", 1), ("contractor_1", "enc_contr_2", 2), ("contractor_1", "enc_contr_3", 3),
+            ("groceries_1", "enc_groc_1", 1), ("groceries_1", "enc_groc_2", 2), ("groceries_1", "enc_groc_3", 3),
+            ("mechanic_1", "enc_mech_1", 1), ("mechanic_1", "enc_mech_2", 2), ("mechanic_1", "enc_mech_3", 3),
+            ("police_1", "enc_police_1", 1), ("police_1", "enc_police_2", 2), ("police_1", "enc_police_3", 3),
         ]
         for sit_id, word_id, pos in links:
             stmt = insert(SituationWord).values(
