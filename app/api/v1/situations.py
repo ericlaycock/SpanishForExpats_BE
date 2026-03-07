@@ -19,6 +19,7 @@ from app.services.word_selection_service import (
     ensure_user_words,
 )
 from app.data.grammar_situations import get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS
+from app.data.seed_bank import CATEGORY_NAMES
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -90,23 +91,9 @@ async def get_selected_situations(
         if next_situation is None:
             next_situation = category_situations[-1]
         
-        # Map category ID to display name
-        category_map = {
-            "airport": "Airport",
-            "banking": "Banking",
-            "clothing": "Clothing Shopping",
-            "internet": "Internet",
-            "small_talk": "Small Talk",
-            "contractor": "Home Renovation",
-            "groceries": "Groceries",
-            "mechanic": "Mechanic",
-            "police": "Police Stop",
-            "restaurant": "Eating Out",
-        }
-        
         result.append(SelectedSituationProgress(
             category=category_id,
-            category_name=category_map.get(category_id, category_id.replace("_", " ").title()),
+            category_name=CATEGORY_NAMES.get(category_id, category_id.replace("_", " ").title()),
             current_situation_id=next_situation.id,
             current_situation_title=next_situation.title,
             progress=completed_count + 1,  # +1 because we're showing the next one

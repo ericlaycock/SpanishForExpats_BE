@@ -4,6 +4,9 @@
 Run with: python scripts/seed_qa.py
 Uses DATABASE_URL from environment (same as the app).
 Idempotent: uses ON CONFLICT DO NOTHING.
+
+All word/situation data comes from app/data/seed_bank.py and
+app/data/grammar_situations.py — never hardcoded here.
 """
 import os
 import sys
@@ -16,6 +19,13 @@ from sqlalchemy.dialects.postgresql import insert
 from app.config import settings
 from app.models import Base, User, Subscription, Word, Situation, SituationWord
 from app.auth import get_password_hash
+from app.data.seed_bank import (
+    HIGH_FREQUENCY_WORDS,
+    ENCOUNTER_WORDS,
+    SITUATIONS,
+    SITUATION_WORDS,
+)
+from app.data.grammar_situations import GRAMMAR_SITUATIONS
 
 engine = create_engine(settings.database_url, pool_pre_ping=True)
 Session = sessionmaker(bind=engine)
@@ -24,121 +34,34 @@ Session = sessionmaker(bind=engine)
 def seed():
     db = Session()
     try:
-        # --- Words: 20 encounter + 10 high frequency ---
-        encounter_words = [
-            ("enc_bank_1", "cuenta", "account"),
-            ("enc_bank_2", "depositar", "to deposit"),
-            ("enc_bank_3", "retirar", "to withdraw"),
-            ("enc_bank_4", "transferencia", "transfer"),
-            ("enc_bank_5", "saldo", "balance"),
-            ("enc_bank_6", "prestamo", "loan"),
-            ("enc_rest_1", "mesa", "table"),
-            ("enc_rest_2", "menu", "menu"),
-            ("enc_rest_3", "propina", "tip"),
-            ("enc_rest_4", "cuenta", "bill/check"),
-            ("enc_rest_5", "mesero", "waiter"),
-            ("enc_rest_6", "reservacion", "reservation"),
-            ("enc_air_1", "pasaporte", "passport"),
-            ("enc_air_2", "equipaje", "luggage"),
-            ("enc_air_3", "vuelo", "flight"),
-            ("enc_groc_1", "carrito", "cart"),
-            ("enc_groc_2", "cajero", "cashier"),
-            ("enc_groc_3", "bolsa", "bag"),
-            ("enc_mech_1", "llanta", "tire"),
-            ("enc_mech_2", "aceite", "oil"),
-            ("enc_mech_3", "frenos", "brakes"),
-            ("enc_cloth_1", "talla", "size"),
-            ("enc_cloth_2", "probador", "fitting room"),
-            ("enc_cloth_3", "descuento", "discount"),
-            ("enc_int_1", "contrasena", "password"),
-            ("enc_int_2", "wifi", "WiFi"),
-            ("enc_int_3", "plan", "plan"),
-            ("enc_talk_1", "vecino", "neighbor"),
-            ("enc_talk_2", "barrio", "neighborhood"),
-            ("enc_talk_3", "tiempo", "weather"),
-            ("enc_contr_1", "presupuesto", "budget/quote"),
-            ("enc_contr_2", "pintura", "paint"),
-            ("enc_contr_3", "plomero", "plumber"),
-            ("enc_police_1", "licencia", "license"),
-            ("enc_police_2", "seguro", "insurance"),
-            ("enc_police_3", "multa", "fine/ticket"),
-        ]
-        for wid, spanish, english in encounter_words:
+        # --- Encounter words ---
+        for category_words in ENCOUNTER_WORDS.values():
+            for w in category_words:
+                stmt = insert(Word).values(
+                    id=w["id"], spanish=w["spanish"], english=w["english"],
+                    word_category="encounter"
+                ).on_conflict_do_nothing()
+                db.execute(stmt)
+
+        # --- High-frequency words ---
+        for w in HIGH_FREQUENCY_WORDS:
             stmt = insert(Word).values(
-                id=wid, spanish=spanish, english=english, word_category="encounter"
+                id=w["id"], spanish=w["spanish"], english=w["english"],
+                word_category="high_frequency", frequency_rank=w["frequency_rank"]
             ).on_conflict_do_nothing()
             db.execute(stmt)
 
-        high_freq_words = [
-            ("hf_1", "hola", "hello", 1),
-            ("hf_2", "gracias", "thank you", 2),
-            ("hf_3", "por favor", "please", 3),
-            ("hf_4", "si", "yes", 4),
-            ("hf_5", "no", "no", 5),
-            ("hf_6", "bueno", "good", 6),
-            ("hf_7", "donde", "where", 7),
-            ("hf_8", "cuanto", "how much", 8),
-            ("hf_9", "necesito", "I need", 9),
-            ("hf_10", "quiero", "I want", 10),
-        ]
-        for wid, spanish, english, rank in high_freq_words:
-            stmt = insert(Word).values(
-                id=wid, spanish=spanish, english=english,
-                word_category="high_frequency", frequency_rank=rank
-            ).on_conflict_do_nothing()
+        # --- Situations ---
+        for s in SITUATIONS:
+            stmt = insert(Situation).values(**s).on_conflict_do_nothing()
             db.execute(stmt)
 
-        # --- Situations: all 10 categories (3 each for banking/restaurant, 1 each for others) ---
-        situations = [
-            ("banking_1", "Opening a Bank Account", "banking", 1, 1, True),
-            ("banking_2", "Wire Transfer", "banking", 2, 2, False),
-            ("banking_3", "Currency Exchange", "banking", 3, 3, False),
-            ("restaurant_1", "Ordering Food", "restaurant", 1, 4, True),
-            ("restaurant_2", "Making a Reservation", "restaurant", 2, 5, False),
-            ("restaurant_3", "Asking for the Bill", "restaurant", 3, 6, False),
-            ("airport_1", "Checking In", "airport", 1, 7, True),
-            ("clothing_1", "Finding the Right Size", "clothing", 1, 8, True),
-            ("internet_1", "Setting Up WiFi", "internet", 1, 9, True),
-            ("small_talk_1", "Meeting a Neighbor", "small_talk", 1, 10, True),
-            ("contractor_1", "Hiring a Plumber", "contractor", 1, 11, True),
-            ("groceries_1", "At the Supermarket", "groceries", 1, 12, True),
-            ("mechanic_1", "Oil Change", "mechanic", 1, 13, True),
-            ("police_1", "Traffic Stop", "police", 1, 14, True),
-        ]
-        for sid, title, category, series, order, free in situations:
-            stmt = insert(Situation).values(
-                id=sid, title=title, category=category,
-                series_number=series, order_index=order, is_free=free
-            ).on_conflict_do_nothing()
-            db.execute(stmt)
-
-        # --- SituationWords: 3 encounter words per situation ---
-        links = [
-            ("banking_1", "enc_bank_1", 1), ("banking_1", "enc_bank_2", 2), ("banking_1", "enc_bank_3", 3),
-            ("banking_2", "enc_bank_4", 1), ("banking_2", "enc_bank_5", 2), ("banking_2", "enc_bank_6", 3),
-            ("banking_3", "enc_bank_1", 1), ("banking_3", "enc_bank_4", 2), ("banking_3", "enc_bank_5", 3),
-            ("restaurant_1", "enc_rest_1", 1), ("restaurant_1", "enc_rest_2", 2), ("restaurant_1", "enc_rest_3", 3),
-            ("restaurant_2", "enc_rest_4", 1), ("restaurant_2", "enc_rest_5", 2), ("restaurant_2", "enc_rest_6", 3),
-            ("restaurant_3", "enc_rest_1", 1), ("restaurant_3", "enc_rest_4", 2), ("restaurant_3", "enc_rest_5", 3),
-            ("airport_1", "enc_air_1", 1), ("airport_1", "enc_air_2", 2), ("airport_1", "enc_air_3", 3),
-            ("clothing_1", "enc_cloth_1", 1), ("clothing_1", "enc_cloth_2", 2), ("clothing_1", "enc_cloth_3", 3),
-            ("internet_1", "enc_int_1", 1), ("internet_1", "enc_int_2", 2), ("internet_1", "enc_int_3", 3),
-            ("small_talk_1", "enc_talk_1", 1), ("small_talk_1", "enc_talk_2", 2), ("small_talk_1", "enc_talk_3", 3),
-            ("contractor_1", "enc_contr_1", 1), ("contractor_1", "enc_contr_2", 2), ("contractor_1", "enc_contr_3", 3),
-            ("groceries_1", "enc_groc_1", 1), ("groceries_1", "enc_groc_2", 2), ("groceries_1", "enc_groc_3", 3),
-            ("mechanic_1", "enc_mech_1", 1), ("mechanic_1", "enc_mech_2", 2), ("mechanic_1", "enc_mech_3", 3),
-            ("police_1", "enc_police_1", 1), ("police_1", "enc_police_2", 2), ("police_1", "enc_police_3", 3),
-        ]
-        for sit_id, word_id, pos in links:
-            stmt = insert(SituationWord).values(
-                situation_id=sit_id, word_id=word_id, position=pos
-            ).on_conflict_do_nothing()
+        # --- SituationWords ---
+        for link in SITUATION_WORDS:
+            stmt = insert(SituationWord).values(**link).on_conflict_do_nothing()
             db.execute(stmt)
 
         # --- Grammar situations + words ---
-        from app.data.grammar_situations import GRAMMAR_SITUATIONS
-
-        # Create grammar words (word_category='grammar')
         grammar_word_set = set()
         for sid, cfg in GRAMMAR_SITUATIONS.items():
             for word in cfg["word_workload"]:
@@ -151,8 +74,7 @@ def seed():
                     ).on_conflict_do_nothing()
                     db.execute(stmt)
 
-        # Create grammar situation records and SituationWord links
-        order_offset = 1000  # High order_index so they don't interfere with main situations
+        order_offset = 1000
         for sid, cfg in GRAMMAR_SITUATIONS.items():
             stmt = insert(Situation).values(
                 id=sid,
