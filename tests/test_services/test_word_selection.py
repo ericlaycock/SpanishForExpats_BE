@@ -1,6 +1,6 @@
 import uuid
 from app.services.word_selection_service import select_words_for_situation, sort_words_encounter_first
-from app.models import Word, UserWord
+from app.models import User, Word, UserWord
 
 
 def test_select_words_for_situation(db, seed_data):
@@ -13,7 +13,11 @@ def test_select_words_for_situation(db, seed_data):
 
 
 def test_select_words_skips_learned(db, seed_data):
-    user_id = uuid.uuid4()
+    # Create a real user so FK constraint is satisfied
+    user = User(id=uuid.uuid4(), email="skiptest@example.com", password_hash="fake")
+    db.add(user)
+    db.flush()
+    user_id = user.id
     # Mark hf_1 as learned
     db.add(UserWord(user_id=user_id, word_id="hf_1", seen_count=1))
     db.flush()
