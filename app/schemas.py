@@ -20,6 +20,13 @@ class LoginResponse(BaseModel):
     access_token: str
     user_id: UUID
     is_admin: bool = False
+    email: str
+
+
+class UserProfileResponse(BaseModel):
+    email: str
+    created_at: datetime
+    is_admin: bool = False
 
 
 # Subscription schemas
