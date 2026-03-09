@@ -86,12 +86,33 @@ ENCOUNTER_INITIAL_MESSAGES = {
 def get_initial_message_for_encounter(encounter_title: str) -> str:
     """
     Get a custom initial message for an encounter based on its title.
-    Falls back to a generic message if no specific message is found.
+    Falls back to the category-level message if no exact match,
+    then to a generic message.
     """
     # Try to match the encounter title to our messages
     for key, message in ENCOUNTER_INITIAL_MESSAGES.items():
         if key in encounter_title:
             return message
-    
-    # Fallback to generic message
+
+    # Category-level fallback messages
+    CATEGORY_FALLBACKS = {
+        "bank": "Good morning! How can I help you with your banking today?",
+        "airport": "Welcome! Do you need help with check-in or your flight?",
+        "restaurant": "Hello! Welcome, what can I get for you today?",
+        "clothing": "Welcome to the store! Are you looking for anything in particular?",
+        "grocer": "Good day! Can I help you find something?",
+        "internet": "Hello! How can I help you with your service today?",
+        "mechanic": "Hey there! What seems to be the problem with your vehicle?",
+        "police": "Good afternoon. Can I see your documents, please?",
+        "contractor": "Good morning! What kind of work do you need done?",
+        "small talk": "Hello! Nice to see you. How are you doing?",
+        "plumb": "Good morning! What kind of work do you need done?",
+        "neighbor": "Hello! Nice to see you. How are you doing?",
+    }
+
+    title_lower = encounter_title.lower()
+    for keyword, message in CATEGORY_FALLBACKS.items():
+        if keyword in title_lower:
+            return message
+
     return "Hello! How can I help you today?"

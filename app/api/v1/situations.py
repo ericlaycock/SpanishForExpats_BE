@@ -31,6 +31,7 @@ class AdminSituationItem(BaseModel):
     title: str
     category: str
     situation_type: str
+    series_number: int
 
 
 @router.get("/admin/all", response_model=List[AdminSituationItem])
@@ -49,6 +50,7 @@ async def get_admin_all_situations(
             title=s.title,
             category=s.category,
             situation_type=s.situation_type,
+            series_number=s.series_number,
         )
         for s in situations
     ]
@@ -69,8 +71,10 @@ class SelectedSituationProgress(BaseModel):
     category_name: str
     current_situation_id: str
     current_situation_title: str
+    current_situation_goal: Optional[str] = None
     progress: int  # e.g., 2/50
     total_in_series: int = 50
+    vocab_level: int = 0
 
 
 @router.get("/selected", response_model=List[SelectedSituationProgress])
@@ -83,8 +87,9 @@ async def get_selected_situations(
         return []
     
     selected_categories = current_user.selected_situation_categories
+    vocab_level = get_vocab_level(db, current_user.id)
     result = []
-    
+
     # Get all completed situations for this user
     completed_situations = {
         us.situation_id: us
@@ -124,8 +129,10 @@ async def get_selected_situations(
             category_name=CATEGORY_NAMES.get(category_id, category_id.replace("_", " ").title()),
             current_situation_id=next_situation.id,
             current_situation_title=next_situation.title,
+            current_situation_goal=next_situation.goal,
             progress=completed_count + 1,  # +1 because we're showing the next one
-            total_in_series=50
+            total_in_series=len(category_situations),
+            vocab_level=vocab_level,
         ))
     
     return result
@@ -238,6 +245,9 @@ async def get_situation(
         id=situation.id,
         title=situation.title,
         free=situation.is_free,
+        series_number=situation.series_number,
+        category=situation.category,
+        goal=situation.goal,
         words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words]
     )
 
@@ -318,7 +328,10 @@ async def start_situation(
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
     
     return StartSituationResponse(
-        words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words]
+        words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
+        series_number=situation.series_number,
+        category=situation.category,
+        goal=situation.goal,
     )
 
 

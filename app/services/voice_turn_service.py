@@ -3,6 +3,31 @@ from app.models import Word, Situation
 from app.data.grammar_situations import get_grammar_config
 
 
+def get_language_mode(series_number: int, vocab_level: int) -> str:
+    """Derive language mode from encounter number and vocab level.
+
+    VL < 300:
+      encounters 1-20  → "english"
+      encounters 21-40 → "spanish_text"
+      encounters 41-50 → "spanish_audio"
+    VL >= 300:
+      encounters 1-40  → "spanish_text"
+      encounters 41-50 → "spanish_audio"
+    """
+    # Normalize series_number to 1-50 range (for multi-series categories)
+    enc_num = ((series_number - 1) % 50) + 1
+
+    if vocab_level >= 300:
+        return "spanish_audio" if enc_num > 40 else "spanish_text"
+    else:
+        if enc_num <= 20:
+            return "english"
+        elif enc_num <= 40:
+            return "spanish_text"
+        else:
+            return "spanish_audio"
+
+
 def build_grammar_system_prompt(situation_id: str) -> Optional[str]:
     """Build a system prompt for grammar conversation phases (2/3).
 
@@ -72,6 +97,14 @@ def build_transcription_prompt(situation_title: str, words: List[Word]) -> str:
         f"The conversation is in Spanish and English. Focus on accurate Spanish transcription.\n"
         f"Common Spanish words that may appear: tamaño, talla, número, grande, pequeño, mediano."
     )
+
+
+def get_conversation_system_prompt(language_mode: str = "english") -> str:
+    """Load the appropriate conversation agent prompt based on language mode."""
+    from app.services.llm_gateway import load_prompt
+    if language_mode in ("spanish_text", "spanish_audio"):
+        return load_prompt("conversation_agent_spanish", "v1")
+    return load_prompt("conversation_agent", "v1")
 
 
 def build_conversation_prompt(

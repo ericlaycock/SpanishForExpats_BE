@@ -22,7 +22,8 @@ from app.services.conversation_service import (
     get_missing_word_ids
 )
 from app.services.encounter_messages import get_initial_message_for_encounter
-from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt
+from app.api.v1.situations import get_vocab_level
+from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt, get_language_mode, get_conversation_system_prompt
 from app.data.grammar_situations import get_grammar_config
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url
 router = APIRouter()
@@ -80,10 +81,13 @@ async def create_conversation(
             db.refresh(voice_conv)
         
         initial_message = get_initial_message_for_encounter(situation.title)
+        vocab_level = get_vocab_level(db, current_user.id)
+        language_mode = get_language_mode(situation.series_number, vocab_level)
         return CreateConversationResponse(
             conversation_id=voice_conv.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
-            initial_message=initial_message
+            initial_message=initial_message,
+            language_mode=language_mode,
         )
     else:
         # No existing conversation - this shouldn't happen if startSituation was called first
@@ -106,10 +110,13 @@ async def create_conversation(
         db.refresh(conversation)
         
         initial_message = get_initial_message_for_encounter(situation.title)
+        vocab_level = get_vocab_level(db, current_user.id)
+        language_mode = get_language_mode(situation.series_number, vocab_level)
         return CreateConversationResponse(
             conversation_id=conversation.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english) for w in final_words],
-            initial_message=initial_message
+            initial_message=initial_message,
+            language_mode=language_mode,
         )
 
 
@@ -205,6 +212,10 @@ async def voice_turn(
     logger.info(f"[Voice Turn] DB updates: {update_time:.2f}s")
     
     # Step 5: Generate assistant_text via OpenAI
+    # Compute language mode for prompt selection
+    vocab_level = get_vocab_level(db, current_user.id)
+    language_mode = get_language_mode(situation.series_number, vocab_level)
+
     grammar_config = get_grammar_config(conversation.situation_id)
     if grammar_config:
         system_prompt = build_grammar_system_prompt(conversation.situation_id)
@@ -215,7 +226,7 @@ async def voice_turn(
             grammar_config,
         )
     else:
-        system_prompt = load_prompt("conversation_agent", "v1")
+        system_prompt = get_conversation_system_prompt(language_mode)
         user_prompt = build_conversation_prompt(
             situation.title,
             words,

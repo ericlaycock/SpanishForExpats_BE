@@ -56,6 +56,9 @@ class SituationDetail(BaseModel):
     id: str
     title: str
     free: bool
+    series_number: int = 1
+    category: str = ""
+    goal: Optional[str] = None
     words: List[WordSchema]
 
     class Config:
@@ -64,6 +67,9 @@ class SituationDetail(BaseModel):
 
 class StartSituationResponse(BaseModel):
     words: List[WordSchema]
+    series_number: int = 1
+    category: str = ""
+    goal: Optional[str] = None
 
 
 class CompleteSituationResponse(BaseModel):
@@ -100,6 +106,7 @@ class CreateConversationResponse(BaseModel):
     conversation_id: UUID
     words: List[WordSchema]  # Return the words used in this conversation
     initial_message: str  # Custom initial message for this encounter
+    language_mode: str = "english"  # "english", "spanish_text", or "spanish_audio"
 
 
 class MessageRequest(BaseModel):
