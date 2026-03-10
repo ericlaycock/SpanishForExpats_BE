@@ -106,8 +106,10 @@ def build_transcription_prompt(situation_title: str, words: List[Word], catalan_
 def get_conversation_system_prompt(language_mode: str = "english", catalan_mode: bool = False) -> str:
     """Load the appropriate conversation agent prompt based on language mode."""
     from app.services.llm_gateway import load_prompt
-    if catalan_mode and language_mode in ("catalan_text", "catalan_audio"):
-        return load_prompt("conversation_agent_catalan", "v1")
+    if catalan_mode:
+        if language_mode in ("catalan_text", "catalan_audio"):
+            return load_prompt("conversation_agent_catalan", "v1")
+        return load_prompt("conversation_agent_catalan_english", "v1")
     if language_mode in ("spanish_text", "spanish_audio"):
         return load_prompt("conversation_agent_spanish", "v1")
     return load_prompt("conversation_agent", "v1")
@@ -118,6 +120,7 @@ def build_conversation_prompt(
     words: List[Word],
     used_spoken_word_ids: List[str],
     user_transcript: str,
+    catalan_mode: bool = False,
 ) -> str:
     """Build the user prompt for the conversation LLM."""
     used_words = [w.spanish for w in words if w.id in used_spoken_word_ids]
@@ -132,5 +135,5 @@ def build_conversation_prompt(
         f"Still need: {', '.join(missing_words_info) if missing_words_info else 'All words used'}\n"
         f"Already used: {', '.join(used_words) if used_words else 'None'}\n"
         f"User said: {user_transcript}\n\n"
-        f"Ask a natural question requiring a missing Spanish word. Do NOT mention the Spanish word. Return JSON only."
+        f"Ask a natural question requiring a missing {'Catalan' if catalan_mode else 'Spanish'} word. Do NOT mention the {'Catalan' if catalan_mode else 'Spanish'} word. Return JSON only."
     )

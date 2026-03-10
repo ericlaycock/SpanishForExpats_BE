@@ -258,6 +258,7 @@ async def voice_turn(
             words,
             conversation.used_spoken_word_ids or [],
             user_transcript,
+            catalan_mode=catalan_mode,
         )
     
     # Use LLM gateway
