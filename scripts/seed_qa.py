@@ -39,10 +39,10 @@ def seed():
             for w in category_words:
                 stmt = insert(Word).values(
                     id=w["id"], spanish=w["spanish"], english=w["english"],
-                    word_category="encounter"
+                    word_category="encounter", catalan=w["catalan"]
                 ).on_conflict_do_update(
                     index_elements=["id"],
-                    set_={"spanish": w["spanish"], "english": w["english"]},
+                    set_={"spanish": w["spanish"], "english": w["english"], "catalan": w["catalan"]},
                 )
                 db.execute(stmt)
 
@@ -50,8 +50,12 @@ def seed():
         for w in HIGH_FREQUENCY_WORDS:
             stmt = insert(Word).values(
                 id=w["id"], spanish=w["spanish"], english=w["english"],
-                word_category="high_frequency", frequency_rank=w["frequency_rank"]
-            ).on_conflict_do_nothing()
+                word_category="high_frequency", frequency_rank=w["frequency_rank"],
+                catalan=w["catalan"]
+            ).on_conflict_do_update(
+                index_elements=["id"],
+                set_={"spanish": w["spanish"], "english": w["english"], "catalan": w["catalan"]},
+            )
             db.execute(stmt)
 
         # --- Situations (upsert to fix stale data) ---
@@ -108,21 +112,6 @@ def seed():
                     situation_id=sid, word_id=word_id, position=pos
                 ).on_conflict_do_nothing()
                 db.execute(stmt)
-
-        # --- Catalan translations ---
-        catalan_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-            "app", "data", "catalan_translations.json",
-        )
-        if os.path.exists(catalan_path):
-            import json
-            with open(catalan_path, "r", encoding="utf-8") as f:
-                catalan_map = json.load(f)
-            for word_id, catalan_text in catalan_map.items():
-                db.execute(text(
-                    "UPDATE words SET catalan = :catalan WHERE id = :id"
-                ), {"catalan": catalan_text, "id": word_id})
-            print(f"  Populated {len(catalan_map)} Catalan translations.")
 
         # --- Test user ---
         password_hash = get_password_hash("testpassword123")

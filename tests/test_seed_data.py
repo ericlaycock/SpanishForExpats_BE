@@ -259,14 +259,54 @@ class TestCompactDataIntegrity:
                 f"Animation type '{category}' not found in ANIMATION_NAMES"
             )
 
-    def test_word_tuples_are_pairs(self):
-        """Every word entry should be a (spanish, english) tuple of 2 strings."""
+    def test_word_tuples_are_triples(self):
+        """Every word entry should be a (spanish, english, catalan) tuple of 3 strings."""
         for category, sub_list in _SUB_SITUATIONS.items():
             for sub in sub_list:
                 for i, w in enumerate(sub["words"]):
-                    assert isinstance(w, tuple) and len(w) == 2, (
-                        f"{category}/{sub['title']} word {i}: expected (str, str) tuple, got {w}"
+                    assert isinstance(w, tuple) and len(w) == 3, (
+                        f"{category}/{sub['title']} word {i}: expected (str, str, str) tuple, got {w}"
                     )
-                    assert isinstance(w[0], str) and isinstance(w[1], str), (
-                        f"{category}/{sub['title']} word {i}: both elements must be strings"
+                    assert all(isinstance(el, str) for el in w), (
+                        f"{category}/{sub['title']} word {i}: all elements must be strings"
                     )
+
+
+class TestCatalanData:
+    def test_every_encounter_word_has_catalan(self):
+        """All ENCOUNTER_WORDS dicts have non-empty 'catalan' key."""
+        for category, words in ENCOUNTER_WORDS.items():
+            for w in words:
+                assert "catalan" in w and w["catalan"], (
+                    f"{w['id']}: missing or empty catalan"
+                )
+
+    def test_every_hf_word_has_catalan(self):
+        """All HIGH_FREQUENCY_WORDS dicts have non-empty 'catalan' key."""
+        for w in HIGH_FREQUENCY_WORDS:
+            assert "catalan" in w and w["catalan"], (
+                f"{w['id']}: missing or empty catalan"
+            )
+
+    def test_no_catalan_equals_spanish(self):
+        """Catalan should differ from Spanish for most words (spot-check)."""
+        same_count = 0
+        total = 0
+        for category, words in ENCOUNTER_WORDS.items():
+            for w in words:
+                total += 1
+                if w["catalan"] == w["spanish"]:
+                    same_count += 1
+        # Allow up to 30% same (some words are identical in both languages)
+        ratio = same_count / total
+        assert ratio < 0.30, (
+            f"{same_count}/{total} ({ratio:.0%}) encounter words have catalan == spanish"
+        )
+
+    def test_catalan_not_empty_string(self):
+        """No empty catalan strings in encounter or HF words."""
+        for category, words in ENCOUNTER_WORDS.items():
+            for w in words:
+                assert w["catalan"] != "", f"{w['id']}: catalan is empty string"
+        for w in HIGH_FREQUENCY_WORDS:
+            assert w["catalan"] != "", f"{w['id']}: catalan is empty string"

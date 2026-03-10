@@ -6,6 +6,7 @@ from app.database import get_db
 from app.auth import get_current_user
 from app.models import User, UserWord, Word
 from app.schemas import UserWordSchema, TypedCorrectRequest
+from app.services.catalan_service import apply_catalan_mode
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -32,8 +33,10 @@ async def get_user_words(
     # Get word details
     word_ids = [uw.word_id for uw in user_words]
     words = db.query(Word).filter(Word.id.in_(word_ids)).all()
+    if current_user.catalan_mode:
+        words = apply_catalan_mode(words, db)
     word_dict = {w.id: w for w in words}
-    
+
     result = []
     for uw in user_words:
         word = word_dict.get(uw.word_id)
@@ -49,7 +52,7 @@ async def get_user_words(
                 word_category=word.word_category,
                 frequency_rank=word.frequency_rank,
             ))
-    
+
     return result
 
 
@@ -119,7 +122,9 @@ async def get_unknown_words(
         query = query.filter(Word.word_category.isnot(None))
     
     unknown_words = query.order_by(Word.frequency_rank.asc().nullslast(), Word.spanish.asc()).all()
-    
+    if current_user.catalan_mode:
+        unknown_words = apply_catalan_mode(unknown_words, db)
+
     # Group by category
     high_frequency = []
     encounter = []
