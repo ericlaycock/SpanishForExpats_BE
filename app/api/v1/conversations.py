@@ -25,6 +25,7 @@ from app.services.encounter_messages import get_initial_message_for_encounter
 from app.api.v1.situations import get_vocab_level
 from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt, get_language_mode, get_conversation_system_prompt
 from app.data.grammar_situations import get_grammar_config
+from app.services.catalan_service import apply_catalan_mode
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url
 router = APIRouter()
 
@@ -83,6 +84,13 @@ async def create_conversation(
         initial_message = get_initial_message_for_encounter(situation.title)
         vocab_level = get_vocab_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level)
+
+        # Catalan mode: swap words + adjust language_mode
+        if current_user.catalan_mode:
+            final_words = apply_catalan_mode(final_words, db)
+            if language_mode in ("spanish_text", "spanish_audio"):
+                language_mode = language_mode.replace("spanish_", "catalan_")
+
         return CreateConversationResponse(
             conversation_id=voice_conv.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
@@ -112,6 +120,13 @@ async def create_conversation(
         initial_message = get_initial_message_for_encounter(situation.title)
         vocab_level = get_vocab_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level)
+
+        # Catalan mode: swap words + adjust language_mode
+        if current_user.catalan_mode:
+            final_words = apply_catalan_mode(final_words, db)
+            if language_mode in ("spanish_text", "spanish_audio"):
+                language_mode = language_mode.replace("spanish_", "catalan_")
+
         return CreateConversationResponse(
             conversation_id=conversation.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english) for w in final_words],
@@ -175,17 +190,24 @@ async def voice_turn(
     situation = db.query(Situation).filter(Situation.id == conversation.situation_id).first()
     db_time = time.time() - db_start
     logger.info(f"[Voice Turn] DB queries: {db_time:.2f}s")
-    
+
+    # Catalan mode: swap spanish → catalan for word detection + prompts
+    catalan_mode = current_user.catalan_mode
+    if catalan_mode:
+        words = apply_catalan_mode(words, db)
+
     transcription_prompt = build_transcription_prompt(
-        situation.title if situation else "a situation", words
+        situation.title if situation else "a situation", words,
+        catalan_mode=catalan_mode,
     )
-    
+
     stt_start = time.time()
+    stt_language = "ca" if catalan_mode else "es"
     user_transcript = await gateway_transcribe_audio(
         audio_bytes=audio_bytes,
         filename=audio.filename or "audio.mp3",
         prompt=transcription_prompt,
-        language="es",
+        language=stt_language,
         request_id=request_id,
         user_id=str(current_user.id),
         db=db,
@@ -216,6 +238,10 @@ async def voice_turn(
     vocab_level = get_vocab_level(db, current_user.id)
     language_mode = get_language_mode(situation.encounter_number, vocab_level)
 
+    # Catalan mode: adjust language_mode for prompt selection
+    if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
+        language_mode = language_mode.replace("spanish_", "catalan_")
+
     grammar_config = get_grammar_config(conversation.situation_id)
     if grammar_config:
         system_prompt = build_grammar_system_prompt(conversation.situation_id)
@@ -226,7 +252,7 @@ async def voice_turn(
             grammar_config,
         )
     else:
-        system_prompt = get_conversation_system_prompt(language_mode)
+        system_prompt = get_conversation_system_prompt(language_mode, catalan_mode=catalan_mode)
         user_prompt = build_conversation_prompt(
             situation.title,
             words,

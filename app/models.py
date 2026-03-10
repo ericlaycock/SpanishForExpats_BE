@@ -18,6 +18,7 @@ class User(Base):
     grammar_score = Column(String, nullable=True)  # Quiz grammar score
     vocab_score = Column(String, nullable=True)  # Quiz vocab score
     is_admin = Column(Boolean, default=False, nullable=False)
+    catalan_mode = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
@@ -47,6 +48,7 @@ class Word(Base):
     english = Column(String, nullable=False)
     word_category = Column(String, nullable=True)  # 'encounter' or 'high_frequency'
     frequency_rank = Column(Integer, nullable=True)  # Rank in frequency list (1-1000)
+    catalan = Column(String, nullable=True)
     notes = Column(Text, nullable=True)  # Grammar/usage notes for frontend popup
     
     # Relationships

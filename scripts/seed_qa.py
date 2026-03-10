@@ -109,6 +109,21 @@ def seed():
                 ).on_conflict_do_nothing()
                 db.execute(stmt)
 
+        # --- Catalan translations ---
+        catalan_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "app", "data", "catalan_translations.json",
+        )
+        if os.path.exists(catalan_path):
+            import json
+            with open(catalan_path, "r", encoding="utf-8") as f:
+                catalan_map = json.load(f)
+            for word_id, catalan_text in catalan_map.items():
+                db.execute(text(
+                    "UPDATE words SET catalan = :catalan WHERE id = :id"
+                ), {"catalan": catalan_text, "id": word_id})
+            print(f"  Populated {len(catalan_map)} Catalan translations.")
+
         # --- Test user ---
         password_hash = get_password_hash("testpassword123")
         test_user_id = "00000000-0000-0000-0000-000000000001"

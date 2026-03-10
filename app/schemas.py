@@ -20,6 +20,7 @@ class LoginResponse(BaseModel):
     access_token: str
     user_id: UUID
     is_admin: bool = False
+    catalan_mode: bool = False
     email: str
 
 
@@ -27,6 +28,11 @@ class UserProfileResponse(BaseModel):
     email: str
     created_at: datetime
     is_admin: bool = False
+    catalan_mode: bool = False
+
+
+class CatalanModeRequest(BaseModel):
+    enabled: bool
 
 
 # Subscription schemas

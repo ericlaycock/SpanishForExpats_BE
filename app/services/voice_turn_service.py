@@ -85,9 +85,16 @@ def build_grammar_user_prompt(
     )
 
 
-def build_transcription_prompt(situation_title: str, words: List[Word]) -> str:
-    """Build a context prompt to help Whisper with Spanish vocabulary."""
+def build_transcription_prompt(situation_title: str, words: List[Word], catalan_mode: bool = False) -> str:
+    """Build a context prompt to help Whisper with vocabulary."""
     target_words_list = ", ".join([f"{w.spanish} ({w.english})" for w in words])
+    if catalan_mode:
+        return (
+            f"This is a conversation about {situation_title}.\n"
+            f"The user is learning Catalan and may use these Catalan words: {target_words_list}.\n"
+            f"The conversation is in Catalan and English. Focus on accurate Catalan transcription.\n"
+            f"Common Catalan words that may appear: mida, talla, número, gran, petit, mitjà."
+        )
     return (
         f"This is a conversation about {situation_title}.\n"
         f"The user is learning Spanish and may use these Spanish words: {target_words_list}.\n"
@@ -96,9 +103,11 @@ def build_transcription_prompt(situation_title: str, words: List[Word]) -> str:
     )
 
 
-def get_conversation_system_prompt(language_mode: str = "english") -> str:
+def get_conversation_system_prompt(language_mode: str = "english", catalan_mode: bool = False) -> str:
     """Load the appropriate conversation agent prompt based on language mode."""
     from app.services.llm_gateway import load_prompt
+    if catalan_mode and language_mode in ("catalan_text", "catalan_audio"):
+        return load_prompt("conversation_agent_catalan", "v1")
     if language_mode in ("spanish_text", "spanish_audio"):
         return load_prompt("conversation_agent_spanish", "v1")
     return load_prompt("conversation_agent", "v1")

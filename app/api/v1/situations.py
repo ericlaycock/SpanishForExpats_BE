@@ -20,6 +20,7 @@ from app.services.word_selection_service import (
 )
 from app.data.grammar_situations import get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS
 from app.data.seed_bank import ANIMATION_NAMES
+from app.services.catalan_service import apply_catalan_mode
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -241,6 +242,10 @@ async def get_situation(
     words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
 
+    # Catalan mode: swap spanish → catalan for encounter/HF words
+    if current_user.catalan_mode:
+        final_words = apply_catalan_mode(final_words, db)
+
     return SituationDetail(
         id=situation.id,
         title=situation.title,
@@ -326,7 +331,11 @@ async def start_situation(
     
     # Sort words: encounter words by position, then high frequency words
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
-    
+
+    # Catalan mode: swap spanish → catalan for encounter/HF words
+    if current_user.catalan_mode:
+        final_words = apply_catalan_mode(final_words, db)
+
     return StartSituationResponse(
         words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
         encounter_number=situation.encounter_number,
