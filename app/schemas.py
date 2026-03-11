@@ -98,6 +98,8 @@ class UserWordSchema(BaseModel):
     typed_correct_count: int
     spoken_correct_count: int
     status: str
+    mastery_level: int = 0
+    next_refresh_at: Optional[datetime] = None
     word_category: Optional[str] = None
     frequency_rank: Optional[int] = None
 
@@ -150,6 +152,28 @@ class GrammarConfigResponse(BaseModel):
     drill_config: Optional[dict] = None
     phase_1c_config: Optional[dict] = None
     phase_2_config: Optional[dict] = None
+
+
+# Refresh (SRS) schemas
+class PendingRefreshSituation(BaseModel):
+    situation_id: str
+    title: str
+    animation_type: str
+    due_word_count: int
+
+class PendingRefreshesResponse(BaseModel):
+    refreshes: List[PendingRefreshSituation]
+
+class StartRefreshResponse(BaseModel):
+    conversation_id: UUID
+    words: List[WordSchema]
+    initial_message: str
+    language_mode: str = "english"
+    conversation_type: str = "refresh"
+
+class CompleteRefreshResponse(BaseModel):
+    words_refreshed: int
+    new_mastery_level: int
 
 
 # Error schemas

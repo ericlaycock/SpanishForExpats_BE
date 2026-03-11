@@ -3,6 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import uuid
+from datetime import datetime, timezone
 from app.database import Base
 
 
@@ -100,11 +101,15 @@ class UserWord(Base):
     typed_correct_count = Column(Integer, default=0, nullable=False)
     spoken_correct_count = Column(Integer, default=0, nullable=False)
     status = Column(String, default="learning", nullable=False)
+    mastery_level = Column(Integer, default=0, nullable=False)  # 0=unseen, 1=learned, 2-3=refreshed, 4=mastered
+    next_refresh_at = Column(DateTime(timezone=True), nullable=True)
+    source_situation_id = Column(String, ForeignKey("situations.id"), nullable=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     # Relationships
     user = relationship("User", back_populates="user_words")
     word = relationship("Word", back_populates="user_words")
+    source_situation = relationship("Situation")
 
 
 class UserSituation(Base):
@@ -131,6 +136,7 @@ class Conversation(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
     situation_id = Column(String, ForeignKey("situations.id"), nullable=False)
     mode = Column(String, nullable=False)  # 'text' or 'voice'
+    conversation_type = Column(String, default="lesson", nullable=False)  # 'lesson' or 'refresh'
     target_word_ids = Column(JSONB, nullable=False)
     used_typed_word_ids = Column(JSONB, default=list, nullable=False)
     used_spoken_word_ids = Column(JSONB, default=list, nullable=False)

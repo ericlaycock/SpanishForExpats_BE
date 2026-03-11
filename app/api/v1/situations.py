@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from app.database import get_db
 from app.auth import get_current_user
-from app.models import User, Situation, UserSituation, UserWord, Word
+from app.models import User, Situation, UserSituation, UserWord, Word, Conversation
 from app.services.subscription_service import check_paywall
 from app.schemas import (
     SituationListItem,
@@ -21,6 +21,7 @@ from app.services.word_selection_service import (
 from app.data.grammar_situations import get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS
 from app.data.seed_bank import ANIMATION_NAMES
 from app.services.catalan_service import apply_catalan_mode
+from app.services.refresh_service import set_initial_mastery
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -58,11 +59,11 @@ async def get_admin_all_situations(
 
 
 def get_vocab_level(db: Session, user_id) -> int:
-    """Count of high-frequency words with status learning/mastered."""
+    """Count of high-frequency words with mastery_level >= 2 (refreshed at least once)."""
     return db.query(UserWord).join(Word).filter(
         UserWord.user_id == user_id,
         Word.word_category == 'high_frequency',
-        UserWord.status.in_(['learning', 'mastered'])
+        UserWord.mastery_level >= 2,
     ).count()
 
 
@@ -364,8 +365,18 @@ async def complete_situation(
     
     from datetime import datetime
     user_situation.completed_at = datetime.utcnow()
+
+    # Set initial mastery (level 0 → 1) for words from the text conversation
+    text_conv = db.query(Conversation).filter(
+        Conversation.user_id == current_user.id,
+        Conversation.situation_id == situation_id,
+        Conversation.mode == "text",
+    ).order_by(Conversation.created_at.desc()).first()
+    if text_conv and text_conv.target_word_ids:
+        set_initial_mastery(db, current_user.id, text_conv.target_word_ids, situation_id)
+
     db.commit()
-    
+
     # Find next situation in the same animation_type with matching title (same sub-situation)
     current_situation = db.query(Situation).filter(Situation.id == situation_id).first()
     if current_situation and current_situation.animation_type:

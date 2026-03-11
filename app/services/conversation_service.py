@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert
 from app.models import Conversation, UserWord, Word
-from app.config import settings
 from typing import List
 
 
@@ -51,12 +50,6 @@ def update_user_word_stats(
                 set_={"spoken_correct_count": UserWord.spoken_correct_count + 1}
             )
             db.execute(stmt)
-            # Update status if mastery threshold met
-            db.query(UserWord).filter(
-                UserWord.user_id == user_id,
-                UserWord.word_id == word_id,
-                UserWord.spoken_correct_count >= settings.mastery_spoken_threshold
-            ).update({"status": "mastered"})
 
     db.commit()
 
