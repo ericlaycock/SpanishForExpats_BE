@@ -65,7 +65,8 @@ async def create_conversation(
         voice_conv = db.query(Conversation).filter(
             Conversation.user_id == current_user.id,
             Conversation.situation_id == request.situation_id,
-            Conversation.mode == "voice"
+            Conversation.mode == "voice",
+            Conversation.status == "active"
         ).order_by(Conversation.created_at.desc()).with_for_update().first()
         
         if not voice_conv:
@@ -300,7 +301,7 @@ async def voice_turn(
     logger.info(f"[Voice Turn] TTS generation: {tts_time:.2f}s")
     
     # Check if conversation is complete
-    conversation_complete = check_conversation_complete(conversation, "voice") or end_conversation
+    conversation_complete = check_conversation_complete(conversation, "voice")
     if conversation_complete:
         conversation.status = "complete"
     

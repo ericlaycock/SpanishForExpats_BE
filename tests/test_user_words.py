@@ -11,7 +11,7 @@ def test_get_user_words_empty(client, seed_data):
 def test_mark_typed_correct(client, seed_data):
     _, headers = register_user(client)
     # Start a situation first to create user_words
-    client.post("/v1/situations/banking_1/start", headers=headers)
+    client.post("/v1/situations/bank_open_1/start", headers=headers)
     resp = client.post("/v1/user/words/typed-correct", headers=headers, json={
         "word_ids": ["enc_1"],
     })
