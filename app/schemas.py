@@ -122,6 +122,7 @@ class CreateConversationResponse(BaseModel):
     words: List[WordSchema]  # Return the words used in this conversation
     initial_message: str  # Custom initial message for this encounter
     language_mode: str = "english"  # "english", "spanish_text", or "spanish_audio"
+    vocab_level: int = 0
 
 
 class MessageRequest(BaseModel):

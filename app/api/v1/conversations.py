@@ -97,6 +97,7 @@ async def create_conversation(
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
             initial_message=initial_message,
             language_mode=language_mode,
+            vocab_level=vocab_level,
         )
     else:
         # No existing conversation - this shouldn't happen if startSituation was called first
@@ -133,6 +134,7 @@ async def create_conversation(
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english) for w in final_words],
             initial_message=initial_message,
             language_mode=language_mode,
+            vocab_level=vocab_level,
         )
 
 
