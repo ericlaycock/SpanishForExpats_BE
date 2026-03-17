@@ -64,6 +64,8 @@ def seed():
         placeholders = ", ".join(f":id_{i}" for i in range(len(current_situation_ids)))
         params = {f"id_{i}": sid for i, sid in enumerate(current_situation_ids)}
         db.execute(text(f"DELETE FROM situation_words WHERE situation_id NOT IN ({placeholders})"), params)
+        db.execute(text(f"DELETE FROM conversations WHERE situation_id NOT IN ({placeholders})"), params)
+        db.execute(text(f"DELETE FROM user_situations WHERE situation_id NOT IN ({placeholders})"), params)
         db.execute(text(f"DELETE FROM situations WHERE id NOT IN ({placeholders})"), params)
 
         # --- Situations (upsert to fix stale data) ---

@@ -8,7 +8,7 @@
 - **Framework**: FastAPI (Python 3.11), Uvicorn
 - **Database**: PostgreSQL (Railway), SQLAlchemy 2.0, Alembic migrations
 - **Auth**: JWT via python-jose, bcrypt passwords
-- **AI**: OpenAI GPT-4o-mini (chat), Whisper (STT), TTS
+- **AI**: OpenAI GPT-4.1-mini (chat), Whisper (STT), TTS
 - **Tests**: pytest (requires PostgreSQL — not SQLite-compatible due to UUID/JSONB)
 
 ## Key Files
