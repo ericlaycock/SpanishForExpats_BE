@@ -52,6 +52,7 @@ def upload_to_r2(local_path: str, filename: str) -> str | None:
     Returns None if R2 is not configured or upload fails."""
     from app.config import settings
     if not settings.r2_public_url:
+        logger.warning(f"[R2] Skipped upload — r2_public_url not configured (r2_endpoint_url={settings.r2_endpoint_url!r})")
         return None
 
     client = _get_s3_client()

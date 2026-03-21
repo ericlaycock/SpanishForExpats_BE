@@ -253,6 +253,13 @@ async def options_handler(request: Request, full_path: str):
 # Mount static files for audio
 app.mount("/audio", StaticFiles(directory="/tmp/audio"), name="audio")
 
+# Log R2 config status
+from app.config import settings as _settings
+if _settings.r2_public_url:
+    logger.info(f"☁️  R2 audio storage configured: {_settings.r2_public_url}")
+else:
+    logger.warning("⚠️  R2 not configured — audio served from local /tmp (will 404 on Railway)")
+
 # Include routers
 logger.info("🔗 Registering API routes...")
 app.include_router(auth.router, prefix="/v1/auth", tags=["auth"])
