@@ -89,6 +89,14 @@ class CompleteSituationResponse(BaseModel):
     next_situation_id: Optional[str] = None
 
 
+class AdminSkipEncounterResponse(BaseModel):
+    situation_id: str
+    situation_title: str
+    words_set_known: int
+    vocab_level: int
+    next_situation_id: Optional[str] = None
+
+
 # User Words schemas
 class UserWordSchema(BaseModel):
     word_id: str
