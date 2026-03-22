@@ -390,6 +390,59 @@ V2V_MODEL = "gpt-4o-audio-preview"
 _v2v_logger = logging.getLogger(__name__)
 
 
+def _convert_to_wav(audio_bytes: bytes, source_format: str) -> bytes:
+    """Convert audio from any format to WAV using ffmpeg via subprocess.
+    gpt-4o-audio-preview only accepts 'wav' and 'mp3' input formats."""
+    import subprocess
+    import tempfile
+    import os
+
+    with tempfile.NamedTemporaryFile(suffix=f".{source_format}", delete=False) as src:
+        src.write(audio_bytes)
+        src_path = src.name
+
+    dst_path = src_path.rsplit(".", 1)[0] + ".wav"
+
+    try:
+        subprocess.run(
+            ["ffmpeg", "-i", src_path, "-ar", "16000", "-ac", "1", "-f", "wav", dst_path],
+            capture_output=True, check=True, timeout=30,
+        )
+        with open(dst_path, "rb") as f:
+            return f.read()
+    finally:
+        for p in (src_path, dst_path):
+            try:
+                os.unlink(p)
+            except OSError:
+                pass
+
+
+def _run_v2v_sync(
+    audio_b64: str,
+    system_prompt: str,
+    context_prompt: str,
+    voice: str,
+) -> Tuple[bytes, str]:
+    """Synchronous V2V call — meant to run in a thread via asyncio.to_thread."""
+    client = get_client()
+    response = client.chat.completions.create(
+        model=V2V_MODEL,
+        modalities=["text", "audio"],
+        audio={"voice": voice, "format": "mp3"},
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": [
+                {"type": "input_audio", "input_audio": {"data": audio_b64, "format": "wav"}},
+                {"type": "text", "text": context_prompt},
+            ]},
+        ],
+    )
+    audio_data = base64.b64decode(response.choices[0].message.audio.data)
+    transcript = response.choices[0].message.audio.transcript
+    return audio_data, transcript
+
+
 async def voice_to_voice(
     audio_bytes: bytes,
     audio_format: str,
@@ -402,33 +455,38 @@ async def voice_to_voice(
     """Voice-to-voice: send user audio + context, get back (audio_bytes, transcript).
 
     Uses gpt-4o-audio-preview Chat Completions with audio modality.
-    The model hears the user audio, reads the context, and responds with
-    both spoken audio and a text transcript of its response.
+    Converts input audio to WAV (the only formats accepted by the model are wav/mp3).
+    Runs the blocking OpenAI SDK call in a thread for true async.
     """
+    import asyncio
     start_time = time.time()
     _v2v_logger.info(f"[V2V] Starting voice-to-voice: audio={len(audio_bytes)} bytes, format={audio_format}, voice={voice}")
 
-    client = get_client()
+    # Convert to WAV if not already wav/mp3
+    if audio_format not in ("wav", "mp3"):
+        _v2v_logger.info(f"[V2V] Converting {audio_format} → wav")
+        audio_bytes = _convert_to_wav(audio_bytes, audio_format)
+        _v2v_logger.info(f"[V2V] Converted to WAV: {len(audio_bytes)} bytes")
+
     audio_b64 = base64.b64encode(audio_bytes).decode()
 
-    response = client.chat.completions.create(
-        model=V2V_MODEL,
-        modalities=["text", "audio"],
-        audio={"voice": voice, "format": "mp3"},
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": [
-                {"type": "input_audio", "input_audio": {"data": audio_b64, "format": audio_format}},
-                {"type": "text", "text": context_prompt},
-            ]},
-        ],
-    )
+    try:
+        audio_data, transcript = await asyncio.to_thread(
+            _run_v2v_sync, audio_b64, system_prompt, context_prompt, voice
+        )
+    except Exception as e:
+        latency_ms = int((time.time() - start_time) * 1000)
+        # Log the full error including any response body
+        error_body = ""
+        if hasattr(e, "response"):
+            try:
+                error_body = e.response.text
+            except Exception:
+                error_body = str(e.response)
+        _v2v_logger.error(f"[V2V] FAILED after {latency_ms}ms: {type(e).__name__}: {e}\nResponse body: {error_body}")
+        raise
 
     latency_ms = int((time.time() - start_time) * 1000)
-
-    audio_data = base64.b64decode(response.choices[0].message.audio.data)
-    transcript = response.choices[0].message.audio.transcript
-
     _v2v_logger.info(f"[V2V] Complete: {latency_ms}ms, audio_out={len(audio_data)} bytes, transcript={transcript[:80]}...")
 
     return audio_data, transcript
