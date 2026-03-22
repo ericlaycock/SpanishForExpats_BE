@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_
 from typing import List, Optional
@@ -6,6 +6,7 @@ from app.database import get_db
 from app.auth import get_current_user
 from app.models import User, UserWord, Word
 from app.schemas import UserWordSchema, TypedCorrectRequest
+from app.services.catalan_service import apply_catalan_mode
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -32,8 +33,10 @@ async def get_user_words(
     # Get word details
     word_ids = [uw.word_id for uw in user_words]
     words = db.query(Word).filter(Word.id.in_(word_ids)).all()
+    if current_user.catalan_mode:
+        words = apply_catalan_mode(words, db)
     word_dict = {w.id: w for w in words}
-    
+
     result = []
     for uw in user_words:
         word = word_dict.get(uw.word_id)
@@ -45,9 +48,13 @@ async def get_user_words(
                 seen_count=uw.seen_count,
                 typed_correct_count=uw.typed_correct_count,
                 spoken_correct_count=uw.spoken_correct_count,
-                status=uw.status
+                status=uw.status,
+                mastery_level=uw.mastery_level,
+                next_refresh_at=uw.next_refresh_at,
+                word_category=word.word_category,
+                frequency_rank=word.frequency_rank,
             ))
-    
+
     return result
 
 
@@ -58,6 +65,17 @@ async def mark_typed_correct(
     db: Session = Depends(get_db)
 ):
     """Increment typed_correct_count for specified words"""
+    # Validate all word IDs exist
+    existing_ids = {
+        row[0] for row in db.query(Word.id).filter(Word.id.in_(request.word_ids)).all()
+    }
+    invalid_ids = set(request.word_ids) - existing_ids
+    if invalid_ids:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid word IDs: {sorted(invalid_ids)}"
+        )
+
     for word_id in request.word_ids:
         user_word = db.query(UserWord).filter(
             UserWord.user_id == current_user.id,
@@ -106,7 +124,9 @@ async def get_unknown_words(
         query = query.filter(Word.word_category.isnot(None))
     
     unknown_words = query.order_by(Word.frequency_rank.asc().nullslast(), Word.spanish.asc()).all()
-    
+    if current_user.catalan_mode:
+        unknown_words = apply_catalan_mode(unknown_words, db)
+
     # Group by category
     high_frequency = []
     encounter = []

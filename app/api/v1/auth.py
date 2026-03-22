@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.auth import authenticate_user, create_access_token, create_user
-from app.schemas import LoginRequest, LoginResponse, RegisterRequest
+from app.auth import authenticate_user, create_access_token, create_user, get_current_user
+from app.models import User, UserWord, UserSituation, Conversation
+from app.schemas import LoginRequest, LoginResponse, RegisterRequest, UserProfileResponse, CatalanModeRequest
 
 router = APIRouter()
 
@@ -39,7 +40,7 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
         # Generate token
         access_token = create_access_token(data={"sub": str(user.id)})
         logger.info(f"Registration successful for user: {user.id}")
-        return LoginResponse(access_token=access_token, user_id=user.id)
+        return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, catalan_mode=user.catalan_mode, email=user.email)
     except HTTPException:
         # Re-raise HTTP exceptions (validation errors)
         raise
@@ -68,45 +69,55 @@ async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     
     logger.info(f"Login successful for user: {user.id}")
     access_token = create_access_token(data={"sub": str(user.id)})
-    return LoginResponse(access_token=access_token, user_id=user.id)
+    return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, catalan_mode=user.catalan_mode, email=user.email)
 
 
+@router.get("/me", response_model=UserProfileResponse)
+async def get_me(current_user: User = Depends(get_current_user)):
+    """Get the current user's profile"""
+    return UserProfileResponse(
+        email=current_user.email,
+        created_at=current_user.created_at,
+        is_admin=current_user.is_admin,
+        catalan_mode=current_user.catalan_mode,
+    )
 
 
-    import logging
-    logger = logging.getLogger(__name__)
-    
-    logger.info(f"Login attempt for email: {credentials.email}")
-    user = authenticate_user(db, credentials.email, credentials.password)
-    if not user:
-        logger.warning(f"Login failed for email: {credentials.email}")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password"
-        )
-    
-    logger.info(f"Login successful for user: {user.id}")
-    access_token = create_access_token(data={"sub": str(user.id)})
-    return LoginResponse(access_token=access_token, user_id=user.id)
+@router.patch("/catalan-mode")
+async def set_catalan_mode(
+    request: CatalanModeRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Toggle Catalan mode (admin only)."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
+    current_user.catalan_mode = request.enabled
+    db.commit()
+    return {"catalan_mode": current_user.catalan_mode}
 
 
+@router.post("/reset-progress")
+async def reset_progress(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete all learning progress for the current user (admin only).
 
+    Removes UserWord, UserSituation, and Conversation rows.
+    Keeps account, subscription, and onboarding settings intact.
+    """
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
 
-    import logging
-    logger = logging.getLogger(__name__)
-    
-    logger.info(f"Login attempt for email: {credentials.email}")
-    user = authenticate_user(db, credentials.email, credentials.password)
-    if not user:
-        logger.warning(f"Login failed for email: {credentials.email}")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password"
-        )
-    
-    logger.info(f"Login successful for user: {user.id}")
-    access_token = create_access_token(data={"sub": str(user.id)})
-    return LoginResponse(access_token=access_token, user_id=user.id)
+    deleted_words = db.query(UserWord).filter(UserWord.user_id == current_user.id).delete()
+    deleted_situations = db.query(UserSituation).filter(UserSituation.user_id == current_user.id).delete()
+    deleted_conversations = db.query(Conversation).filter(Conversation.user_id == current_user.id).delete()
+    db.commit()
 
-
-
+    return {
+        "reset": True,
+        "deleted_words": deleted_words,
+        "deleted_situations": deleted_situations,
+        "deleted_conversations": deleted_conversations,
+    }

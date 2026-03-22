@@ -1,8 +1,9 @@
-from sqlalchemy import Column, String, Boolean, Integer, DateTime, ForeignKey, Text, JSON
+from sqlalchemy import Column, String, Boolean, Integer, DateTime, ForeignKey, Text, JSON, CheckConstraint
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import uuid
+from datetime import datetime, timezone
 from app.database import Base
 
 
@@ -13,10 +14,12 @@ class User(Base):
     email = Column(String, unique=True, nullable=False, index=True)
     password_hash = Column(String, nullable=False)
     onboarding_completed = Column(Boolean, default=False, nullable=False)
-    selected_situation_categories = Column(JSONB, nullable=True)  # Now stores single category as string
+    selected_animation_types = Column(JSONB, nullable=True)  # e.g., ["banking", "restaurant"]
     dialect = Column(String, nullable=True)  # 'mexico', 'colombia', 'costa_rica'
     grammar_score = Column(String, nullable=True)  # Quiz grammar score
     vocab_score = Column(String, nullable=True)  # Quiz vocab score
+    is_admin = Column(Boolean, default=False, nullable=False)
+    catalan_mode = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Relationships
@@ -46,6 +49,7 @@ class Word(Base):
     english = Column(String, nullable=False)
     word_category = Column(String, nullable=True)  # 'encounter' or 'high_frequency'
     frequency_rank = Column(Integer, nullable=True)  # Rank in frequency list (1-1000)
+    catalan = Column(String, nullable=True)
     notes = Column(Text, nullable=True)  # Grammar/usage notes for frontend popup
     
     # Relationships
@@ -58,11 +62,15 @@ class Situation(Base):
     
     id = Column(String, primary_key=True)
     title = Column(String, nullable=False)
-    category = Column(String, nullable=False, index=True)  # e.g., "banking", "small_talk", "groceries"
-    series_number = Column(Integer, nullable=False)  # e.g., 1, 2, 3 for Banking 1, Banking 2, etc.
+    animation_type = Column(String, nullable=False, index=True)  # e.g., "banking", "small_talk", "groceries"
+    encounter_number = Column(Integer, nullable=False)  # 1-50 within each situation
     order_index = Column(Integer, nullable=False, index=True)
     is_free = Column(Boolean, default=False, nullable=False)
-    
+    goal = Column(Text, nullable=True)  # Goal/objective for this situation
+    situation_type = Column(String, default='main', nullable=False)  # 'main' or 'grammar'
+    vocab_level_required = Column(Integer, nullable=True)  # null for main situations
+    video_embed_id = Column(String, nullable=True)  # Descript embed ID for grammar video
+
     # Relationships
     situation_words = relationship("SituationWord", back_populates="situation", order_by="SituationWord.position")
     user_situations = relationship("UserSituation", back_populates="situation")
@@ -83,18 +91,25 @@ class SituationWord(Base):
 
 class UserWord(Base):
     __tablename__ = "user_words"
-    
+    __table_args__ = (
+        CheckConstraint("status IN ('learning', 'mastered')", name="ck_user_words_status"),
+    )
+
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
     word_id = Column(String, ForeignKey("words.id"), primary_key=True)
     seen_count = Column(Integer, default=0, nullable=False)
     typed_correct_count = Column(Integer, default=0, nullable=False)
     spoken_correct_count = Column(Integer, default=0, nullable=False)
     status = Column(String, default="learning", nullable=False)
+    mastery_level = Column(Integer, default=0, nullable=False)  # 0=unseen, 1=learned, 2-3=refreshed, 4=mastered
+    next_refresh_at = Column(DateTime(timezone=True), nullable=True)
+    source_situation_id = Column(String, ForeignKey("situations.id"), nullable=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    
+
     # Relationships
     user = relationship("User", back_populates="user_words")
     word = relationship("Word", back_populates="user_words")
+    source_situation = relationship("Situation")
 
 
 class UserSituation(Base):
@@ -112,35 +127,20 @@ class UserSituation(Base):
 
 class Conversation(Base):
     __tablename__ = "conversations"
-    
+    __table_args__ = (
+        CheckConstraint("mode IN ('text', 'voice')", name="ck_conversations_mode"),
+        CheckConstraint("status IN ('active', 'complete')", name="ck_conversations_status"),
+    )
+
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
     situation_id = Column(String, ForeignKey("situations.id"), nullable=False)
     mode = Column(String, nullable=False)  # 'text' or 'voice'
+    conversation_type = Column(String, default="lesson", nullable=False)  # 'lesson' or 'refresh'
     target_word_ids = Column(JSONB, nullable=False)
     used_typed_word_ids = Column(JSONB, default=list, nullable=False)
     used_spoken_word_ids = Column(JSONB, default=list, nullable=False)
     status = Column(String, default="active", nullable=False)  # 'active' or 'complete'
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    
-    # Relationships
-    user = relationship("User", back_populates="conversations")
-    situation = relationship("Situation", back_populates="conversations")
-
-
-
-
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    
-    # Relationships
-    user = relationship("User", back_populates="conversations")
-    situation = relationship("Situation", back_populates="conversations")
-
-
-
-
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     

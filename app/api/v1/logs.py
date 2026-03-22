@@ -32,10 +32,10 @@ async def log_frontend_event(
         user_id = str(user_id)
     elif log_data.user_id:
         user_id = log_data.user_id
-    
+
     # Merge metadata into extra fields
     extra = log_data.metadata.copy()
-    
+
     # Log the event
     log_event(
         level=log_data.level,
@@ -45,6 +45,5 @@ async def log_frontend_event(
         user_id=user_id,
         extra=extra
     )
-    
-    return {"status": "logged"}
 
+    return {"status": "logged"}

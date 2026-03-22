@@ -12,7 +12,7 @@ from app.config import settings
 
 PROVIDER = "openai"
 STT_MODEL = "whisper-1"
-TTS_MODEL = "tts-1"
+TTS_MODEL = "gpt-4o-mini-tts"
 
 # Lazy initialization
 _client = None
@@ -216,6 +216,7 @@ async def synthesize_speech(
     text: str,
     output_path: str,
     voice: str = "alloy",
+    instructions: Optional[str] = None,
     request_id: str = None,
     user_id: Optional[str] = None,
     db: Session = None,
@@ -294,11 +295,10 @@ async def synthesize_speech(
     try:
         # Call OpenAI TTS
         client = get_client()
-        response = client.audio.speech.create(
-            model=TTS_MODEL,
-            voice=voice,
-            input=text
-        )
+        tts_kwargs = dict(model=TTS_MODEL, voice=voice, input=text)
+        if instructions:
+            tts_kwargs["instructions"] = instructions
+        response = client.audio.speech.create(**tts_kwargs)
         
         # Save to file and get size
         audio_bytes_written = 0

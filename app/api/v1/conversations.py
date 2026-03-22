@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth import get_current_user, get_current_user_from_query
-from app.models import User, Conversation, Situation, SituationWord, Word, UserWord
+from app.models import User, Conversation, Situation, Word
+from app.services.word_selection_service import select_words_for_situation, sort_words_encounter_first
 from app.schemas import (
     CreateConversationRequest,
     CreateConversationResponse,
@@ -11,7 +12,6 @@ from app.schemas import (
     VoiceTurnResponse,
     WordSchema
 )
-from app.services.openai_service import generate_text, transcribe_audio, generate_speech  # Deprecated, use gateways
 from app.services.llm_gateway import generate_conversation, ConversationContext, load_prompt
 from app.services.openai_media_gateway import transcribe_audio as gateway_transcribe_audio, synthesize_speech as gateway_synthesize_speech
 from fastapi import Request
@@ -22,10 +22,57 @@ from app.services.conversation_service import (
     get_missing_word_ids
 )
 from app.services.encounter_messages import get_initial_message_for_encounter
-from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url
-import json
-
+from app.api.v1.situations import get_vocab_level
+from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt, get_language_mode, get_conversation_system_prompt
+from app.data.grammar_situations import get_grammar_config
+from app.services.catalan_service import apply_catalan_mode
+from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
+
+# OpenAI TTS voice + instructions per situation — keyed by animation_type
+_ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
+SITUATION_VOICE_CONFIG = {
+    "police": {
+        "voice": "nova",
+        "instructions": f"{_ACCENT} Use an authoritative female voice, firm but professional.",
+    },
+    "banking": {
+        "voice": "shimmer",
+        "instructions": f"{_ACCENT} Use a professional, composed female voice with a warm undertone.",
+    },
+    "airport": {
+        "voice": "nova",
+        "instructions": f"{_ACCENT} Use a professional, clear female voice.",
+    },
+    "clothing": {
+        "voice": "coral",
+        "instructions": f"{_ACCENT} Use a casual, charming female voice.",
+    },
+    "small_talk": {
+        "voice": "shimmer",
+        "instructions": f"{_ACCENT} Use a warm, older female voice with a friendly, neighborly tone.",
+    },
+    "internet": {
+        "voice": "nova",
+        "instructions": f"{_ACCENT} Use a young, energetic female voice.",
+    },
+    "restaurant": {
+        "voice": "echo",
+        "instructions": f"{_ACCENT} Use a suave, charming male voice.",
+    },
+    "mechanic": {
+        "voice": "onyx",
+        "instructions": f"{_ACCENT} Use a deep male voice.",
+    },
+    "groceries": {
+        "voice": "echo",
+        "instructions": f"{_ACCENT} Use a casual, charming male voice.",
+    },
+    "contractor": {
+        "voice": "onyx",
+        "instructions": f"{_ACCENT} Use a deep, husky baritone male voice.",
+    },
+}
 
 
 @router.post("", response_model=CreateConversationResponse)
@@ -51,31 +98,21 @@ async def create_conversation(
         Conversation.user_id == current_user.id,
         Conversation.situation_id == request.situation_id,
         Conversation.mode == "text"
-    ).order_by(Conversation.created_at.desc()).first()
+    ).order_by(Conversation.created_at.desc()).with_for_update().first()
     
     if existing_conv and existing_conv.target_word_ids:
         # Reuse existing conversation's words
         target_word_ids = existing_conv.target_word_ids
         words = get_words_by_ids(db, target_word_ids)
-        
-        # Sort words: encounter words first, then high frequency
-        word_dict = {w.id: w for w in words}
-        situation_words = db.query(SituationWord).filter(
-            SituationWord.situation_id == request.situation_id
-        ).order_by(SituationWord.position).all()
-        encounter_word_ids = [sw.word_id for sw in situation_words]
-        high_freq_word_ids = [wid for wid in target_word_ids if wid not in encounter_word_ids]
-        
-        sorted_encounter_words = [word_dict[wid] for wid in encounter_word_ids if wid in word_dict]
-        sorted_high_freq_words = [word_dict[wid] for wid in high_freq_word_ids if wid in word_dict]
-        final_words = sorted_encounter_words + sorted_high_freq_words
+        final_words = sort_words_encounter_first(words, request.situation_id, db, target_word_ids)
         
         # Create or get voice conversation with same words
         voice_conv = db.query(Conversation).filter(
             Conversation.user_id == current_user.id,
             Conversation.situation_id == request.situation_id,
-            Conversation.mode == "voice"
-        ).order_by(Conversation.created_at.desc()).first()
+            Conversation.mode == "voice",
+            Conversation.status == "active"
+        ).order_by(Conversation.created_at.desc()).with_for_update().first()
         
         if not voice_conv:
             voice_conv = Conversation(
@@ -91,40 +128,54 @@ async def create_conversation(
             db.refresh(voice_conv)
         
         initial_message = get_initial_message_for_encounter(situation.title)
+        vocab_level = get_vocab_level(db, current_user.id)
+        language_mode = get_language_mode(situation.encounter_number, vocab_level)
+
+        # Catalan mode: swap words + adjust language_mode
+        if current_user.catalan_mode:
+            final_words = apply_catalan_mode(final_words, db)
+            if language_mode in ("spanish_text", "spanish_audio"):
+                language_mode = language_mode.replace("spanish_", "catalan_")
+
+        # Generate TTS for initial message
+        initial_audio_url = None
+        if initial_message:
+            try:
+                init_audio_filename = generate_audio_filename()
+                init_audio_path = get_audio_path(init_audio_filename)
+                tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {})
+                tts_voice = tts_cfg.get("voice", "alloy")
+                tts_instructions = tts_cfg.get("instructions")
+                await gateway_synthesize_speech(
+                    text=initial_message,
+                    output_path=str(init_audio_path),
+                    voice=tts_voice,
+                    instructions=tts_instructions,
+                    request_id=str(voice_conv.id),
+                    user_id=str(current_user.id),
+                    db=db,
+                )
+                r2_url = upload_to_r2(str(init_audio_path), init_audio_filename)
+                initial_audio_url = r2_url or get_audio_url(init_audio_filename)
+                logger.info(f"[Create Conv] Initial message TTS: {initial_audio_url}")
+            except Exception as e:
+                logger.error(f"[Create Conv] Initial message TTS failed: {e}")
+
         return CreateConversationResponse(
             conversation_id=voice_conv.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
-            initial_message=initial_message
+            initial_message=initial_message,
+            initial_audio_url=initial_audio_url,
+            language_mode=language_mode,
+            vocab_level=vocab_level,
         )
     else:
         # No existing conversation - this shouldn't happen if startSituation was called first
         # But create one anyway as fallback
-        situation_words = db.query(SituationWord).filter(
-            SituationWord.situation_id == request.situation_id
-        ).order_by(SituationWord.position).all()
-        
-        encounter_word_ids = [sw.word_id for sw in situation_words]
-        
-        learned_word_ids = set(
-            word_id[0] for word_id in 
-            db.query(UserWord.word_id).filter(UserWord.user_id == current_user.id).all()
-        )
-        
-        high_freq_words = db.query(Word).filter(
-            Word.word_category == 'high_frequency',
-            ~Word.id.in_(learned_word_ids) if learned_word_ids else True
-        ).order_by(Word.frequency_rank.asc().nullslast()).limit(2).all()
-        
-        high_freq_word_ids = [w.id for w in high_freq_words]
+        encounter_word_ids, high_freq_word_ids = select_words_for_situation(db, current_user.id, request.situation_id)
         target_word_ids = encounter_word_ids + high_freq_word_ids
-        
-        all_word_ids = encounter_word_ids + high_freq_word_ids
-        all_words = db.query(Word).filter(Word.id.in_(all_word_ids)).all()
-        
-        word_dict = {w.id: w for w in all_words}
-        sorted_encounter_words = [word_dict[wid] for wid in encounter_word_ids]
-        sorted_high_freq_words = [word_dict[wid] for wid in high_freq_word_ids]
-        final_words = sorted_encounter_words + sorted_high_freq_words
+        all_words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
+        final_words = sort_words_encounter_first(all_words, request.situation_id, db, target_word_ids)
         
         conversation = Conversation(
             user_id=current_user.id,
@@ -139,10 +190,45 @@ async def create_conversation(
         db.refresh(conversation)
         
         initial_message = get_initial_message_for_encounter(situation.title)
+        vocab_level = get_vocab_level(db, current_user.id)
+        language_mode = get_language_mode(situation.encounter_number, vocab_level)
+
+        # Catalan mode: swap words + adjust language_mode
+        if current_user.catalan_mode:
+            final_words = apply_catalan_mode(final_words, db)
+            if language_mode in ("spanish_text", "spanish_audio"):
+                language_mode = language_mode.replace("spanish_", "catalan_")
+
+        # Generate TTS for initial message
+        initial_audio_url = None
+        if initial_message:
+            try:
+                init_audio_filename = generate_audio_filename()
+                init_audio_path = get_audio_path(init_audio_filename)
+                tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {})
+                tts_voice = tts_cfg.get("voice", "alloy")
+                tts_instructions = tts_cfg.get("instructions")
+                await gateway_synthesize_speech(
+                    text=initial_message,
+                    output_path=str(init_audio_path),
+                    voice=tts_voice,
+                    instructions=tts_instructions,
+                    request_id=str(conversation.id),
+                    user_id=str(current_user.id),
+                    db=db,
+                )
+                r2_url = upload_to_r2(str(init_audio_path), init_audio_filename)
+                initial_audio_url = r2_url or get_audio_url(init_audio_filename)
+            except Exception as e:
+                logger.error(f"[Create Conv] Initial message TTS failed: {e}")
+
         return CreateConversationResponse(
             conversation_id=conversation.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english) for w in final_words],
-            initial_message=initial_message
+            initial_message=initial_message,
+            initial_audio_url=initial_audio_url,
+            language_mode=language_mode,
+            vocab_level=vocab_level,
         )
 
 
@@ -201,21 +287,24 @@ async def voice_turn(
     situation = db.query(Situation).filter(Situation.id == conversation.situation_id).first()
     db_time = time.time() - db_start
     logger.info(f"[Voice Turn] DB queries: {db_time:.2f}s")
-    
-    # Build prompt to help Whisper with Spanish vocabulary and context
-    # Include target words and situation context to improve transcription accuracy
-    target_words_list = ", ".join([f"{w.spanish} ({w.english})" for w in words])
-    transcription_prompt = f"""This is a conversation about {situation.title if situation else 'a situation'}.
-The user is learning Spanish and may use these Spanish words: {target_words_list}.
-The conversation is in Spanish and English. Focus on accurate Spanish transcription.
-Common Spanish words that may appear: tamaño, talla, número, grande, pequeño, mediano."""
-    
+
+    # Catalan mode: swap spanish → catalan for word detection + prompts
+    catalan_mode = current_user.catalan_mode
+    if catalan_mode:
+        words = apply_catalan_mode(words, db)
+
+    transcription_prompt = build_transcription_prompt(
+        situation.title if situation else "a situation", words,
+        catalan_mode=catalan_mode,
+    )
+
     stt_start = time.time()
+    stt_language = "ca" if catalan_mode else "es"
     user_transcript = await gateway_transcribe_audio(
         audio_bytes=audio_bytes,
         filename=audio.filename or "audio.mp3",
         prompt=transcription_prompt,
-        language="es",
+        language=stt_language,
         request_id=request_id,
         user_id=str(current_user.id),
         db=db,
@@ -242,25 +331,32 @@ Common Spanish words that may appear: tamaño, talla, número, grande, pequeño,
     logger.info(f"[Voice Turn] DB updates: {update_time:.2f}s")
     
     # Step 5: Generate assistant_text via OpenAI
-    # Situation already loaded above
-    target_words = [f"{w.spanish} ({w.english})" for w in words]
-    used_words = [w.spanish for w in words if w.id in (conversation.used_spoken_word_ids or [])]
-    missing_words = [w.spanish for w in words if w.id not in (conversation.used_spoken_word_ids or [])]
-    
-    # Load system prompt from prompts.json
-    system_prompt = load_prompt("conversation_agent", "v1")
-    
-    missing_words_info = []
-    for word in words:
-        if word.id not in (conversation.used_spoken_word_ids or []):
-            missing_words_info.append(f"{word.spanish} ({word.english})")
-    
-    user_prompt = f"""Situation: {situation.title}
-Still need: {', '.join(missing_words_info) if missing_words_info else 'All words used'}
-Already used: {', '.join(used_words) if used_words else 'None'}
-User said: {user_transcript}
+    # Compute language mode for prompt selection
+    vocab_level = get_vocab_level(db, current_user.id)
+    language_mode = get_language_mode(situation.encounter_number, vocab_level)
 
-Ask a natural question requiring a missing Spanish word. Do NOT mention the Spanish word. Return JSON only."""
+    # Catalan mode: adjust language_mode for prompt selection
+    if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
+        language_mode = language_mode.replace("spanish_", "catalan_")
+
+    grammar_config = get_grammar_config(conversation.situation_id)
+    if grammar_config:
+        system_prompt = build_grammar_system_prompt(conversation.situation_id)
+        user_prompt = build_grammar_user_prompt(
+            situation.title,
+            conversation.used_spoken_word_ids or [],
+            user_transcript,
+            grammar_config,
+        )
+    else:
+        system_prompt = get_conversation_system_prompt(language_mode, catalan_mode=catalan_mode)
+        user_prompt = build_conversation_prompt(
+            situation.title,
+            words,
+            conversation.used_spoken_word_ids or [],
+            user_transcript,
+            catalan_mode=catalan_mode,
+        )
     
     # Use LLM gateway
     gen_start = time.time()
@@ -287,21 +383,30 @@ Ask a natural question requiring a missing Spanish word. Do NOT mention the Span
     tts_start = time.time()
     audio_filename = generate_audio_filename()
     audio_path = get_audio_path(audio_filename)
+    tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {}) if situation else {}
+    tts_voice = tts_cfg.get("voice", "alloy")
+    tts_instructions = tts_cfg.get("instructions")
     await gateway_synthesize_speech(
         text=assistant_text,
         output_path=str(audio_path),
-        voice="alloy",
+        voice=tts_voice,
+        instructions=tts_instructions,
         request_id=request_id,
         user_id=str(current_user.id),
         db=db,
         learning_phase=learning_phase
     )
-    assistant_audio_url = get_audio_url(audio_filename)
+    # Upload to R2 (falls back to local URL if R2 not configured)
+    r2_url = upload_to_r2(str(audio_path), audio_filename)
+    assistant_audio_url = r2_url or get_audio_url(audio_filename)
     tts_time = time.time() - tts_start
-    logger.info(f"[Voice Turn] TTS generation: {tts_time:.2f}s")
+    if r2_url:
+        logger.info(f"[Voice Turn] TTS generation: {tts_time:.2f}s, audio_url: {assistant_audio_url} (R2)")
+    else:
+        logger.warning(f"[Voice Turn] TTS generation: {tts_time:.2f}s, audio_url: {assistant_audio_url} (LOCAL FALLBACK — R2 upload failed)")
     
     # Check if conversation is complete
-    conversation_complete = check_conversation_complete(conversation, "voice") or end_conversation
+    conversation_complete = check_conversation_complete(conversation, "voice")
     if conversation_complete:
         conversation.status = "complete"
     
@@ -324,4 +429,3 @@ Ask a natural question requiring a missing Spanish word. Do NOT mention the Span
         assistant_audio_url=assistant_audio_url,
         conversation_complete=conversation_complete
     )
-
