@@ -299,12 +299,11 @@ async def voice_turn(
     )
 
     stt_start = time.time()
-    stt_language = "ca" if catalan_mode else "es"
     user_transcript = await gateway_transcribe_audio(
         audio_bytes=audio_bytes,
         filename=audio.filename or "audio.mp3",
         prompt=transcription_prompt,
-        language=stt_language,
+        language=None,  # Auto-detect — users mix English + Spanish/Catalan
         request_id=request_id,
         user_id=str(current_user.id),
         db=db,
