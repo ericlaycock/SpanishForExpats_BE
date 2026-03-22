@@ -85,6 +85,12 @@ def seed():
             db.execute(stmt)
 
         # --- Grammar situations + words ---
+        # First: clean up orphan grammar words from previous seeds
+        # (old seeds may have created records with different accent handling)
+        db.execute(text("DELETE FROM situation_words WHERE word_id LIKE 'grammar_%' AND word_id NOT IN (SELECT id FROM words WHERE word_category = 'grammar')"))
+        db.execute(text("DELETE FROM words WHERE word_category = 'grammar'"))
+        db.execute(text("DELETE FROM situation_words WHERE situation_id LIKE 'grammar_%'"))
+
         grammar_word_set = set()
         for sid, cfg in GRAMMAR_SITUATIONS.items():
             for word in cfg["word_workload"]:
