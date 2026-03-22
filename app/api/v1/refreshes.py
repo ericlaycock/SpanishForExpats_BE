@@ -23,6 +23,35 @@ from app.services.voice_turn_service import get_language_mode
 router = APIRouter()
 
 
+@router.post("/admin/skip-day")
+async def admin_skip_day(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Admin only: move all next_refresh_at timestamps back by 25 hours,
+    making 24h-gated words immediately due for refresh."""
+    from app.models import UserWord
+    from datetime import timedelta
+    import logging
+
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin only")
+
+    logger = logging.getLogger(__name__)
+
+    result = db.query(UserWord).filter(
+        UserWord.user_id == current_user.id,
+        UserWord.next_refresh_at.isnot(None),
+    ).update(
+        {UserWord.next_refresh_at: UserWord.next_refresh_at - timedelta(hours=25)},
+        synchronize_session="fetch",
+    )
+    db.commit()
+
+    logger.info(f"[Admin] skip-day: moved {result} word refresh timestamps back 25h for user {current_user.id}")
+    return {"words_updated": result}
+
+
 @router.get("/pending", response_model=PendingRefreshesResponse)
 async def pending_refreshes(
     current_user: User = Depends(get_current_user),
