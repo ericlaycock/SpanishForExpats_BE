@@ -29,18 +29,49 @@ from app.services.catalan_service import apply_catalan_mode
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
 
-# OpenAI TTS voice per situation — keyed by animation_type
-SITUATION_VOICE_MAP = {
-    "police": "nova",        # Female, authoritative
-    "banking": "shimmer",    # Female, professional
-    "airport": "nova",       # Female, professional
-    "clothing": "shimmer",   # Female
-    "small_talk": "shimmer", # Female, older
-    "internet": "nova",      # Female, young
-    "restaurant": "echo",    # Male
-    "mechanic": "onyx",      # Male, deep
-    "groceries": "fable",    # Male
-    "contractor": "echo",    # Male
+# OpenAI TTS voice + instructions per situation — keyed by animation_type
+_ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
+SITUATION_VOICE_CONFIG = {
+    "police": {
+        "voice": "nova",
+        "instructions": f"{_ACCENT} Use an authoritative female voice, firm but professional.",
+    },
+    "banking": {
+        "voice": "shimmer",
+        "instructions": f"{_ACCENT} Use a professional, composed female voice with a warm undertone.",
+    },
+    "airport": {
+        "voice": "nova",
+        "instructions": f"{_ACCENT} Use a professional, clear female voice.",
+    },
+    "clothing": {
+        "voice": "coral",
+        "instructions": f"{_ACCENT} Use a casual, charming female voice.",
+    },
+    "small_talk": {
+        "voice": "shimmer",
+        "instructions": f"{_ACCENT} Use a warm, older female voice with a friendly, neighborly tone.",
+    },
+    "internet": {
+        "voice": "nova",
+        "instructions": f"{_ACCENT} Use a young, energetic female voice.",
+    },
+    "restaurant": {
+        "voice": "echo",
+        "instructions": f"{_ACCENT} Use a suave, charming male voice.",
+    },
+    "mechanic": {
+        "voice": "onyx",
+        "instructions": f"{_ACCENT} Use a deep male voice.",
+    },
+    "groceries": {
+        "voice": "echo",
+        "instructions": f"{_ACCENT} Use a casual, charming male voice.",
+    },
+    "contractor": {
+        "voice": "onyx",
+        "instructions": f"{_ACCENT} Use a deep, husky baritone male voice.",
+    },
 }
 
 
@@ -112,11 +143,14 @@ async def create_conversation(
             try:
                 init_audio_filename = generate_audio_filename()
                 init_audio_path = get_audio_path(init_audio_filename)
-                tts_voice = SITUATION_VOICE_MAP.get(situation.animation_type, "alloy")
+                tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {})
+                tts_voice = tts_cfg.get("voice", "alloy")
+                tts_instructions = tts_cfg.get("instructions")
                 await gateway_synthesize_speech(
                     text=initial_message,
                     output_path=str(init_audio_path),
                     voice=tts_voice,
+                    instructions=tts_instructions,
                     request_id=str(voice_conv.id),
                     user_id=str(current_user.id),
                     db=db,
@@ -171,11 +205,14 @@ async def create_conversation(
             try:
                 init_audio_filename = generate_audio_filename()
                 init_audio_path = get_audio_path(init_audio_filename)
-                tts_voice = SITUATION_VOICE_MAP.get(situation.animation_type, "alloy")
+                tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {})
+                tts_voice = tts_cfg.get("voice", "alloy")
+                tts_instructions = tts_cfg.get("instructions")
                 await gateway_synthesize_speech(
                     text=initial_message,
                     output_path=str(init_audio_path),
                     voice=tts_voice,
+                    instructions=tts_instructions,
                     request_id=str(conversation.id),
                     user_id=str(current_user.id),
                     db=db,
@@ -346,11 +383,14 @@ async def voice_turn(
     tts_start = time.time()
     audio_filename = generate_audio_filename()
     audio_path = get_audio_path(audio_filename)
-    tts_voice = SITUATION_VOICE_MAP.get(situation.animation_type, "alloy") if situation else "alloy"
+    tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {}) if situation else {}
+    tts_voice = tts_cfg.get("voice", "alloy")
+    tts_instructions = tts_cfg.get("instructions")
     await gateway_synthesize_speech(
         text=assistant_text,
         output_path=str(audio_path),
         voice=tts_voice,
+        instructions=tts_instructions,
         request_id=request_id,
         user_id=str(current_user.id),
         db=db,
