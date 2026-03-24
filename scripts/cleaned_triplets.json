@@ -1,0 +1,3620 @@
+{
+  "Clothing": [
+    {
+      "words": [
+        "vendedor",
+        "cliente",
+        "boutique"
+      ],
+      "opener": "Hi there -- welcome in. What are you shopping for today?"
+    },
+    {
+      "words": [
+        "ropa",
+        "camisa",
+        "pantalón"
+      ],
+      "opener": "Are you looking for something casual or something more formal today?"
+    },
+    {
+      "words": [
+        "chaqueta",
+        "vestido",
+        "falda"
+      ],
+      "opener": "Would you like to see some tops or some bottoms first?"
+    },
+    {
+      "words": [
+        "talla",
+        "¿qué talla usa?",
+        "le queda bien"
+      ],
+      "opener": "What size do you usually wear in this brand?"
+    },
+    {
+      "words": [
+        "le queda grande",
+        "le queda pequeño",
+        "no le queda"
+      ],
+      "opener": "How did that one fit when you tried it on?"
+    },
+    {
+      "words": [
+        "otra talla",
+        "más grande",
+        "más pequeño"
+      ],
+      "opener": "If this fit isn't quite right, what would you like me to bring instead?"
+    },
+    {
+      "words": [
+        "probador",
+        "usa el probador",
+        "espere su turno"
+      ],
+      "opener": "If you'd like to try it on, we can do that first."
+    },
+    {
+      "words": [
+        "hay fila",
+        "prenda",
+        "mismo modelo"
+      ],
+      "opener": "Are you looking for the same style you saw before, or something else?"
+    },
+    {
+      "words": [
+        "modelo diferente",
+        "color",
+        "otro color"
+      ],
+      "opener": "Do you want this in the same style, or would you prefer a different look?"
+    },
+    {
+      "words": [
+        "no hay talla",
+        "no hay stock",
+        "está agotado"
+      ],
+      "opener": "Let me check whether we still have that available for you."
+    },
+    {
+      "words": [
+        "reviso el stock",
+        "reviso el sistema",
+        "hay en otra sucursal"
+      ],
+      "opener": "I can look in the back and in the system for your size."
+    },
+    {
+      "words": [
+        "otra sucursal",
+        "lo pueden pedir",
+        "llega en unos días"
+      ],
+      "opener": "If we don't have it here, would you want me to see whether another location has it?"
+    },
+    {
+      "words": [
+        "tarda unos días",
+        "lo aparto",
+        "apartado"
+      ],
+      "opener": "If it's not here today, we may still be able to get it for you."
+    },
+    {
+      "words": [
+        "tarifa",
+        "precio normal",
+        "precio de oferta"
+      ],
+      "opener": "I can hold it for you if you want to come back later."
+    },
+    {
+      "words": [
+        "descuento",
+        "el descuento aplica",
+        "no aplica"
+      ],
+      "opener": "Would you like me to explain the price on this item?"
+    },
+    {
+      "words": [
+        "promoción",
+        "talla",
+        "con membresía"
+      ],
+      "opener": "This one may be on sale depending on the promotion."
+    },
+    {
+      "words": [
+        "sin membresía",
+        "registro",
+        "no quiero registrarme"
+      ],
+      "opener": "Some offers only work under certain conditions."
+    },
+    {
+      "words": [
+        "el sistema marca otro precio",
+        "no coincide",
+        "reviso el precio"
+      ],
+      "opener": "Do you already have a membership with us, or would you need to sign up?"
+    },
+    {
+      "words": [
+        "corrigen el precio",
+        "ajuste manual",
+        "talla"
+      ],
+      "opener": "If the register shows something different, I can double-check it for you."
+    },
+    {
+      "words": [
+        "mal etiquetado",
+        "letrero",
+        "política de la tienda"
+      ],
+      "opener": "I can compare the sign and the tag if the price seems off."
+    },
+    {
+      "words": [
+        "no aceptamos devoluciones",
+        "solo damos crédito de tienda",
+        "crédito de tienda"
+      ],
+      "opener": "Before we continue, would this be a return or an exchange?"
+    },
+    {
+      "words": [
+        "devolución",
+        "procesan la devolución",
+        "cambio de producto"
+      ],
+      "opener": "For returns, the result can depend on the receipt and the store policy."
+    },
+    {
+      "words": [
+        "producto defectuoso",
+        "está roto",
+        "costura rota"
+      ],
+      "opener": "Do you have the receipt with you today?"
+    },
+    {
+      "words": [
+        "recibo",
+        "tiene recibo",
+        "sin recibo"
+      ],
+      "opener": "Let me see whether this return still falls within the return window."
+    },
+    {
+      "words": [
+        "dentro del plazo",
+        "fuera del plazo",
+        "quiero hablar con la gerente"
+      ],
+      "opener": "If you'd like, I can ask the manager whether an exception is possible."
+    },
+    {
+      "words": [
+        "gerente",
+        "excepción",
+        "aprueban la excepción"
+      ],
+      "opener": "Are you ready to head to the register with this item?"
+    },
+    {
+      "words": [
+        "caja",
+        "prenda",
+        "monto total"
+      ],
+      "opener": "The total will come up once I scan everything for you."
+    },
+    {
+      "words": [
+        "pago",
+        "inserta la tarjeta",
+        "acerca la tarjeta"
+      ],
+      "opener": "Go ahead and tap, insert, or swipe whenever you're ready to pay for your clothing."
+    },
+    {
+      "words": [
+        "pasa la tarjeta",
+        "no pasa",
+        "inténtalo otra vez"
+      ],
+      "opener": "If that card doesn't work, do you have another way you'd like to pay?"
+    },
+    {
+      "words": [
+        "pago aprobado",
+        "pago rechazado",
+        "otra tarjeta"
+      ],
+      "opener": "Would you like a bag for your clothes today?"
+    },
+    {
+      "words": [
+        "efectivo",
+        "pago en efectivo",
+        "firma aquí"
+      ],
+      "opener": "I can fold everything and pack it up for you."
+    },
+    {
+      "words": [
+        "bolsa",
+        "¿quiere bolsa?",
+        "bolsa grande"
+      ],
+      "opener": "Thanks for waiting -- it's a bit busy in here right now."
+    },
+    {
+      "words": [
+        "bolsa pequeña",
+        "sin bolsa",
+        "lo empacan"
+      ],
+      "opener": "We're open right now, but some services may take a few minutes."
+    },
+    {
+      "words": [
+        "fila larga",
+        "mucha gente",
+        "espera larga"
+      ],
+      "opener": "For this item, I may need to see an ID before I complete the sale."
+    },
+    {
+      "words": [
+        "tarda mucho",
+        "servicio lento",
+        "está abierto"
+      ],
+      "opener": "If the alarm goes off, don't worry -- I'll check the tag."
+    },
+    {
+      "words": [
+        "está cerrado",
+        "horario",
+        "identificación"
+      ],
+      "opener": "Sometimes the security tag doesn't come off properly at checkout."
+    },
+    {
+      "words": [
+        "muestra su identificación",
+        "alarma",
+        "sensor"
+      ],
+      "opener": "If the barcode doesn't scan, I'll enter it another way."
+    },
+    {
+      "words": [
+        "quitan el sensor",
+        "sensor activo",
+        "la alarma suena"
+      ],
+      "opener": "It looks like the register is having a small issue right now."
+    },
+    {
+      "words": [
+        "revisan la compra",
+        "el código escanea",
+        "el código no escanea"
+      ],
+      "opener": "Okay, I fixed part of it -- can you check whether that looks right now?"
+    },
+    {
+      "words": [
+        "ingreso manual",
+        "código manual",
+        "problema del sistema"
+      ],
+      "opener": "I want to make sure you leave with the correct size today."
+    },
+    {
+      "words": [
+        "ya quedó",
+        "sigue igual",
+        "talla correcta"
+      ],
+      "opener": "I can bring you another one so you can compare the fit."
+    },
+    {
+      "words": [
+        "talla incorrecta",
+        "se lo traigo",
+        "no le queda bien"
+      ],
+      "opener": "Would you like to keep this one, or should I switch it out for you?"
+    },
+    {
+      "words": [
+        "le queda mejor",
+        "me lo llevo",
+        "devolución parcial"
+      ],
+      "opener": "If this is a return, the refunded amount may not be the full original amount."
+    },
+    {
+      "words": [
+        "monto reembolsado",
+        "te lo cambio",
+        "te hago un descuento"
+      ],
+      "opener": "If the item has a defect, I may be able to exchange it for you here."
+    },
+    {
+      "words": [
+        "caja abierta",
+        "caja cerrada",
+        "precio final"
+      ],
+      "opener": "This register is closed, but I can take you to one that's open."
+    },
+    {
+      "words": [
+        "cupón",
+        "el cupón vence hoy",
+        "temporada"
+      ],
+      "opener": "Before you pay, do you want me to check the final price with your coupon?"
+    },
+    {
+      "words": [
+        "colección nueva",
+        "prenda",
+        "prenda dañada"
+      ],
+      "opener": "This coupon may only work today, depending on the promotion."
+    },
+    {
+      "words": [
+        "defecto de fábrica",
+        "marca",
+        "misma marca"
+      ],
+      "opener": "Are you shopping from the new season, or just browsing today?"
+    },
+    {
+      "words": [
+        "línea premium",
+        "tejido",
+        "fibra natural"
+      ],
+      "opener": "If you're deciding between brands, I can help you compare them."
+    },
+    {
+      "words": [
+        "tela",
+        "se encoge",
+        "destiñe"
+      ],
+      "opener": "Before you buy it, would you like to know how this fabric behaves after washing?"
+    }
+  ],
+  "Groceries": [
+    {
+      "words": [
+        "cajero",
+        "cliente",
+        "caja"
+      ],
+      "opener": "Hi -- I can help you right here. Are you ready to check out?"
+    },
+    {
+      "words": [
+        "fila",
+        "turno",
+        "siguiente"
+      ],
+      "opener": "Go ahead and place your items here whenever you're ready."
+    },
+    {
+      "words": [
+        "productos",
+        "artículo",
+        "código de barras"
+      ],
+      "opener": "I'll start scanning these for you now."
+    },
+    {
+      "words": [
+        "escanean el producto",
+        "pasan los productos",
+        "total de la compra"
+      ],
+      "opener": "If a price looks wrong, just let me know and I'll check it."
+    },
+    {
+      "words": [
+        "precio correcto",
+        "precio incorrecto",
+        "oferta"
+      ],
+      "opener": "Sometimes the sale only works under certain conditions."
+    },
+    {
+      "words": [
+        "descuento",
+        "promoción",
+        "el descuento aplica"
+      ],
+      "opener": "If this item doesn't show up, I'll verify it for you."
+    },
+    {
+      "words": [
+        "no aplica",
+        "inventario",
+        "no aparece"
+      ],
+      "opener": "If the shelf sign looked different, I can call someone to confirm it."
+    },
+    {
+      "words": [
+        "revisan el precio",
+        "verifican el precio",
+        "letrero"
+      ],
+      "opener": "I can fix the price if the system entered it incorrectly."
+    },
+    {
+      "words": [
+        "carrito de compra",
+        "pasarela de cajas",
+        "supervisor"
+      ],
+      "opener": "Once I'm done scanning, I'll give you the total."
+    },
+    {
+      "words": [
+        "llaman al supervisor",
+        "corrigen el precio",
+        "factura final"
+      ],
+      "opener": "Do you want to pay all together or another way?"
+    },
+    {
+      "words": [
+        "monto total",
+        "subtotal",
+        "cargo adicional"
+      ],
+      "opener": "You can insert, swipe, or tap your card when you're ready."
+    },
+    {
+      "words": [
+        "incluye impuesto",
+        "no incluye impuesto",
+        "pago"
+      ],
+      "opener": "If the machine asks, go ahead and enter your PIN."
+    },
+    {
+      "words": [
+        "pago aprobado",
+        "pago rechazado",
+        "tarjeta"
+      ],
+      "opener": "If the payment doesn't go through, we can try a different method."
+    },
+    {
+      "words": [
+        "tarjeta rechazada",
+        "inserta la tarjeta",
+        "pasa la tarjeta"
+      ],
+      "opener": "Would you like your change and receipt back?"
+    },
+    {
+      "words": [
+        "acerca la tarjeta",
+        "ingresa el PIN",
+        "firma aquí"
+      ],
+      "opener": "Do you need a bag for your groceries today?"
+    },
+    {
+      "words": [
+        "efectivo",
+        "pago en efectivo",
+        "dividir el pago"
+      ],
+      "opener": "I can separate cold items from the dry ones for you."
+    },
+    {
+      "words": [
+        "pago dividido",
+        "pago parcial",
+        "pago completo"
+      ],
+      "opener": "How many of these did you want today?"
+    },
+    {
+      "words": [
+        "vuelto",
+        "le dan cambio",
+        "ticket de compra"
+      ],
+      "opener": "If I scanned something twice, tell me and I'll remove it."
+    },
+    {
+      "words": [
+        "imprimen el recibo",
+        "bolsa",
+        "bolsa grande"
+      ],
+      "opener": "If something here isn't yours, we can fix that now."
+    },
+    {
+      "words": [
+        "bolsa pequeña",
+        "sin bolsa",
+        "separan los productos"
+      ],
+      "opener": "Thanks for waiting -- the line is moving a little slowly today."
+    },
+    {
+      "words": [
+        "producto frío",
+        "producto congelado",
+        "producto seco"
+      ],
+      "opener": "For that item, I may need to check your ID first."
+    },
+    {
+      "words": [
+        "huevos",
+        "frágil",
+        "pesado"
+      ],
+      "opener": "I just need to verify your age for this purchase."
+    },
+    {
+      "words": [
+        "liviano",
+        "porción",
+        "una unidad"
+      ],
+      "opener": "Are you buying mostly food today, or do you also have restricted items?"
+    },
+    {
+      "words": [
+        "dos unidades",
+        "marcan la cantidad",
+        "corrigen la cantidad"
+      ],
+      "opener": "If you have just a few items, I can ring you through quickly."
+    },
+    {
+      "words": [
+        "quitan el producto",
+        "agregan el producto",
+        "no es mío"
+      ],
+      "opener": "Would you like everything packed in bags, or do you have your own?"
+    },
+    {
+      "words": [
+        "es incorrecto",
+        "revisan el producto",
+        "escaneo doble"
+      ],
+      "opener": "This lane is open now if you're ready to come forward."
+    },
+    {
+      "words": [
+        "error del sistema",
+        "ya quedó",
+        "sigue igual"
+      ],
+      "opener": "If you need exact change, I can tell you the total first."
+    },
+    {
+      "words": [
+        "cliente siguiente",
+        "fila larga",
+        "mucha gente"
+      ],
+      "opener": "If your card is declined, we can try it again."
+    },
+    {
+      "words": [
+        "tarda mucho",
+        "fila",
+        "horario"
+      ],
+      "opener": "If the barcode is missing, I may need to enter it manually."
+    },
+    {
+      "words": [
+        "está abierto",
+        "está cerrado",
+        "identificación"
+      ],
+      "opener": "If this produce needs weighing, I can do that here."
+    },
+    {
+      "words": [
+        "muestra su identificación",
+        "requiere edad mínima",
+        "verifican la edad"
+      ],
+      "opener": "If the label doesn't match, I'll update the price."
+    },
+    {
+      "words": [
+        "producto restringido",
+        "aprobado",
+        "denegado"
+      ],
+      "opener": "Try the card one more time for me, please."
+    },
+    {
+      "words": [
+        "alcohol",
+        "tabaco",
+        "bebida"
+      ],
+      "opener": "If this register keeps acting up, I may send you to the main checkout."
+    },
+    {
+      "words": [
+        "frutas",
+        "huevos",
+        "pan integral"
+      ],
+      "opener": "That sale may have ended already, but I'll take a look."
+    },
+    {
+      "words": [
+        "carne",
+        "verduras",
+        "fruta"
+      ],
+      "opener": "For produce, was this priced by weight or by item?"
+    },
+    {
+      "words": [
+        "caja rápida",
+        "pocos productos",
+        "muchos productos"
+      ],
+      "opener": "If the weight seems off, we can check it again."
+    },
+    {
+      "words": [
+        "carrito",
+        "canasta",
+        "empacan los productos"
+      ],
+      "opener": "If the package is open or damaged, I can call someone over."
+    },
+    {
+      "words": [
+        "cliente espera",
+        "número de caja",
+        "caja abierta"
+      ],
+      "opener": "If you'd rather not take this one, I can help with a replacement."
+    },
+    {
+      "words": [
+        "caja cerrada",
+        "cambio exacto",
+        "sin cambio"
+      ],
+      "opener": "The refund can usually go back to the original payment method."
+    },
+    {
+      "words": [
+        "pago exacto",
+        "tarjeta válida",
+        "tarjeta inválida"
+      ],
+      "opener": "Hi -- next in line, please."
+    },
+    {
+      "words": [
+        "saldo insuficiente",
+        "hay fondos",
+        "no hay fondos"
+      ],
+      "opener": "Would you like me to keep the eggs and other fragile items separate?"
+    },
+    {
+      "words": [
+        "listo para pagar",
+        "ingresa el código",
+        "código manual"
+      ],
+      "opener": "I can bag the heavy items differently if you want."
+    },
+    {
+      "words": [
+        "ingreso manual",
+        "producto sin código",
+        "pesa el producto"
+      ],
+      "opener": "If you want to split the payment, tell me before I finish the sale."
+    },
+    {
+      "words": [
+        "balanza",
+        "etiqueta de precio",
+        "no coincide"
+      ],
+      "opener": "Please keep your receipt in case you need to come back."
+    },
+    {
+      "words": [
+        "revise la etiqueta",
+        "actualizan el precio",
+        "precio actualizado"
+      ],
+      "opener": "If something on the screen doesn't look right, tell me before you pay."
+    },
+    {
+      "words": [
+        "inténtalo otra vez",
+        "caja central",
+        "lector"
+      ],
+      "opener": "I can print the receipt or leave it out if you prefer."
+    },
+    {
+      "words": [
+        "el lector da error",
+        "promoción vencida",
+        "vence hoy"
+      ],
+      "opener": "If you're using cash, I can take that whenever you're ready."
+    },
+    {
+      "words": [
+        "unidad equivocada",
+        "precio por kilo",
+        "precio por unidad"
+      ],
+      "opener": "This checkout is for customers who are ready to pay now."
+    },
+    {
+      "words": [
+        "pesa menos",
+        "pesa más",
+        "producto abierto"
+      ],
+      "opener": "If the scanner doesn't read it, I'll type it in."
+    },
+    {
+      "words": [
+        "producto dañado",
+        "reemplazo",
+        "devolución al método de pago"
+      ],
+      "opener": "Alright, let's get these groceries taken care of for you."
+    }
+  ],
+  "Banking": [
+    {
+      "words": [
+        "banco",
+        "cajero",
+        "cliente"
+      ],
+      "opener": "Good morning -- how can I help you with your banking today?"
+    },
+    {
+      "words": [
+        "tarjeta bancaria",
+        "cuenta bancaria",
+        "saldo"
+      ],
+      "opener": "Are you here about an account, a card, or something else today?"
+    },
+    {
+      "words": [
+        "saldo disponible",
+        "saldo actual",
+        "tarjeta"
+      ],
+      "opener": "I can look up your account once I verify a few details."
+    },
+    {
+      "words": [
+        "tarjeta de débito",
+        "tarjeta de crédito",
+        "tarjeta bloqueada"
+      ],
+      "opener": "Would you like me to check your balance for you?"
+    },
+    {
+      "words": [
+        "tarjeta nueva",
+        "PIN",
+        "clave"
+      ],
+      "opener": "Is this about your debit card, your credit card, or another card?"
+    },
+    {
+      "words": [
+        "contraseña",
+        "número de cuenta",
+        "número incorrecto"
+      ],
+      "opener": "If your card isn't working, I can see what's happening."
+    },
+    {
+      "words": [
+        "transferencia",
+        "transferencia enviada",
+        "transferencia recibida"
+      ],
+      "opener": "Do you have the account number with you, or should I look it up another way?"
+    },
+    {
+      "words": [
+        "no llegó",
+        "llegó tarde",
+        "comprobante"
+      ],
+      "opener": "Are you asking about a transfer in or a transfer out?"
+    },
+    {
+      "words": [
+        "muestro el comprobante",
+        "reviso la cuenta",
+        "revisan los movimientos"
+      ],
+      "opener": "If a transfer hasn't arrived yet, I can review the record with you."
+    },
+    {
+      "words": [
+        "movimientos",
+        "cargo",
+        "cargos extra"
+      ],
+      "opener": "If you have a receipt or confirmation, I can take a look at it."
+    },
+    {
+      "words": [
+        "no lo reconozco",
+        "cargo sospechoso",
+        "intento sospechoso"
+      ],
+      "opener": "I can review the recent activity on the account with you now."
+    },
+    {
+      "words": [
+        "bloqueo",
+        "se bloqueó",
+        "desbloquean la tarjeta"
+      ],
+      "opener": "If you don't recognize a charge, tell me which one concerns you."
+    },
+    {
+      "words": [
+        "activan la tarjeta",
+        "emiten la tarjeta",
+        "funciona ahora"
+      ],
+      "opener": "If this looks suspicious, we can block the card and take the next step."
+    },
+    {
+      "words": [
+        "no funciona",
+        "rechazada",
+        "pago rechazado"
+      ],
+      "opener": "I can help reactivate or replace the card depending on the issue."
+    },
+    {
+      "words": [
+        "hago el pago",
+        "pago aprobado",
+        "pago pendiente"
+      ],
+      "opener": "Did a payment go through, get declined, or stay pending?"
+    },
+    {
+      "words": [
+        "monto",
+        "monto total",
+        "cantidad total"
+      ],
+      "opener": "What amount are you trying to move or pay today?"
+    },
+    {
+      "words": [
+        "deposito dinero",
+        "retiro",
+        "retiro dinero"
+      ],
+      "opener": "Would you like to make a deposit or a withdrawal?"
+    },
+    {
+      "words": [
+        "efectivo",
+        "con tarjeta",
+        "cajero automático"
+      ],
+      "opener": "Are you trying to do this here at the branch or at the ATM?"
+    },
+    {
+      "words": [
+        "retiro en el cajero",
+        "saldo insuficiente",
+        "no hay fondos"
+      ],
+      "opener": "If the transaction failed, the reason may be available funds."
+    },
+    {
+      "words": [
+        "hay fondos",
+        "abro una cuenta",
+        "abro una cuenta nueva"
+      ],
+      "opener": "Are you interested in opening a new account today?"
+    },
+    {
+      "words": [
+        "cierro la cuenta",
+        "cambio de cuenta",
+        "tipo de cuenta"
+      ],
+      "opener": "If so, I can explain the different account types we offer."
+    },
+    {
+      "words": [
+        "cuenta principal",
+        "cuenta de ahorros",
+        "cuenta corriente"
+      ],
+      "opener": "Some accounts include fees and some don't, depending on the conditions."
+    },
+    {
+      "words": [
+        "comisión",
+        "cobran comisión",
+        "sin comisión"
+      ],
+      "opener": "If fees are your concern, I can walk you through that."
+    },
+    {
+      "words": [
+        "comisión mensual",
+        "eliminan la comisión",
+        "tasa de interés"
+      ],
+      "opener": "Would you like information about credit or a loan today?"
+    },
+    {
+      "words": [
+        "condiciones",
+        "saldo mínimo",
+        "requiere saldo mínimo"
+      ],
+      "opener": "If you're applying, I can explain what stage the application is in."
+    },
+    {
+      "words": [
+        "requiere depósitos",
+        "historial",
+        "historial crediticio"
+      ],
+      "opener": "We may need a few documents before we can continue."
+    },
+    {
+      "words": [
+        "crédito",
+        "buen crédito",
+        "mal crédito"
+      ],
+      "opener": "If something is missing, I can tell you exactly what we still need."
+    },
+    {
+      "words": [
+        "préstamo",
+        "solicito un préstamo",
+        "monto del préstamo"
+      ],
+      "opener": "Our system is a bit slow right now, but I can still check."
+    },
+    {
+      "words": [
+        "aprueban el préstamo",
+        "rechazan el préstamo",
+        "aprobación"
+      ],
+      "opener": "If needed, I can open a case and give you the reference number."
+    },
+    {
+      "words": [
+        "está en proceso",
+        "petición",
+        "envío la solicitud"
+      ],
+      "opener": "Some requests take a few days for review."
+    },
+    {
+      "words": [
+        "documentos",
+        "falta un documento",
+        "envío los documentos"
+      ],
+      "opener": "If you prefer, you can also follow up later by phone."
+    },
+    {
+      "words": [
+        "comprobante de ingresos",
+        "revisan el sistema",
+        "el sistema falla"
+      ],
+      "opener": "Before I continue, I need to verify your identity."
+    },
+    {
+      "words": [
+        "el sistema está lento",
+        "error del sistema",
+        "abren un caso"
+      ],
+      "opener": "Can you confirm your birth date and current address for me?"
+    },
+    {
+      "words": [
+        "número de caso",
+        "seguimiento del caso",
+        "tarda unos días"
+      ],
+      "opener": "If any of your contact details changed, I can update them now."
+    },
+    {
+      "words": [
+        "tiempo estimado",
+        "depende del sistema",
+        "espero la respuesta"
+      ],
+      "opener": "I can send a security code to your phone or email."
+    },
+    {
+      "words": [
+        "hoy no",
+        "mañana sí",
+        "llamo al banco"
+      ],
+      "opener": "Once you receive it, please read the code back to me or enter it there."
+    },
+    {
+      "words": [
+        "atención al cliente",
+        "hablo con un agente",
+        "verifican mi identidad"
+      ],
+      "opener": "If the code doesn't work, I can send a new one."
+    },
+    {
+      "words": [
+        "confirman mis datos",
+        "fecha de nacimiento",
+        "dirección"
+      ],
+      "opener": "Is the main issue that you can't access your account right now?"
+    },
+    {
+      "words": [
+        "número de teléfono",
+        "correo electrónico",
+        "actualizan mis datos"
+      ],
+      "opener": "If so, I can help with access recovery or a reset."
+    },
+    {
+      "words": [
+        "datos incorrectos",
+        "cambio mis datos",
+        "código de seguridad"
+      ],
+      "opener": "If the problem stays the same after that, we may need another step."
+    },
+    {
+      "words": [
+        "envían el código",
+        "ingreso el código",
+        "código válido"
+      ],
+      "opener": "I know this can be frustrating -- I'll explain each part clearly."
+    },
+    {
+      "words": [
+        "código inválido",
+        "acceso a la cuenta",
+        "no tengo acceso"
+      ],
+      "opener": "If anything I say is unclear, stop me and I'll repeat it more slowly."
+    },
+    {
+      "words": [
+        "recupero el acceso",
+        "restablecen la clave",
+        "cambio la clave"
+      ],
+      "opener": "Do you need help here at this branch, or were you sent from another one?"
+    },
+    {
+      "words": [
+        "bloquean el acceso",
+        "acceso activo",
+        "sigue igual"
+      ],
+      "opener": "If you'd prefer, I can ask one of our advisors to speak with you."
+    },
+    {
+      "words": [
+        "mejora un poco",
+        "no mejora",
+        "¿qué pasó?"
+      ],
+      "opener": "If the signature doesn't match what we have on file, I'll need to review that."
+    },
+    {
+      "words": [
+        "¿qué hago?",
+        "¿cuánto tarda?",
+        "¿cuánto cuesta?"
+      ],
+      "opener": "Are you asking about an international transfer today?"
+    },
+    {
+      "words": [
+        "no entiendo",
+        "¿puede repetir?",
+        "más despacio"
+      ],
+      "opener": "If so, I can explain the exchange rate and the transfer fee."
+    },
+    {
+      "words": [
+        "oficina bancaria",
+        "ejecutivo",
+        "ventanilla"
+      ],
+      "opener": "Some incoming funds may be placed on hold for a period of time."
+    },
+    {
+      "words": [
+        "firma registrada",
+        "la firma no coincide",
+        "transferencia internacional"
+      ],
+      "opener": "Tell me what happened, and we'll figure out the next step together."
+    },
+    {
+      "words": [
+        "tipo de cambio",
+        "comisión por transferencia",
+        "fondos retenidos"
+      ],
+      "opener": "How can I help you today?"
+    }
+  ],
+  "Airport": [
+    {
+      "words": [
+        "billete",
+        "reserva",
+        "confirmación"
+      ],
+      "opener": "Good morning -- welcome. May I see your passport, please?"
+    },
+    {
+      "words": [
+        "número de reserva",
+        "pasajero",
+        "apellido"
+      ],
+      "opener": "Do you already have a reservation, or do you need help finding it?"
+    },
+    {
+      "words": [
+        "documento",
+        "identificación",
+        "permiso de entrada"
+      ],
+      "opener": "If you have the confirmation, I can pull up the booking for you."
+    },
+    {
+      "words": [
+        "permiso",
+        "documentos de viaje",
+        "fecha de vencimiento"
+      ],
+      "opener": "Is the booking under your first name and last name exactly as on the passport?"
+    },
+    {
+      "words": [
+        "a nombre de",
+        "¿tiene reserva?",
+        "¿me muestra el pasaporte?"
+      ],
+      "opener": "Before we continue, I'll need to check your travel documents."
+    },
+    {
+      "words": [
+        "¿a qué nombre?",
+        "vuelo",
+        "número de vuelo"
+      ],
+      "opener": "Are you flying today on this airline all the way through?"
+    },
+    {
+      "words": [
+        "destino",
+        "destino final",
+        "origen"
+      ],
+      "opener": "Is your final destination this city, or do you have a connection after that?"
+    },
+    {
+      "words": [
+        "conexión",
+        "vuelo de conexión",
+        "vuelo directo"
+      ],
+      "opener": "Are you on a direct flight today, or a connecting itinerary?"
+    },
+    {
+      "words": [
+        "vuelo lleno",
+        "vuelo anterior",
+        "vuelo siguiente"
+      ],
+      "opener": "I can confirm whether your next flight leaves today or tomorrow."
+    },
+    {
+      "words": [
+        "¿va directo a…?",
+        "¿hasta dónde va?",
+        "¿sale hoy?"
+      ],
+      "opener": "Your departure and arrival details will appear on the itinerary once I open it."
+    },
+    {
+      "words": [
+        "¿sale mañana?",
+        "salida",
+        "llegada"
+      ],
+      "opener": "The gate may change later, so please keep checking the screens."
+    },
+    {
+      "words": [
+        "embarque",
+        "hora de embarque",
+        "hora de salida"
+      ],
+      "opener": "If it hasn't been assigned yet, it should appear closer to boarding."
+    },
+    {
+      "words": [
+        "entrada",
+        "número de puerta",
+        "puerta de embarque"
+      ],
+      "opener": "Do you have a seat already, or would you like me to review the options with you?"
+    },
+    {
+      "words": [
+        "zona de embarque",
+        "preembarque",
+        "prioridad"
+      ],
+      "opener": "Would you prefer a window, an aisle, or whatever is still available?"
+    },
+    {
+      "words": [
+        "a tiempo",
+        "retraso",
+        "demora"
+      ],
+      "opener": "If you're traveling together, I can see whether there are seats side by side."
+    },
+    {
+      "words": [
+        "cambio de puerta",
+        "¿cuál es la puerta?",
+        "aparece en las pantallas"
+      ],
+      "opener": "I may be able to move the seat depending on availability."
+    },
+    {
+      "words": [
+        "aparece en la app",
+        "no está asignada",
+        "asiento"
+      ],
+      "opener": "Will you be checking any bags today?"
+    },
+    {
+      "words": [
+        "número de asiento",
+        "fila",
+        "puerta de embarque"
+      ],
+      "opener": "Please place your suitcase on the scale for me."
+    },
+    {
+      "words": [
+        "pasillo del avión",
+        "asiento del medio",
+        "asiento de ventana"
+      ],
+      "opener": "I'll need to verify the size and weight of the bag."
+    },
+    {
+      "words": [
+        "asiento de pasillo",
+        "salida de emergencia",
+        "juntos"
+      ],
+      "opener": "If the bag is over the limit, I'll explain the options."
+    },
+    {
+      "words": [
+        "separados",
+        "¿prefiere ventana o pasillo?",
+        "¿hay asientos juntos?"
+      ],
+      "opener": "If it's too heavy, you may need to remove a few things."
+    },
+    {
+      "words": [
+        "¿hay otro asiento?",
+        "cambio de asiento",
+        "asignado"
+      ],
+      "opener": "Some items should stay with you instead of going in the suitcase."
+    },
+    {
+      "words": [
+        "valijas",
+        "maleta",
+        "equipaje de mano"
+      ],
+      "opener": "Are you carrying any liquids, batteries, medication, or valuables today?"
+    },
+    {
+      "words": [
+        "equipaje facturado",
+        "maleta de cabina",
+        "artículo personal"
+      ],
+      "opener": "That item may need additional review before I can accept the bag."
+    },
+    {
+      "words": [
+        "primera maleta",
+        "segunda maleta",
+        "tarifa aérea"
+      ],
+      "opener": "If security requires it, they may do an extra inspection."
+    },
+    {
+      "words": [
+        "recibo de equipaje",
+        "cinta transportadora",
+        "recogida de equipaje"
+      ],
+      "opener": "If your bag is fine, I'll tag it and give you the baggage receipt."
+    },
+    {
+      "words": [
+        "¿va a facturar equipaje?",
+        "¿lleva equipaje?",
+        "balanza"
+      ],
+      "opener": "Please keep that receipt until you arrive."
+    },
+    {
+      "words": [
+        "tarifa",
+        "límite",
+        "exceso"
+      ],
+      "opener": "If there's a fee, you can pay by card or cash here at the counter."
+    },
+    {
+      "words": [
+        "sobrepeso",
+        "medidas",
+        "medidas permitidas"
+      ],
+      "opener": "I can print your boarding pass, or send it to your phone if available."
+    },
+    {
+      "words": [
+        "está demasiado pesado",
+        "está demasiado grande",
+        "póngalo en la balanza"
+      ],
+      "opener": "If you're traveling with family, I can check whether preboarding applies."
+    },
+    {
+      "words": [
+        "¿cuál es el límite?",
+        "¿cuánto cuesta?",
+        "facturo el equipaje"
+      ],
+      "opener": "If you have a child or a stroller, let me know now."
+    },
+    {
+      "words": [
+        "etiquetan el equipaje",
+        "abre la maleta",
+        "saca los objetos"
+      ],
+      "opener": "Depending on the airport, you may be able to take the stroller to the gate."
+    },
+    {
+      "words": [
+        "pasa algunas cosas a la mochila",
+        "lo lleva con usted",
+        "no puede ir en la maleta"
+      ],
+      "opener": "If the flight is full, seat changes may be limited."
+    },
+    {
+      "words": [
+        "¿puede facturarlo?",
+        "¿puede llevarlo con usted?",
+        "líquidos"
+      ],
+      "opener": "If the system isn't responding, please give me a moment."
+    },
+    {
+      "words": [
+        "batería portátil",
+        "cargador",
+        "tableta"
+      ],
+      "opener": "If there's no space in the cabin, we may need to check the bag."
+    },
+    {
+      "words": [
+        "objetos de valor",
+        "medicinas",
+        "¿lleva líquidos?"
+      ],
+      "opener": "If your connection is short, I can note that on the record."
+    },
+    {
+      "words": [
+        "¿lleva baterías?",
+        "no está permitido",
+        "está permitido"
+      ],
+      "opener": "If you have a long connection, I can show you where the next step is."
+    },
+    {
+      "words": [
+        "control de seguridad",
+        "revisión",
+        "revisión adicional"
+      ],
+      "opener": "After check-in, you'll go through security first."
+    },
+    {
+      "words": [
+        "selección aleatoria",
+        "inspección",
+        "seguridad"
+      ],
+      "opener": "Depending on your route, you may also pass through immigration or customs."
+    },
+    {
+      "words": [
+        "terminal",
+        "aeropuerto",
+        "aerolínea"
+      ],
+      "opener": "If you need a customs form, I can tell you where to get it."
+    },
+    {
+      "words": [
+        "mostrador",
+        "equipo electrónico",
+        "no funciona"
+      ],
+      "opener": "Are you checking only one bag, or do you have a second one as well?"
+    },
+    {
+      "words": [
+        "exceso de equipaje",
+        "paga el exceso",
+        "con tarjeta"
+      ],
+      "opener": "If something isn't allowed in checked luggage, I'll let you know now."
+    },
+    {
+      "words": [
+        "en efectivo",
+        "sin costo",
+        "tarifa"
+      ],
+      "opener": "If you'd like, I can explain where to go after this counter."
+    },
+    {
+      "words": [
+        "tarifa",
+        "embarque",
+        "pasajero"
+      ],
+      "opener": "Please make sure the name on the booking matches the document exactly."
+    },
+    {
+      "words": [
+        "pasajeros",
+        "niño",
+        "niña"
+      ],
+      "opener": "If there's any mismatch, we need to address it before boarding."
+    },
+    {
+      "words": [
+        "coche de bebé",
+        "hasta la puerta",
+        "tarjeta de embarque"
+      ],
+      "opener": "Would you like me to confirm the boarding time for you as well?"
+    },
+    {
+      "words": [
+        "imprimen la tarjeta de embarque",
+        "equipaje de mano",
+        "control de seguridad"
+      ],
+      "opener": "Your gate isn't final yet, so keep an eye on the app and the screens."
+    },
+    {
+      "words": [
+        "confirmación por correo",
+        "hay espacio",
+        "no hay espacio"
+      ],
+      "opener": "I'll finish printing everything for you now."
+    },
+    {
+      "words": [
+        "conexión corta",
+        "conexión larga",
+        "control de pasaportes"
+      ],
+      "opener": "Once we're done here, you'll be ready to continue to security."
+    },
+    {
+      "words": [
+        "migración",
+        "control migratorio",
+        "formulario de aduana"
+      ],
+      "opener": "How can I help you with your check-in today?"
+    }
+  ],
+  "Restaurant": [
+    {
+      "words": [
+        "menú",
+        "plato del día",
+        "mesero"
+      ],
+      "opener": "Hi there -- welcome. Do you already have a reservation today?"
+    },
+    {
+      "words": [
+        "menú",
+        "reserva",
+        "¿tienen reserva?"
+      ],
+      "opener": "How many people are dining with us?"
+    },
+    {
+      "words": [
+        "mesa para dos",
+        "pido",
+        "¿qué desea?"
+      ],
+      "opener": "Would you prefer a table inside or outside?"
+    },
+    {
+      "words": [
+        "¿qué van a pedir?",
+        "tomo la orden",
+        "aquí está el menú"
+      ],
+      "opener": "Here you go -- take a look at the menu whenever you're ready."
+    },
+    {
+      "words": [
+        "recomendación",
+        "¿qué recomienda?",
+        "especialidad"
+      ],
+      "opener": "Can I answer any questions before you order?"
+    },
+    {
+      "words": [
+        "entrada",
+        "plato principal",
+        "bebida"
+      ],
+      "opener": "Are you thinking about an appetizer, a main dish, or both?"
+    },
+    {
+      "words": [
+        "acompañamiento",
+        "guarnición",
+        "porción"
+      ],
+      "opener": "If you'd like, I can recommend something popular."
+    },
+    {
+      "words": [
+        "ingrediente",
+        "salsa",
+        "plato principal"
+      ],
+      "opener": "Do you eat meat, or would you prefer something vegetarian or vegan?"
+    },
+    {
+      "words": [
+        "mariscos",
+        "carne",
+        "pescado"
+      ],
+      "opener": "Do you have any allergies or ingredients you need us to avoid?"
+    },
+    {
+      "words": [
+        "verduras",
+        "plato vegetariano",
+        "vegetariano"
+      ],
+      "opener": "If a dish is too spicy, we may be able to adjust it."
+    },
+    {
+      "words": [
+        "vegano",
+        "alergia",
+        "alérgico"
+      ],
+      "opener": "Would you like something to drink while you decide?"
+    },
+    {
+      "words": [
+        "frutos secos",
+        "sin gluten",
+        "con azúcar"
+      ],
+      "opener": "Still water, sparkling water, or something else?"
+    },
+    {
+      "words": [
+        "¿tiene…?",
+        "¿lleva…?",
+        "sin picante"
+      ],
+      "opener": "If you'd like alcohol, I can tell you what we have by the glass or bottle."
+    },
+    {
+      "words": [
+        "picante",
+        "poco picante",
+        "sin carne"
+      ],
+      "opener": "The kitchen is a bit busy tonight, but I'll put your order in right away."
+    },
+    {
+      "words": [
+        "sin gluten",
+        "¿se puede cambiar?",
+        "bebida"
+      ],
+      "opener": "If something doesn't arrive, let me know and I'll check on it."
+    },
+    {
+      "words": [
+        "refresco",
+        "con gas",
+        "sin gas"
+      ],
+      "opener": "If there was a mistake with the order, I'll help fix it."
+    },
+    {
+      "words": [
+        "refresco",
+        "jugo",
+        "cerveza"
+      ],
+      "opener": "I can ask the kitchen to remake that if needed."
+    },
+    {
+      "words": [
+        "vino",
+        "copa",
+        "menú"
+      ],
+      "opener": "Was the food temperature okay for you?"
+    },
+    {
+      "words": [
+        "¿algo de tomar?",
+        "tiempo de espera",
+        "¿cuánto tiempo tarda?"
+      ],
+      "opener": "If you'd like, I can explain exactly what comes in that dish."
+    },
+    {
+      "words": [
+        "regreso enseguida",
+        "aquí está",
+        "quedan platos"
+      ],
+      "opener": "If you need me to repeat that more slowly, just tell me."
+    },
+    {
+      "words": [
+        "no llegó",
+        "pedimos la comida",
+        "trae"
+      ],
+      "opener": "Are you still waiting on anything else for the table?"
+    },
+    {
+      "words": [
+        "lleva",
+        "sirve",
+        "mesa lista"
+      ],
+      "opener": "Would you like more of the same, or something different this time?"
+    },
+    {
+      "words": [
+        "síganme",
+        "error",
+        "equivocado"
+      ],
+      "opener": "Do you need anything extra with the meal?"
+    },
+    {
+      "words": [
+        "no es esto",
+        "no pedimos eso",
+        "falta esto"
+      ],
+      "opener": "When you're finished, I can bring the bill."
+    },
+    {
+      "words": [
+        "propina",
+        "cambian el plato",
+        "menú del día"
+      ],
+      "opener": "If you'd like to split the bill, tell me before I run the payment."
+    },
+    {
+      "words": [
+        "preparan otro plato",
+        "tardó mucho",
+        "frío"
+      ],
+      "opener": "You can pay by card or cash here."
+    },
+    {
+      "words": [
+        "caliente",
+        "recalentado",
+        "¿qué es esto?"
+      ],
+      "opener": "If the card terminal gives an error, we can try again."
+    },
+    {
+      "words": [
+        "¿qué lleva?",
+        "¿cómo es?",
+        "¿está listo?"
+      ],
+      "opener": "Would you like a receipt or an invoice with the payment?"
+    },
+    {
+      "words": [
+        "¿falta mucho?",
+        "¿puede explicar?",
+        "no entiendo"
+      ],
+      "opener": "If you want dessert, I can bring that menu next."
+    },
+    {
+      "words": [
+        "repítalo",
+        "más despacio",
+        "aclárelo"
+      ],
+      "opener": "If you're in a hurry, I can check the wait time with the kitchen."
+    },
+    {
+      "words": [
+        "cuenta",
+        "la cuenta",
+        "propina"
+      ],
+      "opener": "We do have a waitlist if all the tables are occupied right now."
+    },
+    {
+      "words": [
+        "menú",
+        "incluye",
+        "no incluye"
+      ],
+      "opener": "Would a quieter table work better for you?"
+    },
+    {
+      "words": [
+        "propina",
+        "menú del día",
+        "dividimos la cuenta"
+      ],
+      "opener": "If you'd like, I can move you to another table when one opens."
+    },
+    {
+      "words": [
+        "pago",
+        "con tarjeta",
+        "en efectivo"
+      ],
+      "opener": "Do you need more utensils or napkins?"
+    },
+    {
+      "words": [
+        "terminal",
+        "no funciona",
+        "menú"
+      ],
+      "opener": "Would you like another drink with ice or without ice?"
+    },
+    {
+      "words": [
+        "mesa libre",
+        "ocupado",
+        "reservado"
+      ],
+      "opener": "If you're taking something home, I can package it to go."
+    },
+    {
+      "words": [
+        "afuera",
+        "adentro",
+        "terraza"
+      ],
+      "opener": "Would you like the dish for sharing, or as individual portions?"
+    },
+    {
+      "words": [
+        "aire acondicionado",
+        "ambiente agradable",
+        "tranquilo"
+      ],
+      "opener": "I can clear these plates whenever you're done."
+    },
+    {
+      "words": [
+        "ambiente",
+        "para dos",
+        "reserva"
+      ],
+      "opener": "Please be careful -- this plate is still hot."
+    },
+    {
+      "words": [
+        "menos cantidad",
+        "suficiente",
+        "extra"
+      ],
+      "opener": "If something tastes off, tell me and I'll take care of it."
+    },
+    {
+      "words": [
+        "otra porción",
+        "lo mismo",
+        "para llevar"
+      ],
+      "opener": "Our service charge may already be included depending on the bill."
+    },
+    {
+      "words": [
+        "pedido",
+        "factura",
+        "reserva confirmada"
+      ],
+      "opener": "If you have any question about the total, I can explain it."
+    },
+    {
+      "words": [
+        "mesa asignada",
+        "lista de espera",
+        "disponibilidad"
+      ],
+      "opener": "We can do the whole payment now whenever you're ready."
+    },
+    {
+      "words": [
+        "horario",
+        "cubiertos",
+        "servilleta"
+      ],
+      "opener": "Would you like another round before I bring the bill?"
+    },
+    {
+      "words": [
+        "tenedor",
+        "cuchillo",
+        "servilleta"
+      ],
+      "opener": "The table is ready now, so you can follow me."
+    },
+    {
+      "words": [
+        "copa",
+        "taza",
+        "servilleta"
+      ],
+      "opener": "If the dining room is full, I can add your name to the list."
+    },
+    {
+      "words": [
+        "sin hielo",
+        "otra ronda",
+        "traen la cuenta"
+      ],
+      "opener": "Take your time with the menu -- I'll come back in a moment."
+    },
+    {
+      "words": [
+        "cobro adicional",
+        "cargo por servicio",
+        "plato hondo"
+      ],
+      "opener": "What can I get started for you today?"
+    },
+    {
+      "words": [
+        "plato llano",
+        "cubierto extra",
+        "para compartir"
+      ],
+      "opener": "Good evening -- welcome in."
+    },
+    {
+      "words": [
+        "recogen los platos",
+        "mesa sucia",
+        "mesa limpia"
+      ],
+      "opener": "Are you ready to order, or do you need another minute?"
+    }
+  ],
+  "Small Talk with a Neighbour": [
+    {
+      "words": [
+        "residente",
+        "vecina",
+        "portal"
+      ],
+      "opener": "Hey, nice to meet you -- are you new to the building?"
+    },
+    {
+      "words": [
+        "departamento",
+        "vivienda",
+        "zona"
+      ],
+      "opener": "Do you live in this apartment building too, or nearby?"
+    },
+    {
+      "words": [
+        "barrio",
+        "vecindario",
+        "parque cercano"
+      ],
+      "opener": "How are you finding the neighborhood so far?"
+    },
+    {
+      "words": [
+        "volumen",
+        "baja el volumen",
+        "reunión"
+      ],
+      "opener": "I wanted to mention something small from last night."
+    },
+    {
+      "words": [
+        "fiesta",
+        "anoche",
+        "tarde"
+      ],
+      "opener": "Was there a gathering at your place yesterday evening?"
+    },
+    {
+      "words": [
+        "temprano",
+        "trabajo temprano",
+        "no pude dormir"
+      ],
+      "opener": "I work early, so I just wanted to check in about the noise."
+    },
+    {
+      "words": [
+        "quería comentarte algo",
+        "solo quería avisarte",
+        "la próxima vez"
+      ],
+      "opener": "If something like that happens again, would you mind letting me know ahead of time?"
+    },
+    {
+      "words": [
+        "tenga cuidado",
+        "estacionamiento",
+        "plaza de aparcamiento"
+      ],
+      "opener": "By the way, I think there may have been an issue with the parking spot."
+    },
+    {
+      "words": [
+        "plaza",
+        "mi lugar",
+        "asignado"
+      ],
+      "opener": "I saw a car in that space earlier and wanted to ask about it."
+    },
+    {
+      "words": [
+        "visitante",
+        "mueve el carro",
+        "lo muevo ahora mismo"
+      ],
+      "opener": "If it was just a mix-up, no problem at all."
+    },
+    {
+      "words": [
+        "ya pasó dos veces",
+        "no sabía",
+        "no fue intencional"
+      ],
+      "opener": "I think a package may have been delivered to the wrong door."
+    },
+    {
+      "words": [
+        "paquete postal",
+        "entrega",
+        "repartidor"
+      ],
+      "opener": "Does this name belong to someone in your unit?"
+    },
+    {
+      "words": [
+        "puerta",
+        "lo dejó aquí por error",
+        "nombre"
+      ],
+      "opener": "I've had deliveries go missing before, so I wanted to ask right away."
+    },
+    {
+      "words": [
+        "mi nombre",
+        "aquí está su paquete",
+        "lo tengo"
+      ],
+      "opener": "How long have you been living here, by the way?"
+    },
+    {
+      "words": [
+        "se perdió",
+        "pasa seguido",
+        "hace tiempo"
+      ],
+      "opener": "Do you like it here overall?"
+    },
+    {
+      "words": [
+        "hace meses",
+        "hace un año",
+        "vivo aquí"
+      ],
+      "opener": "I've noticed the place is usually pretty quiet."
+    },
+    {
+      "words": [
+        "me mudé",
+        "¿te gusta vivir aquí?",
+        "me gusta"
+      ],
+      "opener": "Have you had any issues with water or leaks in your unit?"
+    },
+    {
+      "words": [
+        "es tranquilo",
+        "es ruidoso",
+        "es seguro"
+      ],
+      "opener": "I already contacted building management, but they haven't come yet."
+    },
+    {
+      "words": [
+        "fuga",
+        "humedad",
+        "pared del baño"
+      ],
+      "opener": "If it gets worse, it may need attention sooner rather than later."
+    },
+    {
+      "words": [
+        "fuga de agua",
+        "problema de agua",
+        "administración"
+      ],
+      "opener": "If anything changes, just let me know."
+    },
+    {
+      "words": [
+        "ya llamé",
+        "no han venido",
+        "mejor así"
+      ],
+      "opener": "Do you live on this floor too, or upstairs?"
+    },
+    {
+      "words": [
+        "más urgente",
+        "cierra la llave de agua",
+        "llave de agua"
+      ],
+      "opener": "I've been trying to figure out where the sound is coming from."
+    },
+    {
+      "words": [
+        "puede empeorar",
+        "avísame",
+        "me dices"
+      ],
+      "opener": "Any chance I could borrow a tool from you for a minute?"
+    },
+    {
+      "words": [
+        "entiendo",
+        "tiene sentido",
+        "vecino cercano"
+      ],
+      "opener": "I just need something simple for a quick fix."
+    },
+    {
+      "words": [
+        "lejos",
+        "planta",
+        "mismo piso"
+      ],
+      "opener": "Do you know where trash and recycling go in this building?"
+    },
+    {
+      "words": [
+        "arriba",
+        "abajo",
+        "toca la puerta"
+      ],
+      "opener": "Has the elevator been acting up for you too?"
+    },
+    {
+      "words": [
+        "abre",
+        "cierra",
+        "puerta principal"
+      ],
+      "opener": "I wasn't sure whether the front entrance was working properly."
+    },
+    {
+      "words": [
+        "horario",
+        "ocupado",
+        "disponible"
+      ],
+      "opener": "Do you happen to have a spare key or know who manages that?"
+    },
+    {
+      "words": [
+        "fin de semana",
+        "tarde",
+        "mañana por la mañana"
+      ],
+      "opener": "Was that your visitor at the door earlier?"
+    },
+    {
+      "words": [
+        "ayer",
+        "en un rato",
+        "prestas una herramienta"
+      ],
+      "opener": "Are you expecting anyone today?"
+    },
+    {
+      "words": [
+        "destornillador",
+        "llave inglesa",
+        "taladro"
+      ],
+      "opener": "It looked like someone might be moving in."
+    },
+    {
+      "words": [
+        "recoger la basura",
+        "basura",
+        "saco la basura"
+      ],
+      "opener": "I saw a moving truck outside and got curious."
+    },
+    {
+      "words": [
+        "reciclaje",
+        "portal",
+        "timbre"
+      ],
+      "opener": "Your dog is cute -- what's their name?"
+    },
+    {
+      "words": [
+        "puerta del garaje",
+        "entrada principal",
+        "intercomunicador"
+      ],
+      "opener": "Does your pet usually go out around this time?"
+    },
+    {
+      "words": [
+        "copia de llave",
+        "administración del edificio",
+        "portero"
+      ],
+      "opener": "If you ever need help watering plants, let me know."
+    },
+    {
+      "words": [
+        "conserje",
+        "paquete equivocado",
+        "se confundieron de puerta"
+      ],
+      "opener": "Do you use the balcony much in this weather?"
+    },
+    {
+      "words": [
+        "visita",
+        "visitas",
+        "¿espera visitas?"
+      ],
+      "opener": "It feels cold in this hallway today, doesn't it?"
+    },
+    {
+      "words": [
+        "mudanza",
+        "camión de mudanza",
+        "se mudan hoy"
+      ],
+      "opener": "Has your power gone out at all recently?"
+    },
+    {
+      "words": [
+        "mascota",
+        "conejo",
+        "gato"
+      ],
+      "opener": "I was wondering whether the water outage affected your unit too."
+    },
+    {
+      "words": [
+        "correa",
+        "ladra mucho",
+        "¿cómo se llama?"
+      ],
+      "opener": "By the way, welcome if you're the new neighbor everyone mentioned."
+    },
+    {
+      "words": [
+        "terraza",
+        "plantas",
+        "riego"
+      ],
+      "opener": "Have you been here long, or did you just arrive recently?"
+    },
+    {
+      "words": [
+        "riega las plantas",
+        "balcón",
+        "puerta del apartamento"
+      ],
+      "opener": "Have you heard anything about the rent going up again?"
+    },
+    {
+      "words": [
+        "corriente de aire",
+        "hace frío aquí",
+        "hace calor aquí"
+      ],
+      "opener": "If management still doesn't answer, someone may need to file a complaint."
+    },
+    {
+      "words": [
+        "humedad en el techo",
+        "corte de agua",
+        "corte de luz"
+      ],
+      "opener": "I keep hearing noise from above and can't tell which unit it is."
+    },
+    {
+      "words": [
+        "luz apagada",
+        "se fue la luz",
+        "vuelve pronto"
+      ],
+      "opener": "Do you ever use the back entrance, or just the main one?"
+    },
+    {
+      "words": [
+        "vecino nuevo",
+        "recién llegado",
+        "¿desde cuándo vive aquí?"
+      ],
+      "opener": "I think the mailbox area may have mixed up some deliveries again."
+    },
+    {
+      "words": [
+        "alquiler",
+        "subió el alquiler",
+        "administración no responde"
+      ],
+      "opener": "If any mail for me shows up by mistake, I'd appreciate it."
+    },
+    {
+      "words": [
+        "queja",
+        "pongo una queja",
+        "ruido arriba"
+      ],
+      "opener": "Sorry to bother you -- I just had a quick question."
+    },
+    {
+      "words": [
+        "ruido abajo",
+        "paso lateral",
+        "entrada trasera"
+      ],
+      "opener": "Hey -- do you have a minute?"
+    },
+    {
+      "words": [
+        "puerta principal",
+        "interfono",
+        "correo"
+      ],
+      "opener": "Hope I'm not interrupting anything."
+    }
+  ],
+  "Construction Contractor": [
+    {
+      "words": [
+        "contratista",
+        "trabajador",
+        "equipo"
+      ],
+      "opener": "Morning -- can we go over where the project stands today?"
+    },
+    {
+      "words": [
+        "plan de construcción",
+        "sitio de obra",
+        "obra en curso"
+      ],
+      "opener": "Before you start, I want to confirm the plan and the design."
+    },
+    {
+      "words": [
+        "plano",
+        "diseño",
+        "cotización"
+      ],
+      "opener": "Can you walk me through the estimate one more time?"
+    },
+    {
+      "words": [
+        "estimado",
+        "costo",
+        "tarifa"
+      ],
+      "opener": "I want to understand the budget before we move forward."
+    },
+    {
+      "words": [
+        "saldo final",
+        "pago",
+        "anticipo"
+      ],
+      "opener": "Tell me what the deposit covers and what the final payment covers."
+    },
+    {
+      "words": [
+        "pago final",
+        "equipo de obra",
+        "materiales"
+      ],
+      "opener": "Have all the materials arrived, or is anything still missing?"
+    },
+    {
+      "words": [
+        "proveedor",
+        "disponibilidad",
+        "no está disponible"
+      ],
+      "opener": "If something isn't available yet, what does that change for the schedule?"
+    },
+    {
+      "words": [
+        "retraso",
+        "atraso",
+        "va atrasado"
+      ],
+      "opener": "Why is the job running behind at this point?"
+    },
+    {
+      "words": [
+        "a tiempo",
+        "horario",
+        "cumplen el horario"
+      ],
+      "opener": "Are you still expecting to finish on time?"
+    },
+    {
+      "words": [
+        "tiempo estimado",
+        "terminan hoy",
+        "empiezan hoy"
+      ],
+      "opener": "What's the current timeline from here?"
+    },
+    {
+      "words": [
+        "siguen trabajando",
+        "trabajo detenido",
+        "revisan esto"
+      ],
+      "opener": "If there's a delay, I need to know whether you finish today or later."
+    },
+    {
+      "words": [
+        "inspección",
+        "ajuste",
+        "alternativa"
+      ],
+      "opener": "Has the work already started, or is part of it still paused?"
+    },
+    {
+      "words": [
+        "calidad",
+        "misma calidad",
+        "es diferente"
+      ],
+      "opener": "Can you check this section with me right now?"
+    },
+    {
+      "words": [
+        "mejor opción",
+        "es más caro",
+        "es más barato"
+      ],
+      "opener": "I want to understand whether this is an adjustment or a bigger change."
+    },
+    {
+      "words": [
+        "costo adicional",
+        "no estaba incluido",
+        "fuera del presupuesto"
+      ],
+      "opener": "Is this the same quality we discussed originally?"
+    },
+    {
+      "words": [
+        "¿cuánto cuesta?",
+        "¿cuánto tarda?",
+        "¿cuándo terminan?"
+      ],
+      "opener": "If there's a better option, explain the tradeoff to me."
+    },
+    {
+      "words": [
+        "¿cuándo empiezan?",
+        "¿por qué hay retraso?",
+        "¿qué pasó?"
+      ],
+      "opener": "If it costs more, I need to know why."
+    },
+    {
+      "words": [
+        "¿puede explicar?",
+        "no entiendo",
+        "necesito más detalle"
+      ],
+      "opener": "Was that additional cost included in the original budget or not?"
+    },
+    {
+      "words": [
+        "quiero ver el plano",
+        "me envía el plano",
+        "está en proceso"
+      ],
+      "opener": "Please explain exactly what happened here."
+    },
+    {
+      "words": [
+        "ya empezaron",
+        "ya terminaron",
+        "falta trabajo"
+      ],
+      "opener": "I need more detail before I approve anything else."
+    },
+    {
+      "words": [
+        "está incompleto",
+        "está mal hecho",
+        "está bien hecho"
+      ],
+      "opener": "Can you show me the plan and send me a copy afterward?"
+    },
+    {
+      "words": [
+        "corrigen esto",
+        "reparan esto",
+        "rehacen esto"
+      ],
+      "opener": "Is this part finished, or is more work still missing?"
+    },
+    {
+      "words": [
+        "ajustan el nivel",
+        "superficie",
+        "tabique"
+      ],
+      "opener": "I'm looking at this area now -- is this considered complete?"
+    },
+    {
+      "words": [
+        "piso",
+        "techo",
+        "pintura"
+      ],
+      "opener": "This doesn't look right to me. How are you going to fix it?"
+    },
+    {
+      "words": [
+        "hay manchas",
+        "acabado",
+        "está nivelado"
+      ],
+      "opener": "If something needs to be redone, I want that clear now."
+    },
+    {
+      "words": [
+        "está desnivelado",
+        "hay una grieta",
+        "humedad"
+      ],
+      "opener": "Let's look at the wall, floor, and ceiling together."
+    },
+    {
+      "words": [
+        "hay una fuga",
+        "cañería",
+        "instalación"
+      ],
+      "opener": "Why are there marks in the finish here?"
+    },
+    {
+      "words": [
+        "sistema eléctrico",
+        "cable",
+        "enchufe"
+      ],
+      "opener": "Is this surface actually level?"
+    },
+    {
+      "words": [
+        "válvula",
+        "agua",
+        "llave de agua"
+      ],
+      "opener": "I see a crack and I want to know what caused it."
+    },
+    {
+      "words": [
+        "abren la pared",
+        "cierran la pared",
+        "hay daño"
+      ],
+      "opener": "There's moisture here -- where is it coming from?"
+    },
+    {
+      "words": [
+        "evitan el daño",
+        "es urgente",
+        "puede empeorar"
+      ],
+      "opener": "If there's a leak inside the wall, what has to happen next?"
+    },
+    {
+      "words": [
+        "apruebo el cambio",
+        "no autorizo ese cambio",
+        "sin autorización"
+      ],
+      "opener": "Do you need to open the wall, or can you solve it another way?"
+    },
+    {
+      "words": [
+        "avisan antes",
+        "falta comunicación",
+        "nadie vino"
+      ],
+      "opener": "I want to avoid any extra damage if possible."
+    },
+    {
+      "words": [
+        "no llegaron",
+        "vienen mañana",
+        "vienen hoy"
+      ],
+      "opener": "If this is urgent, tell me clearly how serious it is."
+    },
+    {
+      "words": [
+        "en la mañana",
+        "en la tarde",
+        "llegan tarde"
+      ],
+      "opener": "Do not make any change unless I approve it first."
+    },
+    {
+      "words": [
+        "cumplen el plazo",
+        "plazo",
+        "entrega"
+      ],
+      "opener": "I need better communication before anything else happens on this job."
+    },
+    {
+      "words": [
+        "entrega final",
+        "inspección final",
+        "garantía"
+      ],
+      "opener": "No one came when expected -- what's the reason?"
+    },
+    {
+      "words": [
+        "incluye garantía",
+        "sin garantía",
+        "equipo eléctrico"
+      ],
+      "opener": "So are people coming today or tomorrow?"
+    },
+    {
+      "words": [
+        "maquinaria",
+        "cortan el material",
+        "instalan esto"
+      ],
+      "opener": "If they come, what time should I expect them?"
+    },
+    {
+      "words": [
+        "miden esto",
+        "nivelan esto",
+        "fijan esto"
+      ],
+      "opener": "Please do not arrive late without telling me first."
+    },
+    {
+      "words": [
+        "desmontan esto",
+        "montan esto",
+        "limpian el área"
+      ],
+      "opener": "Will you still meet the deadline we discussed?"
+    },
+    {
+      "words": [
+        "retiran los escombros",
+        "escombros",
+        "limpieza final"
+      ],
+      "opener": "What happens between delivery, final inspection, and final handoff?"
+    },
+    {
+      "words": [
+        "área",
+        "superficie",
+        "acceso"
+      ],
+      "opener": "Does this work come with a warranty?"
+    },
+    {
+      "words": [
+        "entrada",
+        "salida",
+        "permiso de obra"
+      ],
+      "opener": "Before you continue, show me what tools or equipment you'll be using."
+    },
+    {
+      "words": [
+        "vibración",
+        "escombros",
+        "seguridad"
+      ],
+      "opener": "Walk me through what you're installing in this area."
+    },
+    {
+      "words": [
+        "seguridad",
+        "protección",
+        "equipo de seguridad"
+      ],
+      "opener": "Will you clean the site and remove the debris when you're done?"
+    },
+    {
+      "words": [
+        "casco",
+        "guantes",
+        "gafas de seguridad"
+      ],
+      "opener": "I also need to know about access, dust, and noise for the neighbors."
+    },
+    {
+      "words": [
+        "azulejo",
+        "baldosa",
+        "madera"
+      ],
+      "opener": "What safety measures are in place while this work is happening?"
+    },
+    {
+      "words": [
+        "mortero",
+        "yeso",
+        "sellador"
+      ],
+      "opener": "If you change materials, I need to know whether you're using tile, wood, or something else."
+    },
+    {
+      "words": [
+        "impermeabilización",
+        "permiso",
+        "inspector"
+      ],
+      "opener": "Do we need a permit or an inspector involved for this part?"
+    }
+  ],
+  "Mechanic": [
+    {
+      "words": [
+        "automóvil",
+        "vehículo",
+        "motorista"
+      ],
+      "opener": "Hi -- tell me what the car is doing."
+    },
+    {
+      "words": [
+        "batería",
+        "frenos",
+        "cambio de aceite"
+      ],
+      "opener": "When did you first notice the problem?"
+    },
+    {
+      "words": [
+        "filtro",
+        "transmisión",
+        "suspensión"
+      ],
+      "opener": "Does it happen when you start the car, while driving, or both?"
+    },
+    {
+      "words": [
+        "faro",
+        "amortiguador",
+        "radiador"
+      ],
+      "opener": "Is the issue more about the engine, the battery, or the brakes?"
+    },
+    {
+      "words": [
+        "bujía",
+        "correa",
+        "alternador"
+      ],
+      "opener": "Have you noticed any unusual noise, vibration, or leaking?"
+    },
+    {
+      "words": [
+        "falla",
+        "golpeteo",
+        "vibración"
+      ],
+      "opener": "Does it fail to start completely, or does it start and then shut off?"
+    },
+    {
+      "words": [
+        "fuga",
+        "no arranca",
+        "no enciende"
+      ],
+      "opener": "Any smell, overheating, or loss of power?"
+    },
+    {
+      "words": [
+        "se apaga",
+        "huele raro",
+        "se sobrecalienta"
+      ],
+      "opener": "If it's using oil or losing fluid, I need to know that too."
+    },
+    {
+      "words": [
+        "tiene poca potencia",
+        "consume aceite",
+        "pierde líquido"
+      ],
+      "opener": "How do the brakes feel when you press them?"
+    },
+    {
+      "words": [
+        "frenos débiles",
+        "pedal suave",
+        "revisan el carro"
+      ],
+      "opener": "I'll inspect the car and see what turns up."
+    },
+    {
+      "words": [
+        "inspección",
+        "evaluación",
+        "reparan"
+      ],
+      "opener": "If needed, I can start with a diagnosis before any repair."
+    },
+    {
+      "words": [
+        "lo arreglan",
+        "cambian la pieza",
+        "ajustan"
+      ],
+      "opener": "After I check it, I'll tell you what repair I recommend."
+    },
+    {
+      "words": [
+        "instalan",
+        "limpian",
+        "lo prueban"
+      ],
+      "opener": "Would you like me to look specifically at the engine or the brakes first?"
+    },
+    {
+      "words": [
+        "revisan el motor",
+        "cambio de aceite",
+        "cambian el filtro"
+      ],
+      "opener": "Do you want a basic inspection, or a more complete diagnosis?"
+    },
+    {
+      "words": [
+        "revisan los frenos",
+        "alinean las llantas",
+        "¿qué problema tiene?"
+      ],
+      "opener": "I can give you the estimated price before I begin any work."
+    },
+    {
+      "words": [
+        "¿qué pasa?",
+        "¿desde cuándo?",
+        "¿cuándo empezó?"
+      ],
+      "opener": "The total depends on labor, parts, and whether anything extra shows up."
+    },
+    {
+      "words": [
+        "¿hace ruido?",
+        "¿cuánto cuesta?",
+        "¿cuánto tarda?"
+      ],
+      "opener": "I can write up a quote so you can decide first."
+    },
+    {
+      "words": [
+        "¿es grave?",
+        "¿puede empeorar?",
+        "¿puede revisarlo?"
+      ],
+      "opener": "How would you want to pay if we go ahead with the repair?"
+    },
+    {
+      "words": [
+        "tarifa",
+        "costo",
+        "importe"
+      ],
+      "opener": "I'll let you know if any part looks worn or damaged."
+    },
+    {
+      "words": [
+        "estimado",
+        "mano de obra",
+        "piezas"
+      ],
+      "opener": "If something is loose, broken, or unsafe, I'll point it out."
+    },
+    {
+      "words": [
+        "adicional",
+        "incluye",
+        "no incluye"
+      ],
+      "opener": "Some repairs are urgent and some can wait -- I'll separate them for you."
+    },
+    {
+      "words": [
+        "presupuesto",
+        "pago",
+        "en efectivo"
+      ],
+      "opener": "This may involve the brake system or the electrical system."
+    },
+    {
+      "words": [
+        "con tarjeta",
+        "garantía",
+        "recibo"
+      ],
+      "opener": "I'll check the fluid levels while it's here."
+    },
+    {
+      "words": [
+        "desgastado",
+        "dañado",
+        "roto"
+      ],
+      "opener": "Has the check-engine light been on?"
+    },
+    {
+      "words": [
+        "sucio",
+        "flojo",
+        "apretado"
+      ],
+      "opener": "If there are codes stored, I'll scan them."
+    },
+    {
+      "words": [
+        "en buen estado",
+        "en mal estado",
+        "urgente"
+      ],
+      "opener": "Will you be leaving the car with us today?"
+    },
+    {
+      "words": [
+        "peligroso",
+        "sistema de frenos",
+        "sistema eléctrico"
+      ],
+      "opener": "If we finish, do you want to pick it up later today or tomorrow?"
+    },
+    {
+      "words": [
+        "presión",
+        "medidor",
+        "nivel de aceite"
+      ],
+      "opener": "I can give you a rough time estimate once I inspect it."
+    },
+    {
+      "words": [
+        "nivel bajo",
+        "nivel alto",
+        "luz de motor"
+      ],
+      "opener": "If the repair comes out too expensive, I can tell you the priority items first."
+    },
+    {
+      "words": [
+        "código de error",
+        "dejo el carro",
+        "recojo el carro"
+      ],
+      "opener": "If you'd rather do only the most necessary repair, that's fine."
+    },
+    {
+      "words": [
+        "listo",
+        "todavía no",
+        "en proceso"
+      ],
+      "opener": "I won't do extra work without your approval."
+    },
+    {
+      "words": [
+        "espero",
+        "más tarde",
+        "hoy"
+      ],
+      "opener": "If anything new appears, I'll explain it before moving forward."
+    },
+    {
+      "words": [
+        "pieza de repuesto",
+        "tiempo estimado",
+        "muy caro"
+      ],
+      "opener": "Are you noticing this with the brake fluid, oil, or coolant?"
+    },
+    {
+      "words": [
+        "más barato",
+        "solo eso",
+        "no lo necesito"
+      ],
+      "opener": "What kind of fuel does the vehicle take?"
+    },
+    {
+      "words": [
+        "prefiero eso primero",
+        "después vemos",
+        "no autorizo ese trabajo"
+      ],
+      "opener": "Does it happen while braking, accelerating, or just cruising?"
+    },
+    {
+      "words": [
+        "sin autorización",
+        "quiero más detalle",
+        "líquido de frenos"
+      ],
+      "opener": "Is it worse when the car is cold or hot?"
+    },
+    {
+      "words": [
+        "aceite de motor",
+        "refrigerante",
+        "líquido"
+      ],
+      "opener": "Do you feel it more at low speed or high speed?"
+    },
+    {
+      "words": [
+        "combustible",
+        "etanol",
+        "diésel"
+      ],
+      "opener": "Does it happen in turns, uphill, or downhill?"
+    },
+    {
+      "words": [
+        "tanque",
+        "bomba de aire",
+        "válvula"
+      ],
+      "opener": "I'm the mechanic looking at it today, and I'll keep you updated."
+    },
+    {
+      "words": [
+        "al frenar",
+        "al arrancar",
+        "en movimiento"
+      ],
+      "opener": "If a part is under warranty, I'll let you know."
+    },
+    {
+      "words": [
+        "en frío",
+        "en caliente",
+        "a alta velocidad"
+      ],
+      "opener": "Are you here for a repair, routine service, or maintenance?"
+    },
+    {
+      "words": [
+        "a baja velocidad",
+        "en curva",
+        "en subida"
+      ],
+      "opener": "If you have service history, that can help me narrow it down."
+    },
+    {
+      "words": [
+        "en bajada",
+        "mecánica",
+        "garaje"
+      ],
+      "opener": "If you want, I can do a full diagnosis instead of guessing."
+    },
+    {
+      "words": [
+        "herramienta manual",
+        "elevador",
+        "garantía"
+      ],
+      "opener": "If my explanation isn't clear, stop me and I'll say it another way."
+    },
+    {
+      "words": [
+        "servicio técnico",
+        "revisión general",
+        "mantenimiento"
+      ],
+      "opener": "Do you want me to show you the worn brake parts if that's the issue?"
+    },
+    {
+      "words": [
+        "historial",
+        "diagnóstico completo",
+        "no entiendo"
+      ],
+      "opener": "I may also need to check the steering, alignment, or suspension."
+    },
+    {
+      "words": [
+        "¿puede repetir?",
+        "más despacio",
+        "¿qué significa?"
+      ],
+      "opener": "If it's a manual, tell me whether the clutch feels different."
+    },
+    {
+      "words": [
+        "pastillas de freno",
+        "disco de freno",
+        "amortiguador"
+      ],
+      "opener": "If there's noise from underneath, I may inspect the exhaust too."
+    },
+    {
+      "words": [
+        "dirección",
+        "alineación",
+        "balanceo"
+      ],
+      "opener": "I'll check the air filter while I'm in there."
+    },
+    {
+      "words": [
+        "embrague",
+        "escape",
+        "filtro de aire"
+      ],
+      "opener": "Let's start with the symptoms and go from there."
+    }
+  ],
+  "Police Traffic Stop": [
+    {
+      "words": [
+        "policía",
+        "agente",
+        "patrulla"
+      ],
+      "opener": "Good afternoon. Please keep your hands visible and roll down the window."
+    },
+    {
+      "words": [
+        "control policial",
+        "licencia de conducir",
+        "registro del vehículo"
+      ],
+      "opener": "I stopped you because I need to check something with the vehicle."
+    },
+    {
+      "words": [
+        "prueba de seguro",
+        "documentos",
+        "identificación"
+      ],
+      "opener": "May I see your driver's license, registration, and proof of insurance, please?"
+    },
+    {
+      "words": [
+        "¿licencia, por favor?",
+        "¿tiene el registro?",
+        "¿tiene seguro?"
+      ],
+      "opener": "If those documents are in the glove compartment, tell me before you reach for them."
+    },
+    {
+      "words": [
+        "¿puede mostrarlo?",
+        "aquí tiene",
+        "está en el vehículo"
+      ],
+      "opener": "Do you know why I pulled you over today?"
+    },
+    {
+      "words": [
+        "está en la guantera",
+        "lo detuve",
+        "parada"
+      ],
+      "opener": "Do you know what the speed limit is in this area?"
+    },
+    {
+      "words": [
+        "¿sabe por qué lo detuve?",
+        "exceso de velocidad",
+        "velocidad máxima"
+      ],
+      "opener": "I observed the vehicle moving above the limit."
+    },
+    {
+      "words": [
+        "límite de velocidad",
+        "zona",
+        "en esta zona"
+      ],
+      "opener": "This stop may also relate to the condition of the vehicle."
+    },
+    {
+      "words": [
+        "iba a",
+        "por encima de",
+        "infracción"
+      ],
+      "opener": "I need to speak with you about your lights and your plate."
+    },
+    {
+      "words": [
+        "motivo",
+        "vehículo",
+        "automóvil"
+      ],
+      "opener": "Were you wearing your seatbelt while driving?"
+    },
+    {
+      "words": [
+        "luces",
+        "luz trasera",
+        "luz delantera"
+      ],
+      "opener": "Please turn off the engine and remain in the vehicle for now."
+    },
+    {
+      "words": [
+        "no funciona",
+        "placa",
+        "luz trasera"
+      ],
+      "opener": "Move slowly and follow my instructions."
+    },
+    {
+      "words": [
+        "cinturón",
+        "sin cinturón",
+        "en regla"
+      ],
+      "opener": "I need to ask about your driving just before the stop."
+    },
+    {
+      "words": [
+        "apague el motor",
+        "baje la ventana",
+        "salga del vehículo"
+      ],
+      "opener": "Did you change lanes without signaling back there?"
+    },
+    {
+      "words": [
+        "quédese en el vehículo",
+        "espere aquí",
+        "despacio"
+      ],
+      "opener": "Tell me where you were coming from and where you're headed."
+    },
+    {
+      "words": [
+        "con calma",
+        "siga mis instrucciones",
+        "no se mueva"
+      ],
+      "opener": "How long have you been driving today?"
+    },
+    {
+      "words": [
+        "frenó fuerte",
+        "cambió de carril",
+        "sin señalizar"
+      ],
+      "opener": "Is this your vehicle, or are you driving a rental or borrowed car?"
+    },
+    {
+      "words": [
+        "conducción peligrosa",
+        "carril",
+        "carril restringido"
+      ],
+      "opener": "If it's a rental, do you have the rental agreement with you?"
+    },
+    {
+      "words": [
+        "giro",
+        "no señalizó",
+        "tráfico"
+      ],
+      "opener": "Have you had anything to drink today?"
+    },
+    {
+      "words": [
+        "intersección",
+        "señal de tránsito",
+        "luz roja"
+      ],
+      "opener": "I need you to answer clearly so I know whether further testing is required."
+    },
+    {
+      "words": [
+        "luz verde",
+        "¿de dónde viene?",
+        "¿a dónde va?"
+      ],
+      "opener": "If necessary, I may ask you to do a breath test."
+    },
+    {
+      "words": [
+        "¿cuánto tiempo lleva manejando?",
+        "¿es su vehículo?",
+        "¿es un vehículo de alquiler?"
+      ],
+      "opener": "I'll be checking the registration and insurance in the system now."
+    },
+    {
+      "words": [
+        "¿tiene el contrato?",
+        "¿ha consumido alcohol?",
+        "¿ha tomado algo?"
+      ],
+      "opener": "If something doesn't appear in the database, I'll tell you in a moment."
+    },
+    {
+      "words": [
+        "¿entiende?",
+        "¿puede explicar?",
+        "alcohol"
+      ],
+      "opener": "Depending on what I find, this may be a warning or a citation."
+    },
+    {
+      "words": [
+        "análisis",
+        "prueba de alcohol",
+        "sople aquí"
+      ],
+      "opener": "If a ticket is issued, I'll explain the amount and the deadline."
+    },
+    {
+      "words": [
+        "resultado",
+        "negativo",
+        "positivo"
+      ],
+      "opener": "You would be able to handle payment online in most cases."
+    },
+    {
+      "words": [
+        "bajo la influencia",
+        "sobrio",
+        "verifican el sistema"
+      ],
+      "opener": "This happened on a public road within a marked zone."
+    },
+    {
+      "words": [
+        "registro activo",
+        "seguro activo",
+        "no aparece"
+      ],
+      "opener": "I need to know whether you saw the sign or signal back there."
+    },
+    {
+      "words": [
+        "pendiente",
+        "infracción",
+        "advertencia"
+      ],
+      "opener": "Was there a reason for the lane change or the hard braking?"
+    },
+    {
+      "words": [
+        "sanción",
+        "emiten la multa",
+        "dan una advertencia"
+      ],
+      "opener": "Do you have the physical document, or only a copy on your phone?"
+    },
+    {
+      "words": [
+        "paga la multa",
+        "en línea",
+        "plazo"
+      ],
+      "opener": "If it's on your phone, tell me before you pick it up."
+    },
+    {
+      "words": [
+        "monto",
+        "carretera",
+        "intersección"
+      ],
+      "opener": "If the document won't load, let me know right away."
+    },
+    {
+      "words": [
+        "zona urbana",
+        "zona escolar",
+        "zona residencial"
+      ],
+      "opener": "If a document is expired, that changes how I handle the stop."
+    },
+    {
+      "words": [
+        "cartel",
+        "señal de tránsito",
+        "dirección"
+      ],
+      "opener": "If something is not valid, I need to note that."
+    },
+    {
+      "words": [
+        "carril derecho",
+        "alquiler",
+        "licencia de conducir"
+      ],
+      "opener": "If you don't understand me, say so and I'll repeat it more slowly."
+    },
+    {
+      "words": [
+        "propietario",
+        "está a su nombre",
+        "no es mío"
+      ],
+      "opener": "Do you understand what I'm telling you so far?"
+    },
+    {
+      "words": [
+        "vehículo prestado",
+        "permiso del dueño",
+        "no lo encuentro"
+      ],
+      "opener": "At the end of the stop, I'll tell you whether this is a warning or a ticket."
+    },
+    {
+      "words": [
+        "no lo tengo",
+        "no carga",
+        "sin señal"
+      ],
+      "opener": "Do not leave until I tell you the stop is finished."
+    },
+    {
+      "words": [
+        "en el celular",
+        "copia digital",
+        "sin documento"
+      ],
+      "opener": "Please pull farther onto the shoulder and activate your hazard lights."
+    },
+    {
+      "words": [
+        "vencido",
+        "por vencer",
+        "no es válido"
+      ],
+      "opener": "If this becomes more serious, I may ask you to step out of the vehicle."
+    },
+    {
+      "words": [
+        "no entiendo",
+        "¿puede repetir?",
+        "más despacio"
+      ],
+      "opener": "If there has been an accident, I also need a statement."
+    },
+    {
+      "words": [
+        "¿qué significa?",
+        "¿es una multa?",
+        "¿es una advertencia?"
+      ],
+      "opener": "I may need names for any witnesses if there were any."
+    },
+    {
+      "words": [
+        "¿puedo irme?",
+        "¿puedo seguir?",
+        "inspección"
+      ],
+      "opener": "If paperwork is required, I will tell you where to sign."
+    },
+    {
+      "words": [
+        "oríllese",
+        "arcén",
+        "luces de emergencia"
+      ],
+      "opener": "If there is a court date, it will appear on the citation."
+    },
+    {
+      "words": [
+        "documento físico",
+        "permiso de conducir",
+        "matrícula"
+      ],
+      "opener": "Do you need a tow truck, or is the vehicle drivable?"
+    },
+    {
+      "words": [
+        "agente de tránsito",
+        "triángulo",
+        "chaleco reflectante"
+      ],
+      "opener": "Stay calm and listen carefully to each instruction."
+    },
+    {
+      "words": [
+        "accidente",
+        "colisión",
+        "reporte"
+      ],
+      "opener": "This is a routine traffic stop, so let's keep everything simple."
+    },
+    {
+      "words": [
+        "reporte policial",
+        "testimonio",
+        "declaración"
+      ],
+      "opener": "I'm going to ask a few direct questions and then we'll sort this out."
+    },
+    {
+      "words": [
+        "firme aquí",
+        "corte",
+        "fecha de corte"
+      ],
+      "opener": "For now, remain where you are."
+    },
+    {
+      "words": [
+        "comparecencia",
+        "multas",
+        "remolque"
+      ],
+      "opener": "Let's start with your license, please."
+    }
+  ]
+}

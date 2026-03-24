@@ -36,476 +36,528 @@ _SUB_SITUATIONS = {
             "goal": "Complete the airport check-in process with the airline agent",
             "word_prefix": "air",
             "words": [
-                # Encounter 1-5 (basic essentials)
-                ("abordaje", "boarding process", "abordatge"), ("vuelo", "flight", "vol"), ("boleto", "ticket", "bitllet"),
-                ("aterrizaje", "landing", "aterratge"), ("mostrador", "counter", "taulell"), ("agente", "agent", "agent"),
-                ("asiento", "seat", "seient"), ("aéreo", "aerial", "aeri"), ("terminal", "terminal", "terminal"),
-                ("maleta", "suitcase", "maleta"), ("embarque", "boarding", "embarcament"), ("salida", "departure", "sortida"),
-                ("llegada", "arrival", "arribada"), ("destino", "destination", "destí"), ("fila", "line/queue", "fila"),
-                # Encounter 6-10
-                ("ventanilla", "window seat", "finestra"), ("vuelo directo", "direct flight", "vol directe"), ("reserva", "reservation", "reserva"),
-                ("demora", "delay", "retard"), ("tráfico aéreo", "air traffic", "trànsit aeri"), ("zona", "zone", "zona"),
-                ("documento", "document", "document"), ("identificación", "identification", "identificació"), ("nacionalidad", "nationality", "nacionalitat"),
-                ("seguridad", "security", "seguretat"), ("azafata", "flight attendant", "azafata"), ("registro", "check-in", "registre"),
-                ("directo", "direct", "directe"), ("escala", "layover", "escala"), ("conexión", "connection", "connexió"),
-                # Encounter 11-15
-                ("pase de abordar", "boarding pass", "passe d\'embarcament"), ("imprimir", "to print", "imprimir"), ("escanear", "to scan", "escanear"),
-                ("disponible", "available", "disponible"), ("asignado", "assigned", "assignat"), ("seleccionar", "to select", "seleccionar"),
-                ("equipaje de mano", "carry-on", "equipatge de mà"), ("hangar", "hangar", "hangar"), ("plataforma", "platform", "plataforma"),
-                ("sobrepeso", "overweight", "sobrepès"), ("límite", "limit", "límit"), ("restricción", "restriction", "restricció"),
-                ("facturar", "to check in luggage", "facturar"), ("despacho", "dispatch", "despatx"), ("tarifa", "fare", "tarifa"),
-                # Encounter 16-20
-                ("aerolínea", "airline", "aerolínia"), ("pasajero", "passenger", "passatger"), ("tripulación", "crew", "tripulació"),
-                ("primera clase", "first class", "primera classe"), ("económica", "economy", "econòmica"), ("preferente", "preferred", "preferent"),
-                ("ida", "one-way", "anada"), ("vuelta", "return", "tornada"), ("redondo", "round-trip", "rodó"),
-                ("cinturón", "seatbelt", "cinturó"), ("abrocharse", "to fasten", "abrochar-se"), ("documentación", "documentation", "documentació"),
-                ("cabina", "cabin", "cabina"), ("compartimento", "compartment", "compartiment"), ("superior", "overhead", "superior"),
-                # Encounter 21-25
-                ("aterrizar", "to land", "aterrar"), ("despegar", "to take off", "despegar"), ("pista", "runway", "pista"),
-                ("auxiliar", "flight attendant", "auxiliar"), ("portaequipaje", "luggage rack", "portaequipatges"), ("asistencia", "assistance", "assistència"),
-                ("sobrevolado", "overflown", "sobrevolat"), ("declarar", "to declare", "declarar"), ("inmigración", "immigration", "immigració"),
-                ("transatlántico", "transatlantic", "transatlàntic"), ("llenar", "to fill out", "omplir"), ("firmar", "to sign", "signar"),
-                ("recoger", "to pick up", "recollir"), ("reclamo", "claim", "reclam"), ("transcontinental", "transcontinental", "transcontinental"),
-                # Encounter 26-30
-                ("cancelación", "cancellation", "cancel·lació"), ("compensación", "compensation", "compensació"), ("reembolso", "refund", "reemborsament"),
-                ("emergencia", "emergency", "emergència"), ("chaleco", "vest", "jaqueta"), ("oxígeno", "oxygen", "oxigen"),
-                ("prohibido", "prohibited", "prohibit"), ("líquido", "liquid", "líquid"), ("gel", "gel", "gel"),
-                ("inspección", "inspection", "inspecció"), ("detector", "detector", "detector"), ("rayos", "x-rays", "raigs"),
-                ("electrónico", "electronic", "electrònic"), ("dispositivo", "device", "dispositiu"), ("apagar", "to turn off", "apagar"),
-                # Encounter 31-35
-                ("abordar", "to board", "embarcar"), ("llamada", "call/announcement", "crida"), ("final", "final", "final"),
-                ("retraso", "delay", "retard"), ("itinerario", "itinerary", "itinerari"), ("cambiar", "to change", "canviar"),
-                ("vacuna", "vaccine", "vacuna"), ("certificado", "certificate", "certificat"), ("salud", "health", "salut"),
-                ("horario", "schedule", "horari"), ("puntual", "on time", "puntual"), ("bienvenida a bordo", "welcome aboard", "benvinguda a bord"),
-                ("clase ejecutiva", "business class", "classe executiva"), ("reclinable", "reclining", "reclinable"), ("despegue", "takeoff", "despegue"),
-                # Encounter 36-40
-                ("frágil", "fragile", "fràgil"), ("especial", "special", "especial"), ("delicado", "delicate", "delicat"),
-                ("transbordo", "transfer", "transbord"), ("mapa", "map", "mapa"), ("aduanal", "customs-related", "aduanal"),
-                ("sala de espera", "waiting room", "sala d\'espera"), ("anuncio", "announcement", "anunci"), ("altavoz", "loudspeaker", "altaveu"),
-                ("fumigación", "fumigation", "fumigació"), ("efectivo", "cash", "efectiu"), ("escáner corporal", "body scanner", "escàner corporal"),
-                ("piloto", "pilot", "pilot"), ("copiloto", "co-pilot", "copilot"), ("banda transportadora", "conveyor belt", "banda transportadora"),
-                # Encounter 41-45
-                ("turbulencia", "turbulence", "turbulència"), ("altitud", "altitude", "altitud"), ("presión", "pressure", "pressió"),
-                ("máscara", "mask", "màscara"), ("instrucciones", "instructions", "instruccions"), ("recogida", "pickup/collection", "recollida"),
-                ("regulación", "regulation", "regulació"), ("norma", "rule", "norma"), ("vigente", "in effect", "vigent"),
-                ("tránsito", "transit", "trànsit"), ("lounge", "lounge", "lounge"), ("acceso", "access", "accés"),
-                ("equipaje perdido", "lost luggage", "equipatge perdut"), ("reporte", "report", "reporte"), ("oficina", "office", "oficina"),
-                # Encounter 46-50
-                ("sobrecargo", "surcharge", "sobrecàrrec"), ("cargo", "charge", "càrrec"), ("adicional", "additional", "addicional"),
-                ("pasarela", "jet bridge", "passarel·la"), ("andén", "boarding platform", "andana"), ("entrada", "entry", "entrada"),
-                ("zona franca", "duty-free zone", "zona franca"), ("altoparlante", "speaker/PA", "altaveu"), ("taquilla", "ticket counter", "taquilla"),
-                ("válido", "valid", "vàlid"), ("vencimiento", "expiration", "venciment"), ("vigencia", "validity", "vigència"),
-                ("buen viaje", "have a good trip", "bon viatge"), ("destino final", "final destination", "destí final"), ("llegada segura", "safe arrival", "arribada segura"),
+                ("billete", "ticket", ""), ("reserva", "reservation", ""), ("confirmación", "confirmation", ""),  # Encounter 1
+                ("número de reserva", "reservation number", ""), ("pasajero", "passenger", ""), ("apellido", "last name", ""),  # Encounter 2
+                ("documento", "document", ""), ("identificación", "identification", ""), ("permiso de entrada", "entry permit", ""),  # Encounter 3
+                ("permiso", "permission", ""), ("documentos de viaje", "travel documents", ""), ("fecha de vencimiento", "expiration date", ""),  # Encounter 4
+                ("a nombre de", "in the name of", ""), ("¿tiene reserva?", "Do you have a reservation?", ""), ("¿me muestra el pasaporte?", "Show passport?", ""),  # Encounter 5
+                ("¿a qué nombre?", "under what name?", ""), ("vuelo", "flight", ""), ("número de vuelo", "flight number", ""),  # Encounter 6
+                ("destino", "destination", ""), ("destino final", "final destination", ""), ("origen", "origin", ""),  # Encounter 7
+                ("conexión", "connection", ""), ("vuelo de conexión", "connecting flight", ""), ("vuelo directo", "direct flight", ""),  # Encounter 8
+                ("vuelo lleno", "full flight", ""), ("vuelo anterior", "previous flight", ""), ("vuelo siguiente", "next flight", ""),  # Encounter 9
+                ("¿va directo a…?", "Are you going directly to...?", ""), ("¿hasta dónde va?", "How far going?", ""), ("¿sale hoy?", "Does it leave today?", ""),  # Encounter 10
+                ("¿sale mañana?", "Does it leave tomorrow?", ""), ("salida", "exit", ""), ("llegada", "arrival", ""),  # Encounter 11
+                ("embarque", "boarding", ""), ("hora de embarque", "boarding time", ""), ("hora de salida", "departure time", ""),  # Encounter 12
+                ("entrada", "entrance", ""), ("número de puerta", "gate number", ""), ("puerta de embarque", "boarding gate", ""),  # Encounter 13
+                ("zona de embarque", "boarding area", ""), ("preembarque", "pre-boarding", ""), ("prioridad", "priority", ""),  # Encounter 14
+                ("a tiempo", "on time", ""), ("retraso", "delay", ""), ("demora", "delay", ""),  # Encounter 15
+                ("cambio de puerta", "door change", ""), ("¿cuál es la puerta?", "which gate?", ""), ("aparece en las pantallas", "appears on screens", ""),  # Encounter 16
+                ("aparece en la app", "appears in app", ""), ("no está asignada", "not assigned", ""), ("asiento", "seat", ""),  # Encounter 17
+                ("número de asiento", "seat number", ""), ("fila", "line", ""), ("puerta de embarque", "boarding gate", ""),  # Encounter 18
+                ("pasillo del avión", "airplane aisle", ""), ("asiento del medio", "middle seat", ""), ("asiento de ventana", "window seat", ""),  # Encounter 19
+                ("asiento de pasillo", "aisle seat", ""), ("salida de emergencia", "emergency exit", ""), ("juntos", "together", ""),  # Encounter 20
+                ("separados", "separated", ""), ("¿prefiere ventana o pasillo?", "Window or aisle?", ""), ("¿hay asientos juntos?", "Seats together?", ""),  # Encounter 21
+                ("¿hay otro asiento?", "Another seat?", ""), ("cambio de asiento", "seat change", ""), ("asignado", "assigned", ""),  # Encounter 22
+                ("valijas", "suitcases", ""), ("maleta", "suitcase", ""), ("equipaje de mano", "carry-on luggage", ""),  # Encounter 23
+                ("equipaje facturado", "checked luggage", ""), ("maleta de cabina", "carry-on", ""), ("artículo personal", "personal item", ""),  # Encounter 24
+                ("primera maleta", "first suitcase", ""), ("segunda maleta", "second suitcase", ""), ("tarifa aérea", "air fare", ""),  # Encounter 25
+                ("recibo de equipaje", "baggage receipt", ""), ("cinta transportadora", "conveyor belt", ""), ("recogida de equipaje", "baggage pickup", ""),  # Encounter 26
+                ("¿va a facturar equipaje?", "Are you checking luggage?", ""), ("¿lleva equipaje?", "Carry luggage?", ""), ("balanza", "scale", ""),  # Encounter 27
+                ("tarifa", "rate", ""), ("límite", "limit", ""), ("exceso", "excess", ""),  # Encounter 28
+                ("sobrepeso", "overweight", ""), ("medidas", "measurements", ""), ("medidas permitidas", "allowed measurements", ""),  # Encounter 29
+                ("está demasiado pesado", "too heavy", ""), ("está demasiado grande", "too big", ""), ("póngalo en la balanza", "put on scale", ""),  # Encounter 30
+                ("¿cuál es el límite?", "what is the limit?", ""), ("¿cuánto cuesta?", "how much does it cost?", ""), ("facturo el equipaje", "I check luggage", ""),  # Encounter 31
+                ("etiquetan el equipaje", "tag luggage", ""), ("abre la maleta", "opens the suitcase", ""), ("saca los objetos", "take out objects", ""),  # Encounter 32
+                ("pasa algunas cosas a la mochila", "put some things in backpack", ""), ("lo lleva con usted", "take with you", ""), ("no puede ir en la maleta", "can't go in suitcase", ""),  # Encounter 33
+                ("¿puede facturarlo?", "Can check in?", ""), ("¿puede llevarlo con usted?", "Can carry with you?", ""), ("líquidos", "liquids", ""),  # Encounter 34
+                ("batería portátil", "portable battery", ""), ("cargador", "charger", ""), ("tableta", "tablet", ""),  # Encounter 35
+                ("objetos de valor", "valuables", ""), ("medicinas", "medicines", ""), ("¿lleva líquidos?", "Carry liquids?", ""),  # Encounter 36
+                ("¿lleva baterías?", "Carry batteries?", ""), ("no está permitido", "not allowed", ""), ("está permitido", "allowed", ""),  # Encounter 37
+                ("control de seguridad", "security checkpoint", ""), ("revisión", "inspection", ""), ("revisión adicional", "additional inspection", ""),  # Encounter 38
+                ("selección aleatoria", "random selection", ""), ("inspección", "inspection", ""), ("seguridad", "security", ""),  # Encounter 39
+                ("terminal", "terminal", ""), ("aeropuerto", "airport", ""), ("aerolínea", "airline", ""),  # Encounter 40
+                ("mostrador", "counter", ""), ("equipo electrónico", "electronic equipment", ""), ("no funciona", "does not work", ""),  # Encounter 41
+                ("exceso de equipaje", "excess baggage", ""), ("paga el exceso", "pays excess", ""), ("con tarjeta", "by card", ""),  # Encounter 42
+                ("en efectivo", "in cash", ""), ("sin costo", "free", ""), ("tarifa", "rate", ""),  # Encounter 43
+                ("tarifa", "rate", ""), ("embarque", "boarding", ""), ("pasajero", "passenger", ""),  # Encounter 44
+                ("pasajeros", "passengers", ""), ("niño", "boy", ""), ("niña", "girl", ""),  # Encounter 45
+                ("coche de bebé", "baby stroller", ""), ("hasta la puerta", "to the door", ""), ("tarjeta de embarque", "boarding pass", ""),  # Encounter 46
+                ("imprimen la tarjeta de embarque", "print boarding pass", ""), ("equipaje de mano", "carry-on luggage", ""), ("control de seguridad", "security checkpoint", ""),  # Encounter 47
+                ("confirmación por correo", "email confirmation", ""), ("hay espacio", "there is space", ""), ("no hay espacio", "no space", ""),  # Encounter 48
+                ("conexión corta", "short connection", ""), ("conexión larga", "long connection", ""), ("control de pasaportes", "passport control", ""),  # Encounter 49
+                ("migración", "migration", ""), ("control migratorio", "immigration control", ""), ("formulario de aduana", "customs form", ""),  # Encounter 50
             ],
         },
     ],
     "banking": [
         {
-            "title": "Opening a Bank Account",
-            "goal": "Open a bank account by providing your information to the teller",
-            "word_prefix": "bank_open",
+            "title": "Banking",
+            "goal": "Handle banking tasks including accounts, transfers, cards, and loans",
+            "word_prefix": "bank",
             "words": [
-                # Encounter 1-5 (basic essentials)
-                ("apertura", "opening", "obertura"), ("banco", "bank", "banc"), ("abrir", "to open", "obrir"),
-                ("depósito inicial", "initial deposit", "dipòsit inicial"), ("depositar", "to deposit", "dipositar"), ("saldo", "balance", "saldo"),
-                ("fondos", "funds", "fons"), ("boleta", "deposit slip", "boleta"), ("giro", "money order", "giro"),
-                ("tarjeta", "card", "targeta"), ("débito", "debit", "dèbit"), ("crédito", "credit", "crèdit"),
-                ("operación", "transaction", "operació"), ("corriente", "checking", "corrent"), ("fiador", "guarantor", "fiador"),
-                # Encounter 6-10
-                ("cajero", "teller", "caixer"), ("aval", "endorser/guarantor", "aval"), ("turno", "turn/number", "torn"),
-                ("garante", "guarantor", "garant"), ("cuentahabiente", "account holder", "correntista"), ("datos", "data/details", "dades"),
-                ("módulo", "service module", "mòdul"), ("dirección", "address", "adreça"), ("teléfono", "phone number", "telèfon"),
-                ("requisito", "requirement", "requisit"), ("comprobante", "proof/receipt", "comprovant"), ("domicilio", "address/residence", "domicili"),
-                ("clave", "PIN/password", "clau"), ("contraseña", "password", "contrasenya"), ("fila de espera", "waiting line", "fila d\'espera"),
-                # Encounter 11-15
-                ("papelería", "paperwork", "papereria"), ("cédula", "ID card", "cèdula"), ("acreditación", "accreditation", "acreditació"),
-                ("huella digital", "fingerprint", "empremta digital"), ("tasa", "rate", "taxa"), ("porcentaje", "percentage", "percentatge"),
-                ("plazo", "term/period", "termini"), ("fijo", "fixed", "fix"), ("variable", "variable", "variable"),
-                ("comisión", "commission/fee", "comissió"), ("cobrar", "to charge", "cobrar"), ("mensual", "monthly", "mensual"),
-                ("estado de cuenta", "account statement", "estat de compte"), ("biométrico", "biometric", "biomètric"), ("consultar", "to check", "consultar"),
-                # Encounter 16-20
-                ("transferencia", "transfer", "transferència"), ("enviar", "to send", "enviar"), ("código postal", "zip code", "codi postal"),
-                ("beneficiario", "beneficiary", "beneficiari"), ("autorizar", "to authorize", "autoritzar"), ("RFC", "tax ID", "RFC"),
-                ("retiro", "withdrawal", "retir"), ("retirar", "to withdraw", "retirar"), ("CURP", "national ID number", "CURP"),
-                ("cheque", "check", "xec"), ("chequera", "checkbook", "xec"), ("endosar", "to endorse", "endossar"),
-                ("banca en línea", "online banking", "banca en línia"), ("aplicación", "app", "aplicació"), ("mancomunado", "joint", "mancomunat"),
-                # Encounter 21-25
-                ("préstamo", "loan", "préstec"), ("solicitar", "to request", "sol·licitar"), ("aprobar", "to approve", "aprovar"),
-                ("pago", "payment", "pagament"), ("cuota", "installment", "quota"), ("individual", "individual", "individual"),
-                ("cancelar", "to cancel", "cancel·lar"), ("cerrar", "to close", "tancar"), ("motivo", "reason", "motiu"),
-                ("extracto", "statement", "extracte"), ("historial", "history", "historial"), ("persona física", "individual person", "persona física"),
-                ("número de cuenta", "account number", "número de compte"), ("titular", "account holder", "titular"), ("cotitular", "co-holder", "cotitular"),
-                # Encounter 26-30
-                ("dígito", "digit", "dígits"), ("cláusula", "clause", "clàusula"), ("NIP", "PIN number", "NIP"),
-                ("cliente", "client", "client"), ("cifrado", "encrypted", "xifrat"), ("existente", "existing", "existent"),
-                ("ventanilla de cajas", "teller window", "taquilla"), ("lobby", "lobby", "lobby"), ("extranjera", "foreign", "estrangera"),
-                ("ejecutivo", "executive/officer", "executiu"), ("protección", "protection", "protecció"), ("cobertura", "coverage", "cobertura"),
-                ("notificación", "notification", "notificació"), ("alerta", "alert", "alerta"), ("mensaje", "message", "missatge"),
-                # Encounter 31-35
-                ("sobregiro", "overdraft", "sobregir"), ("penalidad", "penalty", "penalització"), ("recargo", "surcharge", "recàrrec"),
-                ("asesoramiento", "advisory", "assessorament"), ("orientación", "guidance", "orientació"), ("rendimiento", "yield/return", "rendiment"),
-                ("fideicomiso", "trust", "fideïcomís"), ("patrimonio", "assets", "patrimoni"), ("herencia", "inheritance", "herència"),
-                ("poder notarial", "power of attorney", "poder notarial"), ("apoderado", "authorized agent", "apoderat"), ("representante", "representative", "representant"),
-                ("nómina", "payroll", "nòmina"), ("domiciliar", "to set up direct deposit", "domiciliar"), ("automático", "automatic", "automàtic"),
-                # Encounter 36-40
-                ("auditoría", "audit", "auditoria"), ("verificar", "to verify", "verificar"), ("cumplimiento", "compliance", "compliment"),
-                ("expedición", "issuance", "expedició"), ("plástico", "card/plastic", "plàstic"), ("renovar", "to renew", "renovar"),
-                ("sucursal principal", "main branch", "sucursal principal"), ("gerente", "manager", "gerent"), ("cita", "appointment", "cita"),
-                ("bóveda", "vault", "bóveda"), ("caja fuerte", "safe deposit box", "caja forta"), ("estado financiero", "financial statement", "estat financer"),
-                ("transacción", "transaction", "transacció"), ("retención", "withholding", "retenció"), ("declaración", "declaration", "declaració"),
-                # Encounter 41-45
-                ("cuenta conjunta", "joint account", "compte conjunt"), ("mancomunada", "joint/shared", "mancomunada"), ("separada", "separate", "separada"),
-                ("tarjeta adicional", "additional card", "targeta addicional"), ("operación bancaria", "banking operation", "operació bancària"), ("aumentar", "to increase", "augmentar"),
-                ("fraude", "fraud", "fraude"), ("bloquear", "to block", "bloquejar"), ("reportar", "to report", "reportar"),
-                ("token", "token", "token"), ("autenticación", "authentication", "autenticació"), ("verificación", "verification", "verificació"),
-                ("divisa", "foreign currency", "divisa"), ("póliza", "policy", "pòlissa"), ("cotización", "quote", "cotització"),
-                # Encounter 46-50
-                ("corresponsal", "correspondent bank", "corresponsal"), ("intermediario", "intermediary", "intermediari"), ("red", "network", "xarxa"),
-                ("respaldo", "backing/support", "respaldo"), ("normativa", "policy", "normativa"), ("activo", "asset", "actiu"),
-                ("cuentas por pagar", "accounts payable", "compte a pagar"), ("constancia", "proof/certificate", "constància"), ("rédito", "return/interest", "rèdit"),
-                ("asesor", "advisor", "assessor"), ("consultoría", "consulting", "consultoria"), ("planificación", "planning", "planificació"),
-                ("bienvenido", "welcome", "benvingut"), ("servicio al cliente", "customer service", "servei al client"), ("satisfacción", "satisfaction", "satisfacció"),
-            ],
-        },
-        {
-            "title": "Wire Transfer",
-            "goal": "Complete a wire transfer by giving the teller the recipient details",
-            "word_prefix": "bank_wire",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("giro bancario", "bank draft", "giro bancari"), ("remesa", "remittance", "remesa"), ("canalizar", "to channel", "canalitzar"),
-                ("depositante", "depositor", "dipositant"), ("receptor bancario", "bank receiver", "receptor bancari"), ("acreditado", "credited party", "acreditat"),
-                ("monto", "amount", "import"), ("cifra", "figure/amount", "xifra"), ("receptor", "receiving", "receptor"),
-                ("institución", "institution", "institució"), ("girado", "drawn on", "girador"), ("referencia", "reference", "referència"),
-                ("titular de cuenta", "account holder", "titular de compte"), ("dígitos", "digits", "dígits"), ("clave de rastreo", "tracking code", "clau de rastreig"),
-                # Encounter 6-10
-                ("validar", "to validate", "validar"), ("costo", "cost", "cost"), ("información bancaria", "bank info", "informació bancària"),
-                ("cotejar", "to compare/verify", "cotejar"), ("descontar", "to deduct", "descomptar"), ("doméstico", "domestic", "domèstic"),
-                ("foráneo", "foreign", "estranger"), ("inmediato", "immediate", "immediat"), ("nación", "nation", "nació"),
-                ("lapso", "timespan", "temps"), ("instantáneo", "instant", "instantani"), ("tardanza", "tardiness", "retard"),
-                ("constancia de pago", "payment receipt", "constància de pagament"), ("justificante", "voucher", "justificant"), ("suficiente", "sufficient", "suficient"),
-                # Encounter 11-15
-                ("código SWIFT", "SWIFT code", "codi SWIFT"), ("copiar", "to copy", "copiar"), ("interbancario", "interbank", "interbancari"),
-                ("bastante", "enough", "bastant"), ("dólar", "dollar", "dòlar"), ("clave bancaria", "bank code", "clau bancària"),
-                ("tipo de cambio", "exchange rate", "tipus de canvi"), ("conversión", "conversion", "conversió"), ("equivalente", "equivalent", "equivalent"),
-                ("llave interbancaria", "interbank key", "clau interbancària"), ("red bancaria", "bank network", "xarxa bancària"), ("divisa extranjera", "foreign currency", "divisa estrangera"),
-                ("billete verde", "greenback", "bitllet verd"), ("máximo", "maximum", "màxim"), ("moneda local", "local currency", "moneda local"),
-                # Encounter 16-20
-                ("programar", "to schedule", "programar"), ("fecha", "date", "data"), ("recurrente", "recurring", "recurrent"),
-                ("paridad cambiaria", "exchange parity", "paritat canviària"), ("modificar", "to modify", "modificar"), ("corregir", "to correct", "corregir"),
-                ("tasa de cambio", "exchange rate", "taxa de canvi"), ("equiparable", "comparable", "equiparable"), ("solicitud de envío", "send request", "sol·licitud d\'enviament"),
-                ("rellenar", "to fill in", "omplir"), ("rubricar", "to initial/sign", "rubricar"), ("tope", "cap", "topall"),
-                ("origen", "origin", "origen"), ("emisor", "sender/issuer", "emissor"), ("ordenante", "originator", "ordenant"),
-                # Encounter 21-25
-                ("acreditar", "to credit", "acreditar"), ("debitar", "to debit", "debitar"), ("procesar", "to process", "processar"),
-                ("cifra máxima", "maximum amount", "xifra màxima"), ("pendiente", "pending", "pendent"), ("completado", "completed", "completat"),
-                ("rastrear", "to track", "rastrejar"), ("seguimiento", "tracking", "seguiment"), ("código", "code", "codi"),
-                ("cotidiano", "daily/everyday", "quotidià"), ("plaza", "city/location", "plaça"), ("agendar", "to schedule", "agendar"),
-                ("urgente", "urgent", "urgent"), ("prioritario", "priority", "prioritari"), ("express", "express", "exprés"),
-                # Encounter 26-30
-                ("anular", "to void", "anular"), ("editar", "to edit", "editar"), ("enmendar", "to amend", "enmendar"),
-                ("aviso", "notice", "avís"), ("correo electrónico", "email", "correu electrònic"), ("texto", "text message", "text"),
-                ("error", "error", "error"), ("rechazar", "to reject", "rechazar"), ("clave secreta", "secret code", "clau secreta"),
-                ("procedencia", "origin/source", "procedència"), ("insuficiente", "insufficient", "insuficient"), ("cubrir", "to cover", "cubrir"),
-                ("lote", "batch", "lot"), ("múltiple", "multiple", "múltiple"), ("masivo", "bulk", "massiu"),
-                # Encounter 31-35
-                ("solicitante", "applicant", "sol·licitant"), ("abonar", "to credit", "abonar"), ("ruta", "route", "ruta"),
-                ("demora bancaria", "bank delay", "demora bancària"), ("hábil", "business (day)", "hàbil"), ("calendario", "calendar", "calendari"),
-                ("reversar", "to reverse", "reversar"), ("devolución", "return/refund", "devolució"), ("original", "original", "original"),
-                ("duplicado", "duplicate", "duplicat"), ("detectar", "to detect", "detectar"), ("prevenir", "to prevent", "prevenir"),
-                ("IBAN", "IBAN", "IBAN"), ("cuenta CLABE", "CLABE account", "compte CLABE"), ("formato", "format", "format"),
-                # Encounter 36-40
-                ("beneficiario final", "ultimate beneficiary", "beneficiari final"), ("cargar", "to charge", "carregar"), ("concepto", "concept/description", "concepte"),
-                ("tramitar", "to process", "tramitar"), ("en espera", "on hold", "en espera"), ("proveedor", "supplier", "proveïdor"),
-                ("finalizado", "finalized", "finalitzat"), ("empleado", "employee", "empleat"), ("salario", "salary", "salari"),
-                ("alquiler", "rent", "lloguer"), ("hipoteca", "mortgage", "hipoteca"), ("mensualidad", "monthly payment", "mensualitat"),
-                ("localizar", "to locate", "localitzar"), ("monitorear", "to monitor", "monitorejar"), ("portafolio", "portfolio", "cartera"),
-                # Encounter 41-45
-                ("lavado de dinero", "money laundering", "blanqueig de diners"), ("prevención", "prevention", "prevenció"), ("referencia bancaria", "bank reference", "referència bancària"),
-                ("tratado", "treaty", "tractat"), ("bilateral", "bilateral", "bilateral"), ("filial", "subsidiary", "filial"),
-                ("domicilio bancario", "bank address", "domicili bancari"), ("apremiante", "pressing", "apremiant"), ("documentar", "to document", "documentar"),
-                ("digital", "digital", "digital"), ("preferencial", "preferential", "preferencial"), ("veloz", "fast", "veloz"),
-                ("blockchain", "blockchain", "blockchain"), ("cripto", "crypto", "cripto"), ("billetera digital", "digital wallet", "cartera digital"),
-                # Encounter 46-50
-                ("norma bancaria", "banking rule", "norma bancària"), ("fiduciario", "fiduciary", "fiduciari"), ("garantía", "guarantee", "garantia"),
-                ("penalización", "penalty", "penalització"), ("reglamento", "rules", "reglament"), ("sanción", "sanction", "sanció"),
-                ("disputa", "dispute", "disputa"), ("acatar", "to comply with", "acatar"), ("resolución", "resolution", "resolució"),
-                ("exitoso", "successful", "exitós"), ("recibido", "received", "rebut"), ("deducción", "deduction", "deducció"),
-                ("gracias", "thank you", "gràcies"), ("finalizar", "to finalize", "finalitzar"), ("completar", "to complete", "completar"),
-            ],
-        },
-        {
-            "title": "Currency Exchange",
-            "goal": "Exchange your currency by negotiating with the teller",
-            "word_prefix": "bank_exchange",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("trocar", "to barter", "intercanviar"), ("capital", "capital/money", "capital"), ("dólar americano", "US dollar", "dòlar americà"),
-                ("moneda mexicana", "Mexican currency", "moneda mexicana"), ("moneda europea", "European currency", "moneda europea"), ("euro", "euro", "euro"),
-                ("cotización del día", "today's rate", "cotització del dia"), ("tarifa cambiaria", "exchange fee", "tarifa canviària"), ("jornada", "trading day", "jornada"),
-                ("comprar", "to buy", "comprar"), ("vender", "to sell", "vendre"), ("adquirir", "to acquire", "adquirir"),
-                ("enajenar", "to sell/dispose", "enajenar"), ("billete", "banknote", "bitllet"), ("centavo", "cent/coin", "centau"),
-                # Encounter 6-10
-                ("billetes", "banknotes/bills", "bitllets"), ("papel moneda", "paper money", "paper moneda"), ("gratis", "free", "gratuït"),
-                ("casa de cambio", "exchange office", "casa de canvi"), ("centésimo", "hundredth/cent", "centèsim"), ("cargo por cambio", "exchange charge", "càrrec per canvi"),
-                ("sin cargo", "no charge", "sense càrrec"), ("bureau de cambio", "exchange bureau", "bureau de canvi"), ("mostrar", "to show", "mostrar"),
-                ("módulo cambiario", "exchange counter", "mòdul canviari"), ("operador", "operator", "operador"), ("guardar", "to keep", "guardar"),
-                ("credencial", "credential", "credencial"), ("cuánto", "how much", "quant"), ("documento de viaje", "travel document", "document de viatge"),
-                # Encounter 11-15
-                ("exhibir", "to show/display", "exhibir"), ("peor", "worse", "pitjor"), ("comparar", "to compare", "comparar"),
-                ("boleta de cambio", "exchange slip", "boleta de canvi"), ("paralelo", "parallel/unofficial", "paral·lel"), ("conservar", "to keep/preserve", "conservar"),
-                ("subir", "to go up", "pujar"), ("bajar", "to go down", "baixar"), ("estable", "stable", "estable"),
-                ("denominación", "denomination", "denominació"), ("suma", "sum", "suma"), ("cuántos", "how many", "quants"),
-                ("cambio exacto", "exact change", "canvi exacte"), ("suelto", "loose change", "solt"), ("feria", "small change", "fira"),
-                # Encounter 16-20
-                ("cheque de viajero", "traveler's check", "xec de viatger"), ("monto total", "total amount", "munt total"), ("canjear", "to cash/redeem", "canviar"),
-                ("inferior", "worse/lower", "inferior"), ("contrastar", "to contrast", "contrastat"), ("mínimo", "minimum", "mínim"),
-                ("autorizado", "authorized", "autoritzat"), ("informal", "informal", "informal"), ("local", "local", "local"),
-                ("negociar", "to negotiate", "negociar"), ("plaza cambiaria", "exchange market", "plaça canviària"), ("incrementar", "to increase", "incrementar"),
-                ("libra", "pound", "llibre"), ("yen", "yen", "ien"), ("franco", "franc", "franc"),
-                # Encounter 21-25
-                ("fluctuar", "to fluctuate", "fluctuar"), ("variación", "variation", "variació"), ("diferencia", "difference", "diferència"),
-                ("disminuir", "to decrease", "disminuir"), ("pérdida", "loss", "pèrdua"), ("margen", "margin", "marge"),
-                ("constante", "constant", "constant"), ("billete grande", "large bill", "bitllet gran"), ("billete chico", "small bill", "bitllet petit"),
-                ("banco central", "central bank", "banc central"), ("billete menudo", "small denomination", "bitllet menuda"), ("cambio justo", "fair change", "canvi just"),
-                ("turista", "tourist", "turista"), ("viajero", "traveler", "viatger"), ("residente", "resident", "resident"),
-                # Encounter 26-30
-                ("transferir", "to transfer", "transferir"), ("moneda fraccionaria", "fractional currency", "moneda fraccionària"), ("vuelto", "change/remainder", "volta"),
-                ("cheque viajero", "traveler's check", "xec viatger"), ("cobrar cheque", "to cash a check", "cobrar xec"), ("máxima cantidad", "maximum quantity", "màxima quantitat"),
-                ("cantidad mínima", "minimum quantity", "quantitat mínima"), ("cajero automático", "ATM", "caixer automàtic"), ("moneda foránea", "foreign coin", "moneda estrangera"),
-                ("de fuera", "from abroad", "de fora"), ("proteger", "to protect", "protegir"), ("cuidar", "to take care", "cuidar"),
-                ("falsificado", "counterfeit", "falsificat"), ("de aquí", "from here", "d\'aquí"), ("auténtico", "authentic", "autèntic"),
-                # Encounter 31-35
-                ("pactar", "to agree", "pactar"), ("convenir", "to agree/suit", "convenir"), ("actualizar", "to update", "actualitzar"),
-                ("libra esterlina", "pound sterling", "llibre esterlina"), ("yen japonés", "Japanese yen", "ien japonès"), ("cerrado", "closed", "tancat"),
-                ("franco suizo", "Swiss franc", "franc suís"), ("oscilar", "to oscillate", "oscilar"), ("movimiento cambiario", "exchange movement", "moviment canviari"),
-                ("brecha", "gap", "bretxa"), ("utilidad", "profit/utility", "utilitat"), ("metal", "metal", "metall"),
-                ("inflación", "inflation", "inflació"), ("devaluación", "devaluation", "devaluació"), ("revaluación", "revaluation", "revaluació"),
-                # Encounter 36-40
-                ("spread", "spread", "spread"), ("diferencial", "differential", "diferencial"), ("quebranto", "loss/damage", "quebrant"),
-                ("diferencia cambiaria", "exchange difference", "diferència canviària"), ("bitcoin", "bitcoin", "bitcoin"), ("papel oficial", "official document", "paper oficial"),
-                ("copia original", "original copy", "còpia original"), ("banco emisor", "issuing bank", "banc emissor"), ("exento", "exempt", "exempt"),
-                ("norma cambiaria", "exchange regulation", "norma canviària"), ("facultar", "to authorize", "facultar"), ("límite de efectivo", "cash limit", "límite d\'efectiu"),
-                ("visitante", "visitor", "visitant"), ("habitante", "resident/inhabitant", "habitants"), ("traspasar", "to transfer", "traspassar"),
-                # Encounter 41-45
-                ("cuenta destino", "destination account", "compte de destí"), ("tarjeta bancaria", "bank card", "targeta bancària"), ("tarjeta de viaje", "travel card", "targeta de viatge"),
-                ("sacar dinero", "to withdraw", "treure diners"), ("dispensador", "dispenser", "dispensador"), ("accesible", "accessible", "accessible"),
-                ("reservar", "to reserve", "reservar"), ("separar", "to set aside", "separar"), ("apartar", "to put aside", "apartat"),
-                ("resguardado", "safe/guarded", "resguardat"), ("postal", "postal", "postal"), ("telegráfico", "telegraphic", "telegràfic"),
-                ("paridad", "parity", "paritat"), ("equilibrio", "equilibrium", "equilibri"), ("balanza", "balance", "balança"),
-                # Encounter 46-50
-                ("especulación", "speculation", "especulació"), ("blindar", "to protect", "blindar"), ("custodiar", "to guard", "custodiar"),
-                ("billete falso", "counterfeit bill", "bitllet fals"), ("futuro", "futures", "futur"), ("derivado", "derivative", "derivat"),
-                ("regulador", "regulator", "regulador"), ("supervisor", "supervisor", "supervisor"), ("legítimo", "legitimate", "legítim"),
-                ("favorable", "favorable", "favorable"), ("conveniente", "convenient", "convenient"), ("ventajoso", "advantageous", "avantatjós"),
-                ("operación exitosa", "successful transaction", "operació exitosa"), ("satisfecho", "satisfied", "satisfet"), ("completo", "complete", "complet"),
+                ("banco", "bench/bank", ""), ("cajero", "cashier", ""), ("cliente", "customer", ""),  # Encounter 1
+                ("tarjeta bancaria", "bank card", ""), ("cuenta bancaria", "bank account", ""), ("saldo", "balance", ""),  # Encounter 2
+                ("saldo disponible", "available balance", ""), ("saldo actual", "current balance", ""), ("tarjeta", "card", ""),  # Encounter 3
+                ("tarjeta de débito", "debit card", ""), ("tarjeta de crédito", "credit card", ""), ("tarjeta bloqueada", "blocked card", ""),  # Encounter 4
+                ("tarjeta nueva", "new card", ""), ("PIN", "PIN", ""), ("clave", "key", ""),  # Encounter 5
+                ("contraseña", "password", ""), ("número de cuenta", "account number", ""), ("número incorrecto", "wrong number", ""),  # Encounter 6
+                ("transferencia", "transfer", ""), ("transferencia enviada", "transfer sent", ""), ("transferencia recibida", "transfer received", ""),  # Encounter 7
+                ("no llegó", "didn't arrive", ""), ("llegó tarde", "arrived late", ""), ("comprobante", "receipt", ""),  # Encounter 8
+                ("muestro el comprobante", "show receipt", ""), ("reviso la cuenta", "I check the account", ""), ("revisan los movimientos", "check the movements", ""),  # Encounter 9
+                ("movimientos", "movements", ""), ("cargo", "charge", ""), ("cargos extra", "extra charges", ""),  # Encounter 10
+                ("no lo reconozco", "don't recognize it", ""), ("cargo sospechoso", "suspicious charge", ""), ("intento sospechoso", "suspicious attempt", ""),  # Encounter 11
+                ("bloqueo", "blockage", ""), ("se bloqueó", "locked", ""), ("desbloquean la tarjeta", "unlock the card", ""),  # Encounter 12
+                ("activan la tarjeta", "activate the card", ""), ("emiten la tarjeta", "issue card", ""), ("funciona ahora", "works now", ""),  # Encounter 13
+                ("no funciona", "does not work", ""), ("rechazada", "rejected", ""), ("pago rechazado", "payment rejected", ""),  # Encounter 14
+                ("hago el pago", "I make payment", ""), ("pago aprobado", "payment approved", ""), ("pago pendiente", "pending payment", ""),  # Encounter 15
+                ("monto", "amount", ""), ("monto total", "total amount", ""), ("cantidad total", "total amount", ""),  # Encounter 16
+                ("deposito dinero", "deposit money", ""), ("retiro", "withdrawal", ""), ("retiro dinero", "withdraw money", ""),  # Encounter 17
+                ("efectivo", "cash", ""), ("con tarjeta", "by card", ""), ("cajero automático", "ATM", ""),  # Encounter 18
+                ("retiro en el cajero", "ATM withdrawal", ""), ("saldo insuficiente", "insufficient balance", ""), ("no hay fondos", "no funds", ""),  # Encounter 19
+                ("hay fondos", "there are funds", ""), ("abro una cuenta", "I open an account", ""), ("abro una cuenta nueva", "I open a new account", ""),  # Encounter 20
+                ("cierro la cuenta", "close account", ""), ("cambio de cuenta", "account change", ""), ("tipo de cuenta", "account type", ""),  # Encounter 21
+                ("cuenta principal", "main account", ""), ("cuenta de ahorros", "savings account", ""), ("cuenta corriente", "checking account", ""),  # Encounter 22
+                ("comisión", "commission", ""), ("cobran comisión", "charge commission", ""), ("sin comisión", "no commission", ""),  # Encounter 23
+                ("comisión mensual", "monthly commission", ""), ("eliminan la comisión", "remove commission", ""), ("tasa de interés", "interest rate", ""),  # Encounter 24
+                ("condiciones", "conditions", ""), ("saldo mínimo", "minimum balance", ""), ("requiere saldo mínimo", "requires minimum balance", ""),  # Encounter 25
+                ("requiere depósitos", "requires deposits", ""), ("historial", "history", ""), ("historial crediticio", "credit history", ""),  # Encounter 26
+                ("crédito", "credit", ""), ("buen crédito", "good credit", ""), ("mal crédito", "bad credit", ""),  # Encounter 27
+                ("préstamo", "loan", ""), ("solicito un préstamo", "I request a loan", ""), ("monto del préstamo", "loan amount", ""),  # Encounter 28
+                ("aprueban el préstamo", "loan approved", ""), ("rechazan el préstamo", "loan denied", ""), ("aprobación", "approval", ""),  # Encounter 29
+                ("está en proceso", "in process", ""), ("petición", "request", ""), ("envío la solicitud", "I send the request", ""),  # Encounter 30
+                ("documentos", "documents", ""), ("falta un documento", "missing document", ""), ("envío los documentos", "I send the documents", ""),  # Encounter 31
+                ("comprobante de ingresos", "income proof", ""), ("revisan el sistema", "check the system", ""), ("el sistema falla", "system fails", ""),  # Encounter 32
+                ("el sistema está lento", "system is slow", ""), ("error del sistema", "system error", ""), ("abren un caso", "open a case", ""),  # Encounter 33
+                ("número de caso", "case number", ""), ("seguimiento del caso", "case tracking", ""), ("tarda unos días", "takes a few days", ""),  # Encounter 34
+                ("tiempo estimado", "estimated time", ""), ("depende del sistema", "depends on system", ""), ("espero la respuesta", "I await reply", ""),  # Encounter 35
+                ("hoy no", "not today", ""), ("mañana sí", "yes tomorrow", ""), ("llamo al banco", "I call bank", ""),  # Encounter 36
+                ("atención al cliente", "customer service", ""), ("hablo con un agente", "speak to agent", ""), ("verifican mi identidad", "verify my identity", ""),  # Encounter 37
+                ("confirman mis datos", "confirm my data", ""), ("fecha de nacimiento", "birth date", ""), ("dirección", "address", ""),  # Encounter 38
+                ("número de teléfono", "phone number", ""), ("correo electrónico", "email", ""), ("actualizan mis datos", "update my data", ""),  # Encounter 39
+                ("datos incorrectos", "incorrect data", ""), ("cambio mis datos", "update data", ""), ("código de seguridad", "security code", ""),  # Encounter 40
+                ("envían el código", "they send the code", ""), ("ingreso el código", "enter code", ""), ("código válido", "valid code", ""),  # Encounter 41
+                ("código inválido", "invalid code", ""), ("acceso a la cuenta", "account access", ""), ("no tengo acceso", "no access", ""),  # Encounter 42
+                ("recupero el acceso", "regain access", ""), ("restablecen la clave", "reset the password", ""), ("cambio la clave", "change password", ""),  # Encounter 43
+                ("bloquean el acceso", "block access", ""), ("acceso activo", "active access", ""), ("sigue igual", "stays same", ""),  # Encounter 44
+                ("mejora un poco", "improves a bit", ""), ("no mejora", "doesn't improve", ""), ("¿qué pasó?", "What happened?", ""),  # Encounter 45
+                ("¿qué hago?", "What do?", ""), ("¿cuánto tarda?", "how long does it take?", ""), ("¿cuánto cuesta?", "how much does it cost?", ""),  # Encounter 46
+                ("no entiendo", "do not understand", ""), ("¿puede repetir?", "Can repeat?", ""), ("más despacio", "slower", ""),  # Encounter 47
+                ("oficina bancaria", "bank office", ""), ("ejecutivo", "executive", ""), ("ventanilla", "window", ""),  # Encounter 48
+                ("firma registrada", "registered signature", ""), ("la firma no coincide", "signature mismatch", ""), ("transferencia internacional", "international transfer", ""),  # Encounter 49
+                ("tipo de cambio", "exchange rate", ""), ("comisión por transferencia", "transfer commission", ""), ("fondos retenidos", "withheld funds", ""),  # Encounter 50
             ],
         },
     ],
     "clothing": [
         {
-            "title": "Finding the Right Size",
-            "goal": "Find the right clothing size with help from the store clerk",
+            "title": "Clothing Shopping",
+            "goal": "Navigate a clothing store, find your size, make a purchase, and handle returns",
             "word_prefix": "cloth",
             "words": [
-                # Encounter 1-5 (basic essentials)
-                ("talla", "size", "talla"), ("probador", "fitting room", "provador"), ("descuento", "discount", "descompte"),
-                ("camisa", "shirt", "camisa"), ("pantalón", "pants", "pantaló"), ("zapatos", "shoes", "sabates"),
-                ("prenda", "garment", "peça"), ("color", "color", "color"), ("vestidor", "dressing room", "vestidor"),
-                ("rebaja", "markdown", "rebaixa"), ("playera", "t-shirt", "samarreta"), ("mediano", "medium", "mitjà"),
-                ("buscar", "to look for", "buscar"), ("bermuda", "shorts", "bermuda"), ("sandalia", "sandal", "sandàlia"),
-                # Encounter 6-10
-                ("probarse", "to try on", "provar-se"), ("quedar", "to fit", "quedar"), ("tono", "tone/shade", "to"),
-                ("ajustado", "tight", "ajustat"), ("flojo", "loose", "fluix"), ("cómodo", "comfortable", "còmode"),
-                ("vestido", "dress", "vestit"), ("falda", "skirt", "falda"), ("blusa", "blouse", "blusa"),
-                ("manga", "sleeve", "manga"), ("boutique", "boutique", "botiga"), ("holgado", "roomy", "holgat"),
-                ("reducido", "small/reduced", "reduït"), ("tela", "fabric", "tela"), ("intermedio", "medium/intermediate", "intermedi"),
-                # Encounter 11-15
-                ("devolver", "to return", "devolver"), ("explorar", "to explore", "explorar"), ("requerir", "to require", "requerir"),
-                ("medirse", "to try on (oneself)", "mesurar-se"), ("oferta", "offer/deal", "oferta"), ("temporada", "season", "temporada"),
-                ("cremallera", "zipper", "cremallera"), ("botón", "button", "botó"), ("sentar", "to fit/suit", "seure"),
-                ("ancho", "wide", "ample"), ("estrecho", "narrow", "estret"), ("entallado", "fitted", "entallat"),
-                ("adecuado", "suitable", "adequat"), ("ceñido", "tight-fitting", "ceñit"), ("azul", "blue", "blau"),
-                # Encounter 16-20
-                ("agradable", "comfortable/pleasant", "agradable"), ("maxi", "maxi dress", "maxi"), ("gris", "gray", "gris"),
-                ("estampado", "printed/patterned", "estampat"), ("liso", "plain", "llis"), ("rayas", "stripes", "ratlles"),
-                ("elegante", "elegant", "elegant"), ("casual", "casual", "casual"), ("formal", "formal", "formal"),
-                ("minifalda", "mini skirt", "minifaldilla"), ("corbata", "tie", "corbata"), ("pañuelo", "scarf/handkerchief", "mocador"),
-                ("marca", "brand", "marca"), ("camiseta", "t-shirt/blouse", "samarreta"), ("resistente", "durable", "resistent"),
-                # Encounter 21-25
-                ("abrigo", "coat", "abric"), ("chaqueta", "jacket", "jaqueta"), ("suéter", "sweater", "suèter"),
-                ("puño largo", "long sleeve", "puny llarg"), ("calcetín", "sock", "mitjó"), ("media", "stocking", "mitja"),
-                ("tacón", "heel", "taló"), ("suela", "sole", "sola"), ("extenso", "long/extended", "extens"),
-                ("joyería", "jewelry", "joieria"), ("anillo", "ring", "anell"), ("collar", "necklace", "collar"),
-                ("gafas", "glasses", "ulleres"), ("sombrero", "hat", "barret"), ("gorra", "cap", "gorra"),
-                # Encounter 26-30
-                ("lavar", "to wash", "rentar"), ("planchar", "to iron", "planxar"), ("secar", "to dry", "secar"),
-                ("coser", "to sew", "cosir"), ("arreglar", "to alter/fix", "arreglar"), ("sastre", "tailor", "sastre"),
-                ("diseño", "design", "disseny"), ("breve", "short/brief", "breu"), ("colección", "collection", "col·lecció"),
-                ("probador ocupado", "fitting room occupied", "provador ocupat"), ("fibra de algodón", "cotton fiber", "fibra de cotó"), ("tejido", "woven fabric", "teixit"),
-                ("talla única", "one size", "talla única"), ("extra grande", "extra large", "extra gran"), ("extra pequeño", "extra small", "extra petit"),
-                # Encounter 31-35
-                ("componente", "component", "component"), ("reintegrar", "to return/refund", "reintegrar"), ("lino", "linen", "lli"),
-                ("poliéster", "polyester", "polièster"), ("sintético", "synthetic", "sintètic"), ("elástico", "elastic/stretchy", "elàstic"),
-                ("moda", "fashion", "moda"), ("tendencia", "trend", "tendència"), ("estilo", "style", "estil"),
-                ("traje", "suit", "traje"), ("esmoquin", "tuxedo", "esmoquin"), ("intercambiar", "to exchange", "intercanviar"),
-                ("impermeable", "waterproof", "impermeable"), ("térmico", "thermal", "tèrmic"), ("ligero", "lightweight", "lleuger"),
-                # Encounter 36-40
-                ("bordado", "embroidered", "bordat"), ("encaje", "lace", "encaix"), ("flecos", "fringe", "franges"),
-                ("solapa", "lapel", "solapa"), ("puño", "cuff", "puny"), ("comprobante de compra", "proof of purchase", "comprovant de compra"),
-                ("cierre", "fastener/closure", "tancament"), ("broche", "clasp", "brotxa"), ("hebilla", "buckle", "fivella"),
-                ("planchado", "pressed", "planxat"), ("arrugado", "wrinkled", "arrugat"), ("manchado", "stained", "taumat"),
-                ("guardarropa", "wardrobe", "guarda-roba"), ("percha", "hanger", "penja-robes"), ("liquidación", "clearance", "liquidació"),
-                # Encounter 41-45
-                ("confección", "tailoring", "confecció"), ("ganga", "bargain", "ganga"), ("cinta métrica", "measuring tape", "cinta mètrica"),
-                ("patronaje", "pattern-making", "patronatge"), ("molde", "pattern/mold", "motlle"), ("cortar", "to cut", "tallar"),
-                ("exhibición", "display", "exhibició"), ("época de rebajas", "sale season", "època de rebaixes"), ("maniquí", "mannequin", "maniquí"),
-                ("exclusivo", "exclusive", "exclusiu"), ("limitado", "limited", "limitada"), ("edición", "edition", "edició"),
-                ("ecológico", "eco-friendly", "ecològic"), ("sostenible", "sustainable", "sostenible"), ("reciclado", "recycled", "reciclat"),
-                # Encounter 46-50
-                ("alta costura", "haute couture", "alta costura"), ("cierre relámpago", "zipper", "tancament de cremallera"), ("diseñador", "designer", "dissenyador"),
-                ("personalizado", "customized", "personalitzat"), ("ojal", "buttonhole", "ull"), ("hecho a mano", "handmade", "fet a mà"),
-                ("compartimiento", "compartment", "compartiment"), ("angosto", "narrow/tight", "estret"), ("a la medida", "tailored", "a mida"),
-                ("celeste", "sky blue", "celeste"), ("perfecto", "perfect", "perfecte"), ("ideal", "ideal", "ideal"),
-                ("carmesí", "crimson", "carmesí"), ("compra", "purchase", "compra"), ("bolsa", "bag", "bossa"),
+                ("vendedor", "seller", ""), ("cliente", "customer", ""), ("boutique", "boutique", ""),  # Encounter 1
+                ("ropa", "clothes", ""), ("camisa", "shirt", ""), ("pantalón", "pants", ""),  # Encounter 2
+                ("chaqueta", "jacket", ""), ("vestido", "dress", ""), ("falda", "skirt", ""),  # Encounter 3
+                ("talla", "size", ""), ("¿qué talla usa?", "What size?", ""), ("le queda bien", "fits well", ""),  # Encounter 4
+                ("le queda grande", "too big", ""), ("le queda pequeño", "too small", ""), ("no le queda", "does not fit", ""),  # Encounter 5
+                ("otra talla", "another size", ""), ("más grande", "bigger", ""), ("más pequeño", "smaller", ""),  # Encounter 6
+                ("probador", "fitting room", ""), ("usa el probador", "use tester", ""), ("espere su turno", "wait your turn", ""),  # Encounter 7
+                ("hay fila", "there is line", ""), ("prenda", "garment", ""), ("mismo modelo", "same model", ""),  # Encounter 8
+                ("modelo diferente", "different model", ""), ("color", "color", ""), ("otro color", "another color", ""),  # Encounter 9
+                ("no hay talla", "no size", ""), ("no hay stock", "out of stock", ""), ("está agotado", "is sold out", ""),  # Encounter 10
+                ("reviso el stock", "I check the stock", ""), ("reviso el sistema", "I check the system", ""), ("hay en otra sucursal", "in another branch", ""),  # Encounter 11
+                ("otra sucursal", "another branch", ""), ("lo pueden pedir", "can order", ""), ("llega en unos días", "arrives in days", ""),  # Encounter 12
+                ("tarda unos días", "takes a few days", ""), ("lo aparto", "set aside", ""), ("apartado", "section", ""),  # Encounter 13
+                ("tarifa", "rate", ""), ("precio normal", "regular price", ""), ("precio de oferta", "offer price", ""),  # Encounter 14
+                ("descuento", "discount", ""), ("el descuento aplica", "discount applies", ""), ("no aplica", "not applicable", ""),  # Encounter 15
+                ("promoción", "promotion", ""), ("talla", "size", ""), ("con membresía", "with membership", ""),  # Encounter 16
+                ("sin membresía", "no membership", ""), ("registro", "registration", ""), ("no quiero registrarme", "don't want to check in", ""),  # Encounter 17
+                ("el sistema marca otro precio", "system shows different price", ""), ("no coincide", "does not match", ""), ("reviso el precio", "I check the price", ""),  # Encounter 18
+                ("corrigen el precio", "they correct the price", ""), ("ajuste manual", "manual adjustment", ""), ("talla", "size", ""),  # Encounter 19
+                ("mal etiquetado", "mislabeling", ""), ("letrero", "sign", ""), ("política de la tienda", "store policy", ""),  # Encounter 20
+                ("no aceptamos devoluciones", "no returns", ""), ("solo damos crédito de tienda", "we only give store credit", ""), ("crédito de tienda", "store credit", ""),  # Encounter 21
+                ("devolución", "refund", ""), ("procesan la devolución", "they process the return", ""), ("cambio de producto", "product exchange", ""),  # Encounter 22
+                ("producto defectuoso", "defective product", ""), ("está roto", "broken", ""), ("costura rota", "torn seam", ""),  # Encounter 23
+                ("recibo", "receipt", ""), ("tiene recibo", "has receipt", ""), ("sin recibo", "no receipt", ""),  # Encounter 24
+                ("dentro del plazo", "within the deadline", ""), ("fuera del plazo", "overdue", ""), ("quiero hablar con la gerente", "want to speak manager", ""),  # Encounter 25
+                ("gerente", "manager", ""), ("excepción", "exception", ""), ("aprueban la excepción", "exception approved", ""),  # Encounter 26
+                ("caja", "box", ""), ("prenda", "garment", ""), ("monto total", "total amount", ""),  # Encounter 27
+                ("pago", "payment", ""), ("inserta la tarjeta", "insert card", ""), ("acerca la tarjeta", "bring the card closer", ""),  # Encounter 28
+                ("pasa la tarjeta", "swipe card", ""), ("no pasa", "doesn't happen", ""), ("inténtalo otra vez", "try again", ""),  # Encounter 29
+                ("pago aprobado", "payment approved", ""), ("pago rechazado", "payment rejected", ""), ("otra tarjeta", "another card", ""),  # Encounter 30
+                ("efectivo", "cash", ""), ("pago en efectivo", "cash payment", ""), ("firma aquí", "sign here", ""),  # Encounter 31
+                ("bolsa", "bag", ""), ("¿quiere bolsa?", "Want bag?", ""), ("bolsa grande", "large bag", ""),  # Encounter 32
+                ("bolsa pequeña", "small bag", ""), ("sin bolsa", "no bag", ""), ("lo empacan", "pack it", ""),  # Encounter 33
+                ("fila larga", "long line", ""), ("mucha gente", "many people", ""), ("espera larga", "long wait", ""),  # Encounter 34
+                ("tarda mucho", "takes long", ""), ("servicio lento", "slow service", ""), ("está abierto", "is open", ""),  # Encounter 35
+                ("está cerrado", "is closed", ""), ("horario", "schedule", ""), ("identificación", "identification", ""),  # Encounter 36
+                ("muestra su identificación", "shows ID", ""), ("alarma", "alarm", ""), ("sensor", "sensor", ""),  # Encounter 37
+                ("quitan el sensor", "remove sensor", ""), ("sensor activo", "active sensor", ""), ("la alarma suena", "alarm sounds", ""),  # Encounter 38
+                ("revisan la compra", "check the purchase", ""), ("el código escanea", "code scans", ""), ("el código no escanea", "code doesn’t scan", ""),  # Encounter 39
+                ("ingreso manual", "manual entry", ""), ("código manual", "manual code", ""), ("problema del sistema", "system problem", ""),  # Encounter 40
+                ("ya quedó", "it's done", ""), ("sigue igual", "stays same", ""), ("talla correcta", "correct size", ""),  # Encounter 41
+                ("talla incorrecta", "incorrect size", ""), ("se lo traigo", "I'll bring it", ""), ("no le queda bien", "doesn't fit", ""),  # Encounter 42
+                ("le queda mejor", "fits better", ""), ("me lo llevo", "I'll take it", ""), ("devolución parcial", "partial refund", ""),  # Encounter 43
+                ("monto reembolsado", "refunded amount", ""), ("te lo cambio", "I exchange it for you", ""), ("te hago un descuento", "I give you a discount", ""),  # Encounter 44
+                ("caja abierta", "open box", ""), ("caja cerrada", "closed box", ""), ("precio final", "final price", ""),  # Encounter 45
+                ("cupón", "coupon", ""), ("el cupón vence hoy", "coupon expires today", ""), ("temporada", "season", ""),  # Encounter 46
+                ("colección nueva", "new collection", ""), ("prenda", "garment", ""), ("prenda dañada", "damaged garment", ""),  # Encounter 47
+                ("defecto de fábrica", "factory defect", ""), ("marca", "brand", ""), ("misma marca", "same brand", ""),  # Encounter 48
+                ("línea premium", "premium line", ""), ("tejido", "fabric", ""), ("fibra natural", "natural fiber", ""),  # Encounter 49
+                ("tela", "cloth", ""), ("se encoge", "shrinks", ""), ("destiñe", "fades", ""),  # Encounter 50
             ],
         },
     ],
     "contractor": [
         {
-            "title": "Hiring a Plumber",
-            "goal": "Hire a plumber by describing the problem and agreeing on a price",
+            "title": "Hiring a Contractor",
+            "goal": "Manage a construction project, discuss plans, costs, and quality with your contractor",
             "word_prefix": "contr",
             "words": [
-                # Encounter 1-5 (basic essentials)
-                ("plomero", "plumber", "lampista"), ("fontanero", "plumber", "fontaner"), ("desperfecto", "defect", "desperfecte"),
-                ("componer", "to fix", "compondre"), ("tubo", "pipe", "tub"), ("fuga", "leak", "fuga"),
-                ("conducto", "conduit", "conducte"), ("goteo", "drip", "goteig"), ("lavabo", "sink", "lavabo"),
-                ("sanitario", "bathroom/toilet", "sanitari"), ("área de cocina", "kitchen area", "àrea de cuina"), ("fregadero", "kitchen sink", "fregadero"),
-                ("de emergencia", "emergency", "d\'emergència"), ("precisar", "to need", "precisar"), ("ayuda", "help", "ajuda"),
-                # Encounter 6-10
-                ("socorro", "help/aid", "socors"), ("grifo de agua", "water tap", "griferia d\'aigua"), ("gotear", "to drip", "gotejar"),
-                ("cañería", "plumbing/pipes", "canonada"), ("drenaje", "drain", "drenatge"), ("tapado", "clogged", "tapat"),
-                ("reparar", "to repair", "reparar"), ("instalar", "to install", "instal·lar"), ("canilla", "tap/spigot", "canella"),
-                ("escurrir", "to drip/drain", "escórrer"), ("pieza", "part/piece", "peça"), ("red de tuberías", "pipe network", "xarxa de canonades"),
-                ("desagüe", "drain", "desguàs"), ("obstruido", "blocked", "obstruït"), ("cuándo", "when", "quan"),
-                # Encounter 11-15
-                ("inodoro", "toilet", "inodor"), ("regadera", "shower", "regadora"), ("tina", "bathtub", "tina"),
-                ("calentador", "water heater", "calentador"), ("restaurar", "to restore", "restaurar"), ("montar", "to install/mount", "muntar"),
-                ("roto", "broken", "trencat"), ("dañado", "damaged", "danyat"), ("reemplazar", "to replace", "substituir"),
-                ("insumo", "supply", "insum"), ("utensilio", "utensil/tool", "utensili"), ("agenda de trabajo", "work schedule", "agenda de treball"),
-                ("en qué momento", "at what time", "en quin moment"), ("duración", "duration", "durada"), ("excusado", "toilet", "excusat"),
-                # Encounter 16-20
-                ("mano de obra", "labor", "mà d\'obra"), ("ducha", "shower", "duxa"), ("bañera", "bathtub", "banyera"),
-                ("boiler", "boiler", "boiler"), ("depósito de agua", "water tank", "dipòsit d\'aigua"), ("flujo", "flow", "flux"),
-                ("averiado", "broken down", "avariat"), ("maltratado", "damaged", "maltractat"), ("junta", "joint/gasket", "junta"),
-                ("válvula", "valve", "vàlvula"), ("recién comprado", "newly bought", "recent comprat"), ("pieza de recambio", "replacement part", "peça de recanvi"),
-                ("de fábrica", "factory-made", "de fàbrica"), ("respaldo de producto", "product warranty", "respatllament de producte"), ("calcular", "to calculate", "calcular"),
-                # Encounter 21-25
-                ("permiso", "permit", "permiss"), ("licencia", "license", "llicència"), ("tiempo de vida", "lifespan", "temps de vida"),
-                ("grado", "grade/quality", "grau"), ("trabajo manual", "manual labor", "treball manual"), ("recomendación", "recommendation", "recomanació"),
-                ("desatascar", "to unclog", "desatascar"), ("destapador", "plunger", "destapador"), ("sonda", "drain snake", "sonda"),
-                ("humedad", "humidity/moisture", "humitat"), ("moho", "mold", "moh"), ("filtración", "seepage", "filtració"),
-                ("bomba", "pump", "bomba"), ("por hora", "per hour", "per hora"), ("eléctrico", "electric", "elèctric"),
-                # Encounter 26-30
-                ("nota de cobro", "bill", "nota de cobrament"), ("en billetes", "in cash", "en bitllets"), ("sistema de tuberías", "pipe system", "sistema de canonades"),
-                ("adelanto", "advance payment", "adelantament"), ("enlace", "joint/link", "enllaç"), ("liquidar", "to settle/pay off", "liquidar"),
-                ("sótano", "basement", "soterrani"), ("empaque", "gasket/seal", "empaquetatge"), ("llave de paso", "shutoff valve", "clau de pas"),
-                ("excavación", "excavation", "excavació"), ("zanja", "trench", "fossat"), ("cavar", "to dig", "cavar"),
-                ("control de agua", "water control", "control d\'aigua"), ("PVC", "PVC", "PVC"), ("galvanizado", "galvanized", "galvanitzat"),
-                # Encounter 31-35
-                ("sellador", "sealant", "segellador"), ("sellar", "to seal", "segellar"), ("altura", "height", "altura"),
-                ("dimensión", "dimension", "dimensió"), ("soldar", "to weld/solder", "soldar"), ("estimar", "to estimate", "estimar"),
-                ("autorización", "authorization", "autorització"), ("revisar", "to check/inspect", "revisar"), ("habilitación", "certification", "habilitació"),
-                ("cisterna", "cistern", "cisterna"), ("aljibe", "water tank", "aljibe"), ("tinaco", "rooftop tank", "tinaco"),
-                ("residuo", "residue", "residu"), ("obstrucción", "obstruction", "obstrucció"), ("limpiar", "to clean", "netejar"),
-                # Encounter 36-40
-                ("diploma", "diploma", "diploma"), ("trayectoria", "track record", "trajectòria"), ("daño", "damage", "dany"),
-                ("antigüedad laboral", "work seniority", "antiguitat laboral"), ("referencia laboral", "job reference", "referència laboral"), ("reclamar", "to claim", "reclamar"),
-                ("calefacción", "heating", "calefacció"), ("radiador", "radiator", "radiador"), ("termostato", "thermostat", "termostat"),
-                ("gas", "gas", "gas"), ("destapar", "to unclog", "destapar"), ("sopapa", "plunger", "sopapa"),
-                ("ventilación", "ventilation", "ventilació"), ("extractor", "extractor fan", "extractor"), ("ducto", "duct", "ducte"),
-                # Encounter 41-45
-                ("purificador", "purifier", "purificador"), ("filtro", "filter", "filtre"), ("suavizador", "water softener", "suavitzador"),
-                ("riego", "irrigation", "reg"), ("cable de drenaje", "drain cable", "cable de drenatge"), ("aspersor", "sprinkler", "aspersor"),
-                ("fosa séptica", "septic tank", "fossa sèptica"), ("drenaje pluvial", "storm drain", "drenatge pluvial"), ("alcantarilla", "sewer", "alcantarilla"),
-                ("medidor", "meter", "mesurador"), ("consumo", "consumption", "consum"), ("lectura", "reading", "lectura"),
-                ("remodelación", "remodeling", "remodelació"), ("ampliación", "expansion", "ampliació"), ("condensación", "condensation", "condensació"),
-                # Encounter 46-50
-                ("hongo", "fungus", "fong"), ("infiltración", "infiltration", "infiltració"), ("bomba de agua", "water pump", "bomba d\'aigua"),
-                ("subcontratista", "subcontractor", "subcontractista"), ("equipo", "team/equipment", "equip"), ("impulsor", "impeller", "impulsor"),
-                ("de corriente", "electric-powered", "de corrent"), ("convenio", "contract/agreement", "conveni"), ("terminar", "to finish", "terminar"),
-                ("recomendar", "to recommend", "recomanar"), ("pacto", "agreement/pact", "pacte"), ("reseña", "review", "reseña"),
-                ("buen trabajo", "good job", "bon treball"), ("pago inicial", "initial payment", "pagament inicial"), ("agradecer", "to thank", "agrair"),
+                ("contratista", "contractor", ""), ("trabajador", "worker", ""), ("equipo", "equipment", ""),  # Encounter 1
+                ("plan de construcción", "construction plan", ""), ("sitio de obra", "construction site", ""), ("obra en curso", "work in progress", ""),  # Encounter 2
+                ("plano", "map", ""), ("diseño", "design", ""), ("cotización", "quote", ""),  # Encounter 3
+                ("estimado", "dear", ""), ("costo", "cost", ""), ("tarifa", "rate", ""),  # Encounter 4
+                ("saldo final", "final balance", ""), ("pago", "payment", ""), ("anticipo", "advance", ""),  # Encounter 5
+                ("pago final", "final payment", ""), ("equipo de obra", "work equipment", ""), ("materiales", "materials", ""),  # Encounter 6
+                ("proveedor", "provider", ""), ("disponibilidad", "availability", ""), ("no está disponible", "not available", ""),  # Encounter 7
+                ("retraso", "delay", ""), ("atraso", "delay", ""), ("va atrasado", "running late", ""),  # Encounter 8
+                ("a tiempo", "on time", ""), ("horario", "schedule", ""), ("cumplen el horario", "they meet the schedule", ""),  # Encounter 9
+                ("tiempo estimado", "estimated time", ""), ("terminan hoy", "end today", ""), ("empiezan hoy", "start today", ""),  # Encounter 10
+                ("siguen trabajando", "still working", ""), ("trabajo detenido", "work stopped", ""), ("revisan esto", "check this", ""),  # Encounter 11
+                ("inspección", "inspection", ""), ("ajuste", "adjustment", ""), ("alternativa", "alternative", ""),  # Encounter 12
+                ("calidad", "quality", ""), ("misma calidad", "same quality", ""), ("es diferente", "it’s different", ""),  # Encounter 13
+                ("mejor opción", "best option", ""), ("es más caro", "it’s more expensive", ""), ("es más barato", "it’s cheaper", ""),  # Encounter 14
+                ("costo adicional", "additional cost", ""), ("no estaba incluido", "not included", ""), ("fuera del presupuesto", "over budget", ""),  # Encounter 15
+                ("¿cuánto cuesta?", "how much does it cost?", ""), ("¿cuánto tarda?", "how long does it take?", ""), ("¿cuándo terminan?", "when do they finish?", ""),  # Encounter 16
+                ("¿cuándo empiezan?", "when do they start?", ""), ("¿por qué hay retraso?", "Why delay?", ""), ("¿qué pasó?", "What happened?", ""),  # Encounter 17
+                ("¿puede explicar?", "Can explain?", ""), ("no entiendo", "do not understand", ""), ("necesito más detalle", "need more detail", ""),  # Encounter 18
+                ("quiero ver el plano", "want to see plan", ""), ("me envía el plano", "sends me the plan", ""), ("está en proceso", "in process", ""),  # Encounter 19
+                ("ya empezaron", "already started", ""), ("ya terminaron", "they already finished", ""), ("falta trabajo", "lack work", ""),  # Encounter 20
+                ("está incompleto", "incomplete", ""), ("está mal hecho", "poorly done", ""), ("está bien hecho", "well done", ""),  # Encounter 21
+                ("corrigen esto", "they correct this", ""), ("reparan esto", "they repair this", ""), ("rehacen esto", "redo this", ""),  # Encounter 22
+                ("ajustan el nivel", "adjust the level", ""), ("superficie", "surface", ""), ("tabique", "partition", ""),  # Encounter 23
+                ("piso", "floor", ""), ("techo", "roof", ""), ("pintura", "paint", ""),  # Encounter 24
+                ("hay manchas", "there are stains", ""), ("acabado", "finished", ""), ("está nivelado", "leveled", ""),  # Encounter 25
+                ("está desnivelado", "uneven", ""), ("hay una grieta", "there is crack", ""), ("humedad", "humidity", ""),  # Encounter 26
+                ("hay una fuga", "there is leak", ""), ("cañería", "piping", ""), ("instalación", "installation", ""),  # Encounter 27
+                ("sistema eléctrico", "electrical system", ""), ("cable", "cable", ""), ("enchufe", "plug", ""),  # Encounter 28
+                ("válvula", "valve", ""), ("agua", "water", ""), ("llave de agua", "water valve", ""),  # Encounter 29
+                ("abren la pared", "open the wall", ""), ("cierran la pared", "close wall", ""), ("hay daño", "there is damage", ""),  # Encounter 30
+                ("evitan el daño", "prevent damage", ""), ("es urgente", "it’s urgent", ""), ("puede empeorar", "can worsen", ""),  # Encounter 31
+                ("apruebo el cambio", "I approve change", ""), ("no autorizo ese cambio", "do not authorize change", ""), ("sin autorización", "unauthorized", ""),  # Encounter 32
+                ("avisan antes", "notify before", ""), ("falta comunicación", "lack communication", ""), ("nadie vino", "no one came", ""),  # Encounter 33
+                ("no llegaron", "didn't arrive", ""), ("vienen mañana", "come tomorrow", ""), ("vienen hoy", "come today", ""),  # Encounter 34
+                ("en la mañana", "in the morning", ""), ("en la tarde", "in the afternoon", ""), ("llegan tarde", "arrive late", ""),  # Encounter 35
+                ("cumplen el plazo", "they meet the deadline", ""), ("plazo", "term", ""), ("entrega", "delivery", ""),  # Encounter 36
+                ("entrega final", "final delivery", ""), ("inspección final", "final inspection", ""), ("garantía", "warranty", ""),  # Encounter 37
+                ("incluye garantía", "includes warranty", ""), ("sin garantía", "no warranty", ""), ("equipo eléctrico", "electrical equipment", ""),  # Encounter 38
+                ("maquinaria", "machinery", ""), ("cortan el material", "they cut the material", ""), ("instalan esto", "install this", ""),  # Encounter 39
+                ("miden esto", "they measure this", ""), ("nivelan esto", "level this", ""), ("fijan esto", "fix this", ""),  # Encounter 40
+                ("desmontan esto", "disassemble this", ""), ("montan esto", "they assemble this", ""), ("limpian el área", "they clean area", ""),  # Encounter 41
+                ("retiran los escombros", "remove debris", ""), ("escombros", "debris", ""), ("limpieza final", "final cleaning", ""),  # Encounter 42
+                ("área", "Area", ""), ("superficie", "surface", ""), ("acceso", "access", ""),  # Encounter 43
+                ("entrada", "entrance", ""), ("salida", "exit", ""), ("permiso de obra", "building permit", ""),  # Encounter 44
+                ("vibración", "vibration", ""), ("escombros", "debris", ""), ("seguridad", "security", ""),  # Encounter 45
+                ("seguridad", "security", ""), ("protección", "protection", ""), ("equipo de seguridad", "safety equipment", ""),  # Encounter 46
+                ("casco", "helmet", ""), ("guantes", "gloves", ""), ("gafas de seguridad", "safety glasses", ""),  # Encounter 47
+                ("azulejo", "tile", ""), ("baldosa", "tile", ""), ("madera", "wood", ""),  # Encounter 48
+                ("mortero", "mortar", ""), ("yeso", "plaster", ""), ("sellador", "sealer", ""),  # Encounter 49
+                ("impermeabilización", "waterproofing", ""), ("permiso", "permission", ""), ("inspector", "inspector", ""),  # Encounter 50
             ],
         },
     ],
     "groceries": [
         {
             "title": "At the Supermarket",
-            "goal": "Buy groceries by finding items and checking out",
+            "goal": "Check out at the supermarket, handle pricing issues, and bag your groceries",
             "word_prefix": "groc",
             "words": [
-                # Encounter 1-5 (basic essentials)
-                ("supermercado", "supermarket", "supermercat"), ("autoservicio", "self-service store", "autoservei"), ("lista", "list", "llista"),
-                ("listado", "list/checklist", "llistat"), ("fruta fresca", "fresh fruit", "fruit fresc"), ("vegetal", "vegetable", "vegetal"),
-                ("res", "beef", "res"), ("hogaza", "loaf of bread", "molla"), ("lácteo", "dairy", "làctic"),
-                ("blanquillo", "egg", "blanquillo"), ("barato", "cheap", "barat"), ("caro", "expensive", "car"),
-                ("costoso", "expensive", "costós"), ("carrito", "cart", "carret"), ("canasta", "basket", "cistella"),
-                # Encounter 6-10
-                ("funda", "bag", "fundes"), ("carro de compras", "shopping cart", "carro de compres"), ("sección", "section", "secció"),
-                ("fresco", "fresh", "fresc"), ("congelado", "frozen", "congelat"), ("enlatado", "canned", "en conserva"),
-                ("cesta", "basket", "cistella"), ("corredor", "aisle/corridor", "corredor"), ("anaquel", "shelf", "estanteria"),
-                ("departamento", "department", "departament"), ("recién cortado", "freshly cut", "recent tallat"), ("pasta", "pasta", "pasta"),
-                ("bajo cero", "frozen", "baix zero"), ("en conserva", "preserved", "en conserva"), ("pechuga", "chicken breast", "pit"),
-                # Encounter 11-15
-                ("caja", "checkout/cashier", "caja"), ("filete de pescado", "fish fillet", "filet de peix"), ("lomo", "pork loin", "llom"),
-                ("grano", "grain", "gra"), ("fideos", "noodles", "fideus"), ("promoción", "promotion", "promoció"),
-                ("kilo", "kilogram", "kilo"), ("gramo", "gram", "gram"), ("litro", "liter", "litre"),
-                ("maduro", "ripe", "madur"), ("aceite de oliva", "olive oil", "oli d\'oliva"), ("podrido", "rotten", "podrit"),
-                ("orgánico", "organic", "orgànic"), ("sal de mesa", "table salt", "sal de taula"), ("integral", "whole grain", "integral"),
-                # Encounter 16-20
-                ("panadería", "bakery", "panaderia"), ("carnicería", "butcher shop", "carnisseria"), ("pescadería", "fish counter", "peixateria"),
-                ("endulzante", "sweetener", "endolcidor"), ("caja registradora", "cash register", "caixa registradora"), ("kilogramo", "kilogram", "quilogram"),
-                ("bebida", "drink", "beguda"), ("jugo", "juice", "sucre"), ("medio kilo", "half kilo", "mitja quilo"),
-                ("medio litro", "half liter", "mitja litre"), ("cereal", "cereal", "cereal"), ("chocolate", "chocolate", "xocolata"),
-                ("condimento", "condiment", "condiment"), ("salsa", "sauce", "salsa"), ("en su punto", "ripe/ready", "en el seu punt"),
-                # Encounter 21-25
-                ("sin madurar", "unripe", "sense madurar"), ("ingrediente", "ingredient", "ingredient"), ("preparar", "to prepare", "preparar"),
-                ("echado a perder", "spoiled", "estroncat"), ("genérico", "generic", "genèric"), ("importado", "imported", "importat"),
-                ("bio", "organic/bio", "bio"), ("sin procesar", "unprocessed", "sense processar"), ("caducidad", "expiration", "caducitat"),
-                ("refrigerador", "refrigerator section", "refrigerador"), ("congelador", "freezer section", "congelador"), ("ambiente", "room temperature", "ambient"),
-                ("limpieza", "cleaning", "netedat"), ("de grano entero", "whole grain", "de gra sencer"), ("horno de pan", "bread oven", "forn de pa"),
-                # Encounter 26-30
-                ("local de carnes", "meat counter", "local de carn"), ("servilleta", "napkin", "tovalló"), ("aluminio", "aluminum foil", "alumini"),
-                ("especia", "spice", "espècia"), ("mostrador de pescado", "fish counter", "taulell de peix"), ("canela", "cinnamon", "canel·la"),
-                ("harina", "flour", "farina"), ("levadura", "yeast", " llevat"), ("producto lácteo", "dairy product", "producte làctic"),
-                ("nuez", "nut", "nou"), ("almendra", "almond", "ametlla"), ("cacahuate", "peanut", "cacauet"),
-                ("fiambre", "deli meat", "embotit"), ("queso fresco", "fresh cheese", "formatge fresc"), ("salchicha", "sausage", "salsitxa"),
-                # Encounter 31-35
-                ("yogur natural", "natural yogurt", "iogurt natural"), ("refresco", "soft drink", "refresc"), ("ajo", "garlic", "all"),
-                ("jugo natural", "natural juice", "sucre natural"), ("zanahoria", "carrot", "pastanaga"), ("agua mineral", "mineral water", "aigua mineral"),
-                ("bizcocho", "biscuit", "bescuit"), ("plátano", "banana", "plàtan"), ("golosina", "candy/sweet", "golosina"),
-                ("aderezo", "dressing", "aderezo"), ("fresa", "strawberry", "mora"), ("uva", "grape", "raïm"),
-                ("atún", "tuna", "tonyina"), ("sardina", "sardine", "sardina"), ("salsa picante", "hot sauce", "salsa picant"),
-                # Encounter 36-40
-                ("tortilla", "tortilla", "truita"), ("tostada", "toast/tostada", "tostada"), ("crema", "cream/sour cream", "crema"),
-                ("aceto", "vinegar", "vinagre"), ("chile", "chili pepper", "xile"), ("cilantro", "cilantro", "cilantre"),
-                ("fórmula", "recipe/formula", "fórmula"), ("cerveza", "beer", "cervesa"), ("vino", "wine", "vi"),
-                ("pañal", "diaper", "bolquer"), ("elaborar", "to prepare", "elaborar"), ("sello comercial", "brand/trademark", "segell comercial"),
-                ("mascota", "pet", "mascota"), ("alimento", "food/feed", "aliment"), ("lata", "can", "llauna"),
-                # Encounter 41-45
-                ("gourmet", "gourmet", "gourmet"), ("delicatessen", "delicatessen", "delicatessen"), ("especialidad", "specialty", "especialitat"),
-                ("libre de gluten", "gluten-free", "lliure de gluten"), ("vegano", "vegan", "vegà"), ("sin lactosa", "lactose-free", "sense lactosa"),
-                ("sin marca", "generic/unbranded", "sense marca"), ("báscula", "scale", "bàscula"), ("medir", "to measure", "mesurar"),
-                ("empacador", "bagger", "envasador"), ("acomodar", "to arrange", "acomodar"), ("traído de fuera", "imported", "portat de fora"),
-                ("envase", "container", "envas"), ("ticket", "receipt", "ticket"), ("rótulo", "label", "rètol"),
-                # Encounter 46-50
-                ("entrega", "delivery", "entrega"), ("fecha de vencimiento", "expiration date", "data de caducitat"), ("zona refrigerada", "refrigerated zone", "zona refrigerada"),
-                ("estacionamiento", "parking lot", "aparcament"), ("zona de congelados", "frozen section", "zona de congelats"), ("temperatura ambiente", "room temp", "temperatura ambient"),
-                ("artículo de limpieza", "cleaning product", "article de neteja"), ("limpiador", "cleaner", "netejador"), ("barra de jabón", "bar of soap", "barra de sabó"),
-                ("fidelidad", "loyalty", "fidelitat"), ("puntos", "points", "punts"), ("membresía", "membership", "membresia"),
-                ("hoja de papel", "paper sheet", "full de paper"), ("buen día", "good day", "bon dia"), ("pañuelo de mesa", "table napkin", "tovalló de taula"),
+                ("cajero", "cashier", ""), ("cliente", "customer", ""), ("caja", "box", ""),  # Encounter 1
+                ("fila", "line", ""), ("turno", "shift", ""), ("siguiente", "next", ""),  # Encounter 2
+                ("productos", "products", ""), ("artículo", "item", ""), ("código de barras", "barcode", ""),  # Encounter 3
+                ("escanean el producto", "they scan the product", ""), ("pasan los productos", "scan products", ""), ("total de la compra", "total purchase", ""),  # Encounter 4
+                ("precio correcto", "correct price", ""), ("precio incorrecto", "incorrect price", ""), ("oferta", "offer", ""),  # Encounter 5
+                ("descuento", "discount", ""), ("promoción", "promotion", ""), ("el descuento aplica", "discount applies", ""),  # Encounter 6
+                ("no aplica", "not applicable", ""), ("inventario", "inventory", ""), ("no aparece", "does not appear", ""),  # Encounter 7
+                ("revisan el precio", "check the price", ""), ("verifican el precio", "check the price", ""), ("letrero", "sign", ""),  # Encounter 8
+                ("carrito de compra", "shopping cart", ""), ("pasarela de cajas", "checkout lane", ""), ("supervisor", "supervisor", ""),  # Encounter 9
+                ("llaman al supervisor", "call supervisor", ""), ("corrigen el precio", "they correct the price", ""), ("factura final", "final invoice", ""),  # Encounter 10
+                ("monto total", "total amount", ""), ("subtotal", "subtotal", ""), ("cargo adicional", "additional charge", ""),  # Encounter 11
+                ("incluye impuesto", "includes tax", ""), ("no incluye impuesto", "no tax included", ""), ("pago", "payment", ""),  # Encounter 12
+                ("pago aprobado", "payment approved", ""), ("pago rechazado", "payment rejected", ""), ("tarjeta", "card", ""),  # Encounter 13
+                ("tarjeta rechazada", "rejected card", ""), ("inserta la tarjeta", "insert card", ""), ("pasa la tarjeta", "swipe card", ""),  # Encounter 14
+                ("acerca la tarjeta", "bring the card closer", ""), ("ingresa el PIN", "enter PIN", ""), ("firma aquí", "sign here", ""),  # Encounter 15
+                ("efectivo", "cash", ""), ("pago en efectivo", "cash payment", ""), ("dividir el pago", "split payment", ""),  # Encounter 16
+                ("pago dividido", "split payment", ""), ("pago parcial", "partial payment", ""), ("pago completo", "full payment", ""),  # Encounter 17
+                ("vuelto", "change (money)", ""), ("le dan cambio", "give change", ""), ("ticket de compra", "purchase ticket", ""),  # Encounter 18
+                ("imprimen el recibo", "print receipt", ""), ("bolsa", "bag", ""), ("bolsa grande", "large bag", ""),  # Encounter 19
+                ("bolsa pequeña", "small bag", ""), ("sin bolsa", "no bag", ""), ("separan los productos", "separate products", ""),  # Encounter 20
+                ("producto frío", "cold product", ""), ("producto congelado", "frozen product", ""), ("producto seco", "dry product", ""),  # Encounter 21
+                ("huevos", "eggs", ""), ("frágil", "fragile", ""), ("pesado", "heavy", ""),  # Encounter 22
+                ("liviano", "light (weight)", ""), ("porción", "portion", ""), ("una unidad", "one unit", ""),  # Encounter 23
+                ("dos unidades", "two units", ""), ("marcan la cantidad", "mark the quantity", ""), ("corrigen la cantidad", "they correct the quantity", ""),  # Encounter 24
+                ("quitan el producto", "remove product", ""), ("agregan el producto", "add the product", ""), ("no es mío", "not mine", ""),  # Encounter 25
+                ("es incorrecto", "it’s incorrect", ""), ("revisan el producto", "check the product", ""), ("escaneo doble", "double scan", ""),  # Encounter 26
+                ("error del sistema", "system error", ""), ("ya quedó", "it's done", ""), ("sigue igual", "stays same", ""),  # Encounter 27
+                ("cliente siguiente", "next customer", ""), ("fila larga", "long line", ""), ("mucha gente", "many people", ""),  # Encounter 28
+                ("tarda mucho", "takes long", ""), ("fila", "line", ""), ("horario", "schedule", ""),  # Encounter 29
+                ("está abierto", "is open", ""), ("está cerrado", "is closed", ""), ("identificación", "identification", ""),  # Encounter 30
+                ("muestra su identificación", "shows ID", ""), ("requiere edad mínima", "requires minimum age", ""), ("verifican la edad", "check age", ""),  # Encounter 31
+                ("producto restringido", "restricted product", ""), ("aprobado", "approved", ""), ("denegado", "denied", ""),  # Encounter 32
+                ("alcohol", "alcohol", ""), ("tabaco", "tobacco", ""), ("bebida", "drink", ""),  # Encounter 33
+                ("frutas", "fruits", ""), ("huevos", "eggs", ""), ("pan integral", "whole wheat bread", ""),  # Encounter 34
+                ("carne", "meat", ""), ("verduras", "vegetables", ""), ("fruta", "fruit", ""),  # Encounter 35
+                ("caja rápida", "express checkout", ""), ("pocos productos", "few products", ""), ("muchos productos", "many products", ""),  # Encounter 36
+                ("carrito", "cart", ""), ("canasta", "basket", ""), ("empacan los productos", "pack products", ""),  # Encounter 37
+                ("cliente espera", "customer waiting", ""), ("número de caja", "box number", ""), ("caja abierta", "open box", ""),  # Encounter 38
+                ("caja cerrada", "closed box", ""), ("cambio exacto", "exact change", ""), ("sin cambio", "no change", ""),  # Encounter 39
+                ("pago exacto", "exact payment", ""), ("tarjeta válida", "valid card", ""), ("tarjeta inválida", "invalid card", ""),  # Encounter 40
+                ("saldo insuficiente", "insufficient balance", ""), ("hay fondos", "there are funds", ""), ("no hay fondos", "no funds", ""),  # Encounter 41
+                ("listo para pagar", "ready to pay", ""), ("ingresa el código", "enter code", ""), ("código manual", "manual code", ""),  # Encounter 42
+                ("ingreso manual", "manual entry", ""), ("producto sin código", "product without code", ""), ("pesa el producto", "weighs product", ""),  # Encounter 43
+                ("balanza", "scale", ""), ("etiqueta de precio", "price tag", ""), ("no coincide", "does not match", ""),  # Encounter 44
+                ("revise la etiqueta", "check the label", ""), ("actualizan el precio", "update the price", ""), ("precio actualizado", "updated price", ""),  # Encounter 45
+                ("inténtalo otra vez", "try again", ""), ("caja central", "central box", ""), ("lector", "reader", ""),  # Encounter 46
+                ("el lector da error", "reader error", ""), ("promoción vencida", "expired promotion", ""), ("vence hoy", "expires today", ""),  # Encounter 47
+                ("unidad equivocada", "wrong unit", ""), ("precio por kilo", "price per kilo", ""), ("precio por unidad", "price per unit", ""),  # Encounter 48
+                ("pesa menos", "weighs less", ""), ("pesa más", "weighs more", ""), ("producto abierto", "opened product", ""),  # Encounter 49
+                ("producto dañado", "damaged product", ""), ("reemplazo", "replacement", ""), ("devolución al método de pago", "refund to payment", ""),  # Encounter 50
+            ],
+        },
+    ],
+    "mechanic": [
+        {
+            "title": "At the Mechanic",
+            "goal": "Describe car problems, get a diagnosis, and handle repairs and payment",
+            "word_prefix": "mech",
+            "words": [
+                ("automóvil", "car", ""), ("vehículo", "vehicle", ""), ("motorista", "motorcyclist", ""),  # Encounter 1
+                ("batería", "battery", ""), ("frenos", "brakes", ""), ("cambio de aceite", "oil change", ""),  # Encounter 2
+                ("filtro", "filter", ""), ("transmisión", "transmission", ""), ("suspensión", "suspension", ""),  # Encounter 3
+                ("faro", "headlight", ""), ("amortiguador", "shock absorber", ""), ("radiador", "radiator", ""),  # Encounter 4
+                ("bujía", "spark plug", ""), ("correa", "strap", ""), ("alternador", "alternator", ""),  # Encounter 5
+                ("falla", "failure", ""), ("golpeteo", "knocking", ""), ("vibración", "vibration", ""),  # Encounter 6
+                ("fuga", "leak", ""), ("no arranca", "does not start", ""), ("no enciende", "does not turn on", ""),  # Encounter 7
+                ("se apaga", "turns off", ""), ("huele raro", "smells strange", ""), ("se sobrecalienta", "overheats", ""),  # Encounter 8
+                ("tiene poca potencia", "low power", ""), ("consume aceite", "consumes oil", ""), ("pierde líquido", "leaks liquid", ""),  # Encounter 9
+                ("frenos débiles", "weak brakes", ""), ("pedal suave", "soft pedal", ""), ("revisan el carro", "check the car", ""),  # Encounter 10
+                ("inspección", "inspection", ""), ("evaluación", "evaluation", ""), ("reparan", "repair", ""),  # Encounter 11
+                ("lo arreglan", "fix it", ""), ("cambian la pieza", "change part", ""), ("ajustan", "adjust", ""),  # Encounter 12
+                ("instalan", "they install", ""), ("limpian", "they clean", ""), ("lo prueban", "test it", ""),  # Encounter 13
+                ("revisan el motor", "check the engine", ""), ("cambio de aceite", "oil change", ""), ("cambian el filtro", "change filter", ""),  # Encounter 14
+                ("revisan los frenos", "check the brakes", ""), ("alinean las llantas", "align the tires", ""), ("¿qué problema tiene?", "What problem?", ""),  # Encounter 15
+                ("¿qué pasa?", "What’s wrong?", ""), ("¿desde cuándo?", "Since when?", ""), ("¿cuándo empezó?", "when did it start?", ""),  # Encounter 16
+                ("¿hace ruido?", "Makes noise?", ""), ("¿cuánto cuesta?", "how much does it cost?", ""), ("¿cuánto tarda?", "how long does it take?", ""),  # Encounter 17
+                ("¿es grave?", "Is serious?", ""), ("¿puede empeorar?", "Can worsen?", ""), ("¿puede revisarlo?", "Can check it?", ""),  # Encounter 18
+                ("tarifa", "rate", ""), ("costo", "cost", ""), ("importe", "amount", ""),  # Encounter 19
+                ("estimado", "dear", ""), ("mano de obra", "labor", ""), ("piezas", "parts", ""),  # Encounter 20
+                ("adicional", "additional", ""), ("incluye", "includes", ""), ("no incluye", "does not include", ""),  # Encounter 21
+                ("presupuesto", "budget", ""), ("pago", "payment", ""), ("en efectivo", "in cash", ""),  # Encounter 22
+                ("con tarjeta", "by card", ""), ("garantía", "warranty", ""), ("recibo", "receipt", ""),  # Encounter 23
+                ("desgastado", "worn out", ""), ("dañado", "damaged", ""), ("roto", "broken", ""),  # Encounter 24
+                ("sucio", "dirty", ""), ("flojo", "loose", ""), ("apretado", "tight", ""),  # Encounter 25
+                ("en buen estado", "in good condition", ""), ("en mal estado", "in bad condition", ""), ("urgente", "urgent", ""),  # Encounter 26
+                ("peligroso", "dangerous", ""), ("sistema de frenos", "brake system", ""), ("sistema eléctrico", "electrical system", ""),  # Encounter 27
+                ("presión", "pressure", ""), ("medidor", "meter", ""), ("nivel de aceite", "oil level", ""),  # Encounter 28
+                ("nivel bajo", "low level", ""), ("nivel alto", "high level", ""), ("luz de motor", "engine light", ""),  # Encounter 29
+                ("código de error", "error code", ""), ("dejo el carro", "I leave the car", ""), ("recojo el carro", "get the cart", ""),  # Encounter 30
+                ("listo", "ready", ""), ("todavía no", "not yet", ""), ("en proceso", "in process", ""),  # Encounter 31
+                ("espero", "I hope", ""), ("más tarde", "later", ""), ("hoy", "today", ""),  # Encounter 32
+                ("pieza de repuesto", "spare part", ""), ("tiempo estimado", "estimated time", ""), ("muy caro", "very expensive", ""),  # Encounter 33
+                ("más barato", "cheaper", ""), ("solo eso", "only that", ""), ("no lo necesito", "don't need it", ""),  # Encounter 34
+                ("prefiero eso primero", "I prefer that first", ""), ("después vemos", "see later", ""), ("no autorizo ese trabajo", "do not authorize work", ""),  # Encounter 35
+                ("sin autorización", "unauthorized", ""), ("quiero más detalle", "want more detail", ""), ("líquido de frenos", "brake fluid", ""),  # Encounter 36
+                ("aceite de motor", "motor oil", ""), ("refrigerante", "coolant", ""), ("líquido", "liquid", ""),  # Encounter 37
+                ("combustible", "fuel", ""), ("etanol", "ethanol", ""), ("diésel", "diesel", ""),  # Encounter 38
+                ("tanque", "tank", ""), ("bomba de aire", "air pump", ""), ("válvula", "valve", ""),  # Encounter 39
+                ("al frenar", "when braking", ""), ("al arrancar", "when starting", ""), ("en movimiento", "in motion", ""),  # Encounter 40
+                ("en frío", "cold", ""), ("en caliente", "hot", ""), ("a alta velocidad", "high speed", ""),  # Encounter 41
+                ("a baja velocidad", "low speed", ""), ("en curva", "on a curve", ""), ("en subida", "going up", ""),  # Encounter 42
+                ("en bajada", "downhill", ""), ("mecánica", "mechanics", ""), ("garaje", "garage", ""),  # Encounter 43
+                ("herramienta manual", "hand tool", ""), ("elevador", "elevator", ""), ("garantía", "warranty", ""),  # Encounter 44
+                ("servicio técnico", "technical service", ""), ("revisión general", "general inspection", ""), ("mantenimiento", "maintenance", ""),  # Encounter 45
+                ("historial", "history", ""), ("diagnóstico completo", "full diagnosis", ""), ("no entiendo", "do not understand", ""),  # Encounter 46
+                ("¿puede repetir?", "Can repeat?", ""), ("más despacio", "slower", ""), ("¿qué significa?", "What means?", ""),  # Encounter 47
+                ("pastillas de freno", "brake pads", ""), ("disco de freno", "brake disc", ""), ("amortiguador", "shock absorber", ""),  # Encounter 48
+                ("dirección", "address", ""), ("alineación", "alignment", ""), ("balanceo", "swaying", ""),  # Encounter 49
+                ("embrague", "clutch", ""), ("escape", "escape", ""), ("filtro de aire", "air filter", ""),  # Encounter 50
+            ],
+        },
+    ],
+    "police": [
+        {
+            "title": "Traffic Stop",
+            "goal": "Handle a traffic stop calmly by providing documents and following instructions",
+            "word_prefix": "pol",
+            "words": [
+                ("policía", "police", ""), ("agente", "agent", ""), ("patrulla", "patrol", ""),  # Encounter 1
+                ("control policial", "police control", ""), ("licencia de conducir", "driver's license", ""), ("registro del vehículo", "vehicle registration", ""),  # Encounter 2
+                ("prueba de seguro", "insurance proof", ""), ("documentos", "documents", ""), ("identificación", "identification", ""),  # Encounter 3
+                ("¿licencia, por favor?", "License, please?", ""), ("¿tiene el registro?", "Do you have the registration?", ""), ("¿tiene seguro?", "Do you have insurance?", ""),  # Encounter 4
+                ("¿puede mostrarlo?", "Can show it?", ""), ("aquí tiene", "here you go", ""), ("está en el vehículo", "in the vehicle", ""),  # Encounter 5
+                ("está en la guantera", "in glovebox", ""), ("lo detuve", "I stopped", ""), ("parada", "stop", ""),  # Encounter 6
+                ("¿sabe por qué lo detuve?", "Do you know why I stopped him?", ""), ("exceso de velocidad", "speeding", ""), ("velocidad máxima", "maximum speed", ""),  # Encounter 7
+                ("límite de velocidad", "speed limit", ""), ("zona", "zone", ""), ("en esta zona", "in this area", ""),  # Encounter 8
+                ("iba a", "was going to", ""), ("por encima de", "above", ""), ("infracción", "infraction", ""),  # Encounter 9
+                ("motivo", "reason", ""), ("vehículo", "vehicle", ""), ("automóvil", "car", ""),  # Encounter 10
+                ("luces", "lights", ""), ("luz trasera", "rear light", ""), ("luz delantera", "front light", ""),  # Encounter 11
+                ("no funciona", "does not work", ""), ("placa", "plate", ""), ("luz trasera", "rear light", ""),  # Encounter 12
+                ("cinturón", "belt", ""), ("sin cinturón", "no seatbelt", ""), ("en regla", "in order", ""),  # Encounter 13
+                ("apague el motor", "turn off engine", ""), ("baje la ventana", "roll down window", ""), ("salga del vehículo", "get out", ""),  # Encounter 14
+                ("quédese en el vehículo", "stay in vehicle", ""), ("espere aquí", "wait here", ""), ("despacio", "slowly", ""),  # Encounter 15
+                ("con calma", "calmly", ""), ("siga mis instrucciones", "follow instructions", ""), ("no se mueva", "don't move", ""),  # Encounter 16
+                ("frenó fuerte", "braked hard", ""), ("cambió de carril", "lane change", ""), ("sin señalizar", "unmarked", ""),  # Encounter 17
+                ("conducción peligrosa", "dangerous driving", ""), ("carril", "lane", ""), ("carril restringido", "restricted lane", ""),  # Encounter 18
+                ("giro", "turn", ""), ("no señalizó", "didn't signal", ""), ("tráfico", "traffic", ""),  # Encounter 19
+                ("intersección", "intersection", ""), ("señal de tránsito", "traffic sign", ""), ("luz roja", "red light", ""),  # Encounter 20
+                ("luz verde", "green light", ""), ("¿de dónde viene?", "Where from?", ""), ("¿a dónde va?", "where are you going?", ""),  # Encounter 21
+                ("¿cuánto tiempo lleva manejando?", "How long driving?", ""), ("¿es su vehículo?", "Is your vehicle?", ""), ("¿es un vehículo de alquiler?", "Is rental vehicle?", ""),  # Encounter 22
+                ("¿tiene el contrato?", "Do you have the contract?", ""), ("¿ha consumido alcohol?", "Consumed alcohol?", ""), ("¿ha tomado algo?", "Had anything?", ""),  # Encounter 23
+                ("¿entiende?", "Understand?", ""), ("¿puede explicar?", "Can explain?", ""), ("alcohol", "alcohol", ""),  # Encounter 24
+                ("análisis", "analysis", ""), ("prueba de alcohol", "alcohol test", ""), ("sople aquí", "blow here", ""),  # Encounter 25
+                ("resultado", "result", ""), ("negativo", "negative", ""), ("positivo", "positive", ""),  # Encounter 26
+                ("bajo la influencia", "under influence", ""), ("sobrio", "sober", ""), ("verifican el sistema", "check the system", ""),  # Encounter 27
+                ("registro activo", "active registration", ""), ("seguro activo", "active insurance", ""), ("no aparece", "does not appear", ""),  # Encounter 28
+                ("pendiente", "pending", ""), ("infracción", "infraction", ""), ("advertencia", "warning", ""),  # Encounter 29
+                ("sanción", "penalty", ""), ("emiten la multa", "issue fine", ""), ("dan una advertencia", "they give a warning", ""),  # Encounter 30
+                ("paga la multa", "pays fine", ""), ("en línea", "online", ""), ("plazo", "term", ""),  # Encounter 31
+                ("monto", "amount", ""), ("carretera", "highway", ""), ("intersección", "intersection", ""),  # Encounter 32
+                ("zona urbana", "urban area", ""), ("zona escolar", "school zone", ""), ("zona residencial", "residential area", ""),  # Encounter 33
+                ("cartel", "sign", ""), ("señal de tránsito", "traffic sign", ""), ("dirección", "address", ""),  # Encounter 34
+                ("carril derecho", "right lane", ""), ("alquiler", "rent", ""), ("licencia de conducir", "driver's license", ""),  # Encounter 35
+                ("propietario", "owner", ""), ("está a su nombre", "in your name", ""), ("no es mío", "not mine", ""),  # Encounter 36
+                ("vehículo prestado", "borrowed vehicle", ""), ("permiso del dueño", "owner's permission", ""), ("no lo encuentro", "can't find it", ""),  # Encounter 37
+                ("no lo tengo", "don't have it", ""), ("no carga", "does not load", ""), ("sin señal", "no signal", ""),  # Encounter 38
+                ("en el celular", "on the phone", ""), ("copia digital", "digital copy", ""), ("sin documento", "no document", ""),  # Encounter 39
+                ("vencido", "expired", ""), ("por vencer", "about to expire", ""), ("no es válido", "not valid", ""),  # Encounter 40
+                ("no entiendo", "do not understand", ""), ("¿puede repetir?", "Can repeat?", ""), ("más despacio", "slower", ""),  # Encounter 41
+                ("¿qué significa?", "What means?", ""), ("¿es una multa?", "Is fine?", ""), ("¿es una advertencia?", "Is warning?", ""),  # Encounter 42
+                ("¿puedo irme?", "Can I leave?", ""), ("¿puedo seguir?", "Can I continue?", ""), ("inspección", "inspection", ""),  # Encounter 43
+                ("oríllese", "pull over", ""), ("arcén", "shoulder (road)", ""), ("luces de emergencia", "emergency lights", ""),  # Encounter 44
+                ("documento físico", "physical document", ""), ("permiso de conducir", "driver's license", ""), ("matrícula", "registration", ""),  # Encounter 45
+                ("agente de tránsito", "traffic agent", ""), ("triángulo", "triangle", ""), ("chaleco reflectante", "reflective vest", ""),  # Encounter 46
+                ("accidente", "accident", ""), ("colisión", "collision", ""), ("reporte", "report", ""),  # Encounter 47
+                ("reporte policial", "police report", ""), ("testimonio", "testimony", ""), ("declaración", "statement", ""),  # Encounter 48
+                ("firme aquí", "sign here", ""), ("corte", "cut", ""), ("fecha de corte", "cutoff date", ""),  # Encounter 49
+                ("comparecencia", "appearance", ""), ("multas", "fines", ""), ("remolque", "trailer", ""),  # Encounter 50
+            ],
+        },
+    ],
+    "restaurant": [
+        {
+            "title": "Eating Out",
+            "goal": "Order food, interact with the server, and pay for your meal",
+            "word_prefix": "rest",
+            "words": [
+                ("menú", "menu", ""), ("plato del día", "daily special", ""), ("mesero", "waiter", ""),  # Encounter 1
+                ("menú", "menu", ""), ("reserva", "reservation", ""), ("¿tienen reserva?", "Do you have a reservation?", ""),  # Encounter 2
+                ("mesa para dos", "table for two", ""), ("pido", "I order", ""), ("¿qué desea?", "What want?", ""),  # Encounter 3
+                ("¿qué van a pedir?", "What will you order?", ""), ("tomo la orden", "takes order", ""), ("aquí está el menú", "here is menu", ""),  # Encounter 4
+                ("recomendación", "recommendation", ""), ("¿qué recomienda?", "What recommend?", ""), ("especialidad", "specialty", ""),  # Encounter 5
+                ("entrada", "entrance", ""), ("plato principal", "main course", ""), ("bebida", "drink", ""),  # Encounter 6
+                ("acompañamiento", "accompaniment", ""), ("guarnición", "garnish", ""), ("porción", "portion", ""),  # Encounter 7
+                ("ingrediente", "ingredient", ""), ("salsa", "sauce", ""), ("plato principal", "main course", ""),  # Encounter 8
+                ("mariscos", "seafood", ""), ("carne", "meat", ""), ("pescado", "fish", ""),  # Encounter 9
+                ("verduras", "vegetables", ""), ("plato vegetariano", "vegetarian dish", ""), ("vegetariano", "vegetarian", ""),  # Encounter 10
+                ("vegano", "vegan", ""), ("alergia", "allergy", ""), ("alérgico", "allergic", ""),  # Encounter 11
+                ("frutos secos", "nuts", ""), ("sin gluten", "gluten-free", ""), ("con azúcar", "with sugar", ""),  # Encounter 12
+                ("¿tiene…?", "Do you have...?", ""), ("¿lleva…?", "Carry...?", ""), ("sin picante", "no spice", ""),  # Encounter 13
+                ("picante", "spicy", ""), ("poco picante", "mildly spicy", ""), ("sin carne", "no meat", ""),  # Encounter 14
+                ("sin gluten", "gluten-free", ""), ("¿se puede cambiar?", "Can it be changed?", ""), ("bebida", "drink", ""),  # Encounter 15
+                ("refresco", "soda", ""), ("con gas", "sparkling", ""), ("sin gas", "no gas", ""),  # Encounter 16
+                ("refresco", "soda", ""), ("jugo", "juice", ""), ("cerveza", "beer", ""),  # Encounter 17
+                ("vino", "wine", ""), ("copa", "glass", ""), ("menú", "menu", ""),  # Encounter 18
+                ("¿algo de tomar?", "something to drink?", ""), ("tiempo de espera", "wait time", ""), ("¿cuánto tiempo tarda?", "How long takes?", ""),  # Encounter 19
+                ("regreso enseguida", "back soon", ""), ("aquí está", "here it is", ""), ("quedan platos", "dishes left", ""),  # Encounter 20
+                ("no llegó", "didn't arrive", ""), ("pedimos la comida", "we order food", ""), ("trae", "brings", ""),  # Encounter 21
+                ("lleva", "carries", ""), ("sirve", "serves", ""), ("mesa lista", "table ready", ""),  # Encounter 22
+                ("síganme", "follow me", ""), ("error", "error", ""), ("equivocado", "wrong", ""),  # Encounter 23
+                ("no es esto", "not this", ""), ("no pedimos eso", "we didn't order that", ""), ("falta esto", "missing this", ""),  # Encounter 24
+                ("propina", "tip", ""), ("cambian el plato", "change plate", ""), ("menú del día", "daily menu", ""),  # Encounter 25
+                ("preparan otro plato", "they prepare another dish", ""), ("tardó mucho", "took long", ""), ("frío", "cold", ""),  # Encounter 26
+                ("caliente", "hot", ""), ("recalentado", "overheated", ""), ("¿qué es esto?", "What is this?", ""),  # Encounter 27
+                ("¿qué lleva?", "What carry?", ""), ("¿cómo es?", "What is it like?", ""), ("¿está listo?", "Is ready?", ""),  # Encounter 28
+                ("¿falta mucho?", "Much left?", ""), ("¿puede explicar?", "Can explain?", ""), ("no entiendo", "do not understand", ""),  # Encounter 29
+                ("repítalo", "repeat it", ""), ("más despacio", "slower", ""), ("aclárelo", "clarify it", ""),  # Encounter 30
+                ("cuenta", "bill", ""), ("la cuenta", "the bill", ""), ("propina", "tip", ""),  # Encounter 31
+                ("menú", "menu", ""), ("incluye", "includes", ""), ("no incluye", "does not include", ""),  # Encounter 32
+                ("propina", "tip", ""), ("menú del día", "daily menu", ""), ("dividimos la cuenta", "split the bill", ""),  # Encounter 33
+                ("pago", "payment", ""), ("con tarjeta", "by card", ""), ("en efectivo", "in cash", ""),  # Encounter 34
+                ("terminal", "terminal", ""), ("no funciona", "does not work", ""), ("menú", "menu", ""),  # Encounter 35
+                ("mesa libre", "free table", ""), ("ocupado", "busy", ""), ("reservado", "reserved", ""),  # Encounter 36
+                ("afuera", "outside", ""), ("adentro", "inside", ""), ("terraza", "terrace", ""),  # Encounter 37
+                ("aire acondicionado", "air conditioning", ""), ("ambiente agradable", "pleasant environment", ""), ("tranquilo", "calm", ""),  # Encounter 38
+                ("ambiente", "environment", ""), ("para dos", "for two", ""), ("reserva", "reservation", ""),  # Encounter 39
+                ("menos cantidad", "less quantity", ""), ("suficiente", "enough", ""), ("extra", "extra", ""),  # Encounter 40
+                ("otra porción", "another portion", ""), ("lo mismo", "the same", ""), ("para llevar", "to go", ""),  # Encounter 41
+                ("pedido", "order", ""), ("factura", "invoice", ""), ("reserva confirmada", "confirmed reservation", ""),  # Encounter 42
+                ("mesa asignada", "assigned table", ""), ("lista de espera", "waiting list", ""), ("disponibilidad", "availability", ""),  # Encounter 43
+                ("horario", "schedule", ""), ("cubiertos", "cutlery", ""), ("servilleta", "napkin", ""),  # Encounter 44
+                ("tenedor", "fork", ""), ("cuchillo", "knife", ""), ("servilleta", "napkin", ""),  # Encounter 45
+                ("copa", "glass", ""), ("taza", "cup", ""), ("servilleta", "napkin", ""),  # Encounter 46
+                ("sin hielo", "no ice", ""), ("otra ronda", "another round", ""), ("traen la cuenta", "bring bill", ""),  # Encounter 47
+                ("cobro adicional", "additional charge", ""), ("cargo por servicio", "service charge", ""), ("plato hondo", "soup plate", ""),  # Encounter 48
+                ("plato llano", "flat plate", ""), ("cubierto extra", "extra cover", ""), ("para compartir", "to share", ""),  # Encounter 49
+                ("recogen los platos", "clear dishes", ""), ("mesa sucia", "dirty table", ""), ("mesa limpia", "clean table", ""),  # Encounter 50
+            ],
+        },
+    ],
+    "small_talk": [
+        {
+            "title": "Meeting a Neighbor",
+            "goal": "Have a friendly conversation with your neighbor about building life",
+            "word_prefix": "talk",
+            "words": [
+                ("residente", "resident", ""), ("vecina", "neighbor (female)", ""), ("portal", "doorway", ""),  # Encounter 1
+                ("departamento", "department", ""), ("vivienda", "housing", ""), ("zona", "zone", ""),  # Encounter 2
+                ("barrio", "neighborhood", ""), ("vecindario", "neighborhood", ""), ("parque cercano", "nearby park", ""),  # Encounter 3
+                ("volumen", "volume", ""), ("baja el volumen", "lower volume", ""), ("reunión", "meeting", ""),  # Encounter 4
+                ("fiesta", "party", ""), ("anoche", "last night", ""), ("tarde", "late", ""),  # Encounter 5
+                ("temprano", "early", ""), ("trabajo temprano", "early work", ""), ("no pude dormir", "couldn't sleep", ""),  # Encounter 6
+                ("quería comentarte algo", "wanted to tell you", ""), ("solo quería avisarte", "just wanted to tell you", ""), ("la próxima vez", "next time", ""),  # Encounter 7
+                ("tenga cuidado", "be careful", ""), ("estacionamiento", "parking", ""), ("plaza de aparcamiento", "parking space", ""),  # Encounter 8
+                ("plaza", "square", ""), ("mi lugar", "my place", ""), ("asignado", "assigned", ""),  # Encounter 9
+                ("visitante", "visitor", ""), ("mueve el carro", "moves car", ""), ("lo muevo ahora mismo", "move now", ""),  # Encounter 10
+                ("ya pasó dos veces", "it already happened twice", ""), ("no sabía", "didn't know", ""), ("no fue intencional", "not intentional", ""),  # Encounter 11
+                ("paquete postal", "postal package", ""), ("entrega", "delivery", ""), ("repartidor", "delivery person", ""),  # Encounter 12
+                ("puerta", "door", ""), ("lo dejó aquí por error", "left here", ""), ("nombre", "name", ""),  # Encounter 13
+                ("mi nombre", "my name", ""), ("aquí está su paquete", "here is package", ""), ("lo tengo", "I have it", ""),  # Encounter 14
+                ("se perdió", "lost", ""), ("pasa seguido", "comes often", ""), ("hace tiempo", "long ago", ""),  # Encounter 15
+                ("hace meses", "months ago", ""), ("hace un año", "one year ago", ""), ("vivo aquí", "I live here", ""),  # Encounter 16
+                ("me mudé", "I moved", ""), ("¿te gusta vivir aquí?", "Do you like living here?", ""), ("me gusta", "I like", ""),  # Encounter 17
+                ("es tranquilo", "it’s quiet", ""), ("es ruidoso", "it’s noisy", ""), ("es seguro", "it’s safe", ""),  # Encounter 18
+                ("fuga", "leak", ""), ("humedad", "humidity", ""), ("pared del baño", "bathroom wall", ""),  # Encounter 19
+                ("fuga de agua", "water leak", ""), ("problema de agua", "water problem", ""), ("administración", "administration", ""),  # Encounter 20
+                ("ya llamé", "I already called", ""), ("no han venido", "have not come", ""), ("mejor así", "better this way", ""),  # Encounter 21
+                ("más urgente", "more urgent", ""), ("cierra la llave de agua", "turn off water", ""), ("llave de agua", "water valve", ""),  # Encounter 22
+                ("puede empeorar", "can worsen", ""), ("avísame", "notify me", ""), ("me dices", "you tell me", ""),  # Encounter 23
+                ("entiendo", "I understand", ""), ("tiene sentido", "makes sense", ""), ("vecino cercano", "close neighbor", ""),  # Encounter 24
+                ("lejos", "far", ""), ("planta", "plant", ""), ("mismo piso", "same floor", ""),  # Encounter 25
+                ("arriba", "up", ""), ("abajo", "down", ""), ("toca la puerta", "knocks door", ""),  # Encounter 26
+                ("abre", "opens", ""), ("cierra", "saw", ""), ("puerta principal", "main door", ""),  # Encounter 27
+                ("horario", "schedule", ""), ("ocupado", "busy", ""), ("disponible", "available", ""),  # Encounter 28
+                ("fin de semana", "weekend", ""), ("tarde", "late", ""), ("mañana por la mañana", "tomorrow morning", ""),  # Encounter 29
+                ("ayer", "yesterday", ""), ("en un rato", "in a while", ""), ("prestas una herramienta", "you lend a tool", ""),  # Encounter 30
+                ("destornillador", "screwdriver", ""), ("llave inglesa", "wrench", ""), ("taladro", "drill", ""),  # Encounter 31
+                ("recoger la basura", "pick up trash", ""), ("basura", "trash", ""), ("saco la basura", "take out trash", ""),  # Encounter 32
+                ("reciclaje", "recycling", ""), ("portal", "doorway", ""), ("timbre", "doorbell", ""),  # Encounter 33
+                ("puerta del garaje", "garage door", ""), ("entrada principal", "main entrance", ""), ("intercomunicador", "intercom", ""),  # Encounter 34
+                ("copia de llave", "key copy", ""), ("administración del edificio", "building management", ""), ("portero", "doorman", ""),  # Encounter 35
+                ("conserje", "concierge", ""), ("paquete equivocado", "wrong package", ""), ("se confundieron de puerta", "wrong door", ""),  # Encounter 36
+                ("visita", "visit", ""), ("visitas", "visits", ""), ("¿espera visitas?", "Expecting visitors?", ""),  # Encounter 37
+                ("mudanza", "move", ""), ("camión de mudanza", "moving truck", ""), ("se mudan hoy", "moving today", ""),  # Encounter 38
+                ("mascota", "pet", ""), ("conejo", "rabbit", ""), ("gato", "cat", ""),  # Encounter 39
+                ("correa", "strap", ""), ("ladra mucho", "barks a lot", ""), ("¿cómo se llama?", "What is name?", ""),  # Encounter 40
+                ("terraza", "terrace", ""), ("plantas", "plants", ""), ("riego", "watering", ""),  # Encounter 41
+                ("riega las plantas", "water the plants", ""), ("balcón", "balcony", ""), ("puerta del apartamento", "apartment door", ""),  # Encounter 42
+                ("corriente de aire", "draft", ""), ("hace frío aquí", "it’s cold here", ""), ("hace calor aquí", "it’s hot here", ""),  # Encounter 43
+                ("humedad en el techo", "ceiling humidity", ""), ("corte de agua", "water cut", ""), ("corte de luz", "power outage", ""),  # Encounter 44
+                ("luz apagada", "light off", ""), ("se fue la luz", "power outage", ""), ("vuelve pronto", "come back soon", ""),  # Encounter 45
+                ("vecino nuevo", "new neighbor", ""), ("recién llegado", "newly arrived", ""), ("¿desde cuándo vive aquí?", "Since when lives here?", ""),  # Encounter 46
+                ("alquiler", "rent", ""), ("subió el alquiler", "rent increased", ""), ("administración no responde", "management does not respond", ""),  # Encounter 47
+                ("queja", "complaint", ""), ("pongo una queja", "I complain", ""), ("ruido arriba", "noise upstairs", ""),  # Encounter 48
+                ("ruido abajo", "noise downstairs", ""), ("paso lateral", "side step", ""), ("entrada trasera", "back entrance", ""),  # Encounter 49
+                ("puerta principal", "main door", ""), ("interfono", "intercom", ""), ("correo", "mail", ""),  # Encounter 50
             ],
         },
     ],
@@ -515,476 +567,56 @@ _SUB_SITUATIONS = {
             "goal": "Set up your internet service by speaking with the technician",
             "word_prefix": "inet",
             "words": [
-                # Encounter 1-5 (basic essentials)
-                ("internet", "internet", "internet"), ("wifi", "WiFi", "wifi"), ("red inalámbrica", "wireless network", "xarxa sense fils"),
-                ("wifi doméstico", "home WiFi", "wifi domèstic"), ("clave de acceso", "access code", "clau d\'accés"), ("red local", "local network", "xarxa local"),
-                ("router", "router", "router"), ("cable", "cable", "cable"), ("intensidad", "signal strength", "intensitat"),
-                ("enrutador", "router", "enrutador"), ("cable de red", "network cable", "cable de xarxa"), ("tomacorriente", "outlet", "endoll"),
-                ("plan", "plan", "pla"), ("pausado", "slow", "pausat"), ("rapidez", "speed", "rapidesa"),
-                # Encounter 6-10
-                ("paquete de datos", "data plan", "paquet de dades"), ("cuota mensual", "monthly fee", "quota mensual"), ("visita", "visit", "visita"),
-                ("nombre de red", "network name", "nom de xarxa"), ("colocar", "to install", "col·locar"), ("configurar", "to configure", "configurar"),
-                ("conectar", "to connect", "connectar"), ("desconectar", "to disconnect", "desconnectar"), ("reiniciar", "to restart", "reiniciar"),
-                ("especialista", "specialist", "especialista"), ("cita de servicio", "service appointment", "cita de servei"), ("SSID", "SSID", "SSID"),
-                ("funcionar", "to work/function", "funcionar"), ("renombrar", "to rename", "renombrar"), ("solución", "solution", "solució"),
-                # Encounter 11-15
-                ("banda ancha", "broadband", "banda ampla"), ("fibra óptica", "fiber optic", "fibra òptica"), ("megabits", "megabits", "megabits"),
-                ("descargar", "to download", "descarregar"), ("ajustar", "to adjust", "ajustar"), ("enlazar", "to connect", "enllaçar"),
-                ("cortar enlace", "to disconnect", "tallar enllaç"), ("rearrancar", "to restart", "rearrencar"), ("aparato", "device", "aparell"),
-                ("portátil", "laptop", "portàtil"), ("teléfono móvil", "mobile phone", "telèfon mòbil"), ("operar", "to work/operate", "operar"),
-                ("modem", "modem", "mòdem"), ("antena", "antenna", "antena"), ("inconveniente", "issue", "inconvenient"),
-                # Encounter 16-20
-                ("conexión de alta velocidad", "high-speed connection", "connexió d\'alta velocitat"), ("cable óptico", "fiber optic cable", "cable òptic"), ("alcance", "range", "abast"),
-                ("corte", "outage", "cort"), ("interrupción", "interruption", "interrupció"), ("megabytes", "megabytes", "megabytes"),
-                ("bajar archivos", "to download files", "baixar arxius"), ("permanencia", "commitment period", "permanència"), ("cargar archivos", "to upload files", "carregar arxius"),
-                ("fecha de pago", "payment date", "data de pagament"), ("mejorar", "to improve", "millorar"), ("soporte al cliente", "customer support", "suport al client"),
-                ("televisión", "television", "televisió"), ("comunicarse", "to communicate", "comunicar-se"), ("combo", "bundle", "combo"),
-                # Encounter 21-25
-                ("streaming", "streaming", "streaming"), ("videollamada", "video call", "videotrucada"), ("juego en línea", "online gaming", "joc en línia"),
-                ("módem", "modem", "mòdem"), ("ilimitado", "unlimited", "il·limitat"), ("antena receptora", "receiving antenna", "antena receptora"),
-                ("decodificador", "decoder", "decodificador"), ("firewall", "firewall", "firewall"), ("área de cobertura", "coverage area", "àrea de cobertura"),
-                ("virus", "virus", "virus"), ("malware", "malware", "malware"), ("antivirus", "antivirus", "antivirus"),
-                ("extensión", "extension/extender", "extensió"), ("repetidor", "repeater", "repetidor"), ("amplificar", "to amplify", "amplificar"),
-                # Encounter 26-30
-                ("dirección IP", "IP address", "adreça IP"), ("DNS", "DNS", "DNS"), ("puerto", "port", "port"),
-                ("ethernet", "ethernet", "ethernet"), ("inalámbrico", "wireless", "inalàmbric"), ("bluetooth", "bluetooth", "bluetooth"),
-                ("latencia", "latency", "latència"), ("ping", "ping", "ping"), ("estabilidad", "stability", "estabilitat"),
-                ("asistencia técnica", "technical support", "assistència tècnica"), ("soporte", "support", "suport"), ("extensión de señal", "signal range", "extensió de senyal"),
-                ("apagón", "outage", "apagada"), ("navegador", "browser", "navegador"), ("página web", "webpage", "pàgina web"),
-                # Encounter 31-35
-                ("usuario", "username", "usuari"), ("falla", "failure", "fallada"), ("registrar", "to register", "registrar"),
-                ("restablecer", "to restore", "restablir"), ("acuerdo de servicio", "service agreement", "acord de servei"), ("periodo de permanencia", "commitment period", "període de permanència"),
-                ("control parental", "parental controls", "control parental"), ("dar de baja", "to cancel", "donar de baixa"), ("renovar plan", "to upgrade plan", "renovar pla"),
-                ("cámara", "camera", "càmera"), ("monitor", "monitor", "monitor"), ("vigilancia", "surveillance", "vigilància"),
-                ("domótica", "home automation", "domòtica"), ("inteligente", "smart", "intel·ligent"), ("automatizar", "to automate", "automatitzar"),
-                # Encounter 36-40
-                ("optimizar", "to improve", "optimitzar"), ("almacenar", "to store", "emmagatzemar"), ("combo de servicios", "service bundle", "combo de serveis"),
-                ("impresora", "printer", "impressora"), ("compartir", "to share", "compartir"), ("acceso remoto", "remote access", "accés remot"),
-                ("VPN", "VPN", "VPN"), ("privacidad", "privacy", "privacitat"), ("encriptar", "to encrypt", "encriptar"),
-                ("ancho de banda", "bandwidth", "ample de banda"), ("saturado", "saturated", "saturat"), ("TV por cable", "cable TV", "TV per cable"),
-                ("línea fija", "landline", "línia fixa"), ("competencia", "competition", "competència"), ("paquete triple", "triple bundle", "paquet triple"),
-                # Encounter 41-45
-                ("instalación", "installation", "instal·lació"), ("cableado", "wiring", "cablejat"), ("infraestructura", "infrastructure", "infraestructura"),
-                ("contratación", "hiring/contracting", "contractació"), ("video en vivo", "live streaming", "vídeo en viu"), ("llamada de video", "video call", "trucada de vídeo"),
-                ("migración", "migration", "migració"), ("portabilidad", "portability", "portabilitat"), ("juego en red", "online gaming", "joc en xarxa"),
-                ("tope de datos", "data cap", "topall de dades"), ("sin tope", "unlimited", "sense topall"), ("uso de datos", "data usage", "ús de dades"),
-                ("queja", "complaint", "queixa"), ("protección de red", "network security", "protecció de xarxa"), ("cortafuegos", "firewall", "cortafocs"),
-                # Encounter 46-50
-                ("resguardar", "to protect", "resguardar"), ("consumo real", "actual usage", "consum real"), ("programa malicioso", "malicious software", "programa maliciós"),
-                ("satelital", "satellite", "satel·lit"), ("rural", "rural", "rural"), ("urbano", "urban", "urbà"),
-                ("mantenimiento", "maintenance", "manteniment"), ("actualización", "update", "actualització"), ("software dañino", "harmful software", "programari maliciós"),
-                ("programa de protección", "protection software", "programa de protecció"), ("amplificador", "amplifier", "amplificador"), ("encuesta", "survey", "enquesta"),
-                ("listo", "ready", "llest"), ("funcionando", "working", "funcionant"), ("repetidor de señal", "signal repeater", "repetidor de senyal"),
-            ],
-        },
-    ],
-    "mechanic": [
-        {
-            "title": "Oil Change",
-            "goal": "Get your car serviced by explaining what you need to the mechanic",
-            "word_prefix": "mech",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("lubricante", "lubricant", "lubricant"), ("reemplazo", "replacement", "substitució"), ("vehículo", "vehicle", "vehicle"),
-                ("garage", "garage", "garatge"), ("técnico automotriz", "auto technician", "tècnic automotriu"), ("inspeccionar", "to inspect", "inspeccionar"),
-                ("sonido", "sound", "so"), ("pastilla de freno", "brake pad", "pastilla de fre"), ("neumático", "tire", "pneumàtic"),
-                ("timón", "steering wheel", "volant"), ("combustible", "fuel", "combustible"), ("abastecer", "to fill up", "abastir"),
-                ("purificador de aire", "air filter", "purificador d\'aire"), ("electrodo", "spark plug/electrode", "electrode"), ("acumulador", "battery", "acumulador"),
-                # Encounter 6-10
-                ("foco delantero", "headlight", "focus davanter"), ("bujía", "spark plug", "bujia"), ("batería", "battery", "bateria"),
-                ("farol", "lamp", "farol"), ("faro", "headlight", "far"), ("direccional", "turn signal", "direccional"),
-                ("intermitente", "blinker", "intermitent"), ("kilómetro", "kilometer", "quilòmetre"), ("milla", "mile", "milla"),
-                ("arrancar", "to start", "arrencar"), ("kilómetros", "kilometers", "quilòmetres"), ("encender", "to turn on", "encendre"),
-                ("millas", "miles", "milles"), ("dar marcha", "to start", "donar marxa"), ("desactivar", "to turn off", "desactivar"),
-                # Encounter 11-15
-                ("prender", "to turn on", "encendre"), ("sustituir", "to replace", "substituir"), ("refacción", "spare part", "recanvi"),
-                ("de agencia", "OEM/dealer", "d\'agència"), ("póliza de garantía", "warranty policy", "pòlissa de garantia"), ("meses de cobertura", "months of coverage", "mesos de cobertura"),
-                ("aceite sintético", "synthetic oil", "oli sintètic"), ("aceite convencional", "conventional oil", "oli convencional"), ("meses", "months", "mesos"),
-                ("grado de viscosidad", "viscosity grade", "grau de viscositat"), ("convencional", "conventional", "convencional"), ("viscosidad", "viscosity", "viscositat"),
-                ("kilometraje", "mileage", "quilometratge"), ("recorrido", "mileage", "recorregut"), ("revisión periódica", "periodic maintenance", "revisió periòdica"),
-                # Encounter 16-20
-                ("transmisión", "transmission", "transmissió"), ("atención vehicular", "vehicle service", "atenció vehicular"), ("manual", "manual", "manual"),
-                ("embrague", "clutch", "embragatge"), ("pedal", "pedal", "pedal"), ("palanca", "lever/shift", "palanca"),
-                ("caja de velocidades", "gearbox", "caixa de canvis"), ("refrigerante", "coolant", "refrigerant"), ("temperatura", "temperature", "temperatura"),
-                ("escape", "exhaust", "escape"), ("silenciador", "muffler", "silenciador"), ("transmisión automática", "automatic transmission", "transmissió automàtica"),
-                ("suspensión", "suspension", "suspensió"), ("amortiguador", "shock absorber", "amortidor"), ("resorte", "spring", "molla"),
-                # Encounter 21-25
-                ("alineación", "alignment", "alineació"), ("balanceo", "balancing", "balanceig"), ("rotación", "rotation", "rotació"),
-                ("correa", "belt", "correa"), ("transmisión manual", "manual transmission", "transmissió manual"), ("tensor", "tensioner", "tensió"),
-                ("alternador", "alternator", "alternador"), ("generador", "generator", "generador"), ("disco de embrague", "clutch disc", "disc d\'embragatge"),
-                ("fusible", "fuse", "fusible"), ("pedal de freno", "brake pedal", "pedal de fre"), ("cortocircuito", "short circuit", "curtcircuit"),
-                ("aire acondicionado", "air conditioning", "aire condicionat"), ("compresor", "compressor", "compressor"), ("freón", "freon/refrigerant", "freó"),
-                # Encounter 26-30
-                ("palanca de cambios", "gear shift", "palanca de canvis"), ("enfriador", "cooler/radiator", "refredador"), ("escáner", "scanner", "escàner"),
-                ("sensor", "sensor", "sensor"), ("líquido refrigerante", "coolant fluid", "líquid refrigerant"), ("grado de calor", "temperature level", "grau de calor"),
-                ("oxidado", "rusted", "oxidat"), ("corroído", "corroded", "corroït"), ("desgastado", "worn", "desgastat"),
-                ("apretar", "to tighten", "apretar"), ("aflojar", "to loosen", "afluixar"), ("torque", "torque", "torque"),
-                ("tubo de escape", "exhaust pipe", "tub d\'escape"), ("mofle", "muffler", "mofle"), ("sistema de suspensión", "suspension system", "sistema de suspensió"),
-                # Encounter 31-35
-                ("aceite de motor", "engine oil", "oli de motor"), ("absorbedor de impactos", "shock absorber", "absorbedor d\'impactes"), ("dipstick", "dipstick", "dipstick"),
-                ("espiral", "spring/coil", "espiral"), ("alineado de llantas", "tire alignment", "alineat de rodes"), ("equilibrar", "to balance", "equilibrar"),
-                ("rotación de llantas", "tire rotation", "rotació de rodes"), ("banda", "belt", "banda"), ("inyector", "injector", "injector"),
-                ("carburador", "carburetor", "carburador"), ("admisión", "intake", "admissió"), ("eslabón", "chain link", "eslabó"),
-                ("cigüeñal", "crankshaft", "cigonyal"), ("pistón", "piston", "pistó"), ("cilindro", "cylinder", "cilindre"),
-                # Encounter 36-40
-                ("turbo", "turbo", "turbo"), ("sobrealimentador", "supercharger", "sobrealimentador"), ("potencia", "horsepower", "potència"),
-                ("catalizador", "catalytic converter", "catalitzador"), ("emisión", "emission", "emissió"), ("contaminación", "pollution", "contaminació"),
-                ("freno de disco", "disc brake", "freno de disc"), ("polea tensora", "tensioner pulley", "polea tensora"), ("rotor", "rotor", "rotor"),
-                ("dirección hidráulica", "power steering", "direcció hidràulica"), ("fluido", "fluid", "fluid"), ("dínamo", "alternator/dynamo", "dínamo"),
-                ("limpiaparabrisas", "windshield wiper", "netejaparabrisa"), ("generador eléctrico", "electric generator", "generador elèctric"), ("circuito eléctrico", "electrical circuit", "circuit elèctric"),
-                # Encounter 41-45
-                ("tapicería", "upholstery", "tapisseria"), ("vestidura", "seat cover", "vestidura"), ("fusible de seguridad", "safety fuse", "fusible de seguretat"),
-                ("pintura", "paint", "pintura"), ("abollar", "to dent", "abollar"), ("rayar", "to scratch", "ratllar"),
-                ("hojalatería", "body shop", "hojalateria"), ("carrocería", "body/chassis", "carrosseria"), ("arnés", "wiring harness", "arnès"),
-                ("falla eléctrica", "electrical fault", "fallada elèctrica"), ("climatización", "climate control", "climatització"), ("deducible", "deductible", "deduïble"),
-                ("compresor de aire", "air compressor", "compressor d\'aire"), ("remolcar", "to tow", "remolcar"), ("gas refrigerante", "refrigerant gas", "gas refrigerant"),
-                # Encounter 46-50
-                ("prueba de diagnóstico", "diagnostic test", "prova de diagnòstic"), ("placa", "license plate", "placa"), ("escáner automotriz", "automotive scanner", "escàner automotriu"),
-                ("híbrido", "hybrid", "híbrid"), ("equipo de cómputo", "computer equipment", "equip de computació"), ("recarga", "recharge", "recàrrega"),
-                ("tuning", "tuning", "tuning"), ("captador", "sensor", "captador"), ("personalizar", "to customize", "personalitzar"),
-                ("indicador", "gauge", "indicador"), ("dato", "reading/data", "dada"), ("herrumbre", "rust", "ferrugem"),
-                ("corrosión", "corrosion", "corrosió"), ("gastado", "worn out", "gastat"), ("soltar", "to loosen", "soltar"),
-            ],
-        },
-    ],
-    "police": [
-        {
-            "title": "Traffic Stop",
-            "goal": "Handle a traffic stop by responding to the officer's questions",
-            "word_prefix": "pol",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("permiso de conducir", "driver's license", "permís de conduir"), ("papeles", "papers", "papers"), ("documentos", "documents", "documents"),
-                ("tarjeta de circulación", "vehicle registration", "targeta de circulació"), ("conducir", "to drive", "conduir"), ("pare", "stop", "pare"),
-                ("letrero", "sign", "cartell"), ("luz de tráfico", "traffic light", "llum de trànsit"), ("matrícula", "license plate", "matrícula"),
-                ("correa de seguridad", "safety belt", "cinturó de seguretat"), ("colocado", "wearing", "col·locat"), ("área", "area", "àrea"),
-                ("zona escolar", "school zone", "zona escolar"), ("infracción", "violation", "infracció"), ("zona habitacional", "residential zone", "zona habitacional"),
-                # Encounter 6-10
-                ("facultad", "right", "facultat"), ("perdone", "excuse me", "perdoni"), ("comprender", "to understand", "comprendre"),
-                ("aclarar", "to explain", "aclarir"), ("abrochado", "fastened", "abrotxat"), ("puesto", "on/wearing", "posat"),
-                ("vía rápida", "highway", "via ràpida"), ("escolar", "school", "escolar"), ("residencial", "residential", "residencial"),
-                ("autovía", "freeway", "autovia"), ("avenida", "avenue", "avinguda"), ("rumbo", "direction", "rumb"),
-                ("disculpe", "excuse me", "disculpi"), ("vía", "way/route", "via"), ("sentido contrario", "wrong way", "sentit contrari"),
-                # Encounter 11-15
-                ("carretera", "highway", "carretera"), ("intersección", "intersection", "intersecció"), ("curva", "curve", "corba"),
-                ("aparcar", "to park", "aparcar"), ("sentido", "direction/way", "sentit"), ("contrario", "opposite/wrong way", "contrari"),
-                ("no permitido", "not allowed", "no permès"), ("bebida alcohólica", "alcoholic drink", "beguda alcohòlica"), ("exhalar", "to exhale/blow", "exhalar"),
-                ("estacionar", "to park", "estacionar"), ("colisión", "collision", "col·lisió"), ("permitido", "allowed", "permès"),
-                ("alcohol", "alcohol", "alcohol"), ("impacto", "impact", "impacte"), ("soplar", "to blow", "bufar"),
-                # Encounter 16-20
-                ("accidente", "accident", "accident"), ("servicio de emergencia", "emergency service", "servei d\'emergència"), ("situación de emergencia", "emergency situation", "situació d\'emergència"),
-                ("ambulancia", "ambulance", "ambulància"), ("lesionado", "injured", "ferit"), ("herido", "injured", "ferit"),
-                ("observador", "witness", "observador"), ("relato", "statement", "relat"), ("datos personales", "personal info", "dades personals"),
-                ("falta de atención", "distraction", "falta d\'atenció"), ("distracción", "distraction", "distracció"), ("sancionado", "penalized", "sancionat"),
-                ("cinturón de seguridad", "seatbelt", "cinturó de seguretat"), ("multado", "penalized", "multat"), ("menor", "minor", "menor"),
-                # Encounter 21-25
-                ("arnés de seguridad", "safety harness", "arnés de seguretat"), ("acompañante", "passenger", "acompanyant"), ("corralón", "impound lot", "corraló"),
-                ("radar", "radar", "radar"), ("persona menor", "minor", "persona menor"), ("servicio de grúa", "tow truck", "servei de grua"),
-                ("advertencia", "warning", "advertència"), ("primera vez", "first time", "primera vegada"), ("perdón", "pardon", "perdó"),
-                ("carril", "lane", "carril"), ("rebasar", "to pass/overtake", "rebasar"), ("doble línea", "double line", "doble línia"),
-                ("rotonda", "roundabout", "rotonda"), ("arrastrar", "to tow", "arrossegar"), ("ceder", "to yield", "cedir"),
-                # Encounter 26-30
-                ("peatón", "pedestrian", "peató"), ("cruzar", "to cross", "cruzar"), ("depósito vehicular", "impound lot", "dipòsit vehicular"),
-                ("motocicleta", "motorcycle", "motocicleta"), ("detector de velocidad", "speed detector", "detector de velocitat"), ("ciclista", "cyclist", "ciclista"),
-                ("retén", "checkpoint", "retén"), ("cámara de vigilancia", "surveillance camera", "càmera de vigilància"), ("prueba fotográfica", "photographic evidence", "prova fotogràfica"),
-                ("licencia vencida", "expired license", "llicència vençuda"), ("amonestación", "warning", "amonestació"), ("primera ocasión", "first occasion", "primera ocasió"),
-                ("extranjero", "foreigner", "estranger"), ("disculpa", "apology/pardon", "disculpa"), ("carril de circulación", "traffic lane", "carril de circulació"),
-                # Encounter 31-35
-                ("adelantar", "to overtake", "adelantar"), ("defensa", "defense", "defensa"), ("línea doble", "double line", "línia doble"),
-                ("cargos", "charges", "càrrecs"), ("grave", "serious", "greu"), ("leve", "minor", "lleu"),
-                ("comparecencia", "court appearance", "compareixença"), ("juzgado", "court", "jutjat"), ("redondel", "roundabout", "redondel"),
-                ("imprudencia", "recklessness", "imprudència"), ("negligencia", "negligence", "negligència"), ("responsabilidad", "responsibility", "responsabilitat"),
-                ("cruce circular", "traffic circle", "cruïlla circular"), ("impugnar", "to contest", "impugnar"), ("tribunal", "tribunal", "tribunal"),
-                # Encounter 36-40
-                ("arresto", "arrest", "arrest"), ("detención", "detention", "detenció"), ("esposas", "handcuffs", "manilles"),
-                ("patrulla", "patrol car", "patrulla"), ("sirena", "siren", "sirena"), ("persecución", "pursuit", "persecució"),
-                ("registro vehicular", "vehicle search", "registre vehicular"), ("dar paso", "to yield", "donar pas"), ("consentir", "to consent", "consentir"),
-                ("transeúnte", "pedestrian", "transeünt"), ("uniforme", "uniform", "uniforme"), ("insignia", "badge", "insígnia"),
-                ("atravesar", "to cross", "atravessar"), ("número de caso", "case number", "número de cas"), ("copia", "copy", "còpia"),
-                # Encounter 41-45
-                ("paso peatonal", "crosswalk", "pas per a vianants"), ("corrupción", "corruption", "corrupció"), ("denunciar", "to report/denounce", "denunciar"),
-                ("derechos", "rights", "drets"), ("moto", "motorcycle", "moto"), ("inocente", "innocent", "innocent"),
-                ("fianza", "bail", "fiança"), ("liberación", "release", "llibertat"), ("custodia", "custody", "custòdia"),
-                ("bici", "bicycle", "bici"), ("consulado", "consulate", "consulat"), ("persona en bicicleta", "cyclist", "persona en bicicleta"),
-                ("traducción", "translation", "traducció"), ("intérprete", "interpreter", "intèrpret"), ("idioma", "language", "idioma"),
-                # Encounter 46-50
-                ("protocolo", "protocol", "protocol"), ("procedimiento", "procedure", "procediment"), ("puesto de control", "checkpoint", "punt de control"),
-                ("revisión vehicular", "vehicle inspection", "revisió vehicular"), ("asuntos internos", "internal affairs", "assumptes interns"), ("supervisión", "oversight", "supervisió"),
-                ("antecedentes", "record/background", "antecedents"), ("examinar", "to check", "examinar"), ("limpio", "clean", "net"),
-                ("cooperar", "to cooperate", "cooperar"), ("respetuoso", "respectful", "respectuós"), ("educado", "polite", "educat"),
-                ("buenas noches", "good evening", "bona nit"), ("permiso vencido", "expired permit", "permissos caducat"), ("cuidado", "take care", "cuidado"),
-            ],
-        },
-    ],
-    "restaurant": [
-        {
-            "title": "Ordering Food",
-            "goal": "Order a meal by communicating with the waiter",
-            "word_prefix": "rest_order",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("menú", "menu", "menú"), ("mesero", "waiter", "cambrer"), ("camarero", "waiter", "cambrer"),
-                ("platillo", "dish", "plat"), ("trago", "drink", "beguda"), ("jarra de agua", "water pitcher", "gerra d\'aigua"),
-                ("ordenar", "to order", "ordenar"), ("sugerir", "to suggest", "suggerir"), ("del día", "of the day", "del dia"),
-                ("primer plato", "appetizer/starter", "primer plat"), ("plato fuerte", "main course", "plat fort"), ("plato principal", "main dish", "plat principal"),
-                ("bistec", "steak", "bistec"), ("filete", "fish fillet", "filet"), ("guarnición de arroz", "rice side", "guarnició d\'arròs"),
-                # Encounter 6-10
-                ("verduras mixtas", "mixed salad", "verdures mixtes"), ("caldo", "broth", "caldo"), ("canasta de pan", "bread basket", "cistella de pa"),
-                ("tortilla de harina", "flour tortilla", "tortilla de farina"), ("salero", "salt shaker", "sal"), ("pimentero", "pepper shaker", "pebre"),
-                ("lima", "lime", "llima"), ("enchiloso", "spicy", "picant"), ("no picante", "mild", "no picant"),
-                ("picante", "spicy", "picant"), ("suave", "mild", "suau"), ("gusto", "taste", "gust"),
-                ("frío", "cold", "fred"), ("caliente", "hot", "calent"), ("tibio", "warm", "tèbi"),
-                # Encounter 11-15
-                ("cocinar", "to cook", "cocinar"), ("freír", "to fry", "fregir"), ("asar", "to grill", "assar"),
-                ("hervir", "to boil", "bullir"), ("hornear", "to bake", "enfornar"), ("ardiente", "hot/burning", "ardent"),
-                ("vegetariano", "vegetarian", "vegetarià"), ("alergia", "allergy", "al·lèrgia"), ("templado", "lukewarm", "templat"),
-                ("guisar", "to cook", "guisar"), ("saltear", "to sauté", "saltejar"), ("asar a la parrilla", "to grill", "assar a la graella"),
-                ("cocer", "to boil", "coure"), ("gratinar", "to bake/gratin", "gratinar"), ("alistar", "to prepare", "preparar"),
-                # Encounter 16-20
-                ("taco", "taco", "taco"), ("enchilada", "enchilada", "enchilada"), ("burrito", "burrito", "burrito"),
-                ("guacamole", "guacamole", "guacamole"), ("frijoles", "beans", "fesols"), ("sin carne", "meatless", "sense carn"),
-                ("intolerancia", "intolerance", "intolerància"), ("trinche", "fork", "trinxar"), ("cuchillo de mesa", "table knife", "ganivet de taula"),
-                ("cucharita", "teaspoon", "cullera petita"), ("café", "coffee", "cafè"), ("té", "tea", "te"),
-                ("porción", "portion", "porció"), ("loza", "plate/dish", "vaixella"), ("chico", "small", "nen"),
-                # Encounter 21-25
-                ("mariscos", "seafood", "marisc"), ("copa de agua", "water glass", "copa d\'aigua"), ("pulpo", "octopus", "polp"),
-                ("taco al pastor", "pastor taco", "taco al pastor"), ("cordero", "lamb", "corder"), ("enchilada suiza", "Swiss enchilada", "enchilada suïssa"),
-                ("vegetales", "vegetables", "verdures"), ("champiñón", "mushroom", "xampinyó"), ("burrito de frijol", "bean burrito", "burrito de fesol"),
-                ("guacamole fresco", "fresh guacamole", "guacamole fresc"), ("frijoles refritos", "refried beans", "fesols fregits"), ("queso fundido", "melted cheese", "formatge fos"),
-                ("cerveza de barril", "draft beer", "cervesa de barril"), ("jalapeño", "jalapeño", "jalapeño"), ("habanero", "habanero", "habanero"),
-                # Encounter 26-30
-                ("copa de vino", "glass of wine", "copa de vi"), ("agua de sabor", "flavored water", "aigua de sabor"), ("jugo de naranja", "orange juice", "suc de taronja"),
-                ("café americano", "American coffee", "cafè americà"), ("té de manzanilla", "chamomile tea", "te de camamilla"), ("ración", "serving", "ració"),
-                ("delicioso", "delicious", "deliciós"), ("rico", "tasty", "bo"), ("sabroso", "flavorful", "sabros"),
-                ("tamaño grande", "large size", "tamaño gran"), ("casero", "homemade", "casolà"), ("tradicional", "traditional", "tradicional"),
-                ("dieta", "diet", "dieta"), ("sin gluten", "gluten-free", "sense gluten"), ("tamaño chico", "small size", "tamaño petit"),
-                # Encounter 31-35
-                ("ceviche", "ceviche", "ceviche"), ("mole", "mole", "mole"), ("tamales", "tamales", "tamals"),
-                ("mezcal", "mezcal", "mezcal"), ("tequila", "tequila", "tequila"), ("margarita", "margarita", "margarita"),
-                ("antojito", "snack/appetizer", "antojo"), ("quesadilla", "quesadilla", "quesadilla"), ("frutos del mar", "seafood", "fruits del mar"),
-                ("sazón", "seasoning", "sazonar"), ("langostino", "prawn", "gambes"), ("chef", "chef", "xef"),
-                ("parrilla", "grill", "graella"), ("calamar", "squid", "calamar"), ("borrego", "lamb", "xai"),
-                # Encounter 36-40
-                ("maridaje", "pairing", "maridatge"), ("acompañamiento", "side dish", "acompanyament"), ("guarnición", "garnish", "guarnició"),
-                ("degustación", "tasting", "degustació"), ("menú del día", "daily menu", "menú del dia"), ("corte de res", "beef cut", "cort de vedella"),
-                ("reservación", "reservation", "reservació"), ("privado", "private", "privat"), ("terraza", "terrace", "terrassa"),
-                ("propina", "tip", "propina"), ("verdura de temporada", "seasonal vegetables", "verdura de temporada"), ("excelente", "excellent", "excel·lent"),
-                ("comensal", "diner", "comensal"), ("cebolla caramelizada", "caramelized onion", "ceba caramel·litzada"), ("familiar", "family-style", "familiar"),
-                # Encounter 41-45
-                ("diente de ajo", "garlic clove", "dient d\'all"), ("crudo", "raw", "cru"), ("al vapor", "steamed", "al vapor"),
-                ("ahumado", "smoked", "fumada"), ("marinado", "marinated", "marinada"), ("empanizado", "breaded", "empanada"),
-                ("fusión", "fusion", "fusió"), ("contemporáneo", "contemporary", "contemporani"), ("jitomate", "tomato", "tomàquet"),
-                ("palta", "avocado", "alvocat"), ("chile serrano", "serrano chili", "xile serrano"), ("chile poblano", "poblano chili", "xile poblano"),
-                ("flambear", "to flambé", "flambejar"), ("chile ancho", "ancho chili", "xile ancho"), ("reducción", "reduction", "reducció"),
-                # Encounter 46-50
-                ("sommelier", "sommelier", "sommelier"), ("catador", "taster", "catador"), ("selección", "selection", "selecció"),
-                ("piloncillo", "raw sugar", "piloncillo"), ("sustentable", "sustainable", "sostenible"), ("néctar", "nectar/honey", "nectar"),
-                ("nata", "cream", "nata"), ("manteca", "lard/butter", "mantega"), ("jugo de limón", "lemon juice", "jugo de llimona"),
-                ("memorable", "memorable", "memorable"), ("felicitaciones", "congratulations", "felicitacions"), ("al chef", "to the chef", "al xef"),
-                ("exquisito", "exquisite", "exquisit"), ("sazonado", "seasoned", "sazonat"), ("favorito", "favorite", "favorit"),
-            ],
-        },
-        {
-            "title": "Making a Reservation",
-            "goal": "Make a restaurant reservation by speaking with the waiter",
-            "word_prefix": "rest_reserve",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("reserva de mesa", "table reservation", "reserva de taula"), ("lugar para sentarse", "seating", "lloc per seure"), ("comensales", "diners/guests", "comensals"),
-                ("por la noche", "in the evening", "per la nit"), ("apellido", "last name", "cognom"), ("número de contacto", "contact number", "número de contacte"),
-                ("ratificar", "to confirm", "ratificar"), ("aguardar", "to wait", "esperar"), ("esta noche", "tonight", "aquesta nit"),
-                ("día siguiente", "next day", "dia següent"), ("sábado y domingo", "weekend", "dissabte i diumenge"), ("adentro", "inside", "dins"),
-                ("afuera", "outside", "fora"), ("balcón", "balcony", "balcó"), ("fin de semana", "weekend", "cap de setmana"),
-                # Encounter 6-10
-                ("junto a la ventana", "by the window", "al costat de la finestra"), ("exterior", "outside", "exterior"), ("rincón", "corner", "racó"),
-                ("zona reservada", "reserved area", "zona reservada"), ("mesa grande", "large table", "taula gran"), ("mesa pequeña", "small table", "taula petita"),
-                ("acogedor", "cozy", "acollidor"), ("festejo", "celebration", "festeig"), ("íntimo", "intimate", "íntim"),
-                ("celebración", "celebration", "celebració"), ("cumpleaños", "birthday", "aniversari"), ("aniversario", "anniversary", "aniversari"),
-                ("fiesta de cumpleaños", "birthday party", "festa d\'aniversari"), ("fecha especial", "special date", "data especial"), ("mesa para grupo", "group table", "taula per grup"),
-                # Encounter 11-15
-                ("mesa para dos", "table for two", "taula per a dos"), ("reunión familiar", "family gathering", "reunió familiar"), ("modificar reserva", "to modify reservation", "modificar reserva"),
-                ("reglas del local", "venue rules", "regles del local"), ("anticipación", "advance notice", "anticipació"), ("con antelación", "in advance", "amb antelació"),
-                ("cargo por cancelación", "cancellation fee", "càrrec per cancel·lació"), ("carta del restaurante", "restaurant menu", "carta del restaurant"), ("plato del día", "daily special", "plat del dia"),
-                ("de la estación", "seasonal", "de l\'estació"), ("horas de atención", "business hours", "hores d\'atenció"), ("en servicio", "open", "en servei"),
-                ("temprano", "early", "d\'hora"), ("tarde", "late", "tarda"), ("mediodía", "noon", "migdia"),
-                # Encounter 16-20
-                ("alérgico", "allergic", "al·lèrgic"), ("fuera de horario", "closed", "fora d\'horari"), ("antes de tiempo", "early", "abans d\'hora"),
-                ("silla alta", "high chair", "cadira alta"), ("niño", "child", "nen"), ("con retraso", "late", "amb retard"),
-                ("hora del almuerzo", "lunchtime", "hora del dinar"), ("valet", "valet", "valet"), ("con alergia", "with allergy", "amb al·lèrgia"),
-                ("preferencia alimentaria", "dietary preference", "preferència alimentària"), ("popular", "popular", "popular"), ("régimen alimenticio", "diet/regimen", "règim alimentari"),
-                ("código de vestimenta", "dress code", "codi de vestimenta"), ("silla para bebé", "baby chair", "cadira per a nadons"), ("con acceso", "with access", "amb accés"),
-                # Encounter 21-25
-                ("lista de espera", "waiting list", "llista d\'espera"), ("zona de estacionamiento", "parking area", "zona d\'estacionament"), ("notificar", "to notify", "notificar"),
-                ("garantizar", "to guarantee", "garantir"), ("asegurar", "to ensure", "assegurar"), ("compromiso", "commitment", "compromís"),
-                ("decoración", "decoration", "decoració"), ("servicio de valet", "valet parking", "servei de valet"), ("a poca distancia", "nearby", "a poca distància"),
-                ("sugerencia", "suggestion", "suggerència"), ("muy solicitado", "very popular", "molt sol·licitat"), ("predilecto", "favorite", "predilecte"),
-                ("vista", "view", "vista"), ("vestimenta", "dress code", "vestimenta"), ("fuente", "fountain", "font"),
-                # Encounter 26-30
-                ("evento", "event", "esdeveniment"), ("banquete", "banquet", "banquet"), ("catering", "catering", "catering"),
-                ("de etiqueta", "formal dress", "de etiqueta"), ("relajado", "relaxed/casual", "relaxat"), ("por persona", "per person", "per persona"),
-                ("menú fijo", "fixed menu", "menú fix"), ("turno de espera", "waiting turn", "torn d\'espera"), ("puesto en fila", "queued", "posat en fila"),
-                ("brindis", "toast", "brindis"), ("champán", "champagne", "xampany"), ("avisar", "to notify", "avisar"),
-                ("asegurar mesa", "to guarantee table", "assegurar taula"), ("velas", "candles", "espelmes"), ("sorpresa", "surprise", "sorpresa"),
-                # Encounter 31-35
-                ("florista", "florist", "florista"), ("arreglo", "arrangement", "arreglo"), ("decorar", "to decorate", "decorar"),
-                ("fotógrafo", "photographer", "fotògraf"), ("recuerdo", "memory/souvenir", "recordatori"), ("reservar con certeza", "to ensure reservation", "reservar amb certesa"),
-                ("palabra", "commitment", "paraula"), ("invitación", "invitation", "invitació"), ("confirmar asistencia", "to RSVP", "confirmar assistència"),
-                ("adorno", "decoration", "adorno"), ("salón", "hall/room", "saló"), ("atmósfera", "atmosphere", "atmòsfera"),
-                ("melodía", "music/melody", "melodia"), ("cocinero principal", "head chef", "cuiner principal"), ("bocina", "speaker", "bocina"),
-                # Encounter 36-40
-                ("iluminación", "lighting", "il·luminació"), ("vela", "candle", "espelma"), ("romántico", "romantic", "romàntic"),
-                ("mantel", "tablecloth", "mantell"), ("vajilla", "dinnerware", "vaixella"), ("cristalería", "glassware", "cristalleria"),
-                ("servicio completo", "full service", "servei complet"), ("plato estrella", "signature dish", "plat estrella"), ("buffet", "buffet", "bufet"),
-                ("coordinador", "coordinator", "coordinador"), ("gastronomía", "gastronomy", "gastronomia"), ("planificar", "to plan", "planificar"),
-                ("panorama", "view", "panorama"), ("patio", "patio/garden", "patio"), ("anticipo", "advance payment", "anticipació"),
-                # Encounter 41-45
-                ("cascada decorativa", "decorative fountain", "cascada decorativa"), ("aforo", "capacity limit", "aforament"), ("ocasión especial", "special event", "ocasió especial"),
-                ("comentario", "review/comment", "comentari"), ("cena de gala", "gala dinner", "cena de gala"), ("servicio de banquete", "banquet service", "servei de banquet"),
-                ("costo por persona", "cost per person", "cost per persona"), ("en línea", "online", "en línia"), ("sitio web", "website", "lloc web"),
-                ("valor del evento", "event price", "valor de l\'esdeveniment"), ("menú cerrado", "set menu", "menú tancat"), ("cupón", "coupon", "cupó"),
-                ("cata de vinos", "wine tasting", "cata de vins"), ("inolvidable", "unforgettable", "inolvidable"), ("combinación de platillos", "dish pairing", "combinació de plats"),
-                # Encounter 46-50
-                ("agradecimiento", "gratitude", "agraïment"), ("copa de champán", "glass of champagne", "copa de xampany"), ("espumoso", "sparkling wine", "escumós"),
-                ("tinto", "red wine", "tinto"), ("tarta", "cake/tart", "pastís"), ("velitas", "candles", "espelmetes"),
-                ("detalle sorpresa", "surprise detail", "detall sorpresa"), ("reconocimiento", "recognition", "reconeixement"), ("premio", "award", "premi"),
-                ("recomendado", "recommended", "recomanat"), ("destacado", "outstanding", "destacat"), ("excepcional", "exceptional", "excepcional"),
-                ("arreglo floral", "flower arrangement", "arreglo floral"), ("hasta pronto", "see you soon", "fins aviat"), ("centro de mesa", "centerpiece", "centre de taula"),
-            ],
-        },
-        {
-            "title": "Asking for the Bill",
-            "goal": "Ask for the bill, review the charges, and pay",
-            "word_prefix": "rest_bill",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("la cuenta por favor", "the check please", "la compte per favor"), ("cancelar la cuenta", "to pay the bill", "cancel·lar la compte"), ("suma total", "total sum", "suma total"),
-                ("con tarjeta", "by card", "amb targeta"), ("devuelta", "change", "devolució"), ("gratificación", "tip/gratuity", "gratuïtat"),
-                ("atención al cliente", "customer service", "atenció al client"), ("ya incluido", "already included", "ja inclòs"), ("incluido", "included", "inclòs"),
-                ("cargar a la cuenta", "to charge to the bill", "carregar a la compte"), ("exacto", "correct", "exacte"), ("correcto", "correct", "correcte"),
-                ("comprobante de pago", "payment receipt", "comprovant de pagament"), ("nota de venta", "sales receipt", "nota de venda"), ("sacar copia", "to print", "treure còpia"),
-                # Encounter 6-10
-                ("dividir", "to split", "dividir"), ("partir la cuenta", "to split the bill", "partir la compte"), ("cada uno", "each one", "cada un"),
-                ("por separado", "separately", "per separat"), ("equivocación", "mistake", "equivocació"), ("confusión", "mistake", "confusió"),
-                ("lo que tomamos", "what we drank", "el que vam prendre"), ("lo que comimos", "what we ate", "el que vam menjar"), ("extra", "extra", "extra"),
-                ("pedido extra", "extra order", "comanda extra"), ("IVA", "VAT/sales tax", "IVA"), ("tributación", "tax", "tributació"),
-                ("impuesto al consumo", "consumption tax", "impost al consum"), ("precio especial", "special deal", "preu especial"), ("vale", "coupon", "val"),
-                # Encounter 11-15
-                ("de débito", "debit", "de dèbit"), ("de crédito", "credit", "de crèdit"), ("lector de tarjetas", "card reader", "lector de targetes"),
-                ("contactless", "contactless", "contactless"), ("chip", "chip", "xip"), ("pago sin contacto", "contactless payment", "pagament sense contacte"),
-                ("propina sugerida", "suggested tip", "propina suggerida"), ("voluntario", "voluntary", "voluntari"), ("obligatorio", "mandatory", "obligatori"),
-                ("tarjeta con chip", "chip card", "targeta amb xip"), ("gratificación sugerida", "suggested tip", "gratuïtat suggerida"), ("identificar", "to identify", "identificar"),
-                ("a voluntad", "voluntary", "a voluntat"), ("saldar", "to pay off", "saldar"), ("de cumplimiento", "mandatory", "de compliment"),
-                # Encounter 16-20
-                ("desglose", "breakdown", "desglaç"), ("detalle", "detail", "detall"), ("código de mesa", "table number", "codi de taula"),
-                ("ubicar", "to identify", "ubicar"), ("saldar la cuenta", "to settle the bill", "saldar la compte"), ("poner al día", "to pay off", "posar al dia"),
-                ("finiquitar", "to finalize", "finiquitar"), ("sin alcohol", "non-alcoholic", "sense alcohol"), ("detalle de cargos", "charge details", "detall de càrrecs"),
-                ("copa", "glass/drink", "copa"), ("ronda", "round", "ronda"), ("pormenor", "detail", "pormenor"),
-                ("cubierto", "cover charge", "cobert"), ("rubro", "item/category", "rubric"), ("suplemento", "supplement", "suplement"),
-                # Encounter 21-25
-                ("postre del menú", "menu dessert", "postre del menú"), ("copa alcohólica", "alcoholic drink", "copa alcohòlica"), ("QR", "QR code", "QR"),
-                ("voucher", "voucher", "voucher"), ("bebida sin alcohol", "non-alcoholic drink", "beguda sense alcohol"), ("botella de agua", "bottle of water", "ampolla d\'aigua"),
-                ("tanda", "round", "tanda"), ("recompensa", "reward", "recompensa"), ("acumular", "to accumulate", "acumular"),
-                ("pedido adicional", "additional order", "pedido addicional"), ("cargo de cubierto", "cover charge", "càrrec de cobert"), ("cargo por servicio", "service charge", "càrrec per servei"),
-                ("cargo extra", "extra charge", "càrrec extra"), ("pago por transferencia", "payment by transfer", "pagament per transferència"), ("app de pago", "payment app", "app de pagament"),
-                # Encounter 26-30
-                ("sobrar", "to be left over", "sobrar"), ("código QR", "QR code", "codi QR"), ("sobrante", "leftover/surplus", "sobrant"),
-                ("bono", "voucher", "bo"), ("cupón de regalo", "gift coupon", "cupó de regal"), ("hacer válido", "to redeem", "fer vàlid"),
-                ("recibo digital", "digital receipt", "rebuda digital"), ("acumulación de puntos", "points accumulation", "acumulació de punts"), ("sumar puntos", "to earn points", "sumar punts"),
-                ("moneda extranjera", "foreign currency", "moneda estrangera"), ("mesa de grupo", "group table", "taula de grup"), ("datos fiscales", "tax details", "dades fiscals"),
-                ("cuenta individual", "individual bill", "compte individual"), ("empacar", "to pack", "empacar"), ("contenedor", "container", "contenidor"),
-                # Encounter 31-35
-                ("dividir gastos", "to share expenses", "dividir despeses"), ("lo que quedó", "what's left over", "el que va quedar"), ("regresar", "to return", "tornar"),
-                ("doble cargo", "double charge", "doble càrrec"), ("excedente", "surplus/leftover", "excedent"), ("punto de pago", "payment point", "punt de pagament"),
-                ("responsable de caja", "cashier", "responsable de caixa"), ("barra", "counter/bar", "barra"), ("recibo electrónico", "electronic receipt", "rebuda electrònica"),
-                ("mandar", "to send", "mandar"), ("datos tributarios", "tax data", "dades tributàries"), ("número fiscal", "tax number", "número fiscal"),
-                ("información tributaria", "tax info", "informació tributària"), ("para llevar", "to go", "per emportar"), ("beneficio", "benefit", "benefici"),
-                # Encounter 36-40
-                ("regalo", "gift", "regal"), ("invitar", "to treat/invite", "invitar"), ("cortesía", "courtesy/complimentary", "cortesia"),
-                ("envolver", "to wrap", "envoltar"), ("recipiente", "container", "recipient"), ("ocasión", "occasion", "ocasió"),
-                ("desacuerdo", "dispute", "desacord"), ("esclarecer", "to clarify", "esclarir"), ("descorche", "corkage fee", "descorxar"),
-                ("encargado", "manager", "encarregat"), ("cargo duplicado", "duplicate charge", "càrrec duplicat"), ("precio fijo", "fixed price", "preu fix"),
-                ("todo incluido", "all-inclusive", "tot inclòs"), ("anular cargo", "to void charge", "anul·lar càrrec"), ("devolución de dinero", "money refund", "devolució de diners"),
-                # Encounter 41-45
-                ("recibo de transacción", "transaction receipt", "rebuda de transacció"), ("permiso de cobro", "charge authorization", "permissió de cobrament"), ("sistema de reservas", "reservation system", "sistema de reserves"),
-                ("contabilidad", "accounting", "contabilitat"), ("por internet", "online", "per internet"), ("archivos", "files", "arxius"),
-                ("reserva previa", "prior reservation", "reserva prèvia"), ("tarjeta de socio", "membership card", "targeta de soci"), ("consumidor", "consumer", "consumidor"),
-                ("beneficio de socio", "member benefit", "benefici de soci"), ("ventaja exclusiva", "exclusive advantage", "avantatge exclusiu"), ("obsequio", "gift", "obsequi"),
-                ("de cortesía", "complimentary", "de cortesia"), ("evento especial", "special event", "esdeveniment especial"), ("fecha señalada", "special occasion", "data assenyalada"),
-                # Encounter 46-50
-                ("copa de vino tinto", "glass of red wine", "copa de vi negre"), ("botella de vino", "bottle of wine", "ampolla de vi"), ("derecho de corcho", "corkage fee", "dret de suro"),
-                ("agradecido", "grateful", "agraït"), ("probada", "tasting", "provada"), ("amable", "kind", "amable"),
-                ("carta de precios", "price menu", "carta de preus"), ("tarifa fija", "fixed rate", "tarifa fixa"), ("paquete todo incluido", "all-inclusive package", "paquet tot inclòs"),
-                ("despedida", "farewell", "despedida"), ("barra de alimentos", "food bar", "barra d\'aliments"), ("hasta luego", "see you later", "fins després"),
-                ("sin límite", "unlimited", "sense límit"), ("buen provecho", "enjoy your meal", "bon profit"), ("felicidades", "congratulations", "felicitats"),
-            ],
-        },
-    ],
-    "small_talk": [
-        {
-            "title": "Meeting a Neighbor",
-            "goal": "Have a friendly conversation with your new neighbor",
-            "word_prefix": "talk",
-            "words": [
-                # Encounter 1-5 (basic essentials)
-                ("hola", "hello", "hola"), ("saludos", "greetings", "saluts"), ("mucho gusto", "nice to meet you", "molt de gust"),
-                ("persona de al lado", "person next door", "persona del costat"), ("vivir", "to live", "viure"), ("encantado", "delighted to meet you", "encantat"),
-                ("residir", "to reside", "residir"), ("hogar", "home", "llar"), ("parientes", "relatives", "parents"),
-                ("ocupación", "occupation", "ocupació"), ("bonito", "nice/pretty", "bonic"), ("tranquilo", "quiet/calm", "tranquil"),
-                ("clima", "weather", "clima"), ("mudarse", "to move", "canviar-se"), ("barrio", "neighborhood", "barri"),
-                # Encounter 6-10
-                ("esposa", "wife", "esposa"), ("esposo", "husband", "espos"), ("hijo", "son/child", "fill"),
-                ("sereno", "calm/peaceful", "serè"), ("recién llegado", "newcomer", "recent arribat"), ("instalarse", "to settle in", "instal·lar-se"),
-                ("colonia", "neighborhood", "colònia"), ("planta", "plant", "planta"), ("compañera", "wife/partner", "companya"),
-                ("compañero", "husband/partner", "company"), ("parque", "park", "parc"), ("animal doméstico", "pet", "animal de companyia"),
-                ("cachorro", "puppy", "cadell"), ("gatito", "kitten", "gatet"), ("arbusto", "shrub", "arbust"),
-                # Encounter 11-15
-                ("rosal", "rosebush", "rosal"), ("local comercial", "shop", "local comercial"), ("anochecer", "evening", "anoitejar"),
-                ("deporte", "sport", "esport"), ("caminar", "to walk", "caminar"), ("preparar comida", "to cook", "preparar menjar"),
-                ("receta casera", "homemade recipe", "recepta casolana"), ("película", "movie", "pel·lícula"), ("libro", "book", "llibre"),
-                ("fiesta", "party", "festa"), ("actividad física", "exercise", "activitat física"), ("celebrar", "to celebrate", "celebrar"),
-                ("pasear", "to walk/stroll", "passejar"), ("favor", "favor", "favor"), ("trotar", "to jog", "trotar"),
-                # Encounter 16-20
-                ("serie de TV", "TV show", "sèrie de TV"), ("novela", "novel", "novel·la"), ("restaurante", "restaurant", "restaurant"),
-                ("reunión social", "social gathering", "reunió social"), ("convidar", "to invite", "convidar"), ("festejar", "to celebrate", "festejar"),
-                ("taxi", "taxi", "taxi"), ("echar una mano", "to help", "donar un cop de mà"), ("estación", "station", "estació"),
-                ("hacer falta", "to need", "fer falta"), ("peligroso", "dangerous", "perillós"), ("mercado local", "local market", "mercat local"),
-                ("fonda", "restaurant/eatery", "fondes"), ("colegio", "school", "col·legi"), ("respetar", "to respect", "respectar"),
-                # Encounter 21-25
-                ("basura", "trash", "brossa"), ("reciclar", "to recycle", "reciclar"), ("templo", "church/temple", "temple"),
-                ("clínica", "clinic", "clínica"), ("taxi compartido", "shared taxi", "taxi compartit"), ("transporte", "transport", "transport"),
-                ("parada", "stop/station", "parada"), ("sin peligro", "safe", "sense perill"), ("con riesgo", "dangerous", "amb risc"),
-                ("electricidad", "electricity", "electricitat"), ("precaución", "caution", "precaució"), ("sonido fuerte", "loud noise", "so fort"),
-                ("calma", "quiet/calm", "calma"), ("considerar", "to respect", "considerar"), ("desechos", "garbage", "deseixos"),
-                # Encounter 26-30
-                ("reunión", "meeting/gathering", "reunió"), ("reutilizar", "to recycle", "reutilitzar"), ("asociación", "association", "associació"),
-                ("barrer", "to sweep/clean", "escombrar"), ("auto", "car", "cotxe"), ("juntos", "together", "junts"),
-                ("renta", "rent", "renda"), ("propietario", "landlord", "propietari"), ("llave de casa", "house key", "clau de casa"),
-                ("luz eléctrica", "electricity", "llum elèctrica"), ("suministro de agua", "water supply", "subministrament d\'aigua"), ("gas doméstico", "domestic gas", "gas domèstic"),
-                ("reglas", "rules", "regles"), ("convivencia", "coexistence", "convivència"), ("conexión a internet", "internet connection", "connexió a internet"),
-                # Encounter 31-35
-                ("usar en conjunto", "to share", "usar conjuntament"), ("junta vecinal", "neighborhood meeting", "junta veïnal"), ("felicitar", "to congratulate", "felicitar"),
-                ("vacaciones", "vacation", "vacances"), ("viajar", "to travel", "viatjar"), ("vecindario", "community", "veïnat"),
-                ("grupo de vecinos", "neighborhood association", "grup de veïns"), ("en equipo", "together", "en equip"), ("dueño", "landlord", "duenyo"),
-                ("arrendatario", "tenant", "arrendatari"), ("aprender", "to learn", "aprendre"), ("practicar", "to practice", "practicar"),
-                ("reparación", "maintenance", "reparació"), ("generoso", "generous", "generós"), ("simpático", "nice/friendly", "simpàtic"),
-                # Encounter 36-40
-                ("consejo", "advice", "consell"), ("informar", "to report", "informar"), ("normas del edificio", "building rules", "normes de l\'edifici"),
-                ("doctor", "doctor", "metge"), ("dentista", "dentist", "dentista"), ("farmacia", "pharmacy", "farmàcia"),
-                ("vivir en armonía", "coexistence", "viure en harmonia"), ("dar la enhorabuena", "to congratulate", "donar l\'enhorabona"), ("días de descanso", "vacation", "dies de descans"),
-                ("hacer un viaje", "to travel", "fer un viatge"), ("costa", "beach/coast", "costa"), ("nublado", "cloudy", "nublat"),
-                ("feriado", "holiday", "festiu"), ("herencia cultural", "cultural tradition", "herència cultural"), ("descanso", "rest", "descans"),
-                # Encounter 41-45
-                ("hábito", "custom/habit", "hàbit"), ("raíces", "cultural roots", "arrels"), ("participar", "to participate", "participar"),
-                ("nostalgia", "nostalgia", "nostàlgia"), ("extrañar", "to miss", "enyorar"), ("ejercitar", "to practice", "exercitar"),
-                ("cordial", "kind/warm", "cordial"), ("desprendido", "generous", "desprendit"), ("agradable de trato", "friendly", "agradable de tracte"),
-                ("nieto", "grandchild", "nebot"), ("abuelo", "grandfather", "avi"), ("generación", "generation", "generació"),
-                ("fotografía", "photography", "fotografia"), ("álbum", "album", "àlbum"), ("vivencia", "experience", "vivència"),
-                # Encounter 46-50
-                ("confianza", "trust", "confiança"), ("amistad", "friendship", "amistat"), ("respeto", "respect", "respecte"),
-                ("médico", "doctor", "metge"), ("odontólogo", "dentist", "odontòleg"), ("botica", "pharmacy", "botiga"),
-                ("bienvenida", "welcome", "benvinguda"), ("bochorno", "heat wave", "bochorno"), ("feliz", "happy", "feliç"),
-                ("aguacero", "rainstorm", "xàfec"), ("bendición", "blessing", "benedicció"), ("día soleado", "sunny day", "dia assolellat"),
-                ("cuídate", "take care", "cuida\'t"), ("cielo gris", "overcast", "cel gris"), ("buena suerte", "good luck", "bona sort"),
+                ("internet", "internet", "internet"), ("wifi", "WiFi", "wifi"), ("red inalámbrica", "wireless network", "xarxa sense fils"),  # Encounter 1
+                ("wifi doméstico", "home WiFi", "wifi domèstic"), ("clave de acceso", "access code", "clau d'accés"), ("red local", "local network", "xarxa local"),  # Encounter 2
+                ("router", "router", "router"), ("cable", "cable", "cable"), ("intensidad", "signal strength", "intensitat"),  # Encounter 3
+                ("enrutador", "router", "enrutador"), ("cable de red", "network cable", "cable de xarxa"), ("tomacorriente", "outlet", "endoll"),  # Encounter 4
+                ("plan", "plan", "pla"), ("pausado", "slow", "pausat"), ("rapidez", "speed", "rapidesa"),  # Encounter 5
+                ("paquete de datos", "data plan", "paquet de dades"), ("cuota mensual", "monthly fee", "quota mensual"), ("visita", "visit", "visita"),  # Encounter 6
+                ("nombre de red", "network name", "nom de xarxa"), ("colocar", "to install", "col·locar"), ("configurar", "to configure", "configurar"),  # Encounter 7
+                ("conectar", "to connect", "connectar"), ("desconectar", "to disconnect", "desconnectar"), ("reiniciar", "to restart", "reiniciar"),  # Encounter 8
+                ("especialista", "specialist", "especialista"), ("cita de servicio", "service appointment", "cita de servei"), ("SSID", "SSID", "SSID"),  # Encounter 9
+                ("funcionar", "to work/function", "funcionar"), ("renombrar", "to rename", "renombrar"), ("solución", "solution", "solució"),  # Encounter 10
+                ("banda ancha", "broadband", "banda ampla"), ("fibra óptica", "fiber optic", "fibra òptica"), ("megabits", "megabits", "megabits"),  # Encounter 11
+                ("descargar", "to download", "descarregar"), ("ajustar", "to adjust", "ajustar"), ("enlazar", "to connect", "enllaçar"),  # Encounter 12
+                ("cortar enlace", "to disconnect", "tallar enllaç"), ("rearrancar", "to restart", "rearrencar"), ("aparato", "device", "aparell"),  # Encounter 13
+                ("portátil", "laptop", "portàtil"), ("teléfono móvil", "mobile phone", "telèfon mòbil"), ("operar", "to work/operate", "operar"),  # Encounter 14
+                ("modem", "modem", "mòdem"), ("antena", "antenna", "antena"), ("inconveniente", "issue", "inconvenient"),  # Encounter 15
+                ("conexión de alta velocidad", "high-speed connection", "connexió d'alta velocitat"), ("cable óptico", "fiber optic cable", "cable òptic"), ("alcance", "range", "abast"),  # Encounter 16
+                ("corte", "outage", "cort"), ("interrupción", "interruption", "interrupció"), ("megabytes", "megabytes", "megabytes"),  # Encounter 17
+                ("bajar archivos", "to download files", "baixar arxius"), ("permanencia", "commitment period", "permanència"), ("cargar archivos", "to upload files", "carregar arxius"),  # Encounter 18
+                ("fecha de pago", "payment date", "data de pagament"), ("mejorar", "to improve", "millorar"), ("soporte al cliente", "customer support", "suport al client"),  # Encounter 19
+                ("televisión", "television", "televisió"), ("comunicarse", "to communicate", "comunicar-se"), ("combo", "bundle", "combo"),  # Encounter 20
+                ("streaming", "streaming", "streaming"), ("videollamada", "video call", "videotrucada"), ("juego en línea", "online gaming", "joc en línia"),  # Encounter 21
+                ("módem", "modem", "mòdem"), ("ilimitado", "unlimited", "il·limitat"), ("antena receptora", "receiving antenna", "antena receptora"),  # Encounter 22
+                ("decodificador", "decoder", "decodificador"), ("firewall", "firewall", "firewall"), ("área de cobertura", "coverage area", "àrea de cobertura"),  # Encounter 23
+                ("virus", "virus", "virus"), ("malware", "malware", "malware"), ("antivirus", "antivirus", "antivirus"),  # Encounter 24
+                ("extensión", "extension/extender", "extensió"), ("repetidor", "repeater", "repetidor"), ("amplificar", "to amplify", "amplificar"),  # Encounter 25
+                ("dirección IP", "IP address", "adreça IP"), ("DNS", "DNS", "DNS"), ("puerto", "port", "port"),  # Encounter 26
+                ("ethernet", "ethernet", "ethernet"), ("inalámbrico", "wireless", "inalàmbric"), ("bluetooth", "bluetooth", "bluetooth"),  # Encounter 27
+                ("latencia", "latency", "latència"), ("ping", "ping", "ping"), ("estabilidad", "stability", "estabilitat"),  # Encounter 28
+                ("asistencia técnica", "technical support", "assistència tècnica"), ("soporte", "support", "suport"), ("extensión de señal", "signal range", "extensió de senyal"),  # Encounter 29
+                ("apagón", "outage", "apagada"), ("navegador", "browser", "navegador"), ("página web", "webpage", "pàgina web"),  # Encounter 30
+                ("usuario", "username", "usuari"), ("falla", "failure", "fallada"), ("registrar", "to register", "registrar"),  # Encounter 31
+                ("restablecer", "to restore", "restablir"), ("acuerdo de servicio", "service agreement", "acord de servei"), ("periodo de permanencia", "commitment period", "període de permanència"),  # Encounter 32
+                ("control parental", "parental controls", "control parental"), ("dar de baja", "to cancel", "donar de baixa"), ("renovar plan", "to upgrade plan", "renovar pla"),  # Encounter 33
+                ("cámara", "camera", "càmera"), ("monitor", "monitor", "monitor"), ("vigilancia", "surveillance", "vigilància"),  # Encounter 34
+                ("domótica", "home automation", "domòtica"), ("inteligente", "smart", "intel·ligent"), ("automatizar", "to automate", "automatitzar"),  # Encounter 35
+                ("optimizar", "to improve", "optimitzar"), ("almacenar", "to store", "emmagatzemar"), ("combo de servicios", "service bundle", "combo de serveis"),  # Encounter 36
+                ("impresora", "printer", "impressora"), ("compartir", "to share", "compartir"), ("acceso remoto", "remote access", "accés remot"),  # Encounter 37
+                ("VPN", "VPN", "VPN"), ("privacidad", "privacy", "privacitat"), ("encriptar", "to encrypt", "encriptar"),  # Encounter 38
+                ("ancho de banda", "bandwidth", "ample de banda"), ("saturado", "saturated", "saturat"), ("TV por cable", "cable TV", "TV per cable"),  # Encounter 39
+                ("línea fija", "landline", "línia fixa"), ("competencia", "competition", "competència"), ("paquete triple", "triple bundle", "paquet triple"),  # Encounter 40
+                ("instalación", "installation", "instal·lació"), ("cableado", "wiring", "cablejat"), ("infraestructura", "infrastructure", "infraestructura"),  # Encounter 41
+                ("contratación", "hiring/contracting", "contractació"), ("video en vivo", "live streaming", "vídeo en viu"), ("llamada de video", "video call", "trucada de vídeo"),  # Encounter 42
+                ("migración", "migration", "migració"), ("portabilidad", "portability", "portabilitat"), ("juego en red", "online gaming", "joc en xarxa"),  # Encounter 43
+                ("tope de datos", "data cap", "topall de dades"), ("sin tope", "unlimited", "sense topall"), ("uso de datos", "data usage", "ús de dades"),  # Encounter 44
+                ("queja", "complaint", "queixa"), ("protección de red", "network security", "protecció de xarxa"), ("cortafuegos", "firewall", "cortafocs"),  # Encounter 45
+                ("resguardar", "to protect", "resguardar"), ("consumo real", "actual usage", "consum real"), ("programa malicioso", "malicious software", "programa maliciós"),  # Encounter 46
+                ("satelital", "satellite", "satel·lit"), ("rural", "rural", "rural"), ("urbano", "urban", "urbà"),  # Encounter 47
+                ("mantenimiento", "maintenance", "manteniment"), ("actualización", "update", "actualització"), ("software dañino", "harmful software", "programari maliciós"),  # Encounter 48
+                ("programa de protección", "protection software", "programa de protecció"), ("amplificador", "amplifier", "amplificador"), ("encuesta", "survey", "enquesta"),  # Encounter 49
+                ("listo", "ready", "llest"), ("funcionando", "working", "funcionant"), ("repetidor de señal", "signal repeater", "repetidor de senyal"),  # Encounter 50
             ],
         },
     ],
