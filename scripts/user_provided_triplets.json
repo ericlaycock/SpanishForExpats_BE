@@ -1,0 +1,7670 @@
+{
+  "CLOTHING": [
+    {
+      "words": [
+        {
+          "spanish": "vendedor",
+          "english": "salesperson"
+        },
+        {
+          "spanish": "cliente",
+          "english": "customer"
+        },
+        {
+          "spanish": "tienda",
+          "english": "store"
+        }
+      ],
+      "opener": "Hey, welcome in -- are you shopping for something specific today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "ropa",
+          "english": "clothing"
+        },
+        {
+          "spanish": "camisa",
+          "english": "shirt"
+        },
+        {
+          "spanish": "pantalón",
+          "english": "pants"
+        }
+      ],
+      "opener": "What kind of clothing are you looking for today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "chaqueta",
+          "english": "jacket"
+        },
+        {
+          "spanish": "vestido",
+          "english": "dress"
+        },
+        {
+          "spanish": "falda",
+          "english": "skirt"
+        }
+      ],
+      "opener": "Are you looking for something more formal or casual?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "talla",
+          "english": "size"
+        },
+        {
+          "spanish": "¿qué talla usa?",
+          "english": "what size do you wear?"
+        },
+        {
+          "spanish": "le queda bien",
+          "english": "it fits you well"
+        }
+      ],
+      "opener": "Before we start, what size do you usually wear?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "le queda grande",
+          "english": "it is too big on you"
+        },
+        {
+          "spanish": "le queda pequeño",
+          "english": "it is too small on you"
+        },
+        {
+          "spanish": "no le queda",
+          "english": "it does not fit you"
+        }
+      ],
+      "opener": "How does that one feel when you try it on?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "otra talla",
+          "english": "another size"
+        },
+        {
+          "spanish": "más grande",
+          "english": "bigger"
+        },
+        {
+          "spanish": "más pequeño",
+          "english": "smaller"
+        }
+      ],
+      "opener": "Do you want to try a different size?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "probador",
+          "english": "fitting room"
+        },
+        {
+          "spanish": "usa el probador",
+          "english": "you use the fitting room"
+        },
+        {
+          "spanish": "espere su turno",
+          "english": "you wait your turn"
+        }
+      ],
+      "opener": "If you'd like, you can try it on before deciding."
+    },
+    {
+      "words": [
+        {
+          "spanish": "hay fila",
+          "english": "there is a line"
+        },
+        {
+          "spanish": "modelo",
+          "english": "style"
+        },
+        {
+          "spanish": "mismo modelo",
+          "english": "same style"
+        }
+      ],
+      "opener": "Just a heads up, there's a bit of a line -- are you looking for this same style?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "modelo diferente",
+          "english": "different style"
+        },
+        {
+          "spanish": "color",
+          "english": "color"
+        },
+        {
+          "spanish": "otro color",
+          "english": "another color"
+        }
+      ],
+      "opener": "Would you like to see this in another color or a different style?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "no hay talla",
+          "english": "there is no size available"
+        },
+        {
+          "spanish": "no hay stock",
+          "english": "there is no stock"
+        },
+        {
+          "spanish": "está agotado",
+          "english": "it is sold out"
+        }
+      ],
+      "opener": "Let me check if we still have your size."
+    },
+    {
+      "words": [
+        {
+          "spanish": "reviso el stock",
+          "english": "I check the stock"
+        },
+        {
+          "spanish": "reviso el sistema",
+          "english": "I check the system"
+        },
+        {
+          "spanish": "hay en otra sucursal",
+          "english": "it is available at another branch"
+        }
+      ],
+      "opener": "Give me a second, I'll check our system for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "otra sucursal",
+          "english": "another branch"
+        },
+        {
+          "spanish": "lo pueden pedir",
+          "english": "they can order it"
+        },
+        {
+          "spanish": "llega en unos días",
+          "english": "it arrives in a few days"
+        }
+      ],
+      "opener": "If we don't have it here, we might be able to get it for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tarda unos días",
+          "english": "it takes a few days"
+        },
+        {
+          "spanish": "lo aparto",
+          "english": "I put it on hold"
+        },
+        {
+          "spanish": "apartado",
+          "english": "item on hold"
+        }
+      ],
+      "opener": "Do you want me to reserve it for you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "precio",
+          "english": "price"
+        },
+        {
+          "spanish": "precio normal",
+          "english": "regular price"
+        },
+        {
+          "spanish": "precio de oferta",
+          "english": "sale price"
+        }
+      ],
+      "opener": "Would you like me to check the price for you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "descuento",
+          "english": "discount"
+        },
+        {
+          "spanish": "el descuento aplica",
+          "english": "the discount applies"
+        },
+        {
+          "spanish": "no aplica",
+          "english": "it does not apply"
+        }
+      ],
+      "opener": "We can see at checkout if any discounts apply."
+    },
+    {
+      "words": [
+        {
+          "spanish": "promoción",
+          "english": "promotion"
+        },
+        {
+          "spanish": "condición",
+          "english": "condition"
+        },
+        {
+          "spanish": "con membresía",
+          "english": "with membership"
+        }
+      ],
+      "opener": "Some promotions depend on certain conditions."
+    },
+    {
+      "words": [
+        {
+          "spanish": "sin membresía",
+          "english": "without membership"
+        },
+        {
+          "spanish": "registro",
+          "english": "sign-up"
+        },
+        {
+          "spanish": "no quiero registrarme",
+          "english": "I do not want to sign up"
+        }
+      ],
+      "opener": "We do have a membership program if you're interested."
+    },
+    {
+      "words": [
+        {
+          "spanish": "el sistema marca otro precio",
+          "english": "the system shows another price"
+        },
+        {
+          "spanish": "no coincide",
+          "english": "it does not match"
+        },
+        {
+          "spanish": "reviso el precio",
+          "english": "I check the price"
+        }
+      ],
+      "opener": "If anything looks off, I can double-check it for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "corrigen el precio",
+          "english": "they correct the price"
+        },
+        {
+          "spanish": "ajuste manual",
+          "english": "manual adjustment"
+        },
+        {
+          "spanish": "etiqueta",
+          "english": "tag"
+        }
+      ],
+      "opener": "Sometimes we fix pricing issues right at the register."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mal etiquetado",
+          "english": "mislabeled"
+        },
+        {
+          "spanish": "letrero",
+          "english": "sign"
+        },
+        {
+          "spanish": "política de la tienda",
+          "english": "store policy"
+        }
+      ],
+      "opener": "If there's any confusion, we follow store policy."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no aceptamos devoluciones",
+          "english": "we do not accept returns"
+        },
+        {
+          "spanish": "solo damos crédito de tienda",
+          "english": "we only give store credit"
+        },
+        {
+          "spanish": "crédito de tienda",
+          "english": "store credit"
+        }
+      ],
+      "opener": "Just so you know, returns follow our store policy."
+    },
+    {
+      "words": [
+        {
+          "spanish": "devolución",
+          "english": "refund"
+        },
+        {
+          "spanish": "procesan la devolución",
+          "english": "they process the refund"
+        },
+        {
+          "spanish": "cambio de producto",
+          "english": "exchange"
+        }
+      ],
+      "opener": "If something doesn't work out, we can help you with that."
+    },
+    {
+      "words": [
+        {
+          "spanish": "producto defectuoso",
+          "english": "defective item"
+        },
+        {
+          "spanish": "está roto",
+          "english": "it is broken"
+        },
+        {
+          "spanish": "costura rota",
+          "english": "torn seam"
+        }
+      ],
+      "opener": "If there's any issue with the item, let us know."
+    },
+    {
+      "words": [
+        {
+          "spanish": "recibo",
+          "english": "receipt"
+        },
+        {
+          "spanish": "tiene recibo",
+          "english": "you have a receipt"
+        },
+        {
+          "spanish": "sin recibo",
+          "english": "without a receipt"
+        }
+      ],
+      "opener": "Do you happen to have your receipt with you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "dentro del plazo",
+          "english": "within the return window"
+        },
+        {
+          "spanish": "fuera del plazo",
+          "english": "outside the return window"
+        },
+        {
+          "spanish": "quiero hablar con la gerente",
+          "english": "I want to speak with the manager"
+        }
+      ],
+      "opener": "Returns depend on when the item was purchased."
+    },
+    {
+      "words": [
+        {
+          "spanish": "gerente",
+          "english": "manager"
+        },
+        {
+          "spanish": "excepción",
+          "english": "exception"
+        },
+        {
+          "spanish": "aprueban la excepción",
+          "english": "they approve the exception"
+        }
+      ],
+      "opener": "If needed, I can call a manager."
+    },
+    {
+      "words": [
+        {
+          "spanish": "caja",
+          "english": "checkout"
+        },
+        {
+          "spanish": "total",
+          "english": "total"
+        },
+        {
+          "spanish": "monto total",
+          "english": "total amount"
+        }
+      ],
+      "opener": "Whenever you're ready, we can head to checkout."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pago",
+          "english": "payment"
+        },
+        {
+          "spanish": "inserta la tarjeta",
+          "english": "you insert the card"
+        },
+        {
+          "spanish": "acerca la tarjeta",
+          "english": "you tap the card"
+        }
+      ],
+      "opener": "You can go ahead and pay whenever you're ready."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pasa la tarjeta",
+          "english": "you swipe the card"
+        },
+        {
+          "spanish": "no pasa",
+          "english": "it does not go through"
+        },
+        {
+          "spanish": "inténtalo otra vez",
+          "english": "you try again"
+        }
+      ],
+      "opener": "If the machine doesn't read it, just try again."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pago aprobado",
+          "english": "approved payment"
+        },
+        {
+          "spanish": "pago rechazado",
+          "english": "declined payment"
+        },
+        {
+          "spanish": "otra tarjeta",
+          "english": "another card"
+        }
+      ],
+      "opener": "Go ahead and tap or insert your card whenever you're ready to pay for your clothing."
+    },
+    {
+      "words": [
+        {
+          "spanish": "efectivo",
+          "english": "cash"
+        },
+        {
+          "spanish": "pago en efectivo",
+          "english": "cash payment"
+        },
+        {
+          "spanish": "firma aquí",
+          "english": "you sign here"
+        }
+      ],
+      "opener": "We also accept cash if you prefer."
+    },
+    {
+      "words": [
+        {
+          "spanish": "bolsa",
+          "english": "bag"
+        },
+        {
+          "spanish": "¿quiere bolsa?",
+          "english": "do you want a bag?"
+        },
+        {
+          "spanish": "bolsa grande",
+          "english": "big bag"
+        }
+      ],
+      "opener": "Would you like a bag for your clothes?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "bolsa pequeña",
+          "english": "small bag"
+        },
+        {
+          "spanish": "sin bolsa",
+          "english": "no bag"
+        },
+        {
+          "spanish": "lo empacan",
+          "english": "they pack it"
+        }
+      ],
+      "opener": "We can pack it up for you here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "fila larga",
+          "english": "long line"
+        },
+        {
+          "spanish": "mucha gente",
+          "english": "many people"
+        },
+        {
+          "spanish": "espera larga",
+          "english": "long wait"
+        }
+      ],
+      "opener": "Thanks for your patience, it's a bit busy today."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tarda mucho",
+          "english": "it takes a long time"
+        },
+        {
+          "spanish": "servicio lento",
+          "english": "slow service"
+        },
+        {
+          "spanish": "está abierto",
+          "english": "it is open"
+        }
+      ],
+      "opener": "We're doing our best to move things along."
+    },
+    {
+      "words": [
+        {
+          "spanish": "está cerrado",
+          "english": "it is closed"
+        },
+        {
+          "spanish": "horario",
+          "english": "store hours"
+        },
+        {
+          "spanish": "identificación",
+          "english": "ID"
+        }
+      ],
+      "opener": "Our hours are posted by the entrance."
+    },
+    {
+      "words": [
+        {
+          "spanish": "muestra su identificación",
+          "english": "you show your ID"
+        },
+        {
+          "spanish": "alarma",
+          "english": "alarm"
+        },
+        {
+          "spanish": "sensor",
+          "english": "security tag"
+        }
+      ],
+      "opener": "Just a moment while I remove the security tag."
+    },
+    {
+      "words": [
+        {
+          "spanish": "quitan el sensor",
+          "english": "they remove the security tag"
+        },
+        {
+          "spanish": "sensor activo",
+          "english": "active security tag"
+        },
+        {
+          "spanish": "la alarma suena",
+          "english": "the alarm goes off"
+        }
+      ],
+      "opener": "Let me take that tag off before you go."
+    },
+    {
+      "words": [
+        {
+          "spanish": "revisan la compra",
+          "english": "they check the purchase"
+        },
+        {
+          "spanish": "el código escanea",
+          "english": "the barcode scans"
+        },
+        {
+          "spanish": "el código no escanea",
+          "english": "the barcode does not scan"
+        }
+      ],
+      "opener": "Sometimes the barcode doesn't scan right away."
+    },
+    {
+      "words": [
+        {
+          "spanish": "ingreso manual",
+          "english": "manual entry"
+        },
+        {
+          "spanish": "código manual",
+          "english": "manual code"
+        },
+        {
+          "spanish": "problema del sistema",
+          "english": "system issue"
+        }
+      ],
+      "opener": "I'll just enter it manually."
+    },
+    {
+      "words": [
+        {
+          "spanish": "ya quedó",
+          "english": "it is fixed now"
+        },
+        {
+          "spanish": "sigue igual",
+          "english": "it is still the same"
+        },
+        {
+          "spanish": "talla correcta",
+          "english": "correct size"
+        }
+      ],
+      "opener": "Let me know if everything looks good now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "talla incorrecta",
+          "english": "wrong size"
+        },
+        {
+          "spanish": "se lo traigo",
+          "english": "I bring it to you"
+        },
+        {
+          "spanish": "no le queda bien",
+          "english": "it does not fit you well"
+        }
+      ],
+      "opener": "If it's not quite right, I can grab another one."
+    },
+    {
+      "words": [
+        {
+          "spanish": "le queda mejor",
+          "english": "it fits you better"
+        },
+        {
+          "spanish": "me lo llevo",
+          "english": "I am taking it"
+        },
+        {
+          "spanish": "devolución parcial",
+          "english": "partial refund"
+        }
+      ],
+      "opener": "That one looks like a better fit."
+    },
+    {
+      "words": [
+        {
+          "spanish": "monto reembolsado",
+          "english": "refunded amount"
+        },
+        {
+          "spanish": "te lo cambio",
+          "english": "I exchange it for you"
+        },
+        {
+          "spanish": "te hago un descuento",
+          "english": "I give you a discount"
+        }
+      ],
+      "opener": "We can work something out for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "caja abierta",
+          "english": "open register"
+        },
+        {
+          "spanish": "caja cerrada",
+          "english": "closed register"
+        },
+        {
+          "spanish": "precio final",
+          "english": "final price"
+        }
+      ],
+      "opener": "This register is open if you're ready."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cupón",
+          "english": "coupon"
+        },
+        {
+          "spanish": "el cupón vence hoy",
+          "english": "the coupon expires today"
+        },
+        {
+          "spanish": "temporada",
+          "english": "season"
+        }
+      ],
+      "opener": "Do you have any coupons with you today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "colección nueva",
+          "english": "new collection"
+        },
+        {
+          "spanish": "prenda",
+          "english": "garment"
+        },
+        {
+          "spanish": "prenda dañada",
+          "english": "damaged garment"
+        }
+      ],
+      "opener": "These are from our new collection."
+    },
+    {
+      "words": [
+        {
+          "spanish": "defecto de fábrica",
+          "english": "manufacturing defect"
+        },
+        {
+          "spanish": "marca",
+          "english": "brand"
+        },
+        {
+          "spanish": "misma marca",
+          "english": "same brand"
+        }
+      ],
+      "opener": "This brand is really popular right now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "línea premium",
+          "english": "premium line"
+        },
+        {
+          "spanish": "material",
+          "english": "material"
+        },
+        {
+          "spanish": "algodón",
+          "english": "cotton"
+        }
+      ],
+      "opener": "This one is made from a really nice material."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tela",
+          "english": "fabric"
+        },
+        {
+          "spanish": "se encoge",
+          "english": "it shrinks"
+        },
+        {
+          "spanish": "destiñe",
+          "english": "it bleeds color"
+        }
+      ],
+      "opener": "Let me know if you have any questions about how to care for the fabric."
+    }
+  ],
+  "GROCERIES": [
+    {
+      "words": [
+        {
+          "spanish": "cajero",
+          "english": "cashier"
+        },
+        {
+          "spanish": "cliente",
+          "english": "customer"
+        },
+        {
+          "spanish": "caja",
+          "english": "checkout"
+        }
+      ],
+      "opener": "Hi there -- I can help you over here at the checkout."
+    },
+    {
+      "words": [
+        {
+          "spanish": "fila",
+          "english": "line"
+        },
+        {
+          "spanish": "turno",
+          "english": "turn"
+        },
+        {
+          "spanish": "siguiente",
+          "english": "next"
+        }
+      ],
+      "opener": "I can take the next person in line."
+    },
+    {
+      "words": [
+        {
+          "spanish": "productos",
+          "english": "products"
+        },
+        {
+          "spanish": "artículo",
+          "english": "item"
+        },
+        {
+          "spanish": "código de barras",
+          "english": "barcode"
+        }
+      ],
+      "opener": "Go ahead and place your items on the counter."
+    },
+    {
+      "words": [
+        {
+          "spanish": "escanean el producto",
+          "english": "they scan the item"
+        },
+        {
+          "spanish": "pasan los productos",
+          "english": "they pass the items through"
+        },
+        {
+          "spanish": "precio",
+          "english": "price"
+        }
+      ],
+      "opener": "I'll start scanning your items now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "precio correcto",
+          "english": "correct price"
+        },
+        {
+          "spanish": "precio incorrecto",
+          "english": "wrong price"
+        },
+        {
+          "spanish": "oferta",
+          "english": "sale"
+        }
+      ],
+      "opener": "Let me know if anything rings up incorrectly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "descuento",
+          "english": "discount"
+        },
+        {
+          "spanish": "promoción",
+          "english": "promotion"
+        },
+        {
+          "spanish": "el descuento aplica",
+          "english": "the discount applies"
+        }
+      ],
+      "opener": "Some items may have discounts applied automatically."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no aplica",
+          "english": "it does not apply"
+        },
+        {
+          "spanish": "sistema",
+          "english": "system"
+        },
+        {
+          "spanish": "no aparece",
+          "english": "it does not show up"
+        }
+      ],
+      "opener": "If something doesn't show up right, I can check it."
+    },
+    {
+      "words": [
+        {
+          "spanish": "revisan el precio",
+          "english": "they check the price"
+        },
+        {
+          "spanish": "verifican el precio",
+          "english": "they verify the price"
+        },
+        {
+          "spanish": "letrero",
+          "english": "sign"
+        }
+      ],
+      "opener": "I can double-check the price for you if needed."
+    },
+    {
+      "words": [
+        {
+          "spanish": "estante",
+          "english": "shelf"
+        },
+        {
+          "spanish": "pasillo",
+          "english": "aisle"
+        },
+        {
+          "spanish": "supervisor",
+          "english": "supervisor"
+        }
+      ],
+      "opener": "If there's a pricing issue, I can call someone to check."
+    },
+    {
+      "words": [
+        {
+          "spanish": "llaman al supervisor",
+          "english": "they call the supervisor"
+        },
+        {
+          "spanish": "corrigen el precio",
+          "english": "they correct the price"
+        },
+        {
+          "spanish": "total",
+          "english": "total"
+        }
+      ],
+      "opener": "We'll make sure everything is correct before you pay."
+    },
+    {
+      "words": [
+        {
+          "spanish": "monto total",
+          "english": "total amount"
+        },
+        {
+          "spanish": "subtotal",
+          "english": "subtotal"
+        },
+        {
+          "spanish": "impuesto",
+          "english": "tax"
+        }
+      ],
+      "opener": "Here's your total for today."
+    },
+    {
+      "words": [
+        {
+          "spanish": "incluye impuesto",
+          "english": "it includes tax"
+        },
+        {
+          "spanish": "no incluye impuesto",
+          "english": "it does not include tax"
+        },
+        {
+          "spanish": "pago",
+          "english": "payment"
+        }
+      ],
+      "opener": "You can go ahead and pay whenever you're ready."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pago aprobado",
+          "english": "approved payment"
+        },
+        {
+          "spanish": "pago rechazado",
+          "english": "declined payment"
+        },
+        {
+          "spanish": "tarjeta",
+          "english": "card"
+        }
+      ],
+      "opener": "You can insert or tap your card here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tarjeta rechazada",
+          "english": "declined card"
+        },
+        {
+          "spanish": "inserta la tarjeta",
+          "english": "you insert the card"
+        },
+        {
+          "spanish": "pasa la tarjeta",
+          "english": "you swipe the card"
+        }
+      ],
+      "opener": "If it doesn't go through, try inserting it instead."
+    },
+    {
+      "words": [
+        {
+          "spanish": "acerca la tarjeta",
+          "english": "you tap the card"
+        },
+        {
+          "spanish": "ingresa el PIN",
+          "english": "you enter the PIN"
+        },
+        {
+          "spanish": "firma aquí",
+          "english": "you sign here"
+        }
+      ],
+      "opener": "Just follow the instructions on the screen."
+    },
+    {
+      "words": [
+        {
+          "spanish": "efectivo",
+          "english": "cash"
+        },
+        {
+          "spanish": "pago en efectivo",
+          "english": "cash payment"
+        },
+        {
+          "spanish": "dividir el pago",
+          "english": "split the payment"
+        }
+      ],
+      "opener": "Let me know if you'd like to split the payment."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pago dividido",
+          "english": "split payment"
+        },
+        {
+          "spanish": "pago parcial",
+          "english": "partial payment"
+        },
+        {
+          "spanish": "pago completo",
+          "english": "full payment"
+        }
+      ],
+      "opener": "How would you like to pay for this?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "cambio",
+          "english": "change"
+        },
+        {
+          "spanish": "le dan cambio",
+          "english": "they give you change"
+        },
+        {
+          "spanish": "recibo",
+          "english": "receipt"
+        }
+      ],
+      "opener": "I'll get your change and receipt ready."
+    },
+    {
+      "words": [
+        {
+          "spanish": "imprimen el recibo",
+          "english": "they print the receipt"
+        },
+        {
+          "spanish": "bolsa",
+          "english": "bag"
+        },
+        {
+          "spanish": "bolsa grande",
+          "english": "big bag"
+        }
+      ],
+      "opener": "Would you like a bag for your groceries?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "bolsa pequeña",
+          "english": "small bag"
+        },
+        {
+          "spanish": "sin bolsa",
+          "english": "no bag"
+        },
+        {
+          "spanish": "separan los productos",
+          "english": "they separate the items"
+        }
+      ],
+      "opener": "We can bag these separately if you want."
+    },
+    {
+      "words": [
+        {
+          "spanish": "producto frío",
+          "english": "cold item"
+        },
+        {
+          "spanish": "producto congelado",
+          "english": "frozen item"
+        },
+        {
+          "spanish": "producto seco",
+          "english": "dry item"
+        }
+      ],
+      "opener": "I'll separate cold and dry items for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "huevos",
+          "english": "eggs"
+        },
+        {
+          "spanish": "frágil",
+          "english": "fragile"
+        },
+        {
+          "spanish": "pesado",
+          "english": "heavy"
+        }
+      ],
+      "opener": "I'll be careful with your fragile items."
+    },
+    {
+      "words": [
+        {
+          "spanish": "liviano",
+          "english": "light"
+        },
+        {
+          "spanish": "cantidad",
+          "english": "quantity"
+        },
+        {
+          "spanish": "una unidad",
+          "english": "one unit"
+        }
+      ],
+      "opener": "Just confirming the quantity on this item."
+    },
+    {
+      "words": [
+        {
+          "spanish": "dos unidades",
+          "english": "two units"
+        },
+        {
+          "spanish": "marcan la cantidad",
+          "english": "they enter the quantity"
+        },
+        {
+          "spanish": "corrigen la cantidad",
+          "english": "they correct the quantity"
+        }
+      ],
+      "opener": "Let me fix that quantity for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "quitan el producto",
+          "english": "they remove the item"
+        },
+        {
+          "spanish": "agregan el producto",
+          "english": "they add the item"
+        },
+        {
+          "spanish": "no es mío",
+          "english": "it is not mine"
+        }
+      ],
+      "opener": "Let me know if something here isn't yours."
+    },
+    {
+      "words": [
+        {
+          "spanish": "es incorrecto",
+          "english": "it is incorrect"
+        },
+        {
+          "spanish": "revisan el producto",
+          "english": "they check the item"
+        },
+        {
+          "spanish": "escaneo doble",
+          "english": "double scan"
+        }
+      ],
+      "opener": "Sometimes items scan twice -- I'll check that."
+    },
+    {
+      "words": [
+        {
+          "spanish": "error del sistema",
+          "english": "system error"
+        },
+        {
+          "spanish": "ya quedó",
+          "english": "it is fixed now"
+        },
+        {
+          "spanish": "sigue igual",
+          "english": "it is still the same"
+        }
+      ],
+      "opener": "Give me a moment, I'll fix that."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cliente siguiente",
+          "english": "next customer"
+        },
+        {
+          "spanish": "fila larga",
+          "english": "long line"
+        },
+        {
+          "spanish": "mucha gente",
+          "english": "many people"
+        }
+      ],
+      "opener": "Thanks for your patience -- we'll get you through quickly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tarda mucho",
+          "english": "it takes a long time"
+        },
+        {
+          "spanish": "servicio",
+          "english": "service"
+        },
+        {
+          "spanish": "horario",
+          "english": "store hours"
+        }
+      ],
+      "opener": "We're a bit busy right now, thanks for waiting."
+    },
+    {
+      "words": [
+        {
+          "spanish": "está abierto",
+          "english": "it is open"
+        },
+        {
+          "spanish": "está cerrado",
+          "english": "it is closed"
+        },
+        {
+          "spanish": "identificación",
+          "english": "ID"
+        }
+      ],
+      "opener": "I'll just need to check your ID for this item."
+    },
+    {
+      "words": [
+        {
+          "spanish": "muestra su identificación",
+          "english": "you show your ID"
+        },
+        {
+          "spanish": "requiere edad mínima",
+          "english": "it requires a minimum age"
+        },
+        {
+          "spanish": "verifican la edad",
+          "english": "they verify your age"
+        }
+      ],
+      "opener": "This item requires age verification."
+    },
+    {
+      "words": [
+        {
+          "spanish": "producto restringido",
+          "english": "restricted item"
+        },
+        {
+          "spanish": "aprobado",
+          "english": "approved"
+        },
+        {
+          "spanish": "denegado",
+          "english": "denied"
+        }
+      ],
+      "opener": "Let me confirm if this can be sold."
+    },
+    {
+      "words": [
+        {
+          "spanish": "alcohol",
+          "english": "alcohol"
+        },
+        {
+          "spanish": "tabaco",
+          "english": "tobacco"
+        },
+        {
+          "spanish": "bebida",
+          "english": "drink"
+        }
+      ],
+      "opener": "Are these all the items you're purchasing today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "comida",
+          "english": "food"
+        },
+        {
+          "spanish": "pan",
+          "english": "bread"
+        },
+        {
+          "spanish": "leche",
+          "english": "milk"
+        }
+      ],
+      "opener": "Did you find everything you were looking for?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "carne",
+          "english": "meat"
+        },
+        {
+          "spanish": "verduras",
+          "english": "vegetables"
+        },
+        {
+          "spanish": "fruta",
+          "english": "fruit"
+        }
+      ],
+      "opener": "These all look fresh today."
+    },
+    {
+      "words": [
+        {
+          "spanish": "caja rápida",
+          "english": "express checkout"
+        },
+        {
+          "spanish": "pocos productos",
+          "english": "few items"
+        },
+        {
+          "spanish": "muchos productos",
+          "english": "many items"
+        }
+      ],
+      "opener": "This lane is for customers with fewer items."
+    },
+    {
+      "words": [
+        {
+          "spanish": "carrito",
+          "english": "cart"
+        },
+        {
+          "spanish": "canasta",
+          "english": "basket"
+        },
+        {
+          "spanish": "empacan los productos",
+          "english": "they pack the items"
+        }
+      ],
+      "opener": "I'll start packing your items."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cliente espera",
+          "english": "the customer waits"
+        },
+        {
+          "spanish": "número de caja",
+          "english": "register number"
+        },
+        {
+          "spanish": "caja abierta",
+          "english": "open register"
+        }
+      ],
+      "opener": "I can take you at this register."
+    },
+    {
+      "words": [
+        {
+          "spanish": "caja cerrada",
+          "english": "closed register"
+        },
+        {
+          "spanish": "cambio exacto",
+          "english": "exact change"
+        },
+        {
+          "spanish": "sin cambio",
+          "english": "without change"
+        }
+      ],
+      "opener": "Do you have exact change by any chance?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "pago exacto",
+          "english": "exact payment"
+        },
+        {
+          "spanish": "tarjeta válida",
+          "english": "valid card"
+        },
+        {
+          "spanish": "tarjeta inválida",
+          "english": "invalid card"
+        }
+      ],
+      "opener": "Let's try your payment again."
+    },
+    {
+      "words": [
+        {
+          "spanish": "saldo insuficiente",
+          "english": "insufficient funds"
+        },
+        {
+          "spanish": "hay fondos",
+          "english": "there are funds"
+        },
+        {
+          "spanish": "no hay fondos",
+          "english": "there are no funds"
+        }
+      ],
+      "opener": "It looks like there may be an issue with the payment."
+    },
+    {
+      "words": [
+        {
+          "spanish": "listo para pagar",
+          "english": "ready to pay"
+        },
+        {
+          "spanish": "ingresa el código",
+          "english": "you enter the code"
+        },
+        {
+          "spanish": "código manual",
+          "english": "manual code"
+        }
+      ],
+      "opener": "Go ahead when you're ready to complete the payment."
+    },
+    {
+      "words": [
+        {
+          "spanish": "ingreso manual",
+          "english": "manual entry"
+        },
+        {
+          "spanish": "producto sin código",
+          "english": "item without a barcode"
+        },
+        {
+          "spanish": "pesa el producto",
+          "english": "you weigh the item"
+        }
+      ],
+      "opener": "I'll just enter this one manually."
+    },
+    {
+      "words": [
+        {
+          "spanish": "balanza",
+          "english": "scale"
+        },
+        {
+          "spanish": "etiqueta de precio",
+          "english": "price label"
+        },
+        {
+          "spanish": "no coincide",
+          "english": "it does not match"
+        }
+      ],
+      "opener": "Let me check the weight and label."
+    },
+    {
+      "words": [
+        {
+          "spanish": "revise la etiqueta",
+          "english": "you check the label"
+        },
+        {
+          "spanish": "actualizan el precio",
+          "english": "they update the price"
+        },
+        {
+          "spanish": "precio actualizado",
+          "english": "updated price"
+        }
+      ],
+      "opener": "I'll update that for you right now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "inténtalo otra vez",
+          "english": "you try again"
+        },
+        {
+          "spanish": "caja central",
+          "english": "main checkout"
+        },
+        {
+          "spanish": "lector",
+          "english": "scanner"
+        }
+      ],
+      "opener": "Try that again on the terminal."
+    },
+    {
+      "words": [
+        {
+          "spanish": "el lector da error",
+          "english": "the scanner gives an error"
+        },
+        {
+          "spanish": "promoción vencida",
+          "english": "expired promotion"
+        },
+        {
+          "spanish": "vence hoy",
+          "english": "it expires today"
+        }
+      ],
+      "opener": "That promotion may no longer be valid."
+    },
+    {
+      "words": [
+        {
+          "spanish": "unidad equivocada",
+          "english": "wrong unit"
+        },
+        {
+          "spanish": "precio por kilo",
+          "english": "price per kilo"
+        },
+        {
+          "spanish": "precio por unidad",
+          "english": "price per unit"
+        }
+      ],
+      "opener": "This item is priced by weight."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pesa menos",
+          "english": "it weighs less"
+        },
+        {
+          "spanish": "pesa más",
+          "english": "it weighs more"
+        },
+        {
+          "spanish": "producto abierto",
+          "english": "opened item"
+        }
+      ],
+      "opener": "Let me double-check the weight."
+    },
+    {
+      "words": [
+        {
+          "spanish": "producto dañado",
+          "english": "damaged item"
+        },
+        {
+          "spanish": "reemplazo",
+          "english": "replacement"
+        },
+        {
+          "spanish": "devolución al método de pago",
+          "english": "refund to the payment method"
+        }
+      ],
+      "opener": "If there's any issue, we can replace it or process a refund."
+    }
+  ],
+  "BANKING": [
+    {
+      "words": [
+        {
+          "spanish": "banco",
+          "english": "bank"
+        },
+        {
+          "spanish": "cajero",
+          "english": "teller"
+        },
+        {
+          "spanish": "cliente",
+          "english": "customer"
+        }
+      ],
+      "opener": "Good morning -- how can I help you today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "cuenta",
+          "english": "account"
+        },
+        {
+          "spanish": "cuenta bancaria",
+          "english": "bank account"
+        },
+        {
+          "spanish": "saldo",
+          "english": "balance"
+        }
+      ],
+      "opener": "What would you like to do with your account today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "saldo disponible",
+          "english": "available balance"
+        },
+        {
+          "spanish": "saldo actual",
+          "english": "current balance"
+        },
+        {
+          "spanish": "tarjeta",
+          "english": "card"
+        }
+      ],
+      "opener": "Would you like me to check your balance?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "tarjeta de débito",
+          "english": "debit card"
+        },
+        {
+          "spanish": "tarjeta de crédito",
+          "english": "credit card"
+        },
+        {
+          "spanish": "tarjeta bloqueada",
+          "english": "blocked card"
+        }
+      ],
+      "opener": "Are you having an issue with one of your cards?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "tarjeta nueva",
+          "english": "new card"
+        },
+        {
+          "spanish": "PIN",
+          "english": "PIN"
+        },
+        {
+          "spanish": "clave",
+          "english": "PIN"
+        }
+      ],
+      "opener": "Do you need help setting up your card?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "contraseña",
+          "english": "password"
+        },
+        {
+          "spanish": "número de cuenta",
+          "english": "account number"
+        },
+        {
+          "spanish": "número incorrecto",
+          "english": "wrong number"
+        }
+      ],
+      "opener": "Can you provide your account details?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "transferencia",
+          "english": "transfer"
+        },
+        {
+          "spanish": "transferencia enviada",
+          "english": "sent transfer"
+        },
+        {
+          "spanish": "transferencia recibida",
+          "english": "received transfer"
+        }
+      ],
+      "opener": "Are you asking about a recent transfer?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "no llegó",
+          "english": "it did not arrive"
+        },
+        {
+          "spanish": "llegó tarde",
+          "english": "it arrived late"
+        },
+        {
+          "spanish": "comprobante",
+          "english": "receipt"
+        }
+      ],
+      "opener": "Do you have a receipt or confirmation?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "muestro el comprobante",
+          "english": "I show the receipt"
+        },
+        {
+          "spanish": "reviso la cuenta",
+          "english": "I check the account"
+        },
+        {
+          "spanish": "revisan los movimientos",
+          "english": "they check the transactions"
+        }
+      ],
+      "opener": "Let me review your account activity."
+    },
+    {
+      "words": [
+        {
+          "spanish": "movimientos",
+          "english": "transactions"
+        },
+        {
+          "spanish": "cargo",
+          "english": "charge"
+        },
+        {
+          "spanish": "cargos extra",
+          "english": "extra charges"
+        }
+      ],
+      "opener": "Are you asking about a specific charge?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "no lo reconozco",
+          "english": "I do not recognize it"
+        },
+        {
+          "spanish": "cargo sospechoso",
+          "english": "suspicious charge"
+        },
+        {
+          "spanish": "intento sospechoso",
+          "english": "suspicious attempt"
+        }
+      ],
+      "opener": "Is there a transaction you don't recognize?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "bloqueo",
+          "english": "block"
+        },
+        {
+          "spanish": "se bloqueó",
+          "english": "it got blocked"
+        },
+        {
+          "spanish": "desbloquean la tarjeta",
+          "english": "they unblock the card"
+        }
+      ],
+      "opener": "Would you like me to block or unblock your card?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "activan la tarjeta",
+          "english": "they activate the card"
+        },
+        {
+          "spanish": "emiten la tarjeta",
+          "english": "they issue the card"
+        },
+        {
+          "spanish": "funciona ahora",
+          "english": "it works now"
+        }
+      ],
+      "opener": "We can activate your card for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no funciona",
+          "english": "it does not work"
+        },
+        {
+          "spanish": "rechazada",
+          "english": "declined"
+        },
+        {
+          "spanish": "pago rechazado",
+          "english": "declined payment"
+        }
+      ],
+      "opener": "Are you having trouble making a payment?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "hago el pago",
+          "english": "I make the payment"
+        },
+        {
+          "spanish": "pago aprobado",
+          "english": "approved payment"
+        },
+        {
+          "spanish": "pago pendiente",
+          "english": "pending payment"
+        }
+      ],
+      "opener": "Let me check the status of your payment."
+    },
+    {
+      "words": [
+        {
+          "spanish": "monto",
+          "english": "amount"
+        },
+        {
+          "spanish": "monto total",
+          "english": "total amount"
+        },
+        {
+          "spanish": "cantidad",
+          "english": "amount"
+        }
+      ],
+      "opener": "What amount are you looking to process?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "deposito dinero",
+          "english": "I deposit money"
+        },
+        {
+          "spanish": "retiro",
+          "english": "withdrawal"
+        },
+        {
+          "spanish": "retiro dinero",
+          "english": "I withdraw money"
+        }
+      ],
+      "opener": "Are you making a deposit or withdrawal today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "efectivo",
+          "english": "cash"
+        },
+        {
+          "spanish": "con tarjeta",
+          "english": "with a card"
+        },
+        {
+          "spanish": "cajero automático",
+          "english": "ATM"
+        }
+      ],
+      "opener": "How would you like to complete the transaction?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "retiro en el cajero",
+          "english": "I withdraw at the ATM"
+        },
+        {
+          "spanish": "saldo insuficiente",
+          "english": "insufficient funds"
+        },
+        {
+          "spanish": "no hay fondos",
+          "english": "there are no funds"
+        }
+      ],
+      "opener": "Let me check your available funds."
+    },
+    {
+      "words": [
+        {
+          "spanish": "hay fondos",
+          "english": "there are funds"
+        },
+        {
+          "spanish": "abro una cuenta",
+          "english": "I open an account"
+        },
+        {
+          "spanish": "abro una cuenta nueva",
+          "english": "I open a new account"
+        }
+      ],
+      "opener": "Are you interested in opening a new account?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "cierro la cuenta",
+          "english": "I close the account"
+        },
+        {
+          "spanish": "cambio de cuenta",
+          "english": "account change"
+        },
+        {
+          "spanish": "tipo de cuenta",
+          "english": "account type"
+        }
+      ],
+      "opener": "Would you like to make any changes to your account?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "cuenta principal",
+          "english": "main account"
+        },
+        {
+          "spanish": "cuenta de ahorros",
+          "english": "savings account"
+        },
+        {
+          "spanish": "cuenta corriente",
+          "english": "checking account"
+        }
+      ],
+      "opener": "Which type of account are you referring to?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "comisión",
+          "english": "fee"
+        },
+        {
+          "spanish": "cobran comisión",
+          "english": "they charge a fee"
+        },
+        {
+          "spanish": "sin comisión",
+          "english": "without a fee"
+        }
+      ],
+      "opener": "I can explain any fees associated with this."
+    },
+    {
+      "words": [
+        {
+          "spanish": "comisión mensual",
+          "english": "monthly fee"
+        },
+        {
+          "spanish": "eliminan la comisión",
+          "english": "they remove the fee"
+        },
+        {
+          "spanish": "contrato",
+          "english": "contract"
+        }
+      ],
+      "opener": "Let me go over the terms with you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "condiciones",
+          "english": "terms"
+        },
+        {
+          "spanish": "saldo mínimo",
+          "english": "minimum balance"
+        },
+        {
+          "spanish": "requiere saldo mínimo",
+          "english": "it requires a minimum balance"
+        }
+      ],
+      "opener": "This account has certain requirements."
+    },
+    {
+      "words": [
+        {
+          "spanish": "requiere depósitos",
+          "english": "it requires deposits"
+        },
+        {
+          "spanish": "historial",
+          "english": "history"
+        },
+        {
+          "spanish": "historial crediticio",
+          "english": "credit history"
+        }
+      ],
+      "opener": "We may need to review your history."
+    },
+    {
+      "words": [
+        {
+          "spanish": "crédito",
+          "english": "credit"
+        },
+        {
+          "spanish": "buen crédito",
+          "english": "good credit"
+        },
+        {
+          "spanish": "mal crédito",
+          "english": "bad credit"
+        }
+      ],
+      "opener": "This depends on your credit profile."
+    },
+    {
+      "words": [
+        {
+          "spanish": "préstamo",
+          "english": "loan"
+        },
+        {
+          "spanish": "solicito un préstamo",
+          "english": "I apply for a loan"
+        },
+        {
+          "spanish": "monto del préstamo",
+          "english": "loan amount"
+        }
+      ],
+      "opener": "Are you interested in applying for a loan?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "aprueban el préstamo",
+          "english": "they approve the loan"
+        },
+        {
+          "spanish": "rechazan el préstamo",
+          "english": "they reject the loan"
+        },
+        {
+          "spanish": "aprobación",
+          "english": "approval"
+        }
+      ],
+      "opener": "Your application will need approval."
+    },
+    {
+      "words": [
+        {
+          "spanish": "está en proceso",
+          "english": "it is in process"
+        },
+        {
+          "spanish": "solicitud",
+          "english": "application"
+        },
+        {
+          "spanish": "envío la solicitud",
+          "english": "I send the application"
+        }
+      ],
+      "opener": "Your application is currently being processed."
+    },
+    {
+      "words": [
+        {
+          "spanish": "documentos",
+          "english": "documents"
+        },
+        {
+          "spanish": "falta un documento",
+          "english": "one document is missing"
+        },
+        {
+          "spanish": "envío los documentos",
+          "english": "I send the documents"
+        }
+      ],
+      "opener": "We just need to confirm your documents."
+    },
+    {
+      "words": [
+        {
+          "spanish": "comprobante de ingresos",
+          "english": "proof of income"
+        },
+        {
+          "spanish": "revisan el sistema",
+          "english": "they check the system"
+        },
+        {
+          "spanish": "el sistema falla",
+          "english": "the system fails"
+        }
+      ],
+      "opener": "Let me check the system for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "el sistema está lento",
+          "english": "the system is slow"
+        },
+        {
+          "spanish": "error del sistema",
+          "english": "system error"
+        },
+        {
+          "spanish": "abren un caso",
+          "english": "they open a case"
+        }
+      ],
+      "opener": "There seems to be a system issue."
+    },
+    {
+      "words": [
+        {
+          "spanish": "número de caso",
+          "english": "case number"
+        },
+        {
+          "spanish": "seguimiento del caso",
+          "english": "case follow-up"
+        },
+        {
+          "spanish": "tarda unos días",
+          "english": "it takes a few days"
+        }
+      ],
+      "opener": "I can give you a case number for follow-up."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tiempo estimado",
+          "english": "estimated time"
+        },
+        {
+          "spanish": "depende del sistema",
+          "english": "it depends on the system"
+        },
+        {
+          "spanish": "espero la respuesta",
+          "english": "I wait for the response"
+        }
+      ],
+      "opener": "Processing time may vary."
+    },
+    {
+      "words": [
+        {
+          "spanish": "hoy no",
+          "english": "not today"
+        },
+        {
+          "spanish": "mañana sí",
+          "english": "tomorrow yes"
+        },
+        {
+          "spanish": "llamo al banco",
+          "english": "I call the bank"
+        }
+      ],
+      "opener": "Would you like to follow up later?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "atención al cliente",
+          "english": "customer service"
+        },
+        {
+          "spanish": "hablo con un agente",
+          "english": "I speak with an agent"
+        },
+        {
+          "spanish": "verifican mi identidad",
+          "english": "they verify my identity"
+        }
+      ],
+      "opener": "I'll need to verify your identity first."
+    },
+    {
+      "words": [
+        {
+          "spanish": "confirman mis datos",
+          "english": "they confirm my information"
+        },
+        {
+          "spanish": "fecha de nacimiento",
+          "english": "birth date"
+        },
+        {
+          "spanish": "dirección",
+          "english": "address"
+        }
+      ],
+      "opener": "Can you confirm your personal details?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "número de teléfono",
+          "english": "phone number"
+        },
+        {
+          "spanish": "correo electrónico",
+          "english": "email"
+        },
+        {
+          "spanish": "actualizan mis datos",
+          "english": "they update my information"
+        }
+      ],
+      "opener": "Would you like to update your contact information?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "datos incorrectos",
+          "english": "incorrect information"
+        },
+        {
+          "spanish": "cambio mis datos",
+          "english": "I change my information"
+        },
+        {
+          "spanish": "código de seguridad",
+          "english": "security code"
+        }
+      ],
+      "opener": "We'll need to correct that information."
+    },
+    {
+      "words": [
+        {
+          "spanish": "envían el código",
+          "english": "they send the code"
+        },
+        {
+          "spanish": "ingreso el código",
+          "english": "I enter the code"
+        },
+        {
+          "spanish": "código válido",
+          "english": "valid code"
+        }
+      ],
+      "opener": "I'm sending you a verification code."
+    },
+    {
+      "words": [
+        {
+          "spanish": "código inválido",
+          "english": "invalid code"
+        },
+        {
+          "spanish": "acceso a la cuenta",
+          "english": "account access"
+        },
+        {
+          "spanish": "no tengo acceso",
+          "english": "I do not have access"
+        }
+      ],
+      "opener": "Are you having trouble accessing your account?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "recupero el acceso",
+          "english": "I recover access"
+        },
+        {
+          "spanish": "restablecen la clave",
+          "english": "they reset the password"
+        },
+        {
+          "spanish": "cambio la clave",
+          "english": "I change the PIN"
+        }
+      ],
+      "opener": "We can help you reset your access."
+    },
+    {
+      "words": [
+        {
+          "spanish": "bloquean el acceso",
+          "english": "they block the access"
+        },
+        {
+          "spanish": "acceso activo",
+          "english": "active access"
+        },
+        {
+          "spanish": "sigue igual",
+          "english": "it is still the same"
+        }
+      ],
+      "opener": "Let me check your account status."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mejora un poco",
+          "english": "it improves a little"
+        },
+        {
+          "spanish": "no mejora",
+          "english": "it does not improve"
+        },
+        {
+          "spanish": "¿qué pasó?",
+          "english": "what happened?"
+        }
+      ],
+      "opener": "Has the issue improved at all?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿qué hago?",
+          "english": "what do I do?"
+        },
+        {
+          "spanish": "¿cuánto tarda?",
+          "english": "how long does it take?"
+        },
+        {
+          "spanish": "¿cuánto cuesta?",
+          "english": "how much does it cost?"
+        }
+      ],
+      "opener": "Do you have any questions about the process?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "no entiendo",
+          "english": "I do not understand"
+        },
+        {
+          "spanish": "¿puede repetir?",
+          "english": "can you repeat that?"
+        },
+        {
+          "spanish": "más despacio",
+          "english": "more slowly"
+        }
+      ],
+      "opener": "Let me explain that again more clearly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "sucursal",
+          "english": "branch"
+        },
+        {
+          "spanish": "ejecutivo",
+          "english": "bank advisor"
+        },
+        {
+          "spanish": "ventanilla",
+          "english": "teller window"
+        }
+      ],
+      "opener": "Would you prefer to speak with an advisor?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "firma registrada",
+          "english": "signature on file"
+        },
+        {
+          "spanish": "la firma no coincide",
+          "english": "the signature does not match"
+        },
+        {
+          "spanish": "transferencia internacional",
+          "english": "international transfer"
+        }
+      ],
+      "opener": "We need to verify your signature."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tipo de cambio",
+          "english": "exchange rate"
+        },
+        {
+          "spanish": "comisión por transferencia",
+          "english": "transfer fee"
+        },
+        {
+          "spanish": "fondos retenidos",
+          "english": "held funds"
+        }
+      ],
+      "opener": "There may be fees associated with this transfer."
+    }
+  ],
+  "AIRPORT": [
+    {
+      "words": [
+        {
+          "spanish": "pasaporte",
+          "english": "passport"
+        },
+        {
+          "spanish": "reserva",
+          "english": "reservation"
+        },
+        {
+          "spanish": "confirmación",
+          "english": "confirmation"
+        }
+      ],
+      "opener": "Good afternoon -- may I see your passport and reservation?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "número de reserva",
+          "english": "reservation number"
+        },
+        {
+          "spanish": "nombre",
+          "english": "first name"
+        },
+        {
+          "spanish": "apellido",
+          "english": "last name"
+        }
+      ],
+      "opener": "Can you confirm the name on the booking?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "documento",
+          "english": "document"
+        },
+        {
+          "spanish": "identificación",
+          "english": "ID"
+        },
+        {
+          "spanish": "visa",
+          "english": "visa"
+        }
+      ],
+      "opener": "Do you have all your travel documents with you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "permiso",
+          "english": "permit"
+        },
+        {
+          "spanish": "documentos de viaje",
+          "english": "travel documents"
+        },
+        {
+          "spanish": "fecha de vencimiento",
+          "english": "expiration date"
+        }
+      ],
+      "opener": "Let me check the expiration date on your documents."
+    },
+    {
+      "words": [
+        {
+          "spanish": "a nombre de",
+          "english": "under the name of"
+        },
+        {
+          "spanish": "¿tiene reserva?",
+          "english": "do you have a reservation?"
+        },
+        {
+          "spanish": "¿me muestra el pasaporte?",
+          "english": "do you show me your passport?"
+        }
+      ],
+      "opener": "Can you show me your passport, please?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿a qué nombre?",
+          "english": "under what name?"
+        },
+        {
+          "spanish": "vuelo",
+          "english": "flight"
+        },
+        {
+          "spanish": "número de vuelo",
+          "english": "flight number"
+        }
+      ],
+      "opener": "Which flight are you checking in for?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "destino",
+          "english": "destination"
+        },
+        {
+          "spanish": "destino final",
+          "english": "final destination"
+        },
+        {
+          "spanish": "origen",
+          "english": "origin"
+        }
+      ],
+      "opener": "Where are you traveling today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "conexión",
+          "english": "connection"
+        },
+        {
+          "spanish": "vuelo de conexión",
+          "english": "connecting flight"
+        },
+        {
+          "spanish": "vuelo directo",
+          "english": "direct flight"
+        }
+      ],
+      "opener": "Do you have a connecting flight?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "vuelo lleno",
+          "english": "full flight"
+        },
+        {
+          "spanish": "vuelo anterior",
+          "english": "previous flight"
+        },
+        {
+          "spanish": "vuelo siguiente",
+          "english": "next flight"
+        }
+      ],
+      "opener": "Let me check availability for your flight."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿va directo a…?",
+          "english": "does it go direct to…?"
+        },
+        {
+          "spanish": "¿hasta dónde va?",
+          "english": "how far does it go?"
+        },
+        {
+          "spanish": "¿sale hoy?",
+          "english": "does it leave today?"
+        }
+      ],
+      "opener": "Is this your final destination today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿sale mañana?",
+          "english": "does it leave tomorrow?"
+        },
+        {
+          "spanish": "salida",
+          "english": "departure"
+        },
+        {
+          "spanish": "llegada",
+          "english": "arrival"
+        }
+      ],
+      "opener": "Let me confirm your departure time."
+    },
+    {
+      "words": [
+        {
+          "spanish": "embarque",
+          "english": "boarding"
+        },
+        {
+          "spanish": "hora de embarque",
+          "english": "boarding time"
+        },
+        {
+          "spanish": "hora de salida",
+          "english": "departure time"
+        }
+      ],
+      "opener": "Boarding will begin shortly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "puerta",
+          "english": "gate"
+        },
+        {
+          "spanish": "número de puerta",
+          "english": "gate number"
+        },
+        {
+          "spanish": "puerta de embarque",
+          "english": "boarding gate"
+        }
+      ],
+      "opener": "Your gate will be shown on the screens."
+    },
+    {
+      "words": [
+        {
+          "spanish": "zona de embarque",
+          "english": "boarding area"
+        },
+        {
+          "spanish": "preembarque",
+          "english": "preboarding"
+        },
+        {
+          "spanish": "prioridad",
+          "english": "priority"
+        }
+      ],
+      "opener": "Do you have priority boarding?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "a tiempo",
+          "english": "on time"
+        },
+        {
+          "spanish": "retraso",
+          "english": "delay"
+        },
+        {
+          "spanish": "demora",
+          "english": "delay"
+        }
+      ],
+      "opener": "Your flight is currently on time."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cambio de puerta",
+          "english": "gate change"
+        },
+        {
+          "spanish": "¿cuál es la puerta?",
+          "english": "what is the gate?"
+        },
+        {
+          "spanish": "aparece en las pantallas",
+          "english": "it appears on the screens"
+        }
+      ],
+      "opener": "Please check the screens for updates."
+    },
+    {
+      "words": [
+        {
+          "spanish": "aparece en la app",
+          "english": "it appears in the app"
+        },
+        {
+          "spanish": "no está asignada",
+          "english": "it is not assigned"
+        },
+        {
+          "spanish": "asiento",
+          "english": "seat"
+        }
+      ],
+      "opener": "Your seat will be assigned shortly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "número de asiento",
+          "english": "seat number"
+        },
+        {
+          "spanish": "fila",
+          "english": "row"
+        },
+        {
+          "spanish": "ventana",
+          "english": "window"
+        }
+      ],
+      "opener": "Do you have a seat preference?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "pasillo",
+          "english": "aisle"
+        },
+        {
+          "spanish": "asiento del medio",
+          "english": "middle seat"
+        },
+        {
+          "spanish": "asiento de ventana",
+          "english": "window seat"
+        }
+      ],
+      "opener": "Would you prefer aisle or window?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "asiento de pasillo",
+          "english": "aisle seat"
+        },
+        {
+          "spanish": "salida de emergencia",
+          "english": "exit row"
+        },
+        {
+          "spanish": "juntos",
+          "english": "together"
+        }
+      ],
+      "opener": "Are you traveling with someone?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "separados",
+          "english": "separate"
+        },
+        {
+          "spanish": "¿prefiere ventana o pasillo?",
+          "english": "do you prefer a window or an aisle?"
+        },
+        {
+          "spanish": "¿hay asientos juntos?",
+          "english": "are there seats together?"
+        }
+      ],
+      "opener": "Let me check available seating."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿hay otro asiento?",
+          "english": "is there another seat?"
+        },
+        {
+          "spanish": "cambio de asiento",
+          "english": "seat change"
+        },
+        {
+          "spanish": "asignado",
+          "english": "assigned"
+        }
+      ],
+      "opener": "Your seat has been assigned."
+    },
+    {
+      "words": [
+        {
+          "spanish": "equipaje",
+          "english": "luggage"
+        },
+        {
+          "spanish": "maleta",
+          "english": "suitcase"
+        },
+        {
+          "spanish": "equipaje de mano",
+          "english": "carry-on"
+        }
+      ],
+      "opener": "Do you have any luggage with you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "equipaje facturado",
+          "english": "checked baggage"
+        },
+        {
+          "spanish": "maleta de cabina",
+          "english": "cabin bag"
+        },
+        {
+          "spanish": "artículo personal",
+          "english": "personal item"
+        }
+      ],
+      "opener": "Will you be checking any bags?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "primera maleta",
+          "english": "first bag"
+        },
+        {
+          "spanish": "segunda maleta",
+          "english": "second bag"
+        },
+        {
+          "spanish": "etiqueta",
+          "english": "tag"
+        }
+      ],
+      "opener": "I'll tag your bag now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "recibo de equipaje",
+          "english": "baggage receipt"
+        },
+        {
+          "spanish": "cinta",
+          "english": "carousel"
+        },
+        {
+          "spanish": "recogida de equipaje",
+          "english": "baggage claim"
+        }
+      ],
+      "opener": "You'll collect your bag at baggage claim."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿va a facturar equipaje?",
+          "english": "are you checking baggage?"
+        },
+        {
+          "spanish": "¿lleva equipaje?",
+          "english": "are you carrying luggage?"
+        },
+        {
+          "spanish": "balanza",
+          "english": "scale"
+        }
+      ],
+      "opener": "Please place your bag on the scale."
+    },
+    {
+      "words": [
+        {
+          "spanish": "peso",
+          "english": "weight"
+        },
+        {
+          "spanish": "límite",
+          "english": "limit"
+        },
+        {
+          "spanish": "exceso",
+          "english": "excess"
+        }
+      ],
+      "opener": "Your bag may be over the limit."
+    },
+    {
+      "words": [
+        {
+          "spanish": "sobrepeso",
+          "english": "overweight"
+        },
+        {
+          "spanish": "medidas",
+          "english": "dimensions"
+        },
+        {
+          "spanish": "medidas permitidas",
+          "english": "allowed dimensions"
+        }
+      ],
+      "opener": "Let me check the size and weight."
+    },
+    {
+      "words": [
+        {
+          "spanish": "está demasiado pesado",
+          "english": "it is too heavy"
+        },
+        {
+          "spanish": "está demasiado grande",
+          "english": "it is too big"
+        },
+        {
+          "spanish": "póngalo en la balanza",
+          "english": "you put it on the scale"
+        }
+      ],
+      "opener": "Please place it here so I can weigh it."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿cuál es el límite?",
+          "english": "what is the limit?"
+        },
+        {
+          "spanish": "¿cuánto cuesta?",
+          "english": "how much does it cost?"
+        },
+        {
+          "spanish": "facturo el equipaje",
+          "english": "I check the baggage"
+        }
+      ],
+      "opener": "There may be an extra fee."
+    },
+    {
+      "words": [
+        {
+          "spanish": "etiquetan el equipaje",
+          "english": "they tag the baggage"
+        },
+        {
+          "spanish": "abre la maleta",
+          "english": "you open the suitcase"
+        },
+        {
+          "spanish": "saca los objetos",
+          "english": "you take the items out"
+        }
+      ],
+      "opener": "You may need to remove some items."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pasa algunas cosas a la mochila",
+          "english": "you move some things to the backpack"
+        },
+        {
+          "spanish": "lo lleva con usted",
+          "english": "you carry it with you"
+        },
+        {
+          "spanish": "no puede ir en la maleta",
+          "english": "it cannot go in the suitcase"
+        }
+      ],
+      "opener": "Some items must stay in your carry-on."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿puede facturarlo?",
+          "english": "can you check it?"
+        },
+        {
+          "spanish": "¿puede llevarlo con usted?",
+          "english": "can you carry it with you?"
+        },
+        {
+          "spanish": "líquidos",
+          "english": "liquids"
+        }
+      ],
+      "opener": "Are you carrying any liquids?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "batería portátil",
+          "english": "power bank"
+        },
+        {
+          "spanish": "cargador",
+          "english": "charger"
+        },
+        {
+          "spanish": "computadora",
+          "english": "laptop"
+        }
+      ],
+      "opener": "Please remove electronics from your bag."
+    },
+    {
+      "words": [
+        {
+          "spanish": "objetos de valor",
+          "english": "valuables"
+        },
+        {
+          "spanish": "medicinas",
+          "english": "medication"
+        },
+        {
+          "spanish": "¿lleva líquidos?",
+          "english": "are you carrying liquids?"
+        }
+      ],
+      "opener": "Do you have any restricted items?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿lleva baterías?",
+          "english": "are you carrying batteries?"
+        },
+        {
+          "spanish": "no está permitido",
+          "english": "it is not allowed"
+        },
+        {
+          "spanish": "está permitido",
+          "english": "it is allowed"
+        }
+      ],
+      "opener": "Some items are not allowed in checked luggage."
+    },
+    {
+      "words": [
+        {
+          "spanish": "control de seguridad",
+          "english": "security check"
+        },
+        {
+          "spanish": "revisión",
+          "english": "inspection"
+        },
+        {
+          "spanish": "revisión adicional",
+          "english": "additional screening"
+        }
+      ],
+      "opener": "You may be selected for additional screening."
+    },
+    {
+      "words": [
+        {
+          "spanish": "selección aleatoria",
+          "english": "random selection"
+        },
+        {
+          "spanish": "control",
+          "english": "checkpoint"
+        },
+        {
+          "spanish": "seguridad",
+          "english": "security"
+        }
+      ],
+      "opener": "Please proceed to security."
+    },
+    {
+      "words": [
+        {
+          "spanish": "terminal",
+          "english": "terminal"
+        },
+        {
+          "spanish": "aeropuerto",
+          "english": "airport"
+        },
+        {
+          "spanish": "aerolínea",
+          "english": "airline"
+        }
+      ],
+      "opener": "You are in the correct terminal."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mostrador",
+          "english": "counter"
+        },
+        {
+          "spanish": "sistema",
+          "english": "system"
+        },
+        {
+          "spanish": "no funciona",
+          "english": "it does not work"
+        }
+      ],
+      "opener": "There seems to be a system issue."
+    },
+    {
+      "words": [
+        {
+          "spanish": "exceso de equipaje",
+          "english": "excess baggage"
+        },
+        {
+          "spanish": "paga el exceso",
+          "english": "you pay the excess fee"
+        },
+        {
+          "spanish": "con tarjeta",
+          "english": "with a card"
+        }
+      ],
+      "opener": "You can pay the fee here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "en efectivo",
+          "english": "in cash"
+        },
+        {
+          "spanish": "sin costo",
+          "english": "with no charge"
+        },
+        {
+          "spanish": "tarifa",
+          "english": "fee"
+        }
+      ],
+      "opener": "This service may have a fee."
+    },
+    {
+      "words": [
+        {
+          "spanish": "total",
+          "english": "total"
+        },
+        {
+          "spanish": "recibo",
+          "english": "receipt"
+        },
+        {
+          "spanish": "pasajero",
+          "english": "passenger"
+        }
+      ],
+      "opener": "Here is your receipt."
+    },
+    {
+      "words": [
+        {
+          "spanish": "familia",
+          "english": "family"
+        },
+        {
+          "spanish": "niño",
+          "english": "child"
+        },
+        {
+          "spanish": "niña",
+          "english": "girl"
+        }
+      ],
+      "opener": "Are you traveling with family?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "coche de bebé",
+          "english": "stroller"
+        },
+        {
+          "spanish": "hasta la puerta",
+          "english": "up to the gate"
+        },
+        {
+          "spanish": "tarjeta de embarque",
+          "english": "boarding pass"
+        }
+      ],
+      "opener": "Here is your boarding pass."
+    },
+    {
+      "words": [
+        {
+          "spanish": "imprimen la tarjeta de embarque",
+          "english": "they print the boarding pass"
+        },
+        {
+          "spanish": "celular",
+          "english": "cellphone"
+        },
+        {
+          "spanish": "correo",
+          "english": "email"
+        }
+      ],
+      "opener": "Would you like it printed or on your phone?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "confirmación por correo",
+          "english": "email confirmation"
+        },
+        {
+          "spanish": "hay espacio",
+          "english": "there is space"
+        },
+        {
+          "spanish": "no hay espacio",
+          "english": "there is no space"
+        }
+      ],
+      "opener": "Let me check availability."
+    },
+    {
+      "words": [
+        {
+          "spanish": "conexión corta",
+          "english": "short connection"
+        },
+        {
+          "spanish": "conexión larga",
+          "english": "long connection"
+        },
+        {
+          "spanish": "aduana",
+          "english": "customs"
+        }
+      ],
+      "opener": "You may need to go through customs."
+    },
+    {
+      "words": [
+        {
+          "spanish": "migración",
+          "english": "immigration"
+        },
+        {
+          "spanish": "control migratorio",
+          "english": "immigration control"
+        },
+        {
+          "spanish": "formulario de aduana",
+          "english": "customs form"
+        }
+      ],
+      "opener": "Please proceed to immigration after landing."
+    }
+  ],
+  "RESTAURANT": [
+    {
+      "words": [
+        {
+          "spanish": "menú",
+          "english": "menu"
+        },
+        {
+          "spanish": "carta",
+          "english": "menu"
+        },
+        {
+          "spanish": "mesero",
+          "english": "waiter"
+        }
+      ],
+      "opener": "Hi there -- here's the menu."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mesa",
+          "english": "table"
+        },
+        {
+          "spanish": "reserva",
+          "english": "reservation"
+        },
+        {
+          "spanish": "¿tienen reserva?",
+          "english": "do you have a reservation?"
+        }
+      ],
+      "opener": "Do you have a reservation?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "mesa para dos",
+          "english": "table for two"
+        },
+        {
+          "spanish": "pido",
+          "english": "I order"
+        },
+        {
+          "spanish": "¿qué desea?",
+          "english": "what would you like?"
+        }
+      ],
+      "opener": "How many people are dining today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿qué van a pedir?",
+          "english": "what are you going to order?"
+        },
+        {
+          "spanish": "tomo la orden",
+          "english": "I take the order"
+        },
+        {
+          "spanish": "aquí está el menú",
+          "english": "here is the menu"
+        }
+      ],
+      "opener": "Take a look and let me know when you're ready."
+    },
+    {
+      "words": [
+        {
+          "spanish": "recomendación",
+          "english": "recommendation"
+        },
+        {
+          "spanish": "¿qué recomienda?",
+          "english": "what do you recommend?"
+        },
+        {
+          "spanish": "plato",
+          "english": "dish"
+        }
+      ],
+      "opener": "Would you like a recommendation?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "entrada",
+          "english": "appetizer"
+        },
+        {
+          "spanish": "plato principal",
+          "english": "main dish"
+        },
+        {
+          "spanish": "postre",
+          "english": "dessert"
+        }
+      ],
+      "opener": "Are you thinking of starting with something?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "acompañamiento",
+          "english": "side dish"
+        },
+        {
+          "spanish": "guarnición",
+          "english": "side dish"
+        },
+        {
+          "spanish": "porción",
+          "english": "portion"
+        }
+      ],
+      "opener": "Would you like a side with that?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "ingrediente",
+          "english": "ingredient"
+        },
+        {
+          "spanish": "salsa",
+          "english": "sauce"
+        },
+        {
+          "spanish": "arroz",
+          "english": "rice"
+        }
+      ],
+      "opener": "Do you have any questions about the ingredients?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "pollo",
+          "english": "chicken"
+        },
+        {
+          "spanish": "carne",
+          "english": "meat"
+        },
+        {
+          "spanish": "pescado",
+          "english": "fish"
+        }
+      ],
+      "opener": "Do you have a preference?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "verduras",
+          "english": "vegetables"
+        },
+        {
+          "spanish": "ensalada",
+          "english": "salad"
+        },
+        {
+          "spanish": "vegetariano",
+          "english": "vegetarian"
+        }
+      ],
+      "opener": "Are you looking for something vegetarian?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "vegano",
+          "english": "vegan"
+        },
+        {
+          "spanish": "alergia",
+          "english": "allergy"
+        },
+        {
+          "spanish": "alérgico",
+          "english": "allergic"
+        }
+      ],
+      "opener": "Do you have any allergies?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "frutos secos",
+          "english": "nuts"
+        },
+        {
+          "spanish": "sin",
+          "english": "without"
+        },
+        {
+          "spanish": "con",
+          "english": "with"
+        }
+      ],
+      "opener": "Would you like that with or without something?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿tiene…?",
+          "english": "does it have…?"
+        },
+        {
+          "spanish": "¿lleva…?",
+          "english": "does it come with…?"
+        },
+        {
+          "spanish": "sin picante",
+          "english": "not spicy"
+        }
+      ],
+      "opener": "Would you like it spicy?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "picante",
+          "english": "spicy"
+        },
+        {
+          "spanish": "poco picante",
+          "english": "mildly spicy"
+        },
+        {
+          "spanish": "sin carne",
+          "english": "without meat"
+        }
+      ],
+      "opener": "How spicy would you like it?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "sin gluten",
+          "english": "gluten-free"
+        },
+        {
+          "spanish": "¿se puede cambiar?",
+          "english": "can it be changed?"
+        },
+        {
+          "spanish": "bebida",
+          "english": "drink"
+        }
+      ],
+      "opener": "Can I get you something to drink?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "agua",
+          "english": "water"
+        },
+        {
+          "spanish": "con gas",
+          "english": "sparkling"
+        },
+        {
+          "spanish": "sin gas",
+          "english": "still"
+        }
+      ],
+      "opener": "Would you like still or sparkling water?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "refresco",
+          "english": "soda"
+        },
+        {
+          "spanish": "jugo",
+          "english": "juice"
+        },
+        {
+          "spanish": "cerveza",
+          "english": "beer"
+        }
+      ],
+      "opener": "Something to drink?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "vino",
+          "english": "wine"
+        },
+        {
+          "spanish": "copa",
+          "english": "glass"
+        },
+        {
+          "spanish": "botella",
+          "english": "bottle"
+        }
+      ],
+      "opener": "Would you prefer a glass or bottle?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿algo de tomar?",
+          "english": "would you like something to drink?"
+        },
+        {
+          "spanish": "tiempo de espera",
+          "english": "wait time"
+        },
+        {
+          "spanish": "¿cuánto tiempo tarda?",
+          "english": "how long does it take?"
+        }
+      ],
+      "opener": "The kitchen is a bit busy today."
+    },
+    {
+      "words": [
+        {
+          "spanish": "regreso enseguida",
+          "english": "I come right back"
+        },
+        {
+          "spanish": "aquí está",
+          "english": "here it is"
+        },
+        {
+          "spanish": "falta",
+          "english": "it is missing"
+        }
+      ],
+      "opener": "I'll be right back with your order."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no llegó",
+          "english": "it did not arrive"
+        },
+        {
+          "spanish": "pedimos la comida",
+          "english": "we order the food"
+        },
+        {
+          "spanish": "trae",
+          "english": "you bring"
+        }
+      ],
+      "opener": "Did everything come out correctly?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "lleva",
+          "english": "it comes with"
+        },
+        {
+          "spanish": "sirve",
+          "english": "it serves"
+        },
+        {
+          "spanish": "mesa lista",
+          "english": "ready table"
+        }
+      ],
+      "opener": "Your table is ready."
+    },
+    {
+      "words": [
+        {
+          "spanish": "síganme",
+          "english": "you follow me"
+        },
+        {
+          "spanish": "error",
+          "english": "mistake"
+        },
+        {
+          "spanish": "equivocado",
+          "english": "wrong"
+        }
+      ],
+      "opener": "Right this way."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no es esto",
+          "english": "this is not it"
+        },
+        {
+          "spanish": "no pedimos eso",
+          "english": "we did not order that"
+        },
+        {
+          "spanish": "falta esto",
+          "english": "this is missing"
+        }
+      ],
+      "opener": "Is everything correct?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "cambio",
+          "english": "change"
+        },
+        {
+          "spanish": "cambian el plato",
+          "english": "they change the dish"
+        },
+        {
+          "spanish": "cocina",
+          "english": "kitchen"
+        }
+      ],
+      "opener": "I can fix that for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "preparan otro plato",
+          "english": "they prepare another dish"
+        },
+        {
+          "spanish": "tardó mucho",
+          "english": "it took too long"
+        },
+        {
+          "spanish": "frío",
+          "english": "cold"
+        }
+      ],
+      "opener": "I'll have the kitchen remake it."
+    },
+    {
+      "words": [
+        {
+          "spanish": "caliente",
+          "english": "hot"
+        },
+        {
+          "spanish": "recalentado",
+          "english": "reheated"
+        },
+        {
+          "spanish": "¿qué es esto?",
+          "english": "what is this?"
+        }
+      ],
+      "opener": "How is everything?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿qué lleva?",
+          "english": "what does it have?"
+        },
+        {
+          "spanish": "¿cómo es?",
+          "english": "what is it like?"
+        },
+        {
+          "spanish": "¿está listo?",
+          "english": "is it ready?"
+        }
+      ],
+      "opener": "Do you have any questions about the dish?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿falta mucho?",
+          "english": "is there much longer to wait?"
+        },
+        {
+          "spanish": "¿puede explicar?",
+          "english": "can you explain it?"
+        },
+        {
+          "spanish": "no entiendo",
+          "english": "I do not understand"
+        }
+      ],
+      "opener": "Let me explain that for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "repítalo",
+          "english": "you repeat it"
+        },
+        {
+          "spanish": "más despacio",
+          "english": "more slowly"
+        },
+        {
+          "spanish": "aclárelo",
+          "english": "you clarify it"
+        }
+      ],
+      "opener": "Of course, I can go slower."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cuenta",
+          "english": "bill"
+        },
+        {
+          "spanish": "la cuenta",
+          "english": "the bill"
+        },
+        {
+          "spanish": "total",
+          "english": "total"
+        }
+      ],
+      "opener": "Would you like the bill?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "precio",
+          "english": "price"
+        },
+        {
+          "spanish": "incluye",
+          "english": "it includes"
+        },
+        {
+          "spanish": "no incluye",
+          "english": "it does not include"
+        }
+      ],
+      "opener": "I'll bring your total."
+    },
+    {
+      "words": [
+        {
+          "spanish": "propina",
+          "english": "tip"
+        },
+        {
+          "spanish": "servicio",
+          "english": "service"
+        },
+        {
+          "spanish": "dividimos la cuenta",
+          "english": "we split the bill"
+        }
+      ],
+      "opener": "Would you like to split the bill?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "pago",
+          "english": "payment"
+        },
+        {
+          "spanish": "con tarjeta",
+          "english": "with a card"
+        },
+        {
+          "spanish": "en efectivo",
+          "english": "in cash"
+        }
+      ],
+      "opener": "How would you like to pay?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "terminal",
+          "english": "card terminal"
+        },
+        {
+          "spanish": "no funciona",
+          "english": "it does not work"
+        },
+        {
+          "spanish": "recibo",
+          "english": "receipt"
+        }
+      ],
+      "opener": "You can pay right here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mesa libre",
+          "english": "free table"
+        },
+        {
+          "spanish": "ocupado",
+          "english": "occupied"
+        },
+        {
+          "spanish": "lleno",
+          "english": "full"
+        }
+      ],
+      "opener": "We're a bit full right now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "afuera",
+          "english": "outside"
+        },
+        {
+          "spanish": "adentro",
+          "english": "inside"
+        },
+        {
+          "spanish": "terraza",
+          "english": "patio"
+        }
+      ],
+      "opener": "Would you prefer inside or outside?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "aire acondicionado",
+          "english": "air conditioning"
+        },
+        {
+          "spanish": "ruido",
+          "english": "noise"
+        },
+        {
+          "spanish": "tranquilo",
+          "english": "quiet"
+        }
+      ],
+      "opener": "Let me know if this table works for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "ambiente",
+          "english": "atmosphere"
+        },
+        {
+          "spanish": "para dos",
+          "english": "for two"
+        },
+        {
+          "spanish": "más",
+          "english": "more"
+        }
+      ],
+      "opener": "Is everything okay here?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "menos",
+          "english": "less"
+        },
+        {
+          "spanish": "suficiente",
+          "english": "enough"
+        },
+        {
+          "spanish": "extra",
+          "english": "extra"
+        }
+      ],
+      "opener": "Would you like anything else?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "otra",
+          "english": "another one"
+        },
+        {
+          "spanish": "lo mismo",
+          "english": "the same"
+        },
+        {
+          "spanish": "para llevar",
+          "english": "to go"
+        }
+      ],
+      "opener": "Would you like anything else?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "pedido",
+          "english": "order"
+        },
+        {
+          "spanish": "factura",
+          "english": "invoice"
+        },
+        {
+          "spanish": "reserva confirmada",
+          "english": "confirmed reservation"
+        }
+      ],
+      "opener": "Your order is coming right up."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mesa asignada",
+          "english": "assigned table"
+        },
+        {
+          "spanish": "lista de espera",
+          "english": "waitlist"
+        },
+        {
+          "spanish": "disponibilidad",
+          "english": "availability"
+        }
+      ],
+      "opener": "We have a short wait at the moment."
+    },
+    {
+      "words": [
+        {
+          "spanish": "horario",
+          "english": "opening hours"
+        },
+        {
+          "spanish": "cubiertos",
+          "english": "utensils"
+        },
+        {
+          "spanish": "cuchara",
+          "english": "spoon"
+        }
+      ],
+      "opener": "Let me bring you utensils."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tenedor",
+          "english": "fork"
+        },
+        {
+          "spanish": "cuchillo",
+          "english": "knife"
+        },
+        {
+          "spanish": "servilleta",
+          "english": "napkin"
+        }
+      ],
+      "opener": "Here you go."
+    },
+    {
+      "words": [
+        {
+          "spanish": "vaso",
+          "english": "glass"
+        },
+        {
+          "spanish": "taza",
+          "english": "cup"
+        },
+        {
+          "spanish": "hielo",
+          "english": "ice"
+        }
+      ],
+      "opener": "Would you like ice?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "sin hielo",
+          "english": "without ice"
+        },
+        {
+          "spanish": "otra ronda",
+          "english": "another round"
+        },
+        {
+          "spanish": "traen la cuenta",
+          "english": "they bring the bill"
+        }
+      ],
+      "opener": "Another drink?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "cobro adicional",
+          "english": "extra charge"
+        },
+        {
+          "spanish": "cargo por servicio",
+          "english": "service charge"
+        },
+        {
+          "spanish": "plato hondo",
+          "english": "bowl"
+        }
+      ],
+      "opener": "I'll explain the charges."
+    },
+    {
+      "words": [
+        {
+          "spanish": "plato llano",
+          "english": "dinner plate"
+        },
+        {
+          "spanish": "cubierto extra",
+          "english": "extra utensil"
+        },
+        {
+          "spanish": "para compartir",
+          "english": "to share"
+        }
+      ],
+      "opener": "Is this to share?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "recogen los platos",
+          "english": "they clear the plates"
+        },
+        {
+          "spanish": "mesa sucia",
+          "english": "dirty table"
+        },
+        {
+          "spanish": "mesa limpia",
+          "english": "clean table"
+        }
+      ],
+      "opener": "I'll clear these for you."
+    }
+  ],
+  "SMALL_TALK": [
+    {
+      "words": [
+        {
+          "spanish": "vecino",
+          "english": "neighbor"
+        },
+        {
+          "spanish": "vecina",
+          "english": "female neighbor"
+        },
+        {
+          "spanish": "edificio",
+          "english": "building"
+        }
+      ],
+      "opener": "Hey, do you live in this building too?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "departamento",
+          "english": "apartment"
+        },
+        {
+          "spanish": "casa",
+          "english": "house"
+        },
+        {
+          "spanish": "zona",
+          "english": "area"
+        }
+      ],
+      "opener": "How do you like living here?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "barrio",
+          "english": "neighborhood"
+        },
+        {
+          "spanish": "ruido",
+          "english": "noise"
+        },
+        {
+          "spanish": "música",
+          "english": "music"
+        }
+      ],
+      "opener": "Was it a bit noisy last night?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "volumen",
+          "english": "volume"
+        },
+        {
+          "spanish": "baja el volumen",
+          "english": "you lower the volume"
+        },
+        {
+          "spanish": "reunión",
+          "english": "gathering"
+        }
+      ],
+      "opener": "Hope the noise wasn't too loud."
+    },
+    {
+      "words": [
+        {
+          "spanish": "fiesta",
+          "english": "party"
+        },
+        {
+          "spanish": "anoche",
+          "english": "last night"
+        },
+        {
+          "spanish": "tarde",
+          "english": "late"
+        }
+      ],
+      "opener": "Sorry if things went late last night."
+    },
+    {
+      "words": [
+        {
+          "spanish": "temprano",
+          "english": "early"
+        },
+        {
+          "spanish": "trabajo temprano",
+          "english": "I work early"
+        },
+        {
+          "spanish": "no pude dormir",
+          "english": "I could not sleep"
+        }
+      ],
+      "opener": "Did everything go okay for you last night?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "quería comentarte algo",
+          "english": "I wanted to mention something to you"
+        },
+        {
+          "spanish": "solo quería avisarte",
+          "english": "I just wanted to let you know"
+        },
+        {
+          "spanish": "la próxima vez",
+          "english": "next time"
+        }
+      ],
+      "opener": "I just wanted to mention something quickly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tenga cuidado",
+          "english": "you be careful"
+        },
+        {
+          "spanish": "estacionamiento",
+          "english": "parking"
+        },
+        {
+          "spanish": "lugar",
+          "english": "spot"
+        }
+      ],
+      "opener": "Hey, quick question about parking."
+    },
+    {
+      "words": [
+        {
+          "spanish": "espacio",
+          "english": "space"
+        },
+        {
+          "spanish": "mi lugar",
+          "english": "my spot"
+        },
+        {
+          "spanish": "asignado",
+          "english": "assigned"
+        }
+      ],
+      "opener": "Is that parking spot assigned?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "visitante",
+          "english": "visitor"
+        },
+        {
+          "spanish": "mueve el carro",
+          "english": "you move the car"
+        },
+        {
+          "spanish": "lo muevo ahora mismo",
+          "english": "I move it right now"
+        }
+      ],
+      "opener": "Would you be able to move your car?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "ya pasó dos veces",
+          "english": "it has already happened twice"
+        },
+        {
+          "spanish": "no sabía",
+          "english": "I did not know"
+        },
+        {
+          "spanish": "no fue intencional",
+          "english": "it was not intentional"
+        }
+      ],
+      "opener": "Just wanted to let you know this has happened before."
+    },
+    {
+      "words": [
+        {
+          "spanish": "paquete",
+          "english": "package"
+        },
+        {
+          "spanish": "entrega",
+          "english": "delivery"
+        },
+        {
+          "spanish": "repartidor",
+          "english": "delivery person"
+        }
+      ],
+      "opener": "Hey, I think a package was delivered here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "puerta",
+          "english": "door"
+        },
+        {
+          "spanish": "lo dejó aquí por error",
+          "english": "he left it here by mistake"
+        },
+        {
+          "spanish": "nombre",
+          "english": "name"
+        }
+      ],
+      "opener": "Does this name belong to you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "mi nombre",
+          "english": "my name"
+        },
+        {
+          "spanish": "aquí está su paquete",
+          "english": "here is your package"
+        },
+        {
+          "spanish": "lo tengo",
+          "english": "I have it"
+        }
+      ],
+      "opener": "I think this might be yours."
+    },
+    {
+      "words": [
+        {
+          "spanish": "se perdió",
+          "english": "it got lost"
+        },
+        {
+          "spanish": "pasa seguido",
+          "english": "it happens often"
+        },
+        {
+          "spanish": "hace tiempo",
+          "english": "a long time ago"
+        }
+      ],
+      "opener": "Sometimes deliveries get mixed up."
+    },
+    {
+      "words": [
+        {
+          "spanish": "hace meses",
+          "english": "months ago"
+        },
+        {
+          "spanish": "hace un año",
+          "english": "a year ago"
+        },
+        {
+          "spanish": "vivo aquí",
+          "english": "I live here"
+        }
+      ],
+      "opener": "Have you been living here long?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "me mudé",
+          "english": "I moved"
+        },
+        {
+          "spanish": "¿te gusta vivir aquí?",
+          "english": "do you like living here?"
+        },
+        {
+          "spanish": "me gusta",
+          "english": "I like it"
+        }
+      ],
+      "opener": "How do you like it here?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "es tranquilo",
+          "english": "it is quiet"
+        },
+        {
+          "spanish": "es ruidoso",
+          "english": "it is noisy"
+        },
+        {
+          "spanish": "agua",
+          "english": "water"
+        }
+      ],
+      "opener": "Overall, is it quiet here?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "fuga",
+          "english": "leak"
+        },
+        {
+          "spanish": "humedad",
+          "english": "dampness"
+        },
+        {
+          "spanish": "pared",
+          "english": "wall"
+        }
+      ],
+      "opener": "Have you noticed any issues in your place?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "tubería",
+          "english": "pipe"
+        },
+        {
+          "spanish": "problema de agua",
+          "english": "water issue"
+        },
+        {
+          "spanish": "administración",
+          "english": "building management"
+        }
+      ],
+      "opener": "Have you contacted management?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "ya llamé",
+          "english": "I already called"
+        },
+        {
+          "spanish": "no han venido",
+          "english": "they have not come"
+        },
+        {
+          "spanish": "mejor así",
+          "english": "it is better this way"
+        }
+      ],
+      "opener": "Did they respond yet?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "más urgente",
+          "english": "more urgent"
+        },
+        {
+          "spanish": "cierra la llave de agua",
+          "english": "you shut off the water valve"
+        },
+        {
+          "spanish": "llave de agua",
+          "english": "water valve"
+        }
+      ],
+      "opener": "You might want to shut off the water."
+    },
+    {
+      "words": [
+        {
+          "spanish": "puede empeorar",
+          "english": "it can get worse"
+        },
+        {
+          "spanish": "avísame",
+          "english": "you let me know"
+        },
+        {
+          "spanish": "me dices",
+          "english": "you tell me"
+        }
+      ],
+      "opener": "Let me know if it gets worse."
+    },
+    {
+      "words": [
+        {
+          "spanish": "entiendo",
+          "english": "I understand"
+        },
+        {
+          "spanish": "tiene sentido",
+          "english": "it makes sense"
+        },
+        {
+          "spanish": "cerca",
+          "english": "nearby"
+        }
+      ],
+      "opener": "That makes sense."
+    },
+    {
+      "words": [
+        {
+          "spanish": "lejos",
+          "english": "far"
+        },
+        {
+          "spanish": "piso",
+          "english": "floor"
+        },
+        {
+          "spanish": "mismo piso",
+          "english": "same floor"
+        }
+      ],
+      "opener": "Are you on this floor?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "arriba",
+          "english": "upstairs"
+        },
+        {
+          "spanish": "abajo",
+          "english": "downstairs"
+        },
+        {
+          "spanish": "toca la puerta",
+          "english": "you knock on the door"
+        }
+      ],
+      "opener": "Do you live upstairs or downstairs?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "abre",
+          "english": "it opens"
+        },
+        {
+          "spanish": "cierra",
+          "english": "it closes"
+        },
+        {
+          "spanish": "trabajo",
+          "english": "work"
+        }
+      ],
+      "opener": "Do you work from home?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "horario",
+          "english": "schedule"
+        },
+        {
+          "spanish": "ocupado",
+          "english": "busy"
+        },
+        {
+          "spanish": "libre",
+          "english": "free"
+        }
+      ],
+      "opener": "Are you usually busy during the day?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "fin de semana",
+          "english": "weekend"
+        },
+        {
+          "spanish": "hoy",
+          "english": "today"
+        },
+        {
+          "spanish": "mañana",
+          "english": "tomorrow"
+        }
+      ],
+      "opener": "Do you have plans this weekend?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "ayer",
+          "english": "yesterday"
+        },
+        {
+          "spanish": "en un rato",
+          "english": "in a little while"
+        },
+        {
+          "spanish": "prestas una herramienta",
+          "english": "you lend a tool"
+        }
+      ],
+      "opener": "Quick favor -- do you have a tool I could borrow?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "herramienta",
+          "english": "tool"
+        },
+        {
+          "spanish": "llave inglesa",
+          "english": "wrench"
+        },
+        {
+          "spanish": "taladro",
+          "english": "drill"
+        }
+      ],
+      "opener": "I need to fix something small."
+    },
+    {
+      "words": [
+        {
+          "spanish": "escalera",
+          "english": "ladder"
+        },
+        {
+          "spanish": "basura",
+          "english": "trash"
+        },
+        {
+          "spanish": "saco la basura",
+          "english": "I take out the trash"
+        }
+      ],
+      "opener": "Do you know when trash gets picked up?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "reciclaje",
+          "english": "recycling"
+        },
+        {
+          "spanish": "ascensor",
+          "english": "elevator"
+        },
+        {
+          "spanish": "timbre",
+          "english": "doorbell"
+        }
+      ],
+      "opener": "Does the elevator always work?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "portón",
+          "english": "gate"
+        },
+        {
+          "spanish": "entrada principal",
+          "english": "main entrance"
+        },
+        {
+          "spanish": "llave",
+          "english": "key"
+        }
+      ],
+      "opener": "Is the main entrance always open?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "copia de llave",
+          "english": "spare key"
+        },
+        {
+          "spanish": "administración del edificio",
+          "english": "building management"
+        },
+        {
+          "spanish": "portero",
+          "english": "doorman"
+        }
+      ],
+      "opener": "Do you know who manages the building?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "conserje",
+          "english": "caretaker"
+        },
+        {
+          "spanish": "paquete equivocado",
+          "english": "wrong package"
+        },
+        {
+          "spanish": "se confundieron de puerta",
+          "english": "they got the door wrong"
+        }
+      ],
+      "opener": "I think they delivered this to the wrong door."
+    },
+    {
+      "words": [
+        {
+          "spanish": "visita",
+          "english": "visitor"
+        },
+        {
+          "spanish": "visitas",
+          "english": "guests"
+        },
+        {
+          "spanish": "¿espera visitas?",
+          "english": "are you expecting guests?"
+        }
+      ],
+      "opener": "Are you expecting someone?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "mudanza",
+          "english": "move"
+        },
+        {
+          "spanish": "camión de mudanza",
+          "english": "moving truck"
+        },
+        {
+          "spanish": "se mudan hoy",
+          "english": "they move today"
+        }
+      ],
+      "opener": "Are you moving in today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "mascota",
+          "english": "pet"
+        },
+        {
+          "spanish": "perro",
+          "english": "dog"
+        },
+        {
+          "spanish": "gato",
+          "english": "cat"
+        }
+      ],
+      "opener": "Do you have any pets?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "correa",
+          "english": "leash"
+        },
+        {
+          "spanish": "ladra mucho",
+          "english": "it barks a lot"
+        },
+        {
+          "spanish": "¿cómo se llama?",
+          "english": "what is it called?"
+        }
+      ],
+      "opener": "What's your dog's name?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "jardín",
+          "english": "garden"
+        },
+        {
+          "spanish": "plantas",
+          "english": "plants"
+        },
+        {
+          "spanish": "riego",
+          "english": "watering"
+        }
+      ],
+      "opener": "Do you take care of plants here?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "riega las plantas",
+          "english": "you water the plants"
+        },
+        {
+          "spanish": "balcón",
+          "english": "balcony"
+        },
+        {
+          "spanish": "ventana",
+          "english": "window"
+        }
+      ],
+      "opener": "Do you use your balcony often?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "corriente de aire",
+          "english": "draft"
+        },
+        {
+          "spanish": "hace frío aquí",
+          "english": "it is cold here"
+        },
+        {
+          "spanish": "hace calor aquí",
+          "english": "it is hot here"
+        }
+      ],
+      "opener": "Does it get cold in your unit?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "humedad en el techo",
+          "english": "moisture on the ceiling"
+        },
+        {
+          "spanish": "corte de agua",
+          "english": "water outage"
+        },
+        {
+          "spanish": "corte de luz",
+          "english": "power outage"
+        }
+      ],
+      "opener": "Have you had any outages recently?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "luz",
+          "english": "electricity"
+        },
+        {
+          "spanish": "se fue la luz",
+          "english": "the power went out"
+        },
+        {
+          "spanish": "vuelve pronto",
+          "english": "it comes back soon"
+        }
+      ],
+      "opener": "Did your power go out too?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "vecino nuevo",
+          "english": "new neighbor"
+        },
+        {
+          "spanish": "recién llegado",
+          "english": "newly arrived"
+        },
+        {
+          "spanish": "¿desde cuándo vive aquí?",
+          "english": "since when do you live here?"
+        }
+      ],
+      "opener": "Are you new here?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "alquiler",
+          "english": "rent"
+        },
+        {
+          "spanish": "subió el alquiler",
+          "english": "the rent went up"
+        },
+        {
+          "spanish": "administración no responde",
+          "english": "management does not respond"
+        }
+      ],
+      "opener": "Has your rent gone up recently?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "queja",
+          "english": "complaint"
+        },
+        {
+          "spanish": "pongo una queja",
+          "english": "I file a complaint"
+        },
+        {
+          "spanish": "ruido arriba",
+          "english": "upstairs noise"
+        }
+      ],
+      "opener": "Have you had to file a complaint before?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "ruido abajo",
+          "english": "downstairs noise"
+        },
+        {
+          "spanish": "pasillo",
+          "english": "hallway"
+        },
+        {
+          "spanish": "entrada trasera",
+          "english": "back entrance"
+        }
+      ],
+      "opener": "Do you ever hear noise from the hallway?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "puerta principal",
+          "english": "front door"
+        },
+        {
+          "spanish": "buzón",
+          "english": "mailbox"
+        },
+        {
+          "spanish": "correo",
+          "english": "mail"
+        }
+      ],
+      "opener": "Have you checked your mailbox today?"
+    }
+  ],
+  "CONTRACTOR": [
+    {
+      "words": [
+        {
+          "spanish": "contratista",
+          "english": "contractor"
+        },
+        {
+          "spanish": "trabajador",
+          "english": "worker"
+        },
+        {
+          "spanish": "equipo",
+          "english": "crew"
+        }
+      ],
+      "opener": "Hi, I'm the contractor -- we're here with the crew to look at the project."
+    },
+    {
+      "words": [
+        {
+          "spanish": "proyecto",
+          "english": "project"
+        },
+        {
+          "spanish": "obra",
+          "english": "construction work"
+        },
+        {
+          "spanish": "trabajo",
+          "english": "work"
+        }
+      ],
+      "opener": "Let's go over the work we're planning here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "plano",
+          "english": "plan"
+        },
+        {
+          "spanish": "diseño",
+          "english": "design"
+        },
+        {
+          "spanish": "presupuesto",
+          "english": "budget"
+        }
+      ],
+      "opener": "Do you want to review the plan and design together?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "estimado",
+          "english": "estimate"
+        },
+        {
+          "spanish": "costo",
+          "english": "cost"
+        },
+        {
+          "spanish": "precio",
+          "english": "price"
+        }
+      ],
+      "opener": "I can walk you through the estimate."
+    },
+    {
+      "words": [
+        {
+          "spanish": "total",
+          "english": "total"
+        },
+        {
+          "spanish": "pago",
+          "english": "payment"
+        },
+        {
+          "spanish": "anticipo",
+          "english": "deposit"
+        }
+      ],
+      "opener": "We usually start with a deposit to begin the work."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pago final",
+          "english": "final payment"
+        },
+        {
+          "spanish": "material",
+          "english": "material"
+        },
+        {
+          "spanish": "materiales",
+          "english": "materials"
+        }
+      ],
+      "opener": "We'll finalize everything once the materials are in."
+    },
+    {
+      "words": [
+        {
+          "spanish": "proveedor",
+          "english": "supplier"
+        },
+        {
+          "spanish": "disponibilidad",
+          "english": "availability"
+        },
+        {
+          "spanish": "no está disponible",
+          "english": "it is not available"
+        }
+      ],
+      "opener": "Some materials might not be available right now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "retraso",
+          "english": "delay"
+        },
+        {
+          "spanish": "atraso",
+          "english": "delay"
+        },
+        {
+          "spanish": "va atrasado",
+          "english": "it is running late"
+        }
+      ],
+      "opener": "There's been a bit of a delay on this part."
+    },
+    {
+      "words": [
+        {
+          "spanish": "a tiempo",
+          "english": "on time"
+        },
+        {
+          "spanish": "horario",
+          "english": "schedule"
+        },
+        {
+          "spanish": "cumplen el horario",
+          "english": "they keep the schedule"
+        }
+      ],
+      "opener": "We're doing our best to stay on schedule."
+    },
+    {
+      "words": [
+        {
+          "spanish": "tiempo estimado",
+          "english": "estimated time"
+        },
+        {
+          "spanish": "terminan hoy",
+          "english": "they finish today"
+        },
+        {
+          "spanish": "empiezan hoy",
+          "english": "they start today"
+        }
+      ],
+      "opener": "We can start work today if that works for you."
+    },
+    {
+      "words": [
+        {
+          "spanish": "siguen trabajando",
+          "english": "they keep working"
+        },
+        {
+          "spanish": "trabajo detenido",
+          "english": "stopped work"
+        },
+        {
+          "spanish": "revisan esto",
+          "english": "they check this"
+        }
+      ],
+      "opener": "We'll keep working on this once we check everything."
+    },
+    {
+      "words": [
+        {
+          "spanish": "inspección",
+          "english": "inspection"
+        },
+        {
+          "spanish": "ajuste",
+          "english": "adjustment"
+        },
+        {
+          "spanish": "alternativa",
+          "english": "alternative"
+        }
+      ],
+      "opener": "We may need to make a few adjustments."
+    },
+    {
+      "words": [
+        {
+          "spanish": "calidad",
+          "english": "quality"
+        },
+        {
+          "spanish": "misma calidad",
+          "english": "same quality"
+        },
+        {
+          "spanish": "es diferente",
+          "english": "it is different"
+        }
+      ],
+      "opener": "This option is a bit different in quality."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mejor opción",
+          "english": "better option"
+        },
+        {
+          "spanish": "es más caro",
+          "english": "it is more expensive"
+        },
+        {
+          "spanish": "es más barato",
+          "english": "it is cheaper"
+        }
+      ],
+      "opener": "There are a few options depending on budget."
+    },
+    {
+      "words": [
+        {
+          "spanish": "costo adicional",
+          "english": "additional cost"
+        },
+        {
+          "spanish": "no estaba incluido",
+          "english": "it was not included"
+        },
+        {
+          "spanish": "fuera del presupuesto",
+          "english": "over budget"
+        }
+      ],
+      "opener": "This part wasn't included in the original quote."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿cuánto cuesta?",
+          "english": "how much does it cost?"
+        },
+        {
+          "spanish": "¿cuánto tarda?",
+          "english": "how long does it take?"
+        },
+        {
+          "spanish": "¿cuándo terminan?",
+          "english": "when do they finish?"
+        }
+      ],
+      "opener": "Do you have any questions about timing or cost?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿cuándo empiezan?",
+          "english": "when do they start?"
+        },
+        {
+          "spanish": "¿por qué hay retraso?",
+          "english": "why is there a delay?"
+        },
+        {
+          "spanish": "¿qué pasó?",
+          "english": "what happened?"
+        }
+      ],
+      "opener": "I can explain what's been happening."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿puede explicar?",
+          "english": "can you explain it?"
+        },
+        {
+          "spanish": "no entiendo",
+          "english": "I do not understand"
+        },
+        {
+          "spanish": "necesito más detalle",
+          "english": "I need more detail"
+        }
+      ],
+      "opener": "Let me explain that in more detail."
+    },
+    {
+      "words": [
+        {
+          "spanish": "quiero ver el plano",
+          "english": "I want to see the plan"
+        },
+        {
+          "spanish": "me envía el plano",
+          "english": "you send me the plan"
+        },
+        {
+          "spanish": "está en proceso",
+          "english": "it is in progress"
+        }
+      ],
+      "opener": "I can send you the plan if you'd like."
+    },
+    {
+      "words": [
+        {
+          "spanish": "ya empezaron",
+          "english": "they already started"
+        },
+        {
+          "spanish": "ya terminaron",
+          "english": "they already finished"
+        },
+        {
+          "spanish": "falta trabajo",
+          "english": "work is still missing"
+        }
+      ],
+      "opener": "We've made progress, but there's still work to do."
+    },
+    {
+      "words": [
+        {
+          "spanish": "está incompleto",
+          "english": "it is incomplete"
+        },
+        {
+          "spanish": "está mal hecho",
+          "english": "it is poorly done"
+        },
+        {
+          "spanish": "está bien hecho",
+          "english": "it is well done"
+        }
+      ],
+      "opener": "Let me know what you think of the work so far."
+    },
+    {
+      "words": [
+        {
+          "spanish": "corrigen esto",
+          "english": "they fix this"
+        },
+        {
+          "spanish": "reparan esto",
+          "english": "they repair this"
+        },
+        {
+          "spanish": "rehacen esto",
+          "english": "they redo this"
+        }
+      ],
+      "opener": "We can fix or redo anything needed."
+    },
+    {
+      "words": [
+        {
+          "spanish": "ajustan el nivel",
+          "english": "they level this"
+        },
+        {
+          "spanish": "superficie",
+          "english": "surface"
+        },
+        {
+          "spanish": "pared",
+          "english": "wall"
+        }
+      ],
+      "opener": "We'll make sure everything is level."
+    },
+    {
+      "words": [
+        {
+          "spanish": "piso",
+          "english": "floor"
+        },
+        {
+          "spanish": "techo",
+          "english": "ceiling"
+        },
+        {
+          "spanish": "pintura",
+          "english": "paint"
+        }
+      ],
+      "opener": "We're working on the surfaces now."
+    },
+    {
+      "words": [
+        {
+          "spanish": "hay manchas",
+          "english": "there are stains"
+        },
+        {
+          "spanish": "acabado",
+          "english": "finish"
+        },
+        {
+          "spanish": "está nivelado",
+          "english": "it is level"
+        }
+      ],
+      "opener": "We'll clean up the finish."
+    },
+    {
+      "words": [
+        {
+          "spanish": "está desnivelado",
+          "english": "it is uneven"
+        },
+        {
+          "spanish": "hay una grieta",
+          "english": "there is a crack"
+        },
+        {
+          "spanish": "humedad",
+          "english": "moisture"
+        }
+      ],
+      "opener": "We noticed a few issues here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "hay una fuga",
+          "english": "there is a leak"
+        },
+        {
+          "spanish": "tubería",
+          "english": "pipe"
+        },
+        {
+          "spanish": "instalación",
+          "english": "installation"
+        }
+      ],
+      "opener": "There may be a plumbing issue."
+    },
+    {
+      "words": [
+        {
+          "spanish": "sistema eléctrico",
+          "english": "electrical system"
+        },
+        {
+          "spanish": "cable",
+          "english": "wire"
+        },
+        {
+          "spanish": "enchufe",
+          "english": "outlet"
+        }
+      ],
+      "opener": "We'll check the electrical system."
+    },
+    {
+      "words": [
+        {
+          "spanish": "interruptor",
+          "english": "switch"
+        },
+        {
+          "spanish": "agua",
+          "english": "water"
+        },
+        {
+          "spanish": "llave de agua",
+          "english": "water valve"
+        }
+      ],
+      "opener": "We may need to shut off the water."
+    },
+    {
+      "words": [
+        {
+          "spanish": "abren la pared",
+          "english": "they open the wall"
+        },
+        {
+          "spanish": "cierran la pared",
+          "english": "they close the wall"
+        },
+        {
+          "spanish": "hay daño",
+          "english": "there is damage"
+        }
+      ],
+      "opener": "We might need to open the wall."
+    },
+    {
+      "words": [
+        {
+          "spanish": "evitan el daño",
+          "english": "they avoid the damage"
+        },
+        {
+          "spanish": "es urgente",
+          "english": "it is urgent"
+        },
+        {
+          "spanish": "puede empeorar",
+          "english": "it can get worse"
+        }
+      ],
+      "opener": "This might need urgent attention."
+    },
+    {
+      "words": [
+        {
+          "spanish": "apruebo el cambio",
+          "english": "I approve the change"
+        },
+        {
+          "spanish": "no autorizo ese cambio",
+          "english": "I do not authorize that change"
+        },
+        {
+          "spanish": "sin autorización",
+          "english": "without authorization"
+        }
+      ],
+      "opener": "We'll wait for your approval before proceeding."
+    },
+    {
+      "words": [
+        {
+          "spanish": "avisan antes",
+          "english": "they notify me beforehand"
+        },
+        {
+          "spanish": "falta comunicación",
+          "english": "there is poor communication"
+        },
+        {
+          "spanish": "nadie vino",
+          "english": "nobody came"
+        }
+      ],
+      "opener": "We'll make sure communication improves."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no llegaron",
+          "english": "they did not arrive"
+        },
+        {
+          "spanish": "vienen mañana",
+          "english": "they come tomorrow"
+        },
+        {
+          "spanish": "vienen hoy",
+          "english": "they come today"
+        }
+      ],
+      "opener": "The team will be here today."
+    },
+    {
+      "words": [
+        {
+          "spanish": "en la mañana",
+          "english": "in the morning"
+        },
+        {
+          "spanish": "en la tarde",
+          "english": "in the afternoon"
+        },
+        {
+          "spanish": "llegan tarde",
+          "english": "they arrive late"
+        }
+      ],
+      "opener": "We'll arrive in the morning."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cumplen el plazo",
+          "english": "they meet the deadline"
+        },
+        {
+          "spanish": "plazo",
+          "english": "deadline"
+        },
+        {
+          "spanish": "entrega",
+          "english": "delivery"
+        }
+      ],
+      "opener": "We're aiming to meet the deadline."
+    },
+    {
+      "words": [
+        {
+          "spanish": "entrega final",
+          "english": "final delivery"
+        },
+        {
+          "spanish": "inspección final",
+          "english": "final inspection"
+        },
+        {
+          "spanish": "garantía",
+          "english": "warranty"
+        }
+      ],
+      "opener": "We'll do a final inspection."
+    },
+    {
+      "words": [
+        {
+          "spanish": "incluye garantía",
+          "english": "it includes a warranty"
+        },
+        {
+          "spanish": "sin garantía",
+          "english": "without a warranty"
+        },
+        {
+          "spanish": "herramienta",
+          "english": "tool"
+        }
+      ],
+      "opener": "This comes with a warranty."
+    },
+    {
+      "words": [
+        {
+          "spanish": "maquinaria",
+          "english": "machinery"
+        },
+        {
+          "spanish": "cortan el material",
+          "english": "they cut the material"
+        },
+        {
+          "spanish": "instalan esto",
+          "english": "they install this"
+        }
+      ],
+      "opener": "We'll start installing this next."
+    },
+    {
+      "words": [
+        {
+          "spanish": "miden esto",
+          "english": "they measure this"
+        },
+        {
+          "spanish": "nivelan esto",
+          "english": "they level this"
+        },
+        {
+          "spanish": "fijan esto",
+          "english": "they secure this"
+        }
+      ],
+      "opener": "We'll measure and secure everything."
+    },
+    {
+      "words": [
+        {
+          "spanish": "desmontan esto",
+          "english": "they remove this"
+        },
+        {
+          "spanish": "montan esto",
+          "english": "they assemble this"
+        },
+        {
+          "spanish": "limpian el área",
+          "english": "they clean the area"
+        }
+      ],
+      "opener": "We'll clean up after the work."
+    },
+    {
+      "words": [
+        {
+          "spanish": "retiran los escombros",
+          "english": "they remove the debris"
+        },
+        {
+          "spanish": "escombros",
+          "english": "debris"
+        },
+        {
+          "spanish": "limpieza final",
+          "english": "final cleanup"
+        }
+      ],
+      "opener": "We'll remove all debris."
+    },
+    {
+      "words": [
+        {
+          "spanish": "área",
+          "english": "area"
+        },
+        {
+          "spanish": "espacio",
+          "english": "space"
+        },
+        {
+          "spanish": "acceso",
+          "english": "access"
+        }
+      ],
+      "opener": "We need clear access to this area."
+    },
+    {
+      "words": [
+        {
+          "spanish": "entrada",
+          "english": "entrance"
+        },
+        {
+          "spanish": "salida",
+          "english": "exit"
+        },
+        {
+          "spanish": "vecino",
+          "english": "neighbor"
+        }
+      ],
+      "opener": "We'll coordinate access."
+    },
+    {
+      "words": [
+        {
+          "spanish": "ruido",
+          "english": "noise"
+        },
+        {
+          "spanish": "polvo",
+          "english": "dust"
+        },
+        {
+          "spanish": "seguridad",
+          "english": "safety"
+        }
+      ],
+      "opener": "There may be some noise and dust."
+    },
+    {
+      "words": [
+        {
+          "spanish": "riesgo",
+          "english": "risk"
+        },
+        {
+          "spanish": "protección",
+          "english": "protection"
+        },
+        {
+          "spanish": "equipo de seguridad",
+          "english": "safety gear"
+        }
+      ],
+      "opener": "We'll ensure everything is safe."
+    },
+    {
+      "words": [
+        {
+          "spanish": "casco",
+          "english": "helmet"
+        },
+        {
+          "spanish": "guantes",
+          "english": "gloves"
+        },
+        {
+          "spanish": "gafas de seguridad",
+          "english": "safety glasses"
+        }
+      ],
+      "opener": "The crew will be using safety gear."
+    },
+    {
+      "words": [
+        {
+          "spanish": "azulejo",
+          "english": "tile"
+        },
+        {
+          "spanish": "baldosa",
+          "english": "floor tile"
+        },
+        {
+          "spanish": "madera",
+          "english": "wood"
+        }
+      ],
+      "opener": "We'll go over material options."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cemento",
+          "english": "cement"
+        },
+        {
+          "spanish": "yeso",
+          "english": "plaster"
+        },
+        {
+          "spanish": "sellador",
+          "english": "sealant"
+        }
+      ],
+      "opener": "We'll finish with sealing."
+    },
+    {
+      "words": [
+        {
+          "spanish": "impermeabilización",
+          "english": "waterproofing"
+        },
+        {
+          "spanish": "permiso",
+          "english": "permit"
+        },
+        {
+          "spanish": "inspector",
+          "english": "inspector"
+        }
+      ],
+      "opener": "We may need a permit and inspection."
+    }
+  ],
+  "MECHANIC": [
+    {
+      "words": [
+        {
+          "spanish": "carro",
+          "english": "car"
+        },
+        {
+          "spanish": "vehículo",
+          "english": "vehicle"
+        },
+        {
+          "spanish": "motor",
+          "english": "engine"
+        }
+      ],
+      "opener": "Hi -- what seems to be the issue with your vehicle?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "batería",
+          "english": "battery"
+        },
+        {
+          "spanish": "frenos",
+          "english": "brakes"
+        },
+        {
+          "spanish": "aceite",
+          "english": "oil"
+        }
+      ],
+      "opener": "Have you noticed any issues with the basics like brakes or oil?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "filtro",
+          "english": "filter"
+        },
+        {
+          "spanish": "transmisión",
+          "english": "transmission"
+        },
+        {
+          "spanish": "suspensión",
+          "english": "suspension"
+        }
+      ],
+      "opener": "Do you know which part might be causing the problem?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "llanta",
+          "english": "tire"
+        },
+        {
+          "spanish": "rueda",
+          "english": "wheel"
+        },
+        {
+          "spanish": "radiador",
+          "english": "radiator"
+        }
+      ],
+      "opener": "Is the issue coming from the front or back of the car?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "bujía",
+          "english": "spark plug"
+        },
+        {
+          "spanish": "correa",
+          "english": "belt"
+        },
+        {
+          "spanish": "alternador",
+          "english": "alternator"
+        }
+      ],
+      "opener": "Have you had any recent repairs done?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "falla",
+          "english": "issue"
+        },
+        {
+          "spanish": "ruido",
+          "english": "noise"
+        },
+        {
+          "spanish": "vibración",
+          "english": "vibration"
+        }
+      ],
+      "opener": "What kind of symptoms are you noticing?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "fuga",
+          "english": "leak"
+        },
+        {
+          "spanish": "no arranca",
+          "english": "it does not start"
+        },
+        {
+          "spanish": "no enciende",
+          "english": "it does not turn on"
+        }
+      ],
+      "opener": "Does the car start normally?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "se apaga",
+          "english": "it shuts off"
+        },
+        {
+          "spanish": "huele raro",
+          "english": "it smells strange"
+        },
+        {
+          "spanish": "se sobrecalienta",
+          "english": "it overheats"
+        }
+      ],
+      "opener": "Have you noticed anything unusual while driving?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "tiene poca potencia",
+          "english": "it has low power"
+        },
+        {
+          "spanish": "consume aceite",
+          "english": "it burns oil"
+        },
+        {
+          "spanish": "pierde líquido",
+          "english": "it is leaking fluid"
+        }
+      ],
+      "opener": "Is the performance different than usual?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "frenos débiles",
+          "english": "weak brakes"
+        },
+        {
+          "spanish": "pedal suave",
+          "english": "soft pedal"
+        },
+        {
+          "spanish": "revisan el carro",
+          "english": "they check the car"
+        }
+      ],
+      "opener": "We'll take a look at the brakes."
+    },
+    {
+      "words": [
+        {
+          "spanish": "inspección",
+          "english": "inspection"
+        },
+        {
+          "spanish": "diagnóstico",
+          "english": "diagnosis"
+        },
+        {
+          "spanish": "reparan",
+          "english": "they repair it"
+        }
+      ],
+      "opener": "We'll start with a full inspection."
+    },
+    {
+      "words": [
+        {
+          "spanish": "lo arreglan",
+          "english": "they fix it"
+        },
+        {
+          "spanish": "cambian la pieza",
+          "english": "they replace the part"
+        },
+        {
+          "spanish": "ajustan",
+          "english": "they adjust it"
+        }
+      ],
+      "opener": "We'll fix whatever needs attention."
+    },
+    {
+      "words": [
+        {
+          "spanish": "instalan",
+          "english": "they install it"
+        },
+        {
+          "spanish": "limpian",
+          "english": "they clean it"
+        },
+        {
+          "spanish": "lo prueban",
+          "english": "they test it"
+        }
+      ],
+      "opener": "We'll test everything after the repair."
+    },
+    {
+      "words": [
+        {
+          "spanish": "revisan el motor",
+          "english": "they check the engine"
+        },
+        {
+          "spanish": "cambio de aceite",
+          "english": "oil change"
+        },
+        {
+          "spanish": "cambian el filtro",
+          "english": "they change the filter"
+        }
+      ],
+      "opener": "When was your last oil change?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "revisan los frenos",
+          "english": "they check the brakes"
+        },
+        {
+          "spanish": "alinean las llantas",
+          "english": "they align the tires"
+        },
+        {
+          "spanish": "¿qué problema tiene?",
+          "english": "what problem does it have?"
+        }
+      ],
+      "opener": "Tell me what's been happening."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿qué pasa?",
+          "english": "what is happening?"
+        },
+        {
+          "spanish": "¿desde cuándo?",
+          "english": "since when?"
+        },
+        {
+          "spanish": "¿cuándo empezó?",
+          "english": "when did it start?"
+        }
+      ],
+      "opener": "When did you first notice the issue?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿hace ruido?",
+          "english": "does it make noise?"
+        },
+        {
+          "spanish": "¿cuánto cuesta?",
+          "english": "how much does it cost?"
+        },
+        {
+          "spanish": "¿cuánto tarda?",
+          "english": "how long does it take?"
+        }
+      ],
+      "opener": "We can go over cost and timing."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿es grave?",
+          "english": "is it serious?"
+        },
+        {
+          "spanish": "¿puede empeorar?",
+          "english": "can it get worse?"
+        },
+        {
+          "spanish": "¿puede revisarlo?",
+          "english": "can you check it?"
+        }
+      ],
+      "opener": "We'll assess how serious it is."
+    },
+    {
+      "words": [
+        {
+          "spanish": "precio",
+          "english": "price"
+        },
+        {
+          "spanish": "costo",
+          "english": "cost"
+        },
+        {
+          "spanish": "total",
+          "english": "total"
+        }
+      ],
+      "opener": "I'll give you a full estimate."
+    },
+    {
+      "words": [
+        {
+          "spanish": "estimado",
+          "english": "estimate"
+        },
+        {
+          "spanish": "mano de obra",
+          "english": "labor"
+        },
+        {
+          "spanish": "piezas",
+          "english": "parts"
+        }
+      ],
+      "opener": "This includes labor and parts."
+    },
+    {
+      "words": [
+        {
+          "spanish": "adicional",
+          "english": "additional"
+        },
+        {
+          "spanish": "incluye",
+          "english": "it includes"
+        },
+        {
+          "spanish": "no incluye",
+          "english": "it does not include"
+        }
+      ],
+      "opener": "Some things may not be included."
+    },
+    {
+      "words": [
+        {
+          "spanish": "presupuesto",
+          "english": "quote"
+        },
+        {
+          "spanish": "pago",
+          "english": "payment"
+        },
+        {
+          "spanish": "en efectivo",
+          "english": "in cash"
+        }
+      ],
+      "opener": "How would you like to pay?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "con tarjeta",
+          "english": "with a card"
+        },
+        {
+          "spanish": "factura",
+          "english": "invoice"
+        },
+        {
+          "spanish": "recibo",
+          "english": "receipt"
+        }
+      ],
+      "opener": "We'll provide a receipt."
+    },
+    {
+      "words": [
+        {
+          "spanish": "desgastado",
+          "english": "worn out"
+        },
+        {
+          "spanish": "dañado",
+          "english": "damaged"
+        },
+        {
+          "spanish": "roto",
+          "english": "broken"
+        }
+      ],
+      "opener": "Some parts look worn out."
+    },
+    {
+      "words": [
+        {
+          "spanish": "sucio",
+          "english": "dirty"
+        },
+        {
+          "spanish": "flojo",
+          "english": "loose"
+        },
+        {
+          "spanish": "apretado",
+          "english": "tight"
+        }
+      ],
+      "opener": "We'll tighten and clean everything."
+    },
+    {
+      "words": [
+        {
+          "spanish": "en buen estado",
+          "english": "in good condition"
+        },
+        {
+          "spanish": "en mal estado",
+          "english": "in bad condition"
+        },
+        {
+          "spanish": "urgente",
+          "english": "urgent"
+        }
+      ],
+      "opener": "This may need urgent attention."
+    },
+    {
+      "words": [
+        {
+          "spanish": "peligroso",
+          "english": "dangerous"
+        },
+        {
+          "spanish": "sistema de frenos",
+          "english": "brake system"
+        },
+        {
+          "spanish": "sistema eléctrico",
+          "english": "electrical system"
+        }
+      ],
+      "opener": "Safety is our priority."
+    },
+    {
+      "words": [
+        {
+          "spanish": "presión",
+          "english": "pressure"
+        },
+        {
+          "spanish": "nivel",
+          "english": "level"
+        },
+        {
+          "spanish": "nivel de aceite",
+          "english": "oil level"
+        }
+      ],
+      "opener": "We'll check fluid levels."
+    },
+    {
+      "words": [
+        {
+          "spanish": "nivel bajo",
+          "english": "low level"
+        },
+        {
+          "spanish": "nivel alto",
+          "english": "high level"
+        },
+        {
+          "spanish": "luz de motor",
+          "english": "check-engine light"
+        }
+      ],
+      "opener": "Did the check engine light come on?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "código de error",
+          "english": "error code"
+        },
+        {
+          "spanish": "dejo el carro",
+          "english": "I leave the car"
+        },
+        {
+          "spanish": "recojo el carro",
+          "english": "I pick up the car"
+        }
+      ],
+      "opener": "You can leave the car with us."
+    },
+    {
+      "words": [
+        {
+          "spanish": "listo",
+          "english": "ready"
+        },
+        {
+          "spanish": "todavía no",
+          "english": "not yet"
+        },
+        {
+          "spanish": "en proceso",
+          "english": "in progress"
+        }
+      ],
+      "opener": "We'll let you know when it's ready."
+    },
+    {
+      "words": [
+        {
+          "spanish": "espero",
+          "english": "I wait"
+        },
+        {
+          "spanish": "más tarde",
+          "english": "later"
+        },
+        {
+          "spanish": "hoy",
+          "english": "today"
+        }
+      ],
+      "opener": "It might be ready later today."
+    },
+    {
+      "words": [
+        {
+          "spanish": "mañana",
+          "english": "tomorrow"
+        },
+        {
+          "spanish": "tiempo estimado",
+          "english": "estimated time"
+        },
+        {
+          "spanish": "muy caro",
+          "english": "too expensive"
+        }
+      ],
+      "opener": "We'll confirm timing shortly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "más barato",
+          "english": "cheaper"
+        },
+        {
+          "spanish": "solo eso",
+          "english": "just that"
+        },
+        {
+          "spanish": "no lo necesito",
+          "english": "I do not need it"
+        }
+      ],
+      "opener": "We can prioritize only what's needed."
+    },
+    {
+      "words": [
+        {
+          "spanish": "prefiero eso primero",
+          "english": "I prefer that first"
+        },
+        {
+          "spanish": "después vemos",
+          "english": "we look at the rest later"
+        },
+        {
+          "spanish": "no autorizo ese trabajo",
+          "english": "I do not authorize that work"
+        }
+      ],
+      "opener": "You can approve only certain repairs."
+    },
+    {
+      "words": [
+        {
+          "spanish": "sin autorización",
+          "english": "without authorization"
+        },
+        {
+          "spanish": "quiero más detalle",
+          "english": "I want more detail"
+        },
+        {
+          "spanish": "líquido de frenos",
+          "english": "brake fluid"
+        }
+      ],
+      "opener": "Let me explain that in more detail."
+    },
+    {
+      "words": [
+        {
+          "spanish": "aceite de motor",
+          "english": "engine oil"
+        },
+        {
+          "spanish": "refrigerante",
+          "english": "coolant"
+        },
+        {
+          "spanish": "líquido",
+          "english": "fluid"
+        }
+      ],
+      "opener": "We'll check all fluids."
+    },
+    {
+      "words": [
+        {
+          "spanish": "combustible",
+          "english": "fuel"
+        },
+        {
+          "spanish": "gasolina",
+          "english": "gasoline"
+        },
+        {
+          "spanish": "diésel",
+          "english": "diesel"
+        }
+      ],
+      "opener": "What type of fuel do you use?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "tanque",
+          "english": "tank"
+        },
+        {
+          "spanish": "manguera",
+          "english": "hose"
+        },
+        {
+          "spanish": "válvula",
+          "english": "valve"
+        }
+      ],
+      "opener": "We'll inspect those components."
+    },
+    {
+      "words": [
+        {
+          "spanish": "al frenar",
+          "english": "when I brake"
+        },
+        {
+          "spanish": "al arrancar",
+          "english": "when I start it"
+        },
+        {
+          "spanish": "en movimiento",
+          "english": "while it is moving"
+        }
+      ],
+      "opener": "When does the issue happen?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "en frío",
+          "english": "when it is cold"
+        },
+        {
+          "spanish": "en caliente",
+          "english": "when it is hot"
+        },
+        {
+          "spanish": "a alta velocidad",
+          "english": "at high speed"
+        }
+      ],
+      "opener": "Does it happen under certain conditions?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "a baja velocidad",
+          "english": "at low speed"
+        },
+        {
+          "spanish": "en curva",
+          "english": "in a turn"
+        },
+        {
+          "spanish": "en subida",
+          "english": "uphill"
+        }
+      ],
+      "opener": "Does it change depending on how you drive?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "en bajada",
+          "english": "downhill"
+        },
+        {
+          "spanish": "mecánico",
+          "english": "mechanic"
+        },
+        {
+          "spanish": "taller",
+          "english": "shop"
+        }
+      ],
+      "opener": "We'll take care of it here in the shop."
+    },
+    {
+      "words": [
+        {
+          "spanish": "herramienta",
+          "english": "tool"
+        },
+        {
+          "spanish": "elevador",
+          "english": "lift"
+        },
+        {
+          "spanish": "garantía",
+          "english": "warranty"
+        }
+      ],
+      "opener": "We'll get it up on the lift."
+    },
+    {
+      "words": [
+        {
+          "spanish": "servicio",
+          "english": "service"
+        },
+        {
+          "spanish": "revisión general",
+          "english": "general inspection"
+        },
+        {
+          "spanish": "mantenimiento",
+          "english": "maintenance"
+        }
+      ],
+      "opener": "We recommend regular maintenance."
+    },
+    {
+      "words": [
+        {
+          "spanish": "historial",
+          "english": "service history"
+        },
+        {
+          "spanish": "diagnóstico completo",
+          "english": "full diagnosis"
+        },
+        {
+          "spanish": "no entiendo",
+          "english": "I do not understand"
+        }
+      ],
+      "opener": "I can explain everything clearly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿puede repetir?",
+          "english": "can you repeat that?"
+        },
+        {
+          "spanish": "más despacio",
+          "english": "more slowly"
+        },
+        {
+          "spanish": "¿qué significa?",
+          "english": "what does that mean?"
+        }
+      ],
+      "opener": "Let me go over that again."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pastillas de freno",
+          "english": "brake pads"
+        },
+        {
+          "spanish": "disco de freno",
+          "english": "brake rotor"
+        },
+        {
+          "spanish": "amortiguador",
+          "english": "shock absorber"
+        }
+      ],
+      "opener": "We'll check the braking system."
+    },
+    {
+      "words": [
+        {
+          "spanish": "dirección",
+          "english": "steering"
+        },
+        {
+          "spanish": "alineación",
+          "english": "alignment"
+        },
+        {
+          "spanish": "balanceo",
+          "english": "wheel balancing"
+        }
+      ],
+      "opener": "We'll check alignment too."
+    },
+    {
+      "words": [
+        {
+          "spanish": "embrague",
+          "english": "clutch"
+        },
+        {
+          "spanish": "escape",
+          "english": "exhaust"
+        },
+        {
+          "spanish": "filtro de aire",
+          "english": "air filter"
+        }
+      ],
+      "opener": "We'll inspect the remaining systems."
+    }
+  ],
+  "POLICE": [
+    {
+      "words": [
+        {
+          "spanish": "policía",
+          "english": "police officer"
+        },
+        {
+          "spanish": "agente",
+          "english": "officer"
+        },
+        {
+          "spanish": "patrulla",
+          "english": "patrol car"
+        }
+      ],
+      "opener": "Good evening -- I'm a police officer. Please pull over safely."
+    },
+    {
+      "words": [
+        {
+          "spanish": "control policial",
+          "english": "traffic stop"
+        },
+        {
+          "spanish": "licencia de conducir",
+          "english": "driver's license"
+        },
+        {
+          "spanish": "registro del vehículo",
+          "english": "vehicle registration"
+        }
+      ],
+      "opener": "May I see your driver's license and registration?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "prueba de seguro",
+          "english": "proof of insurance"
+        },
+        {
+          "spanish": "documentos",
+          "english": "documents"
+        },
+        {
+          "spanish": "identificación",
+          "english": "ID"
+        }
+      ],
+      "opener": "Do you have your insurance documents with you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿licencia, por favor?",
+          "english": "your license, please?"
+        },
+        {
+          "spanish": "¿tiene el registro?",
+          "english": "do you have the registration?"
+        },
+        {
+          "spanish": "¿tiene seguro?",
+          "english": "do you have insurance?"
+        }
+      ],
+      "opener": "Can you provide your documents, please?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿puede mostrarlo?",
+          "english": "can you show it?"
+        },
+        {
+          "spanish": "aquí tiene",
+          "english": "here you are"
+        },
+        {
+          "spanish": "está en el vehículo",
+          "english": "it is in the vehicle"
+        }
+      ],
+      "opener": "Where are your documents located?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "está en la guantera",
+          "english": "it is in the glove compartment"
+        },
+        {
+          "spanish": "lo detuve",
+          "english": "I stopped you"
+        },
+        {
+          "spanish": "parada",
+          "english": "stop"
+        }
+      ],
+      "opener": "Do you know why I stopped you?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿sabe por qué lo detuve?",
+          "english": "do you know why I stopped you?"
+        },
+        {
+          "spanish": "exceso de velocidad",
+          "english": "speeding"
+        },
+        {
+          "spanish": "velocidad",
+          "english": "speed"
+        }
+      ],
+      "opener": "You were driving above the speed limit."
+    },
+    {
+      "words": [
+        {
+          "spanish": "límite de velocidad",
+          "english": "speed limit"
+        },
+        {
+          "spanish": "zona",
+          "english": "zone"
+        },
+        {
+          "spanish": "en esta zona",
+          "english": "in this zone"
+        }
+      ],
+      "opener": "This area has a lower speed limit."
+    },
+    {
+      "words": [
+        {
+          "spanish": "iba a",
+          "english": "you were going at"
+        },
+        {
+          "spanish": "por encima de",
+          "english": "above"
+        },
+        {
+          "spanish": "infracción",
+          "english": "violation"
+        }
+      ],
+      "opener": "You were going above the limit."
+    },
+    {
+      "words": [
+        {
+          "spanish": "motivo",
+          "english": "reason"
+        },
+        {
+          "spanish": "vehículo",
+          "english": "vehicle"
+        },
+        {
+          "spanish": "carro",
+          "english": "car"
+        }
+      ],
+      "opener": "This is the reason for the stop."
+    },
+    {
+      "words": [
+        {
+          "spanish": "luces",
+          "english": "lights"
+        },
+        {
+          "spanish": "luz trasera",
+          "english": "tail light"
+        },
+        {
+          "spanish": "luz delantera",
+          "english": "headlight"
+        }
+      ],
+      "opener": "One of your lights is not working."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no funciona",
+          "english": "it does not work"
+        },
+        {
+          "spanish": "placa",
+          "english": "plate"
+        },
+        {
+          "spanish": "parabrisas",
+          "english": "windshield"
+        }
+      ],
+      "opener": "There's an issue with your vehicle."
+    },
+    {
+      "words": [
+        {
+          "spanish": "cinturón",
+          "english": "seatbelt"
+        },
+        {
+          "spanish": "sin cinturón",
+          "english": "without a seatbelt"
+        },
+        {
+          "spanish": "en regla",
+          "english": "in order"
+        }
+      ],
+      "opener": "Were you wearing your seatbelt?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "apague el motor",
+          "english": "you turn off the engine"
+        },
+        {
+          "spanish": "baje la ventana",
+          "english": "you roll down the window"
+        },
+        {
+          "spanish": "salga del vehículo",
+          "english": "you get out of the vehicle"
+        }
+      ],
+      "opener": "Please turn off the engine."
+    },
+    {
+      "words": [
+        {
+          "spanish": "quédese en el vehículo",
+          "english": "you stay in the vehicle"
+        },
+        {
+          "spanish": "espere aquí",
+          "english": "you wait here"
+        },
+        {
+          "spanish": "despacio",
+          "english": "slowly"
+        }
+      ],
+      "opener": "Please remain in the vehicle."
+    },
+    {
+      "words": [
+        {
+          "spanish": "con calma",
+          "english": "calmly"
+        },
+        {
+          "spanish": "siga mis instrucciones",
+          "english": "you follow my instructions"
+        },
+        {
+          "spanish": "no se mueva",
+          "english": "you do not move"
+        }
+      ],
+      "opener": "Stay calm and follow my instructions."
+    },
+    {
+      "words": [
+        {
+          "spanish": "frenó fuerte",
+          "english": "you braked hard"
+        },
+        {
+          "spanish": "cambió de carril",
+          "english": "you changed lanes"
+        },
+        {
+          "spanish": "sin señalizar",
+          "english": "without signaling"
+        }
+      ],
+      "opener": "You changed lanes without signaling."
+    },
+    {
+      "words": [
+        {
+          "spanish": "conducción peligrosa",
+          "english": "dangerous driving"
+        },
+        {
+          "spanish": "carril",
+          "english": "lane"
+        },
+        {
+          "spanish": "carril restringido",
+          "english": "restricted lane"
+        }
+      ],
+      "opener": "That was considered unsafe driving."
+    },
+    {
+      "words": [
+        {
+          "spanish": "giro",
+          "english": "turn"
+        },
+        {
+          "spanish": "no señalizó",
+          "english": "you did not signal"
+        },
+        {
+          "spanish": "tráfico",
+          "english": "traffic"
+        }
+      ],
+      "opener": "You didn't signal your turn."
+    },
+    {
+      "words": [
+        {
+          "spanish": "intersección",
+          "english": "intersection"
+        },
+        {
+          "spanish": "semáforo",
+          "english": "traffic light"
+        },
+        {
+          "spanish": "luz roja",
+          "english": "red light"
+        }
+      ],
+      "opener": "You went through a red light."
+    },
+    {
+      "words": [
+        {
+          "spanish": "luz verde",
+          "english": "green light"
+        },
+        {
+          "spanish": "¿de dónde viene?",
+          "english": "where are you coming from?"
+        },
+        {
+          "spanish": "¿a dónde va?",
+          "english": "where are you going?"
+        }
+      ],
+      "opener": "Where are you headed?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿cuánto tiempo lleva manejando?",
+          "english": "how long have you been driving?"
+        },
+        {
+          "spanish": "¿es su vehículo?",
+          "english": "is this your vehicle?"
+        },
+        {
+          "spanish": "¿es un vehículo de alquiler?",
+          "english": "is it a rental vehicle?"
+        }
+      ],
+      "opener": "Is this your vehicle?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿tiene el contrato?",
+          "english": "do you have the contract?"
+        },
+        {
+          "spanish": "¿ha consumido alcohol?",
+          "english": "have you consumed alcohol?"
+        },
+        {
+          "spanish": "¿ha tomado algo?",
+          "english": "have you had anything to drink?"
+        }
+      ],
+      "opener": "Have you had anything to drink today?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿entiende?",
+          "english": "do you understand?"
+        },
+        {
+          "spanish": "¿puede explicar?",
+          "english": "can you explain it?"
+        },
+        {
+          "spanish": "alcohol",
+          "english": "alcohol"
+        }
+      ],
+      "opener": "Can you explain what happened?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "prueba",
+          "english": "test"
+        },
+        {
+          "spanish": "prueba de alcohol",
+          "english": "breath test"
+        },
+        {
+          "spanish": "sople aquí",
+          "english": "you blow here"
+        }
+      ],
+      "opener": "Please take a breath test."
+    },
+    {
+      "words": [
+        {
+          "spanish": "resultado",
+          "english": "result"
+        },
+        {
+          "spanish": "negativo",
+          "english": "negative"
+        },
+        {
+          "spanish": "positivo",
+          "english": "positive"
+        }
+      ],
+      "opener": "We'll check the result."
+    },
+    {
+      "words": [
+        {
+          "spanish": "bajo la influencia",
+          "english": "under the influence"
+        },
+        {
+          "spanish": "sobrio",
+          "english": "sober"
+        },
+        {
+          "spanish": "verifican el sistema",
+          "english": "they check the system"
+        }
+      ],
+      "opener": "I'm going to check your record."
+    },
+    {
+      "words": [
+        {
+          "spanish": "registro activo",
+          "english": "active registration"
+        },
+        {
+          "spanish": "seguro activo",
+          "english": "active insurance"
+        },
+        {
+          "spanish": "no aparece",
+          "english": "it does not show up"
+        }
+      ],
+      "opener": "Your documents are being verified."
+    },
+    {
+      "words": [
+        {
+          "spanish": "pendiente",
+          "english": "pending"
+        },
+        {
+          "spanish": "multa",
+          "english": "ticket"
+        },
+        {
+          "spanish": "advertencia",
+          "english": "warning"
+        }
+      ],
+      "opener": "You may receive a ticket."
+    },
+    {
+      "words": [
+        {
+          "spanish": "sanción",
+          "english": "penalty"
+        },
+        {
+          "spanish": "emiten la multa",
+          "english": "they issue the ticket"
+        },
+        {
+          "spanish": "dan una advertencia",
+          "english": "they give a warning"
+        }
+      ],
+      "opener": "I'm issuing a warning this time."
+    },
+    {
+      "words": [
+        {
+          "spanish": "paga la multa",
+          "english": "you pay the ticket"
+        },
+        {
+          "spanish": "en línea",
+          "english": "online"
+        },
+        {
+          "spanish": "plazo",
+          "english": "deadline"
+        }
+      ],
+      "opener": "You can pay this online."
+    },
+    {
+      "words": [
+        {
+          "spanish": "monto",
+          "english": "amount"
+        },
+        {
+          "spanish": "carretera",
+          "english": "road"
+        },
+        {
+          "spanish": "calle",
+          "english": "street"
+        }
+      ],
+      "opener": "This happened on a public road."
+    },
+    {
+      "words": [
+        {
+          "spanish": "zona urbana",
+          "english": "urban area"
+        },
+        {
+          "spanish": "zona escolar",
+          "english": "school zone"
+        },
+        {
+          "spanish": "autopista",
+          "english": "highway"
+        }
+      ],
+      "opener": "This is a school zone."
+    },
+    {
+      "words": [
+        {
+          "spanish": "señal",
+          "english": "sign"
+        },
+        {
+          "spanish": "señalización",
+          "english": "road signage"
+        },
+        {
+          "spanish": "dirección",
+          "english": "direction"
+        }
+      ],
+      "opener": "Please follow posted signs."
+    },
+    {
+      "words": [
+        {
+          "spanish": "carril derecho",
+          "english": "right lane"
+        },
+        {
+          "spanish": "alquiler",
+          "english": "rental"
+        },
+        {
+          "spanish": "contrato",
+          "english": "contract"
+        }
+      ],
+      "opener": "Please stay in the correct lane."
+    },
+    {
+      "words": [
+        {
+          "spanish": "propietario",
+          "english": "owner"
+        },
+        {
+          "spanish": "está a su nombre",
+          "english": "it is in your name"
+        },
+        {
+          "spanish": "no es mío",
+          "english": "it is not mine"
+        }
+      ],
+      "opener": "Is this vehicle yours?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "vehículo prestado",
+          "english": "borrowed vehicle"
+        },
+        {
+          "spanish": "permiso del dueño",
+          "english": "owner's permission"
+        },
+        {
+          "spanish": "no lo encuentro",
+          "english": "I cannot find it"
+        }
+      ],
+      "opener": "Do you have permission to use it?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "no lo tengo",
+          "english": "I do not have it"
+        },
+        {
+          "spanish": "no carga",
+          "english": "it does not load"
+        },
+        {
+          "spanish": "sin señal",
+          "english": "without signal"
+        }
+      ],
+      "opener": "Are your documents available?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "en el celular",
+          "english": "on the cellphone"
+        },
+        {
+          "spanish": "copia digital",
+          "english": "digital copy"
+        },
+        {
+          "spanish": "sin documento",
+          "english": "without the document"
+        }
+      ],
+      "opener": "Do you have a digital copy?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "vencido",
+          "english": "expired"
+        },
+        {
+          "spanish": "por vencer",
+          "english": "about to expire"
+        },
+        {
+          "spanish": "no es válido",
+          "english": "it is not valid"
+        }
+      ],
+      "opener": "Your document may be expired."
+    },
+    {
+      "words": [
+        {
+          "spanish": "no entiendo",
+          "english": "I do not understand"
+        },
+        {
+          "spanish": "¿puede repetir?",
+          "english": "can you repeat that?"
+        },
+        {
+          "spanish": "más despacio",
+          "english": "more slowly"
+        }
+      ],
+      "opener": "Let me explain that again."
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿qué significa?",
+          "english": "what does that mean?"
+        },
+        {
+          "spanish": "¿es una multa?",
+          "english": "is it a ticket?"
+        },
+        {
+          "spanish": "¿es una advertencia?",
+          "english": "is it a warning?"
+        }
+      ],
+      "opener": "Do you understand the situation?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "¿puedo irme?",
+          "english": "can I leave?"
+        },
+        {
+          "spanish": "¿puedo seguir?",
+          "english": "can I continue?"
+        },
+        {
+          "spanish": "control",
+          "english": "checkpoint"
+        }
+      ],
+      "opener": "You'll be able to leave shortly."
+    },
+    {
+      "words": [
+        {
+          "spanish": "oríllese",
+          "english": "you pull over"
+        },
+        {
+          "spanish": "orilla",
+          "english": "roadside"
+        },
+        {
+          "spanish": "luces de emergencia",
+          "english": "hazard lights"
+        }
+      ],
+      "opener": "Pull over to the side safely."
+    },
+    {
+      "words": [
+        {
+          "spanish": "documento físico",
+          "english": "physical document"
+        },
+        {
+          "spanish": "permiso de conducir",
+          "english": "driver's license"
+        },
+        {
+          "spanish": "matrícula",
+          "english": "license plate"
+        }
+      ],
+      "opener": "I need to see the original document."
+    },
+    {
+      "words": [
+        {
+          "spanish": "agente de tránsito",
+          "english": "traffic officer"
+        },
+        {
+          "spanish": "triángulo",
+          "english": "warning triangle"
+        },
+        {
+          "spanish": "chaleco reflectante",
+          "english": "reflective vest"
+        }
+      ],
+      "opener": "For safety, please stay visible."
+    },
+    {
+      "words": [
+        {
+          "spanish": "accidente",
+          "english": "accident"
+        },
+        {
+          "spanish": "choque",
+          "english": "crash"
+        },
+        {
+          "spanish": "reporte",
+          "english": "report"
+        }
+      ],
+      "opener": "Was there an accident?"
+    },
+    {
+      "words": [
+        {
+          "spanish": "reporte policial",
+          "english": "police report"
+        },
+        {
+          "spanish": "testigo",
+          "english": "witness"
+        },
+        {
+          "spanish": "declaración",
+          "english": "statement"
+        }
+      ],
+      "opener": "We may need a statement."
+    },
+    {
+      "words": [
+        {
+          "spanish": "firme aquí",
+          "english": "you sign here"
+        },
+        {
+          "spanish": "corte",
+          "english": "court"
+        },
+        {
+          "spanish": "fecha de corte",
+          "english": "court date"
+        }
+      ],
+      "opener": "Please sign here."
+    },
+    {
+      "words": [
+        {
+          "spanish": "comparecencia",
+          "english": "court appearance"
+        },
+        {
+          "spanish": "grúa",
+          "english": "tow truck"
+        },
+        {
+          "spanish": "remolque",
+          "english": "towing"
+        }
+      ],
+      "opener": "A tow truck may be required."
+    }
+  ]
+}
