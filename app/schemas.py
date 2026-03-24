@@ -14,6 +14,7 @@ class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
     confirm_password: str
+    invite_token: str = ""
 
 
 class LoginResponse(BaseModel):

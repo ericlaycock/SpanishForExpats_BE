@@ -16,7 +16,17 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
     
     try:
         logger.info(f"Registration attempt for email: {credentials.email}")
-        
+
+        # Validate invite token
+        from app.config import settings
+        valid_tokens = {t.strip().lower() for t in settings.whitelist_tokens.split(",") if t.strip()}
+        if valid_tokens and credentials.invite_token.strip().lower() not in valid_tokens:
+            logger.warning(f"Registration failed: invalid invite token for {credentials.email}")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Invalid invite token"
+            )
+
         # Validate passwords match
         if credentials.password != credentials.confirm_password:
             logger.warning(f"Registration failed: passwords do not match for {credentials.email}")
