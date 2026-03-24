@@ -31,6 +31,7 @@ router = APIRouter()
 
 # OpenAI TTS voice + instructions per situation — keyed by animation_type
 _ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
+_CATALAN_ACCENT = "Speak with a Catalan accent, mixing English and Catalan words naturally."
 SITUATION_VOICE_CONFIG = {
     "police": {
         "voice": "nova",
@@ -73,6 +74,16 @@ SITUATION_VOICE_CONFIG = {
         "instructions": f"{_ACCENT} Use a deep, husky baritone male voice.",
     },
 }
+
+
+def get_tts_instructions(animation_type: str, catalan_mode: bool = False) -> tuple[str, str | None]:
+    """Return (voice, instructions) for TTS, adjusted for Catalan mode."""
+    cfg = SITUATION_VOICE_CONFIG.get(animation_type, {})
+    voice = cfg.get("voice", "alloy")
+    instructions = cfg.get("instructions")
+    if catalan_mode and instructions:
+        instructions = instructions.replace(_ACCENT, _CATALAN_ACCENT)
+    return voice, instructions
 
 
 @router.post("", response_model=CreateConversationResponse)
@@ -143,9 +154,9 @@ async def create_conversation(
             try:
                 init_audio_filename = generate_audio_filename()
                 init_audio_path = get_audio_path(init_audio_filename)
-                tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {})
-                tts_voice = tts_cfg.get("voice", "alloy")
-                tts_instructions = tts_cfg.get("instructions")
+                tts_voice, tts_instructions = get_tts_instructions(
+                    situation.animation_type, catalan_mode=current_user.catalan_mode
+                )
                 await gateway_synthesize_speech(
                     text=initial_message,
                     output_path=str(init_audio_path),
@@ -205,9 +216,9 @@ async def create_conversation(
             try:
                 init_audio_filename = generate_audio_filename()
                 init_audio_path = get_audio_path(init_audio_filename)
-                tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {})
-                tts_voice = tts_cfg.get("voice", "alloy")
-                tts_instructions = tts_cfg.get("instructions")
+                tts_voice, tts_instructions = get_tts_instructions(
+                    situation.animation_type, catalan_mode=current_user.catalan_mode
+                )
                 await gateway_synthesize_speech(
                     text=initial_message,
                     output_path=str(init_audio_path),
@@ -252,7 +263,7 @@ async def check_pronunciation(
     transcript = await gateway_transcribe_audio(
         audio_bytes=audio_bytes,
         filename=audio.filename or "audio.mp3",
-        prompt=f"The user is saying a Spanish word or phrase: {expected_word}. Transcribe exactly what they say.",
+        prompt=f"The user is saying a {'Catalan' if current_user.catalan_mode else 'Spanish'} word or phrase: {expected_word}. Transcribe exactly what they say.",
         language=None,
         request_id=str(current_user.id),
         user_id=str(current_user.id),
@@ -425,9 +436,9 @@ async def voice_turn(
     tts_start = time.time()
     audio_filename = generate_audio_filename()
     audio_path = get_audio_path(audio_filename)
-    tts_cfg = SITUATION_VOICE_CONFIG.get(situation.animation_type, {}) if situation else {}
-    tts_voice = tts_cfg.get("voice", "alloy")
-    tts_instructions = tts_cfg.get("instructions")
+    tts_voice, tts_instructions = get_tts_instructions(
+        situation.animation_type if situation else "", catalan_mode=catalan_mode
+    )
     await gateway_synthesize_speech(
         text=assistant_text,
         output_path=str(audio_path),
