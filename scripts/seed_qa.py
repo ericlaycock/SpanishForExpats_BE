@@ -148,9 +148,31 @@ def seed():
         ).on_conflict_do_nothing()
         db.execute(stmt)
 
+        # --- QA admin account ---
+        qa_admin_hash = get_password_hash("qaqaqa")
+        qa_admin_id = "00000000-0000-0000-0000-000000000002"
+        stmt = insert(User).values(
+            id=qa_admin_id,
+            email="qa@a.com",
+            password_hash=qa_admin_hash,
+            onboarding_completed=True,
+            selected_animation_types=["banking"],
+            dialect="mexico",
+            is_admin=True,
+        ).on_conflict_do_nothing()
+        db.execute(stmt)
+
+        stmt = insert(Subscription).values(
+            user_id=qa_admin_id, active=True
+        ).on_conflict_do_nothing()
+        db.execute(stmt)
+
         # --- Set admin flag for admin user ---
         db.execute(text(
             "UPDATE users SET is_admin = true WHERE email = 'ericlaycock44@gmail.com'"
+        ))
+        db.execute(text(
+            "UPDATE users SET is_admin = true WHERE email = 'qa@a.com'"
         ))
 
         db.commit()
