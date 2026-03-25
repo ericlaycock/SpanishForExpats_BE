@@ -293,7 +293,7 @@ async def check_pronunciation(
 
     norm_transcript = normalize(transcript)
     norm_expected = normalize(expected_word)
-    is_correct = norm_expected in norm_transcript or norm_transcript in norm_expected
+    is_correct = norm_transcript == norm_expected
 
     logger.info(f"[PronCheck] transcript='{transcript}' norm='{norm_transcript}' expected_norm='{norm_expected}' correct={is_correct}")
 
