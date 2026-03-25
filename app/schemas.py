@@ -14,6 +14,7 @@ class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
     confirm_password: str
+    invite_token: str = ""
 
 
 class LoginResponse(BaseModel):
@@ -89,6 +90,14 @@ class CompleteSituationResponse(BaseModel):
     next_situation_id: Optional[str] = None
 
 
+class AdminSkipEncounterResponse(BaseModel):
+    situation_id: str
+    situation_title: str
+    words_set_known: int
+    vocab_level: int
+    next_situation_id: Optional[str] = None
+
+
 # User Words schemas
 class UserWordSchema(BaseModel):
     word_id: str
@@ -97,6 +106,7 @@ class UserWordSchema(BaseModel):
     seen_count: int
     typed_correct_count: int
     spoken_correct_count: int
+    hint_count: int = 0
     status: str
     mastery_level: int = 0
     next_refresh_at: Optional[datetime] = None
@@ -109,6 +119,10 @@ class UserWordSchema(BaseModel):
 
 class TypedCorrectRequest(BaseModel):
     word_ids: List[str]
+
+
+class HintRequest(BaseModel):
+    word_id: str
 
 
 # Conversation schemas
@@ -124,6 +138,7 @@ class CreateConversationResponse(BaseModel):
     initial_audio_url: Optional[str] = None  # TTS audio for the initial message
     language_mode: str = "english"  # "english", "spanish_text", or "spanish_audio"
     vocab_level: int = 0
+    system_prompt: Optional[str] = None  # System prompt for multi-turn message history
 
 
 class MessageRequest(BaseModel):

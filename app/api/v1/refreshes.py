@@ -17,10 +17,42 @@ from app.services.refresh_service import (
 )
 from app.services.word_detection import get_words_by_ids
 from app.services.encounter_messages import get_initial_message_for_encounter
+from app.services.catalan_service import apply_catalan_mode
 from app.api.v1.situations import get_vocab_level
 from app.services.voice_turn_service import get_language_mode
 
 router = APIRouter()
+
+
+@router.post("/admin/skip-time")
+async def admin_skip_time(
+    hours: int = 25,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Admin only: move all next_refresh_at timestamps back by N hours.
+    Presets: 25 (skip 1 day), 169 (skip 1 week), 745 (skip 1 month).
+    Makes time-gated words immediately due for refresh."""
+    from app.models import UserWord
+    from datetime import timedelta
+    import logging
+
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin only")
+
+    logger = logging.getLogger(__name__)
+
+    result = db.query(UserWord).filter(
+        UserWord.user_id == current_user.id,
+        UserWord.next_refresh_at.isnot(None),
+    ).update(
+        {UserWord.next_refresh_at: UserWord.next_refresh_at - timedelta(hours=hours)},
+        synchronize_session="fetch",
+    )
+    db.commit()
+
+    logger.info(f"[Admin] skip-time: moved {result} word refresh timestamps back {hours}h for user {current_user.id}")
+    return {"words_updated": result, "hours_skipped": hours}
 
 
 @router.get("/pending", response_model=PendingRefreshesResponse)
@@ -74,6 +106,12 @@ async def start_refresh(
     initial_message = get_initial_message_for_encounter(situation.title)
     vocab_level = get_vocab_level(db, current_user.id)
     language_mode = get_language_mode(situation.encounter_number, vocab_level)
+
+    # Catalan mode: swap words + adjust language_mode
+    if current_user.catalan_mode:
+        words = apply_catalan_mode(words, db)
+        if language_mode in ("spanish_text", "spanish_audio"):
+            language_mode = language_mode.replace("spanish_", "catalan_")
 
     return StartRefreshResponse(
         conversation_id=conversation.id,

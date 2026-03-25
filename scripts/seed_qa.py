@@ -85,6 +85,13 @@ def seed():
             db.execute(stmt)
 
         # --- Grammar situations + words ---
+        # Clean slate for grammar: delete referencing rows first (FK order), then words
+        # This ensures orphan records from old seeds with different accent handling are removed
+        db.execute(text("DELETE FROM user_words WHERE word_id LIKE 'grammar_%'"))
+        db.execute(text("DELETE FROM situation_words WHERE situation_id LIKE 'grammar_%'"))
+        db.execute(text("DELETE FROM situation_words WHERE word_id LIKE 'grammar_%'"))
+        db.execute(text("DELETE FROM words WHERE word_category = 'grammar'"))
+
         grammar_word_set = set()
         for sid, cfg in GRAMMAR_SITUATIONS.items():
             for word in cfg["word_workload"]:
@@ -141,19 +148,31 @@ def seed():
         ).on_conflict_do_nothing()
         db.execute(stmt)
 
-        # --- Reset admin progress (runs every QA deploy) ---
-        db.execute(text(
-            "DELETE FROM conversations WHERE user_id IN (SELECT id FROM users WHERE email = 'ericlaycock44@gmail.com')"
-        ))
-        db.execute(text(
-            "DELETE FROM user_situations WHERE user_id IN (SELECT id FROM users WHERE email = 'ericlaycock44@gmail.com')"
-        ))
-        db.execute(text(
-            "DELETE FROM user_words WHERE user_id IN (SELECT id FROM users WHERE email = 'ericlaycock44@gmail.com')"
-        ))
+        # --- QA admin account ---
+        qa_admin_hash = get_password_hash("qaqaqa")
+        qa_admin_id = "00000000-0000-0000-0000-000000000002"
+        stmt = insert(User).values(
+            id=qa_admin_id,
+            email="qa@a.com",
+            password_hash=qa_admin_hash,
+            onboarding_completed=True,
+            selected_animation_types=["banking"],
+            dialect="mexico",
+            is_admin=True,
+        ).on_conflict_do_nothing()
+        db.execute(stmt)
+
+        stmt = insert(Subscription).values(
+            user_id=qa_admin_id, active=True
+        ).on_conflict_do_nothing()
+        db.execute(stmt)
+
         # --- Set admin flag for admin user ---
         db.execute(text(
             "UPDATE users SET is_admin = true WHERE email = 'ericlaycock44@gmail.com'"
+        ))
+        db.execute(text(
+            "UPDATE users SET is_admin = true WHERE email = 'qa@a.com'"
         ))
 
         db.commit()

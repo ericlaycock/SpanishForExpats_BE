@@ -10,6 +10,7 @@ from app.schemas import (
     SituationDetail,
     StartSituationResponse,
     CompleteSituationResponse,
+    AdminSkipEncounterResponse,
     GrammarConfigResponse,
     WordSchema
 )
@@ -422,6 +423,107 @@ async def complete_situation(
     return CompleteSituationResponse(next_situation_id=next_situation_id)
 
 
+@router.post("/{situation_id}/admin-skip", response_model=AdminSkipEncounterResponse)
+async def admin_skip_encounter(
+    situation_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Admin only: skip an encounter entirely and mark its words as known (mastery_level=2)."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
+
+    situation = db.query(Situation).filter(Situation.id == situation_id).first()
+    if not situation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation not found")
+
+    # 1. Select words (reuses existing logic)
+    encounter_word_ids, hf_word_ids = select_words_for_situation(db, current_user.id, situation_id)
+    target_word_ids = encounter_word_ids + hf_word_ids
+    words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
+
+    # 2. Upsert UserWord records
+    ensure_user_words(db, current_user.id, words)
+
+    # 3. Create or reuse Conversation, mark complete
+    conversation = db.query(Conversation).filter(
+        Conversation.user_id == current_user.id,
+        Conversation.situation_id == situation_id,
+        Conversation.mode == "text",
+    ).order_by(Conversation.created_at.desc()).first()
+
+    if not conversation:
+        conversation = Conversation(
+            user_id=current_user.id,
+            situation_id=situation_id,
+            mode="text",
+            target_word_ids=target_word_ids,
+            used_typed_word_ids=target_word_ids,
+            used_spoken_word_ids=target_word_ids,
+            status="complete",
+        )
+        db.add(conversation)
+    else:
+        conversation.status = "complete"
+
+    # 4. Set mastery_level=2 for words below that threshold (counts toward vocab level)
+    from datetime import datetime, timedelta, timezone
+    next_refresh = datetime.now(timezone.utc) + timedelta(days=7)
+    words_updated = db.query(UserWord).filter(
+        UserWord.user_id == current_user.id,
+        UserWord.word_id.in_(target_word_ids),
+        UserWord.mastery_level < 2,
+    ).update(
+        {
+            UserWord.mastery_level: 2,
+            UserWord.next_refresh_at: next_refresh,
+            UserWord.source_situation_id: situation_id,
+            UserWord.status: "learning",
+        },
+        synchronize_session="fetch",
+    )
+
+    # 5. Upsert UserSituation with completion
+    now = datetime.utcnow()
+    user_situation = db.query(UserSituation).filter(
+        UserSituation.user_id == current_user.id,
+        UserSituation.situation_id == situation_id,
+    ).first()
+    if not user_situation:
+        user_situation = UserSituation(
+            user_id=current_user.id,
+            situation_id=situation_id,
+            started_at=now,
+            completed_at=now,
+        )
+        db.add(user_situation)
+    else:
+        if not user_situation.started_at:
+            user_situation.started_at = now
+        user_situation.completed_at = now
+
+    db.commit()
+
+    # 6. Find next situation
+    next_situation = db.query(Situation).filter(
+        and_(
+            Situation.animation_type == situation.animation_type,
+            Situation.title == situation.title,
+            Situation.encounter_number > situation.encounter_number,
+        )
+    ).order_by(Situation.encounter_number).first()
+
+    vocab_level = get_vocab_level(db, current_user.id)
+
+    return AdminSkipEncounterResponse(
+        situation_id=situation_id,
+        situation_title=situation.title,
+        words_set_known=words_updated,
+        vocab_level=vocab_level,
+        next_situation_id=next_situation.id if next_situation else None,
+    )
+
+
 @router.get("/{situation_id}/grammar-config", response_model=GrammarConfigResponse)
 async def get_grammar_config_endpoint(
     situation_id: str,
@@ -437,11 +539,7 @@ async def get_grammar_config_endpoint(
     if not config:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Not a grammar situation")
 
-    drill_config = None
-    if config["drill_type"] == "article_matching" and "drill_config" in config:
-        drill_config = config["drill_config"]
-    elif config["drill_type"] in ("gustar", "gustar_prefix"):
-        drill_config = config.get("drill_config")
+    drill_config = config.get("drill_config")
 
     return GrammarConfigResponse(
         situation_type=situation.situation_type,

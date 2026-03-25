@@ -11,7 +11,7 @@ from app.core.logger import log_event
 from app.config import settings
 
 PROVIDER = "openai"
-STT_MODEL = "whisper-1"
+STT_MODEL = "gpt-4o-mini-transcribe"
 TTS_MODEL = "gpt-4o-mini-tts"
 
 # Lazy initialization
@@ -115,18 +115,37 @@ async def transcribe_audio(
         client = get_client()
         audio_file = io.BytesIO(audio_bytes)
         audio_file.name = filename
-        
+
         params = {
             "model": STT_MODEL,
             "file": audio_file,
         }
-        
+
         if language:
             params["language"] = language
         if prompt:
             params["prompt"] = prompt
-        
-        transcript_response = client.audio.transcriptions.create(**params)
+
+        try:
+            transcript_response = client.audio.transcriptions.create(**params)
+        except Exception as primary_err:
+            # Fallback to whisper-1 if gpt-4o-mini-transcribe rejects the audio format
+            log_event(
+                level="warning",
+                event="stt_fallback",
+                message=f"Primary STT failed ({STT_MODEL}), falling back to whisper-1: {primary_err}",
+                request_id=request_id or "unknown",
+                user_id=str(user_id) if user_id else None,
+            )
+            audio_file_retry = io.BytesIO(audio_bytes)
+            audio_file_retry.name = filename
+            retry_params = {"model": "whisper-1", "file": audio_file_retry}
+            if language:
+                retry_params["language"] = language
+            if prompt:
+                retry_params["prompt"] = prompt
+            transcript_response = client.audio.transcriptions.create(**retry_params)
+
         transcript_text = transcript_response.text
         
         # Calculate latency

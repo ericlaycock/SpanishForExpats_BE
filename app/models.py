@@ -100,6 +100,7 @@ class UserWord(Base):
     seen_count = Column(Integer, default=0, nullable=False)
     typed_correct_count = Column(Integer, default=0, nullable=False)
     spoken_correct_count = Column(Integer, default=0, nullable=False)
+    hint_count = Column(Integer, default=0, nullable=False, server_default="0")
     status = Column(String, default="learning", nullable=False)
     mastery_level = Column(Integer, default=0, nullable=False)  # 0=unseen, 1=learned, 2-3=refreshed, 4=mastered
     next_refresh_at = Column(DateTime(timezone=True), nullable=True)

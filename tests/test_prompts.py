@@ -1,6 +1,7 @@
-"""Prompt integrity tests for prompts.json.
+"""Prompt integrity tests for the v2 template prompt system.
 
-Pure Python tests (no DB needed) that validate prompt content and routing logic.
+Pure Python tests (no DB needed) that validate prompt templates,
+role data, and system prompt generation.
 Run with: python3.11 -m pytest tests/test_prompts.py --noconftest -v
 """
 
@@ -10,102 +11,151 @@ from app.services.llm_gateway import load_prompt
 from app.services.voice_turn_service import (
     get_conversation_system_prompt,
     build_conversation_prompt,
+    build_system_prompt,
+)
+from app.data.situation_roles import (
+    SITUATION_ROLES,
+    GRAMMAR_SCENE_MAP,
+    GRAMMAR_STRUCTURES,
+    get_roles_for_situation,
+    get_grammar_structure,
 )
 
 
-CONVERSATION_PROMPTS = [
-    "conversation_agent",
-    "conversation_agent_spanish",
-    "conversation_agent_catalan",
-    "conversation_agent_catalan_english",
-    "grammar_conjugation_agent",
-    "grammar_pronouns_agent",
-    "grammar_gustar_agent",
+# ── v2 template prompt IDs ──────────────────────────────────────────────────
+
+V2_PROMPTS = [
+    "conversation_agent_beginner",
+    "conversation_agent_advanced",
+    "grammar_agent_beginner",
+    "grammar_agent_advanced",
 ]
 
 
 class TestPromptsLoad:
-    @pytest.mark.parametrize("agent_id", CONVERSATION_PROMPTS)
+    @pytest.mark.parametrize("agent_id", V2_PROMPTS)
     def test_all_prompts_load(self, agent_id):
-        """Every prompt in prompts.json loads successfully."""
-        content = load_prompt(agent_id, "v1")
+        """Every prompt template in prompts.json loads successfully."""
+        content = load_prompt(agent_id)
         assert isinstance(content, str)
         assert len(content) > 0
 
-
-class TestEnglishModeRule:
-    def test_conversation_agent_has_speak_in_english(self):
-        """English-mode Spanish prompt must say 'Speak in English'."""
-        content = load_prompt("conversation_agent", "v1")
-        assert "Speak in English" in content
-
-    def test_conversation_agent_catalan_english_has_speak_in_english(self):
-        """English-mode Catalan prompt must say 'Speak in English'."""
-        content = load_prompt("conversation_agent_catalan_english", "v1")
-        assert "Speak in English" in content
-
-    def test_conversation_agent_spanish_no_speak_in_english(self):
-        """Spanish-mode prompt must NOT say 'Speak in English'."""
-        content = load_prompt("conversation_agent_spanish", "v1")
-        assert "Speak in English" not in content
-
-    def test_conversation_agent_catalan_no_speak_in_english(self):
-        """Catalan-mode prompt must NOT say 'Speak in English'."""
-        content = load_prompt("conversation_agent_catalan", "v1")
-        assert "Speak in English" not in content
+    @pytest.mark.parametrize("agent_id", V2_PROMPTS)
+    def test_templates_have_placeholders(self, agent_id):
+        """All templates contain {ai_role} and {language} placeholders."""
+        content = load_prompt(agent_id)
+        assert "{ai_role}" in content
+        assert "{language}" in content
 
 
-class TestLanguageReferences:
-    def test_conversation_agent_references_spanish(self):
-        """The default conversation_agent should reference Spanish."""
-        content = load_prompt("conversation_agent", "v1")
-        assert "Spanish" in content
+class TestSituationRoles:
+    def test_all_10_main_situations_defined(self):
+        """All 10 main animation types have role definitions."""
+        expected = {"airport", "banking", "clothing", "contractor", "groceries",
+                    "mechanic", "police", "restaurant", "small_talk", "internet"}
+        assert set(SITUATION_ROLES.keys()) == expected
 
-    def test_conversation_agent_catalan_english_references_catalan(self):
-        """The catalan_english prompt should reference Catalan."""
-        content = load_prompt("conversation_agent_catalan_english", "v1")
-        assert "Catalan" in content
+    def test_each_role_has_required_fields(self):
+        """Every role dict has ai_role, user_role, situation_description."""
+        for anim_type, roles in SITUATION_ROLES.items():
+            assert "ai_role" in roles, f"{anim_type} missing ai_role"
+            assert "user_role" in roles, f"{anim_type} missing user_role"
+            assert "situation_description" in roles, f"{anim_type} missing situation_description"
 
-    def test_conversation_agent_catalan_english_no_spanish_target_ref(self):
-        """The catalan_english prompt should not reference Spanish as the target language."""
-        content = load_prompt("conversation_agent_catalan_english", "v1")
-        assert "Spanish" not in content
+    def test_all_grammar_situations_mapped(self):
+        """All 16 grammar situations map to a valid main scene."""
+        assert len(GRAMMAR_SCENE_MAP) == 16
+        for grammar_id, scene in GRAMMAR_SCENE_MAP.items():
+            assert scene in SITUATION_ROLES, f"{grammar_id} maps to unknown scene '{scene}'"
+
+    def test_all_grammar_situations_have_structures(self):
+        """All 16 grammar situations have grammar_structure + examples."""
+        for grammar_id in GRAMMAR_SCENE_MAP:
+            struct = GRAMMAR_STRUCTURES.get(grammar_id)
+            assert struct is not None, f"{grammar_id} missing from GRAMMAR_STRUCTURES"
+            assert "grammar_structure" in struct
+            assert "examples" in struct
+            assert len(struct["examples"]) >= 2, f"{grammar_id} needs at least 2 examples"
+
+    def test_get_roles_for_main_situation(self):
+        """get_roles_for_situation returns correct roles for main situations."""
+        roles = get_roles_for_situation("banking")
+        assert roles["ai_role"] == "bank teller"
+
+    def test_get_roles_for_grammar_situation(self):
+        """get_roles_for_situation maps grammar situations to their scene."""
+        roles = get_roles_for_situation("grammar", "grammar_pronouns")
+        # grammar_pronouns maps to small_talk
+        assert roles["ai_role"] == "neighbor"
+
+
+class TestBuildSystemPrompt:
+    def test_beginner_spanish(self):
+        """Beginner mode includes 'mostly in English' and 'Spanish'."""
+        prompt = build_system_prompt("banking", "bank_1", "english", catalan_mode=False)
+        assert "mostly in English" in prompt
+        assert "Spanish" in prompt
+        assert "bank teller" in prompt
+
+    def test_advanced_spanish(self):
+        """Advanced mode says 'Speak in Spanish'."""
+        prompt = build_system_prompt("banking", "bank_1", "spanish_text", catalan_mode=False)
+        assert "Speak in Spanish" in prompt
+        assert "mostly in English" not in prompt
+
+    def test_beginner_catalan(self):
+        """Catalan beginner mode includes 'Catalan'."""
+        prompt = build_system_prompt("police", "pol_1", "english", catalan_mode=True)
+        assert "Catalan" in prompt
+        assert "mostly in English" in prompt
+        assert "police officer" in prompt
+
+    def test_advanced_catalan(self):
+        """Catalan advanced mode says 'Speak in Catalan'."""
+        prompt = build_system_prompt("police", "pol_1", "catalan_text", catalan_mode=True)
+        assert "Speak in Catalan" in prompt
+
+    def test_grammar_prompt_includes_structure(self):
+        """Grammar prompts include grammar_structure and examples."""
+        prompt = build_system_prompt("grammar", "grammar_pronouns", "english", catalan_mode=False)
+        assert "subject pronouns" in prompt
+        assert "neighbor" in prompt
+        assert "My wife" in prompt  # One of the examples
 
 
 class TestGetConversationSystemPrompt:
     def test_english_mode_default(self):
-        """english mode, catalan_mode=False → conversation_agent."""
+        """english mode → beginner template with Spanish."""
         prompt = get_conversation_system_prompt("english", catalan_mode=False)
-        assert "Speak in English" in prompt
+        assert "mostly in English" in prompt
         assert "Spanish" in prompt
 
     def test_english_mode_catalan(self):
-        """english mode, catalan_mode=True → conversation_agent_catalan_english."""
+        """english mode, catalan_mode=True → beginner template with Catalan."""
         prompt = get_conversation_system_prompt("english", catalan_mode=True)
-        assert "Speak in English" in prompt
+        assert "mostly in English" in prompt
         assert "Catalan" in prompt
 
     def test_spanish_text_mode(self):
-        """spanish_text → conversation_agent_spanish."""
+        """spanish_text → advanced template, speaks Spanish."""
         prompt = get_conversation_system_prompt("spanish_text", catalan_mode=False)
-        assert "Speak in English" not in prompt
-        assert "simple Spanish" in prompt
+        assert "Speak in Spanish" in prompt
+        assert "mostly in English" not in prompt
 
     def test_spanish_audio_mode(self):
-        """spanish_audio → conversation_agent_spanish."""
+        """spanish_audio → advanced template."""
         prompt = get_conversation_system_prompt("spanish_audio", catalan_mode=False)
-        assert "Speak in English" not in prompt
+        assert "Speak in Spanish" in prompt
 
     def test_catalan_text_mode(self):
-        """catalan_text, catalan_mode=True → conversation_agent_catalan."""
+        """catalan_text, catalan_mode=True → advanced template with Catalan."""
         prompt = get_conversation_system_prompt("catalan_text", catalan_mode=True)
-        assert "Speak in English" not in prompt
-        assert "simple Catalan" in prompt
+        assert "Speak in Catalan" in prompt
 
     def test_catalan_audio_mode(self):
-        """catalan_audio, catalan_mode=True → conversation_agent_catalan."""
+        """catalan_audio, catalan_mode=True → advanced template with Catalan."""
         prompt = get_conversation_system_prompt("catalan_audio", catalan_mode=True)
-        assert "Speak in English" not in prompt
+        assert "Speak in Catalan" in prompt
 
 
 class TestBuildConversationPrompt:

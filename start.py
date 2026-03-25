@@ -14,9 +14,9 @@ if __name__ == "__main__":
         print("Running database migrations...")
         subprocess.run([sys.executable, "-m", "alembic", "upgrade", "head"], check=True)
 
-    # Run QA seed script if in QA environment (after migrations)
-    if os.environ.get("ENVIRONMENT") == "qa":
-        print("Running QA seed script...")
+    # Run seed script only when explicitly requested (RUN_SEED=true)
+    if os.environ.get("RUN_SEED", "").lower() == "true":
+        print("Running seed script (RUN_SEED=true)...")
         subprocess.run([sys.executable, "scripts/seed_qa.py"], check=True)
 
     port = int(os.environ.get("PORT", 8000))

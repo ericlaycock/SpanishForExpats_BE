@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     jwt_expiration_hours: int = 24
     mastery_spoken_threshold: int = 2
 
+    # Registration whitelist (comma-separated 6-char hex tokens, empty = open registration)
+    whitelist_tokens: str = ""
+
     # R2 / S3 storage for TTS audio (optional — falls back to local /tmp)
     r2_endpoint_url: Optional[str] = None
     r2_access_key_id: Optional[str] = None
