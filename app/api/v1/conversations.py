@@ -300,6 +300,46 @@ async def check_pronunciation(
     return {"transcript": transcript, "is_correct": is_correct}
 
 
+@router.post("/{conversation_id}/mark-word")
+async def mark_word_detected(
+    conversation_id: str,
+    word_id: str = Form(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Manually mark a word as detected (user override for STT failures)."""
+    import logging
+    logger = logging.getLogger(__name__)
+
+    conversation = db.query(Conversation).filter(
+        Conversation.id == conversation_id,
+        Conversation.user_id == current_user.id,
+    ).first()
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    current_used = set(conversation.used_spoken_word_ids or [])
+    current_used.add(word_id)
+    conversation.used_spoken_word_ids = list(current_used)
+
+    from app.services.conversation_service import update_user_word_stats, check_conversation_complete, get_missing_word_ids
+    update_user_word_stats(db, str(current_user.id), [word_id], "voice")
+
+    conversation_complete = check_conversation_complete(conversation, "voice")
+    if conversation_complete:
+        conversation.status = "complete"
+
+    db.commit()
+    missing_word_ids = get_missing_word_ids(conversation, "voice")
+    logger.info(f"[MarkWord] User {current_user.id} manually marked word {word_id} in conversation {conversation_id}")
+
+    return {
+        "word_id": word_id,
+        "missing_word_ids": missing_word_ids,
+        "conversation_complete": conversation_complete,
+    }
+
+
 @router.post("/{conversation_id}/voice-turn", response_model=VoiceTurnResponse)
 async def voice_turn(
     conversation_id: str,
