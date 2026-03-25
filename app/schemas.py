@@ -106,6 +106,7 @@ class UserWordSchema(BaseModel):
     seen_count: int
     typed_correct_count: int
     spoken_correct_count: int
+    hint_count: int = 0
     status: str
     mastery_level: int = 0
     next_refresh_at: Optional[datetime] = None
@@ -118,6 +119,10 @@ class UserWordSchema(BaseModel):
 
 class TypedCorrectRequest(BaseModel):
     word_ids: List[str]
+
+
+class HintRequest(BaseModel):
+    word_id: str
 
 
 # Conversation schemas

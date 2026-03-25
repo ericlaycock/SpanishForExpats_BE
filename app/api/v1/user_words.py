@@ -5,7 +5,7 @@ from typing import List, Optional
 from app.database import get_db
 from app.auth import get_current_user
 from app.models import User, UserWord, Word
-from app.schemas import UserWordSchema, TypedCorrectRequest
+from app.schemas import UserWordSchema, TypedCorrectRequest, HintRequest
 from app.services.catalan_service import apply_catalan_mode
 from pydantic import BaseModel
 
@@ -48,6 +48,7 @@ async def get_user_words(
                 seen_count=uw.seen_count,
                 typed_correct_count=uw.typed_correct_count,
                 spoken_correct_count=uw.spoken_correct_count,
+                hint_count=uw.hint_count,
                 status=uw.status,
                 mastery_level=uw.mastery_level,
                 next_refresh_at=uw.next_refresh_at,
@@ -95,6 +96,24 @@ async def mark_typed_correct(
     
     db.commit()
     return {"message": "Updated"}
+
+
+@router.post("/hint")
+async def record_hint(
+    request: HintRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Increment hint_count for a word during voice chat."""
+    user_word = db.query(UserWord).filter(
+        UserWord.user_id == current_user.id,
+        UserWord.word_id == request.word_id
+    ).first()
+    if user_word:
+        user_word.hint_count += 1
+        db.commit()
+        return {"hint_count": user_word.hint_count}
+    return {"hint_count": 0}
 
 
 @router.get("/unknown", response_model=dict)
