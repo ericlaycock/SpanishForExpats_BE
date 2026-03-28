@@ -23,6 +23,7 @@ UserWord = models_legacy.UserWord
 UserSituation = models_legacy.UserSituation
 Conversation = models_legacy.Conversation
 Subscription = models_legacy.Subscription
+DailyEncounterLog = models_legacy.DailyEncounterLog
 # Base is imported from database, not from models.py
 from app.database import Base
 
@@ -42,6 +43,7 @@ __all__ = [
     "UserSituation",
     "Conversation",
     "Subscription",
+    "DailyEncounterLog",
     "LLMRequest",
     "STTRequest",
     "TTSRequest",
