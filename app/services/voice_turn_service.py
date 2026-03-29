@@ -11,23 +11,14 @@ from app.data.situation_roles import (
 def get_language_mode(encounter_number: int, vocab_level: int) -> str:
     """Derive language mode from encounter number (1-50) and vocab level.
 
-    VL < 300:
-      encounters 1-20  → "english"
-      encounters 21-40 → "spanish_text"
-      encounters 41-50 → "spanish_audio"
-    VL >= 300:
-      encounters 1-40  → "spanish_text"
-      encounters 41-50 → "spanish_audio"
+    Currently forced to "english" (beginner mode) for all encounters
+    so the AI speaks mostly English with occasional Spanish.
+
+    TODO: Re-enable progression when ready:
+      VL < 300: enc 1-20 → english, 21-40 → spanish_text, 41-50 → spanish_audio
+      VL >= 300: enc 1-40 → spanish_text, 41-50 → spanish_audio
     """
-    if vocab_level >= 300:
-        return "spanish_audio" if encounter_number > 40 else "spanish_text"
-    else:
-        if encounter_number <= 20:
-            return "english"
-        elif encounter_number <= 40:
-            return "spanish_text"
-        else:
-            return "spanish_audio"
+    return "english"
 
 
 def is_advanced_mode(language_mode: str) -> bool:
