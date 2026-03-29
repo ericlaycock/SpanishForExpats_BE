@@ -31,6 +31,10 @@ from app.services.catalan_service import apply_catalan_mode
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
 
+# Cache for initial message TTS audio URLs — avoids re-synthesizing the same audio
+# Key: (situation_id, catalan_mode) → R2/local URL
+_initial_tts_cache: dict[tuple[str, bool], str] = {}
+
 # OpenAI TTS voice + instructions per situation — keyed by animation_type
 _ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
 _CATALAN_ACCENT = "Speak with a Catalan accent, mixing English and Catalan words naturally."
@@ -74,6 +78,10 @@ SITUATION_VOICE_CONFIG = {
     "contractor": {
         "voice": "onyx",
         "instructions": f"{_ACCENT} Use a deep, husky baritone male voice.",
+    },
+    "core": {
+        "voice": "shimmer",
+        "instructions": f"{_ACCENT} Use a warm, friendly female voice.",
     },
 }
 
@@ -150,9 +158,10 @@ async def create_conversation(
             if language_mode in ("spanish_text", "spanish_audio"):
                 language_mode = language_mode.replace("spanish_", "catalan_")
 
-        # Generate TTS for initial message
-        initial_audio_url = None
-        if initial_message:
+        # Generate TTS for initial message (cached by situation_id + catalan_mode)
+        cache_key = (situation.id, current_user.catalan_mode)
+        initial_audio_url = _initial_tts_cache.get(cache_key)
+        if not initial_audio_url and initial_message:
             try:
                 init_audio_filename = generate_audio_filename()
                 init_audio_path = get_audio_path(init_audio_filename)
@@ -170,9 +179,12 @@ async def create_conversation(
                 )
                 r2_url = upload_to_r2(str(init_audio_path), init_audio_filename)
                 initial_audio_url = r2_url or get_audio_url(init_audio_filename)
-                logger.info(f"[Create Conv] Initial message TTS: {initial_audio_url}")
+                _initial_tts_cache[cache_key] = initial_audio_url
+                logger.info(f"[Create Conv] Initial message TTS (generated): {initial_audio_url}")
             except Exception as e:
                 logger.error(f"[Create Conv] Initial message TTS failed: {e}")
+        elif initial_audio_url:
+            logger.info(f"[Create Conv] Initial message TTS (cached): {initial_audio_url}")
 
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
@@ -217,9 +229,10 @@ async def create_conversation(
             if language_mode in ("spanish_text", "spanish_audio"):
                 language_mode = language_mode.replace("spanish_", "catalan_")
 
-        # Generate TTS for initial message
-        initial_audio_url = None
-        if initial_message:
+        # Generate TTS for initial message (cached by situation_id + catalan_mode)
+        cache_key = (situation.id, current_user.catalan_mode)
+        initial_audio_url = _initial_tts_cache.get(cache_key)
+        if not initial_audio_url and initial_message:
             try:
                 init_audio_filename = generate_audio_filename()
                 init_audio_path = get_audio_path(init_audio_filename)
@@ -237,6 +250,7 @@ async def create_conversation(
                 )
                 r2_url = upload_to_r2(str(init_audio_path), init_audio_filename)
                 initial_audio_url = r2_url or get_audio_url(init_audio_filename)
+                _initial_tts_cache[cache_key] = initial_audio_url
             except Exception as e:
                 logger.error(f"[Create Conv] Initial message TTS failed: {e}")
 
