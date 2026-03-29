@@ -106,6 +106,17 @@ async def lifespan(app: FastAPI):
         logger.warning("⚠️  Database not available at startup. App will start but database operations may fail.")
         logger.warning("⚠️  This is normal if the database is still provisioning. It will be available shortly.")
     
+    # Ensure admin flags for known admin emails (runs on every startup, safe if users don't exist yet)
+    try:
+        from sqlalchemy.orm import Session as _Session
+        with _Session(engine) as _db:
+            from sqlalchemy import text as _text
+            for _email in ('ericlaycock44@gmail.com', 'eric@spanishforexpats.com'):
+                _db.execute(_text("UPDATE users SET is_admin = true WHERE email = :email"), {"email": _email})
+            _db.commit()
+    except Exception:
+        pass  # DB might not be ready yet, that's OK
+
     yield
     # Shutdown
     print("👋 Spanish for Expats API shutting down...")

@@ -167,13 +167,11 @@ def seed():
         ).on_conflict_do_nothing()
         db.execute(stmt)
 
-        # --- Set admin flag for admin user ---
-        db.execute(text(
-            "UPDATE users SET is_admin = true WHERE email = 'ericlaycock44@gmail.com'"
-        ))
-        db.execute(text(
-            "UPDATE users SET is_admin = true WHERE email = 'qa@a.com'"
-        ))
+        # --- Set admin flag for admin users ---
+        for admin_email in ('ericlaycock44@gmail.com', 'qa@a.com', 'eric@spanishforexpats.com'):
+            db.execute(text(
+                "UPDATE users SET is_admin = true WHERE email = :email"
+            ), {"email": admin_email})
 
         db.commit()
         print("QA seed data inserted successfully.")
