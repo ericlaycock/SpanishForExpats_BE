@@ -72,11 +72,21 @@ async def get_admin_ai_logs(
         for r in recent_tts
     ]
 
+    # Recent STT calls (last 20) — to spot whisper-1 fallback patterns
+    recent_stt = db.query(STTRequest).order_by(STTRequest.created_at.desc()).limit(20).all()
+    recent_stt_list = [
+        {"id": str(r.id), "model": r.model, "audio_format": r.audio_format, "audio_bytes": r.audio_bytes,
+         "latency_ms": r.latency_ms, "success": r.success, "error_code": r.error_code,
+         "created_at": str(r.created_at)}
+        for r in recent_stt
+    ]
+
     return {
         "tts_stats": stats_for(TTSRequest),
         "stt_stats": stats_for(STTRequest),
         "llm_stats": stats_for(LLMRequest),
         "recent_tts": recent_tts_list,
+        "recent_stt": recent_stt_list,
     }
 
 
