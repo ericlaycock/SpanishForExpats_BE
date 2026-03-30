@@ -527,7 +527,7 @@ async def admin_skip_encounter(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Admin only: skip an encounter entirely and mark its words as known (mastery_level=2)."""
+    """Admin only: skip an encounter entirely and mark its words as just learned (mastery_level=1)."""
     if not current_user.is_admin:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
 
@@ -564,16 +564,16 @@ async def admin_skip_encounter(
     else:
         conversation.status = "complete"
 
-    # 4. Set mastery_level=2 for words below that threshold (counts toward vocab level)
+    # 4. Set mastery_level=1 for unseen words (same as normal completion via set_initial_mastery)
     from datetime import datetime, timedelta, timezone
-    next_refresh = datetime.now(timezone.utc) + timedelta(days=7)
+    next_refresh = datetime.now(timezone.utc) + timedelta(hours=24)
     words_updated = db.query(UserWord).filter(
         UserWord.user_id == current_user.id,
         UserWord.word_id.in_(target_word_ids),
-        UserWord.mastery_level < 2,
+        UserWord.mastery_level == 0,
     ).update(
         {
-            UserWord.mastery_level: 2,
+            UserWord.mastery_level: 1,
             UserWord.next_refresh_at: next_refresh,
             UserWord.source_situation_id: situation_id,
             UserWord.status: "learning",
