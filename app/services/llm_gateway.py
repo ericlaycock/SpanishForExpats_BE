@@ -14,7 +14,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-MODEL = "gpt-5.1-mini"
+MODEL = "gpt-5-mini"
 PROVIDER = "openai"
 AGENT_ID = "conversation_agent"
 
