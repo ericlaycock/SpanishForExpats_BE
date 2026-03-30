@@ -126,11 +126,16 @@ async def stream_realtime(
 
             await ws.send(json.dumps({"type": "response.create"}))
 
+            text_sent = False
             while True:
                 msg = await asyncio.wait_for(ws.recv(), timeout=30)
                 event = json.loads(msg)
                 event_type = event.get("type", "")
                 elapsed_ms = int((time.time() - t0) * 1000)
+
+                # Log all event types for debugging
+                if event_type not in ("response.audio.delta", "response.audio_transcript.delta"):
+                    logger.info(f"[Realtime] Event: {event_type} at {elapsed_ms}ms")
 
                 if event_type == "response.audio.delta":
                     chunk = base64.b64decode(event.get("delta", ""))
@@ -140,12 +145,19 @@ async def stream_realtime(
                     full_text += event.get("delta", "")
 
                 elif event_type == "response.audio_transcript.done":
-                    yield {"type": "text", "text": full_text, "elapsed_ms": elapsed_ms}
+                    # Use the transcript from this event if available, else use accumulated
+                    done_text = event.get("transcript", full_text)
+                    if done_text:
+                        full_text = done_text
+                    if full_text and not text_sent:
+                        yield {"type": "text", "text": full_text, "elapsed_ms": elapsed_ms}
+                        text_sent = True
 
                 elif event_type == "response.done":
-                    # If text wasn't sent via transcript.done, send it now
-                    if full_text:
+                    # Always send text if not sent yet
+                    if not text_sent and full_text:
                         yield {"type": "text", "text": full_text, "elapsed_ms": elapsed_ms}
+                        text_sent = True
                     yield {"type": "done", "elapsed_ms": elapsed_ms}
                     break
 
