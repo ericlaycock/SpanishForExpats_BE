@@ -14,7 +14,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-MODEL = "gpt-4.1-mini"
+MODEL = "gpt-5.4-mini"
 PROVIDER = "openai"
 AGENT_ID = "conversation_agent"
 
@@ -131,21 +131,22 @@ async def generate_conversation(
         client = get_client()
         api_params = {
             "model": MODEL,
-            "messages": messages,
+            "input": messages,
+            "reasoning": {"effort": "low"},
         }
 
         if context.return_json:
-            api_params["response_format"] = {"type": "json_object"}
+            api_params["text"] = {"format": {"type": "json_object"}}
         if context.temperature is not None:
             api_params["temperature"] = context.temperature
         if context.max_tokens is not None:
-            api_params["max_tokens"] = context.max_tokens
+            api_params["max_output_tokens"] = context.max_tokens
 
-        response = client.chat.completions.create(**api_params)
+        response = client.responses.create(**api_params)
 
-        # Extract response
+        # Extract response — output_text excludes reasoning tokens
         import re
-        content = response.choices[0].message.content
+        content = response.output_text
         content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
         if context.return_json:
             content = json.loads(content)
@@ -155,9 +156,9 @@ async def generate_conversation(
 
         # Extract token usage
         usage = response.usage
-        tokens_in = usage.prompt_tokens if usage else None
-        tokens_out = usage.completion_tokens if usage else None
-        reasoning_tokens = 0
+        tokens_in = usage.input_tokens if usage else None
+        tokens_out = usage.output_tokens if usage else None
+        reasoning_tokens = getattr(getattr(usage, 'output_tokens_details', None), 'reasoning_tokens', 0) if usage else 0
 
         # Estimate cost
         estimated_cost = None
