@@ -36,17 +36,17 @@ from importlib import import_module
 
 
 # Voice config per animation_type (mirrored from conversations.py)
-_ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
+_ACCENT = "Speak with a Mexican Spanish accent."
 VOICE_CONFIG = {
-    "airport": ("nova", f"{_ACCENT} Use a professional, clear female voice."),
+    "airport": ("ash", f"{_ACCENT} Use a professional, clear female voice."),
     "banking": ("shimmer", f"{_ACCENT} Use a professional, composed female voice with a warm undertone."),
     "clothing": ("coral", f"{_ACCENT} Use a casual, charming female voice."),
-    "contractor": ("onyx", f"{_ACCENT} Use a deep, husky baritone male voice."),
+    "contractor": ("verse", f"{_ACCENT} Use a deep, husky baritone male voice."),
     "core": ("echo", f"{_ACCENT} Use a casual, friendly male voice."),
     "groceries": ("echo", f"{_ACCENT} Use a casual, charming male voice."),
-    "internet": ("nova", f"{_ACCENT} Use a young, energetic female voice."),
-    "mechanic": ("onyx", f"{_ACCENT} Use a deep male voice."),
-    "police": ("nova", f"{_ACCENT} Use an authoritative female voice, firm but professional."),
+    "internet": ("ash", f"{_ACCENT} Use a young, energetic female voice."),
+    "mechanic": ("verse", f"{_ACCENT} Use a deep male voice."),
+    "police": ("ash", f"{_ACCENT} Use an authoritative female voice, firm but professional."),
     "restaurant": ("echo", f"{_ACCENT} Use a suave, charming male voice."),
     "small_talk": ("shimmer", f"{_ACCENT} Use a warm, older female voice with a friendly, neighborly tone."),
     "grammar": ("shimmer", f"{_ACCENT} Use a warm, friendly female voice."),
