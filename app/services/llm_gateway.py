@@ -129,7 +129,7 @@ async def generate_conversation(
         api_params = {
             "model": MODEL,
             "messages": messages,
-            "extra_body": {"reasoning": {"effort": "low"}},
+            "extra_body": {"reasoning_effort": "low"},
         }
 
         if context.return_json:
