@@ -10,6 +10,9 @@ from app.models import LLMRequest
 from app.core.logger import log_event
 from app.config import settings
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 MODEL = "gpt-5.4-mini"
 PROVIDER = "openai"
@@ -155,6 +158,7 @@ async def generate_conversation(
         usage = response.usage
         tokens_in = usage.input_tokens if usage else None
         tokens_out = usage.output_tokens if usage else None
+        reasoning_tokens = getattr(getattr(usage, 'output_tokens_details', None), 'reasoning_tokens', 0) if usage else 0
 
         # Estimate cost
         estimated_cost = None
@@ -184,11 +188,13 @@ async def generate_conversation(
             "latency_ms": latency_ms,
             "tokens_in": tokens_in,
             "tokens_out": tokens_out,
+            "reasoning_tokens": reasoning_tokens,
             "estimated_cost": estimated_cost,
             "success": True,
         }
         if context.learning_phase:
             extra_llm_success["learning_phase"] = context.learning_phase
+        logger.info(f"[REASON] {reasoning_tokens} reasoning tokens used, {tokens_out} output tokens, {latency_ms}ms")
         log_event(
             level="info",
             event="llm_success",
