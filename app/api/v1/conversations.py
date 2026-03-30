@@ -454,11 +454,11 @@ async def voice_turn_respond(
     word_guidance = ""
     if missing_ids:
         missing_words = get_words_by_ids(db, missing_ids)
-        word_list = ", ".join(f"{w.spanish} ({w.english})" for w in missing_words)
+        word_list = ", ".join(w.spanish for w in missing_words)
         word_guidance = (
             f"\n\n[HIDDEN INSTRUCTION — do not repeat this to the user. "
             f"Gently guide the conversation in a way that will require me to use "
-            f"one of these words/phrases, without explicitly saying them yourself: {word_list}]"
+            f"one of these words/phrases. Do not state these Spanish words yourself: {word_list}]"
         )
 
     if frontend_messages:
