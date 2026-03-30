@@ -23,7 +23,7 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 
-REALTIME_MODEL = "gpt-realtime-mini"
+REALTIME_MODEL = "gpt-4o-realtime-preview-2025-06-03"
 REALTIME_URL = f"wss://api.openai.com/v1/realtime?model={REALTIME_MODEL}"
 
 
