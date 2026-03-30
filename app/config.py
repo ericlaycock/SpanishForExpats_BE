@@ -15,6 +15,10 @@ class Settings(BaseSettings):
     # Registration whitelist (comma-separated 6-char hex tokens, empty = open registration)
     whitelist_tokens: str = ""
 
+    # SMTP for password reset emails (Gmail App Password)
+    smtp_email: Optional[str] = None
+    smtp_app_password: Optional[str] = None
+
     # R2 / S3 storage for TTS audio (optional — falls back to local /tmp)
     r2_endpoint_url: Optional[str] = None
     r2_access_key_id: Optional[str] = None

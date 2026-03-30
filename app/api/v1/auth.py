@@ -107,6 +107,75 @@ async def set_catalan_mode(
     return {"catalan_mode": current_user.catalan_mode}
 
 
+@router.post("/forgot-password")
+async def forgot_password(request: dict, db: Session = Depends(get_db)):
+    """Send a password reset email with a time-limited JWT link."""
+    import logging
+    logger = logging.getLogger(__name__)
+
+    email = request.get("email", "").strip().lower()
+    if not email:
+        raise HTTPException(status_code=400, detail="Email is required")
+
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        # Don't reveal whether the email exists
+        return {"sent": True}
+
+    # Generate a 1-hour reset token
+    from app.config import settings
+    from jose import jwt
+    from datetime import datetime, timedelta, timezone
+    token = jwt.encode(
+        {"sub": str(user.id), "purpose": "reset", "exp": datetime.now(timezone.utc) + timedelta(hours=1)},
+        settings.jwt_secret,
+        algorithm=settings.jwt_algorithm,
+    )
+
+    # Determine frontend URL
+    reset_url = f"https://spanishforexpats.com/reset-password?token={token}"
+
+    from app.services.email_service import send_reset_email
+    sent = send_reset_email(email, reset_url)
+    if not sent:
+        logger.error(f"[Auth] Failed to send reset email to {email}")
+
+    return {"sent": True}
+
+
+@router.post("/reset-password")
+async def reset_password(request: dict, db: Session = Depends(get_db)):
+    """Reset password using a valid reset token."""
+    token = request.get("token", "")
+    new_password = request.get("new_password", "")
+
+    if not token or not new_password:
+        raise HTTPException(status_code=400, detail="Token and new_password are required")
+
+    if len(new_password) < 8:
+        raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
+
+    from app.config import settings
+    from jose import jwt, JWTError
+    try:
+        payload = jwt.decode(token, settings.jwt_secret, algorithms=[settings.jwt_algorithm])
+        if payload.get("purpose") != "reset":
+            raise HTTPException(status_code=400, detail="Invalid reset token")
+        user_id = payload.get("sub")
+    except JWTError:
+        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
+
+    from app.auth import get_password_hash
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid reset token")
+
+    user.password_hash = get_password_hash(new_password)
+    db.commit()
+
+    return {"reset": True}
+
+
 @router.post("/admin-reset-password")
 async def admin_reset_password(
     request: dict,

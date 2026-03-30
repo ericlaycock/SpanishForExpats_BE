@@ -73,22 +73,22 @@ SITUATION_ROLES = {
 #   grammar_c → banking,     grammar_d → clothing
 
 GRAMMAR_SCENE_MAP = {
-    "grammar_pronouns": "small_talk",
-    "grammar_gender": "mechanic",
-    "grammar_regular_present": "banking",
-    "grammar_irregular_present": "clothing",
-    "grammar_irregular_present_ii": "small_talk",
-    "grammar_spelling_changes": "mechanic",
-    "grammar_present_o_ue": "banking",
-    "grammar_present_e_ie": "clothing",
-    "grammar_present_e_i": "small_talk",
-    "grammar_preterite_regular": "mechanic",
-    "grammar_preterite_irregular": "banking",
-    "grammar_gerund": "clothing",
-    "grammar_gustar_1": "small_talk",
-    "grammar_gustar_2": "mechanic",
-    "grammar_gustar_3": "banking",
-    "grammar_ir_a_inf": "clothing",
+    "grammar_pronouns": "core",
+    "grammar_gender": "core",
+    "grammar_regular_present": "core",
+    "grammar_irregular_present": "core",
+    "grammar_irregular_present_ii": "core",
+    "grammar_spelling_changes": "core",
+    "grammar_present_o_ue": "core",
+    "grammar_present_e_ie": "core",
+    "grammar_present_e_i": "core",
+    "grammar_preterite_regular": "core",
+    "grammar_preterite_irregular": "core",
+    "grammar_gerund": "core",
+    "grammar_gustar_1": "core",
+    "grammar_gustar_2": "core",
+    "grammar_gustar_3": "core",
+    "grammar_ir_a_inf": "core",
 }
 
 # ── Grammar structure definitions ────────────────────────────────────────────

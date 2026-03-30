@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Pre-generate TTS audio for all initial greeting messages and upload to R2.
 
-Uses deterministic filenames (initial_msg_{situation_id}.mp3) so the backend
-can return the R2 URL instantly without calling TTS at runtime.
+Uses the Realtime API (same model as live conversations) so opener voice
+matches the ongoing conversation voice exactly.
+
+Audio is PCM16 from Realtime API, converted to MP3 via ffmpeg, then uploaded
+to R2 with deterministic filenames (initial_msg_{situation_id}.mp3).
 
 Usage:
     python scripts/pregenerate_initial_audio.py          # all situations
@@ -13,6 +16,7 @@ Requires R2 env vars: R2_ENDPOINT_URL, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY,
                        R2_BUCKET_NAME, R2_PUBLIC_URL
 """
 
+import asyncio
 import os
 import sys
 import time
@@ -20,36 +24,32 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from pathlib import Path
-from openai import OpenAI
 from app.config import settings
 from app.data.seed_bank import SITUATIONS
 from app.data.grammar_situations import GRAMMAR_SITUATIONS
 from app.services.encounter_messages import get_initial_message_for_encounter
+from app.services.realtime_service import generate_with_realtime, pcm16_to_mp3
+from app.services.voice_turn_service import build_system_prompt
 from app.utils.audio import upload_to_r2, _get_s3_client
 
 AUDIO_DIR = Path("/tmp/initial_audio")
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
-# Import voice config from conversations.py
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from importlib import import_module
-
-
-# Voice config per animation_type (mirrored from conversations.py)
-_ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
+# Voice config per animation_type (must match conversations.py SITUATION_VOICE_CONFIG)
+_ACCENT = "Speak with a Mexican Spanish accent."
 VOICE_CONFIG = {
-    "airport": ("nova", f"{_ACCENT} Use a professional, clear female voice."),
+    "airport": ("shimmer", f"{_ACCENT} Use a professional, clear female voice."),
     "banking": ("shimmer", f"{_ACCENT} Use a professional, composed female voice with a warm undertone."),
     "clothing": ("coral", f"{_ACCENT} Use a casual, charming female voice."),
-    "contractor": ("onyx", f"{_ACCENT} Use a deep, husky baritone male voice."),
-    "core": ("echo", f"{_ACCENT} Use a casual, friendly male voice."),
-    "groceries": ("echo", f"{_ACCENT} Use a casual, charming male voice."),
-    "internet": ("nova", f"{_ACCENT} Use a young, energetic female voice."),
-    "mechanic": ("onyx", f"{_ACCENT} Use a deep male voice."),
-    "police": ("nova", f"{_ACCENT} Use an authoritative female voice, firm but professional."),
-    "restaurant": ("echo", f"{_ACCENT} Use a suave, charming male voice."),
+    "contractor": ("ash", f"{_ACCENT} Use a deep, husky baritone male voice."),
+    "core": ("ash", f"{_ACCENT} Use a casual, friendly male voice."),
+    "groceries": ("ash", f"{_ACCENT} Use a casual, charming male voice."),
+    "internet": ("coral", f"{_ACCENT} Use a young, energetic female voice."),
+    "mechanic": ("ash", f"{_ACCENT} Use a deep male voice."),
+    "police": ("alloy", f"{_ACCENT} Use an authoritative female voice, firm but professional."),
+    "restaurant": ("ash", f"{_ACCENT} Use a suave, charming male voice."),
     "small_talk": ("shimmer", f"{_ACCENT} Use a warm, older female voice with a friendly, neighborly tone."),
-    "grammar": ("shimmer", f"{_ACCENT} Use a warm, friendly female voice."),
+    "grammar": ("ash", f"{_ACCENT} Use a casual, friendly male voice."),
 }
 
 
@@ -65,8 +65,8 @@ def r2_file_exists(filename: str) -> bool:
         return False
 
 
-def generate_and_upload(situation_id: str, title: str, animation_type: str, force: bool = False):
-    """Generate TTS for one situation's initial message and upload to R2."""
+async def generate_and_upload(situation_id: str, title: str, animation_type: str, force: bool = False):
+    """Generate TTS via Realtime API for one situation's initial message and upload to R2."""
     filename = f"initial_msg_{situation_id}.mp3"
 
     if not force and r2_file_exists(filename):
@@ -76,22 +76,38 @@ def generate_and_upload(situation_id: str, title: str, animation_type: str, forc
     if not message:
         return "no_message"
 
-    voice, instructions = VOICE_CONFIG.get(animation_type, ("alloy", _ACCENT))
+    voice, tts_instructions = VOICE_CONFIG.get(animation_type, ("alloy", _ACCENT))
 
-    # Generate TTS
-    client = OpenAI(api_key=settings.openai_api_key)
-    response = client.audio.speech.create(
-        model="gpt-4o-mini-tts",
-        voice=voice,
-        input=message,
-        instructions=instructions,
-    )
+    # Build the same system prompt the realtime conversation uses
+    system_prompt = build_system_prompt(animation_type, situation_id, language_mode="english")
 
-    # Save locally
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": f"Say exactly this to greet me (do not add anything else): {message}"},
+    ]
+
+    try:
+        result = await generate_with_realtime(
+            messages=messages,
+            voice=voice,
+            tts_instructions=tts_instructions,
+            request_id=f"pregenerate_{situation_id}",
+        )
+    except Exception as e:
+        print(f"  [ERROR] Realtime API failed for {situation_id}: {e}")
+        return "r2_fail"
+
+    if not result["audio_bytes"]:
+        print(f"  [ERROR] No audio returned for {situation_id}")
+        return "r2_fail"
+
+    # Convert PCM16 to MP3
     local_path = AUDIO_DIR / filename
-    with open(local_path, "wb") as f:
-        for chunk in response.iter_bytes():
-            f.write(chunk)
+    try:
+        pcm16_to_mp3(result["audio_bytes"], str(local_path))
+    except Exception as e:
+        print(f"  [ERROR] ffmpeg failed for {situation_id}: {e}")
+        return "r2_fail"
 
     # Upload to R2
     r2_url = upload_to_r2(str(local_path), filename)
@@ -101,7 +117,7 @@ def generate_and_upload(situation_id: str, title: str, animation_type: str, forc
     return "ok"
 
 
-def main():
+async def main():
     force = "--force" in sys.argv
     specific = [a for a in sys.argv[1:] if not a.startswith("--")]
 
@@ -124,7 +140,7 @@ def main():
 
     stats = {"ok": 0, "skip": 0, "no_message": 0, "r2_fail": 0}
     for i, (sid, title, anim_type) in enumerate(all_situations, 1):
-        result = generate_and_upload(sid, title, anim_type, force)
+        result = await generate_and_upload(sid, title, anim_type, force)
         stats[result] += 1
         if i % 50 == 0 or i == len(all_situations):
             elapsed = time.time() - start
@@ -135,4 +151,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

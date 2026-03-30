@@ -37,11 +37,11 @@ router = APIRouter()
 _initial_tts_cache: dict[tuple[str, bool], str] = {}
 
 # OpenAI TTS voice + instructions per situation — keyed by animation_type
-_ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
-_CATALAN_ACCENT = "Speak with a Catalan accent, mixing English and Catalan words naturally."
+_ACCENT = "Speak with a Mexican Spanish accent."
+_CATALAN_ACCENT = "Speak with a Catalan accent."
 SITUATION_VOICE_CONFIG = {
     "police": {
-        "voice": "ash",
+        "voice": "alloy",
         "instructions": f"{_ACCENT} Use an authoritative female voice, firm but professional.",
     },
     "banking": {
@@ -49,7 +49,7 @@ SITUATION_VOICE_CONFIG = {
         "instructions": f"{_ACCENT} Use a professional, composed female voice with a warm undertone.",
     },
     "airport": {
-        "voice": "ash",
+        "voice": "shimmer",
         "instructions": f"{_ACCENT} Use a professional, clear female voice.",
     },
     "clothing": {
@@ -61,27 +61,31 @@ SITUATION_VOICE_CONFIG = {
         "instructions": f"{_ACCENT} Use a warm, older female voice with a friendly, neighborly tone.",
     },
     "internet": {
-        "voice": "ash",
+        "voice": "coral",
         "instructions": f"{_ACCENT} Use a young, energetic female voice.",
     },
     "restaurant": {
-        "voice": "echo",
+        "voice": "ash",
         "instructions": f"{_ACCENT} Use a suave, charming male voice.",
     },
     "mechanic": {
-        "voice": "verse",
+        "voice": "ash",
         "instructions": f"{_ACCENT} Use a deep male voice.",
     },
     "groceries": {
-        "voice": "echo",
+        "voice": "ash",
         "instructions": f"{_ACCENT} Use a casual, charming male voice.",
     },
     "contractor": {
-        "voice": "verse",
+        "voice": "ash",
         "instructions": f"{_ACCENT} Use a deep, husky baritone male voice.",
     },
     "core": {
-        "voice": "echo",
+        "voice": "ash",
+        "instructions": f"{_ACCENT} Use a casual, friendly male voice.",
+    },
+    "grammar": {
+        "voice": "ash",
         "instructions": f"{_ACCENT} Use a casual, friendly male voice.",
     },
 }
@@ -474,8 +478,22 @@ async def voice_turn_respond(
         )
 
     # Build messages for Realtime API
+    # Always build the system prompt — frontend messages don't include it
+    grammar_config_for_prompt = get_grammar_config(conversation.situation_id)
+    if grammar_config_for_prompt:
+        system_prompt = build_grammar_system_prompt(conversation.situation_id, catalan_mode=catalan_mode)
+    else:
+        system_prompt = get_conversation_system_prompt(
+            language_mode, catalan_mode=catalan_mode,
+            animation_type=situation.animation_type if situation else "",
+            situation_id=conversation.situation_id,
+        )
+
     if frontend_messages:
-        llm_messages = list(frontend_messages)
+        llm_messages = [{"role": "system", "content": system_prompt}]
+        for msg in frontend_messages:
+            if msg["role"] != "system":
+                llm_messages.append(msg)
         llm_messages.append({"role": "user", "content": user_transcript + word_guidance})
     else:
         grammar_config = get_grammar_config(conversation.situation_id)
