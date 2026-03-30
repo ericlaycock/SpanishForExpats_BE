@@ -124,38 +124,39 @@ async def generate_conversation(
     )
     
     try:
-        # Call OpenAI
+        # Call OpenAI Responses API (supports reasoning for gpt-5.4-mini)
         client = get_client()
         api_params = {
             "model": MODEL,
-            "messages": messages,
+            "input": messages,
+            "reasoning": {"effort": "low"},
         }
 
         if context.return_json:
-            api_params["response_format"] = {"type": "json_object"}
+            api_params["text"] = {"format": {"type": "json_object"}}
         if context.temperature is not None:
             api_params["temperature"] = context.temperature
         if context.max_tokens is not None:
-            api_params["max_tokens"] = context.max_tokens
-        
-        response = client.chat.completions.create(**api_params)
-        
-        # Extract response — strip any reasoning tags that leak into content
+            api_params["max_output_tokens"] = context.max_tokens
+
+        response = client.responses.create(**api_params)
+
+        # Extract response — output_text excludes reasoning tokens
         import re
-        content = response.choices[0].message.content
+        content = response.output_text
         content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
         if context.return_json:
             content = json.loads(content)
-        
+
         # Calculate latency
         latency_ms = int((time.time() - start_time) * 1000)
-        
+
         # Extract token usage
         usage = response.usage
-        tokens_in = usage.prompt_tokens if usage else None
-        tokens_out = usage.completion_tokens if usage else None
-        
-        # Estimate cost (rough estimates for gpt-4o-mini)
+        tokens_in = usage.input_tokens if usage else None
+        tokens_out = usage.output_tokens if usage else None
+
+        # Estimate cost
         estimated_cost = None
         if tokens_in and tokens_out:
             # gpt-5.4-mini: $0.75/$4.50 per 1M tokens (input/output)
