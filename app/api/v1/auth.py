@@ -107,6 +107,31 @@ async def set_catalan_mode(
     return {"catalan_mode": current_user.catalan_mode}
 
 
+@router.post("/admin-reset-password")
+async def admin_reset_password(
+    request: dict,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Admin only: reset a user's password."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
+
+    email = request.get("email")
+    new_password = request.get("new_password")
+    if not email or not new_password:
+        raise HTTPException(status_code=400, detail="email and new_password required")
+
+    from app.auth import get_password_hash
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user.password_hash = get_password_hash(new_password)
+    db.commit()
+    return {"reset": True, "email": email}
+
+
 @router.post("/reset-progress")
 async def reset_progress(
     current_user: User = Depends(get_current_user),
