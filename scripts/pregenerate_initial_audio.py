@@ -49,7 +49,7 @@ VOICE_CONFIG = {
     "police": ("ash", f"{_ACCENT} Use an authoritative female voice, firm but professional."),
     "restaurant": ("echo", f"{_ACCENT} Use a suave, charming male voice."),
     "small_talk": ("shimmer", f"{_ACCENT} Use a warm, older female voice with a friendly, neighborly tone."),
-    "grammar": ("shimmer", f"{_ACCENT} Use a warm, friendly female voice."),
+    "grammar": ("echo", f"{_ACCENT} Use a casual, friendly male voice."),
 }
 
 

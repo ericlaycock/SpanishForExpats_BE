@@ -84,6 +84,10 @@ SITUATION_VOICE_CONFIG = {
         "voice": "echo",
         "instructions": f"{_ACCENT} Use a casual, friendly male voice.",
     },
+    "grammar": {
+        "voice": "echo",
+        "instructions": f"{_ACCENT} Use a casual, friendly male voice.",
+    },
 }
 
 
