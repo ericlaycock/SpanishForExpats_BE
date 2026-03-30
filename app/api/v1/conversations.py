@@ -461,9 +461,6 @@ async def voice_turn_respond(
     if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
         language_mode = language_mode.replace("spanish_", "catalan_")
 
-    # LLM
-    gen_start = time.time()
-
     # Hidden word guidance — steer AI toward unused target words
     missing_ids = get_missing_word_ids(conversation, "voice")
     word_guidance = ""
@@ -476,22 +473,10 @@ async def voice_turn_respond(
             f"one of these words/phrases. Do not state these Spanish words yourself: {word_list}]"
         )
 
-    import asyncio
-    import re as _re
-    from app.services.llm_gateway import generate_conversation_stream
-    from app.utils.audio import concatenate_audio_files
-
-    # Build context for streaming LLM
+    # Build messages for Realtime API
     if frontend_messages:
         llm_messages = list(frontend_messages)
         llm_messages.append({"role": "user", "content": user_transcript + word_guidance})
-        context = ConversationContext(
-            request_id=request_id, user_id=str(current_user.id),
-            system_prompt="", user_prompt="",
-            agent_id="conversation_agent", prompt_version="v2",
-            return_json=False, learning_phase=learning_phase,
-            messages=llm_messages,
-        )
     else:
         grammar_config = get_grammar_config(conversation.situation_id)
         if grammar_config:
@@ -510,85 +495,55 @@ async def voice_turn_respond(
                 situation.title, words, conversation.used_spoken_word_ids or [],
                 user_transcript, catalan_mode=catalan_mode,
             )
-        context = ConversationContext(
-            request_id=request_id, user_id=str(current_user.id),
-            system_prompt=system_prompt, user_prompt=user_prompt + word_guidance,
-            agent_id="conversation_agent", prompt_version="v2",
-            return_json=False, learning_phase=learning_phase,
-        )
+        llm_messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt + word_guidance},
+        ]
 
-    # TTS config
+    # TTS voice config
     tts_voice, tts_instructions = get_tts_instructions(
         situation.animation_type if situation else "", catalan_mode=catalan_mode,
     )
 
-    # ── Sentence-level pipelining: stream LLM, fire TTS on first sentence ──
-    sentence_boundary = _re.compile(r'[.?!]\s')
-    full_text = ""
-    first_sentence = ""
-    first_tts_task = None
-    first_tts_path = None
+    # ── Realtime API: combined LLM + TTS in one call ──
+    gen_start = time.time()
+    from app.services.realtime_service import generate_with_realtime, pcm16_to_mp3
 
     try:
-        for chunk in generate_conversation_stream(context):
-            full_text += chunk
-
-            # Detect first sentence boundary — fire TTS immediately
-            if not first_sentence and sentence_boundary.search(full_text):
-                match = sentence_boundary.search(full_text)
-                first_sentence = full_text[:match.end()].strip()
-                first_tts_path = str(get_audio_path(generate_audio_filename()))
-                logger.info(f"[Voice Turn] Pipeline: first sentence at {time.time() - gen_start:.2f}s: '{first_sentence[:60]}'")
-
-                # Fire TTS in background thread (sync OpenAI call)
-                loop = asyncio.get_event_loop()
-                first_tts_task = loop.run_in_executor(None, lambda: _sync_tts(
-                    first_sentence, first_tts_path, tts_voice, tts_instructions,
-                    request_id, str(current_user.id), db, learning_phase,
-                ))
-    except Exception as e:
-        logger.error(f"[Voice Turn] LLM stream failed: {e}, falling back to non-stream")
-        # Fallback: use non-streaming
-        llm_result = await generate_conversation(context, db)
-        raw_content = llm_result.get("content", "")
-        full_text = raw_content if isinstance(raw_content, str) else raw_content.get("assistant_text", str(raw_content))
-
-    # Strip reasoning tags
-    assistant_text = _re.sub(r'<think>.*?</think>', '', full_text, flags=_re.DOTALL).strip()
-
-    gen_time = time.time() - gen_start
-    logger.info(f"[Voice Turn] LLM: {gen_time:.2f}s, text: '{assistant_text[:60]}...'")
-
-    # ── TTS: either pipelined or sequential ──
-    tts_start = time.time()
-
-    if first_tts_task and first_sentence:
-        # First sentence TTS is already running. TTS the remainder (if any).
-        remainder = assistant_text[len(first_sentence):].strip()
-        remainder_path = None
-
-        if remainder:
-            remainder_path = str(get_audio_path(generate_audio_filename()))
-            await gateway_synthesize_speech(
-                text=remainder, output_path=remainder_path,
-                voice=tts_voice, instructions=tts_instructions,
-                request_id=request_id, user_id=str(current_user.id),
-                db=db, learning_phase=learning_phase,
-            )
-
-        # Wait for first sentence TTS to complete
-        await first_tts_task
-
-        # Concatenate audio files
+        result = await generate_with_realtime(
+            messages=llm_messages,
+            voice=tts_voice,
+            tts_instructions=tts_instructions,
+            request_id=request_id,
+        )
+        assistant_text = result["text"]
         audio_filename = generate_audio_filename()
         audio_path = str(get_audio_path(audio_filename))
-        parts = [first_tts_path]
-        if remainder_path:
-            parts.append(remainder_path)
-        concatenate_audio_files(parts, audio_path)
-        logger.info(f"[Voice Turn] Pipeline: {len(parts)} audio parts concatenated")
-    else:
-        # Sequential fallback (no sentence boundary found, or streaming failed)
+
+        # Convert PCM16 → MP3
+        pcm16_to_mp3(result["audio_bytes"], audio_path)
+
+        gen_time = time.time() - gen_start
+        logger.info(
+            f"[Voice Turn] Realtime: {gen_time:.2f}s total, "
+            f"first_audio={result['first_audio_ms']}ms, text='{assistant_text[:60]}...'"
+        )
+
+    except Exception as e:
+        # Fallback to separate LLM + TTS if Realtime fails
+        logger.error(f"[Voice Turn] Realtime failed ({e}), falling back to separate LLM+TTS")
+        llm_result = await generate_conversation(
+            ConversationContext(
+                request_id=request_id, user_id=str(current_user.id),
+                system_prompt="", user_prompt="",
+                agent_id="conversation_agent", prompt_version="v2",
+                return_json=False, learning_phase=learning_phase,
+                messages=llm_messages,
+            ), db,
+        )
+        raw_content = llm_result.get("content", "")
+        assistant_text = raw_content if isinstance(raw_content, str) else raw_content.get("assistant_text", str(raw_content))
+
         audio_filename = generate_audio_filename()
         audio_path = str(get_audio_path(audio_filename))
         await gateway_synthesize_speech(
@@ -597,10 +552,12 @@ async def voice_turn_respond(
             request_id=request_id, user_id=str(current_user.id),
             db=db, learning_phase=learning_phase,
         )
+        gen_time = time.time() - gen_start
+        logger.info(f"[Voice Turn] Fallback LLM+TTS: {gen_time:.2f}s, text='{assistant_text[:60]}...'")
 
     r2_url = upload_to_r2(audio_path, audio_filename)
     assistant_audio_url = r2_url or get_audio_url(audio_filename)
-    tts_time = time.time() - tts_start
+    tts_time = time.time() - gen_start
 
     conversation_complete = check_conversation_complete(conversation, "voice")
     if conversation_complete:
