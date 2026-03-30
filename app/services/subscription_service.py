@@ -4,22 +4,30 @@ from app.models import User, Subscription, UserSituation, Situation
 FREE_ENCOUNTERS_LIMIT = 25
 
 
+def _count_completed_encounters(db: Session, user_id: str) -> int:
+    """Count completed encounters, excluding grammar situations auto-completed during onboarding."""
+    return db.query(UserSituation).join(
+        Situation, UserSituation.situation_id == Situation.id
+    ).filter(
+        UserSituation.user_id == user_id,
+        UserSituation.completed_at.isnot(None),
+        Situation.animation_type != 'grammar',
+    ).count()
+
+
 def get_subscription_status(db: Session, user_id: str) -> dict:
     """Get subscription status and free situations info"""
     subscription = db.query(Subscription).filter(Subscription.user_id == user_id).first()
-    
+
     if not subscription:
         # Create default subscription if it doesn't exist
         subscription = Subscription(user_id=user_id, active=False)
         db.add(subscription)
         db.commit()
         db.refresh(subscription)
-    
-    # Count completed encounters (all situations are now encounters)
-    completed_encounters = db.query(UserSituation).filter(
-        UserSituation.user_id == user_id,
-        UserSituation.completed_at.isnot(None)
-    ).count()
+
+    # Count completed encounters (excluding grammar auto-completes)
+    completed_encounters = _count_completed_encounters(db, user_id)
     
     free_encounters_remaining = max(0, FREE_ENCOUNTERS_LIMIT - completed_encounters)
     
@@ -49,11 +57,8 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
     if subscription and subscription.active:
         return True, None
     
-    # If no active subscription, check total completed encounters
-    completed_encounters = db.query(UserSituation).filter(
-        UserSituation.user_id == user_id,
-        UserSituation.completed_at.isnot(None)
-    ).count()
+    # If no active subscription, check total completed encounters (excluding grammar auto-completes)
+    completed_encounters = _count_completed_encounters(db, user_id)
     
     # If user completed 25+ encounters without active subscription, block
     if completed_encounters >= FREE_ENCOUNTERS_LIMIT:
