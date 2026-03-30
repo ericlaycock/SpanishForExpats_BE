@@ -14,7 +14,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-MODEL = "gpt-5.4-mini"
+MODEL = "gpt-5.1-mini"
 PROVIDER = "openai"
 AGENT_ID = "conversation_agent"
 
@@ -132,7 +132,7 @@ async def generate_conversation(
         api_params = {
             "model": MODEL,
             "input": messages,
-            "reasoning": {"effort": "low"},
+            "reasoning": {"effort": "none"},
         }
 
         if context.return_json:
