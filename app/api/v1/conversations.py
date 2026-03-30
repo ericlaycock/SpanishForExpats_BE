@@ -37,8 +37,8 @@ router = APIRouter()
 _initial_tts_cache: dict[tuple[str, bool], str] = {}
 
 # OpenAI TTS voice + instructions per situation — keyed by animation_type
-_ACCENT = "Speak with a Mexican Spanish accent, mixing English and Spanish words naturally."
-_CATALAN_ACCENT = "Speak with a Catalan accent, mixing English and Catalan words naturally."
+_ACCENT = "Speak with a Mexican Spanish accent."
+_CATALAN_ACCENT = "Speak with a Catalan accent."
 SITUATION_VOICE_CONFIG = {
     "police": {
         "voice": "nova",
