@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
@@ -132,8 +133,9 @@ async def forgot_password(request: dict, db: Session = Depends(get_db)):
         algorithm=settings.jwt_algorithm,
     )
 
-    # Determine frontend URL
-    reset_url = f"https://spanishforexpats.com/reset-password?token={token}"
+    # Determine frontend URL based on environment
+    frontend_url = os.environ.get("FRONTEND_URL", "https://www.spanishforexpats.com")
+    reset_url = f"{frontend_url}/reset-password?token={token}"
 
     from app.services.email_service import send_reset_email
     sent = send_reset_email(email, reset_url)
