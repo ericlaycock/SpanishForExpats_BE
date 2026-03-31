@@ -476,14 +476,14 @@ async def voice_turn_respond(
         word_list = ", ".join(w.spanish for w in missing_words)
         missing_english_only = [w.english for w in missing_words]
         word_guidance_system = (
-            f"\n\nAsk questions or move the conversation to encourage/force/hint the user to use these words: "
-            f"{', '.join(missing_with_english)}. "
-            f"Do not use it yourself. If they do not use your hint successfully, give them a short English "
+            f"\n\nAsk questions or move the conversation to encourage/force/hint the user to use these English concepts: "
+            f"{', '.join(missing_english_only)}. "
+            f"Do not say the Spanish translation yourself. If they do not use your hint successfully, give them a short English "
             f"phrase/word to translate which will force them to use the word/phrase."
         )
         word_guidance_user = (
-            f"\n\n[Steer me toward using: {', '.join(missing_with_english)}. "
-            f"Do not use the Spanish words yourself.]"
+            f"\n\n[Steer me toward expressing: {', '.join(missing_english_only)}. "
+            f"Do not use any Spanish yourself.]"
         )
 
     # Build messages for Realtime API
