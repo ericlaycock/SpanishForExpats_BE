@@ -524,10 +524,9 @@ async def voice_turn_respond(
         situation.animation_type if situation else "", catalan_mode=catalan_mode,
     )
 
-    # QA-only: log full messages object for debugging
-    if os.environ.get("ENVIRONMENT", "").lower() == "qa":
-        logger.info(f"[Voice Turn] Realtime messages for {conversation.situation_id} (voice={tts_voice}):\n"
-                     + json_module.dumps(llm_messages, indent=2, ensure_ascii=False))
+    # Log full messages object for debugging
+    logger.info(f"[Voice Turn] Realtime messages for {conversation.situation_id} (voice={tts_voice}):\n"
+                 + json_module.dumps(llm_messages, indent=2, ensure_ascii=False))
 
     # ── Realtime API: stream LLM + TTS as NDJSON ──
     # Audio chunks arrive at ~0.8s. Frontend plays PCM16 via Web Audio API.
