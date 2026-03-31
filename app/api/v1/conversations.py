@@ -466,16 +466,24 @@ async def voice_turn_respond(
     if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
         language_mode = language_mode.replace("spanish_", "catalan_")
 
-    # Hidden word guidance — steer AI toward unused target words
+    # Word guidance — steer AI toward unused target words
     missing_ids = get_missing_word_ids(conversation, "voice")
-    word_guidance = ""
+    word_guidance_system = ""
+    word_guidance_user = ""
     if missing_ids:
         missing_words = get_words_by_ids(db, missing_ids)
+        missing_with_english = [f"{w.spanish} ({w.english})" for w in missing_words]
         word_list = ", ".join(w.spanish for w in missing_words)
-        word_guidance = (
-            f"\n\n[HIDDEN INSTRUCTION — do not repeat this to the user. "
-            f"Gently guide the conversation in a way that will require me to use "
-            f"one of these words/phrases. Do not state these Spanish words yourself: {word_list}]"
+        missing_english_only = [w.english for w in missing_words]
+        word_guidance_system = (
+            f"\n\nAsk questions or move the conversation to encourage/force/hint the user to use these English concepts: "
+            f"{', '.join(missing_english_only)}. "
+            f"Do not say the Spanish translation yourself. If they do not use your hint successfully, give them a short English "
+            f"phrase/word to translate which will force them to use the word/phrase."
+        )
+        word_guidance_user = (
+            f"\n\n[Steer me toward expressing: {', '.join(missing_english_only)}. "
+            f"Do not use any Spanish yourself.]"
         )
 
     # Build messages for Realtime API
@@ -490,16 +498,19 @@ async def voice_turn_respond(
             situation_id=conversation.situation_id,
         )
 
+    # Append word guidance to system prompt
+    system_prompt += word_guidance_system
+
     if frontend_messages:
         llm_messages = [{"role": "system", "content": system_prompt}]
         for msg in frontend_messages:
             if msg["role"] != "system":
                 llm_messages.append(msg)
-        llm_messages.append({"role": "user", "content": user_transcript + word_guidance})
+        llm_messages.append({"role": "user", "content": user_transcript + word_guidance_user})
     else:
         grammar_config = get_grammar_config(conversation.situation_id)
         if grammar_config:
-            system_prompt = build_grammar_system_prompt(conversation.situation_id, catalan_mode=catalan_mode)
+            system_prompt = build_grammar_system_prompt(conversation.situation_id, catalan_mode=catalan_mode) + word_guidance_system
             user_prompt = build_grammar_user_prompt(
                 situation.title, conversation.used_spoken_word_ids or [],
                 user_transcript, grammar_config,
@@ -509,14 +520,14 @@ async def voice_turn_respond(
                 language_mode, catalan_mode=catalan_mode,
                 animation_type=situation.animation_type if situation else "",
                 situation_id=conversation.situation_id,
-            )
+            ) + word_guidance_system
             user_prompt = build_conversation_prompt(
                 situation.title, words, conversation.used_spoken_word_ids or [],
                 user_transcript, catalan_mode=catalan_mode,
             )
         llm_messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt + word_guidance},
+            {"role": "user", "content": user_prompt + word_guidance_user},
         ]
 
     # TTS voice config

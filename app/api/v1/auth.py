@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
@@ -132,8 +133,9 @@ async def forgot_password(request: dict, db: Session = Depends(get_db)):
         algorithm=settings.jwt_algorithm,
     )
 
-    # Determine frontend URL
-    reset_url = f"https://spanishforexpats.com/reset-password?token={token}"
+    # Determine frontend URL based on environment
+    frontend_url = os.environ.get("FRONTEND_URL", "https://www.spanishforexpats.com")
+    reset_url = f"{frontend_url}/reset-password?token={token}"
 
     from app.services.email_service import send_reset_email
     sent = send_reset_email(email, reset_url)
@@ -146,6 +148,9 @@ async def forgot_password(request: dict, db: Session = Depends(get_db)):
 @router.post("/reset-password")
 async def reset_password(request: dict, db: Session = Depends(get_db)):
     """Reset password using a valid reset token."""
+    import logging
+    logger = logging.getLogger(__name__)
+
     token = request.get("token", "")
     new_password = request.get("new_password", "")
 
@@ -159,15 +164,19 @@ async def reset_password(request: dict, db: Session = Depends(get_db)):
     from jose import jwt, JWTError
     try:
         payload = jwt.decode(token, settings.jwt_secret, algorithms=[settings.jwt_algorithm])
+        logger.info(f"[Auth] Reset token decoded: purpose={payload.get('purpose')}, sub={payload.get('sub')}")
         if payload.get("purpose") != "reset":
+            logger.warning(f"[Auth] Reset token has wrong purpose: {payload.get('purpose')}")
             raise HTTPException(status_code=400, detail="Invalid reset token")
         user_id = payload.get("sub")
-    except JWTError:
+    except JWTError as e:
+        logger.warning(f"[Auth] Reset token decode failed: {e}, token_length={len(token)}")
         raise HTTPException(status_code=400, detail="Invalid or expired reset token")
 
     from app.auth import get_password_hash
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
+        logger.warning(f"[Auth] Reset token user not found: {user_id}")
         raise HTTPException(status_code=400, detail="Invalid reset token")
 
     user.password_hash = get_password_hash(new_password)
