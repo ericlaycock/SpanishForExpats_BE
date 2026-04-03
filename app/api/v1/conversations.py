@@ -167,8 +167,8 @@ async def create_conversation(
         # Use pre-generated R2 audio for initial message (no TTS call needed).
         # Audio files are uploaded by scripts/pregenerate_initial_audio.py with
         # deterministic filenames: initial_msg_{situation_id}.mp3
-        from app.config import settings as _settings
-        initial_audio_url = f"{_settings.r2_public_url}/initial_msg_{situation.id}.mp3" if _settings.r2_public_url else None
+        from app.config import settings as _cfg
+        initial_audio_url = f"{_cfg.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg.r2_public_url else None
 
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
@@ -214,7 +214,8 @@ async def create_conversation(
                 language_mode = language_mode.replace("spanish_", "catalan_")
 
         # Use pre-generated R2 audio for initial message
-        initial_audio_url = f"{_settings.r2_public_url}/initial_msg_{situation.id}.mp3" if _settings.r2_public_url else None
+        from app.config import settings as _cfg2
+        initial_audio_url = f"{_cfg2.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg2.r2_public_url else None
 
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
