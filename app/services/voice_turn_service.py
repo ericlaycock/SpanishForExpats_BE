@@ -9,15 +9,15 @@ from app.data.situation_roles import (
 
 
 def get_language_mode(encounter_number: int, vocab_level: int) -> str:
-    """Derive language mode from encounter number (1-50) and vocab level.
+    """Derive language mode from fluency level.
 
-    Currently forced to "english" (beginner mode) for all encounters
-    so the AI speaks mostly English with occasional Spanish.
-
-    TODO: Re-enable progression when ready:
-      VL < 300: enc 1-20 → english, 21-40 → spanish_text, 41-50 → spanish_audio
-      VL >= 300: enc 1-40 → spanish_text, 41-50 → spanish_audio
+    Fluency Level >= 75: AI speaks in Spanish (spanish_text).
+    Below 75: AI speaks mostly in English.
     """
+    from app.utils.fluency import compute_fluency_level
+    fluency = compute_fluency_level(vocab_level)
+    if fluency >= 75:
+        return "spanish_text"
     return "english"
 
 
