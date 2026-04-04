@@ -80,7 +80,7 @@ PRONOUNS = ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos"
 GRAMMAR_SITUATIONS = {
     "grammar_pronouns": {
         "title": "Pronouns",
-        "vocab_level": 15,
+        "fluency_level": 11,
         "word_workload": ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes", "su"],
         "video_embed_id": "bLZk006G5ge",
         "drill_type": "skip",
@@ -93,7 +93,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gender": {
         "title": "Grammatical Gender",
-        "vocab_level": 20,
+        "fluency_level": 13,
         "word_workload": ["el", "los", "la", "las", "un", "unos", "una", "unas"],
         "video_embed_id": "aJguo8cBgm7",
         "drill_type": "article_matching",
@@ -127,7 +127,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_regular_present": {
         "title": "Regular Present",
-        "vocab_level": 30,
+        "fluency_level": 18,
         "word_workload": ["hablar", "escuchar", "beber", "comer", "vivir", "escribir"],
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
@@ -221,7 +221,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_irregular_present": {
         "title": "Irregular Present",
-        "vocab_level": 60,
+        "fluency_level": 27,
         "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
         "video_embed_id": "sD2tovQc7pB",
         "drill_type": "conjugation",
@@ -315,7 +315,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_irregular_present_ii": {
         "title": "Irregular Present II",
-        "vocab_level": 65,
+        "fluency_level": 28,
         "word_workload": ["caer", "traer", "hacer", "poner", "salir", "valer", "decir", "oír"],
         "video_embed_id": "tPXOw1Rz82y",
         "drill_type": "conjugation",
@@ -430,7 +430,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_spelling_changes": {
         "title": "Spelling Changes",
-        "vocab_level": 70,
+        "fluency_level": 30,
         "word_workload": ["conseguir", "recoger", "dirigir", "convencer", "conocer", "producir", "construir", "continuar"],
         "video_embed_id": "dYyywu1hOVp",
         "drill_type": "conjugation",
@@ -545,7 +545,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_present_o_ue": {
         "title": "Present O→UE",
-        "vocab_level": 80,
+        "fluency_level": 32,
         "word_workload": ["mover", "almorzar", "morir"],
         "video_embed_id": "My2TaOGsmet",
         "drill_type": "conjugation",
@@ -603,7 +603,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_present_e_ie": {
         "title": "Present E→IE",
-        "vocab_level": 90,
+        "fluency_level": 34,
         "word_workload": ["cerrar", "entender"],
         "video_embed_id": "BwvOV8xReZZ",
         "drill_type": "conjugation",
@@ -649,7 +649,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_present_e_i": {
         "title": "Present E→I",
-        "vocab_level": 99,
+        "fluency_level": 35,
         "word_workload": ["pedir", "repetir"],
         "video_embed_id": "meS3lef4ubp",
         "drill_type": "conjugation",
@@ -695,7 +695,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_preterite_regular": {
         "title": "Preterite Regular",
-        "vocab_level": 120,
+        "fluency_level": 38,
         "word_workload": ["hablar", "encontrar", "comer", "unir", "beber", "salir"],
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
@@ -789,7 +789,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_preterite_irregular": {
         "title": "Preterite Highly Irregular",
-        "vocab_level": 200,
+        "fluency_level": 47,
         "word_workload": ["ser", "ir", "dar", "ver", "hacer", "decir", "traer", "dormir", "morir"],
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
@@ -919,7 +919,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gerund": {
         "title": "Gerund",
-        "vocab_level": 210,
+        "fluency_level": 48,
         "word_workload": ["hablar", "beber", "caminar", "charlar", "comer", "inhibir", "prohibir", "salir"],
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
@@ -1034,7 +1034,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gustar_1": {
         "title": "Gustar Part 1",
-        "vocab_level": 220,
+        "fluency_level": 49,
         "word_workload": ["gusta"],
         "video_embed_id": "rfPPtJI9prc",
         "drill_type": "gustar",
@@ -1113,7 +1113,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gustar_2": {
         "title": "Gustar Part 2",
-        "vocab_level": 225,
+        "fluency_level": 50,
         "word_workload": ["gustan"],
         "video_embed_id": "WjOxPPu1uQo",
         "drill_type": "gustar",
@@ -1192,7 +1192,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gustar_3": {
         "title": "Gustar Part 3",
-        "vocab_level": 230,
+        "fluency_level": 51,
         "word_workload": ["gusta", "gustan"],
         "video_embed_id": "lIAdqI5fpun",
         "drill_type": "gustar_prefix",
@@ -1271,7 +1271,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_ir_a_inf": {
         "title": "Ir A + Infinitive",
-        "vocab_level": 235,
+        "fluency_level": 52,
         "word_workload": ["hablar", "comer", "dormir", "vivir", "escribir"],
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
@@ -1359,19 +1359,19 @@ def get_grammar_config(situation_id: str) -> dict | None:
 
 def get_all_grammar_situation_ids() -> list[str]:
     """Get all grammar situation IDs sorted by vocab_level."""
-    return sorted(GRAMMAR_SITUATIONS.keys(), key=lambda k: GRAMMAR_SITUATIONS[k]["vocab_level"])
+    return sorted(GRAMMAR_SITUATIONS.keys(), key=lambda k: GRAMMAR_SITUATIONS[k]["fluency_level"])
 
 
-def get_grammar_gate_for_vocab_level(vocab_level: int) -> str | None:
-    """Get the grammar situation ID that should gate at a given vocab level.
+def get_grammar_gate_for_fluency_level(fluency_level: int) -> str | None:
+    """Get the grammar situation ID that should gate at a given fluency level.
 
-    Returns the highest-threshold grammar situation whose vocab_level <= the user's level,
+    Returns the highest-threshold grammar situation whose fluency_level <= the user's level,
     or None if no gate applies.
     """
     applicable = [
-        (cfg["vocab_level"], sid)
+        (cfg["fluency_level"], sid)
         for sid, cfg in GRAMMAR_SITUATIONS.items()
-        if cfg["vocab_level"] <= vocab_level
+        if cfg["fluency_level"] <= fluency_level
     ]
     if not applicable:
         return None

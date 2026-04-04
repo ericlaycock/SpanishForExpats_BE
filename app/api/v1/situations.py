@@ -121,6 +121,12 @@ def get_vocab_level(db: Session, user_id) -> int:
     ).count()
 
 
+def get_fluency_level(db: Session, user_id) -> int:
+    """Fluency level derived from HF word count. Used for grammar gating."""
+    from app.utils.fluency import compute_fluency_level
+    return compute_fluency_level(get_vocab_level(db, user_id))
+
+
 
 class SelectedSituationProgress(BaseModel):
     animation_type: str
@@ -200,8 +206,8 @@ async def get_grammar_gates(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get active grammar gates for the current user based on vocab level."""
-    vocab_level = get_vocab_level(db, current_user.id)
+    """Get active grammar gates for the current user based on fluency level."""
+    fluency_level = get_fluency_level(db, current_user.id)
 
     completed_situations = {
         us.situation_id
@@ -214,16 +220,16 @@ async def get_grammar_gates(
     gates = []
     for sid in get_all_grammar_situation_ids():
         cfg = GRAMMAR_SITUATIONS[sid]
-        if cfg["vocab_level"] <= vocab_level and sid not in completed_situations:
+        if cfg["fluency_level"] <= fluency_level and sid not in completed_situations:
             gates.append({
                 "situation_id": sid,
                 "title": cfg["title"],
-                "vocab_level_required": cfg["vocab_level"],
+                "fluency_level_required": cfg["fluency_level"],
                 "video_embed_id": cfg["video_embed_id"],
             })
 
     return {
-        "vocab_level": vocab_level,
+        "fluency_level": fluency_level,
         "gates": gates,
         "is_gated": len(gates) > 0,
     }
@@ -249,7 +255,7 @@ async def get_completed_grammar(
         result.append({
             "situation_id": sid,
             "title": cfg["title"],
-            "vocab_level_required": cfg["vocab_level"],
+            "fluency_level_required": cfg["fluency_level"],
             "completed": sid in completed_situations,
         })
 

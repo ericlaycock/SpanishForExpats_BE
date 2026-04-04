@@ -74,7 +74,7 @@ def _auto_complete_grammar(db: Session, user_id, starting_vl: int) -> int:
 
     for sid in get_all_grammar_situation_ids():
         cfg = GRAMMAR_SITUATIONS[sid]
-        if cfg["vocab_level"] > starting_vl:
+        if cfg["fluency_level"] > starting_vl:
             continue
 
         # Check if already completed
