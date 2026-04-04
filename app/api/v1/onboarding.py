@@ -125,7 +125,7 @@ async def save_onboarding_selections(
         )
 
     # Validate dialect
-    valid_dialects = ['mexico', 'colombia', 'costa_rica']
+    valid_dialects = ['mexico', 'colombia', 'costa_rica', 'ecuador']
     if request.dialect not in valid_dialects:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
