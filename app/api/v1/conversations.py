@@ -397,7 +397,15 @@ async def voice_turn_transcribe(
     if stt_time > 2.0:
         logger.warning(f"[Voice Turn] STT exceeded 2s threshold: {stt_time:.2f}s")
 
-    detected_word_ids = detect_words_in_text(user_transcript, words)
+    # Grammar situations: match conjugated forms from drill_config
+    grammar_config = get_grammar_config(conversation.situation_id)
+    if grammar_config and grammar_config.get("drill_config", {}).get("answers"):
+        from app.services.word_detection import detect_grammar_words_in_text
+        detected_word_ids = detect_grammar_words_in_text(
+            user_transcript, words, grammar_config["drill_config"]["answers"]
+        )
+    else:
+        detected_word_ids = detect_words_in_text(user_transcript, words)
     current_used = set(conversation.used_spoken_word_ids or [])
     current_used.update(detected_word_ids)
     conversation.used_spoken_word_ids = list(current_used)
