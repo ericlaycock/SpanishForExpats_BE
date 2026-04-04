@@ -67,14 +67,14 @@ def _seed_hf_words(db: Session, user_id, count: int) -> int:
     return len(hf_words)
 
 
-def _auto_complete_grammar(db: Session, user_id, starting_vl: int) -> int:
-    """Auto-complete grammar situations whose vocab_level threshold <= starting_vl."""
+def _auto_complete_grammar(db: Session, user_id, starting_fluency: int) -> int:
+    """Auto-complete grammar situations whose fluency_level threshold <= starting fluency."""
     now = datetime.now(timezone.utc)
     completed = 0
 
     for sid in get_all_grammar_situation_ids():
         cfg = GRAMMAR_SITUATIONS[sid]
-        if cfg["fluency_level"] > starting_vl:
+        if cfg["fluency_level"] > starting_fluency:
             continue
 
         # Check if already completed
@@ -148,7 +148,10 @@ async def save_onboarding_selections(
 
     if starting_vl > 0:
         seeded_words = _seed_hf_words(db, current_user.id, starting_vl)
-        completed_grammar = _auto_complete_grammar(db, current_user.id, starting_vl)
+        # Auto-complete grammar based on grammar quiz score only (not vocab)
+        from app.utils.fluency import compute_fluency_level
+        grammar_fluency = compute_fluency_level(grammar_implied)
+        completed_grammar = _auto_complete_grammar(db, current_user.id, grammar_fluency)
 
     db.commit()
 
