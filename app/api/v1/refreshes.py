@@ -18,7 +18,7 @@ from app.services.refresh_service import (
 from app.services.word_detection import get_words_by_ids
 from app.services.encounter_messages import get_initial_message_for_encounter
 from app.services.catalan_service import apply_catalan_mode
-from app.api.v1.situations import get_vocab_level
+from app.api.v1.situations import get_vocab_level, get_grammar_level
 from app.services.voice_turn_service import get_language_mode
 
 router = APIRouter()
@@ -105,7 +105,8 @@ async def start_refresh(
     words = get_words_by_ids(db, due_word_ids)
     initial_message = get_initial_message_for_encounter(situation.title)
     vocab_level = get_vocab_level(db, current_user.id)
-    language_mode = get_language_mode(situation.encounter_number, vocab_level)
+    grammar_level = get_grammar_level(db, current_user.id)
+    language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
 
     # Catalan mode: swap words + adjust language_mode
     if current_user.catalan_mode:

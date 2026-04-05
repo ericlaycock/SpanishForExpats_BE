@@ -7,8 +7,16 @@ from datetime import datetime, timezone
 from app.database import get_db
 from app.auth import get_current_user
 from app.models import User, Situation, UserWord, UserSituation, Word
-from app.data.grammar_situations import GRAMMAR_SITUATIONS, get_all_grammar_situation_ids
+from app.data.grammar_situations import GRAMMAR_SITUATIONS, get_all_grammar_situation_ids, GL_VL_THRESHOLDS
 import logging
+
+# Maps onboarding quiz grammar score IDs to grammar levels.
+QUIZ_SCORE_TO_GL: dict[str, float] = {
+    "G1": 0,       # Can't conjugate present tense
+    "G101": 3,     # Knows regular present tense
+    "G701": 9,     # Knows through Ir A + Infinitive
+    "G2001": 20,   # Knows subjunctive-level grammar
+}
 
 logger = logging.getLogger(__name__)
 
@@ -67,14 +75,14 @@ def _seed_hf_words(db: Session, user_id, count: int) -> int:
     return len(hf_words)
 
 
-def _auto_complete_grammar(db: Session, user_id, starting_fluency: int) -> int:
-    """Auto-complete grammar situations whose fluency_level threshold <= starting fluency."""
+def _auto_complete_grammar(db: Session, user_id, target_gl: float) -> int:
+    """Auto-complete grammar situations whose grammar_level <= target_gl."""
     now = datetime.now(timezone.utc)
     completed = 0
 
     for sid in get_all_grammar_situation_ids():
         cfg = GRAMMAR_SITUATIONS[sid]
-        if cfg["fluency_level"] > starting_fluency:
+        if cfg["grammar_level"] > target_gl:
             continue
 
         # Check if already completed
@@ -143,28 +151,31 @@ async def save_onboarding_selections(
     grammar_implied = _parse_score_level(request.grammar_score)
     starting_vl = max(vocab_target, grammar_implied)
 
+    # Map quiz grammar score to grammar level
+    target_gl = QUIZ_SCORE_TO_GL.get(request.grammar_score, 0) if request.grammar_score else 0
+
     seeded_words = 0
     completed_grammar = 0
 
     if starting_vl > 0:
         seeded_words = _seed_hf_words(db, current_user.id, starting_vl)
-        # Auto-complete grammar based on grammar quiz score only (not vocab)
-        from app.utils.fluency import compute_fluency_level
-        grammar_fluency = compute_fluency_level(grammar_implied)
-        completed_grammar = _auto_complete_grammar(db, current_user.id, grammar_fluency)
+
+    if target_gl > 0:
+        completed_grammar = _auto_complete_grammar(db, current_user.id, target_gl)
 
     db.commit()
 
     logger.info(
-        "Onboarding saved: user=%s grammar_score=%s vocab_score=%s starting_vl=%d seeded_words=%d completed_grammar=%d",
+        "Onboarding saved: user=%s grammar_score=%s vocab_score=%s starting_vl=%d target_gl=%.1f seeded_words=%d completed_grammar=%d",
         current_user.id, request.grammar_score, request.vocab_score,
-        starting_vl, seeded_words, completed_grammar,
+        starting_vl, target_gl, seeded_words, completed_grammar,
     )
 
     return {
         "status": "success",
         "message": "Onboarding data saved",
         "starting_vocab_level": starting_vl,
+        "grammar_level": target_gl,
         "seeded_words": seeded_words,
         "completed_grammar_units": completed_grammar,
     }

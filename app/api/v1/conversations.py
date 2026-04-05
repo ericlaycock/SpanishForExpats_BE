@@ -26,7 +26,7 @@ from app.services.conversation_service import (
     get_missing_word_ids
 )
 from app.services.encounter_messages import get_initial_message_for_encounter
-from app.api.v1.situations import get_vocab_level
+from app.api.v1.situations import get_vocab_level, get_grammar_level
 from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt, get_language_mode, get_conversation_system_prompt, build_system_prompt
 from app.data.grammar_situations import get_grammar_config
 from app.services.catalan_service import apply_catalan_mode
@@ -156,7 +156,8 @@ async def create_conversation(
         
         initial_message = get_initial_message_for_encounter(situation.id, situation.title)
         vocab_level = get_vocab_level(db, current_user.id)
-        language_mode = get_language_mode(situation.encounter_number, vocab_level)
+        grammar_level = get_grammar_level(db, current_user.id)
+        language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
 
         # Catalan mode: swap words + adjust language_mode
         if current_user.catalan_mode:
@@ -205,7 +206,8 @@ async def create_conversation(
         
         initial_message = get_initial_message_for_encounter(situation.id, situation.title)
         vocab_level = get_vocab_level(db, current_user.id)
-        language_mode = get_language_mode(situation.encounter_number, vocab_level)
+        grammar_level = get_grammar_level(db, current_user.id)
+        language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
 
         # Catalan mode: swap words + adjust language_mode
         if current_user.catalan_mode:
@@ -471,7 +473,8 @@ async def voice_turn_respond(
             pass
 
     vocab_level = get_vocab_level(db, current_user.id)
-    language_mode = get_language_mode(situation.encounter_number, vocab_level)
+    grammar_level = get_grammar_level(db, current_user.id)
+    language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
     if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
         language_mode = language_mode.replace("spanish_", "catalan_")
 

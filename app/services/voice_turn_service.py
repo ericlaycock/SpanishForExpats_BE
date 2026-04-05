@@ -8,15 +8,13 @@ from app.data.situation_roles import (
 )
 
 
-def get_language_mode(encounter_number: int, vocab_level: int) -> str:
-    """Derive language mode from fluency level.
+def get_language_mode(encounter_number: int, vocab_level: int, grammar_level: float = 0) -> str:
+    """Derive language mode from vocab level and grammar level.
 
-    Fluency Level >= 75: AI speaks in Spanish (spanish_text).
-    Below 75: AI speaks mostly in English.
+    Spanish mode when BOTH: VL >= 500 AND GL >= 10.
+    Otherwise English.
     """
-    from app.utils.fluency import compute_fluency_level
-    fluency = compute_fluency_level(vocab_level)
-    if fluency >= 75:
+    if vocab_level >= 500 and grammar_level >= 10:
         return "spanish_text"
     return "english"
 

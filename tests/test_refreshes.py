@@ -223,18 +223,18 @@ def test_full_srs_cycle_to_mastered(db):
         assert uw.status == "mastered"
 
 
-def test_vocab_level_requires_mastery_2(db):
-    """Vocab level should only count HF words at mastery_level >= 2."""
+def test_vocab_level_counts_from_mastery_1(db):
+    """Vocab level should count HF words at mastery_level >= 1 (learned once)."""
     user = _make_user(db)
     sit, _, hf_words = _seed_situation_and_words(db)
 
-    # At level 1 — should NOT count
-    _create_user_words(db, user, hf_words, mastery_level=1, source_situation_id=sit.id)
+    # At level 0 — should NOT count
+    _create_user_words(db, user, hf_words, mastery_level=0, source_situation_id=sit.id)
     assert get_vocab_level(db, user.id) == 0
 
-    # Bump to level 2 — should count
+    # Bump to level 1 — should NOW count
     for w in hf_words:
         uw = db.query(UserWord).filter(UserWord.user_id == user.id, UserWord.word_id == w.id).one()
-        uw.mastery_level = 2
+        uw.mastery_level = 1
     db.flush()
     assert get_vocab_level(db, user.id) == len(hf_words)

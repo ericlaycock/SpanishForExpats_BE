@@ -20,7 +20,10 @@ from app.services.word_selection_service import (
     sort_words_encounter_first,
     ensure_user_words,
 )
-from app.data.grammar_situations import get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS
+from app.data.grammar_situations import (
+    get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS,
+    get_next_gate, GL_VL_THRESHOLDS, GL_TITLES,
+)
 from app.data.seed_bank import ANIMATION_NAMES
 from app.services.catalan_service import apply_catalan_mode
 from app.services.refresh_service import set_initial_mastery
@@ -113,18 +116,29 @@ async def get_admin_all_situations(
 
 
 def get_vocab_level(db: Session, user_id) -> int:
-    """Count of high-frequency words with mastery_level >= 2 (refreshed at least once)."""
+    """Count of high-frequency words with mastery_level >= 1 (learned at least once)."""
     return db.query(UserWord).join(Word).filter(
         UserWord.user_id == user_id,
         Word.word_category == 'high_frequency',
-        UserWord.mastery_level >= 2,
+        UserWord.mastery_level >= 1,
     ).count()
 
 
-def get_fluency_level(db: Session, user_id) -> int:
-    """Fluency level derived from HF word count. Used for grammar gating."""
-    from app.utils.fluency import compute_fluency_level
-    return compute_fluency_level(get_vocab_level(db, user_id))
+def get_grammar_level(db: Session, user_id) -> float:
+    """Grammar level = grammar_level of the highest completed grammar situation."""
+    completed_situation_ids = {
+        us.situation_id
+        for us in db.query(UserSituation).filter(
+            UserSituation.user_id == user_id,
+            UserSituation.completed_at.isnot(None),
+        ).all()
+    }
+    max_gl = 0.0
+    for sid in get_all_grammar_situation_ids():
+        if sid in completed_situation_ids:
+            cfg = GRAMMAR_SITUATIONS[sid]
+            max_gl = max(max_gl, cfg["grammar_level"])
+    return max_gl
 
 
 
@@ -206,32 +220,17 @@ async def get_grammar_gates(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get active grammar gates for the current user based on fluency level."""
-    fluency_level = get_fluency_level(db, current_user.id)
+    """Get grammar gating status: is the user's VL overmatched for their GL?"""
+    vocab_level = get_vocab_level(db, current_user.id)
+    grammar_level = get_grammar_level(db, current_user.id)
 
-    completed_situations = {
-        us.situation_id
-        for us in db.query(UserSituation).filter(
-            UserSituation.user_id == current_user.id,
-            UserSituation.completed_at.isnot(None)
-        ).all()
-    }
-
-    gates = []
-    for sid in get_all_grammar_situation_ids():
-        cfg = GRAMMAR_SITUATIONS[sid]
-        if cfg["fluency_level"] <= fluency_level and sid not in completed_situations:
-            gates.append({
-                "situation_id": sid,
-                "title": cfg["title"],
-                "fluency_level_required": cfg["fluency_level"],
-                "video_embed_id": cfg["video_embed_id"],
-            })
+    gate = get_next_gate(grammar_level, vocab_level)
 
     return {
-        "fluency_level": fluency_level,
-        "gates": gates,
-        "is_gated": len(gates) > 0,
+        "vocab_level": vocab_level,
+        "grammar_level": grammar_level,
+        "is_gated": gate is not None,
+        "gate": gate,
     }
 
 
@@ -240,7 +239,7 @@ async def get_completed_grammar(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get all grammar situations with their completion status."""
+    """Get all grammar levels with their completion status."""
     completed_situations = {
         us.situation_id
         for us in db.query(UserSituation).filter(
@@ -250,13 +249,23 @@ async def get_completed_grammar(
     }
 
     result = []
-    for sid in get_all_grammar_situation_ids():
-        cfg = GRAMMAR_SITUATIONS[sid]
+    for gl in sorted(GL_VL_THRESHOLDS.keys()):
+        # Check if this GL has a situation with content
+        situation_id = None
+        completed = False
+        for sid, cfg in GRAMMAR_SITUATIONS.items():
+            if cfg["grammar_level"] == gl:
+                situation_id = sid
+                completed = sid in completed_situations
+                break
+
         result.append({
-            "situation_id": sid,
-            "title": cfg["title"],
-            "fluency_level_required": cfg["fluency_level"],
-            "completed": sid in completed_situations,
+            "grammar_level": gl,
+            "title": GL_TITLES[gl],
+            "vl_threshold": GL_VL_THRESHOLDS[gl],
+            "situation_id": situation_id,
+            "has_content": situation_id is not None,
+            "completed": completed,
         })
 
     return {"grammar_units": result}

@@ -77,10 +77,39 @@ GRAMMAR_WORD_TRANSLATIONS = {
 
 PRONOUNS = ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes"]
 
+# Grammar Level → Vocab Level threshold mapping.
+# A user is "overmatched" (and gated) when their VL >= the threshold for the next GL.
+GL_VL_THRESHOLDS: dict[float, int] = {
+    1: 10, 2: 15, 3: 100, 4: 200, 4.5: 240, 5: 260,
+    6: 300, 7: 330, 8: 400, 9: 500, 10: 510, 10.3: 515,
+    10.6: 520, 11: 550, 12: 600, 13: 700, 14: 750, 15: 800,
+    16: 900, 17: 1000, 17.1: 1010, 17.2: 1020, 17.3: 1030,
+    17.4: 1050, 17.5: 1060, 18: 1300, 19: 1400, 20: 1500,
+}
+
+# Titles for ALL grammar levels (including those without content yet).
+GL_TITLES: dict[float, str] = {
+    1: "Pronouns", 2: "Grammatical Gender", 3: "Regular Present",
+    4: "Irregular Present", 4.5: "Irregular Present II",
+    5: "Spelling Changes", 6: "Present O→UE", 7: "Present E→IE",
+    8: "Present E→I", 9: "Ir A + Infinitive",
+    10: "Gustar Part 1", 10.3: "Gustar Part 2", 10.6: "Gustar Part 3",
+    11: "Tengo que / Me toca / Necesito", 12: "Imperfect",
+    13: "Reflexive", 14: "Future Simple", 15: "Conditional",
+    16: "Preterite vs Imperfect", 17: "Preterite Regular",
+    17.1: "Preterite Highly Irregular", 17.2: "Preterite Weird Spelling Changes",
+    17.3: "Preterite Stem Changers", 17.4: "Preterite DUCIR",
+    17.5: "Preterite e-to-i Irregular", 18: "Gerund",
+    19: "Direct + Indirect Object Pronouns", 20: "Subjunctive",
+}
+
+# Sorted list of all grammar levels for iteration.
+GL_SORTED = sorted(GL_VL_THRESHOLDS.keys())
+
 GRAMMAR_SITUATIONS = {
     "grammar_pronouns": {
         "title": "Pronouns",
-        "fluency_level": 11,
+        "grammar_level": 1,
         "word_workload": ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes", "su"],
         "video_embed_id": "bLZk006G5ge",
         "drill_type": "skip",
@@ -93,7 +122,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gender": {
         "title": "Grammatical Gender",
-        "fluency_level": 13,
+        "grammar_level": 2,
         "word_workload": ["el", "los", "la", "las", "un", "unos", "una", "unas"],
         "video_embed_id": "aJguo8cBgm7",
         "drill_type": "article_matching",
@@ -127,7 +156,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_regular_present": {
         "title": "Regular Present",
-        "fluency_level": 18,
+        "grammar_level": 3,
         "word_workload": ["hablar", "escuchar", "beber", "comer", "vivir", "escribir"],
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
@@ -221,7 +250,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_irregular_present": {
         "title": "Irregular Present",
-        "fluency_level": 27,
+        "grammar_level": 4,
         "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
         "video_embed_id": "sD2tovQc7pB",
         "drill_type": "conjugation",
@@ -315,7 +344,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_irregular_present_ii": {
         "title": "Irregular Present II",
-        "fluency_level": 28,
+        "grammar_level": 4.5,
         "word_workload": ["caer", "traer", "hacer", "poner", "salir", "valer", "decir", "oír"],
         "video_embed_id": "tPXOw1Rz82y",
         "drill_type": "conjugation",
@@ -430,7 +459,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_spelling_changes": {
         "title": "Spelling Changes",
-        "fluency_level": 30,
+        "grammar_level": 5,
         "word_workload": ["conseguir", "recoger", "dirigir", "convencer", "conocer", "producir", "construir", "continuar"],
         "video_embed_id": "dYyywu1hOVp",
         "drill_type": "conjugation",
@@ -545,7 +574,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_present_o_ue": {
         "title": "Present O→UE",
-        "fluency_level": 32,
+        "grammar_level": 6,
         "word_workload": ["mover", "almorzar", "morir"],
         "video_embed_id": "My2TaOGsmet",
         "drill_type": "conjugation",
@@ -603,7 +632,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_present_e_ie": {
         "title": "Present E→IE",
-        "fluency_level": 34,
+        "grammar_level": 7,
         "word_workload": ["cerrar", "entender"],
         "video_embed_id": "BwvOV8xReZZ",
         "drill_type": "conjugation",
@@ -649,7 +678,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_present_e_i": {
         "title": "Present E→I",
-        "fluency_level": 35,
+        "grammar_level": 8,
         "word_workload": ["pedir", "repetir"],
         "video_embed_id": "meS3lef4ubp",
         "drill_type": "conjugation",
@@ -695,7 +724,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_preterite_regular": {
         "title": "Preterite Regular",
-        "fluency_level": 38,
+        "grammar_level": 17,
         "word_workload": ["hablar", "encontrar", "comer", "unir", "beber", "salir"],
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
@@ -789,7 +818,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_preterite_irregular": {
         "title": "Preterite Highly Irregular",
-        "fluency_level": 47,
+        "grammar_level": 17.1,
         "word_workload": ["ser", "ir", "dar", "ver", "hacer", "decir", "traer", "dormir", "morir"],
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
@@ -919,7 +948,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gerund": {
         "title": "Gerund",
-        "fluency_level": 48,
+        "grammar_level": 18,
         "word_workload": ["hablar", "beber", "caminar", "charlar", "comer", "inhibir", "prohibir", "salir"],
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
@@ -1034,7 +1063,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gustar_1": {
         "title": "Gustar Part 1",
-        "fluency_level": 49,
+        "grammar_level": 10,
         "word_workload": ["gusta"],
         "video_embed_id": "rfPPtJI9prc",
         "drill_type": "gustar",
@@ -1113,7 +1142,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gustar_2": {
         "title": "Gustar Part 2",
-        "fluency_level": 50,
+        "grammar_level": 10.3,
         "word_workload": ["gustan"],
         "video_embed_id": "WjOxPPu1uQo",
         "drill_type": "gustar",
@@ -1192,7 +1221,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_gustar_3": {
         "title": "Gustar Part 3",
-        "fluency_level": 51,
+        "grammar_level": 10.6,
         "word_workload": ["gusta", "gustan"],
         "video_embed_id": "lIAdqI5fpun",
         "drill_type": "gustar_prefix",
@@ -1271,7 +1300,7 @@ GRAMMAR_SITUATIONS = {
     },
     "grammar_ir_a_inf": {
         "title": "Ir A + Infinitive",
-        "fluency_level": 52,
+        "grammar_level": 9,
         "word_workload": ["hablar", "comer", "dormir", "vivir", "escribir"],
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
@@ -1358,22 +1387,45 @@ def get_grammar_config(situation_id: str) -> dict | None:
 
 
 def get_all_grammar_situation_ids() -> list[str]:
-    """Get all grammar situation IDs sorted by vocab_level."""
-    return sorted(GRAMMAR_SITUATIONS.keys(), key=lambda k: GRAMMAR_SITUATIONS[k]["fluency_level"])
+    """Get all grammar situation IDs sorted by grammar_level."""
+    return sorted(GRAMMAR_SITUATIONS.keys(), key=lambda k: GRAMMAR_SITUATIONS[k]["grammar_level"])
 
 
-def get_grammar_gate_for_fluency_level(fluency_level: int) -> str | None:
-    """Get the grammar situation ID that should gate at a given fluency level.
+# Build reverse lookup: grammar_level -> situation_id (only levels with content)
+_GL_TO_SITUATION: dict[float, str] = {
+    cfg["grammar_level"]: sid for sid, cfg in GRAMMAR_SITUATIONS.items()
+}
 
-    Returns the highest-threshold grammar situation whose fluency_level <= the user's level,
-    or None if no gate applies.
+
+def get_next_gate(current_gl: float, vocab_level: int) -> dict | None:
+    """Determine the next grammar gate for a user.
+
+    Walks GL_SORTED to find the first GL > current_gl.
+    If the user's vocab_level >= that GL's VL threshold, they are gated.
+
+    Returns a dict with gate info, or None if not gated:
+        {
+            "grammar_level": float,
+            "situation_id": str | None,
+            "title": str,
+            "vl_threshold": int,
+            "has_content": bool,
+        }
     """
-    applicable = [
-        (cfg["fluency_level"], sid)
-        for sid, cfg in GRAMMAR_SITUATIONS.items()
-        if cfg["fluency_level"] <= fluency_level
-    ]
-    if not applicable:
+    for gl in GL_SORTED:
+        if gl <= current_gl:
+            continue
+        vl_threshold = GL_VL_THRESHOLDS[gl]
+        if vocab_level >= vl_threshold:
+            situation_id = _GL_TO_SITUATION.get(gl)
+            return {
+                "grammar_level": gl,
+                "situation_id": situation_id,
+                "title": GL_TITLES[gl],
+                "vl_threshold": vl_threshold,
+                "has_content": situation_id is not None,
+            }
+        # VL hasn't reached this threshold yet — not gated
         return None
-    applicable.sort(reverse=True)
-    return applicable[0][1]
+    # No more grammar levels above current — never gated
+    return None
