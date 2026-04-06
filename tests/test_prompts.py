@@ -47,11 +47,12 @@ class TestPromptsLoad:
             content = load_prompt(agent_id)
             assert "{ai_role}" in content
 
-    def test_grammar_templates_have_examples(self):
-        """Grammar templates contain {grammar_examples} placeholder."""
+    def test_grammar_templates_load(self):
+        """Grammar templates load and contain key instructions."""
         for agent_id in ["grammar_agent_beginner", "grammar_agent_advanced"]:
             content = load_prompt(agent_id)
-            assert "{grammar_examples}" in content
+            assert "grammar practice" in content.lower()
+            assert "assistant messages" in content.lower()
 
     def test_advanced_templates_have_language_placeholder(self):
         """Advanced templates contain {language} placeholder for Spanish/Catalan."""
@@ -67,7 +68,7 @@ class TestPromptsLoad:
     def test_beginner_grammar_speaks_english(self):
         """Beginner grammar template enforces English."""
         content = load_prompt("grammar_agent_beginner")
-        assert "English" in content
+        assert "ENGLISH" in content
 
 
 class TestSituationRoles:
@@ -141,17 +142,12 @@ class TestBuildSystemPrompt:
         prompt = build_system_prompt("police", "pol_1", "catalan_text", catalan_mode=True)
         assert "Speak in Catalan" in prompt
 
-    def test_grammar_prompt_includes_examples(self):
-        """Grammar prompts include drill target examples."""
-        prompt = build_system_prompt("grammar", "grammar_pronouns", "english", catalan_mode=False)
-        assert "My wife" in prompt  # One of the legacy examples
-
-    def test_grammar_prompt_with_drill_targets(self):
-        """Grammar prompts for multi-lesson situations include verb+pronoun targets."""
+    def test_grammar_prompt_is_concise(self):
+        """Grammar system prompt is short — targeting is via injected assistant messages."""
         prompt = build_system_prompt("grammar", "grammar_regular_present_1", "english", catalan_mode=False)
         assert "grammar practice" in prompt.lower()
-        assert "hablar" in prompt  # One of the target verbs
-        assert "pronoun" in prompt.lower()  # Has pronoun guide
+        assert "ENGLISH" in prompt  # Enforces English
+        assert "assistant messages" in prompt.lower()  # References injected targeting
 
 
 class TestGetConversationSystemPrompt:

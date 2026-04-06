@@ -51,30 +51,11 @@ def build_system_prompt(
         template_key = "grammar_agent_advanced" if advanced else "grammar_agent_beginner"
         template = load_prompt(template_key, "v2")
 
-        # Build grammar_structure description
-        structure_desc = grammar_struct["grammar_structure"] if grammar_struct else grammar_config.get("title", "")
-
-        # Build examples from drill_targets if available (new multi-lesson format)
-        drill_targets = grammar_config.get("drill_targets", []) if grammar_config else []
-        if drill_targets and grammar_config and grammar_config.get("drill_config", {}).get("answers"):
-            answers = grammar_config["drill_config"]["answers"]
-            lines = []
-            for t in drill_targets:
-                verb = t.get("verb", "")
-                pronoun = t.get("pronoun", "")
-                conjugated = answers.get(verb, {}).get(pronoun, "")
-                if conjugated:
-                    lines.append(f"- {pronoun} + {verb} → {conjugated}")
-            examples_text = "\n".join(lines)
-        elif grammar_struct:
-            examples_text = "\n".join(f"- \"{ex}\"" for ex in grammar_struct["examples"])
-        else:
-            examples_text = ""
-
-        return template.format(
-            language=language,
-            grammar_examples=examples_text,
-        )
+        # Grammar templates use {language} (advanced only)
+        try:
+            return template.format(language=language)
+        except KeyError:
+            return template
     else:
         template_key = "conversation_agent_advanced" if advanced else "conversation_agent_beginner"
         template = load_prompt(template_key, "v2")

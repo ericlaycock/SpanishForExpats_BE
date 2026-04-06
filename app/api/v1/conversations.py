@@ -33,6 +33,26 @@ from app.services.catalan_service import apply_catalan_mode
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
 
+
+def _build_grammar_hint(pronoun: str, verb: str, verb_english: str) -> str:
+    """Build a sample hint question that forces the student to use a specific pronoun+verb."""
+    action = verb_english[3:] if verb_english.startswith("to ") else verb_english
+
+    hints = {
+        "yo": f"Do you {action}?",
+        "tú": f"I {action} every day. What do I {action}?",
+        "él": f"Does your brother {action}?",
+        "ella": f"Does your sister {action}?",
+        "usted": f"Does your boss {action}?",
+        "nosotros": f"Do you and your friends {action}?",
+        "nosotras": f"Do you and your sisters {action}?",
+        "ellos": f"Do your friends {action}?",
+        "ellas": f"Do your female neighbors {action}?",
+        "ustedes": f"Do you all {action} together?",
+    }
+    return hints.get(pronoun, f"Can you use {pronoun} + {verb} in a sentence?")
+
+
 # Cache for initial message TTS audio URLs — avoids re-synthesizing the same audio
 # Key: (situation_id, catalan_mode) → R2/local URL
 _initial_tts_cache: dict[tuple[str, bool], str] = {}
@@ -486,9 +506,10 @@ async def voice_turn_respond(
     # For grammar situations with drill_targets, build specific verb+pronoun guidance
     grammar_cfg = get_grammar_config(conversation.situation_id)
     drill_targets = grammar_cfg.get("drill_targets", []) if grammar_cfg else []
+    grammar_inject_message = None  # assistant "thinking" message for grammar targeting
     if drill_targets and grammar_cfg.get("drill_config", {}).get("answers"):
         answers = grammar_cfg["drill_config"]["answers"]
-        # Build transcript from frontend messages to check which conjugations were used
+        # Find which conjugated forms the user has already said
         import re as _re
         def _extract_words(text: str) -> set:
             return set(_re.sub(r'[.,!?¿¡]', '', text.lower()).split())
@@ -502,16 +523,25 @@ async def voice_turn_respond(
                 pass
         transcript_words.update(_extract_words(user_transcript))
 
-        remaining = []
+        # Find first remaining target
+        next_target = None
         for t in drill_targets:
             verb, pronoun = t["verb"], t["pronoun"]
             conjugated = answers.get(verb, {}).get(pronoun, "")
             if conjugated and conjugated.lower() not in transcript_words:
-                remaining.append(f"{pronoun} + {verb} → {conjugated}")
-        if remaining:
-            next_target = remaining[0]
-            word_guidance_system = f"\n\nNext target: {next_target}"
-            word_guidance_user = f"\n\n[Next target: {next_target}]"
+                next_target = {"verb": verb, "pronoun": pronoun, "conjugated": conjugated}
+                break
+
+        if next_target:
+            from app.data.grammar_situations import GRAMMAR_WORD_TRANSLATIONS
+            v, p, c = next_target["verb"], next_target["pronoun"], next_target["conjugated"]
+            eng = GRAMMAR_WORD_TRANSLATIONS.get(v, v)
+            # Build a pronoun-appropriate hint question
+            hint = _build_grammar_hint(p, v, eng)
+            grammar_inject_message = (
+                f"Next I need to get the student to say '{c}' ({p} + {v}). "
+                f"I'll ask exactly: \"{hint}\""
+            )
     elif missing_ids:
         missing_words = get_words_by_ids(db, missing_ids)
         missing_english_only = [w.english for w in missing_words]
@@ -538,19 +568,25 @@ async def voice_turn_respond(
             situation_id=conversation.situation_id,
         )
 
-    # Append word guidance to system prompt
-    system_prompt += word_guidance_system
+    # Append word guidance to system prompt (non-grammar situations only)
+    if not grammar_inject_message:
+        system_prompt += word_guidance_system
 
     if frontend_messages:
         llm_messages = [{"role": "system", "content": system_prompt}]
         for msg in frontend_messages:
             if msg["role"] != "system":
                 llm_messages.append(msg)
-        llm_messages.append({"role": "user", "content": user_transcript + word_guidance_user})
+        if grammar_inject_message:
+            # Grammar: inject assistant "thinking" with the next target + hint
+            llm_messages.append({"role": "user", "content": user_transcript})
+            llm_messages.append({"role": "assistant", "content": grammar_inject_message})
+        else:
+            llm_messages.append({"role": "user", "content": user_transcript + word_guidance_user})
     else:
         grammar_config = get_grammar_config(conversation.situation_id)
         if grammar_config:
-            system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, catalan_mode=catalan_mode) + word_guidance_system
+            system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, catalan_mode=catalan_mode)
             user_prompt = build_grammar_user_prompt(
                 situation.title, conversation.used_spoken_word_ids or [],
                 user_transcript, grammar_config,
@@ -567,8 +603,10 @@ async def voice_turn_respond(
             )
         llm_messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt + word_guidance_user},
+            {"role": "user", "content": user_prompt},
         ]
+        if grammar_inject_message:
+            llm_messages.append({"role": "assistant", "content": grammar_inject_message})
 
     # TTS voice config
     tts_voice, tts_instructions = get_tts_instructions(
