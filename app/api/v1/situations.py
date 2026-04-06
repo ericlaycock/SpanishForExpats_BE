@@ -278,6 +278,24 @@ async def get_grammar_gates(
 
     gate = get_next_gate(grammar_level, vocab_level)
 
+    # Point gate to first uncompleted lesson (not always lesson 1)
+    if gate and gate["situation_id"]:
+        from app.data.grammar_situations import get_situations_for_gl
+        completed = {
+            us.situation_id
+            for us in db.query(UserSituation).filter(
+                UserSituation.user_id == current_user.id,
+                UserSituation.completed_at.isnot(None)
+            ).all()
+        }
+        lessons = get_situations_for_gl(gate["grammar_level"])
+        first_uncompleted = next((sid for sid in lessons if sid not in completed), lessons[0] if lessons else None)
+        gate["situation_id"] = first_uncompleted
+        # Add lesson progress to title
+        completed_count = sum(1 for sid in lessons if sid in completed)
+        if len(lessons) > 1:
+            gate["title"] = f"{gate['title']} ({completed_count + 1}/{len(lessons)})"
+
     return {
         "vocab_level": vocab_level,
         "grammar_level": grammar_level,
@@ -563,9 +581,21 @@ async def complete_situation(
 
     db.commit()
 
-    # Find next situation in the same animation_type with matching title (same sub-situation)
+    # Find next situation
     current_situation = db.query(Situation).filter(Situation.id == situation_id).first()
-    if current_situation and current_situation.animation_type:
+    next_situation_id = None
+
+    # For grammar situations: find next lesson in the same grammar unit
+    grammar_cfg = get_grammar_config(situation_id)
+    if grammar_cfg:
+        from app.data.grammar_situations import get_situations_for_gl
+        gl = grammar_cfg["grammar_level"]
+        lessons_at_gl = get_situations_for_gl(gl)
+        current_idx = lessons_at_gl.index(situation_id) if situation_id in lessons_at_gl else -1
+        if current_idx >= 0 and current_idx + 1 < len(lessons_at_gl):
+            next_situation_id = lessons_at_gl[current_idx + 1]
+    elif current_situation and current_situation.animation_type:
+        # For main situations: find next encounter with same animation_type + title
         next_situation = db.query(Situation).filter(
             and_(
                 Situation.animation_type == current_situation.animation_type,
@@ -573,15 +603,8 @@ async def complete_situation(
                 Situation.encounter_number > current_situation.encounter_number
             )
         ).order_by(Situation.encounter_number).first()
+        next_situation_id = next_situation.id if next_situation else None
 
-        next_situation_id = next_situation.id if next_situation else None
-    else:
-        # Fallback to order_index
-        next_situation = db.query(Situation).filter(
-            Situation.order_index > current_situation.order_index
-        ).order_by(Situation.order_index).first()
-        next_situation_id = next_situation.id if next_situation else None
-    
     return CompleteSituationResponse(next_situation_id=next_situation_id)
 
 
