@@ -112,6 +112,27 @@ async def admin_reseed(
     }
 
 
+@router.post("/admin/pregenerate-audio")
+async def admin_pregenerate_audio(
+    current_user: User = Depends(get_current_user),
+):
+    """Pre-generate TTS audio for grammar situations missing R2 audio (admin only)."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
+    import subprocess, sys
+    # Generate only for grammar situations (--force not set, so existing audio skipped)
+    grammar_ids = list(GRAMMAR_SITUATIONS.keys())
+    result = subprocess.run(
+        [sys.executable, "scripts/pregenerate_initial_audio.py"] + grammar_ids,
+        capture_output=True, text=True, timeout=600,
+    )
+    return {
+        "status": "ok" if result.returncode == 0 else "error",
+        "stdout": result.stdout[-3000:] if result.stdout else "",
+        "stderr": result.stderr[-1000:] if result.stderr else "",
+    }
+
+
 @router.get("/admin/all", response_model=List[AdminSituationItem])
 async def get_admin_all_situations(
     current_user: User = Depends(get_current_user),
