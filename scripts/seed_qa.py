@@ -208,7 +208,16 @@ def seed():
                 situation_type="grammar",
                 vocab_level_required=vl_threshold,
                 video_embed_id=cfg["video_embed_id"],
-            ).on_conflict_do_nothing()
+            ).on_conflict_do_update(
+                index_elements=["id"],
+                set_={
+                    "title": cfg["title"],
+                    "encounter_number": order_key,
+                    "order_index": order_offset + order_key,
+                    "vocab_level_required": vl_threshold,
+                    "video_embed_id": cfg["video_embed_id"],
+                },
+            )
             db.execute(stmt)
 
             for pos, word in enumerate(cfg["word_workload"], 1):
