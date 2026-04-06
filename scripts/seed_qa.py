@@ -146,9 +146,11 @@ def seed():
         db.execute(text("DELETE FROM _valid_sids"))
         for sid in current_situation_ids:
             db.execute(text("INSERT INTO _valid_sids (id) VALUES (:sid) ON CONFLICT DO NOTHING"), {"sid": sid})
+        # Clear all FK references to orphaned situations (in correct order)
         db.execute(text("DELETE FROM situation_words WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DELETE FROM conversations WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DELETE FROM user_situations WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
+        db.execute(text("DELETE FROM daily_encounter_logs WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("UPDATE user_words SET source_situation_id = NULL WHERE source_situation_id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DELETE FROM situations WHERE id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DROP TABLE IF EXISTS _valid_sids"))
