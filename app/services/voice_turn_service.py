@@ -72,11 +72,7 @@ def build_system_prompt(
             examples_text = ""
 
         return template.format(
-            ai_role=roles["ai_role"],
-            user_role=roles["user_role"],
-            situation_description=roles["situation_description"],
             language=language,
-            grammar_structure=structure_desc,
             grammar_examples=examples_text,
         )
     else:

@@ -41,11 +41,17 @@ class TestPromptsLoad:
         assert isinstance(content, str)
         assert len(content) > 0
 
-    @pytest.mark.parametrize("agent_id", V2_PROMPTS)
-    def test_templates_have_ai_role_placeholder(self, agent_id):
-        """All templates contain {ai_role} placeholder."""
-        content = load_prompt(agent_id)
-        assert "{ai_role}" in content
+    def test_conversation_templates_have_ai_role(self):
+        """Conversation templates contain {ai_role} placeholder."""
+        for agent_id in ["conversation_agent_beginner", "conversation_agent_advanced"]:
+            content = load_prompt(agent_id)
+            assert "{ai_role}" in content
+
+    def test_grammar_templates_have_examples(self):
+        """Grammar templates contain {grammar_examples} placeholder."""
+        for agent_id in ["grammar_agent_beginner", "grammar_agent_advanced"]:
+            content = load_prompt(agent_id)
+            assert "{grammar_examples}" in content
 
     def test_advanced_templates_have_language_placeholder(self):
         """Advanced templates contain {language} placeholder for Spanish/Catalan."""
@@ -53,11 +59,15 @@ class TestPromptsLoad:
             content = load_prompt(agent_id)
             assert "{language}" in content, f"{agent_id} missing {{language}}"
 
-    def test_beginner_templates_speak_english(self):
-        """Beginner templates say 'Speak only in English' (no {language} needed)."""
-        for agent_id in ["conversation_agent_beginner", "grammar_agent_beginner"]:
-            content = load_prompt(agent_id)
-            assert "Speak only in English" in content
+    def test_beginner_conversation_speaks_english(self):
+        """Beginner conversation template says 'Speak only in English'."""
+        content = load_prompt("conversation_agent_beginner")
+        assert "Speak only in English" in content
+
+    def test_beginner_grammar_speaks_english(self):
+        """Beginner grammar template enforces English."""
+        content = load_prompt("grammar_agent_beginner")
+        assert "English" in content
 
 
 class TestSituationRoles:
@@ -131,17 +141,17 @@ class TestBuildSystemPrompt:
         prompt = build_system_prompt("police", "pol_1", "catalan_text", catalan_mode=True)
         assert "Speak in Catalan" in prompt
 
-    def test_grammar_prompt_includes_structure(self):
-        """Grammar prompts include grammar_structure and examples."""
+    def test_grammar_prompt_includes_examples(self):
+        """Grammar prompts include drill target examples."""
         prompt = build_system_prompt("grammar", "grammar_pronouns", "english", catalan_mode=False)
-        assert "subject pronouns" in prompt
-        assert "Eric" in prompt
-        assert "My wife" in prompt  # One of the examples
+        assert "My wife" in prompt  # One of the legacy examples
 
     def test_grammar_prompt_with_drill_targets(self):
-        """Grammar prompts for multi-lesson situations use drill_targets."""
+        """Grammar prompts for multi-lesson situations include verb+pronoun targets."""
         prompt = build_system_prompt("grammar", "grammar_regular_present_1", "english", catalan_mode=False)
-        assert "grammar practice" in prompt.lower() or "grammar" in prompt.lower()
+        assert "Grammar practice" in prompt
+        assert "hablar" in prompt  # One of the target verbs
+        assert "pronoun" in prompt.lower()  # Has pronoun guide
 
 
 class TestGetConversationSystemPrompt:

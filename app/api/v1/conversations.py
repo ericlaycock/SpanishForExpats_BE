@@ -489,28 +489,17 @@ async def voice_turn_respond(
     if drill_targets and grammar_cfg.get("drill_config", {}).get("answers"):
         answers = grammar_cfg["drill_config"]["answers"]
         used_verbs = set(conversation.used_spoken_word_ids or [])
-        # Build list of remaining specific combos
         remaining = []
         for t in drill_targets:
             verb, pronoun = t["verb"], t["pronoun"]
             conjugated = answers.get(verb, {}).get(pronoun, "")
-            # A combo is remaining if its verb hasn't been fully detected yet
             verb_id = f"grammar_{verb}"
             if verb_id not in used_verbs and conjugated:
                 remaining.append(f"{pronoun} + {verb} → {conjugated}")
         if remaining:
             next_target = remaining[0]
-            word_guidance_system = (
-                f"\n\nREMAINING TARGETS (ask about these next):\n"
-                + "\n".join(f"- {r}" for r in remaining)
-                + f"\n\nYour next question MUST target: {next_target}"
-                  f"\nFrame your question so the student is forced to use that exact conjugation."
-                  f" For example, if targeting 'ella + ser → es', ask about a specific woman."
-                  f" Do NOT use any Spanish yourself."
-            )
-            word_guidance_user = (
-                f"\n\n[Next target: {next_target}. Ask a question that forces this specific conjugation.]"
-            )
+            word_guidance_system = f"\n\nNext target: {next_target}"
+            word_guidance_user = f"\n\n[Next target: {next_target}]"
     elif missing_ids:
         missing_words = get_words_by_ids(db, missing_ids)
         missing_english_only = [w.english for w in missing_words]
