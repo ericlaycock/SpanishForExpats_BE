@@ -167,6 +167,7 @@ class GrammarConfigResponse(BaseModel):
     tense: Optional[str] = None
     phases: dict
     drill_config: Optional[dict] = None
+    drill_targets: Optional[List[dict]] = None
     phase_1c_config: Optional[dict] = None
     phase_2_config: Optional[dict] = None
 

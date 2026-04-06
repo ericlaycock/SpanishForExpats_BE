@@ -710,6 +710,7 @@ async def get_grammar_config_endpoint(
         tense=config["tense"],
         phases=config["phases"],
         drill_config=drill_config,
+        drill_targets=config.get("drill_targets"),
         phase_1c_config=config.get("phase_1c_config"),
         phase_2_config=config.get("phase_2_config"),
     )
