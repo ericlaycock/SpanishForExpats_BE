@@ -489,15 +489,18 @@ async def voice_turn_respond(
     if drill_targets and grammar_cfg.get("drill_config", {}).get("answers"):
         answers = grammar_cfg["drill_config"]["answers"]
         # Build transcript from frontend messages to check which conjugations were used
+        import re as _re
+        def _extract_words(text: str) -> set:
+            return set(_re.sub(r'[.,!?¿¡]', '', text.lower()).split())
         transcript_words = set()
         if body.messages_json:
             try:
                 for msg in json_module.loads(body.messages_json):
                     if msg.get("role") == "user":
-                        transcript_words.update(msg["content"].lower().split())
+                        transcript_words.update(_extract_words(msg["content"]))
             except (json_module.JSONDecodeError, TypeError):
                 pass
-        transcript_words.update(user_transcript.lower().split())
+        transcript_words.update(_extract_words(user_transcript))
 
         remaining = []
         for t in drill_targets:
