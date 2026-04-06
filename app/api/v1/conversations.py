@@ -488,13 +488,22 @@ async def voice_turn_respond(
     drill_targets = grammar_cfg.get("drill_targets", []) if grammar_cfg else []
     if drill_targets and grammar_cfg.get("drill_config", {}).get("answers"):
         answers = grammar_cfg["drill_config"]["answers"]
-        used_verbs = set(conversation.used_spoken_word_ids or [])
+        # Build transcript from frontend messages to check which conjugations were used
+        transcript_words = set()
+        if body.messages_json:
+            try:
+                for msg in json_module.loads(body.messages_json):
+                    if msg.get("role") == "user":
+                        transcript_words.update(msg["content"].lower().split())
+            except (json_module.JSONDecodeError, TypeError):
+                pass
+        transcript_words.update(user_transcript.lower().split())
+
         remaining = []
         for t in drill_targets:
             verb, pronoun = t["verb"], t["pronoun"]
             conjugated = answers.get(verb, {}).get(pronoun, "")
-            verb_id = f"grammar_{verb}"
-            if verb_id not in used_verbs and conjugated:
+            if conjugated and conjugated.lower() not in transcript_words:
                 remaining.append(f"{pronoun} + {verb} → {conjugated}")
         if remaining:
             next_target = remaining[0]
