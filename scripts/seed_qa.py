@@ -149,6 +149,7 @@ def seed():
         db.execute(text("DELETE FROM situation_words WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DELETE FROM conversations WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DELETE FROM user_situations WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
+        db.execute(text("UPDATE user_words SET source_situation_id = NULL WHERE source_situation_id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DELETE FROM situations WHERE id NOT IN (SELECT id FROM _valid_sids)"))
         db.execute(text("DROP TABLE IF EXISTS _valid_sids"))
 
