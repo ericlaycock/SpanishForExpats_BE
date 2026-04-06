@@ -213,11 +213,11 @@ def test_grammar_level_handles_float_values(db):
     assert get_grammar_level(db, user.id) == 4.5
 
 
-def test_grammar_level_handles_out_of_order_completions(db):
-    """If GL 17 is completed but not GL 9, GL should be 17."""
+def test_grammar_level_sequential_enforcement(db):
+    """GL requires sequential completion — skipping GL 9 caps you at GL 8."""
     _ensure_grammar_situations_exist(db)
     user = _make_user(db)
-    # Complete only GL 1 through 8 and GL 17 (skip 9-10.6)
+    # Complete GL 1 through 8 and GL 17 (skip 9-10.6)
     now = datetime.now(timezone.utc)
     for sid in get_all_grammar_situation_ids():
         cfg = GRAMMAR_SITUATIONS[sid]
@@ -230,7 +230,8 @@ def test_grammar_level_handles_out_of_order_completions(db):
                 completed_at=now,
             ))
     db.flush()
-    assert get_grammar_level(db, user.id) == 17
+    # GL stops at 8 because GL 9 is incomplete — can't skip ahead
+    assert get_grammar_level(db, user.id) == 8
 
 
 def test_grammar_level_ignores_non_grammar_situations(db):
@@ -258,6 +259,47 @@ def test_grammar_level_ignores_non_grammar_situations(db):
     db.flush()
 
     assert get_grammar_level(db, user.id) == 0
+
+
+def test_grammar_level_requires_all_lessons_at_gl(db):
+    """GL 3 has 3 lessons. Completing only 1 or 2 should NOT credit GL 3."""
+    _ensure_grammar_situations_exist(db)
+    user = _make_user(db)
+    now = datetime.now(timezone.utc)
+
+    # Complete GL 1 and 2 first (prerequisites)
+    _complete_grammar(db, user, 2)
+    assert get_grammar_level(db, user.id) == 2
+
+    # Complete only the first lesson of GL 3
+    gl3_situations = [
+        sid for sid, cfg in GRAMMAR_SITUATIONS.items()
+        if cfg["grammar_level"] == 3
+    ]
+    assert len(gl3_situations) >= 2, "GL 3 should have multiple lessons"
+
+    # Complete just the first lesson
+    db.add(UserSituation(
+        user_id=user.id,
+        situation_id=gl3_situations[0],
+        started_at=now,
+        completed_at=now,
+    ))
+    db.flush()
+    # GL should still be 2 — not all GL 3 lessons are done
+    assert get_grammar_level(db, user.id) == 2
+
+    # Complete all remaining GL 3 lessons
+    for sid in gl3_situations[1:]:
+        db.add(UserSituation(
+            user_id=user.id,
+            situation_id=sid,
+            started_at=now,
+            completed_at=now,
+        ))
+    db.flush()
+    # NOW GL should be 3
+    assert get_grammar_level(db, user.id) == 3
 
 
 # ===========================================================================
@@ -352,7 +394,7 @@ def test_gated_on_preterite_after_coming_soon_cleared():
     assert gate["grammar_level"] == 17
     assert gate["title"] == "Preterite Regular"
     assert gate["has_content"] is True
-    assert gate["situation_id"] == "grammar_preterite_regular"
+    assert gate["situation_id"] == "grammar_preterite_regular_1"
 
 
 def test_not_gated_between_thresholds():
@@ -470,7 +512,8 @@ def test_quiz_g101_assigns_gl_3(db):
 
     completed = _auto_complete_grammar(db, user.id, target_gl)
     db.flush()  # autoflush=False in test sessions
-    assert completed == 3  # GL 1, 2, 3
+    # GL 1 (1 sit) + GL 2 (1 sit) + GL 3 (3 lessons) = 5 situations
+    assert completed == 5
     assert get_grammar_level(db, user.id) == 3
 
 
@@ -485,8 +528,9 @@ def test_quiz_g701_assigns_gl_9(db):
 
     completed = _auto_complete_grammar(db, user.id, target_gl)
     db.flush()
-    # GL 1, 2, 3, 4, 4.5, 5, 6, 7, 8, 9 = 10 situations
-    assert completed == 10
+    # Count all situations at GL <= 9
+    expected = sum(1 for cfg in GRAMMAR_SITUATIONS.values() if cfg["grammar_level"] <= 9)
+    assert completed == expected
     assert get_grammar_level(db, user.id) == 9
 
 

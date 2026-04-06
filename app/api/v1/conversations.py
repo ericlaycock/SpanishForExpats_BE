@@ -154,10 +154,10 @@ async def create_conversation(
             db.commit()
             db.refresh(voice_conv)
         
-        initial_message = get_initial_message_for_encounter(situation.id, situation.title)
         vocab_level = get_vocab_level(db, current_user.id)
         grammar_level = get_grammar_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
+        initial_message = get_initial_message_for_encounter(situation.id, situation.title, language_mode)
 
         # Catalan mode: swap words + adjust language_mode
         if current_user.catalan_mode:
@@ -204,10 +204,10 @@ async def create_conversation(
         db.commit()
         db.refresh(conversation)
         
-        initial_message = get_initial_message_for_encounter(situation.id, situation.title)
         vocab_level = get_vocab_level(db, current_user.id)
         grammar_level = get_grammar_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
+        initial_message = get_initial_message_for_encounter(situation.id, situation.title, language_mode)
 
         # Catalan mode: swap words + adjust language_mode
         if current_user.catalan_mode:

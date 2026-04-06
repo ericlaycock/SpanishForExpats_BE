@@ -75,21 +75,16 @@ SITUATION_ROLES = {
 GRAMMAR_SCENE_MAP = {
     "grammar_pronouns": "core",
     "grammar_gender": "core",
-    "grammar_regular_present": "core",
-    "grammar_irregular_present": "core",
-    "grammar_irregular_present_ii": "core",
-    "grammar_spelling_changes": "core",
-    "grammar_present_o_ue": "core",
-    "grammar_present_e_ie": "core",
-    "grammar_present_e_i": "core",
-    "grammar_preterite_regular": "core",
-    "grammar_preterite_irregular": "core",
-    "grammar_gerund": "core",
     "grammar_gustar_1": "core",
     "grammar_gustar_2": "core",
     "grammar_gustar_3": "core",
-    "grammar_ir_a_inf": "core",
 }
+# Auto-populate scene map for multi-lesson grammar situations (all map to "core")
+# Matches IDs like grammar_regular_present_1, grammar_irregular_present_2, etc.
+from app.data.grammar_situations import GRAMMAR_SITUATIONS as _GS
+for _sid in _GS:
+    if _sid not in GRAMMAR_SCENE_MAP:
+        GRAMMAR_SCENE_MAP[_sid] = "core"
 
 # ── Grammar structure definitions ────────────────────────────────────────────
 # Each grammar situation has a grammar_structure the user must deploy,

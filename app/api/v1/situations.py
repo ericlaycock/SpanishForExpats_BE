@@ -22,7 +22,7 @@ from app.services.word_selection_service import (
 )
 from app.data.grammar_situations import (
     get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS,
-    get_next_gate, GL_VL_THRESHOLDS, GL_TITLES,
+    get_next_gate, GL_VL_THRESHOLDS, GL_TITLES, GL_SORTED,
 )
 from app.data.seed_bank import ANIMATION_NAMES
 from app.services.catalan_service import apply_catalan_mode
@@ -125,7 +125,11 @@ def get_vocab_level(db: Session, user_id) -> int:
 
 
 def get_grammar_level(db: Session, user_id) -> float:
-    """Grammar level = grammar_level of the highest completed grammar situation."""
+    """Grammar level — only credited when ALL lessons at that GL are completed.
+
+    Iterates GL levels sequentially. Stops at the first GL where any lesson
+    is incomplete, so users can't skip ahead.
+    """
     completed_situation_ids = {
         us.situation_id
         for us in db.query(UserSituation).filter(
@@ -134,10 +138,18 @@ def get_grammar_level(db: Session, user_id) -> float:
         ).all()
     }
     max_gl = 0.0
-    for sid in get_all_grammar_situation_ids():
-        if sid in completed_situation_ids:
-            cfg = GRAMMAR_SITUATIONS[sid]
-            max_gl = max(max_gl, cfg["grammar_level"])
+    for gl in GL_SORTED:
+        # Find all situation IDs at this grammar level
+        situations_at_gl = [
+            sid for sid, cfg in GRAMMAR_SITUATIONS.items()
+            if cfg["grammar_level"] == gl
+        ]
+        if not situations_at_gl:
+            continue  # No content for this GL
+        if all(sid in completed_situation_ids for sid in situations_at_gl):
+            max_gl = gl
+        else:
+            break  # Can't skip ahead — first incomplete GL stops progression
     return max_gl
 
 
@@ -250,22 +262,19 @@ async def get_completed_grammar(
 
     result = []
     for gl in sorted(GL_VL_THRESHOLDS.keys()):
-        # Check if this GL has a situation with content
-        situation_id = None
-        completed = False
-        for sid, cfg in GRAMMAR_SITUATIONS.items():
-            if cfg["grammar_level"] == gl:
-                situation_id = sid
-                completed = sid in completed_situations
-                break
+        from app.data.grammar_situations import get_situations_for_gl
+        situations_at_gl = get_situations_for_gl(gl)
+        total_lessons = len(situations_at_gl)
+        completed_lessons = sum(1 for sid in situations_at_gl if sid in completed_situations)
 
         result.append({
             "grammar_level": gl,
             "title": GL_TITLES[gl],
             "vl_threshold": GL_VL_THRESHOLDS[gl],
-            "situation_id": situation_id,
-            "has_content": situation_id is not None,
-            "completed": completed,
+            "has_content": total_lessons > 0,
+            "completed": total_lessons > 0 and completed_lessons == total_lessons,
+            "total_lessons": total_lessons,
+            "completed_lessons": completed_lessons,
         })
 
     return {"grammar_units": result}
