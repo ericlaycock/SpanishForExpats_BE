@@ -93,6 +93,25 @@ async def get_admin_ai_logs(
     }
 
 
+@router.post("/admin/reseed")
+async def admin_reseed(
+    current_user: User = Depends(get_current_user),
+):
+    """Trigger QA seed script (admin only). Re-seeds situations, words, and test users."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
+    import subprocess, sys
+    result = subprocess.run(
+        [sys.executable, "scripts/seed_qa.py"],
+        capture_output=True, text=True, timeout=60,
+    )
+    return {
+        "status": "ok" if result.returncode == 0 else "error",
+        "stdout": result.stdout[-2000:] if result.stdout else "",
+        "stderr": result.stderr[-2000:] if result.stderr else "",
+    }
+
+
 @router.get("/admin/all", response_model=List[AdminSituationItem])
 async def get_admin_all_situations(
     current_user: User = Depends(get_current_user),
