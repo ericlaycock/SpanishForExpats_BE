@@ -502,7 +502,7 @@ async def voice_turn_respond(
     # Always build the system prompt — frontend messages don't include it
     grammar_config_for_prompt = get_grammar_config(conversation.situation_id)
     if grammar_config_for_prompt:
-        system_prompt = build_grammar_system_prompt(conversation.situation_id, catalan_mode=catalan_mode)
+        system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, catalan_mode=catalan_mode)
     else:
         system_prompt = get_conversation_system_prompt(
             language_mode, catalan_mode=catalan_mode,
@@ -522,7 +522,7 @@ async def voice_turn_respond(
     else:
         grammar_config = get_grammar_config(conversation.situation_id)
         if grammar_config:
-            system_prompt = build_grammar_system_prompt(conversation.situation_id, catalan_mode=catalan_mode) + word_guidance_system
+            system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, catalan_mode=catalan_mode) + word_guidance_system
             user_prompt = build_grammar_user_prompt(
                 situation.title, conversation.used_spoken_word_ids or [],
                 user_transcript, grammar_config,

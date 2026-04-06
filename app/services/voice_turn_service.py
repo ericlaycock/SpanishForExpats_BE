@@ -108,12 +108,13 @@ def build_transcription_prompt(situation_title: str, words: List[Word], catalan_
 
 # ── Legacy functions (kept for backward compatibility during transition) ──────
 
-def build_grammar_system_prompt(situation_id: str, catalan_mode: bool = False) -> Optional[str]:
+def build_grammar_system_prompt(situation_id: str, language_mode: str = "english", catalan_mode: bool = False) -> Optional[str]:
     """Build a system prompt for grammar conversation phases (2/3)."""
     config = get_grammar_config(situation_id)
     if not config:
         return None
-    language_mode = "catalan_text" if catalan_mode else "spanish_text"
+    if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
+        language_mode = language_mode.replace("spanish_", "catalan_")
     return build_system_prompt("grammar", situation_id, language_mode, catalan_mode)
 
 
