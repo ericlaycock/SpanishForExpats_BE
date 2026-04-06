@@ -50,6 +50,38 @@ def detect_words_in_text(text: str, words: List[Word]) -> List[str]:
     return detected_word_ids
 
 
+def detect_grammar_words_in_text(text: str, words: List[Word], drill_answers: dict) -> List[str]:
+    """Detect grammar words by matching ANY conjugated form from drill_config.answers.
+
+    drill_answers format: {"hablar": {"yo": "hablo", "tú": "hablas", ...}, ...}
+    If the user says any conjugated form of a target verb, that verb is detected.
+    """
+    if not text or not drill_answers:
+        return []
+    normalized_text = normalize_text(text)
+    detected_word_ids = []
+
+    for word in words:
+        normalized_base = normalize_text(word.spanish)
+        forms = drill_answers.get(word.spanish, {})
+
+        # Collect all forms: infinitive + all conjugations
+        all_forms = [normalized_base] + [normalize_text(f) for f in forms.values() if f]
+
+        for form in all_forms:
+            if ' ' in form:
+                if form in normalized_text:
+                    detected_word_ids.append(word.id)
+                    break
+            else:
+                pattern = r'\b' + re.escape(form) + r'\b'
+                if re.search(pattern, normalized_text):
+                    detected_word_ids.append(word.id)
+                    break
+
+    return detected_word_ids
+
+
 def get_words_by_ids(db: Session, word_ids: List[str]) -> List[Word]:
     """Get Word objects by their IDs"""
     return db.query(Word).filter(Word.id.in_(word_ids)).all()

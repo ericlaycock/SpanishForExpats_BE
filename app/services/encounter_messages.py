@@ -83,11 +83,20 @@ ENCOUNTER_INITIAL_MESSAGES = {
     "Making Small Talk": "How long have you been living here?",
 }
 
-def get_initial_message_for_encounter(situation_id: str, encounter_title: str = "") -> str:
+def get_initial_message_for_encounter(situation_id: str, encounter_title: str = "", language_mode: str = "english") -> str:
     """
     Get a custom initial message for an encounter.
-    Priority: per-encounter generated message → title match → category fallback → generic.
+    Priority: grammar opener → per-encounter generated → title match → category fallback → generic.
     """
+    # 0. Grammar situation opener (direct question from grammar_situations.py)
+    from app.data.grammar_situations import get_grammar_config
+    grammar_cfg = get_grammar_config(situation_id)
+    if grammar_cfg:
+        use_spanish = language_mode in ("spanish_text", "spanish_audio")
+        opener = grammar_cfg.get("opener_es" if use_spanish else "opener_en")
+        if opener:
+            return opener
+
     # 1. Per-encounter generated message (situation_id lookup)
     try:
         from app.services.encounter_messages_generated import ENCOUNTER_MESSAGES

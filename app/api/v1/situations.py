@@ -20,7 +20,10 @@ from app.services.word_selection_service import (
     sort_words_encounter_first,
     ensure_user_words,
 )
-from app.data.grammar_situations import get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS
+from app.data.grammar_situations import (
+    get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS,
+    get_next_gate, GL_VL_THRESHOLDS, GL_TITLES, GL_SORTED,
+)
 from app.data.seed_bank import ANIMATION_NAMES
 from app.services.catalan_service import apply_catalan_mode
 from app.services.refresh_service import set_initial_mastery
@@ -90,6 +93,46 @@ async def get_admin_ai_logs(
     }
 
 
+@router.post("/admin/reseed")
+async def admin_reseed(
+    current_user: User = Depends(get_current_user),
+):
+    """Trigger QA seed script (admin only). Re-seeds situations, words, and test users."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
+    import subprocess, sys
+    result = subprocess.run(
+        [sys.executable, "scripts/seed_qa.py"],
+        capture_output=True, text=True, timeout=60,
+    )
+    return {
+        "status": "ok" if result.returncode == 0 else "error",
+        "stdout": result.stdout[-2000:] if result.stdout else "",
+        "stderr": result.stderr[-2000:] if result.stderr else "",
+    }
+
+
+@router.post("/admin/pregenerate-audio")
+async def admin_pregenerate_audio(
+    current_user: User = Depends(get_current_user),
+):
+    """Pre-generate TTS audio for grammar situations missing R2 audio (admin only)."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
+    import subprocess, sys
+    # Generate only for grammar situations (--force not set, so existing audio skipped)
+    grammar_ids = list(GRAMMAR_SITUATIONS.keys())
+    result = subprocess.run(
+        [sys.executable, "scripts/pregenerate_initial_audio.py"] + grammar_ids,
+        capture_output=True, text=True, timeout=600,
+    )
+    return {
+        "status": "ok" if result.returncode == 0 else "error",
+        "stdout": result.stdout[-3000:] if result.stdout else "",
+        "stderr": result.stderr[-1000:] if result.stderr else "",
+    }
+
+
 @router.get("/admin/all", response_model=List[AdminSituationItem])
 async def get_admin_all_situations(
     current_user: User = Depends(get_current_user),
@@ -113,12 +156,41 @@ async def get_admin_all_situations(
 
 
 def get_vocab_level(db: Session, user_id) -> int:
-    """Count of high-frequency words with mastery_level >= 2 (refreshed at least once)."""
+    """Count of high-frequency words with mastery_level >= 1 (learned at least once)."""
     return db.query(UserWord).join(Word).filter(
         UserWord.user_id == user_id,
         Word.word_category == 'high_frequency',
-        UserWord.mastery_level >= 2,
+        UserWord.mastery_level >= 1,
     ).count()
+
+
+def get_grammar_level(db: Session, user_id) -> float:
+    """Grammar level — only credited when ALL lessons at that GL are completed.
+
+    Iterates GL levels sequentially. Stops at the first GL where any lesson
+    is incomplete, so users can't skip ahead.
+    """
+    completed_situation_ids = {
+        us.situation_id
+        for us in db.query(UserSituation).filter(
+            UserSituation.user_id == user_id,
+            UserSituation.completed_at.isnot(None),
+        ).all()
+    }
+    max_gl = 0.0
+    for gl in GL_SORTED:
+        # Find all situation IDs at this grammar level
+        situations_at_gl = [
+            sid for sid, cfg in GRAMMAR_SITUATIONS.items()
+            if cfg["grammar_level"] == gl
+        ]
+        if not situations_at_gl:
+            continue  # No content for this GL
+        if all(sid in completed_situation_ids for sid in situations_at_gl):
+            max_gl = gl
+        else:
+            break  # Can't skip ahead — first incomplete GL stops progression
+    return max_gl
 
 
 
@@ -200,32 +272,35 @@ async def get_grammar_gates(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get active grammar gates for the current user based on vocab level."""
+    """Get grammar gating status: is the user's VL overmatched for their GL?"""
     vocab_level = get_vocab_level(db, current_user.id)
+    grammar_level = get_grammar_level(db, current_user.id)
 
-    completed_situations = {
-        us.situation_id
-        for us in db.query(UserSituation).filter(
-            UserSituation.user_id == current_user.id,
-            UserSituation.completed_at.isnot(None)
-        ).all()
-    }
+    gate = get_next_gate(grammar_level, vocab_level)
 
-    gates = []
-    for sid in get_all_grammar_situation_ids():
-        cfg = GRAMMAR_SITUATIONS[sid]
-        if cfg["vocab_level"] <= vocab_level and sid not in completed_situations:
-            gates.append({
-                "situation_id": sid,
-                "title": cfg["title"],
-                "vocab_level_required": cfg["vocab_level"],
-                "video_embed_id": cfg["video_embed_id"],
-            })
+    # Point gate to first uncompleted lesson (not always lesson 1)
+    if gate and gate["situation_id"]:
+        from app.data.grammar_situations import get_situations_for_gl
+        completed = {
+            us.situation_id
+            for us in db.query(UserSituation).filter(
+                UserSituation.user_id == current_user.id,
+                UserSituation.completed_at.isnot(None)
+            ).all()
+        }
+        lessons = get_situations_for_gl(gate["grammar_level"])
+        first_uncompleted = next((sid for sid in lessons if sid not in completed), lessons[0] if lessons else None)
+        gate["situation_id"] = first_uncompleted
+        # Add lesson progress to title
+        completed_count = sum(1 for sid in lessons if sid in completed)
+        if len(lessons) > 1:
+            gate["title"] = f"{gate['title']} ({completed_count + 1}/{len(lessons)})"
 
     return {
         "vocab_level": vocab_level,
-        "gates": gates,
-        "is_gated": len(gates) > 0,
+        "grammar_level": grammar_level,
+        "is_gated": gate is not None,
+        "gate": gate,
     }
 
 
@@ -234,7 +309,7 @@ async def get_completed_grammar(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get all grammar situations with their completion status."""
+    """Get all grammar levels with their completion status."""
     completed_situations = {
         us.situation_id
         for us in db.query(UserSituation).filter(
@@ -244,13 +319,20 @@ async def get_completed_grammar(
     }
 
     result = []
-    for sid in get_all_grammar_situation_ids():
-        cfg = GRAMMAR_SITUATIONS[sid]
+    for gl in sorted(GL_VL_THRESHOLDS.keys()):
+        from app.data.grammar_situations import get_situations_for_gl
+        situations_at_gl = get_situations_for_gl(gl)
+        total_lessons = len(situations_at_gl)
+        completed_lessons = sum(1 for sid in situations_at_gl if sid in completed_situations)
+
         result.append({
-            "situation_id": sid,
-            "title": cfg["title"],
-            "vocab_level_required": cfg["vocab_level"],
-            "completed": sid in completed_situations,
+            "grammar_level": gl,
+            "title": GL_TITLES[gl],
+            "vl_threshold": GL_VL_THRESHOLDS[gl],
+            "has_content": total_lessons > 0,
+            "completed": total_lessons > 0 and completed_lessons == total_lessons,
+            "total_lessons": total_lessons,
+            "completed_lessons": completed_lessons,
         })
 
     return {"grammar_units": result}
@@ -499,9 +581,21 @@ async def complete_situation(
 
     db.commit()
 
-    # Find next situation in the same animation_type with matching title (same sub-situation)
+    # Find next situation
     current_situation = db.query(Situation).filter(Situation.id == situation_id).first()
-    if current_situation and current_situation.animation_type:
+    next_situation_id = None
+
+    # For grammar situations: find next lesson in the same grammar unit
+    grammar_cfg = get_grammar_config(situation_id)
+    if grammar_cfg:
+        from app.data.grammar_situations import get_situations_for_gl
+        gl = grammar_cfg["grammar_level"]
+        lessons_at_gl = get_situations_for_gl(gl)
+        current_idx = lessons_at_gl.index(situation_id) if situation_id in lessons_at_gl else -1
+        if current_idx >= 0 and current_idx + 1 < len(lessons_at_gl):
+            next_situation_id = lessons_at_gl[current_idx + 1]
+    elif current_situation and current_situation.animation_type:
+        # For main situations: find next encounter with same animation_type + title
         next_situation = db.query(Situation).filter(
             and_(
                 Situation.animation_type == current_situation.animation_type,
@@ -509,15 +603,8 @@ async def complete_situation(
                 Situation.encounter_number > current_situation.encounter_number
             )
         ).order_by(Situation.encounter_number).first()
+        next_situation_id = next_situation.id if next_situation else None
 
-        next_situation_id = next_situation.id if next_situation else None
-    else:
-        # Fallback to order_index
-        next_situation = db.query(Situation).filter(
-            Situation.order_index > current_situation.order_index
-        ).order_by(Situation.order_index).first()
-        next_situation_id = next_situation.id if next_situation else None
-    
     return CompleteSituationResponse(next_situation_id=next_situation_id)
 
 
@@ -646,6 +733,7 @@ async def get_grammar_config_endpoint(
         tense=config["tense"],
         phases=config["phases"],
         drill_config=drill_config,
+        drill_targets=config.get("drill_targets"),
         phase_1c_config=config.get("phase_1c_config"),
         phase_2_config=config.get("phase_2_config"),
     )

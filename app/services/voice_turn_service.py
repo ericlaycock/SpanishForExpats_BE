@@ -8,16 +8,14 @@ from app.data.situation_roles import (
 )
 
 
-def get_language_mode(encounter_number: int, vocab_level: int) -> str:
-    """Derive language mode from encounter number (1-50) and vocab level.
+def get_language_mode(encounter_number: int, vocab_level: int, grammar_level: float = 0) -> str:
+    """Derive language mode from vocab level and grammar level.
 
-    Currently forced to "english" (beginner mode) for all encounters
-    so the AI speaks mostly English with occasional Spanish.
-
-    TODO: Re-enable progression when ready:
-      VL < 300: enc 1-20 → english, 21-40 → spanish_text, 41-50 → spanish_audio
-      VL >= 300: enc 1-40 → spanish_text, 41-50 → spanish_audio
+    Spanish mode when BOTH: VL >= 500 AND GL >= 10.
+    Otherwise English.
     """
+    if vocab_level >= 500 and grammar_level >= 10:
+        return "spanish_text"
     return "english"
 
 
@@ -47,19 +45,17 @@ def build_system_prompt(
 
     # Check if this is a grammar situation
     grammar_struct = get_grammar_structure(situation_id)
+    grammar_config = get_grammar_config(situation_id)
 
-    if grammar_struct:
+    if grammar_struct or grammar_config:
         template_key = "grammar_agent_advanced" if advanced else "grammar_agent_beginner"
         template = load_prompt(template_key, "v2")
-        examples_text = "\n".join(f"- \"{ex}\"" for ex in grammar_struct["examples"])
-        return template.format(
-            ai_role=roles["ai_role"],
-            user_role=roles["user_role"],
-            situation_description=roles["situation_description"],
-            language=language,
-            grammar_structure=grammar_struct["grammar_structure"],
-            grammar_examples=examples_text,
-        )
+
+        # Grammar templates use {language} (advanced only)
+        try:
+            return template.format(language=language)
+        except KeyError:
+            return template
     else:
         template_key = "conversation_agent_advanced" if advanced else "conversation_agent_beginner"
         template = load_prompt(template_key, "v2")
@@ -89,12 +85,13 @@ def build_transcription_prompt(situation_title: str, words: List[Word], catalan_
 
 # ── Legacy functions (kept for backward compatibility during transition) ──────
 
-def build_grammar_system_prompt(situation_id: str, catalan_mode: bool = False) -> Optional[str]:
+def build_grammar_system_prompt(situation_id: str, language_mode: str = "english", catalan_mode: bool = False) -> Optional[str]:
     """Build a system prompt for grammar conversation phases (2/3)."""
     config = get_grammar_config(situation_id)
     if not config:
         return None
-    language_mode = "catalan_text" if catalan_mode else "spanish_text"
+    if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
+        language_mode = language_mode.replace("spanish_", "catalan_")
     return build_system_prompt("grammar", situation_id, language_mode, catalan_mode)
 
 
