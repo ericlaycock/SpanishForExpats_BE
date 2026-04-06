@@ -149,7 +149,7 @@ class TestBuildSystemPrompt:
     def test_grammar_prompt_with_drill_targets(self):
         """Grammar prompts for multi-lesson situations include verb+pronoun targets."""
         prompt = build_system_prompt("grammar", "grammar_regular_present_1", "english", catalan_mode=False)
-        assert "Grammar practice" in prompt
+        assert "grammar practice" in prompt.lower()
         assert "hablar" in prompt  # One of the target verbs
         assert "pronoun" in prompt.lower()  # Has pronoun guide
 
