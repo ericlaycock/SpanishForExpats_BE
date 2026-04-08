@@ -709,6 +709,82 @@ async def admin_skip_encounter(
     )
 
 
+class AdminSetLevelsRequest(BaseModel):
+    target_vl: int
+    target_gl: float
+
+
+@router.post("/admin/set-levels")
+async def admin_set_levels(
+    request: AdminSetLevelsRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Admin only: set the current user's VL and GL by adjusting underlying data."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
+
+    target_vl = request.target_vl
+    target_gl = request.target_gl
+    current_vl = get_vocab_level(db, current_user.id)
+
+    # --- Adjust VL ---
+    if target_vl > current_vl:
+        # Need more HF words at mastery >= 1. Use onboarding seeder (sets mastery=4).
+        from app.api.v1.onboarding import _seed_hf_words
+        _seed_hf_words(db, current_user.id, target_vl)
+    elif target_vl < current_vl:
+        # Reset excess HF words back to mastery=0.
+        # Keep the top target_vl by frequency_rank, reset the rest.
+        keep_word_ids = [
+            r[0] for r in db.query(Word.id)
+            .filter(Word.word_category == "high_frequency")
+            .order_by(Word.frequency_rank.asc())
+            .limit(target_vl)
+            .all()
+        ]
+        reset_query = db.query(UserWord).filter(
+            UserWord.user_id == current_user.id,
+            UserWord.word_id.in_(
+                db.query(Word.id).filter(Word.word_category == "high_frequency")
+            ),
+            UserWord.mastery_level >= 1,
+        )
+        if keep_word_ids:
+            reset_query = reset_query.filter(UserWord.word_id.notin_(keep_word_ids))
+        reset_query.update(
+            {UserWord.mastery_level: 0, UserWord.status: "learning", UserWord.next_refresh_at: None},
+            synchronize_session="fetch",
+        )
+
+    # --- Adjust GL ---
+    current_gl = get_grammar_level(db, current_user.id)
+    if target_gl > current_gl:
+        from app.api.v1.onboarding import _auto_complete_grammar
+        _auto_complete_grammar(db, current_user.id, target_gl)
+    elif target_gl < current_gl:
+        # Un-complete grammar situations above target_gl
+        sids_to_reset = [
+            sid for sid, cfg in GRAMMAR_SITUATIONS.items()
+            if cfg["grammar_level"] > target_gl
+        ]
+        if sids_to_reset:
+            db.query(UserSituation).filter(
+                UserSituation.user_id == current_user.id,
+                UserSituation.situation_id.in_(sids_to_reset),
+            ).update(
+                {UserSituation.completed_at: None},
+                synchronize_session="fetch",
+            )
+
+    db.commit()
+
+    return {
+        "vocab_level": get_vocab_level(db, current_user.id),
+        "grammar_level": get_grammar_level(db, current_user.id),
+    }
+
+
 @router.get("/{situation_id}/grammar-config", response_model=GrammarConfigResponse)
 async def get_grammar_config_endpoint(
     situation_id: str,
