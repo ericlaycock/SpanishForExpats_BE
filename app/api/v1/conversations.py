@@ -514,7 +514,14 @@ async def create_conversation(
             Conversation.mode == "voice",
             Conversation.status == "active"
         ).order_by(Conversation.created_at.desc()).with_for_update().first()
-        
+
+        if voice_conv:
+            # Reset spoken words so backend + frontend start from same empty state.
+            # Without this, reused conversations carry stale used_spoken_word_ids
+            # which causes completion to fire before all word chips show checkmarks.
+            voice_conv.used_spoken_word_ids = []
+            db.commit()
+
         if not voice_conv:
             voice_conv = Conversation(
                 user_id=current_user.id,
@@ -999,7 +1006,13 @@ async def voice_turn_respond(
                     }) + "\n"
 
                 elif event["type"] == "done":
+                    # Refresh conversation from DB to ensure we have latest used_spoken_word_ids
+                    db.refresh(conversation)
                     conv_complete = check_conversation_complete(conversation, "voice")
+                    logger.info(
+                        f"[Voice Turn] Completion check: target={conversation.target_word_ids}, "
+                        f"spoken={conversation.used_spoken_word_ids}, complete={conv_complete}"
+                    )
                     if conv_complete:
                         conversation.status = "complete"
                     db.commit()
