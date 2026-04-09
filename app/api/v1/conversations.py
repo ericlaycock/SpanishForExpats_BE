@@ -999,7 +999,13 @@ async def voice_turn_respond(
                     }) + "\n"
 
                 elif event["type"] == "done":
+                    # Refresh conversation from DB to ensure we have latest used_spoken_word_ids
+                    db.refresh(conversation)
                     conv_complete = check_conversation_complete(conversation, "voice")
+                    logger.info(
+                        f"[Voice Turn] Completion check: target={conversation.target_word_ids}, "
+                        f"spoken={conversation.used_spoken_word_ids}, complete={conv_complete}"
+                    )
                     if conv_complete:
                         conversation.status = "complete"
                     db.commit()
