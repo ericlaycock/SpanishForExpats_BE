@@ -131,10 +131,10 @@ def seed():
             stmt = insert(Word).values(
                 id=w["id"], spanish=w["spanish"], english=w["english"],
                 word_category="high_frequency", frequency_rank=w["frequency_rank"],
-                catalan=w["catalan"]
+                catalan=w.get("catalan")
             ).on_conflict_do_update(
                 index_elements=["id"],
-                set_={"spanish": w["spanish"], "english": w["english"], "catalan": w["catalan"]},
+                set_={"spanish": w["spanish"], "english": w["english"], "catalan": w.get("catalan")},
             )
             db.execute(stmt)
 
