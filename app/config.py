@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     openai_api_key: str
     jwt_secret: str = "CHANGE_THIS_IN_PRODUCTION"  # Default for development
     jwt_algorithm: str = "HS256"
-    jwt_expiration_hours: int = 24
+    jwt_expiration_hours: int = 72
     mastery_spoken_threshold: int = 2
 
     # Registration whitelist (comma-separated 6-char hex tokens, empty = open registration)
