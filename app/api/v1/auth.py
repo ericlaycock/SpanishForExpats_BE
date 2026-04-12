@@ -16,13 +16,14 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
     logger = logging.getLogger(__name__)
     
     try:
-        logger.info(f"Registration attempt for email: {credentials.email}")
+        email = credentials.email.strip().lower()
+        logger.info(f"Registration attempt for email: {email}")
 
         # Validate invite token
         from app.config import settings
         valid_tokens = {t.strip().lower() for t in settings.whitelist_tokens.split(",") if t.strip()}
         if valid_tokens and credentials.invite_token.strip().lower() not in valid_tokens:
-            logger.warning(f"Registration failed: invalid invite token for {credentials.email}")
+            logger.warning(f"Registration failed: invalid invite token for {email}")
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Invalid invite token"
@@ -30,7 +31,7 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
 
         # Validate passwords match
         if credentials.password != credentials.confirm_password:
-            logger.warning(f"Registration failed: passwords do not match for {credentials.email}")
+            logger.warning(f"Registration failed: passwords do not match for {email}")
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Passwords do not match"
@@ -38,14 +39,14 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
         
         # Validate password length
         if len(credentials.password) < 8:
-            logger.warning(f"Registration failed: password too short for {credentials.email}")
+            logger.warning(f"Registration failed: password too short for {email}")
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Password must be at least 8 characters"
             )
         
         # Create user
-        user = create_user(db, credentials.email, credentials.password)
+        user = create_user(db, email, credentials.password)
         logger.info(f"User created successfully: {user.id} ({user.email})")
         
         # Generate token
@@ -56,7 +57,7 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
         # Re-raise HTTP exceptions (validation errors)
         raise
     except Exception as e:
-        logger.error(f"Registration error for {credentials.email}: {e}", exc_info=True)
+        logger.error(f"Registration error for {email}: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred during registration. Please try again."
@@ -69,10 +70,11 @@ async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     import logging
     logger = logging.getLogger(__name__)
     
-    logger.info(f"Login attempt for email: {credentials.email}")
-    user = authenticate_user(db, credentials.email, credentials.password)
+    email = credentials.email.strip().lower()
+    logger.info(f"Login attempt for email: {email}")
+    user = authenticate_user(db, email, credentials.password)
     if not user:
-        logger.warning(f"Login failed for email: {credentials.email}")
+        logger.warning(f"Login failed for email: {email}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password"
@@ -195,7 +197,7 @@ async def admin_reset_password(
     if not current_user.is_admin:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
 
-    email = request.get("email")
+    email = (request.get("email") or "").strip().lower()
     new_password = request.get("new_password")
     if not email or not new_password:
         raise HTTPException(status_code=400, detail="email and new_password required")
