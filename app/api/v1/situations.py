@@ -311,6 +311,15 @@ async def get_grammar_gates(
         if len(lessons) > 1:
             gate["title"] = f"{gate['title']} ({completed_count + 1}/{len(lessons)})"
 
+        # Check if drills are already done (active voice conversation exists)
+        has_active_voice = first_uncompleted and db.query(Conversation).filter(
+            Conversation.user_id == current_user.id,
+            Conversation.situation_id == first_uncompleted,
+            Conversation.mode == "voice",
+            Conversation.status == "active",
+        ).first() is not None
+        gate["resume_phase"] = "voice-chat" if has_active_voice else "learn"
+
     return {
         "vocab_level": vocab_level,
         "grammar_level": grammar_level,
