@@ -25,7 +25,7 @@ from app.data.grammar_situations import (
     get_next_gate, GL_VL_THRESHOLDS, GL_TITLES, GL_SORTED,
 )
 from app.data.seed_bank import ANIMATION_NAMES
-from app.services.alt_language_service import apply_alt_language
+from app.services.catalan_service import apply_catalan_mode
 from app.services.refresh_service import set_initial_mastery
 from pydantic import BaseModel
 from typing import List, Optional
@@ -432,7 +432,8 @@ async def get_situation(
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
 
     # Alt language mode: swap spanish → catalan/swedish for encounter/HF words
-    final_words = apply_alt_language(final_words, current_user.alt_language, db)
+    if current_user.catalan_mode:
+        final_words = apply_catalan_mode(final_words, db)
 
     return SituationDetail(
         id=situation.id,
@@ -533,7 +534,8 @@ async def start_situation(
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
 
     # Alt language mode: swap spanish → catalan/swedish for encounter/HF words
-    final_words = apply_alt_language(final_words, current_user.alt_language, db)
+    if current_user.catalan_mode:
+        final_words = apply_catalan_mode(final_words, db)
 
     return StartSituationResponse(
         words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
