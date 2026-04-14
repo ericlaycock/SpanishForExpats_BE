@@ -25,7 +25,7 @@ from app.data.grammar_situations import (
     get_next_gate, GL_VL_THRESHOLDS, GL_TITLES, GL_SORTED,
 )
 from app.data.seed_bank import ANIMATION_NAMES
-from app.services.catalan_service import apply_catalan_mode
+from app.services.alt_language_service import apply_alt_language
 from app.services.refresh_service import set_initial_mastery
 from pydantic import BaseModel
 from typing import List, Optional
@@ -203,6 +203,7 @@ class SelectedSituationProgress(BaseModel):
     progress: int  # e.g., 2/50
     total_encounters: int = 50
     vocab_level: int = 0
+    resume_phase: str = "learn"  # "learn" or "voice-chat"
 
 
 @router.get("/selected", response_model=List[SelectedSituationProgress])
@@ -228,7 +229,17 @@ async def get_selected_situations(
             )
         ).all()
     }
-    
+
+    # Get all situation IDs with active voice conversations (drills done → resume to chat)
+    active_voice_situation_ids = {
+        row.situation_id
+        for row in db.query(Conversation.situation_id).filter(
+            Conversation.user_id == current_user.id,
+            Conversation.mode == "voice",
+            Conversation.status == "active",
+        ).all()
+    }
+
     for category_id in selected_categories:
         # Get all situations in this category
         category_situations = db.query(Situation).filter(
@@ -253,6 +264,9 @@ async def get_selected_situations(
         sub_situations = [s for s in category_situations if s.title == next_situation.title]
         sub_completed = sum(1 for s in sub_situations if s.id in completed_situations)
 
+        # If an active voice conversation exists, user already completed drills → resume to chat
+        resume_phase = "voice-chat" if next_situation.id in active_voice_situation_ids else "learn"
+
         result.append(SelectedSituationProgress(
             animation_type=category_id,
             animation_name=ANIMATION_NAMES.get(category_id, category_id.replace("_", " ").title()),
@@ -262,8 +276,9 @@ async def get_selected_situations(
             progress=sub_completed,
             total_encounters=len(sub_situations),
             vocab_level=vocab_level,
+            resume_phase=resume_phase,
         ))
-    
+
     return result
 
 
@@ -416,9 +431,8 @@ async def get_situation(
     words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
 
-    # Catalan mode: swap spanish → catalan for encounter/HF words
-    if current_user.catalan_mode:
-        final_words = apply_catalan_mode(final_words, db)
+    # Alt language mode: swap spanish → catalan/swedish for encounter/HF words
+    final_words = apply_alt_language(final_words, current_user.alt_language, db)
 
     return SituationDetail(
         id=situation.id,
@@ -518,9 +532,8 @@ async def start_situation(
     # Sort words: encounter words by position, then high frequency words
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
 
-    # Catalan mode: swap spanish → catalan for encounter/HF words
-    if current_user.catalan_mode:
-        final_words = apply_catalan_mode(final_words, db)
+    # Alt language mode: swap spanish → catalan/swedish for encounter/HF words
+    final_words = apply_alt_language(final_words, current_user.alt_language, db)
 
     return StartSituationResponse(
         words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
@@ -707,6 +720,55 @@ async def admin_skip_encounter(
         vocab_level=vocab_level,
         next_situation_id=next_situation.id if next_situation else None,
     )
+
+
+class AdminCompleteForUserRequest(BaseModel):
+    email: str
+    situation_id: str
+
+
+@router.post("/admin/complete-for-user")
+async def admin_complete_for_user(
+    request: AdminCompleteForUserRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Admin only: mark a situation complete for another user by email."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin only")
+
+    email = request.email.strip().lower()
+    target_user = db.query(User).filter(User.email == email).first()
+    if not target_user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+    from datetime import datetime
+    now = datetime.utcnow()
+    user_situation = db.query(UserSituation).filter(
+        UserSituation.user_id == target_user.id,
+        UserSituation.situation_id == request.situation_id,
+    ).first()
+
+    if not user_situation:
+        user_situation = UserSituation(
+            user_id=target_user.id,
+            situation_id=request.situation_id,
+            started_at=now,
+            completed_at=now,
+        )
+        db.add(user_situation)
+    else:
+        user_situation.completed_at = now
+
+    db.commit()
+    logger.info(f"Admin {current_user.email} completed situation {request.situation_id} for user {email}")
+
+    return {
+        "skipped": True,
+        "email": email,
+        "situation_id": request.situation_id,
+        "completed_at": str(user_situation.completed_at),
+    }
 
 
 class AdminSetLevelsRequest(BaseModel):
