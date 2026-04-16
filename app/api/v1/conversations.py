@@ -29,7 +29,7 @@ from app.services.encounter_messages import get_initial_message_for_encounter
 from app.api.v1.situations import get_vocab_level, get_grammar_level
 from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt, get_language_mode, get_conversation_system_prompt, build_system_prompt
 from app.data.grammar_situations import get_grammar_config
-from app.services.alt_language_service import apply_alt_language, get_target_language_name, get_language_code
+from app.services.alt_language_service import apply_alt_language, get_target_language_name
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
 
@@ -550,10 +550,9 @@ async def create_conversation(
 
         # Use pre-generated R2 audio for initial message (no TTS call needed).
         # Audio files are uploaded by scripts/pregenerate_initial_audio.py with
-        # deterministic filenames: initial_msg_{situation_id}_{lang}.mp3
+        # deterministic filenames: initial_msg_{situation_id}.mp3
         from app.config import settings as _cfg
-        lang_code = get_language_code(current_user.alt_language)
-        initial_audio_url = f"{_cfg.r2_public_url}/initial_msg_{situation.id}_{lang_code}.mp3" if _cfg.r2_public_url else None
+        initial_audio_url = f"{_cfg.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg.r2_public_url else None
 
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
@@ -600,8 +599,7 @@ async def create_conversation(
 
         # Use pre-generated R2 audio for initial message
         from app.config import settings as _cfg2
-        lang_code2 = get_language_code(current_user.alt_language)
-        initial_audio_url = f"{_cfg2.r2_public_url}/initial_msg_{situation.id}_{lang_code2}.mp3" if _cfg2.r2_public_url else None
+        initial_audio_url = f"{_cfg2.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg2.r2_public_url else None
 
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
