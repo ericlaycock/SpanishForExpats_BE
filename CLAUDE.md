@@ -58,7 +58,7 @@
 
 - `GET /v1/situations/admin/ai-logs` — Admin-only endpoint returning aggregate TTS/STT/LLM latency stats (avg/min/max/count per model) plus recent 20 TTS and 20 STT calls with details (format, latency, errors). Useful for monitoring whisper-1 fallback rate and TTS performance.
 - AI request logging tables: `llm_requests`, `stt_requests`, `tts_requests` (defined in `app/models/ai_requests.py`)
-- Initial message TTS is cached in-memory by `(situation_id, catalan_mode)` in `conversations.py` — clears on deploy
+- Initial message TTS is cached in-memory by `(situation_id, alt_language)` in `conversations.py` — clears on deploy
 
 ## Database
 

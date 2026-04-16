@@ -26,10 +26,8 @@ from app.data.grammar_situations import GRAMMAR_SITUATIONS
 # ── v2 template prompt IDs ──────────────────────────────────────────────────
 
 V2_PROMPTS = [
-    "conversation_agent_beginner",
-    "conversation_agent_advanced",
-    "grammar_agent_beginner",
-    "grammar_agent_advanced",
+    "conversation_agent",
+    "grammar_agent",
 ]
 
 
@@ -41,34 +39,25 @@ class TestPromptsLoad:
         assert isinstance(content, str)
         assert len(content) > 0
 
-    def test_conversation_templates_have_ai_role(self):
-        """Conversation templates contain {ai_role} placeholder."""
-        for agent_id in ["conversation_agent_beginner", "conversation_agent_advanced"]:
-            content = load_prompt(agent_id)
-            assert "{ai_role}" in content
+    def test_conversation_template_has_placeholders(self):
+        """Conversation template contains required placeholders."""
+        content = load_prompt("conversation_agent")
+        assert "{ai_role}" in content
+        assert "{language}" in content
 
-    def test_grammar_templates_load(self):
-        """Grammar templates load and contain key instructions."""
-        for agent_id in ["grammar_agent_beginner", "grammar_agent_advanced"]:
-            content = load_prompt(agent_id)
-            assert "grammar practice" in content.lower()
-            assert "assistant messages" in content.lower()
+    def test_grammar_template_loads(self):
+        """Grammar template loads and contains key instructions."""
+        content = load_prompt("grammar_agent")
+        assert "grammar practice" in content.lower()
+        assert "assistant messages" in content.lower()
+        assert "{language}" in content
 
-    def test_advanced_templates_have_language_placeholder(self):
-        """Advanced templates contain {language} placeholder for Spanish/Catalan."""
-        for agent_id in ["conversation_agent_advanced", "grammar_agent_advanced"]:
+    def test_templates_speak_in_language(self):
+        """Templates use {language} placeholder (always target language, no English mode)."""
+        for agent_id in V2_PROMPTS:
             content = load_prompt(agent_id)
             assert "{language}" in content, f"{agent_id} missing {{language}}"
-
-    def test_beginner_conversation_speaks_english(self):
-        """Beginner conversation template says 'Speak only in English'."""
-        content = load_prompt("conversation_agent_beginner")
-        assert "Speak only in English" in content
-
-    def test_beginner_grammar_speaks_english(self):
-        """Beginner grammar template enforces English."""
-        content = load_prompt("grammar_agent_beginner")
-        assert "ENGLISH" in content
+            assert "Speak only in English" not in content, f"{agent_id} should not enforce English"
 
 
 class TestSituationRoles:
@@ -98,7 +87,6 @@ class TestSituationRoles:
             has_drill_targets = bool(cfg.get("drill_targets"))
             if not has_drill_targets:
                 struct = GRAMMAR_STRUCTURES.get(grammar_id)
-                # Allow fallback to base name (e.g., grammar_regular_present for grammar_regular_present_1)
                 if struct is None:
                     base_name = "_".join(grammar_id.rsplit("_", 1)[:-1]) if grammar_id[-1].isdigit() else grammar_id
                     struct = GRAMMAR_STRUCTURES.get(base_name)
@@ -114,73 +102,50 @@ class TestSituationRoles:
     def test_get_roles_for_grammar_situation(self):
         """get_roles_for_situation maps grammar situations to their scene."""
         roles = get_roles_for_situation("grammar", "grammar_pronouns")
-        # grammar_pronouns maps to "core"
         assert "Eric" in roles["ai_role"]
 
 
 class TestBuildSystemPrompt:
-    def test_beginner_spanish(self):
-        """Beginner mode says 'Speak only in English'."""
-        prompt = build_system_prompt("banking", "bank_1", "english", catalan_mode=False)
-        assert "Speak only in English" in prompt
+    def test_spanish_default(self):
+        """Default mode (no alt_language) says 'Speak in Spanish'."""
+        prompt = build_system_prompt("banking", "bank_1", "spanish_text", alt_language=None)
+        assert "Speak in Spanish" in prompt
         assert "bank teller" in prompt
 
-    def test_advanced_spanish(self):
-        """Advanced mode says 'Speak in Spanish'."""
-        prompt = build_system_prompt("banking", "bank_1", "spanish_text", catalan_mode=False)
-        assert "Speak in Spanish" in prompt
-        assert "Speak only in English" not in prompt
-
-    def test_beginner_catalan(self):
-        """Catalan beginner mode still says 'Speak only in English' (beginner = English)."""
-        prompt = build_system_prompt("police", "pol_1", "english", catalan_mode=True)
-        assert "Speak only in English" in prompt
+    def test_catalan_mode(self):
+        """alt_language='catalan' says 'Speak in Catalan'."""
+        prompt = build_system_prompt("police", "pol_1", "catalan_text", alt_language="catalan")
+        assert "Speak in Catalan" in prompt
         assert "police officer" in prompt
 
-    def test_advanced_catalan(self):
-        """Catalan advanced mode says 'Speak in Catalan'."""
-        prompt = build_system_prompt("police", "pol_1", "catalan_text", catalan_mode=True)
-        assert "Speak in Catalan" in prompt
+    def test_swedish_mode(self):
+        """alt_language='swedish' says 'Speak in Swedish'."""
+        prompt = build_system_prompt("banking", "bank_1", "swedish_text", alt_language="swedish")
+        assert "Speak in Swedish" in prompt
 
     def test_grammar_prompt_is_concise(self):
         """Grammar system prompt is short — targeting is via injected assistant messages."""
-        prompt = build_system_prompt("grammar", "grammar_regular_present_1", "english", catalan_mode=False)
+        prompt = build_system_prompt("grammar", "grammar_regular_present_1", "spanish_text", alt_language=None)
         assert "grammar practice" in prompt.lower()
-        assert "ENGLISH" in prompt  # Enforces English
-        assert "assistant messages" in prompt.lower()  # References injected targeting
+        assert "Speak in Spanish" in prompt
+        assert "assistant messages" in prompt.lower()
 
 
 class TestGetConversationSystemPrompt:
-    def test_english_mode_default(self):
-        """english mode → beginner template, speaks English."""
-        prompt = get_conversation_system_prompt("english", catalan_mode=False)
-        assert "Speak only in English" in prompt
-
-    def test_english_mode_catalan(self):
-        """english mode, catalan_mode=True → beginner template, speaks English."""
-        prompt = get_conversation_system_prompt("english", catalan_mode=True)
-        assert "Speak only in English" in prompt
-
     def test_spanish_text_mode(self):
-        """spanish_text → advanced template, speaks Spanish."""
-        prompt = get_conversation_system_prompt("spanish_text", catalan_mode=False)
-        assert "Speak in Spanish" in prompt
-        assert "Speak only in English" not in prompt
-
-    def test_spanish_audio_mode(self):
-        """spanish_audio → advanced template."""
-        prompt = get_conversation_system_prompt("spanish_audio", catalan_mode=False)
+        """spanish_text → speaks Spanish."""
+        prompt = get_conversation_system_prompt("spanish_text", alt_language=None)
         assert "Speak in Spanish" in prompt
 
     def test_catalan_text_mode(self):
-        """catalan_text, catalan_mode=True → advanced template with Catalan."""
-        prompt = get_conversation_system_prompt("catalan_text", catalan_mode=True)
+        """catalan_text, alt_language='catalan' → speaks Catalan."""
+        prompt = get_conversation_system_prompt("catalan_text", alt_language="catalan")
         assert "Speak in Catalan" in prompt
 
-    def test_catalan_audio_mode(self):
-        """catalan_audio, catalan_mode=True → advanced template with Catalan."""
-        prompt = get_conversation_system_prompt("catalan_audio", catalan_mode=True)
-        assert "Speak in Catalan" in prompt
+    def test_swedish_text_mode(self):
+        """swedish_text, alt_language='swedish' → speaks Swedish."""
+        prompt = get_conversation_system_prompt("swedish_text", alt_language="swedish")
+        assert "Speak in Swedish" in prompt
 
 
 class TestBuildConversationPrompt:
@@ -191,19 +156,31 @@ class TestBuildConversationPrompt:
             words=[],
             used_spoken_word_ids=[],
             user_transcript="hello",
-            catalan_mode=False,
+            alt_language=None,
         )
         assert "Spanish" in prompt
         assert "Catalan" not in prompt
 
     def test_catalan_mode(self):
-        """catalan_mode=True build_conversation_prompt says 'Catalan'."""
+        """alt_language='catalan' build_conversation_prompt says 'Catalan'."""
         prompt = build_conversation_prompt(
             situation_title="Test",
             words=[],
             used_spoken_word_ids=[],
             user_transcript="hello",
-            catalan_mode=True,
+            alt_language="catalan",
         )
         assert "Catalan" in prompt
+        assert "Spanish" not in prompt
+
+    def test_swedish_mode(self):
+        """alt_language='swedish' build_conversation_prompt says 'Swedish'."""
+        prompt = build_conversation_prompt(
+            situation_title="Test",
+            words=[],
+            used_spoken_word_ids=[],
+            user_transcript="hello",
+            alt_language="swedish",
+        )
+        assert "Swedish" in prompt
         assert "Spanish" not in prompt

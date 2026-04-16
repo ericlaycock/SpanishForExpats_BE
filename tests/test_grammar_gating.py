@@ -453,14 +453,19 @@ def test_vl_thresholds_are_monotonically_increasing():
 # LANGUAGE MODE TESTS
 # ===========================================================================
 
-def test_language_english_when_low_vl():
-    """VL=499, GL=10 → english (VL below 500 threshold)."""
-    assert get_language_mode(1, 499, 10) == "english"
+# After the alt-language refactor, get_language_mode() unconditionally returns
+# "spanish_text" — the AI always speaks the target language, regardless of VL/GL.
+# The "english → spanish_text" VL/GL threshold is no longer enforced here;
+# difficulty gating is handled elsewhere. These tests document the new contract.
+
+def test_language_target_when_low_vl():
+    """VL=499, GL=10 → spanish_text (always target language now)."""
+    assert get_language_mode(1, 499, 10) == "spanish_text"
 
 
-def test_language_english_when_low_gl():
-    """VL=500, GL=9 → english (GL below 10 threshold)."""
-    assert get_language_mode(1, 500, 9) == "english"
+def test_language_target_when_low_gl():
+    """VL=500, GL=9 → spanish_text (always target language now)."""
+    assert get_language_mode(1, 500, 9) == "spanish_text"
 
 
 def test_language_spanish_when_both_met():
@@ -473,14 +478,14 @@ def test_language_spanish_with_high_stats():
     assert get_language_mode(1, 800, 15) == "spanish_text"
 
 
-def test_language_english_when_both_zero():
-    """VL=0, GL=0 → english."""
-    assert get_language_mode(1, 0, 0) == "english"
+def test_language_target_when_both_zero():
+    """VL=0, GL=0 → spanish_text (always target language now)."""
+    assert get_language_mode(1, 0, 0) == "spanish_text"
 
 
 def test_language_default_without_grammar_level():
-    """When grammar_level not passed (default 0), stays english."""
-    assert get_language_mode(1, 600) == "english"
+    """When grammar_level not passed (default 0), still spanish_text."""
+    assert get_language_mode(1, 600) == "spanish_text"
 
 
 # ===========================================================================

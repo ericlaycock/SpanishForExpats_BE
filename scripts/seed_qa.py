@@ -119,10 +119,12 @@ def seed():
             for w in category_words:
                 stmt = insert(Word).values(
                     id=w["id"], spanish=w["spanish"], english=w["english"],
-                    word_category="encounter", catalan=w["catalan"]
+                    word_category="encounter", catalan=w["catalan"],
+                    swedish=w.get("swedish", ""),
                 ).on_conflict_do_update(
                     index_elements=["id"],
-                    set_={"spanish": w["spanish"], "english": w["english"], "catalan": w["catalan"]},
+                    set_={"spanish": w["spanish"], "english": w["english"],
+                           "catalan": w["catalan"], "swedish": w.get("swedish", "")},
                 )
                 db.execute(stmt)
 
@@ -131,10 +133,11 @@ def seed():
             stmt = insert(Word).values(
                 id=w["id"], spanish=w["spanish"], english=w["english"],
                 word_category="high_frequency", frequency_rank=w["frequency_rank"],
-                catalan=w.get("catalan")
+                catalan=w.get("catalan"), swedish=w.get("swedish"),
             ).on_conflict_do_update(
                 index_elements=["id"],
-                set_={"spanish": w["spanish"], "english": w["english"], "catalan": w.get("catalan")},
+                set_={"spanish": w["spanish"], "english": w["english"],
+                       "catalan": w.get("catalan"), "swedish": w.get("swedish")},
             )
             db.execute(stmt)
 

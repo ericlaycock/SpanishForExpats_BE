@@ -1,7 +1,9 @@
 """
 Custom initial messages for each encounter type.
-These messages should feel like the actual person in the interaction.
+Supports multi-language openers (es/ca/sv) — AI always speaks in target language.
 """
+from typing import Optional
+from app.services.alt_language_service import get_language_code
 
 ENCOUNTER_INITIAL_MESSAGES = {
     # Airport encounters
@@ -14,7 +16,7 @@ ENCOUNTER_INITIAL_MESSAGES = {
     "Arriving at Destination": "Welcome! Please have your passport ready for immigration.",
     "Collecting Baggage": "Your baggage will arrive at carousel number 3. Do you need a cart?",
     "Leaving the Airport": "Do you need a taxi or transportation to your hotel?",
-    
+
     # Banking encounters
     "Withdrawing Cash": "Good morning! How much would you like to withdraw today?",
     "Card Not Working": "I see there's an issue with your card. Let me check your account.",
@@ -24,7 +26,7 @@ ENCOUNTER_INITIAL_MESSAGES = {
     "Transfer Money": "Where would you like to transfer money to, and how much?",
     "Check Balance": "I can check your account balance. Do you have your account number?",
     "Report Lost Card": "I'm sorry to hear your card was lost. Let me help you report it.",
-    
+
     # Clothing Shopping encounters
     "Finding Sizes": "Can I help you find your size? What are you looking for?",
     "Trying on Clothes": "The fitting rooms are over there. Would you like to try something on?",
@@ -32,7 +34,7 @@ ENCOUNTER_INITIAL_MESSAGES = {
     "Asking for Help": "What can I help you find today?",
     "Price Check": "Let me check the price of that item for you.",
     "Payment Issues": "There seems to be an issue with your payment. Let me try again.",
-    
+
     # Eating Out encounters
     "Ordering Coffee": "Good morning! What would you like to order?",
     "Reading the Menu": "Here's our menu. What looks good to you?",
@@ -40,41 +42,41 @@ ENCOUNTER_INITIAL_MESSAGES = {
     "Asking for the Bill": "Would you like anything else, or should I bring the check?",
     "Making a Reservation": "What time would you like to make a reservation for, and for how many people?",
     "Complaining about Food": "I'm sorry to hear that. What seems to be the problem?",
-    
+
     # Groceries encounters
     "Shopping for Food": "Can I help you find anything today?",
     "Asking for Items": "What are you looking for? I can point you in the right direction.",
     "Checking Out": "Did you find everything you needed today?",
     "Price Question": "Let me check the price of that for you.",
     "Finding Products": "What product are you looking for? I can help you find it.",
-    
+
     # Home Renovation encounters
     "Hiring a Contractor": "Good morning! What kind of work do you need done?",
     "Discussing Work": "Let me show you what we can do. What's your timeline?",
     "Getting a Quote": "I can give you an estimate. What exactly needs to be done?",
     "Scheduling Work": "When would be a good time to start the work?",
     "Payment for Work": "How would you like to pay for this work?",
-    
+
     # Internet encounters
     "Setting up WiFi": "I can help you set up your WiFi. What's your address?",
     "Phone Plan": "What kind of phone plan are you looking for?",
     "No Service": "I'm sorry about the service issue. Let me check your account.",
     "Technician Visit": "The technician can come tomorrow. What time works for you?",
     "Billing Issue": "I see there's a problem with your bill. Let me look into it.",
-    
+
     # Mechanic encounters
     "Car Won't Start": "What seems to be the problem with your car?",
     "Car Repairs": "I can take a look at your car. What's wrong with it?",
     "Getting an Estimate": "Let me check what needs to be fixed and give you an estimate.",
     "Scheduling Service": "When would you like to bring your car in?",
     "Paying for Repairs": "Your car is ready. How would you like to pay?",
-    
+
     # Police Stop encounters
     "Traffic Stop": "Good afternoon. License and registration, please.",
     "Passport Check": "Can I see your passport and visa, please?",
     "Receiving a Fine": "You've received a traffic violation. Here's your ticket.",
     "Asking for Directions": "Can I help you with directions? Where are you trying to go?",
-    
+
     # Small Talk encounters
     "Meeting Someone New": "Hello! Nice to meet you. What's your name?",
     "Asking How They Are": "How are you doing today?",
@@ -83,29 +85,43 @@ ENCOUNTER_INITIAL_MESSAGES = {
     "Making Small Talk": "How long have you been living here?",
 }
 
-def get_initial_message_for_encounter(situation_id: str, encounter_title: str = "", language_mode: str = "english") -> str:
+def get_initial_message_for_encounter(
+    situation_id: str,
+    encounter_title: str = "",
+    language_mode: str = "spanish_text",
+    alt_language: Optional[str] = None,
+) -> str:
     """
-    Get a custom initial message for an encounter.
+    Get a custom initial message for an encounter in the target language.
     Priority: grammar opener → per-encounter generated → title match → category fallback → generic.
     """
+    lang_code = get_language_code(alt_language)
+
     # 0. Grammar situation opener (direct question from grammar_situations.py)
     from app.data.grammar_situations import get_grammar_config
     grammar_cfg = get_grammar_config(situation_id)
     if grammar_cfg:
-        use_spanish = language_mode in ("spanish_text", "spanish_audio")
-        opener = grammar_cfg.get("opener_es" if use_spanish else "opener_en")
+        # Try language-specific opener first, fall back to opener_es
+        opener_key = f"opener_{lang_code}"
+        opener = grammar_cfg.get(opener_key) or grammar_cfg.get("opener_es")
         if opener:
             return opener
 
-    # 1. Per-encounter generated message (situation_id lookup)
+    # 1. Per-encounter generated message (situation_id lookup, multi-language)
     try:
         from app.services.encounter_messages_generated import ENCOUNTER_MESSAGES
         if situation_id in ENCOUNTER_MESSAGES:
-            return ENCOUNTER_MESSAGES[situation_id]
+            msg = ENCOUNTER_MESSAGES[situation_id]
+            # Support both old flat format and new nested dict format
+            if isinstance(msg, dict):
+                return msg.get(lang_code, msg.get("es", msg.get("en", "")))
+            else:
+                # Old flat format (English string) — return as-is
+                return msg
     except ImportError:
         pass
 
-    # 2. Legacy title-based match
+    # 2. Legacy title-based match (English fallback)
     for key, message in ENCOUNTER_INITIAL_MESSAGES.items():
         if key in encounter_title:
             return message
