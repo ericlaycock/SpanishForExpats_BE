@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '015_swedish_alt_language'
-down_revision = '014_add_daily_encounter_logs'
+down_revision = '014_daily_enc_log'
 branch_labels = None
 depends_on = None
 
