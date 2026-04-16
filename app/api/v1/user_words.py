@@ -115,6 +115,35 @@ async def record_hint(
     return {"hint_count": 0}
 
 
+@router.post("/demote")
+async def demote_word(
+    request: HintRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Demote a word's mastery level by 1 during refresh (user clicked 'I forgot').
+    Floor at mastery_level=1 (word was learned at least once). Recalculates next_refresh_at."""
+    from app.services.refresh_service import SRS_INTERVALS
+    from datetime import datetime, timezone
+
+    user_word = db.query(UserWord).filter(
+        UserWord.user_id == current_user.id,
+        UserWord.word_id == request.word_id
+    ).first()
+    if not user_word:
+        raise HTTPException(status_code=404, detail="Word not found")
+
+    old_level = user_word.mastery_level
+    new_level = max(1, old_level - 1)
+    user_word.mastery_level = new_level
+    user_word.status = "learning"
+    # Reset SRS timer based on new level
+    interval = SRS_INTERVALS.get(new_level)
+    user_word.next_refresh_at = datetime.now(timezone.utc) + interval if interval else None
+    db.commit()
+    return {"word_id": request.word_id, "old_level": old_level, "new_level": new_level}
+
+
 @router.get("/unknown", response_model=dict)
 async def get_unknown_words(
     category: Optional[str] = Query(None, description="Filter by category: 'high_frequency' or 'encounter'"),
