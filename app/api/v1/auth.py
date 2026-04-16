@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth import authenticate_user, create_access_token, create_user, get_current_user
 from app.models import User, UserWord, UserSituation, Conversation
-from app.schemas import LoginRequest, LoginResponse, RegisterRequest, UserProfileResponse, CatalanModeRequest
+from app.schemas import LoginRequest, LoginResponse, RegisterRequest, UserProfileResponse, AltLanguageRequest
 
 router = APIRouter()
 
@@ -52,7 +52,7 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
         # Generate token
         access_token = create_access_token(data={"sub": str(user.id)})
         logger.info(f"Registration successful for user: {user.id}")
-        return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, catalan_mode=user.catalan_mode, email=user.email)
+        return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email)
     except HTTPException:
         # Re-raise HTTP exceptions (validation errors)
         raise
@@ -82,7 +82,7 @@ async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     
     logger.info(f"Login successful for user: {user.id}")
     access_token = create_access_token(data={"sub": str(user.id)})
-    return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, catalan_mode=user.catalan_mode, email=user.email)
+    return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email)
 
 
 @router.post("/refresh", response_model=LoginResponse)
@@ -93,7 +93,7 @@ async def refresh_token(current_user: User = Depends(get_current_user)):
         access_token=access_token,
         user_id=current_user.id,
         is_admin=current_user.is_admin,
-        catalan_mode=current_user.catalan_mode,
+        alt_language=current_user.alt_language,
         email=current_user.email,
     )
 
@@ -105,22 +105,24 @@ async def get_me(current_user: User = Depends(get_current_user)):
         email=current_user.email,
         created_at=current_user.created_at,
         is_admin=current_user.is_admin,
-        catalan_mode=current_user.catalan_mode,
+        alt_language=current_user.alt_language,
     )
 
 
-@router.patch("/catalan-mode")
-async def set_catalan_mode(
-    request: CatalanModeRequest,
+@router.patch("/alt-language")
+async def set_alt_language(
+    request: AltLanguageRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Toggle Catalan mode (admin only)."""
+    """Set the user's alt language (catalan | swedish | null). Admin only."""
     if not current_user.is_admin:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
-    current_user.catalan_mode = request.enabled
+    if request.language not in (None, "catalan", "swedish"):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid alt language")
+    current_user.alt_language = request.language
     db.commit()
-    return {"catalan_mode": current_user.catalan_mode}
+    return {"alt_language": current_user.alt_language}
 
 
 @router.post("/forgot-password")

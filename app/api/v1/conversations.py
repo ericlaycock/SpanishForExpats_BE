@@ -29,7 +29,7 @@ from app.services.encounter_messages import get_initial_message_for_encounter
 from app.api.v1.situations import get_vocab_level, get_grammar_level
 from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt, get_language_mode, get_conversation_system_prompt, build_system_prompt
 from app.data.grammar_situations import get_grammar_config
-from app.services.catalan_service import apply_catalan_mode
+from app.services.alt_language_service import apply_alt_language, get_target_language_name, get_language_code
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
 
@@ -408,12 +408,15 @@ def _build_grammar_hint(pronoun: str, verb: str, verb_english: str) -> str:
 
 
 # Cache for initial message TTS audio URLs — avoids re-synthesizing the same audio
-# Key: (situation_id, catalan_mode) → R2/local URL
-_initial_tts_cache: dict[tuple[str, bool], str] = {}
+# Key: (situation_id, alt_language) → R2/local URL
+_initial_tts_cache: dict[tuple[str, str | None], str] = {}
 
 # OpenAI TTS voice + instructions per situation — keyed by animation_type
 _ACCENT = "Speak with a Mexican Spanish accent."
-_CATALAN_ACCENT = "Speak with a Catalan accent."
+_ALT_ACCENTS = {
+    "catalan": "Speak with a Catalan accent.",
+    "swedish": "Speak with a Swedish accent.",
+}
 SITUATION_VOICE_CONFIG = {
     "police": {
         "voice": "alloy",
@@ -466,13 +469,13 @@ SITUATION_VOICE_CONFIG = {
 }
 
 
-def get_tts_instructions(animation_type: str, catalan_mode: bool = False) -> tuple[str, str | None]:
-    """Return (voice, instructions) for TTS, adjusted for Catalan mode."""
+def get_tts_instructions(animation_type: str, alt_language: str | None = None) -> tuple[str, str | None]:
+    """Return (voice, instructions) for TTS, adjusted for alt language mode."""
     cfg = SITUATION_VOICE_CONFIG.get(animation_type, {})
     voice = cfg.get("voice", "alloy")
     instructions = cfg.get("instructions")
-    if catalan_mode and instructions:
-        instructions = instructions.replace(_ACCENT, _CATALAN_ACCENT)
+    if alt_language and instructions and alt_language in _ALT_ACCENTS:
+        instructions = instructions.replace(_ACCENT, _ALT_ACCENTS[alt_language])
     return voice, instructions
 
 
@@ -538,23 +541,23 @@ async def create_conversation(
         vocab_level = get_vocab_level(db, current_user.id)
         grammar_level = get_grammar_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
-        initial_message = get_initial_message_for_encounter(situation.id, situation.title, language_mode)
+        initial_message = get_initial_message_for_encounter(situation.id, situation.title, language_mode, alt_language=current_user.alt_language)
 
-        # Catalan mode: swap words + adjust language_mode
-        if current_user.catalan_mode:
-            final_words = apply_catalan_mode(final_words, db)
-            if language_mode in ("spanish_text", "spanish_audio"):
-                language_mode = language_mode.replace("spanish_", "catalan_")
+        # Alt language mode: swap words + adjust language_mode
+        final_words = apply_alt_language(final_words, current_user.alt_language, db)
+        if current_user.alt_language and language_mode in ("spanish_text", "spanish_audio"):
+            language_mode = language_mode.replace("spanish_", f"{current_user.alt_language}_")
 
         # Use pre-generated R2 audio for initial message (no TTS call needed).
         # Audio files are uploaded by scripts/pregenerate_initial_audio.py with
-        # deterministic filenames: initial_msg_{situation_id}.mp3
+        # deterministic filenames: initial_msg_{situation_id}_{lang}.mp3
         from app.config import settings as _cfg
-        initial_audio_url = f"{_cfg.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg.r2_public_url else None
+        lang_code = get_language_code(current_user.alt_language)
+        initial_audio_url = f"{_cfg.r2_public_url}/initial_msg_{situation.id}_{lang_code}.mp3" if _cfg.r2_public_url else None
 
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
-            catalan_mode=current_user.catalan_mode,
+            alt_language=current_user.alt_language,
         )
         return CreateConversationResponse(
             conversation_id=voice_conv.id,
@@ -588,21 +591,21 @@ async def create_conversation(
         vocab_level = get_vocab_level(db, current_user.id)
         grammar_level = get_grammar_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
-        initial_message = get_initial_message_for_encounter(situation.id, situation.title, language_mode)
+        initial_message = get_initial_message_for_encounter(situation.id, situation.title, language_mode, alt_language=current_user.alt_language)
 
-        # Catalan mode: swap words + adjust language_mode
-        if current_user.catalan_mode:
-            final_words = apply_catalan_mode(final_words, db)
-            if language_mode in ("spanish_text", "spanish_audio"):
-                language_mode = language_mode.replace("spanish_", "catalan_")
+        # Alt language mode: swap words + adjust language_mode
+        final_words = apply_alt_language(final_words, current_user.alt_language, db)
+        if current_user.alt_language and language_mode in ("spanish_text", "spanish_audio"):
+            language_mode = language_mode.replace("spanish_", f"{current_user.alt_language}_")
 
         # Use pre-generated R2 audio for initial message
         from app.config import settings as _cfg2
-        initial_audio_url = f"{_cfg2.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg2.r2_public_url else None
+        lang_code2 = get_language_code(current_user.alt_language)
+        initial_audio_url = f"{_cfg2.r2_public_url}/initial_msg_{situation.id}_{lang_code2}.mp3" if _cfg2.r2_public_url else None
 
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
-            catalan_mode=current_user.catalan_mode,
+            alt_language=current_user.alt_language,
         )
         return CreateConversationResponse(
             conversation_id=conversation.id,
@@ -635,7 +638,7 @@ async def check_pronunciation(
     transcript = await gateway_transcribe_audio(
         audio_bytes=audio_bytes,
         filename=audio.filename or "audio.mp3",
-        prompt=f"The user is saying a {'Catalan' if current_user.catalan_mode else 'Spanish'} word or phrase: {expected_word}. Transcribe exactly what they say.",
+        prompt=f"The user is saying a {get_target_language_name(current_user.alt_language)} word or phrase: {expected_word}. Transcribe exactly what they say.",
         language=None,
         request_id=str(current_user.id),
         user_id=str(current_user.id),
@@ -660,6 +663,21 @@ async def check_pronunciation(
     return {"transcript": transcript, "is_correct": is_correct}
 
 
+def _normalize_word_id(word_id: str) -> str:
+    """Map synthetic frontend chip ids to their persisted base word_id.
+
+    Grammar conjugation chips are synthesized client-side as `conj_<verb>_<pronoun>`
+    (e.g. `conj_vivir_nosotros`) and never exist in the `words` table. Mastery
+    tracking for grammar situations lives on the infinitive (`grammar_<verb>`),
+    so we collapse the conjugation back to the base before any DB write.
+    """
+    if word_id.startswith("conj_"):
+        parts = word_id.split("_")
+        if len(parts) >= 3:
+            return f"grammar_{parts[1]}"
+    return word_id
+
+
 @router.post("/{conversation_id}/mark-word")
 async def mark_word_detected(
     conversation_id: str,
@@ -678,12 +696,14 @@ async def mark_word_detected(
     if not conversation:
         raise HTTPException(status_code=404, detail="Conversation not found")
 
+    normalized_word_id = _normalize_word_id(word_id)
+
     current_used = set(conversation.used_spoken_word_ids or [])
-    current_used.add(word_id)
+    current_used.add(normalized_word_id)
     conversation.used_spoken_word_ids = list(current_used)
 
     from app.services.conversation_service import update_user_word_stats, check_conversation_complete, get_missing_word_ids
-    update_user_word_stats(db, str(current_user.id), [word_id], "voice")
+    update_user_word_stats(db, str(current_user.id), [normalized_word_id], "voice")
 
     conversation_complete = check_conversation_complete(conversation, "voice")
     if conversation_complete:
@@ -691,10 +711,10 @@ async def mark_word_detected(
 
     db.commit()
     missing_word_ids = get_missing_word_ids(conversation, "voice")
-    logger.info(f"[MarkWord] User {current_user.id} manually marked word {word_id} in conversation {conversation_id}")
+    logger.info(f"[MarkWord] User {current_user.id} marked word {word_id} (normalized={normalized_word_id}) in conversation {conversation_id}")
 
     return {
-        "word_id": word_id,
+        "word_id": normalized_word_id,
         "missing_word_ids": missing_word_ids,
         "conversation_complete": conversation_complete,
     }
@@ -760,12 +780,11 @@ async def voice_turn_transcribe(
     words = get_words_by_ids(db, conversation.target_word_ids)
     situation = db.query(Situation).filter(Situation.id == conversation.situation_id).first()
 
-    catalan_mode = current_user.catalan_mode
-    if catalan_mode:
-        words = apply_catalan_mode(words, db)
+    alt_language = current_user.alt_language
+    words = apply_alt_language(words, alt_language, db)
 
     transcription_prompt = build_transcription_prompt(
-        situation.title if situation else "a situation", words, catalan_mode=catalan_mode,
+        situation.title if situation else "a situation", words, alt_language=alt_language,
     )
 
     stt_start = time.time()
@@ -839,9 +858,8 @@ async def voice_turn_respond(
 
     words = get_words_by_ids(db, conversation.target_word_ids)
     situation = db.query(Situation).filter(Situation.id == conversation.situation_id).first()
-    catalan_mode = current_user.catalan_mode
-    if catalan_mode:
-        words = apply_catalan_mode(words, db)
+    alt_language = current_user.alt_language
+    words = apply_alt_language(words, alt_language, db)
 
     user_transcript = body.user_transcript
 
@@ -856,8 +874,8 @@ async def voice_turn_respond(
     vocab_level = get_vocab_level(db, current_user.id)
     grammar_level = get_grammar_level(db, current_user.id)
     language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
-    if catalan_mode and language_mode in ("spanish_text", "spanish_audio"):
-        language_mode = language_mode.replace("spanish_", "catalan_")
+    if alt_language and language_mode in ("spanish_text", "spanish_audio"):
+        language_mode = language_mode.replace("spanish_", f"{alt_language}_")
 
     # Word guidance — steer AI toward unused target words
     missing_ids = get_missing_word_ids(conversation, "voice")
@@ -921,10 +939,10 @@ async def voice_turn_respond(
     # Always build the system prompt — frontend messages don't include it
     grammar_config_for_prompt = get_grammar_config(conversation.situation_id)
     if grammar_config_for_prompt:
-        system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, catalan_mode=catalan_mode)
+        system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, alt_language=alt_language)
     else:
         system_prompt = get_conversation_system_prompt(
-            language_mode, catalan_mode=catalan_mode,
+            language_mode, alt_language=alt_language,
             animation_type=situation.animation_type if situation else "",
             situation_id=conversation.situation_id,
         )
@@ -947,20 +965,20 @@ async def voice_turn_respond(
     else:
         grammar_config = get_grammar_config(conversation.situation_id)
         if grammar_config:
-            system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, catalan_mode=catalan_mode)
+            system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, alt_language=alt_language)
             user_prompt = build_grammar_user_prompt(
                 situation.title, conversation.used_spoken_word_ids or [],
                 user_transcript, grammar_config,
             )
         else:
             system_prompt = get_conversation_system_prompt(
-                language_mode, catalan_mode=catalan_mode,
+                language_mode, alt_language=alt_language,
                 animation_type=situation.animation_type if situation else "",
                 situation_id=conversation.situation_id,
             ) + word_guidance_system
             user_prompt = build_conversation_prompt(
                 situation.title, words, conversation.used_spoken_word_ids or [],
-                user_transcript, catalan_mode=catalan_mode,
+                user_transcript, alt_language=alt_language,
             )
         llm_messages = [
             {"role": "system", "content": system_prompt},
@@ -971,7 +989,7 @@ async def voice_turn_respond(
 
     # TTS voice config
     tts_voice, tts_instructions = get_tts_instructions(
-        situation.animation_type if situation else "", catalan_mode=catalan_mode,
+        situation.animation_type if situation else "", alt_language=alt_language,
     )
 
     # Log full messages object for debugging

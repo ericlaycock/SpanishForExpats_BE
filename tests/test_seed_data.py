@@ -240,12 +240,13 @@ class TestCompactDataIntegrity:
                 f"Animation type '{category}' not found in ANIMATION_NAMES"
             )
 
-    def test_word_tuples_are_triples(self):
+    def test_word_tuples_have_valid_length(self):
+        """Word tuples should be 3-element (spanish, english, catalan) or 4-element (+ swedish)."""
         for category, sub_list in _SUB_SITUATIONS.items():
             for sub in sub_list:
                 for i, w in enumerate(sub["words"]):
-                    assert isinstance(w, tuple) and len(w) == 3, (
-                        f"{category}/{sub['title']} word {i}: expected (str, str, str) tuple, got {w}"
+                    assert isinstance(w, tuple) and len(w) in (3, 4), (
+                        f"{category}/{sub['title']} word {i}: expected 3 or 4-element tuple, got {w}"
                     )
                     assert all(isinstance(el, str) for el in w), (
                         f"{category}/{sub['title']} word {i}: all elements must be strings"
@@ -274,4 +275,31 @@ class TestCatalanData:
             ratio = same_count / total
             assert ratio < 0.30, (
                 f"{same_count}/{total} ({ratio:.0%}) encounter words have catalan == spanish"
+            )
+
+
+class TestSwedishData:
+    def test_encounter_words_have_swedish_key(self):
+        """All encounter word dicts should have a 'swedish' key (may be empty before translation)."""
+        for category, words in ENCOUNTER_WORDS.items():
+            for w in words:
+                assert "swedish" in w, (
+                    f"{w['id']}: missing 'swedish' key in encounter word dict"
+                )
+
+    def test_no_swedish_equals_spanish(self):
+        """Swedish and Spanish are different language families — near-zero overlap expected."""
+        same_count = 0
+        total = 0
+        for category, words in ENCOUNTER_WORDS.items():
+            for w in words:
+                if w.get("swedish"):
+                    total += 1
+                    if w["swedish"] == w["spanish"]:
+                        same_count += 1
+        if total > 0:
+            ratio = same_count / total
+            assert ratio < 0.05, (
+                f"{same_count}/{total} ({ratio:.0%}) encounter words have swedish == spanish "
+                "(expected near-zero for different language families)"
             )
