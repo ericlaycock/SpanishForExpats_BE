@@ -5,7 +5,8 @@ Uses the Realtime API (same model as live conversations) so opener voice
 matches the ongoing conversation voice exactly.
 
 Audio is PCM16 from Realtime API, converted to MP3 via ffmpeg, then uploaded
-to R2 with deterministic filenames (initial_msg_{situation_id}.mp3).
+to R2 with deterministic filenames: initial_msg_{situation_id}.mp3
+(no language suffix — alt-language audio not yet pre-generated).
 
 Usage:
     python scripts/pregenerate_initial_audio.py          # all situations
