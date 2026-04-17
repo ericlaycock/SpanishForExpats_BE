@@ -294,6 +294,9 @@ app.include_router(translate.router, prefix="/v1/translate", tags=["translate"])
 logger.info("  ✅ /v1/translate (POST / - rapid translation)")
 app.include_router(tts.router, prefix="/v1/tts", tags=["tts"])
 logger.info("  ✅ /v1/tts (GET /word - per-word pronunciation)")
+from app.api.v1 import tutor
+app.include_router(tutor.router, prefix="/v1/tutor", tags=["tutor"])
+logger.info("  ✅ /v1/tutor (GET /student - tutor dashboard)")
 logger.info("✅ All routes registered")
 
 
