@@ -878,7 +878,6 @@ async def voice_turn_respond(
     # Word guidance — steer AI toward unused target words
     missing_ids = get_missing_word_ids(conversation, "voice")
     word_guidance_system = ""
-    word_guidance_user = ""
 
     # For grammar situations with drill_targets, build specific verb+pronoun guidance
     grammar_cfg = get_grammar_config(conversation.situation_id)
@@ -921,16 +920,12 @@ async def voice_turn_respond(
             )
     elif missing_ids:
         missing_words = get_words_by_ids(db, missing_ids)
-        missing_english_only = [w.english for w in missing_words]
+        lang = get_target_language_name(alt_language)
+        missing_pairs = [f"{w.spanish} ({w.english})" for w in missing_words]
         word_guidance_system = (
-            f"\n\nAsk questions or move the conversation to encourage/force/hint the user to use these English concepts: "
-            f"{', '.join(missing_english_only)}. "
-            f"Do not say the Spanish translation yourself. If they do not use your hint successfully, give them a short English "
-            f"phrase/word to translate which will force them to use the word/phrase."
-        )
-        word_guidance_user = (
-            f"\n\n[Steer me toward expressing: {', '.join(missing_english_only)}. "
-            f"Do not use any Spanish yourself.]"
+            f"\n\nThe student still needs to say these {lang} words: {', '.join(missing_pairs)}. "
+            f"Steer the conversation toward topics where they'd naturally use them. "
+            f"Don't say the target {lang} words yourself."
         )
 
     # Build messages for Realtime API
@@ -959,7 +954,7 @@ async def voice_turn_respond(
             llm_messages.append({"role": "user", "content": user_transcript})
             llm_messages.append({"role": "assistant", "content": grammar_inject_message})
         else:
-            llm_messages.append({"role": "user", "content": user_transcript + word_guidance_user})
+            llm_messages.append({"role": "user", "content": user_transcript})
     else:
         grammar_config = get_grammar_config(conversation.situation_id)
         if grammar_config:
