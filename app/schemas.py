@@ -141,7 +141,10 @@ class UserWordSchema(BaseModel):
     status: WordStatus
     mastery_level: int = 0
     next_refresh_at: Optional[datetime] = None
-    word_category: Optional[Literal["high_frequency", "encounter"]] = None
+    # Grammar-verb rows (hablar/beber/…) legitimately have word_category="grammar"
+    # because users track progress on them through grammar lessons. Keep it in
+    # the union so UserWord rows pointing at those verbs don't blow up serialization.
+    word_category: Optional[Literal["high_frequency", "encounter", "grammar"]] = None
     frequency_rank: Optional[int] = None
 
     class Config:

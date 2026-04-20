@@ -165,20 +165,21 @@ async def get_unknown_words(
         ~Word.id.in_(learned_word_ids) if learned_word_ids else True
     )
     
-    # Filter by category if provided
+    # Filter by category if provided. Grammar-verb rows (word_category="grammar")
+    # are intentionally excluded — they're learned through grammar lessons, not
+    # the word-bank flow, so they don't belong in either bucket.
     if category:
         query = query.filter(Word.word_category == category)
     else:
-        # Only return words with a category (high_frequency or encounter)
-        query = query.filter(Word.word_category.isnot(None))
-    
+        query = query.filter(Word.word_category.in_(['high_frequency', 'encounter']))
+
     unknown_words = query.order_by(Word.frequency_rank.asc().nullslast(), Word.spanish.asc()).all()
     unknown_words = apply_alt_language(unknown_words, current_user.alt_language, db)
 
     # Group by category
     high_frequency = []
     encounter = []
-    
+
     for word in unknown_words:
         word_data = UnknownWordSchema(
             id=word.id,
