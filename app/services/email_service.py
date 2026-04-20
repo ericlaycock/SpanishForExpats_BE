@@ -2,10 +2,16 @@
 
 import smtplib
 import logging
+import json
+from html import escape
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from typing import TYPE_CHECKING, Optional
 
 from app.config import settings
+
+if TYPE_CHECKING:
+    from app.models import UserReport
 
 logger = logging.getLogger(__name__)
 
@@ -51,4 +57,80 @@ def send_reset_email(to_email: str, reset_url: str) -> bool:
         return True
     except Exception as e:
         logger.error(f"[Email] Failed to send to {to_email}: {e}")
+        return False
+
+
+def send_report_notification(
+    report: "UserReport",
+    reporter_email: Optional[str],
+    recipients: list[str],
+) -> bool:
+    """Notify admins about a newly submitted user report.
+
+    Must never raise: it runs in a FastAPI BackgroundTasks context and
+    SMTP failures should not surface to the client. Returns True on success.
+    """
+    if not recipients:
+        logger.warning(f"[Email] No recipients for report {report.id}, skipping")
+        return False
+
+    if not settings.smtp_email or not settings.smtp_app_password:
+        logger.error(
+            f"[Email] SMTP not configured; cannot notify admins about report {report.id}"
+        )
+        return False
+
+    try:
+        description_preview = (report.description or "")[:60]
+        subject = f"[SFE Report] {report.category} — {description_preview}"
+
+        reporter_label = reporter_email or "anonymous"
+        context_json = json.dumps(report.context or {}, indent=2, default=str, sort_keys=True)
+        created_at_iso = report.created_at.isoformat() if report.created_at else ""
+
+        text_body = (
+            f"New user report\n"
+            f"ID: {report.id}\n"
+            f"Category: {report.category}\n"
+            f"Status: {report.status}\n"
+            f"Created: {created_at_iso}\n"
+            f"Reporter: {reporter_label}\n\n"
+            f"Description:\n{report.description}\n\n"
+            f"Context:\n{context_json}\n"
+        )
+
+        html_body = f"""
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+            <h2 style="color: #28968C;">New User Report</h2>
+            <p><strong>ID:</strong> {escape(str(report.id))}<br>
+               <strong>Category:</strong> {escape(report.category)}<br>
+               <strong>Status:</strong> {escape(report.status)}<br>
+               <strong>Created:</strong> {escape(created_at_iso)}<br>
+               <strong>Reporter:</strong> {escape(reporter_label)}</p>
+            <h3 style="color: #28968C; font-size: 14px; margin-top: 20px;">Description</h3>
+            <p style="white-space: pre-wrap;">{escape(report.description or "")}</p>
+            <h3 style="color: #28968C; font-size: 14px; margin-top: 20px;">Context</h3>
+            <pre style="background: #f5f5f5; padding: 12px; border-radius: 6px;
+                        font-size: 12px; overflow-x: auto;">{escape(context_json)}</pre>
+            <p style="color: #999; font-size: 12px;">— Spanish for Expats</p>
+        </div>
+        """
+
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"] = f"Spanish for Expats <{settings.smtp_email}>"
+        msg["To"] = ", ".join(recipients)
+        msg.attach(MIMEText(text_body, "plain"))
+        msg.attach(MIMEText(html_body, "html"))
+
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls()
+            server.login(settings.smtp_email, settings.smtp_app_password)
+            server.send_message(msg)
+        logger.info(
+            f"[Email] Report notification sent for report {report.id} to {len(recipients)} admin(s)"
+        )
+        return True
+    except Exception as e:
+        logger.error(f"[Email] Failed to send report notification for report {report.id}: {e}")
         return False

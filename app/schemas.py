@@ -334,3 +334,31 @@ class ErrorResponse(BaseModel):
     error: str
 
 
+# User reports
+ReportCategory = Literal[
+    'platform', 'translation', 'pronunciation',
+    'voice_chat', 'subscription', 'suggestion', 'other',
+]
+ReportStatus = Literal['new', 'investigating', 'resolved', 'dismissed']
+
+
+class UserReportCreate(BaseModel):
+    category: ReportCategory
+    description: str = Field(min_length=10, max_length=2000)
+    context: Dict[str, Any] = Field(
+        default_factory=dict,
+        json_schema_extra=_freeform_object_schema,
+    )
+
+
+class UserReportResponse(BaseModel):
+    id: UUID
+    category: ReportCategory
+    description: str
+    status: ReportStatus
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
