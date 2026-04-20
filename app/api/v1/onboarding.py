@@ -7,6 +7,11 @@ from datetime import datetime, timezone
 from app.database import get_db
 from app.auth import get_current_user
 from app.models import User, Situation, UserWord, UserSituation, Word
+from app.schemas import (
+    AvailableCategoriesResponse,
+    AvailableCategory,
+    UpdateAnimationTypesResponse,
+)
 from app.data.grammar_situations import GRAMMAR_SITUATIONS, get_all_grammar_situation_ids, GL_VL_THRESHOLDS
 import logging
 
@@ -193,7 +198,7 @@ async def get_onboarding_status(
     )
 
 
-@router.get("/available-categories")
+@router.get("/available-categories", response_model=AvailableCategoriesResponse)
 async def get_available_categories(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -248,21 +253,21 @@ async def get_available_categories(
         },
     }
 
-    result = []
+    result: List[AvailableCategory] = []
     for type_id, type_info in allowed_types.items():
         # Verify animation type exists in database
         exists = db.query(Situation).filter(Situation.animation_type == type_id).first()
         if exists:
-            result.append({
-                "id": type_id,
-                "name": type_info["name"],
-                "description": type_info["description"]
-            })
+            result.append(AvailableCategory(
+                id=type_id,
+                name=type_info["name"],
+                description=type_info["description"],
+            ))
 
     # Sort by name for consistent ordering
-    result.sort(key=lambda x: x["name"])
+    result.sort(key=lambda c: c.name)
 
-    return {"categories": result}
+    return AvailableCategoriesResponse(categories=result)
 
 
 class UpdateAnimationTypesRequest(BaseModel):
@@ -270,7 +275,7 @@ class UpdateAnimationTypesRequest(BaseModel):
     action: str  # 'add' or 'remove'
 
 
-@router.patch("/animation-types")
+@router.patch("/animation-types", response_model=UpdateAnimationTypesResponse)
 async def update_animation_types(
     request: UpdateAnimationTypesRequest,
     current_user: User = Depends(get_current_user),
@@ -307,4 +312,4 @@ async def update_animation_types(
     current_user.selected_animation_types = current
     db.commit()
 
-    return {"selected_animation_types": current}
+    return UpdateAnimationTypesResponse(selected_animation_types=current)

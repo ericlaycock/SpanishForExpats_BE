@@ -12,8 +12,13 @@ from app.schemas import (
     StartSituationResponse,
     CompleteSituationResponse,
     AdminSkipEncounterResponse,
+    DailyUsageResponse,
     GrammarConfigResponse,
-    WordSchema
+    GrammarCompletedResponse,
+    GrammarGate,
+    GrammarGatesResponse,
+    GrammarUnit,
+    WordSchema,
 )
 from app.services.word_selection_service import (
     select_words_for_situation,
@@ -282,7 +287,7 @@ async def get_selected_situations(
     return result
 
 
-@router.get("/grammar-gates")
+@router.get("/grammar-gates", response_model=GrammarGatesResponse)
 async def get_grammar_gates(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -320,15 +325,15 @@ async def get_grammar_gates(
         ).first() is not None
         gate["resume_phase"] = "voice-chat" if has_active_voice else "learn"
 
-    return {
-        "vocab_level": vocab_level,
-        "grammar_level": grammar_level,
-        "is_gated": gate is not None,
-        "gate": gate,
-    }
+    return GrammarGatesResponse(
+        vocab_level=vocab_level,
+        grammar_level=grammar_level,
+        is_gated=gate is not None,
+        gate=GrammarGate(**gate) if gate else None,
+    )
 
 
-@router.get("/grammar-completed")
+@router.get("/grammar-completed", response_model=GrammarCompletedResponse)
 async def get_completed_grammar(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -342,33 +347,33 @@ async def get_completed_grammar(
         ).all()
     }
 
-    result = []
+    result: List[GrammarUnit] = []
     for gl in sorted(GL_VL_THRESHOLDS.keys()):
         from app.data.grammar_situations import get_situations_for_gl
         situations_at_gl = get_situations_for_gl(gl)
         total_lessons = len(situations_at_gl)
         completed_lessons = sum(1 for sid in situations_at_gl if sid in completed_situations)
 
-        result.append({
-            "grammar_level": gl,
-            "title": GL_TITLES[gl],
-            "vl_threshold": GL_VL_THRESHOLDS[gl],
-            "has_content": total_lessons > 0,
-            "completed": total_lessons > 0 and completed_lessons == total_lessons,
-            "total_lessons": total_lessons,
-            "completed_lessons": completed_lessons,
-        })
+        result.append(GrammarUnit(
+            grammar_level=gl,
+            title=GL_TITLES[gl],
+            vl_threshold=GL_VL_THRESHOLDS[gl],
+            has_content=total_lessons > 0,
+            completed=total_lessons > 0 and completed_lessons == total_lessons,
+            total_lessons=total_lessons,
+            completed_lessons=completed_lessons,
+        ))
 
-    return {"grammar_units": result}
+    return GrammarCompletedResponse(grammar_units=result)
 
 
-@router.get("/daily-usage")
+@router.get("/daily-usage", response_model=DailyUsageResponse)
 async def get_daily_usage(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Get today's encounter usage for the current user."""
-    return get_daily_encounter_usage(db, current_user.id)
+    return DailyUsageResponse(**get_daily_encounter_usage(db, current_user.id))
 
 
 @router.get("", response_model=list[SituationListItem])

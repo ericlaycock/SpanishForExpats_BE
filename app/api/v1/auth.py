@@ -4,7 +4,15 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth import authenticate_user, create_access_token, create_user, get_current_user
 from app.models import User, UserWord, UserSituation, Conversation
-from app.schemas import LoginRequest, LoginResponse, RegisterRequest, UserProfileResponse, AltLanguageRequest
+from app.schemas import (
+    AltLanguageRequest,
+    LoginRequest,
+    LoginResponse,
+    RegisterRequest,
+    ResetPasswordResponse,
+    ResetProgressResponse,
+    UserProfileResponse,
+)
 
 router = APIRouter()
 
@@ -202,7 +210,7 @@ async def reset_password(request: dict, db: Session = Depends(get_db)):
     return {"reset": True}
 
 
-@router.post("/admin-reset-password")
+@router.post("/admin-reset-password", response_model=ResetPasswordResponse)
 async def admin_reset_password(
     request: dict,
     current_user: User = Depends(get_current_user),
@@ -224,10 +232,10 @@ async def admin_reset_password(
 
     user.password_hash = get_password_hash(new_password)
     db.commit()
-    return {"reset": True, "email": email}
+    return ResetPasswordResponse(reset=True, email=email)
 
 
-@router.post("/reset-progress")
+@router.post("/reset-progress", response_model=ResetProgressResponse)
 async def reset_progress(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -245,9 +253,9 @@ async def reset_progress(
     deleted_conversations = db.query(Conversation).filter(Conversation.user_id == current_user.id).delete()
     db.commit()
 
-    return {
-        "reset": True,
-        "deleted_words": deleted_words,
-        "deleted_situations": deleted_situations,
-        "deleted_conversations": deleted_conversations,
-    }
+    return ResetProgressResponse(
+        reset=True,
+        deleted_words=deleted_words,
+        deleted_situations=deleted_situations,
+        deleted_conversations=deleted_conversations,
+    )
