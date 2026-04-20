@@ -27,6 +27,7 @@ class User(Base):
     user_words = relationship("UserWord", back_populates="user")
     user_situations = relationship("UserSituation", back_populates="user")
     conversations = relationship("Conversation", back_populates="user")
+    reports = relationship("UserReport", back_populates="user")
 
 
 class Subscription(Base):
@@ -149,6 +150,45 @@ class Conversation(Base):
     # Relationships
     user = relationship("User", back_populates="conversations")
     situation = relationship("Situation", back_populates="conversations")
+
+
+# Single source of truth for the category/status closed sets used by the
+# Pydantic schemas and the CHECK constraints in migration 016.
+REPORT_CATEGORIES = (
+    'platform', 'translation', 'pronunciation',
+    'voice_chat', 'subscription', 'suggestion', 'other',
+)
+REPORT_STATUSES = ('new', 'investigating', 'resolved', 'dismissed')
+
+
+class UserReport(Base):
+    __tablename__ = "user_reports"
+    __table_args__ = (
+        CheckConstraint(
+            "category IN ('" + "','".join(REPORT_CATEGORIES) + "')",
+            name="ck_user_reports_category",
+        ),
+        CheckConstraint(
+            "status IN ('" + "','".join(REPORT_STATUSES) + "')",
+            name="ck_user_reports_status",
+        ),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    category = Column(String(32), nullable=False)
+    description = Column(Text, nullable=False)
+    context = Column(JSONB, nullable=False, default=dict, server_default="{}")
+    status = Column(String(16), nullable=False, default="new", server_default="new", index=True)
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now(), index=True)
+    resolved_at = Column(DateTime(timezone=True), nullable=True)
+
+    user = relationship("User", back_populates="reports")
 
 
 class DailyEncounterLog(Base):
