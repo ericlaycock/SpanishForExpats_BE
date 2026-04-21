@@ -28,21 +28,22 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
         logger.info(f"Registration attempt for email: {email}")
 
         # Validate invite token and determine plan
-        import json
         from app.config import settings
 
-        # Build combined token→plan map
+        # Build combined token→plan map from comma-separated env var lists
         token_plan_map: dict[str, str] = {}
-        if settings.plan_tokens.strip():
-            try:
-                token_plan_map = {k.strip().lower(): v for k, v in json.loads(settings.plan_tokens).items()}
-            except (json.JSONDecodeError, AttributeError):
-                logger.error("PLAN_TOKENS env var is not valid JSON — ignoring")
-        # Backward compat: whitelist_tokens all grant 'app'
         for t in settings.whitelist_tokens.split(","):
             t = t.strip().lower()
-            if t and t not in token_plan_map:
+            if t:
                 token_plan_map[t] = "app"
+        for t in settings.pronounce_tokens.split(","):
+            t = t.strip().lower()
+            if t:
+                token_plan_map[t] = "pronounce"
+        for t in settings.app_pronounce_tokens.split(","):
+            t = t.strip().lower()
+            if t:
+                token_plan_map[t] = "app_pronounce"
 
         invite = credentials.invite_token.strip().lower()
         if token_plan_map and invite not in token_plan_map:

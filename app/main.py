@@ -40,7 +40,7 @@ except Exception as e:
     # If logging fails, at least print to stdout
     print(f"⚠️  Failed to emit boot event: {e}", file=sys.stderr)
 
-from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports
+from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports, admin
 from app.database import engine
 from app.models import Base
 
@@ -302,6 +302,8 @@ app.include_router(tutor.router, prefix="/v1/tutor", tags=["tutor"])
 logger.info("  ✅ /v1/tutor (GET /student - tutor dashboard)")
 app.include_router(reports.router, prefix="/v1/reports", tags=["reports"])
 logger.info("  ✅ /v1/reports (POST / - user-submitted reports)")
+app.include_router(admin.router, prefix="/v1/admin", tags=["admin"])
+logger.info("  ✅ /v1/admin (GET /users, PATCH /users/{id}/plan)")
 logger.info("✅ All routes registered")
 
 
