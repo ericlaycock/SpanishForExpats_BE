@@ -8,8 +8,8 @@ from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 
-revision = "017"
-down_revision = "016"
+revision = "017_pron_daily_usage"
+down_revision = "016_user_reports"
 branch_labels = None
 depends_on = None
 
