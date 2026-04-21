@@ -52,11 +52,15 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
     
     # Check subscription
     subscription = db.query(Subscription).filter(Subscription.user_id == user_id).first()
-    
-    # If subscription is active, allow access
+
+    # Pronounce-only users get no app access
+    if subscription and subscription.tier == "pronounce":
+        return False, "PAYWALL"
+
+    # If subscription is active (app or app_pronounce), allow access
     if subscription and subscription.active:
         return True, None
-    
+
     # If no active subscription, check total completed encounters (excluding grammar auto-completes)
     completed_encounters = _count_completed_encounters(db, user_id)
     

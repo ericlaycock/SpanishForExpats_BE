@@ -45,6 +45,7 @@ class LoginResponse(BaseModel):
     is_admin: bool = False
     alt_language: Optional[str] = None
     email: str
+    plan: str = "free"
 
 
 class UserProfileResponse(BaseModel):

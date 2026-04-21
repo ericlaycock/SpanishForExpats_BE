@@ -12,8 +12,13 @@ class Settings(BaseSettings):
     jwt_expiration_hours: int = 72
     mastery_spoken_threshold: int = 2
 
-    # Registration whitelist (comma-separated 6-char hex tokens, empty = open registration)
+    # Registration whitelist (comma-separated tokens, empty = open registration)
+    # All whitelist_tokens grant 'app' plan (backward compat).
     whitelist_tokens: str = ""
+
+    # Plan tokens: JSON mapping token → plan ('app' | 'pronounce' | 'app_pronounce')
+    # Example: {"abc123": "app", "def456": "pronounce", "ghi789": "app_pronounce"}
+    plan_tokens: str = ""
 
     # SMTP for password reset emails (Gmail App Password)
     smtp_email: Optional[str] = None
