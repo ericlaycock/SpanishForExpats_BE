@@ -24,6 +24,10 @@ class Settings(BaseSettings):
     smtp_email: Optional[str] = None
     smtp_app_password: Optional[str] = None
 
+    # Azure Speech (pronunciation trainer)
+    speech_key: Optional[str] = None
+    speech_region: Optional[str] = None
+
     # R2 / S3 storage for TTS audio (optional — falls back to local /tmp)
     r2_endpoint_url: Optional[str] = None
     r2_access_key_id: Optional[str] = None
