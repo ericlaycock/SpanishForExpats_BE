@@ -1,12 +1,16 @@
 """Pronunciation trainer endpoints.
 
 Issues 10-minute Azure Speech tokens and tracks daily usage (500s/user/day).
+Also provides espeak-ng IPA transcription and wav2vec2 phoneme recognition.
 Only users with plan 'pronounce' or 'app_pronounce' (subscription.tier) can access.
 """
 import uuid
 import logging
+import subprocess
+import tempfile
+import os
 from datetime import date
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 import httpx
@@ -14,6 +18,10 @@ from app.auth import get_current_user
 from app.database import get_db
 from app.models import User, Subscription
 from app.config import settings
+
+# Lazy-loaded wav2vec2 model singleton
+_wav2vec2_processor = None
+_wav2vec2_model = None
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -110,3 +118,93 @@ def get_usage(
     _require_pronounce(current_user, db)
     seconds_used = _get_seconds_used(db, current_user.id)
     return {"seconds_used": seconds_used, "seconds_remaining": max(0, DAILY_LIMIT - seconds_used), "limit": DAILY_LIMIT}
+
+
+@router.get("/ipa")
+def get_target_ipa(
+    text: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Return espeak-ng IPA for the given Spanish text (target phonemes)."""
+    _require_pronounce(current_user, db)
+    try:
+        result = subprocess.run(
+            ["espeak-ng", "-v", "es", "-q", "--ipa", text],
+            capture_output=True, text=True, timeout=10,
+        )
+        # espeak-ng outputs one line per word; join into flat space-separated stream
+        ipa = " ".join(line.strip() for line in result.stdout.strip().splitlines() if line.strip())
+        return {"ipa": ipa}
+    except FileNotFoundError:
+        raise HTTPException(status_code=503, detail="espeak-ng not available on this server")
+    except subprocess.TimeoutExpired:
+        raise HTTPException(status_code=504, detail="espeak-ng timed out")
+
+
+def _load_wav2vec2():
+    global _wav2vec2_processor, _wav2vec2_model
+    if _wav2vec2_model is None:
+        import torch
+        from transformers import AutoProcessor, Wav2Vec2ForCTC
+        MODEL_ID = "facebook/wav2vec2-lv-60-espeak-cv-ft"
+        logger.info(f"[Pronounce] Loading {MODEL_ID}...")
+        _wav2vec2_processor = AutoProcessor.from_pretrained(MODEL_ID)
+        _wav2vec2_model = Wav2Vec2ForCTC.from_pretrained(MODEL_ID)
+        _wav2vec2_model.eval()
+        logger.info("[Pronounce] wav2vec2 model ready.")
+    return _wav2vec2_processor, _wav2vec2_model
+
+
+@router.post("/phones")
+async def recognize_phones(
+    audio: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Accept an audio file, return IPA phoneme string of what was spoken."""
+    _require_pronounce(current_user, db)
+
+    import torch
+    import numpy as np
+
+    raw = await audio.read()
+    if not raw:
+        raise HTTPException(status_code=400, detail="Empty audio file")
+
+    # Write to temp file so ffmpeg can detect container format
+    suffix = "." + (audio.filename.rsplit(".", 1)[-1] if audio.filename and "." in audio.filename else "webm")
+    tmp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as f:
+            f.write(raw)
+            tmp_path = f.name
+
+        # Decode to mono float32 @ 16 kHz (same as sfe_pron/phones.py)
+        ffmpeg_result = subprocess.run(
+            [
+                "ffmpeg", "-nostdin", "-loglevel", "error",
+                "-i", tmp_path,
+                "-ac", "1", "-ar", "16000",
+                "-f", "f32le", "pipe:1",
+            ],
+            capture_output=True,
+        )
+        if ffmpeg_result.returncode != 0:
+            raise HTTPException(status_code=400, detail="Audio decode failed")
+
+        pcm = np.frombuffer(ffmpeg_result.stdout, dtype=np.float32).copy()
+        if pcm.size < 1600:  # < 0.1s
+            return {"ipa": ""}
+
+        processor, model = _load_wav2vec2()
+        inputs = processor(pcm, sampling_rate=16000, return_tensors="pt")
+        with torch.no_grad():
+            logits = model(inputs.input_values).logits
+        pred = torch.argmax(logits, dim=-1)
+        ipa = processor.batch_decode(pred)[0].strip()
+        return {"ipa": ipa}
+
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            os.unlink(tmp_path)
