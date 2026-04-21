@@ -5,19 +5,19 @@ from typing import List, Optional
 from app.database import get_db
 from app.auth import get_current_user
 from app.models import User, UserWord, Word
-from app.schemas import UserWordSchema, TypedCorrectRequest, HintRequest
+from app.schemas import (
+    DemoteWordResponse,
+    HintRequest,
+    HintResponse,
+    MessageOnlyResponse,
+    TypedCorrectRequest,
+    UnknownWordSchema,
+    UnknownWordsResponse,
+    UserWordSchema,
+)
 from app.services.alt_language_service import apply_alt_language
-from pydantic import BaseModel
 
 router = APIRouter()
-
-
-class UnknownWordSchema(BaseModel):
-    word_id: str
-    spanish: str
-    english: str
-    word_category: Optional[str]  # 'high_frequency' or 'encounter'
-    frequency_rank: Optional[int]
 
 
 @router.get("", response_model=list[UserWordSchema])
@@ -41,9 +41,11 @@ async def get_user_words(
         word = word_dict.get(uw.word_id)
         if word:
             result.append(UserWordSchema(
+                id=uw.word_id,
                 word_id=uw.word_id,
                 spanish=word.spanish,
                 english=word.english,
+                notes=word.notes,
                 seen_count=uw.seen_count,
                 typed_correct_count=uw.typed_correct_count,
                 spoken_correct_count=uw.spoken_correct_count,
@@ -58,7 +60,7 @@ async def get_user_words(
     return result
 
 
-@router.post("/typed-correct")
+@router.post("/typed-correct", response_model=MessageOnlyResponse)
 async def mark_typed_correct(
     request: TypedCorrectRequest,
     current_user: User = Depends(get_current_user),
@@ -97,7 +99,7 @@ async def mark_typed_correct(
     return {"message": "Updated"}
 
 
-@router.post("/hint")
+@router.post("/hint", response_model=HintResponse)
 async def record_hint(
     request: HintRequest,
     current_user: User = Depends(get_current_user),
@@ -115,7 +117,7 @@ async def record_hint(
     return {"hint_count": 0}
 
 
-@router.post("/demote")
+@router.post("/demote", response_model=DemoteWordResponse)
 async def demote_word(
     request: HintRequest,
     current_user: User = Depends(get_current_user),
@@ -144,7 +146,7 @@ async def demote_word(
     return {"word_id": request.word_id, "old_level": old_level, "new_level": new_level}
 
 
-@router.get("/unknown", response_model=dict)
+@router.get("/unknown", response_model=UnknownWordsResponse)
 async def get_unknown_words(
     category: Optional[str] = Query(None, description="Filter by category: 'high_frequency' or 'encounter'"),
     current_user: User = Depends(get_current_user),
@@ -163,35 +165,37 @@ async def get_unknown_words(
         ~Word.id.in_(learned_word_ids) if learned_word_ids else True
     )
     
-    # Filter by category if provided
+    # Filter by category if provided. Grammar-verb rows (word_category="grammar")
+    # are intentionally excluded — they're learned through grammar lessons, not
+    # the word-bank flow, so they don't belong in either bucket.
     if category:
         query = query.filter(Word.word_category == category)
     else:
-        # Only return words with a category (high_frequency or encounter)
-        query = query.filter(Word.word_category.isnot(None))
-    
+        query = query.filter(Word.word_category.in_(['high_frequency', 'encounter']))
+
     unknown_words = query.order_by(Word.frequency_rank.asc().nullslast(), Word.spanish.asc()).all()
     unknown_words = apply_alt_language(unknown_words, current_user.alt_language, db)
 
     # Group by category
     high_frequency = []
     encounter = []
-    
+
     for word in unknown_words:
         word_data = UnknownWordSchema(
+            id=word.id,
             word_id=word.id,
             spanish=word.spanish,
             english=word.english,
             word_category=word.word_category,
             frequency_rank=word.frequency_rank
         )
-        
+
         if word.word_category == 'high_frequency':
             high_frequency.append(word_data)
         elif word.word_category == 'encounter':
             encounter.append(word_data)
-    
-    return {
-        "high_frequency": high_frequency,
-        "encounter": encounter
-    }
+
+    return UnknownWordsResponse(
+        high_frequency=high_frequency,
+        encounter=encounter,
+    )

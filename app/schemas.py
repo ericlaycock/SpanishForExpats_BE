@@ -1,7 +1,29 @@
-from pydantic import BaseModel, EmailStr
-from typing import List, Optional
+from pydantic import BaseModel, EmailStr, Field
+from typing import Any, Dict, List, Literal, Optional
 from datetime import datetime
 from uuid import UUID
+
+
+WordStatus = Literal["learning", "mastered"]
+
+
+# Pydantic 2 emits `{type: object}` for Dict[str, Any], which openapi-typescript
+# interprets as `Record<string, never>`. These helpers post-process the JSON
+# schema to inject `additionalProperties: true` *inside* the anyOf object
+# variant so generated clients see a real "object with unknown values" shape.
+def _freeform_object_schema(schema: dict) -> None:
+    for variant in schema.get("anyOf", []):
+        if variant.get("type") == "object":
+            variant["additionalProperties"] = True
+            return
+    schema["additionalProperties"] = True
+
+
+def _freeform_object_list_schema(schema: dict) -> None:
+    for variant in schema.get("anyOf", []):
+        if variant.get("type") == "array":
+            variant.setdefault("items", {"type": "object"})["additionalProperties"] = True
+            return
 
 
 # Auth schemas
@@ -104,21 +126,45 @@ class AdminSkipEncounterResponse(BaseModel):
 
 # User Words schemas
 class UserWordSchema(BaseModel):
+    # `id` and `word_id` hold the same value. `id` is included so FE `Word`-based
+    # types can read the field under its conventional name without casting;
+    # `word_id` is kept for backward compatibility with existing consumers.
+    id: str
     word_id: str
     spanish: str
     english: str
+    notes: Optional[str] = None
     seen_count: int
     typed_correct_count: int
     spoken_correct_count: int
     hint_count: int = 0
-    status: str
+    status: WordStatus
     mastery_level: int = 0
     next_refresh_at: Optional[datetime] = None
-    word_category: Optional[str] = None
+    # Grammar-verb rows (hablar/beber/…) legitimately have word_category="grammar"
+    # because users track progress on them through grammar lessons. Keep it in
+    # the union so UserWord rows pointing at those verbs don't blow up serialization.
+    word_category: Optional[Literal["high_frequency", "encounter", "grammar"]] = None
     frequency_rank: Optional[int] = None
 
     class Config:
         from_attributes = True
+
+
+class UnknownWordSchema(BaseModel):
+    # Mirrors UserWordSchema's dual id/word_id so unknown/known words share a shape
+    # on the FE side.
+    id: str
+    word_id: str
+    spanish: str
+    english: str
+    word_category: Optional[Literal["high_frequency", "encounter"]] = None
+    frequency_rank: Optional[int] = None
+
+
+class UnknownWordsResponse(BaseModel):
+    high_frequency: List[UnknownWordSchema]
+    encounter: List[UnknownWordSchema]
 
 
 class TypedCorrectRequest(BaseModel):
@@ -127,6 +173,20 @@ class TypedCorrectRequest(BaseModel):
 
 class HintRequest(BaseModel):
     word_id: str
+
+
+class HintResponse(BaseModel):
+    hint_count: int
+
+
+class DemoteWordResponse(BaseModel):
+    word_id: str
+    old_level: int
+    new_level: int
+
+
+class MessageOnlyResponse(BaseModel):
+    message: str
 
 
 # Conversation schemas
@@ -164,16 +224,87 @@ class VoiceTurnResponse(BaseModel):
 
 
 # Grammar config schemas
+# drill_config / phase_*_config shapes differ per drill_type (article_matching,
+# conjugation, skip, …). Keep them as free-form dicts but typed as
+# Dict[str, Any] so generated clients see an object-with-unknown-values instead
+# of an empty-shape marker.
 class GrammarConfigResponse(BaseModel):
     situation_type: str
     video_embed_id: Optional[str] = None
     drill_type: Optional[str] = None
     tense: Optional[str] = None
-    phases: dict
-    drill_config: Optional[dict] = None
-    drill_targets: Optional[List[dict]] = None
-    phase_1c_config: Optional[dict] = None
-    phase_2_config: Optional[dict] = None
+    phases: Dict[str, bool]
+    drill_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
+    drill_targets: Optional[List[Dict[str, Any]]] = Field(default=None, json_schema_extra=_freeform_object_list_schema)
+    phase_1c_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
+    phase_2_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
+
+
+# Grammar gate / completion schemas
+class GrammarGate(BaseModel):
+    grammar_level: float
+    situation_id: Optional[str] = None
+    title: str
+    vl_threshold: int
+    has_content: bool
+    total_lessons: Optional[int] = None
+    resume_phase: Optional[Literal["learn", "voice-chat"]] = None
+
+
+class GrammarGatesResponse(BaseModel):
+    vocab_level: int
+    grammar_level: float
+    is_gated: bool
+    gate: Optional[GrammarGate] = None
+
+
+class GrammarUnit(BaseModel):
+    grammar_level: float
+    title: str
+    vl_threshold: int
+    has_content: bool
+    completed: bool
+    total_lessons: int
+    completed_lessons: int
+
+
+class GrammarCompletedResponse(BaseModel):
+    grammar_units: List[GrammarUnit]
+
+
+# Daily usage schemas
+class DailyUsageResponse(BaseModel):
+    encounters_used: int
+    encounters_limit: int
+    encounters_remaining: int
+
+
+# Onboarding schemas
+class AvailableCategory(BaseModel):
+    id: str
+    name: str
+    description: str
+
+
+class AvailableCategoriesResponse(BaseModel):
+    categories: List[AvailableCategory]
+
+
+class UpdateAnimationTypesResponse(BaseModel):
+    selected_animation_types: List[str]
+
+
+# Auth schemas (reset)
+class ResetProgressResponse(BaseModel):
+    reset: bool
+    deleted_words: int
+    deleted_situations: int
+    deleted_conversations: int
+
+
+class ResetPasswordResponse(BaseModel):
+    reset: bool
+    email: str
 
 
 # Refresh (SRS) schemas
@@ -201,5 +332,33 @@ class CompleteRefreshResponse(BaseModel):
 # Error schemas
 class ErrorResponse(BaseModel):
     error: str
+
+
+# User reports
+ReportCategory = Literal[
+    'platform', 'translation', 'pronunciation',
+    'voice_chat', 'subscription', 'suggestion', 'other',
+]
+ReportStatus = Literal['new', 'investigating', 'resolved', 'dismissed']
+
+
+class UserReportCreate(BaseModel):
+    category: ReportCategory
+    description: str = Field(min_length=10, max_length=2000)
+    context: Dict[str, Any] = Field(
+        default_factory=dict,
+        json_schema_extra=_freeform_object_schema,
+    )
+
+
+class UserReportResponse(BaseModel):
+    id: UUID
+    category: ReportCategory
+    description: str
+    status: ReportStatus
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
 
 
