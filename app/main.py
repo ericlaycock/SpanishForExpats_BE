@@ -117,6 +117,16 @@ async def lifespan(app: FastAPI):
     except Exception:
         pass  # DB might not be ready yet, that's OK
 
+    # Pre-load wav2vec2 if the pronounce feature is configured
+    if os.environ.get("SPEECH_KEY") or os.environ.get("PRELOAD_WAV2VEC2", "").lower() == "true":
+        try:
+            from app.api.v1.pronounce import _load_wav2vec2
+            import threading
+            threading.Thread(target=_load_wav2vec2, daemon=True, name="wav2vec2-preload").start()
+            logger.info("[Startup] wav2vec2 pre-load started in background thread")
+        except Exception as e:
+            logger.warning(f"[Startup] wav2vec2 pre-load skipped: {e}")
+
     yield
     # Shutdown
     print("👋 Spanish for Expats API shutting down...")
