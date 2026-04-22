@@ -149,9 +149,12 @@ def get_target_ipa(
         raise HTTPException(status_code=504, detail="espeak-ng timed out")
 
 
-async def _hf_infer(audio_bytes: bytes) -> str:
+async def _hf_infer(audio_bytes: bytes, content_type: str = "audio/wav") -> str:
     """POST audio to HF Inference API, retry on 503 model-loading. Returns IPA string."""
-    headers = {"Authorization": f"Bearer {settings.hf_token}"}
+    headers = {
+        "Authorization": f"Bearer {settings.hf_token}",
+        "Content-Type": content_type,
+    }
     async with httpx.AsyncClient(timeout=60) as client:
         for attempt in range(3):
             r = await client.post(HF_MODEL_URL, headers=headers, content=audio_bytes)
@@ -206,7 +209,8 @@ async def recognize_phones(
     logger.info(f"[Phones] audio received: {len(raw)} bytes")
 
     try:
-        ipa = await _hf_infer(raw)
+        content_type = audio.content_type or "audio/webm"
+        ipa = await _hf_infer(raw, content_type)
         logger.info(f"[Phones] total: {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
         return {"ipa": ipa}
     except Exception as e:
