@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models import User, Subscription, UserSituation, Situation
 
-FREE_ENCOUNTERS_LIMIT = 25
+FREE_ENCOUNTERS_LIMIT = 7
 
 
 def _count_completed_encounters(db: Session, user_id: str) -> int:
