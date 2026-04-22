@@ -9,6 +9,7 @@ import logging
 import subprocess
 import tempfile
 import os
+import time
 from datetime import date
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
@@ -149,8 +150,13 @@ def _load_wav2vec2():
         from transformers import AutoProcessor, Wav2Vec2ForCTC
         MODEL_ID = "facebook/wav2vec2-lv-60-espeak-cv-ft"
         logger.info(f"[Pronounce] Loading {MODEL_ID}...")
+        t0 = time.perf_counter()
         _wav2vec2_processor = AutoProcessor.from_pretrained(MODEL_ID)
+        t1 = time.perf_counter()
+        logger.info(f"[Pronounce] Processor loaded in {t1-t0:.2f}s")
         _wav2vec2_model = Wav2Vec2ForCTC.from_pretrained(MODEL_ID)
+        t2 = time.perf_counter()
+        logger.info(f"[Pronounce] Model loaded in {t2-t1:.2f}s (total {t2-t0:.2f}s)")
         _wav2vec2_model.eval()
         logger.info("[Pronounce] wav2vec2 model ready.")
     return _wav2vec2_processor, _wav2vec2_model
@@ -168,9 +174,12 @@ async def recognize_phones(
     import torch
     import numpy as np
 
+    t_start = time.perf_counter()
     raw = await audio.read()
     if not raw:
         raise HTTPException(status_code=400, detail="Empty audio file")
+
+    logger.info(f"[Phones] audio read: {len(raw)} bytes")
 
     # Write to temp file so ffmpeg can detect container format
     suffix = "." + (audio.filename.rsplit(".", 1)[-1] if audio.filename and "." in audio.filename else "webm")
@@ -180,6 +189,7 @@ async def recognize_phones(
             f.write(raw)
             tmp_path = f.name
 
+        t_ffmpeg = time.perf_counter()
         # Decode to mono float32 @ 16 kHz (same as sfe_pron/phones.py)
         ffmpeg_result = subprocess.run(
             [
@@ -190,19 +200,26 @@ async def recognize_phones(
             ],
             capture_output=True,
         )
+        logger.info(f"[Phones] ffmpeg decode: {time.perf_counter()-t_ffmpeg:.2f}s")
         if ffmpeg_result.returncode != 0:
             raise HTTPException(status_code=400, detail="Audio decode failed")
 
         pcm = np.frombuffer(ffmpeg_result.stdout, dtype=np.float32).copy()
+        logger.info(f"[Phones] pcm samples: {pcm.size} ({pcm.size/16000:.2f}s of audio)")
         if pcm.size < 1600:  # < 0.1s
             return {"ipa": ""}
 
+        t_load = time.perf_counter()
         processor, model = _load_wav2vec2()
+        logger.info(f"[Phones] model ready in {time.perf_counter()-t_load:.2f}s (0 if cached)")
+
+        t_infer = time.perf_counter()
         inputs = processor(pcm, sampling_rate=16000, return_tensors="pt")
         with torch.no_grad():
             logits = model(inputs.input_values).logits
         pred = torch.argmax(logits, dim=-1)
         ipa = processor.batch_decode(pred)[0].strip()
+        logger.info(f"[Phones] inference: {time.perf_counter()-t_infer:.2f}s | total: {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
         return {"ipa": ipa}
 
     finally:
