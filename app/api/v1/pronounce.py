@@ -7,8 +7,9 @@ Only users with plan 'pronounce' or 'app_pronounce' (subscription.tier) can acce
 import uuid
 import logging
 import subprocess
+import struct
 import time
-from datetime import date
+import asyncio
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy import text
@@ -24,7 +25,18 @@ router = APIRouter()
 DAILY_LIMIT = 500
 MAX_RECORDING = 20
 PRONOUNCE_PLANS = {"pronounce", "app_pronounce"}
-HF_MODEL_URL = "https://api-inference.huggingface.co/models/facebook/wav2vec2-lv-60-espeak-cv-ft"
+HF_MODEL_URL = "https://router.huggingface.co/hf-inference/models/facebook/wav2vec2-lv-60-espeak-cv-ft"
+
+# Minimal 0.1s silence WAV (16kHz, 16-bit mono) for model warm-up
+def _make_silence_wav() -> bytes:
+    n = 1600  # 0.1s at 16kHz
+    data = b'\x00' * (n * 2)
+    hdr = struct.pack('<4sI4s4sIHHIIHH4sI',
+        b'RIFF', 36 + len(data), b'WAVE', b'fmt ', 16,
+        1, 1, 16000, 32000, 2, 16, b'data', len(data))
+    return hdr + data
+
+_SILENCE_WAV = _make_silence_wav()
 
 
 def _require_pronounce(user: User, db: Session) -> Subscription:
@@ -137,6 +149,43 @@ def get_target_ipa(
         raise HTTPException(status_code=504, detail="espeak-ng timed out")
 
 
+async def _hf_infer(audio_bytes: bytes) -> str:
+    """POST audio to HF Inference API, retry on 503 model-loading. Returns IPA string."""
+    headers = {"Authorization": f"Bearer {settings.hf_token}"}
+    async with httpx.AsyncClient(timeout=60) as client:
+        for attempt in range(3):
+            r = await client.post(HF_MODEL_URL, headers=headers, content=audio_bytes)
+            if r.status_code == 503:
+                ct = r.headers.get("content-type", "")
+                body = r.json() if "json" in ct else {}
+                wait = min(float(body.get("estimated_time", 20)), 40)
+                logger.warning(f"[HF] model loading, waiting {wait:.0f}s (attempt {attempt+1})")
+                await asyncio.sleep(wait)
+                continue
+            r.raise_for_status()
+            return r.json().get("text", "")
+    logger.error("[HF] model still loading after retries")
+    return ""
+
+
+@router.get("/warm")
+async def warm_model(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Trigger HF model cold-start using silence. Call on page load; blocks until ready."""
+    _require_pronounce(current_user, db)
+    if not settings.hf_token:
+        return {"status": "no_token"}
+    try:
+        t0 = time.perf_counter()
+        await _hf_infer(_SILENCE_WAV)
+        logger.info(f"[Warm] HF model ready in {time.perf_counter()-t0:.1f}s")
+    except Exception as e:
+        logger.warning(f"[Warm] HF warm-up failed: {e}")
+    return {"status": "ready"}
+
+
 @router.post("/phones")
 async def recognize_phones(
     audio: UploadFile = File(...),
@@ -156,33 +205,10 @@ async def recognize_phones(
     t_start = time.perf_counter()
     logger.info(f"[Phones] audio received: {len(raw)} bytes")
 
-    import asyncio
-
-    headers = {"Authorization": f"Bearer {settings.hf_token}"}
-
     try:
-        async with httpx.AsyncClient(timeout=60) as client:
-            for attempt in range(3):
-                r = await client.post(HF_MODEL_URL, headers=headers, content=raw)
-
-                if r.status_code == 503:
-                    body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
-                    wait = min(float(body.get("estimated_time", 20)), 40)
-                    logger.warning(f"[Phones] HF model loading, waiting {wait:.0f}s (attempt {attempt+1})")
-                    await asyncio.sleep(wait)
-                    continue
-
-                r.raise_for_status()
-                ipa = r.json().get("text", "")
-                logger.info(f"[Phones] HF inference: {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
-                return {"ipa": ipa}
-
-        logger.error("[Phones] HF model still loading after retries")
-        return {"ipa": ""}
-
-    except httpx.HTTPStatusError as e:
-        logger.error(f"[Phones] HF API error {e.response.status_code}: {e.response.text[:200]}")
-        return {"ipa": ""}
+        ipa = await _hf_infer(raw)
+        logger.info(f"[Phones] total: {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
+        return {"ipa": ipa}
     except Exception as e:
-        logger.error(f"[Phones] HF API failed: {e}")
+        logger.error(f"[Phones] failed: {e}")
         return {"ipa": ""}
