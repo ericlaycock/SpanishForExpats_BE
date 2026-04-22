@@ -156,23 +156,29 @@ async def recognize_phones(
     t_start = time.perf_counter()
     logger.info(f"[Phones] audio received: {len(raw)} bytes")
 
+    import asyncio
+
+    headers = {"Authorization": f"Bearer {settings.hf_token}"}
+
     try:
-        async with httpx.AsyncClient(timeout=30) as client:
-            r = await client.post(
-                HF_MODEL_URL,
-                headers={"Authorization": f"Bearer {settings.hf_token}"},
-                content=raw,
-            )
+        async with httpx.AsyncClient(timeout=60) as client:
+            for attempt in range(3):
+                r = await client.post(HF_MODEL_URL, headers=headers, content=raw)
 
-        if r.status_code == 503:
-            # HF model is warming up — return empty so drill degrades gracefully
-            logger.warning("[Phones] HF model warming up (503)")
-            return {"ipa": ""}
+                if r.status_code == 503:
+                    body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
+                    wait = min(float(body.get("estimated_time", 20)), 40)
+                    logger.warning(f"[Phones] HF model loading, waiting {wait:.0f}s (attempt {attempt+1})")
+                    await asyncio.sleep(wait)
+                    continue
 
-        r.raise_for_status()
-        ipa = r.json().get("text", "")
-        logger.info(f"[Phones] HF inference: {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
-        return {"ipa": ipa}
+                r.raise_for_status()
+                ipa = r.json().get("text", "")
+                logger.info(f"[Phones] HF inference: {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
+                return {"ipa": ipa}
+
+        logger.error("[Phones] HF model still loading after retries")
+        return {"ipa": ""}
 
     except httpx.HTTPStatusError as e:
         logger.error(f"[Phones] HF API error {e.response.status_code}: {e.response.text[:200]}")
