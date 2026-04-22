@@ -32,12 +32,18 @@ class User(Base):
 
 class Subscription(Base):
     __tablename__ = "subscriptions"
-    
+
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
     active = Column(Boolean, default=False, nullable=False)
     tier = Column(String, nullable=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    
+
+    # Stripe
+    stripe_customer_id = Column(String, nullable=True)
+    stripe_subscription_id = Column(String, nullable=True)
+    plan = Column(String, nullable=True)           # "pro" | "fluency"
+    billing_cycle = Column(String, nullable=True)  # "monthly" | "6month"
+
     # Relationships
     user = relationship("User", back_populates="subscription")
 

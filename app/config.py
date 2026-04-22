@@ -37,6 +37,15 @@ class Settings(BaseSettings):
     r2_bucket_name: str = "audio"
     r2_public_url: Optional[str] = None
 
+    # Stripe (payment)
+    stripe_secret_key: Optional[str] = None
+    stripe_webhook_secret: Optional[str] = None
+    stripe_price_pro_monthly: str = "price_STUB_pro_monthly"
+    stripe_price_pro_6month: str = "price_STUB_pro_6month"
+    stripe_price_fluency_monthly: str = "price_STUB_fluency_monthly"
+    stripe_price_fluency_6month: str = "price_STUB_fluency_6month"
+    frontend_url: str = "https://www.spanishforexpats.com"
+
     class Config:
         env_file = ".env"
         case_sensitive = False

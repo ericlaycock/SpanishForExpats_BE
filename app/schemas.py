@@ -69,6 +69,17 @@ class SubscriptionStatusResponse(BaseModel):
     free_situations_limit: int = 5
     free_situations_completed: int
     free_situations_remaining: int
+    plan: Optional[str] = None           # "pro" | "fluency" | None
+    billing_cycle: Optional[str] = None  # "monthly" | "6month" | None
+
+
+class CheckoutRequest(BaseModel):
+    plan: str           # "pro" | "fluency"
+    billing_cycle: str  # "monthly" | "6month"
+
+
+class CheckoutResponse(BaseModel):
+    checkout_url: str
 
 
 # Situation schemas
