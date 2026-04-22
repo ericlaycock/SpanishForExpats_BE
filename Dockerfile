@@ -8,18 +8,11 @@ RUN apt-get update && apt-get install -y \
     postgresql-client \
     ffmpeg \
     espeak-ng \
-    libespeak-ng-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Pre-download wav2vec2 model so it's baked into the image (avoids runtime HF download)
-RUN python -c "\
-from transformers import AutoProcessor, Wav2Vec2ForCTC; \
-AutoProcessor.from_pretrained('facebook/wav2vec2-lv-60-espeak-cv-ft'); \
-Wav2Vec2ForCTC.from_pretrained('facebook/wav2vec2-lv-60-espeak-cv-ft')"
 
 # Copy application code
 COPY . .
@@ -36,6 +29,3 @@ RUN chmod +x start.py
 
 # Run the application
 CMD ["python", "start.py"]
-
-
-

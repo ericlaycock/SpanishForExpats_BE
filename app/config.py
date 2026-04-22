@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     speech_key: Optional[str] = None
     speech_region: Optional[str] = None
 
+    # HuggingFace token for wav2vec2 Inference API
+    hf_token: Optional[str] = None
+
     # R2 / S3 storage for TTS audio (optional — falls back to local /tmp)
     r2_endpoint_url: Optional[str] = None
     r2_access_key_id: Optional[str] = None
