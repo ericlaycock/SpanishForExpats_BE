@@ -1,13 +1,13 @@
 """Pronunciation trainer endpoints.
 
 Issues 10-minute Azure Speech tokens and tracks daily usage (500s/user/day).
-Also provides espeak-ng IPA transcription and HuggingFace wav2vec2 phoneme recognition.
+Also provides espeak-ng IPA transcription and local wav2vec2 phoneme recognition
+via a sidecar process (phones_sidecar.py) running on localhost:8001.
 Only users with plan 'pronounce' or 'app_pronounce' (subscription.tier) can access.
 """
 import uuid
 import logging
 import subprocess
-import struct
 import time
 import asyncio
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
@@ -25,18 +25,7 @@ router = APIRouter()
 DAILY_LIMIT = 500
 MAX_RECORDING = 20
 PRONOUNCE_PLANS = {"pronounce", "app_pronounce"}
-HF_MODEL_URL = "https://router.huggingface.co/hf-inference/models/facebook/wav2vec2-lv-60-espeak-cv-ft"
-
-# Minimal 0.1s silence WAV (16kHz, 16-bit mono) for model warm-up
-def _make_silence_wav() -> bytes:
-    n = 1600  # 0.1s at 16kHz
-    data = b'\x00' * (n * 2)
-    hdr = struct.pack('<4sI4s4sIHHIIHH4sI',
-        b'RIFF', 36 + len(data), b'WAVE', b'fmt ', 16,
-        1, 1, 16000, 32000, 2, 16, b'data', len(data))
-    return hdr + data
-
-_SILENCE_WAV = _make_silence_wav()
+SIDECAR_URL = "http://localhost:8001"
 
 
 def _require_pronounce(user: User, db: Session) -> Subscription:
@@ -149,44 +138,26 @@ def get_target_ipa(
         raise HTTPException(status_code=504, detail="espeak-ng timed out")
 
 
-async def _hf_infer(audio_bytes: bytes, content_type: str = "audio/wav") -> str:
-    """POST audio to HF Inference API, retry on 503 model-loading. Returns IPA string."""
-    headers = {
-        "Authorization": f"Bearer {settings.hf_token}",
-        "Content-Type": content_type,
-    }
-    async with httpx.AsyncClient(timeout=60) as client:
-        for attempt in range(3):
-            r = await client.post(HF_MODEL_URL, headers=headers, content=audio_bytes)
-            if r.status_code == 503:
-                ct = r.headers.get("content-type", "")
-                body = r.json() if "json" in ct else {}
-                wait = min(float(body.get("estimated_time", 20)), 40)
-                logger.warning(f"[HF] model loading, waiting {wait:.0f}s (attempt {attempt+1})")
-                await asyncio.sleep(wait)
-                continue
-            r.raise_for_status()
-            return r.json().get("text", "")
-    logger.error("[HF] model still loading after retries")
-    return ""
-
-
 @router.get("/warm")
 async def warm_model(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Trigger HF model cold-start using silence. Call on page load; blocks until ready."""
+    """Poll the local phones sidecar until it's ready (model loaded). Blocks up to 90s."""
     _require_pronounce(current_user, db)
-    if not settings.hf_token:
-        return {"status": "no_token"}
-    try:
-        t0 = time.perf_counter()
-        await _hf_infer(_SILENCE_WAV)
-        logger.info(f"[Warm] HF model ready in {time.perf_counter()-t0:.1f}s")
-    except Exception as e:
-        logger.warning(f"[Warm] HF warm-up failed: {e}")
-    return {"status": "ready"}
+    t0 = time.perf_counter()
+    async with httpx.AsyncClient(timeout=2) as client:
+        for attempt in range(90):
+            try:
+                r = await client.get(f"{SIDECAR_URL}/health")
+                if r.status_code == 200:
+                    logger.info(f"[Warm] sidecar ready in {time.perf_counter()-t0:.1f}s (attempt {attempt+1})")
+                    return {"status": "ready"}
+            except httpx.ConnectError:
+                pass
+            await asyncio.sleep(1)
+    logger.error(f"[Warm] sidecar not ready after 90s")
+    return {"status": "timeout"}
 
 
 @router.post("/phones")
@@ -195,24 +166,27 @@ async def recognize_phones(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Accept an audio file, return IPA phoneme string via HuggingFace Inference API."""
+    """Accept an audio file, proxy to local wav2vec2 sidecar, return IPA phoneme string."""
     _require_pronounce(current_user, db)
-
-    if not settings.hf_token:
-        raise HTTPException(status_code=503, detail="HuggingFace token not configured")
 
     raw = await audio.read()
     if not raw:
         raise HTTPException(status_code=400, detail="Empty audio file")
 
     t_start = time.perf_counter()
-    logger.info(f"[Phones] audio received: {len(raw)} bytes")
+    logger.info(f"[Phones] received {len(raw)} bytes, content_type={audio.content_type}")
 
     try:
-        content_type = audio.content_type or "audio/webm"
-        ipa = await _hf_infer(raw, content_type)
-        logger.info(f"[Phones] total: {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
+        async with httpx.AsyncClient(timeout=30) as client:
+            r = await client.post(
+                f"{SIDECAR_URL}/phones",
+                content=raw,
+                headers={"Content-Type": audio.content_type or "audio/webm"},
+            )
+        r.raise_for_status()
+        ipa = r.json().get("ipa", "")
+        logger.info(f"[Phones] {time.perf_counter()-t_start:.2f}s | ipa: {ipa!r}")
         return {"ipa": ipa}
     except Exception as e:
-        logger.error(f"[Phones] failed: {e}")
+        logger.error(f"[Phones] sidecar error: {e}")
         return {"ipa": ""}

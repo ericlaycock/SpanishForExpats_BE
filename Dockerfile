@@ -10,9 +10,19 @@ RUN apt-get update && apt-get install -y \
     espeak-ng \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install Python dependencies
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Pre-download wav2vec2 model into Docker layer cache.
+# This layer only rebuilds when requirements.txt or phones_sidecar.py changes,
+# so normal code-only deploys skip the 1.18 GB download.
+COPY phones_sidecar.py .
+RUN python -c "\
+from transformers import AutoProcessor, Wav2Vec2ForCTC; \
+AutoProcessor.from_pretrained('facebook/wav2vec2-lv-60-espeak-cv-ft'); \
+Wav2Vec2ForCTC.from_pretrained('facebook/wav2vec2-lv-60-espeak-cv-ft'); \
+print('Model pre-downloaded.')"
 
 # Copy application code
 COPY . .
