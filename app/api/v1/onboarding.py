@@ -150,6 +150,7 @@ async def save_onboarding_selections(
     current_user.grammar_score = request.grammar_score
     current_user.vocab_score = request.vocab_score
     current_user.onboarding_completed = True
+    current_user.onboarding_completed_at = datetime.now(timezone.utc)
 
     # Determine starting vocab level from quiz scores
     vocab_target = _parse_score_level(request.vocab_score)

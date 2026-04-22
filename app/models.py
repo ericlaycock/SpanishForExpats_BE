@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Integer, DateTime, ForeignKey, Text, JSON, CheckConstraint
+from sqlalchemy import Column, String, Boolean, Integer, DateTime, ForeignKey, Text, JSON, CheckConstraint, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -14,6 +14,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=False, index=True)
     password_hash = Column(String, nullable=False)
     onboarding_completed = Column(Boolean, default=False, nullable=False)
+    onboarding_completed_at = Column(DateTime(timezone=True), nullable=True)
     selected_animation_types = Column(JSONB, nullable=True)  # e.g., ["banking", "restaurant"]
     dialect = Column(String, nullable=True)  # 'mexico', 'colombia', 'costa_rica'
     grammar_score = Column(String, nullable=True)  # Quiz grammar score
@@ -152,6 +153,7 @@ class Conversation(Base):
     status = Column(String, default="active", nullable=False)  # 'active' or 'complete'
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    completed_at = Column(DateTime(timezone=True), nullable=True)
     
     # Relationships
     user = relationship("User", back_populates="conversations")
@@ -210,5 +212,19 @@ class DailyEncounterLog(Base):
 
     user = relationship("User")
     situation = relationship("Situation")
+
+
+class UserMilestoneEvent(Base):
+    __tablename__ = "user_milestone_events"
+    __table_args__ = (
+        UniqueConstraint("user_id", "milestone_key", "situation_id", name="uq_user_milestone_situation"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    milestone_key = Column(String, nullable=False)  # phase_1a | phase_1b | phase_video | phase_drill | first_word
+    situation_id = Column(String, ForeignKey("situations.id"), nullable=True)
+    conversation_id = Column(UUID(as_uuid=True), ForeignKey("conversations.id"), nullable=True)
+    occurred_at = Column(DateTime(timezone=True), server_default=func.now())
 
 

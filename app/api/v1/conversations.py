@@ -1,12 +1,14 @@
 import json as json_module
 import os
+from datetime import datetime, timezone
 from typing import Optional
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status, UploadFile, File, Form
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from app.database import get_db
 from app.auth import get_current_user, get_current_user_from_query
-from app.models import User, Conversation, Situation, Word
+from app.models import User, Conversation, Situation, Word, UserMilestoneEvent
 from app.services.word_selection_service import select_words_for_situation, sort_words_encounter_first
 from app.schemas import (
     CreateConversationRequest,
@@ -696,6 +698,7 @@ async def mark_word_detected(
 
     normalized_word_id = _normalize_word_id(word_id)
 
+    was_empty = len(conversation.used_spoken_word_ids or []) == 0
     current_used = set(conversation.used_spoken_word_ids or [])
     current_used.add(normalized_word_id)
     conversation.used_spoken_word_ids = list(current_used)
@@ -703,9 +706,24 @@ async def mark_word_detected(
     from app.services.conversation_service import update_user_word_stats, check_conversation_complete, get_missing_word_ids
     update_user_word_stats(db, str(current_user.id), [normalized_word_id], "voice")
 
+    if was_empty and conversation.conversation_type == "lesson":
+        target_set = set(conversation.target_word_ids or [])
+        if normalized_word_id in target_set:
+            db.execute(
+                pg_insert(UserMilestoneEvent)
+                .values(
+                    user_id=current_user.id,
+                    milestone_key="first_word",
+                    situation_id=conversation.situation_id,
+                    conversation_id=conversation.id,
+                )
+                .on_conflict_do_nothing(constraint="uq_user_milestone_situation")
+            )
+
     conversation_complete = check_conversation_complete(conversation, "voice")
     if conversation_complete:
         conversation.status = "complete"
+        conversation.completed_at = datetime.now(timezone.utc)
 
     db.commit()
     missing_word_ids = get_missing_word_ids(conversation, "voice")
@@ -806,10 +824,26 @@ async def voice_turn_transcribe(
         )
     else:
         detected_word_ids = detect_words_in_text(user_transcript, words)
+    was_empty = len(conversation.used_spoken_word_ids or []) == 0
     current_used = set(conversation.used_spoken_word_ids or [])
     current_used.update(detected_word_ids)
     conversation.used_spoken_word_ids = list(current_used)
     update_user_word_stats(db, str(current_user.id), detected_word_ids, "voice")
+
+    if was_empty and detected_word_ids and conversation.conversation_type == "lesson":
+        target_set = set(conversation.target_word_ids or [])
+        if any(w in target_set for w in detected_word_ids):
+            db.execute(
+                pg_insert(UserMilestoneEvent)
+                .values(
+                    user_id=current_user.id,
+                    milestone_key="first_word",
+                    situation_id=conversation.situation_id,
+                    conversation_id=conversation.id,
+                )
+                .on_conflict_do_nothing(constraint="uq_user_milestone_situation")
+            )
+
     missing_word_ids = get_missing_word_ids(conversation, "voice")
     db.commit()
 
@@ -1026,6 +1060,7 @@ async def voice_turn_respond(
                     )
                     if conv_complete:
                         conversation.status = "complete"
+                        conversation.completed_at = datetime.now(timezone.utc)
                     db.commit()
 
                     total = time.time() - start_time

@@ -341,6 +341,43 @@ class CompleteRefreshResponse(BaseModel):
     new_mastery_level: int
 
 
+# Milestone schemas
+class MilestoneEventRequest(BaseModel):
+    milestone_key: str
+    situation_id: Optional[str] = None
+    conversation_id: Optional[str] = None
+
+
+class MilestoneInfo(BaseModel):
+    timestamp: Optional[datetime] = None
+    delta_seconds: Optional[int] = None  # wall-clock seconds since previous milestone
+
+
+class FreeflowUserRow(BaseModel):
+    user_id: str
+    email: str
+    subscription_active: bool
+    pathway: Optional[str] = None  # 'V' | 'G'
+    dialect: Optional[str] = None
+    grammar_score: Optional[str] = None
+    vocab_score: Optional[str] = None
+    selected_animation_types: Optional[List[str]] = None
+    m0: MilestoneInfo
+    m1: MilestoneInfo
+    m2: MilestoneInfo
+    m3: MilestoneInfo
+    m4: MilestoneInfo
+    m5: MilestoneInfo
+    m6: MilestoneInfo
+    m7: MilestoneInfo
+    m8: MilestoneInfo
+    current_milestone: int
+
+
+class FreeflowResponse(BaseModel):
+    users: List[FreeflowUserRow]
+
+
 # Error schemas
 class ErrorResponse(BaseModel):
     error: str
