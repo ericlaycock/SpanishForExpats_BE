@@ -19,6 +19,8 @@ pytest-asyncio==0.23.5
 torch --index-url https://download.pytorch.org/whl/cpu
 transformers>=4.30.0
 numpy
+protobuf
+phonemizer
 
 
 
