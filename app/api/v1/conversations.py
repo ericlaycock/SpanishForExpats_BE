@@ -15,6 +15,8 @@ from app.schemas import (
     CreateConversationResponse,
     MessageRequest,
     MessageResponse,
+    RealtimeTurnRequest,
+    RealtimeTurnResponse,
     VoiceTurnResponse,
     WordSchema
 )
@@ -29,7 +31,17 @@ from app.services.conversation_service import (
 )
 from app.services.encounter_messages import get_initial_message_for_encounter
 from app.api.v1.situations import get_vocab_level, get_grammar_level
-from app.services.voice_turn_service import build_transcription_prompt, build_conversation_prompt, build_grammar_system_prompt, build_grammar_user_prompt, get_language_mode, get_conversation_system_prompt, build_system_prompt
+from app.services.voice_turn_service import (
+    build_transcription_prompt,
+    build_conversation_prompt,
+    build_grammar_system_prompt,
+    build_grammar_user_prompt,
+    get_language_mode,
+    get_conversation_system_prompt,
+    build_system_prompt,
+    check_completion,
+    persist_turn,
+)
 from app.data.grammar_situations import get_grammar_config
 from app.services.alt_language_service import apply_alt_language, get_target_language_name
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
@@ -815,35 +827,17 @@ async def voice_turn_transcribe(
     if stt_time > 2.0:
         logger.warning(f"[Voice Turn] STT exceeded 2s threshold: {stt_time:.2f}s")
 
-    # Grammar situations: match conjugated forms from drill_config
-    grammar_config = get_grammar_config(conversation.situation_id)
-    if grammar_config and grammar_config.get("drill_config", {}).get("answers"):
-        from app.services.word_detection import detect_grammar_words_in_text
-        detected_word_ids = detect_grammar_words_in_text(
-            user_transcript, words, grammar_config["drill_config"]["answers"]
-        )
-    else:
-        detected_word_ids = detect_words_in_text(user_transcript, words)
-    was_empty = len(conversation.used_spoken_word_ids or []) == 0
-    current_used = set(conversation.used_spoken_word_ids or [])
-    current_used.update(detected_word_ids)
-    conversation.used_spoken_word_ids = list(current_used)
-    update_user_word_stats(db, str(current_user.id), detected_word_ids, "voice")
-
-    if was_empty and detected_word_ids and conversation.conversation_type == "lesson":
-        target_set = set(conversation.target_word_ids or [])
-        if any(w in target_set for w in detected_word_ids):
-            db.execute(
-                pg_insert(UserMilestoneEvent)
-                .values(
-                    user_id=current_user.id,
-                    milestone_key="first_word",
-                    situation_id=conversation.situation_id,
-                    conversation_id=conversation.id,
-                )
-                .on_conflict_do_nothing(constraint="uq_user_milestone_situation")
-            )
-
+    # Shared with /realtime-turn: detects words (grammar-aware when applicable),
+    # extends used_spoken_word_ids, upserts user_words counters, records the
+    # first_word milestone, and increments turn_count.
+    _, detected_word_ids = persist_turn(
+        db=db,
+        conversation=conversation,
+        user_id=current_user.id,
+        user_transcript=user_transcript,
+        assistant_text="",
+        alt_language=alt_language,
+    )
     missing_word_ids = get_missing_word_ids(conversation, "voice")
     db.commit()
 
@@ -1053,10 +1047,11 @@ async def voice_turn_respond(
                 elif event["type"] == "done":
                     # Refresh conversation from DB to ensure we have latest used_spoken_word_ids
                     db.refresh(conversation)
-                    conv_complete = check_conversation_complete(conversation, "voice")
+                    conv_complete, _ = check_completion(conversation)
                     logger.info(
                         f"[Voice Turn] Completion check: target={conversation.target_word_ids}, "
-                        f"spoken={conversation.used_spoken_word_ids}, complete={conv_complete}"
+                        f"spoken={conversation.used_spoken_word_ids}, turns={conversation.turn_count}, "
+                        f"complete={conv_complete}"
                     )
                     if conv_complete:
                         conversation.status = "complete"
@@ -1076,3 +1071,72 @@ async def voice_turn_respond(
             yield json_module.dumps({"type": "error", "message": str(e)}) + "\n"
 
     return StreamingResponse(generate_stream(), media_type="application/x-ndjson")
+
+
+@router.post(
+    "/{conversation_id}/realtime-turn",
+    response_model=RealtimeTurnResponse,
+)
+async def realtime_turn(
+    conversation_id: str,
+    body: RealtimeTurnRequest,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Ingest one completed realtime-voice turn.
+
+    The browser streams audio directly to OpenAI over WebRTC (see
+    `POST /v1/realtime/sessions`), so the backend doesn't see the audio or
+    control endpointing. After each turn the FE POSTs the finalized
+    transcripts here so we can:
+      - run deterministic word detection against the conversation's targets,
+      - extend `used_spoken_word_ids` and bump mastery counters,
+      - increment `turn_count` and enforce the 30-turn hard limit,
+      - record the `first_word` milestone for new lesson conversations,
+      - report back the current state so the FE can update chips,
+        countdowns, and close the peer connection on completion.
+
+    Parity note: the word detection, persistence, and completion logic are
+    the same helpers `/voice-turn` calls — splitting by flow would be a
+    parity bug waiting to happen.
+    """
+    request.state.user_id = current_user.id
+
+    conversation = db.query(Conversation).filter(
+        Conversation.id == conversation_id,
+        Conversation.user_id == current_user.id,
+    ).first()
+    if not conversation:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found"
+        )
+    if conversation.mode != "voice":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="This endpoint is for voice mode only",
+        )
+
+    _, detected_word_ids = persist_turn(
+        db=db,
+        conversation=conversation,
+        user_id=current_user.id,
+        user_transcript=body.user_transcript,
+        assistant_text=body.assistant_text,
+        alt_language=current_user.alt_language,
+    )
+
+    complete, turns_remaining = check_completion(conversation)
+    if complete and conversation.status != "complete":
+        conversation.status = "complete"
+        conversation.completed_at = datetime.now(timezone.utc)
+
+    db.commit()
+    missing_word_ids = get_missing_word_ids(conversation, "voice")
+
+    return RealtimeTurnResponse(
+        detected_word_ids=detected_word_ids,
+        missing_word_ids=missing_word_ids,
+        conversation_complete=complete,
+        turns_remaining=turns_remaining,
+    )

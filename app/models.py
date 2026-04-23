@@ -151,6 +151,11 @@ class Conversation(Base):
     used_typed_word_ids = Column(JSONB, default=list, nullable=False)
     used_spoken_word_ids = Column(JSONB, default=list, nullable=False)
     status = Column(String, default="active", nullable=False)  # 'active' or 'complete'
+    # Count of persisted user turns. Incremented by voice_turn_service.persist_turn
+    # so the realtime flow (and legacy /voice-turn) can enforce the 30-turn hard
+    # limit in check_completion even when the backend isn't orchestrating each
+    # round-trip. Migration 020 adds it with default 0.
+    turn_count = Column(Integer, default=0, nullable=False, server_default="0")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)

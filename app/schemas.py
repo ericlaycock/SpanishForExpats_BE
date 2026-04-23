@@ -252,6 +252,24 @@ class RealtimeSessionResponse(BaseModel):
     voice: str
 
 
+# Post-turn ingestion for the realtime flow. FE calls this after each
+# completed WebRTC turn so the backend can run word detection, update
+# mastery counters, persist state, and enforce the exchange hard limit.
+class RealtimeTurnRequest(BaseModel):
+    user_transcript: str
+    assistant_text: str
+
+
+class RealtimeTurnResponse(BaseModel):
+    detected_word_ids: List[str]
+    missing_word_ids: List[str]
+    conversation_complete: bool
+    # Counts down from EXCHANGE_WARNING_THRESHOLD (25) — FE uses this for the
+    # "N turns left" warning. Pinned to 0 once past the threshold; the hard
+    # limit at 30 is what actually flips `conversation_complete`.
+    turns_remaining: int
+
+
 # Grammar config schemas
 # drill_config / phase_*_config shapes differ per drill_type (article_matching,
 # conjugation, skip, …). Keep them as free-form dicts but typed as
