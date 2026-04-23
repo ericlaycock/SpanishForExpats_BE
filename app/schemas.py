@@ -36,7 +36,8 @@ class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
     confirm_password: str
-    invite_token: str = ""
+    invite_token: Optional[str] = None
+    name: Optional[str] = None
 
 
 class LoginResponse(BaseModel):
@@ -407,6 +408,15 @@ class FreeflowUserRow(BaseModel):
     m7: MilestoneInfo
     m8: MilestoneInfo
     current_milestone: int
+    # Onboarding V2 profile fields
+    name: Optional[str] = None
+    q0_spanish_level: Optional[str] = None
+    q1_situation: Optional[str] = None
+    q1_1_time_in_latam: Optional[str] = None
+    q2_country: Optional[str] = None
+    q3_tools: Optional[List[str]] = None
+    q4_proximity: Optional[str] = None
+    q6_conversations: Optional[str] = None
 
 
 class FreeflowResponse(BaseModel):

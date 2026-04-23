@@ -22,6 +22,16 @@ class User(Base):
     is_admin = Column(Boolean, default=False, nullable=False)
     alt_language = Column(String, nullable=True)  # null=Spanish, 'catalan', 'swedish'
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    # Onboarding V2 profile fields
+    name = Column(String, nullable=True)
+    q0_spanish_level = Column(String, nullable=True)   # a/b/c/d
+    q1_situation = Column(String, nullable=True)        # a/b/c
+    q1_1_time_in_latam = Column(String, nullable=True)  # a/b/c (conditional)
+    q2_country = Column(String, nullable=True)           # country name from map
+    q3_tools = Column(JSONB, nullable=True)              # ["duolingo", "classes", ...]
+    q4_proximity = Column(String, nullable=True)         # high/mid/low
+    q6_conversations = Column(String, nullable=True)     # none/few/some/most
     
     # Relationships
     subscription = relationship("Subscription", back_populates="user", uselist=False)

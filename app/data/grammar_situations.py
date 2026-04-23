@@ -100,7 +100,7 @@ GL_VL_THRESHOLDS: dict[float, int] = {
     6: 300, 7: 330, 8: 400, 9: 500, 10: 510, 10.3: 515,
     10.6: 520, 11: 550, 12: 600, 13: 700, 14: 750, 15: 800,
     16: 900, 17: 1000, 17.1: 1010, 17.2: 1020, 17.3: 1030,
-    17.4: 1050, 17.5: 1060, 18: 1300, 19: 1400, 20: 1500,
+    17.4: 1050, 17.5: 1060, 18: 1300, 18.5: 1350, 19: 1400, 20: 1500,
 }
 
 # Titles for ALL grammar levels (including those without content yet).
@@ -116,6 +116,7 @@ GL_TITLES: dict[float, str] = {
     17.1: "Preterite Highly Irregular", 17.2: "Preterite Weird Spelling Changes",
     17.3: "Preterite Stem Changers", 17.4: "Preterite DUCIR",
     17.5: "Preterite e-to-i Irregular", 18: "Gerund",
+    18.5: "Perfect Tenses",
     19: "Direct + Indirect Object Pronouns", 20: "Subjunctive",
 }
 
@@ -2220,6 +2221,24 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Are they going out tonight?",
         "opener_es": "¿Están saliendo esta noche?",
+    },
+
+    # --- GL 18.5: Perfect Tenses — placeholder (video content pending) ---
+    "grammar_perfect_tenses": {
+        "title": "Perfect Tenses",
+        "grammar_level": 18.5,
+        "lesson_number": 1,
+        "word_workload": ["haber"],
+        "video_embed_id": None,  # placeholder — content not yet produced
+        "drill_type": "skip",
+        "tense": "perfect",
+        "phases": {"0a": False, "0b": False, "1a": True, "1b": True, "1c": False, "2": True, "3": True},
+        "phase_2_config": {
+            "description": "Perfect tenses: present perfect, pluperfect, future perfect, conditional perfect",
+            "targets": [],
+        },
+        "opener_en": "Have you been to the market?",
+        "opener_es": "¿Has ido al mercado?",
     },
 
 }

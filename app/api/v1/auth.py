@@ -45,14 +45,14 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
             if t:
                 token_plan_map[t] = "app_pronounce"
 
-        invite = credentials.invite_token.strip().lower()
-        if token_plan_map and invite not in token_plan_map:
+        invite = (credentials.invite_token or "").strip().lower()
+        if invite and token_plan_map and invite not in token_plan_map:
             logger.warning(f"Registration failed: invalid invite token for {email}")
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Invalid invite token"
             )
-        plan = token_plan_map.get(invite, "free")
+        plan = token_plan_map.get(invite, "free") if invite else "free"
 
         # Validate passwords match
         if credentials.password != credentials.confirm_password:
@@ -72,6 +72,9 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
 
         # Create user and set subscription plan
         user = create_user(db, email, credentials.password)
+        if credentials.name:
+            user.name = credentials.name.strip()
+            db.flush()
         logger.info(f"User created successfully: {user.id} ({user.email}), plan={plan}")
 
         from app.models import Subscription

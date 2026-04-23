@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from datetime import datetime, timezone
 from app.database import get_db
 from app.auth import get_current_user
@@ -12,15 +12,36 @@ from app.schemas import (
     AvailableCategory,
     UpdateAnimationTypesResponse,
 )
-from app.data.grammar_situations import GRAMMAR_SITUATIONS, get_all_grammar_situation_ids, GL_VL_THRESHOLDS
+from app.data.grammar_situations import GRAMMAR_SITUATIONS, get_all_grammar_situation_ids, GL_VL_THRESHOLDS, GL_SORTED
 import logging
 
-# Maps onboarding quiz grammar score IDs to grammar levels.
+# Maps old onboarding quiz grammar score IDs to grammar levels.
 QUIZ_SCORE_TO_GL: dict[str, float] = {
     "G1": 0,       # Can't conjugate present tense
     "G101": 3,     # Knows regular present tense
     "G701": 9,     # Knows through Ir A + Infinitive
     "G2001": 20,   # Knows subjunctive-level grammar
+}
+
+# Maps new onboarding V2 GL string labels to backend numeric GL.
+NEW_GL_LABEL_TO_GL: dict[str, float] = {
+    "pronouns + gender": 2,
+    "present regular": 3,
+    "present irregular": 8,
+    "ir a": 11,
+    "imperfect": 12,
+    "reflexive": 13,
+    "future": 14,
+    "conditional": 15,
+    "preterite regular": 17,        # GL 16 intentionally skipped — left as first lesson
+    "preterite irregular 1": 17.3,  # 17.1 + 17.2 + 17.3
+    "preterite irregular 2": 17.5,  # 17.4 + 17.5
+    "gerund": 18,
+    "perfect tenses": 18.5,         # New GL added for V2
+    "dir + indir": 19,
+    "dir + indir 2": 19,            # Same unit, label stored for analytics
+    "subjunctive 1": 20,
+    "subjunctive 2": 20,            # Same unit, label stored for analytics
 }
 
 logger = logging.getLogger(__name__)
@@ -36,23 +57,37 @@ def _parse_score_level(score: str | None) -> int:
 
 
 class SaveOnboardingSelectionsRequest(BaseModel):
-    selected_category: str | None = None  # FE sends this name
-    selected_animation_type: str | None = None  # Legacy name
+    # V2 onboarding profile fields
+    name: Optional[str] = None
+    q0_spanish_level: Optional[str] = None
+    q1_situation: Optional[str] = None
+    q1_1_time_in_latam: Optional[str] = None
+    q2_country: Optional[str] = None
+    q3_tools: Optional[List[str]] = None
+    q4_proximity: Optional[str] = None
+    q6_conversations: Optional[str] = None
+
+    # V2 assessment results
+    grammar_level_v2: Optional[str] = None   # GLLevel string from new grammar tree
+    vocab_level_v2: Optional[int] = None     # Integer VL from new vocab tree
+
+    # V2 situation selection (multi-select, replaces single category)
+    selected_animation_types_v2: Optional[List[str]] = None
+
+    # V1 legacy fields (backward compat — old in-app onboarding wizard)
+    selected_category: Optional[str] = None
+    selected_animation_type: Optional[str] = None
+    dialect: Optional[str] = None
+    grammar_score: Optional[str] = None
+    vocab_score: Optional[str] = None
 
     @property
-    def animation_type(self) -> str:
-        value = self.selected_category or self.selected_animation_type
-        if not value:
-            raise ValueError("Either selected_category or selected_animation_type is required")
-        return value
-
-    dialect: str  # 'mexico', 'colombia', 'costa_rica'
-    grammar_score: str | None = None  # Quiz grammar score
-    vocab_score: str | None = None  # Quiz vocab score
+    def animation_type(self) -> str | None:
+        return self.selected_category or self.selected_animation_type
 
 
 def _seed_hf_words(db: Session, user_id, count: int) -> int:
-    """Seed top-N high-frequency words with mastery_level=2 for placement skip-ahead."""
+    """Seed top-N high-frequency words with mastery_level=4 for placement skip-ahead."""
     hf_words = (
         db.query(Word)
         .filter(Word.word_category == "high_frequency")
@@ -80,8 +115,9 @@ def _seed_hf_words(db: Session, user_id, count: int) -> int:
     return len(hf_words)
 
 
-def _auto_complete_grammar(db: Session, user_id, target_gl: float) -> int:
-    """Auto-complete grammar situations whose grammar_level <= target_gl."""
+def _auto_complete_grammar(db: Session, user_id, target_gl: float, skip_gls: set[float] | None = None) -> int:
+    """Auto-complete grammar situations whose grammar_level <= target_gl, skipping any in skip_gls."""
+    skip_gls = skip_gls or set()
     now = datetime.now(timezone.utc)
     completed = 0
 
@@ -89,8 +125,9 @@ def _auto_complete_grammar(db: Session, user_id, target_gl: float) -> int:
         cfg = GRAMMAR_SITUATIONS[sid]
         if cfg["grammar_level"] > target_gl:
             continue
+        if cfg["grammar_level"] in skip_gls:
+            continue
 
-        # Check if already completed
         existing = db.query(UserSituation).filter(
             UserSituation.user_id == user_id,
             UserSituation.situation_id == sid,
@@ -115,6 +152,42 @@ def _auto_complete_grammar(db: Session, user_id, target_gl: float) -> int:
     return completed
 
 
+def _find_first_situation(db: Session, user_id, selected_animation_types: list[str] | None) -> str | None:
+    """Find the first uncompleted situation for the user after onboarding.
+
+    Priority: grammar situations (by GL ascending), then selected animation type situations.
+    """
+    completed_ids = {
+        us.situation_id
+        for us in db.query(UserSituation).filter(
+            UserSituation.user_id == user_id,
+            UserSituation.completed_at.isnot(None),
+        ).all()
+    }
+
+    # Check grammar situations in GL order
+    for sid in get_all_grammar_situation_ids():
+        if sid not in completed_ids:
+            return sid
+
+    # Fall back to first situation in selected animation types
+    if selected_animation_types:
+        for anim_type in selected_animation_types:
+            sit = (
+                db.query(Situation)
+                .filter(
+                    Situation.animation_type == anim_type,
+                    Situation.situation_type == 'main',
+                )
+                .order_by(Situation.order_index.asc())
+                .first()
+            )
+            if sit and sit.id not in completed_ids:
+                return sit.id
+
+    return None
+
+
 class OnboardingStatusResponse(BaseModel):
     onboarding_completed: bool
     selected_animation_types: List[str] | None
@@ -126,64 +199,108 @@ async def save_onboarding_selections(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Save user's selected animation type, dialect, and quiz scores from onboarding"""
-    # Validate animation type exists
-    valid_types = db.query(Situation.animation_type).distinct().all()
-    valid_type_list = [t[0] for t in valid_types]
+    """Save user's onboarding selections. Supports both V1 (legacy) and V2 (new) formats."""
 
-    if request.animation_type not in valid_type_list:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid animation type: {request.animation_type}"
-        )
+    # --- Store V2 profile fields ---
+    if request.name is not None:
+        current_user.name = request.name.strip() or None
+    if request.q0_spanish_level is not None:
+        current_user.q0_spanish_level = request.q0_spanish_level
+    if request.q1_situation is not None:
+        current_user.q1_situation = request.q1_situation
+    if request.q1_1_time_in_latam is not None:
+        current_user.q1_1_time_in_latam = request.q1_1_time_in_latam
+    if request.q2_country is not None:
+        current_user.q2_country = request.q2_country
+    if request.q3_tools is not None:
+        current_user.q3_tools = request.q3_tools
+    if request.q4_proximity is not None:
+        current_user.q4_proximity = request.q4_proximity
+    if request.q6_conversations is not None:
+        current_user.q6_conversations = request.q6_conversations
 
-    # Validate dialect
-    valid_dialects = ['mexico', 'colombia', 'costa_rica', 'ecuador']
-    if request.dialect not in valid_dialects:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid dialect: {request.dialect}"
-        )
+    # --- Dialect (V1 only) ---
+    if request.dialect is not None:
+        valid_dialects = ['mexico', 'colombia', 'costa_rica', 'ecuador']
+        if request.dialect not in valid_dialects:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid dialect: {request.dialect}"
+            )
+        current_user.dialect = request.dialect
 
-    current_user.selected_animation_types = [request.animation_type]
-    current_user.dialect = request.dialect
-    current_user.grammar_score = request.grammar_score
-    current_user.vocab_score = request.vocab_score
-    current_user.onboarding_completed = True
-    current_user.onboarding_completed_at = datetime.now(timezone.utc)
-
-    # Determine starting vocab level from quiz scores
-    vocab_target = _parse_score_level(request.vocab_score)
-    grammar_implied = _parse_score_level(request.grammar_score)
-    starting_vl = max(vocab_target, grammar_implied)
-
-    # Map quiz grammar score to grammar level
-    target_gl = QUIZ_SCORE_TO_GL.get(request.grammar_score, 0) if request.grammar_score else 0
+    # --- Situation selection ---
+    if request.selected_animation_types_v2 is not None:
+        # V2: multi-select list
+        current_user.selected_animation_types = request.selected_animation_types_v2
+        current_user.grammar_score = request.grammar_level_v2  # store raw label for analytics
+    elif request.animation_type is not None:
+        # V1: single animation type
+        valid_types = db.query(Situation.animation_type).distinct().all()
+        valid_type_list = [t[0] for t in valid_types]
+        if request.animation_type not in valid_type_list:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid animation type: {request.animation_type}"
+            )
+        current_user.selected_animation_types = [request.animation_type]
+        current_user.grammar_score = request.grammar_score
+        current_user.vocab_score = request.vocab_score
 
     seeded_words = 0
     completed_grammar = 0
+    target_gl = 0.0
 
-    if starting_vl > 0:
-        seeded_words = _seed_hf_words(db, current_user.id, starting_vl)
+    # --- V2 assessment: new GL label + numeric VL ---
+    if request.grammar_level_v2 is not None:
+        target_gl = NEW_GL_LABEL_TO_GL.get(request.grammar_level_v2, 0)
+        skip_gls = {16.0} if target_gl >= 17 else None
+        completed_grammar = _auto_complete_grammar(db, current_user.id, target_gl, skip_gls=skip_gls)
 
-    if target_gl > 0:
-        completed_grammar = _auto_complete_grammar(db, current_user.id, target_gl)
+    if request.vocab_level_v2 is not None and request.vocab_level_v2 > 0:
+        seeded_words = _seed_hf_words(db, current_user.id, request.vocab_level_v2)
+
+    # --- V1 assessment: old score strings (fallback when V2 not present) ---
+    if request.grammar_level_v2 is None and request.grammar_score is not None:
+        target_gl = QUIZ_SCORE_TO_GL.get(request.grammar_score, 0)
+        if target_gl > 0:
+            completed_grammar = _auto_complete_grammar(db, current_user.id, target_gl)
+
+    if request.vocab_level_v2 is None and request.vocab_score is not None:
+        vocab_target = _parse_score_level(request.vocab_score)
+        grammar_implied = _parse_score_level(request.grammar_score)
+        starting_vl = max(vocab_target, grammar_implied)
+        if starting_vl > 0:
+            seeded_words = _seed_hf_words(db, current_user.id, starting_vl)
+
+    current_user.onboarding_completed = True
+    current_user.onboarding_completed_at = datetime.now(timezone.utc)
+
+    db.flush()
+
+    first_situation_id = _find_first_situation(
+        db,
+        current_user.id,
+        current_user.selected_animation_types,
+    )
 
     db.commit()
 
     logger.info(
-        "Onboarding saved: user=%s grammar_score=%s vocab_score=%s starting_vl=%d target_gl=%.1f seeded_words=%d completed_grammar=%d",
-        current_user.id, request.grammar_score, request.vocab_score,
-        starting_vl, target_gl, seeded_words, completed_grammar,
+        "Onboarding saved: user=%s grammar_level_v2=%s vocab_level_v2=%s target_gl=%.1f "
+        "seeded_words=%d completed_grammar=%d first_situation=%s",
+        current_user.id, request.grammar_level_v2, request.vocab_level_v2,
+        target_gl, seeded_words, completed_grammar, first_situation_id,
     )
 
     return {
         "status": "success",
         "message": "Onboarding data saved",
-        "starting_vocab_level": starting_vl,
+        "starting_vocab_level": request.vocab_level_v2 or 0,
         "grammar_level": target_gl,
         "seeded_words": seeded_words,
         "completed_grammar_units": completed_grammar,
+        "first_situation_id": first_situation_id,
     }
 
 
@@ -206,7 +323,7 @@ async def get_available_categories(
 ):
     """Get list of available animation types for onboarding"""
 
-    # Only show these 10 animation types for onboarding
+    # Only show these animation types for onboarding
     allowed_types = {
         "airport": {
             "name": "Airport",
@@ -256,7 +373,6 @@ async def get_available_categories(
 
     result: List[AvailableCategory] = []
     for type_id, type_info in allowed_types.items():
-        # Verify animation type exists in database
         exists = db.query(Situation).filter(Situation.animation_type == type_id).first()
         if exists:
             result.append(AvailableCategory(
@@ -265,9 +381,7 @@ async def get_available_categories(
                 description=type_info["description"],
             ))
 
-    # Sort by name for consistent ordering
     result.sort(key=lambda c: c.name)
-
     return AvailableCategoriesResponse(categories=result)
 
 
@@ -283,7 +397,6 @@ async def update_animation_types(
     db: Session = Depends(get_db)
 ):
     """Add or remove an animation type from the user's selected list."""
-    # Validate animation type exists in DB
     exists = db.query(Situation).filter(Situation.animation_type == request.animation_type).first()
     if not exists:
         raise HTTPException(
