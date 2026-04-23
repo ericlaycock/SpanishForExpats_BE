@@ -235,6 +235,23 @@ class VoiceTurnResponse(BaseModel):
     conversation_complete: bool
 
 
+# Realtime (WebRTC) session schemas
+# Minted by POST /v1/realtime/sessions — the browser trades this client_secret
+# for a direct OpenAI Realtime WebRTC connection. Backend never relays audio.
+class RealtimeSessionCreate(BaseModel):
+    conversation_id: UUID
+
+
+class RealtimeSessionResponse(BaseModel):
+    client_secret: str
+    # Unix timestamp (seconds) — the ephemeral token is rejected by OpenAI
+    # after this point. Typically ~60s from mint. FE uses it to know when to
+    # re-mint rather than trusting a connection it can no longer refresh.
+    expires_at: int
+    model: str
+    voice: str
+
+
 # Grammar config schemas
 # drill_config / phase_*_config shapes differ per drill_type (article_matching,
 # conjugation, skip, …). Keep them as free-form dicts but typed as
