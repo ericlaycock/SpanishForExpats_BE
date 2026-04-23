@@ -20,10 +20,10 @@ from typing import Optional
 import websockets
 
 from app.config import settings
+from app.services.realtime_config import REALTIME_MODEL, build_ws_session_update
 
 logger = logging.getLogger(__name__)
 
-REALTIME_MODEL = "gpt-realtime-mini"
 REALTIME_URL = f"wss://api.openai.com/v1/realtime?model={REALTIME_MODEL}"
 
 
@@ -90,8 +90,11 @@ async def stream_realtime(
         else:
             conversation_items.append(msg)
 
-    if tts_instructions:
-        system_content += f"\n\n[Voice style: {tts_instructions}]"
+    session_payload = build_ws_session_update(
+        voice=voice,
+        instructions=system_content,
+        tts_instructions=tts_instructions,
+    )
 
     try:
         async with websockets.connect(REALTIME_URL, additional_headers=headers, close_timeout=5) as ws:
@@ -99,13 +102,7 @@ async def stream_realtime(
 
             await ws.send(json.dumps({
                 "type": "session.update",
-                "session": {
-                    "modalities": ["text", "audio"],
-                    "voice": voice,
-                    "instructions": system_content,
-                    "output_audio_format": "pcm16",
-                    "turn_detection": None,
-                }
+                "session": session_payload,
             }))
 
             for item in conversation_items:
