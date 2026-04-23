@@ -25,6 +25,7 @@ Conversation = models_legacy.Conversation
 Subscription = models_legacy.Subscription
 DailyEncounterLog = models_legacy.DailyEncounterLog
 UserReport = models_legacy.UserReport
+UserMilestoneEvent = models_legacy.UserMilestoneEvent
 REPORT_CATEGORIES = models_legacy.REPORT_CATEGORIES
 REPORT_STATUSES = models_legacy.REPORT_STATUSES
 # Base is imported from database, not from models.py
@@ -48,6 +49,7 @@ __all__ = [
     "Subscription",
     "DailyEncounterLog",
     "UserReport",
+    "UserMilestoneEvent",
     "REPORT_CATEGORIES",
     "REPORT_STATUSES",
     "LLMRequest",
