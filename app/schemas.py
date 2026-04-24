@@ -89,6 +89,7 @@ class WordSchema(BaseModel):
     spanish: str
     english: str
     notes: Optional[str] = None
+    word_type: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -159,6 +160,7 @@ class UserWordSchema(BaseModel):
     # the union so UserWord rows pointing at those verbs don't blow up serialization.
     word_category: Optional[Literal["high_frequency", "encounter", "grammar"]] = None
     frequency_rank: Optional[int] = None
+    word_type: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -286,6 +288,8 @@ class GrammarConfigResponse(BaseModel):
     drill_targets: Optional[List[Dict[str, Any]]] = Field(default=None, json_schema_extra=_freeform_object_list_schema)
     phase_1c_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
     phase_2_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
+    lesson_type: Optional[str] = None       # "conjugation" | "rule"
+    drill_sentences: Optional[List[Dict[str, Any]]] = Field(default=None, json_schema_extra=_freeform_object_list_schema)
 
 
 # Grammar gate / completion schemas

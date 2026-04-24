@@ -22,6 +22,7 @@ router = APIRouter()
 
 @router.get("", response_model=list[UserWordSchema])
 async def get_user_words(
+    word_type: Optional[str] = Query(None, description="Filter by word type: 'noun', 'verb', 'adjective', etc."),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -29,10 +30,13 @@ async def get_user_words(
     user_words = db.query(UserWord).filter(
         UserWord.user_id == current_user.id
     ).all()
-    
+
     # Get word details
     word_ids = [uw.word_id for uw in user_words]
-    words = db.query(Word).filter(Word.id.in_(word_ids)).all()
+    word_query = db.query(Word).filter(Word.id.in_(word_ids))
+    if word_type:
+        word_query = word_query.filter(Word.word_type == word_type)
+    words = word_query.all()
     words = apply_alt_language(words, current_user.alt_language, db)
     word_dict = {w.id: w for w in words}
 
@@ -55,6 +59,7 @@ async def get_user_words(
                 next_refresh_at=uw.next_refresh_at,
                 word_category=word.word_category,
                 frequency_rank=word.frequency_rank,
+                word_type=word.word_type,
             ))
 
     return result

@@ -888,6 +888,8 @@ async def get_grammar_config_endpoint(
         drill_targets=config.get("drill_targets"),
         phase_1c_config=config.get("phase_1c_config"),
         phase_2_config=config.get("phase_2_config"),
+        lesson_type=config.get("lesson_type"),
+        drill_sentences=config.get("drill_sentences"),
     )
 
 

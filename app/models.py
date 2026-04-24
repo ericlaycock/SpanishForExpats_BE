@@ -67,6 +67,7 @@ class Word(Base):
     english = Column(String, nullable=False)
     word_category = Column(String, nullable=True)  # 'encounter' or 'high_frequency'
     frequency_rank = Column(Integer, nullable=True)  # Rank in frequency list (1-1000)
+    word_type = Column(String, nullable=True, index=True)  # 'noun' | 'verb' | 'adjective' | 'adverb' | 'other'
     catalan = Column(String, nullable=True)
     swedish = Column(String, nullable=True)
     notes = Column(Text, nullable=True)  # Grammar/usage notes for frontend popup
