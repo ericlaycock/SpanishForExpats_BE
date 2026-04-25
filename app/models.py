@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Integer, DateTime, ForeignKey, Text, JSON, CheckConstraint, UniqueConstraint
+from sqlalchemy import Column, String, Boolean, Integer, DateTime, Date, ForeignKey, Text, JSON, CheckConstraint, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -125,6 +125,11 @@ class UserWord(Base):
     mastery_level = Column(Integer, default=0, nullable=False)  # 0=unseen, 1=learned, 2-3=refreshed, 4=mastered
     next_refresh_at = Column(DateTime(timezone=True), nullable=True)
     source_situation_id = Column(String, ForeignKey("situations.id"), nullable=True)
+    # The most recent surface form the user actually saw/heard for this word.
+    # For verbs this is the conjugated form (e.g. "hará") rather than the
+    # infinitive — used by the daily Grenade so the prompt deploys the form
+    # the user has just learned, not a generic lemma.
+    last_seen_form = Column(String, nullable=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     # Relationships
@@ -228,6 +233,44 @@ class DailyEncounterLog(Base):
 
     user = relationship("User")
     situation = relationship("Situation")
+
+
+class Grenade(Base):
+    """A daily one-word challenge: the user must deploy the word in a real
+    Spanish conversation. One per (user, assigned_date). Generated on demand
+    after the user clicks "Make a grenade for me" — `question_es`/`question_en`
+    are populated then. Recall is tracked via `used`/`answered_at` the day after.
+    """
+    __tablename__ = "grenades"
+    __table_args__ = (
+        UniqueConstraint("user_id", "assigned_date", name="uq_grenades_user_date"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    word_id = Column(String, ForeignKey("words.id"), nullable=False)
+    # The exact form the user is challenged to deploy. For verbs this is the
+    # conjugation (e.g. "hará"); for other word types the lemma. Stored
+    # separately from word_id so renaming/reconjugating the source word doesn't
+    # rewrite history.
+    target_form = Column(String, nullable=False)
+    pos = Column(String, nullable=True)  # 'verb' | 'noun' | 'adjective' | 'other'
+    audience = Column(String, nullable=True)  # 'friend' | 'merchant'
+    question_es = Column(Text, nullable=True)
+    question_en = Column(Text, nullable=True)
+    assigned_date = Column(Date, nullable=False, index=True)
+    # Recall outcome: True = used, False = missed, None = not yet answered.
+    used = Column(Boolean, nullable=True)
+    answered_at = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    user = relationship("User")
+    word = relationship("Word")
 
 
 class UserMilestoneEvent(Base):

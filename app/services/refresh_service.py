@@ -1,8 +1,9 @@
+import random
 from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from app.models import UserWord, Situation
+from app.models import UserWord, Situation, Word
 
 
 # Intervals: after reaching level N, next refresh is due in this many time
@@ -21,28 +22,80 @@ def get_next_refresh_at(mastery_level: int) -> Optional[datetime]:
     return datetime.now(timezone.utc) + interval
 
 
+def _pick_grammar_form(word_spanish: str, situation_id: str) -> Optional[str]:
+    """Pick a representative conjugated form for a grammar-lesson verb.
+
+    Drives the daily Grenade so a user who just drilled "hablar" gets a
+    deployable form like "hablas" / "habla" / "hablamos" rather than the bare
+    infinitive. Prefers non-masculine, non-default pronouns to keep grenades
+    varied across ella/ellas/nosotras/usted/ustedes (matches the project-wide
+    pronoun-diversity preference).
+
+    Returns None if no grammar config / no answers / no drill_targets — caller
+    should fall back to the lemma.
+    """
+    from app.data.grammar_situations import get_grammar_config
+
+    config = get_grammar_config(situation_id) or {}
+    answers = (config.get("drill_config") or {}).get("answers") or {}
+    forms_for_verb: Dict[str, str] = answers.get(word_spanish) or {}
+    if not forms_for_verb:
+        return None
+
+    # Bias toward varied pronouns — matches the diversity preference for
+    # generated grammar content. Falls back to whatever the verb has.
+    preferred = ["ella", "ellas", "nosotras", "usted", "ustedes", "tú", "yo"]
+    drill_targets = config.get("drill_targets") or []
+    drilled_pronouns = [t.get("pronoun") for t in drill_targets if t.get("verb") == word_spanish]
+    candidate_pronouns = [p for p in preferred if p in drilled_pronouns and forms_for_verb.get(p)]
+    if not candidate_pronouns:
+        # Use any drilled pronoun the verb actually has a form for.
+        candidate_pronouns = [p for p in drilled_pronouns if forms_for_verb.get(p)]
+    if not candidate_pronouns:
+        candidate_pronouns = [p for p in forms_for_verb.keys()]
+    chosen = random.choice(candidate_pronouns)
+    return forms_for_verb.get(chosen)
+
+
 def set_initial_mastery(
     db: Session,
     user_id,
     word_ids: List[str],
     situation_id: str,
 ) -> None:
-    """Set words from level 0 → level 1 after a lesson is completed."""
+    """Set words from level 0 → level 1 after a lesson is completed.
+
+    Also seeds `last_seen_form` so the daily Grenade can deploy the conjugated
+    form the user drilled (for grammar verbs) rather than a bare infinitive.
+    Non-verbs and non-grammar contexts default to the lemma.
+    """
     next_refresh = datetime.now(timezone.utc) + SRS_INTERVALS[1]
 
-    db.query(UserWord).filter(
-        UserWord.user_id == user_id,
-        UserWord.word_id.in_(word_ids),
-        UserWord.mastery_level == 0,
-    ).update(
-        {
-            UserWord.mastery_level: 1,
-            UserWord.next_refresh_at: next_refresh,
-            UserWord.source_situation_id: situation_id,
-            UserWord.status: "learning",
-        },
-        synchronize_session="fetch",
+    rows = (
+        db.query(UserWord, Word)
+        .join(Word, Word.id == UserWord.word_id)
+        .filter(
+            UserWord.user_id == user_id,
+            UserWord.word_id.in_(word_ids),
+            UserWord.mastery_level == 0,
+        )
+        .with_for_update(of=UserWord)
+        .all()
     )
+
+    for user_word, word in rows:
+        form: Optional[str] = None
+        if word.word_type == "verb":
+            form = _pick_grammar_form(word.spanish, situation_id)
+        if not form:
+            form = word.spanish
+
+        user_word.mastery_level = 1
+        user_word.next_refresh_at = next_refresh
+        user_word.source_situation_id = situation_id
+        user_word.status = "learning"
+        user_word.last_seen_form = form
+
     db.flush()
 
 

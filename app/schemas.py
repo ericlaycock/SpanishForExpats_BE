@@ -427,6 +427,47 @@ class FreeflowResponse(BaseModel):
     users: List[FreeflowUserRow]
 
 
+# Grenade schemas
+GrenadeAudience = Literal["friend", "merchant"]
+GrenadeStripCellState = Literal["used", "missed", "none", "pending"]
+
+
+class GrenadeOut(BaseModel):
+    """A single grenade (today's, or yesterday's awaiting recall)."""
+    id: UUID
+    target_form: str
+    pos: Optional[str] = None
+    audience: Optional[GrenadeAudience] = None
+    question_es: Optional[str] = None
+    question_en: Optional[str] = None
+    assigned_date: str  # ISO date (YYYY-MM-DD)
+    used: Optional[bool] = None
+
+
+class GrenadeStripCell(BaseModel):
+    date: str  # ISO date
+    state: GrenadeStripCellState  # 'used' | 'missed' | 'none' (no grenade) | 'pending' (today)
+
+
+class GrenadeTodayResponse(BaseModel):
+    # Today's grenade — None when the user has no newly-learned word today yet.
+    today: Optional[GrenadeOut] = None
+    # Most recent prior grenade with `used IS NULL`. Shown as "Did you use
+    # yesterday's grenade?" — survives multi-day app gaps (no expiry).
+    pending_recall: Optional[GrenadeOut] = None
+    # 14-day strip ending today (oldest → newest).
+    strip: List[GrenadeStripCell]
+
+
+class GrenadeGenerateRequest(BaseModel):
+    audience: GrenadeAudience = "friend"
+
+
+class GrenadeRecallRequest(BaseModel):
+    grenade_id: UUID
+    used: bool
+
+
 # Error schemas
 class ErrorResponse(BaseModel):
     error: str

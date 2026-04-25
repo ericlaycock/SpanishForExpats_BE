@@ -40,7 +40,7 @@ except Exception as e:
     # If logging fails, at least print to stdout
     print(f"⚠️  Failed to emit boot event: {e}", file=sys.stderr)
 
-from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports, admin, milestones, realtime
+from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports, admin, milestones, realtime, grenades
 from app.database import engine
 from app.models import Base
 
@@ -308,6 +308,8 @@ app.include_router(milestones.router, prefix="/v1/milestones", tags=["milestones
 logger.info("  ✅ /v1/milestones (POST / - record phase milestone events)")
 app.include_router(realtime.router, prefix="/v1/realtime", tags=["realtime"])
 logger.info("  ✅ /v1/realtime (POST /sessions - ephemeral OpenAI Realtime tokens)")
+app.include_router(grenades.router, prefix="/v1/grenades", tags=["grenades"])
+logger.info("  ✅ /v1/grenades (GET /today, POST /{id}/generate, POST /recall)")
 logger.info("✅ All routes registered")
 
 
