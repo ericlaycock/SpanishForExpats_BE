@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from app.models import UserWord, Situation, Word
+from app.models import UserWord, Situation
 
 
 # Intervals: after reaching level N, next refresh is due in this many time
@@ -43,21 +43,6 @@ def set_initial_mastery(
         },
         synchronize_session="fetch",
     )
-    # Seed last_seen_form with the lemma for any UserWord still missing one.
-    # Grammar/voice flows may overwrite with the actual conjugated form later.
-    word_rows = db.query(Word).filter(Word.id.in_(word_ids)).all()
-    lemma_by_id = {w.id: w.spanish for w in word_rows}
-    db.query(UserWord).filter(
-        UserWord.user_id == user_id,
-        UserWord.word_id.in_(word_ids),
-        UserWord.last_seen_form.is_(None),
-    ).all()
-    for wid, lemma in lemma_by_id.items():
-        db.query(UserWord).filter(
-            UserWord.user_id == user_id,
-            UserWord.word_id == wid,
-            UserWord.last_seen_form.is_(None),
-        ).update({UserWord.last_seen_form: lemma}, synchronize_session=False)
     db.flush()
 
 
