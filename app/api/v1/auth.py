@@ -8,11 +8,14 @@ from app.schemas import (
     AltLanguageRequest,
     LoginRequest,
     LoginResponse,
+    MarkExplainerSeenRequest,
     RegisterRequest,
     ResetPasswordResponse,
     ResetProgressResponse,
+    SeenExplainersResponse,
     UserProfileResponse,
 )
+from sqlalchemy.orm.attributes import flag_modified
 
 router = APIRouter()
 
@@ -149,6 +152,37 @@ async def get_me(current_user: User = Depends(get_current_user)):
         is_admin=current_user.is_admin,
         alt_language=current_user.alt_language,
     )
+
+
+@router.get("/explainers", response_model=SeenExplainersResponse)
+async def get_seen_explainers(current_user: User = Depends(get_current_user)):
+    """Return the list of first-time explainers the user has dismissed."""
+    flags = current_user.seen_explainers or {}
+    keys = [k for k, v in flags.items() if v]
+    return SeenExplainersResponse(keys=keys)
+
+
+@router.post("/explainers/seen", response_model=SeenExplainersResponse)
+async def mark_explainer_seen(
+    request: MarkExplainerSeenRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Idempotently record that the user has dismissed a first-time explainer.
+
+    Whitelisting happens via the `ExplainerKey` literal on the request schema,
+    so this endpoint can't be used to scribble arbitrary keys into the JSONB
+    column.
+    """
+    flags = dict(current_user.seen_explainers or {})
+    flags[request.key] = True
+    current_user.seen_explainers = flags
+    # JSONB columns need an explicit modification flag — assigning a new
+    # dict references the attribute but SQLAlchemy can't always detect the
+    # mutation otherwise.
+    flag_modified(current_user, "seen_explainers")
+    db.commit()
+    return SeenExplainersResponse(keys=[k for k, v in flags.items() if v])
 
 
 @router.patch("/alt-language")

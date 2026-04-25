@@ -21,6 +21,10 @@ class User(Base):
     vocab_score = Column(String, nullable=True)  # Quiz vocab score
     is_admin = Column(Boolean, default=False, nullable=False)
     alt_language = Column(String, nullable=True)  # null=Spanish, 'catalan', 'swedish'
+    # Server-side flags for first-time feature explainers (coachmarks).
+    # Shape: {"vocab_word_cards": true, "verb_lesson": true, ...}. Lookup
+    # whitelist lives in app/api/v1/auth.py.
+    seen_explainers = Column(JSONB, nullable=False, server_default="{}", default=dict)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     # Onboarding V2 profile fields
@@ -54,6 +58,15 @@ class Subscription(Base):
     stripe_subscription_id = Column(String, nullable=True)
     plan = Column(String, nullable=True)           # "pro" | "fluency"
     billing_cycle = Column(String, nullable=True)  # "monthly" | "6month"
+
+    # Lifecycle (driven by Stripe webhook + the in-app cancel flow). When
+    # `cancel_at_period_end` is true, `active` stays true until Stripe
+    # actually deletes the subscription at the period end — at which point
+    # the deleted webhook flips `active` to false.
+    cancel_at_period_end = Column(Boolean, nullable=False, server_default="false", default=False)
+    current_period_end = Column(DateTime(timezone=True), nullable=True)
+    canceled_at = Column(DateTime(timezone=True), nullable=True)
+    cancel_reason = Column(Text, nullable=True)
 
     # Relationships
     user = relationship("User", back_populates="subscription")

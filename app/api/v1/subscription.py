@@ -1,12 +1,23 @@
 import json
+import logging
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth import get_current_user
 from app.models import User, Subscription
 from app.services.subscription_service import get_subscription_status
-from app.schemas import SubscriptionStatusResponse, CheckoutRequest, CheckoutResponse
+from app.schemas import (
+    SubscriptionStatusResponse,
+    CheckoutRequest,
+    CheckoutResponse,
+    CancelSubscriptionRequest,
+    InvoiceItem,
+    InvoiceListResponse,
+)
 from app.config import settings
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -74,6 +85,137 @@ async def create_checkout_session(
     return CheckoutResponse(checkout_url=session.url)
 
 
+def _epoch_to_datetime(value) -> datetime | None:
+    """Stripe returns unix epoch seconds; convert to tz-aware UTC datetimes
+    so the column round-trips through SQLAlchemy without warnings."""
+    if value is None:
+        return None
+    return datetime.fromtimestamp(int(value), tz=timezone.utc)
+
+
+@router.post("/cancel", response_model=SubscriptionStatusResponse)
+async def cancel_subscription(
+    body: CancelSubscriptionRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Schedule cancellation at the current period end.
+
+    Honors the user's existing access — Stripe keeps the subscription active
+    until `current_period_end`, then the `customer.subscription.deleted`
+    webhook flips `active` to false. Reactivating before that point
+    (`POST /reactivate`) is a free undo.
+    """
+    sub = db.query(Subscription).filter(Subscription.user_id == current_user.id).first()
+    if not sub or not sub.stripe_subscription_id:
+        raise HTTPException(status_code=400, detail="No active subscription to cancel")
+
+    if not settings.stripe_secret_key:
+        raise HTTPException(status_code=503, detail="Payment not configured")
+
+    import stripe
+    stripe.api_key = settings.stripe_secret_key
+
+    try:
+        stripe_sub = stripe.Subscription.modify(
+            sub.stripe_subscription_id,
+            cancel_at_period_end=True,
+        )
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe cancel failed for sub {sub.stripe_subscription_id}: {e}")
+        raise HTTPException(status_code=502, detail="Stripe cancel failed")
+
+    sub.cancel_at_period_end = True
+    sub.current_period_end = _epoch_to_datetime(getattr(stripe_sub, "current_period_end", None))
+    sub.canceled_at = _epoch_to_datetime(getattr(stripe_sub, "canceled_at", None)) or datetime.now(timezone.utc)
+    if body.reason:
+        # Store reason + optional note as a small JSON-ish blob in the text
+        # column so analytics can inspect both without a separate table.
+        sub.cancel_reason = body.reason if not body.note else f"{body.reason}: {body.note}"
+    db.commit()
+
+    return SubscriptionStatusResponse(**get_subscription_status(db, str(current_user.id)))
+
+
+@router.post("/reactivate", response_model=SubscriptionStatusResponse)
+async def reactivate_subscription(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Undo a pending cancellation if the period hasn't ended yet."""
+    sub = db.query(Subscription).filter(Subscription.user_id == current_user.id).first()
+    if not sub or not sub.stripe_subscription_id:
+        raise HTTPException(status_code=400, detail="No subscription found")
+    if not sub.cancel_at_period_end:
+        # Already active and not pending cancel — nothing to undo. Return
+        # current status rather than 4xx so the FE can be optimistic.
+        return SubscriptionStatusResponse(**get_subscription_status(db, str(current_user.id)))
+
+    if not settings.stripe_secret_key:
+        raise HTTPException(status_code=503, detail="Payment not configured")
+
+    import stripe
+    stripe.api_key = settings.stripe_secret_key
+
+    try:
+        stripe.Subscription.modify(
+            sub.stripe_subscription_id,
+            cancel_at_period_end=False,
+        )
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe reactivate failed for sub {sub.stripe_subscription_id}: {e}")
+        raise HTTPException(status_code=502, detail="Stripe reactivate failed")
+
+    sub.cancel_at_period_end = False
+    sub.canceled_at = None
+    sub.cancel_reason = None
+    db.commit()
+
+    return SubscriptionStatusResponse(**get_subscription_status(db, str(current_user.id)))
+
+
+@router.get("/invoices", response_model=InvoiceListResponse)
+async def list_invoices(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """List recent Stripe invoices for the current user.
+
+    Read-only — Stripe is the source of truth, we don't cache them locally.
+    Returns an empty list for users who never had a Stripe customer (e.g.
+    free-tier users who never reached checkout).
+    """
+    sub = db.query(Subscription).filter(Subscription.user_id == current_user.id).first()
+    if not sub or not sub.stripe_customer_id:
+        return InvoiceListResponse(invoices=[])
+
+    if not settings.stripe_secret_key:
+        raise HTTPException(status_code=503, detail="Payment not configured")
+
+    import stripe
+    stripe.api_key = settings.stripe_secret_key
+
+    try:
+        result = stripe.Invoice.list(customer=sub.stripe_customer_id, limit=20)
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe invoice list failed for customer {sub.stripe_customer_id}: {e}")
+        raise HTTPException(status_code=502, detail="Stripe invoice list failed")
+
+    invoices = [
+        InvoiceItem(
+            id=inv.id,
+            amount_paid=inv.amount_paid or 0,
+            currency=(inv.currency or "usd").lower(),
+            status=getattr(inv, "status", None),
+            hosted_invoice_url=getattr(inv, "hosted_invoice_url", None),
+            invoice_pdf=getattr(inv, "invoice_pdf", None),
+            created=_epoch_to_datetime(inv.created),
+        )
+        for inv in result.data
+    ]
+    return InvoiceListResponse(invoices=invoices)
+
+
 @router.post("/webhook")
 async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
     """Handle Stripe webhook events. Verified via Stripe-Signature header."""
@@ -132,15 +274,31 @@ def _handle_subscription_updated(db: Session, stripe_sub) -> None:
     sub = db.query(Subscription).filter(
         Subscription.stripe_subscription_id == stripe_sub.id
     ).first()
-    if sub:
-        sub.active = stripe_sub.status in ("active", "trialing")
-        db.commit()
+    if not sub:
+        return
+    sub.active = stripe_sub.status in ("active", "trialing")
+    sub.cancel_at_period_end = bool(getattr(stripe_sub, "cancel_at_period_end", False))
+    period_end = getattr(stripe_sub, "current_period_end", None)
+    if period_end is not None:
+        sub.current_period_end = _epoch_to_datetime(period_end)
+    canceled = getattr(stripe_sub, "canceled_at", None)
+    if canceled is not None:
+        sub.canceled_at = _epoch_to_datetime(canceled)
+    elif not sub.cancel_at_period_end:
+        # User reactivated outside the in-app flow (Stripe Dashboard etc.)
+        sub.canceled_at = None
+        sub.cancel_reason = None
+    db.commit()
 
 
 def _handle_subscription_deleted(db: Session, stripe_sub) -> None:
     sub = db.query(Subscription).filter(
         Subscription.stripe_subscription_id == stripe_sub.id
     ).first()
-    if sub:
-        sub.active = False
-        db.commit()
+    if not sub:
+        return
+    sub.active = False
+    sub.cancel_at_period_end = False
+    if sub.canceled_at is None:
+        sub.canceled_at = datetime.now(timezone.utc)
+    db.commit()

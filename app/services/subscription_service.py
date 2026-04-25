@@ -38,6 +38,9 @@ def get_subscription_status(db: Session, user_id: str) -> dict:
         "free_situations_remaining": free_encounters_remaining,
         "plan": subscription.plan,
         "billing_cycle": subscription.billing_cycle,
+        "cancel_at_period_end": subscription.cancel_at_period_end,
+        "current_period_end": subscription.current_period_end,
+        "canceled_at": subscription.canceled_at,
     }
 
 

@@ -72,6 +72,54 @@ class SubscriptionStatusResponse(BaseModel):
     free_situations_remaining: int
     plan: Optional[str] = None           # "pro" | "fluency" | None
     billing_cycle: Optional[str] = None  # "monthly" | "6month" | None
+    # Lifecycle. `cancel_at_period_end` flips true after the user clicks
+    # Cancel; `active` stays true until the period actually ends. Both fields
+    # are sourced from the Stripe webhook + the in-app cancel/reactivate flow.
+    cancel_at_period_end: bool = False
+    current_period_end: Optional[datetime] = None
+    canceled_at: Optional[datetime] = None
+
+
+CancelReason = Literal[
+    "too_expensive", "not_using", "found_alternative", "achieved_goal", "other"
+]
+
+
+class CancelSubscriptionRequest(BaseModel):
+    reason: Optional[CancelReason] = None
+    note: Optional[str] = Field(default=None, max_length=200)
+
+
+class InvoiceItem(BaseModel):
+    id: str
+    amount_paid: int  # cents
+    currency: str
+    status: Optional[str] = None  # 'paid' | 'open' | 'void' | …
+    hosted_invoice_url: Optional[str] = None
+    invoice_pdf: Optional[str] = None
+    created: datetime
+
+
+class InvoiceListResponse(BaseModel):
+    invoices: List[InvoiceItem]
+
+
+# First-time explainer flags
+ExplainerKey = Literal[
+    "vocab_word_cards",
+    "verb_lesson",
+    "vocab_voice_chat",
+    "verb_voice_chat",
+    "grenade_panel",
+]
+
+
+class MarkExplainerSeenRequest(BaseModel):
+    key: ExplainerKey
+
+
+class SeenExplainersResponse(BaseModel):
+    keys: List[ExplainerKey]
 
 
 class CheckoutRequest(BaseModel):
