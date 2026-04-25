@@ -68,3 +68,16 @@ def test_multiple_explainers_accumulate(client, db):
     resp = client.get("/v1/auth/explainers", headers=headers)
     assert resp.status_code == 200
     assert set(resp.json()["keys"]) == {"vocab_word_cards", "verb_lesson", "verb_voice_chat"}
+
+
+def test_dashboard_tour_explainer_accepted(client, db):
+    """The dashboard_tour key was added when the first-visit dashboard tour
+    shipped — confirm the BE whitelist accepts it (regression guard)."""
+    _, headers = register_user(client, email="exp_dash@test.com")
+    resp = client.post(
+        "/v1/auth/explainers/seen",
+        json={"key": "dashboard_tour"},
+        headers=headers,
+    )
+    assert resp.status_code == 200
+    assert "dashboard_tour" in resp.json()["keys"]

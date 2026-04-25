@@ -111,6 +111,7 @@ ExplainerKey = Literal[
     "vocab_voice_chat",
     "verb_voice_chat",
     "grenade_panel",
+    "dashboard_tour",
 ]
 
 
