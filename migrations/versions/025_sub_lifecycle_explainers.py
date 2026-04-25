@@ -5,7 +5,10 @@ server-side first-time explainer flags. Both belong to the same migration
 because they're shipped as one product change ("subscription management +
 onboarding upgrade") and that keeps the alembic graph compact.
 
-Revision ID: 025_subscription_lifecycle_and_explainers
+Revision id is intentionally short — the `alembic_version.version_num`
+column is `VARCHAR(32)`, so longer ids fail at upgrade time.
+
+Revision ID: 025_sub_lifecycle_explainers
 Revises: 024_restructure_grenades
 Create Date: 2026-04-25
 """
@@ -14,7 +17,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB
 
 
-revision = "025_subscription_lifecycle_and_explainers"
+revision = "025_sub_lifecycle_explainers"
 down_revision = "024_restructure_grenades"
 branch_labels = None
 depends_on = None
