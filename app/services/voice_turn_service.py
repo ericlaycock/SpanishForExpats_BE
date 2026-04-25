@@ -157,6 +157,49 @@ def build_conversation_prompt(
     )
 
 
+def _capture_surface_forms(
+    db: Session,
+    user_id: UUID,
+    conversation: Conversation,
+    transcript: str,
+    detected_word_ids: List[str],
+) -> None:
+    """For each detected grammar word, find which conjugated form appeared in
+    the transcript and persist it to UserWord.last_seen_form.
+
+    No-op for non-grammar situations (lemma was already seeded at lesson
+    completion). Idempotent and best-effort — failures are swallowed since
+    this is purely auxiliary data for the daily grenade feature.
+    """
+    import re as _re
+    from app.models import UserWord
+    grammar_config = get_grammar_config(conversation.situation_id)
+    answers = (grammar_config or {}).get("drill_config", {}).get("answers")
+    if not answers:
+        return
+    try:
+        normalized = transcript.lower()
+        for wid in detected_word_ids:
+            if not wid.startswith("grammar_"):
+                continue
+            verb = wid[len("grammar_"):]
+            verb_forms = answers.get(verb, {})
+            best = None
+            for form in verb_forms.values():
+                if not form:
+                    continue
+                if _re.search(r'\b' + _re.escape(form.lower()) + r'\b', normalized):
+                    best = form
+                    break
+            if best:
+                db.query(UserWord).filter(
+                    UserWord.user_id == user_id,
+                    UserWord.word_id == wid,
+                ).update({UserWord.last_seen_form: best}, synchronize_session=False)
+    except Exception:
+        pass
+
+
 # ── Post-turn ingestion primitives ────────────────────────────────────────────
 # Three focused helpers consumed by the legacy /voice-turn flow AND the new
 # /realtime-turn endpoint. Splitting them here (instead of inlining as before)
@@ -249,6 +292,11 @@ def persist_turn(
 
     if detected_word_ids:
         update_user_word_stats(db, str(user_id), detected_word_ids, "voice")
+
+    # Capture surface forms (e.g. "hará") for grammar verbs so the daily grenade
+    # can show the conjugated form the user actually encountered.
+    if detected_word_ids:
+        _capture_surface_forms(db, user_id, conversation, user_transcript, detected_word_ids)
 
     if was_empty and detected_word_ids and conversation.conversation_type == "lesson":
         target_set = set(conversation.target_word_ids or [])

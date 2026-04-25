@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Any, Dict, List, Literal, Optional
-from datetime import datetime
+from datetime import datetime, date
 from uuid import UUID
 
 
@@ -458,5 +458,42 @@ class UserReportResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+# Daily Grenade
+GrenadeAudience = Literal['friend', 'merchant']
+GrenadeStripStatus = Literal['used', 'missed', 'pending', 'none']
+
+
+class GrenadeSchema(BaseModel):
+    id: UUID
+    grenade_date: date
+    word_id: str
+    surface_form: str
+    audience: GrenadeAudience
+    sentence_es: Optional[str] = None
+    sentence_en: Optional[str] = None
+    generated_at: Optional[datetime] = None
+    used: Optional[bool] = None
+    answered_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
+class GrenadeStripDay(BaseModel):
+    date: str
+    status: GrenadeStripStatus
+
+
+class GrenadeTodayResponse(BaseModel):
+    grenade: Optional[GrenadeSchema] = None
+    prior_unanswered: Optional[GrenadeSchema] = None
+    first_lesson_done: bool
+    recent: list[GrenadeStripDay]
+
+
+class GrenadeRecallRequest(BaseModel):
+    used: bool
 
 

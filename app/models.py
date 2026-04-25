@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Integer, DateTime, ForeignKey, Text, JSON, CheckConstraint, UniqueConstraint
+from sqlalchemy import Column, String, Boolean, Integer, DateTime, Date, ForeignKey, Text, JSON, CheckConstraint, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -125,6 +125,9 @@ class UserWord(Base):
     mastery_level = Column(Integer, default=0, nullable=False)  # 0=unseen, 1=learned, 2-3=refreshed, 4=mastered
     next_refresh_at = Column(DateTime(timezone=True), nullable=True)
     source_situation_id = Column(String, ForeignKey("situations.id"), nullable=True)
+    # Last surface form encountered (e.g. conjugated verb form like "hará").
+    # Equals the lemma for non-verbs. Used for daily grenades.
+    last_seen_form = Column(Text, nullable=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     # Relationships
@@ -228,6 +231,31 @@ class DailyEncounterLog(Base):
 
     user = relationship("User")
     situation = relationship("Situation")
+
+
+class DailyGrenade(Base):
+    __tablename__ = "daily_grenades"
+    __table_args__ = (
+        UniqueConstraint("user_id", "grenade_date", name="uq_daily_grenades_user_date"),
+        CheckConstraint("audience IN ('friend', 'merchant')", name="ck_daily_grenades_audience"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    grenade_date = Column(Date, nullable=False)
+    user_word_id = Column(String, nullable=False)
+    word_id = Column(String, ForeignKey("words.id"), nullable=False)
+    surface_form = Column(Text, nullable=False)
+    audience = Column(String(16), nullable=False)
+    sentence_es = Column(Text, nullable=True)
+    sentence_en = Column(Text, nullable=True)
+    generated_at = Column(DateTime(timezone=True), nullable=True)
+    used = Column(Boolean, nullable=True)
+    answered_at = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    user = relationship("User")
+    word = relationship("Word")
 
 
 class UserMilestoneEvent(Base):
