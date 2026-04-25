@@ -30,14 +30,16 @@ def test_conjugation_drill_has_populated_answers(sid):
     answers = drill_config.get("answers")
     assert answers, f"{sid}: drill_config.answers missing or empty"
 
+    # Imperatives don't have a 'yo' form — you don't command yourself.
+    required_pronouns = ("tú", "nosotros") if cfg.get("tense") == "imperative" else ("yo", "tú", "nosotros")
+
     for verb in cfg.get("word_workload", []):
         assert verb in answers, f"{sid}: missing answers for verb '{verb}'"
         forms = answers[verb]
         assert isinstance(forms, dict) and forms, (
             f"{sid}: empty or non-dict answers for verb '{verb}'"
         )
-        # At minimum, expect the core pronouns used by drills
-        for pronoun in ("yo", "tú", "nosotros"):
+        for pronoun in required_pronouns:
             assert pronoun in forms, (
                 f"{sid}: missing {pronoun!r} form for verb {verb!r}"
             )
@@ -87,7 +89,7 @@ def test_no_unexpected_drill_types():
     """
     known = {
         "skip", "conjugation", "article_matching",
-        "ir_a_inf", "gustar", "gustar_prefix",
+        "ir_a_inf", "gustar", "gustar_prefix", "rule",
     }
     actual = {cfg.get("drill_type") for cfg in GRAMMAR_SITUATIONS.values()}
     unknown = actual - known

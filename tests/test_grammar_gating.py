@@ -343,21 +343,26 @@ def test_gated_on_next_level():
 
 
 def test_coming_soon_gate():
-    """GL=10.6, VL=550 → gated on GL 11 (coming soon, no content)."""
+    """GL=10.6, VL=550 → gated on GL 11 (Tengo que / Me toca / Necesito).
+
+    Originally asserted has_content=False — GL 11 was a placeholder. After
+    the GL 11–20 build-out, every GL through 20 has content; the test is
+    re-asserted to match the new ground truth.
+    """
     gate = get_next_gate(10.6, 550)
     assert gate is not None
     assert gate["grammar_level"] == 11
-    assert gate["has_content"] is False
-    assert gate["situation_id"] is None
+    assert gate["has_content"] is True
+    assert gate["situation_id"] is not None
     assert gate["title"] == "Tengo que / Me toca / Necesito"
 
 
 def test_coming_soon_blocks_even_with_high_vl():
-    """GL=10.6, VL=1000 → still gated on GL 11, NOT GL 17."""
+    """GL=10.6, VL=1000 → gated on GL 11 (the next level above 10.6)."""
     gate = get_next_gate(10.6, 1000)
     assert gate is not None
     assert gate["grammar_level"] == 11  # Not 17!
-    assert gate["has_content"] is False
+    assert gate["has_content"] is True
 
 
 def test_not_gated_at_max_gl():
@@ -384,7 +389,7 @@ def test_multiple_coming_soon_levels():
     gate = get_next_gate(10.6, 900)
     assert gate is not None
     assert gate["grammar_level"] == 11
-    assert gate["has_content"] is False
+    assert gate["has_content"] is True  # GL 11 is now built out
 
 
 def test_gated_on_preterite_after_coming_soon_cleared():
@@ -617,9 +622,9 @@ def test_full_gating_flow_advanced(db):
     # At VL=520, not gated (next is GL 11 at VL 550)
     assert get_next_gate(gl, 520) is None
 
-    # At VL=550, gated on GL 11 (coming soon)
+    # At VL=550, gated on GL 11 (Tengo que / Me toca / Necesito — now built out)
     gate = get_next_gate(gl, 550)
     assert gate is not None
     assert gate["grammar_level"] == 11
-    assert gate["has_content"] is False
+    assert gate["has_content"] is True
     assert gate["title"] == "Tengo que / Me toca / Necesito"
