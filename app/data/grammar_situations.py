@@ -161,81 +161,160 @@ GL_SORTED = sorted(GL_VL_THRESHOLDS.keys())
 
 GRAMMAR_SITUATIONS = {
     "grammar_pronouns": {
-        "title": "Pronouns",
+        "title": "Pronouns (singular)",
         "grammar_level": 1,
         "lesson_number": 1,
         "lesson_type": "rule",
-        "word_workload": ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes", "su"],
+        "word_workload": ["yo", "tú", "él", "ella", "usted"],
         "video_embed_id": "bLZk006G5ge",
+        "drill_type": "rule",
+        "tense": "pronouns",
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'table', 'title': 'Subject pronouns (singular)', 'headers': ['Person', 'Pronoun', 'English', 'Note'], 'rows': [['1st sg', 'yo', 'I', ''], ['2nd sg informal', 'tú', 'you', 'casual / friends / family'], ['3rd sg masc', 'él', 'he', ''], ['3rd sg fem', 'ella', 'she', ''], ['2nd sg formal', 'usted', 'you', 'polite / strangers / older / authority']], 'footnote': "Latin America uses 'tú' and 'usted' for the singular 'you'. The choice is about register, not number."},
+        "drill_sentences": [
+            {"en": "I am tall", "es": "Yo soy alto", "noun_id": None, "type": "written"},
+            {"en": "You are a tourist", "es": "Tú eres turista", "noun_id": None, "type": "auditory"},
+            {"en": "He is important", "es": "Él es importante", "noun_id": None, "type": "written"},
+            {"en": "She is elegant", "es": "Ella es elegante", "noun_id": None, "type": "auditory"},
+            {"en": "You are professional", "es": "Usted es profesional", "noun_id": None, "type": "written"},
+            {"en": "I am sociable", "es": "Yo soy social", "noun_id": None, "type": "auditory"},
+            {"en": "You are international", "es": "Tú eres internacional", "noun_id": None, "type": "written"},
+            {"en": "He is sociable", "es": "Él es social", "noun_id": None, "type": "auditory"},
+            {"en": "She is important", "es": "Ella es importante", "noun_id": None, "type": "written"},
+            {"en": "You are likeable", "es": "Usted es simpático", "noun_id": None, "type": "auditory"},
+        ],
+    },
+    # --- GL 1: Pronouns (plural drill) ---
+    "grammar_pronouns_plural": {
+        "title": "Pronouns (plural)",
+        "grammar_level": 1,
+        "lesson_number": 2,
+        "lesson_type": "rule",
+        "word_workload": ["nosotros", "nosotras", "ellos", "ellas", "ustedes"],
+        "video_embed_id": None,
+        "drill_type": "rule",
+        "tense": "pronouns",
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'table', 'title': 'Subject pronouns (plural)', 'headers': ['Person', 'Pronoun', 'English', 'Note'], 'rows': [['1st pl masc/mixed', 'nosotros', 'we', ''], ['1st pl all-fem', 'nosotras', 'we', 'all-female group'], ['3rd pl masc/mixed', 'ellos', 'they', ''], ['3rd pl all-fem', 'ellas', 'they', 'all-female group'], ['2nd pl', 'ustedes', 'you all', "Latin America uses 'ustedes' for both formal and informal plural."]]},
+        "drill_sentences": [
+            {"en": "We are Colombian", "es": "Nosotros somos colombianos", "noun_id": None, "type": "written"},
+            {"en": "We (f) are Latin", "es": "Nosotras somos latinas", "noun_id": None, "type": "auditory"},
+            {"en": "They are sociable", "es": "Ellos son sociales", "noun_id": None, "type": "written"},
+            {"en": "They (f) are professional", "es": "Ellas son profesionales", "noun_id": None, "type": "auditory"},
+            {"en": "You all are tourists", "es": "Ustedes son turistas", "noun_id": None, "type": "written"},
+            {"en": "We are important", "es": "Nosotros somos importantes", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) are international", "es": "Nosotras somos internacionales", "noun_id": None, "type": "written"},
+            {"en": "They are likeable", "es": "Ellos son simpáticos", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) are elegant", "es": "Ellas son elegantes", "noun_id": None, "type": "written"},
+            {"en": "You all are tall", "es": "Ustedes son altos", "noun_id": None, "type": "auditory"},
+        ],
+    },
+    # --- GL 1: Pronouns (chat) ---
+    "grammar_pronouns_chat": {
+        "title": "Pronouns — Chat",
+        "grammar_level": 1,
+        "lesson_number": 3,
+        "lesson_type": "rule",
+        "word_workload": ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes"],
+        "video_embed_id": None,
         "drill_type": "skip",
         "tense": "pronouns",
-        "phases": {"0a": True, "0b": False, "1a": True, "1b": True, "1c": False, "2": True, "3": False},
-        "drill_sentences": [
-            {"en": "I am from here", "es": "Yo soy de aquí", "noun_id": None, "type": "written"},
-            {"en": "You are my friend", "es": "Tú eres mi amigo", "noun_id": None, "type": "auditory"},
-            {"en": "He is at the store", "es": "Él está en la tienda", "noun_id": None, "type": "written"},
-            {"en": "She lives downtown", "es": "Ella vive en el centro", "noun_id": None, "type": "auditory"},
-            {"en": "You speak Spanish", "es": "Usted habla español", "noun_id": None, "type": "written"},
-            {"en": "We go to the market", "es": "Nosotros vamos al mercado", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) live here", "es": "Nosotras vivimos aquí", "noun_id": None, "type": "written"},
-            {"en": "They are at home", "es": "Ellos están en casa", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) work here", "es": "Ellas trabajan aquí", "noun_id": None, "type": "written"},
-            {"en": "You all are welcome", "es": "Ustedes son bienvenidos", "noun_id": None, "type": "auditory"},
-        ],
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
         "phase_2_config": {
-            "description": "All pronouns + 'su' in conversation",
-            "targets": [{"word": p} for p in ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes", "su"]],
+            "description": "All 10 pronouns in conversation",
+            "targets": [{"word": p} for p in ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes"]],
         },
     },
     # --- GL 1.5: Possessive Adjectives ---
     "grammar_possessive_adj": {
-        "title": "Possessive Adjectives",
+        "title": "Possessive Adjectives (singular)",
         "grammar_level": 1.5,
         "lesson_number": 1,
         "lesson_type": "rule",
-        "word_workload": ["mi", "tu", "su", "nuestro", "sus"],
+        "word_workload": ["mi", "tu", "su", "nuestro", "nuestra"],
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "possessive",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'table', 'title': 'Possessive adjectives — singular', 'headers': ['Form', 'Used for', 'Example'], 'rows': [['mi', 'my', 'mi casa'], ['tu', 'your (informal)', 'tu amigo'], ['su', 'his / her / your (formal) / their', 'su carro'], ['nuestro', 'our (masculine noun)', 'nuestro perro'], ['nuestra', 'our (feminine noun)', 'nuestra familia']], 'footnote': "'nuestro' / 'nuestra' agrees with the noun's gender. The others don't change with gender — only with number (mi → mis, tu → tus, su → sus)."},
         "drill_sentences": [
-            {"en": "My house is big", "es": "Mi casa es grande", "noun_id": None, "type": "written"},
-            {"en": "Your friend is here", "es": "Tu amigo está aquí", "noun_id": None, "type": "auditory"},
-            {"en": "Her car is new", "es": "Su carro es nuevo", "noun_id": None, "type": "written"},
-            {"en": "Our family is here", "es": "Nuestra familia está aquí", "noun_id": None, "type": "auditory"},
-            {"en": "Their dogs are big", "es": "Sus perros son grandes", "noun_id": None, "type": "written"},
-            {"en": "My book is here", "es": "Mi libro está aquí", "noun_id": None, "type": "auditory"},
-            {"en": "Your house is beautiful", "es": "Tu casa es bonita", "noun_id": None, "type": "written"},
-            {"en": "His name is Carlos", "es": "Su nombre es Carlos", "noun_id": None, "type": "auditory"},
-            {"en": "Our city is big", "es": "Nuestra ciudad es grande", "noun_id": None, "type": "written"},
-            {"en": "Their names are Ana and Luis", "es": "Sus nombres son Ana y Luis", "noun_id": None, "type": "auditory"},
+            {"en": "my house", "es": "mi casa", "noun_id": "casa", "type": "written"},
+            {"en": "your friend", "es": "tu amigo", "noun_id": "amigo", "type": "auditory"},
+            {"en": "his car", "es": "su carro", "noun_id": "carro", "type": "written"},
+            {"en": "our (f) family", "es": "nuestra familia", "noun_id": "familia", "type": "auditory"},
+            {"en": "our (m) dog", "es": "nuestro perro", "noun_id": "perro", "type": "written"},
+            {"en": "my book", "es": "mi libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "your name", "es": "tu nombre", "noun_id": "nombre", "type": "written"},
+            {"en": "her work", "es": "su trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "our (f) city", "es": "nuestra ciudad", "noun_id": "ciudad", "type": "written"},
+            {"en": "our (m) plan", "es": "nuestro plan", "noun_id": "plan", "type": "auditory"},
         ],
+    },
+    # --- GL 1.5: Possessive Adjectives (plural drill) ---
+    "grammar_possessive_adj_plural": {
+        "title": "Possessive Adjectives (plural)",
+        "grammar_level": 1.5,
+        "lesson_number": 2,
+        "lesson_type": "rule",
+        "word_workload": ["mis", "tus", "sus", "nuestros", "nuestras"],
+        "video_embed_id": None,
+        "drill_type": "rule",
+        "tense": "possessive",
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'table', 'title': 'Possessive adjectives — plural', 'headers': ['Form', 'Used for', 'Example'], 'rows': [['mis', 'my (plural)', 'mis libros'], ['tus', 'your (plural)', 'tus amigos'], ['sus', 'his/her/your(formal)/their (plural)', 'sus carros'], ['nuestros', 'our (masc. plural)', 'nuestros perros'], ['nuestras', 'our (fem. plural)', 'nuestras familias']]},
+        "drill_sentences": [
+            {"en": "my books", "es": "mis libros", "noun_id": "libro", "type": "written"},
+            {"en": "your friends", "es": "tus amigos", "noun_id": "amigo", "type": "auditory"},
+            {"en": "their cars", "es": "sus carros", "noun_id": "carro", "type": "written"},
+            {"en": "our (f) families", "es": "nuestras familias", "noun_id": "familia", "type": "auditory"},
+            {"en": "our (m) dogs", "es": "nuestros perros", "noun_id": "perro", "type": "written"},
+            {"en": "my houses", "es": "mis casas", "noun_id": "casa", "type": "auditory"},
+            {"en": "your works", "es": "tus trabajos", "noun_id": "trabajo", "type": "written"},
+            {"en": "their plans", "es": "sus planes", "noun_id": "plan", "type": "auditory"},
+            {"en": "our (f) cities", "es": "nuestras ciudades", "noun_id": "ciudad", "type": "written"},
+            {"en": "our (m) names", "es": "nuestros nombres", "noun_id": "nombre", "type": "auditory"},
+        ],
+    },
+    # --- GL 1.5: Possessive Adjectives (chat) ---
+    "grammar_possessive_adj_chat": {
+        "title": "Possessive Adjectives — Chat",
+        "grammar_level": 1.5,
+        "lesson_number": 3,
+        "lesson_type": "rule",
+        "word_workload": ["mi", "mis", "tu", "tus", "su", "sus", "nuestro", "nuestros", "nuestra", "nuestras"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "possessive",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
         "phase_2_config": {
-            "description": "Possessive adjectives: mi, tu, su, nuestro/nuestra, sus",
-            "targets": [{"word": w} for w in ["mi", "tu", "su", "nuestro", "nuestra", "sus"]],
+            "description": "All possessive adjectives in conversation",
+            "targets": [{"word": w} for w in ["mi", "mis", "tu", "tus", "su", "sus", "nuestro", "nuestros", "nuestra", "nuestras"]],
         },
     },
     "grammar_gender": {
-        "title": "Grammatical Gender",
+        "title": "Grammatical Gender (definite)",
         "grammar_level": 2,
         "lesson_number": 1,
         "lesson_type": "rule",
-        "word_workload": ["el", "los", "la", "las", "un", "unos", "una", "unas"],
+        "word_workload": ["el", "la", "los", "las"],
         "video_embed_id": "aJguo8cBgm7",
-        "drill_type": "article_matching",
+        "drill_type": "rule",
         "tense": "gender",
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'rule_pack', 'title': 'Spanish noun gender — endings', 'sections': [{'heading': 'MAJE LONERS — masculine endings', 'items': ['-ma  →  el problema, el sistema', '-je  →  el viaje, el pasaje', '-l  →  el animal, el papel', '-o  →  el libro, el caso', '-n  →  el limón, el examen', '-e  →  el café, el coche', '-r  →  el doctor, el actor', '-s  →  el atlas, el lunes']}, {'heading': 'DIONZA — feminine endings', 'items': ['-d  →  la libertad, la verdad', '-ion  →  la nación, la opción', '-z  →  la vez, la luz', '-a  →  la casa, la mesa']}], 'footnote': 'Definite articles: el / la (singular), los / las (plural). These rules cover most nouns; learn exceptions case-by-case.'},
         "drill_sentences": [
-            {"en": "The book is here", "es": "El libro está aquí", "noun_id": None, "type": "written"},
-            {"en": "A house is big", "es": "Una casa es grande", "noun_id": None, "type": "auditory"},
-            {"en": "The dogs are here", "es": "Los perros están aquí", "noun_id": None, "type": "written"},
-            {"en": "Some girls are from Mexico", "es": "Unas chicas son de México", "noun_id": None, "type": "auditory"},
-            {"en": "The city is beautiful", "es": "La ciudad es bonita", "noun_id": None, "type": "written"},
-            {"en": "A man is here", "es": "Un hombre está aquí", "noun_id": None, "type": "auditory"},
-            {"en": "The tables are new", "es": "Las mesas son nuevas", "noun_id": None, "type": "written"},
-            {"en": "Some books are here", "es": "Unos libros están aquí", "noun_id": None, "type": "auditory"},
-            {"en": "The coffee is hot", "es": "El café está caliente", "noun_id": None, "type": "written"},
-            {"en": "A city has many streets", "es": "Una ciudad tiene muchas calles", "noun_id": None, "type": "auditory"},
+            {"en": "the problem", "es": "el problema", "noun_id": "problema", "type": "written"},
+            {"en": "the trip", "es": "el viaje", "noun_id": "viaje", "type": "auditory"},
+            {"en": "the animal", "es": "el animal", "noun_id": "animal", "type": "written"},
+            {"en": "the book", "es": "el libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "the lemon", "es": "el limón", "noun_id": "limón", "type": "written"},
+            {"en": "the coffee", "es": "el café", "noun_id": "café", "type": "auditory"},
+            {"en": "the freedom", "es": "la libertad", "noun_id": "libertad", "type": "written"},
+            {"en": "the nation", "es": "la nación", "noun_id": "nación", "type": "auditory"},
+            {"en": "the time", "es": "la vez", "noun_id": "vez", "type": "written"},
+            {"en": "the house", "es": "la casa", "noun_id": "casa", "type": "auditory"},
         ],
         "drill_config": {
             "curated_nouns": [
@@ -262,6 +341,49 @@ GRAMMAR_SITUATIONS = {
             ],
         },
         "phase_2_config": None,
+    },
+    # --- GL 2: Grammatical Gender (indefinite drill) ---
+    "grammar_gender_indef": {
+        "title": "Grammatical Gender (indefinite)",
+        "grammar_level": 2,
+        "lesson_number": 2,
+        "lesson_type": "rule",
+        "word_workload": ["un", "una", "unos", "unas"],
+        "video_embed_id": None,
+        "drill_type": "rule",
+        "tense": "gender",
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'rule_pack', 'title': 'Indefinite articles — un / una / unos / unas', 'sections': [{'heading': 'Singular', 'items': ['un + masculine noun  →  un libro, un actor', 'una + feminine noun  →  una verdad, una luz']}, {'heading': 'Plural', 'items': ['unos + masculine plural  →  unos libros', 'unas + feminine plural  →  unas verdades']}], 'footnote': "MAJE LONERS / DIONZA still apply: pick the article from the noun's ending."},
+        "drill_sentences": [
+            {"en": "a system", "es": "un sistema", "noun_id": "sistema", "type": "written"},
+            {"en": "a passage", "es": "un pasaje", "noun_id": "pasaje", "type": "auditory"},
+            {"en": "a paper", "es": "un papel", "noun_id": "papel", "type": "written"},
+            {"en": "a case", "es": "un caso", "noun_id": "caso", "type": "auditory"},
+            {"en": "an exam", "es": "un examen", "noun_id": "examen", "type": "written"},
+            {"en": "an actor", "es": "un actor", "noun_id": "actor", "type": "auditory"},
+            {"en": "an atlas", "es": "un atlas", "noun_id": "atlas", "type": "written"},
+            {"en": "a truth", "es": "una verdad", "noun_id": "verdad", "type": "auditory"},
+            {"en": "an option", "es": "una opción", "noun_id": "opción", "type": "written"},
+            {"en": "a light", "es": "una luz", "noun_id": "luz", "type": "auditory"},
+        ],
+        "phase_2_config": None,
+    },
+    # --- GL 2: Grammatical Gender (chat) ---
+    "grammar_gender_chat": {
+        "title": "Grammatical Gender — Chat",
+        "grammar_level": 2,
+        "lesson_number": 3,
+        "lesson_type": "rule",
+        "word_workload": ["el", "la", "los", "las", "un", "una", "unos", "unas"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gender",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {
+            "description": "Articles + gendered nouns in conversation",
+            "targets": [{"word": w} for w in ["el", "la", "los", "las", "un", "una", "unos", "unas"]],
+        },
     },
     # --- GL 3: Regular Present — 3 lessons (1 -ar + 1 -er + 1 -ir each) ---
     "grammar_regular_present_1": {
@@ -292,7 +414,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I speak Spanish at home", "es": "Yo hablo español en casa", "noun_id": "casa", "type": "written"},
@@ -326,6 +448,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Do you speak English?",
         "opener_es": "¿Hablas inglés?",
     },
+    # --- GL 3: chat companion of `grammar_regular_present_1` ---
+    "grammar_regular_present_1_chat": {
+        "title": "Regular Present (1/3) — Chat",
+        "grammar_level": 3,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "beber", "vivir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Regular Present lesson 1: hablar (-ar), beber (-er), vivir (-ir)', 'targets': [{'verb': 'hablar', 'pronoun': 'yo'}, {'verb': 'hablar', 'pronoun': 'ella'}, {'verb': 'hablar', 'pronoun': 'ustedes'}, {'verb': 'beber', 'pronoun': 'tú'}, {'verb': 'beber', 'pronoun': 'nosotras'}, {'verb': 'beber', 'pronoun': 'él'}, {'verb': 'vivir', 'pronoun': 'usted'}, {'verb': 'vivir', 'pronoun': 'nosotros'}, {'verb': 'vivir', 'pronoun': 'ellas'}, {'verb': 'vivir', 'pronoun': 'ellos'}]},
+    },
     "grammar_regular_present_2": {
         "title": "Regular Present (2/3)",
         "grammar_level": 3,
@@ -354,7 +490,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I listen to music every day", "es": "Yo escucho música todos los días", "noun_id": "música", "type": "written"},
@@ -388,6 +524,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What do you eat for lunch?",
         "opener_es": "¿Qué comes para el almuerzo?",
     },
+    # --- GL 3: chat companion of `grammar_regular_present_2` ---
+    "grammar_regular_present_2_chat": {
+        "title": "Regular Present (2/3) — Chat",
+        "grammar_level": 3,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["escuchar", "comer", "escribir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Regular Present lesson 2: escuchar (-ar), comer (-er), escribir (-ir)', 'targets': [{'verb': 'escuchar', 'pronoun': 'yo'}, {'verb': 'escuchar', 'pronoun': 'usted'}, {'verb': 'escuchar', 'pronoun': 'ellas'}, {'verb': 'comer', 'pronoun': 'tú'}, {'verb': 'comer', 'pronoun': 'nosotros'}, {'verb': 'comer', 'pronoun': 'ella'}, {'verb': 'escribir', 'pronoun': 'él'}, {'verb': 'escribir', 'pronoun': 'nosotras'}, {'verb': 'escribir', 'pronoun': 'ustedes'}, {'verb': 'escribir', 'pronoun': 'ellos'}]},
+    },
     "grammar_regular_present_3": {
         "title": "Regular Present (3/3)",
         "grammar_level": 3,
@@ -416,7 +566,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I sing at home", "es": "Yo canto en casa", "noun_id": "casa", "type": "written"},
@@ -450,6 +600,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Do you read in Spanish?",
         "opener_es": "¿Lees en español?",
     },
+    # --- GL 3: chat companion of `grammar_regular_present_3` ---
+    "grammar_regular_present_3_chat": {
+        "title": "Regular Present (3/3) — Chat",
+        "grammar_level": 3,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["cantar", "leer", "abrir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Regular Present lesson 3: cantar (-ar), leer (-er), abrir (-ir)', 'targets': [{'verb': 'cantar', 'pronoun': 'yo'}, {'verb': 'cantar', 'pronoun': 'nosotras'}, {'verb': 'cantar', 'pronoun': 'ustedes'}, {'verb': 'leer', 'pronoun': 'tú'}, {'verb': 'leer', 'pronoun': 'ella'}, {'verb': 'leer', 'pronoun': 'ellos'}, {'verb': 'abrir', 'pronoun': 'él'}, {'verb': 'abrir', 'pronoun': 'usted'}, {'verb': 'abrir', 'pronoun': 'nosotros'}, {'verb': 'abrir', 'pronoun': 'ellas'}]},
+    },
     # --- GL 4: Irregular Present — 3 lessons (all 6 verbs, pronouns distributed) ---
     "grammar_irregular_present_1": {
         "title": "Irregular Present (1/3)",
@@ -468,7 +632,7 @@ GRAMMAR_SITUATIONS = {
             "tener": {"yo": "tengo", "tú": "tienes", "él": "tiene", "ella": "tiene", "usted": "tiene", "nosotros": "tenemos", "nosotras": "tenemos", "ellos": "tienen", "ellas": "tienen", "ustedes": "tienen"},
             "venir": {"yo": "vengo", "tú": "vienes", "él": "viene", "ella": "viene", "usted": "viene", "nosotros": "venimos", "nosotras": "venimos", "ellos": "vienen", "ellas": "vienen", "ustedes": "vienen"},
         }},
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I am from Colombia", "es": "Yo soy de Colombia", "noun_id": None, "type": "written"},
@@ -502,6 +666,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Are you from here?",
         "opener_es": "¿Eres de aquí?",
     },
+    # --- GL 4: chat companion of `grammar_irregular_present_1` ---
+    "grammar_irregular_present_1_chat": {
+        "title": "Irregular Present (1/3) — Chat",
+        "grammar_level": 4,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Irregular Present lesson 1: ser, estar, ir, dar, tener, venir', 'targets': [{'verb': 'ser', 'pronoun': 'yo'}, {'verb': 'ser', 'pronoun': 'ella'}, {'verb': 'estar', 'pronoun': 'tú'}, {'verb': 'estar', 'pronoun': 'nosotras'}, {'verb': 'ir', 'pronoun': 'usted'}, {'verb': 'ir', 'pronoun': 'ellas'}, {'verb': 'dar', 'pronoun': 'ustedes'}, {'verb': 'tener', 'pronoun': 'él'}, {'verb': 'tener', 'pronoun': 'nosotros'}, {'verb': 'venir', 'pronoun': 'ellos'}]},
+    },
     "grammar_irregular_present_2": {
         "title": "Irregular Present (2/3)",
         "grammar_level": 4,
@@ -519,7 +697,7 @@ GRAMMAR_SITUATIONS = {
             "tener": {"yo": "tengo", "tú": "tienes", "él": "tiene", "ella": "tiene", "usted": "tiene", "nosotros": "tenemos", "nosotras": "tenemos", "ellos": "tienen", "ellas": "tienen", "ustedes": "tienen"},
             "venir": {"yo": "vengo", "tú": "vienes", "él": "viene", "ella": "viene", "usted": "viene", "nosotros": "venimos", "nosotras": "venimos", "ellos": "vienen", "ellas": "vienen", "ustedes": "vienen"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are from Mexico", "es": "Tú eres de México", "noun_id": None, "type": "written"},
@@ -553,6 +731,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Where is your family from?",
         "opener_es": "¿De dónde es tu familia?",
     },
+    # --- GL 4: chat companion of `grammar_irregular_present_2` ---
+    "grammar_irregular_present_2_chat": {
+        "title": "Irregular Present (2/3) — Chat",
+        "grammar_level": 4,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Irregular Present lesson 2: ser, estar, ir, dar, tener, venir', 'targets': [{'verb': 'ser', 'pronoun': 'tú'}, {'verb': 'ser', 'pronoun': 'nosotros'}, {'verb': 'estar', 'pronoun': 'él'}, {'verb': 'estar', 'pronoun': 'ustedes'}, {'verb': 'ir', 'pronoun': 'ella'}, {'verb': 'ir', 'pronoun': 'nosotras'}, {'verb': 'dar', 'pronoun': 'yo'}, {'verb': 'dar', 'pronoun': 'ellos'}, {'verb': 'tener', 'pronoun': 'usted'}, {'verb': 'venir', 'pronoun': 'ellas'}]},
+    },
     "grammar_irregular_present_3": {
         "title": "Irregular Present (3/3)",
         "grammar_level": 4,
@@ -570,7 +762,7 @@ GRAMMAR_SITUATIONS = {
             "tener": {"yo": "tengo", "tú": "tienes", "él": "tiene", "ella": "tiene", "usted": "tiene", "nosotros": "tenemos", "nosotras": "tenemos", "ellos": "tienen", "ellas": "tienen", "ustedes": "tienen"},
             "venir": {"yo": "vengo", "tú": "vienes", "él": "viene", "ella": "viene", "usted": "viene", "nosotros": "venimos", "nosotras": "venimos", "ellos": "vienen", "ellas": "vienen", "ustedes": "vienen"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are a good person", "es": "Usted es una buena persona", "noun_id": None, "type": "written"},
@@ -604,6 +796,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Do your neighbors have pets?",
         "opener_es": "¿Tus vecinas tienen mascotas?",
     },
+    # --- GL 4: chat companion of `grammar_irregular_present_3` ---
+    "grammar_irregular_present_3_chat": {
+        "title": "Irregular Present (3/3) — Chat",
+        "grammar_level": 4,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Irregular Present lesson 3: ser, estar, ir, dar, tener, venir', 'targets': [{'verb': 'ser', 'pronoun': 'usted'}, {'verb': 'ser', 'pronoun': 'ellos'}, {'verb': 'estar', 'pronoun': 'yo'}, {'verb': 'estar', 'pronoun': 'ellas'}, {'verb': 'ir', 'pronoun': 'tú'}, {'verb': 'ir', 'pronoun': 'nosotros'}, {'verb': 'dar', 'pronoun': 'ella'}, {'verb': 'dar', 'pronoun': 'nosotras'}, {'verb': 'tener', 'pronoun': 'ustedes'}, {'verb': 'venir', 'pronoun': 'él'}]},
+    },
     # --- GL 4.1: Ser vs. Estar ---
     "grammar_ser_estar_rules": {
         "title": "Ser vs. Estar",
@@ -614,23 +820,38 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "present",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'comparison', 'title': 'Ser vs. Estar', 'left': {'heading': 'ser', 'items': ['Identity / profession  →  Yo soy profesora', 'Origin / nationality  →  Ella es de Colombia', 'Permanent traits  →  La casa es grande', 'Time / dates  →  Son las tres']}, 'right': {'heading': 'estar', 'items': ['Location  →  Estoy en el mercado', 'Temporary states  →  Él está cansado', 'Conditions / feelings  →  La puerta está abierta', 'Ongoing actions  →  Estoy hablando']}, 'footnote': "Rule of thumb: ser = essence, estar = state. If it'll change in an hour, use estar."},
         "drill_sentences": [
-            {"en": "I am a teacher (permanent)", "es": "Yo soy profesora", "noun_id": None, "type": "written"},
-            {"en": "The coffee is hot (temporary)", "es": "El café está caliente", "noun_id": "café", "type": "auditory"},
-            {"en": "She is from Colombia (origin)", "es": "Ella es de Colombia", "noun_id": None, "type": "written"},
-            {"en": "He is tired (condition)", "es": "Él está cansado", "noun_id": None, "type": "auditory"},
-            {"en": "The house is big (characteristic)", "es": "La casa es grande", "noun_id": "casa", "type": "written"},
-            {"en": "The door is open (state)", "es": "La puerta está abierta", "noun_id": "puerta", "type": "auditory"},
-            {"en": "We are at the market (location)", "es": "Nosotros estamos en el mercado", "noun_id": "mercado", "type": "written"},
-            {"en": "The water is cold (current state)", "es": "El agua está fría", "noun_id": "agua", "type": "auditory"},
-            {"en": "You all are students (identity)", "es": "Ustedes son estudiantes", "noun_id": None, "type": "written"},
-            {"en": "The restaurant is closed (state)", "es": "El restaurante está cerrado", "noun_id": "restaurante", "type": "auditory"},
+            {"en": "I am a teacher", "es": "Yo soy profesora", "noun_id": None, "type": "written"},
+            {"en": "The coffee is hot", "es": "El café está caliente", "noun_id": "café", "type": "auditory"},
+            {"en": "She is from Colombia", "es": "Ella es de Colombia", "noun_id": None, "type": "written"},
+            {"en": "He is tired", "es": "Él está cansado", "noun_id": None, "type": "auditory"},
+            {"en": "The house is big", "es": "La casa es grande", "noun_id": "casa", "type": "written"},
+            {"en": "The door is open", "es": "La puerta está abierta", "noun_id": "puerta", "type": "auditory"},
+            {"en": "We are at the market", "es": "Nosotros estamos en el mercado", "noun_id": "mercado", "type": "written"},
+            {"en": "The water is cold", "es": "El agua está fría", "noun_id": "agua", "type": "auditory"},
+            {"en": "You all are students", "es": "Ustedes son estudiantes", "noun_id": None, "type": "written"},
+            {"en": "The restaurant is closed", "es": "El restaurante está cerrado", "noun_id": "restaurante", "type": "auditory"},
         ],
         "phase_2_config": {
             "description": "Ser vs. Estar rules: permanent vs. temporary states",
             "targets": [{"word": "ser"}, {"word": "estar"}],
         },
+    },
+    # --- GL 4.1: chat companion of `grammar_ser_estar_rules` ---
+    "grammar_ser_estar_rules_chat": {
+        "title": "Ser vs. Estar — Chat",
+        "grammar_level": 4.1,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["ser", "estar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Ser vs. Estar rules: permanent vs. temporary states', 'targets': [{'word': 'ser'}, {'word': 'estar'}]},
     },
     # --- GL 4.2: Por vs. Para ---
     "grammar_por_para": {
@@ -642,23 +863,38 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "present",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'comparison', 'title': 'Por vs. Para', 'left': {'heading': 'por', 'items': ['Movement through  →  Voy por el parque', 'Cause / reason  →  Trabaja por dinero', "Means / 'by'  →  Viajo por avión", 'Duration  →  Estudié por dos horas', 'Exchange  →  Gracias por el libro']}, 'right': {'heading': 'para', 'items': ['Recipient  →  Esto es para ti', 'Purpose / goal  →  Estudiamos para aprender', 'Deadline  →  Lo necesito para mañana', 'Destination  →  Salgo para Bogotá']}, 'footnote': 'para = forward (purpose, recipient, deadline); por = around / through / because.'},
         "drill_sentences": [
-            {"en": "I go by the park (movement through)", "es": "Yo voy por el parque", "noun_id": "parque", "type": "written"},
-            {"en": "This is for you (recipient)", "es": "Esto es para ti", "noun_id": None, "type": "auditory"},
-            {"en": "She works for money (exchange)", "es": "Ella trabaja por dinero", "noun_id": "dinero", "type": "written"},
-            {"en": "We study in order to learn (purpose)", "es": "Nosotros estudiamos para aprender", "noun_id": None, "type": "auditory"},
-            {"en": "He comes by the house (passes by)", "es": "Él pasa por la casa", "noun_id": "casa", "type": "written"},
-            {"en": "The book is for the class (intended use)", "es": "El libro es para la clase", "noun_id": "libro", "type": "auditory"},
-            {"en": "She travels by car (means)", "es": "Ella viaja en carro", "noun_id": "carro", "type": "written"},
-            {"en": "I need it for tomorrow (deadline)", "es": "Lo necesito para mañana", "noun_id": None, "type": "auditory"},
+            {"en": "I go by the park", "es": "Yo voy por el parque", "noun_id": "parque", "type": "written"},
+            {"en": "This is for you", "es": "Esto es para ti", "noun_id": None, "type": "auditory"},
+            {"en": "She works for money", "es": "Ella trabaja por dinero", "noun_id": "dinero", "type": "written"},
+            {"en": "We study in order to learn", "es": "Nosotros estudiamos para aprender", "noun_id": None, "type": "auditory"},
+            {"en": "He comes by the house", "es": "Él pasa por la casa", "noun_id": "casa", "type": "written"},
+            {"en": "The book is for the class", "es": "El libro es para la clase", "noun_id": "libro", "type": "auditory"},
+            {"en": "She travels by car", "es": "Ella viaja en carro", "noun_id": "carro", "type": "written"},
+            {"en": "I need it for tomorrow", "es": "Lo necesito para mañana", "noun_id": None, "type": "auditory"},
             {"en": "Thank you for the water", "es": "Gracias por el agua", "noun_id": "agua", "type": "written"},
-            {"en": "We work to live (goal)", "es": "Nosotras trabajamos para vivir", "noun_id": None, "type": "auditory"},
+            {"en": "We work to live", "es": "Nosotras trabajamos para vivir", "noun_id": None, "type": "auditory"},
         ],
         "phase_2_config": {
             "description": "Por vs. Para: different uses of each preposition",
             "targets": [{"word": "por"}, {"word": "para"}],
         },
+    },
+    # --- GL 4.2: chat companion of `grammar_por_para` ---
+    "grammar_por_para_chat": {
+        "title": "Por vs. Para — Chat",
+        "grammar_level": 4.2,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["por", "para"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Por vs. Para: different uses of each preposition', 'targets': [{'word': 'por'}, {'word': 'para'}]},
     },
     # --- GL 4.3: Demonstratives ---
     "grammar_demonstratives": {
@@ -670,11 +906,12 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "demonstratives",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'table', 'title': 'Demonstratives — this / that / that-yonder', 'headers': ['Distance', 'Masc. sg', 'Fem. sg', 'Masc. pl', 'Fem. pl'], 'rows': [['near (this)', 'este', 'esta', 'estos', 'estas'], ['far from speaker (that)', 'ese', 'esa', 'esos', 'esas'], ['far from both (that yonder)', 'aquel', 'aquella', 'aquellos', 'aquellas']], 'footnote': "Match gender + number with the noun. Use 'aquel' for things visibly distant from both speaker and listener."},
         "drill_sentences": [
-            {"en": "This house is big (near)", "es": "Esta casa es grande", "noun_id": "casa", "type": "written"},
-            {"en": "That book is interesting (near listener)", "es": "Ese libro es interesante", "noun_id": "libro", "type": "auditory"},
-            {"en": "That city over there is beautiful (far)", "es": "Aquella ciudad es bonita", "noun_id": "ciudad", "type": "written"},
+            {"en": "This house is big", "es": "Esta casa es grande", "noun_id": "casa", "type": "written"},
+            {"en": "That book is interesting", "es": "Ese libro es interesante", "noun_id": "libro", "type": "auditory"},
+            {"en": "That city over there is beautiful", "es": "Aquella ciudad es bonita", "noun_id": "ciudad", "type": "written"},
             {"en": "This coffee is hot", "es": "Este café está caliente", "noun_id": "café", "type": "auditory"},
             {"en": "That door is open", "es": "Esa puerta está abierta", "noun_id": "puerta", "type": "written"},
             {"en": "That park over there is nice", "es": "Aquel parque es bonito", "noun_id": "parque", "type": "auditory"},
@@ -688,6 +925,20 @@ GRAMMAR_SITUATIONS = {
             "targets": [{"word": w} for w in ["este", "esta", "ese", "esa", "aquel", "aquella"]],
         },
     },
+    # --- GL 4.3: chat companion of `grammar_demonstratives` ---
+    "grammar_demonstratives_chat": {
+        "title": "Demonstratives — Chat",
+        "grammar_level": 4.3,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["este", "esta", "ese", "esa", "aquel", "aquella"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "demonstratives",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Demonstratives: este/esta (near), ese/esa (near listener), aquel/aquella (far)', 'targets': [{'word': 'este'}, {'word': 'esta'}, {'word': 'ese'}, {'word': 'esa'}, {'word': 'aquel'}, {'word': 'aquella'}]},
+    },
     # --- GL 4.4: Possessive Pronouns ---
     "grammar_possessive_pronouns": {
         "title": "Possessive Pronouns",
@@ -698,7 +949,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "possessive_pronouns",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'table', 'title': "Possessive pronouns — 'mine / yours / his …'", 'headers': ['Form', 'Used for'], 'rows': [['el mío / la mía', 'mine'], ['el tuyo / la tuya', 'yours (informal)'], ['el suyo / la suya', 'his / hers / yours (formal) / theirs'], ['el nuestro / la nuestra', 'ours']], 'footnote': 'Stand-alone — replaces the noun. Agree in gender and number with the thing owned. Plural forms add -s (los míos, las nuestras).'},
         "drill_sentences": [
             {"en": "The book is mine", "es": "El libro es mío", "noun_id": "libro", "type": "written"},
             {"en": "The house is yours", "es": "La casa es tuya", "noun_id": "casa", "type": "auditory"},
@@ -715,6 +967,20 @@ GRAMMAR_SITUATIONS = {
             "description": "Possessive pronouns: mío/mía, tuyo/tuya, suyo/suya, nuestro/nuestra",
             "targets": [{"word": w} for w in ["mío", "mía", "tuyo", "tuya", "suyo", "suya", "nuestro", "nuestra"]],
         },
+    },
+    # --- GL 4.4: chat companion of `grammar_possessive_pronouns` ---
+    "grammar_possessive_pronouns_chat": {
+        "title": "Possessive Pronouns — Chat",
+        "grammar_level": 4.4,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["el mío", "el tuyo", "el suyo", "el nuestro"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "possessive_pronouns",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Possessive pronouns: mío/mía, tuyo/tuya, suyo/suya, nuestro/nuestra', 'targets': [{'word': 'mío'}, {'word': 'mía'}, {'word': 'tuyo'}, {'word': 'tuya'}, {'word': 'suyo'}, {'word': 'suya'}, {'word': 'nuestro'}, {'word': 'nuestra'}]},
     },
     # --- GL 4.5: Irregular Present II — 4 lessons (L1&3: hacer,poner,salir,decir / L2&4: oír,caer,traer,valer) ---
     "grammar_irregular_present_ii_1": {
@@ -750,7 +1016,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I make the food at home", "es": "Yo hago la comida en casa", "noun_id": "comida", "type": "written"},
@@ -783,6 +1049,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "What do you do on weekends?",
         "opener_es": "¿Qué haces los fines de semana?",
+    },
+    # --- GL 4.5: chat companion of `grammar_irregular_present_ii_1` ---
+    "grammar_irregular_present_ii_1_chat": {
+        "title": "Irregular Present II (1/4) — Chat",
+        "grammar_level": 4.5,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hacer", "poner", "salir", "decir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Irregular Present II lesson 1: hacer, poner, salir, decir', 'targets': [{'verb': 'hacer', 'pronoun': 'yo'}, {'verb': 'hacer', 'pronoun': 'ella'}, {'verb': 'hacer', 'pronoun': 'ustedes'}, {'verb': 'poner', 'pronoun': 'tú'}, {'verb': 'poner', 'pronoun': 'nosotras'}, {'verb': 'salir', 'pronoun': 'él'}, {'verb': 'salir', 'pronoun': 'ellos'}, {'verb': 'decir', 'pronoun': 'usted'}, {'verb': 'decir', 'pronoun': 'nosotros'}, {'verb': 'decir', 'pronoun': 'ellas'}]},
     },
     "grammar_irregular_present_ii_2": {
         "title": "Irregular Present II (2/4)",
@@ -817,7 +1097,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I hear the music", "es": "Yo oigo la música", "noun_id": None, "type": "written"},
@@ -850,6 +1130,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Do you hear the noise outside?",
         "opener_es": "¿Oyes el ruido afuera?",
+    },
+    # --- GL 4.5: chat companion of `grammar_irregular_present_ii_2` ---
+    "grammar_irregular_present_ii_2_chat": {
+        "title": "Irregular Present II (2/4) — Chat",
+        "grammar_level": 4.5,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["oír", "caer", "traer", "valer"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Irregular Present II lesson 2: oír, caer, traer, valer', 'targets': [{'verb': 'oír', 'pronoun': 'yo'}, {'verb': 'oír', 'pronoun': 'nosotros'}, {'verb': 'oír', 'pronoun': 'ellas'}, {'verb': 'caer', 'pronoun': 'tú'}, {'verb': 'caer', 'pronoun': 'ella'}, {'verb': 'traer', 'pronoun': 'él'}, {'verb': 'traer', 'pronoun': 'ustedes'}, {'verb': 'valer', 'pronoun': 'usted'}, {'verb': 'valer', 'pronoun': 'nosotras'}, {'verb': 'valer', 'pronoun': 'ellos'}]},
     },
     "grammar_irregular_present_ii_3": {
         "title": "Irregular Present II (3/4)",
@@ -884,7 +1178,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You make breakfast every day", "es": "Tú haces el desayuno cada día", "noun_id": None, "type": "written"},
@@ -917,6 +1211,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "What does your friend do for work?",
         "opener_es": "¿Qué hace tu amiga?",
+    },
+    # --- GL 4.5: chat companion of `grammar_irregular_present_ii_3` ---
+    "grammar_irregular_present_ii_3_chat": {
+        "title": "Irregular Present II (3/4) — Chat",
+        "grammar_level": 4.5,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hacer", "poner", "salir", "decir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Irregular Present II lesson 3: hacer, poner, salir, decir', 'targets': [{'verb': 'hacer', 'pronoun': 'tú'}, {'verb': 'hacer', 'pronoun': 'nosotros'}, {'verb': 'poner', 'pronoun': 'usted'}, {'verb': 'poner', 'pronoun': 'ellas'}, {'verb': 'salir', 'pronoun': 'yo'}, {'verb': 'salir', 'pronoun': 'nosotras'}, {'verb': 'salir', 'pronoun': 'ustedes'}, {'verb': 'decir', 'pronoun': 'él'}, {'verb': 'decir', 'pronoun': 'ella'}, {'verb': 'decir', 'pronoun': 'ellos'}]},
     },
     "grammar_irregular_present_ii_4": {
         "title": "Irregular Present II (4/4)",
@@ -951,7 +1259,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You hear the music", "es": "Tú oyes la música", "noun_id": "música", "type": "written"},
@@ -984,6 +1292,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Does your neighbor hear the dog?",
         "opener_es": "¿Tu vecina oye al perro?",
+    },
+    # --- GL 4.5: chat companion of `grammar_irregular_present_ii_4` ---
+    "grammar_irregular_present_ii_4_chat": {
+        "title": "Irregular Present II (4/4) — Chat",
+        "grammar_level": 4.5,
+        "lesson_number": 4.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["oír", "caer", "traer", "valer"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Irregular Present II lesson 4: oír, caer, traer, valer', 'targets': [{'verb': 'oír', 'pronoun': 'tú'}, {'verb': 'oír', 'pronoun': 'usted'}, {'verb': 'caer', 'pronoun': 'yo'}, {'verb': 'caer', 'pronoun': 'nosotras'}, {'verb': 'caer', 'pronoun': 'ellos'}, {'verb': 'traer', 'pronoun': 'ella'}, {'verb': 'traer', 'pronoun': 'nosotros'}, {'verb': 'valer', 'pronoun': 'él'}, {'verb': 'valer', 'pronoun': 'ellas'}, {'verb': 'valer', 'pronoun': 'ustedes'}]},
     },
     # --- GL 5: Spelling Changes — 4 lessons (L1&3: conocer,producir,construir,conseguir / L2&4: recoger,dirigir,convencer,continuar) ---
     "grammar_spelling_changes_1": {
@@ -1019,7 +1341,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I know a good restaurant", "es": "Yo conozco un buen restaurante", "noun_id": "restaurante", "type": "written"},
@@ -1052,6 +1374,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Do you know a good restaurant?",
         "opener_es": "¿Conoces un buen restaurante?",
+    },
+    # --- GL 5: chat companion of `grammar_spelling_changes_1` ---
+    "grammar_spelling_changes_1_chat": {
+        "title": "Spelling Changes (1/4) — Chat",
+        "grammar_level": 5,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["conocer", "producir", "construir", "conseguir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Spelling Changes lesson 1: conocer, producir, construir, conseguir', 'targets': [{'verb': 'conocer', 'pronoun': 'yo'}, {'verb': 'conocer', 'pronoun': 'ella'}, {'verb': 'conocer', 'pronoun': 'ustedes'}, {'verb': 'producir', 'pronoun': 'tú'}, {'verb': 'producir', 'pronoun': 'nosotras'}, {'verb': 'construir', 'pronoun': 'él'}, {'verb': 'construir', 'pronoun': 'ellos'}, {'verb': 'conseguir', 'pronoun': 'usted'}, {'verb': 'conseguir', 'pronoun': 'nosotros'}, {'verb': 'conseguir', 'pronoun': 'ellas'}]},
     },
     "grammar_spelling_changes_2": {
         "title": "Spelling Changes (2/4)",
@@ -1086,7 +1422,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I pick up the food", "es": "Yo recojo la comida", "noun_id": "comida", "type": "written"},
@@ -1119,6 +1455,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Where do you pick up your kids?",
         "opener_es": "¿Dónde recoges a tus hijos?",
+    },
+    # --- GL 5: chat companion of `grammar_spelling_changes_2` ---
+    "grammar_spelling_changes_2_chat": {
+        "title": "Spelling Changes (2/4) — Chat",
+        "grammar_level": 5,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["recoger", "dirigir", "convencer", "continuar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Spelling Changes lesson 2: recoger, dirigir, convencer, continuar', 'targets': [{'verb': 'recoger', 'pronoun': 'yo'}, {'verb': 'recoger', 'pronoun': 'nosotros'}, {'verb': 'recoger', 'pronoun': 'ellas'}, {'verb': 'dirigir', 'pronoun': 'tú'}, {'verb': 'dirigir', 'pronoun': 'ella'}, {'verb': 'convencer', 'pronoun': 'él'}, {'verb': 'convencer', 'pronoun': 'ustedes'}, {'verb': 'continuar', 'pronoun': 'usted'}, {'verb': 'continuar', 'pronoun': 'nosotras'}, {'verb': 'continuar', 'pronoun': 'ellos'}]},
     },
     "grammar_spelling_changes_3": {
         "title": "Spelling Changes (3/4)",
@@ -1153,7 +1503,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You know a good park", "es": "Tú conoces un buen parque", "noun_id": "parque", "type": "written"},
@@ -1186,6 +1536,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Does your neighbor know the area?",
         "opener_es": "¿Tu vecina conoce la zona?",
+    },
+    # --- GL 5: chat companion of `grammar_spelling_changes_3` ---
+    "grammar_spelling_changes_3_chat": {
+        "title": "Spelling Changes (3/4) — Chat",
+        "grammar_level": 5,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["conocer", "producir", "construir", "conseguir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Spelling Changes lesson 3: conocer, producir, construir, conseguir', 'targets': [{'verb': 'conocer', 'pronoun': 'tú'}, {'verb': 'conocer', 'pronoun': 'nosotros'}, {'verb': 'producir', 'pronoun': 'usted'}, {'verb': 'producir', 'pronoun': 'ellas'}, {'verb': 'construir', 'pronoun': 'yo'}, {'verb': 'construir', 'pronoun': 'nosotras'}, {'verb': 'construir', 'pronoun': 'ustedes'}, {'verb': 'conseguir', 'pronoun': 'él'}, {'verb': 'conseguir', 'pronoun': 'ella'}, {'verb': 'conseguir', 'pronoun': 'ellos'}]},
     },
     "grammar_spelling_changes_4": {
         "title": "Spelling Changes (4/4)",
@@ -1220,7 +1584,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You pick up the food", "es": "Tú recoges la comida", "noun_id": "comida", "type": "written"},
@@ -1254,6 +1618,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Does your boss keep working late?",
         "opener_es": "¿Tu jefa continúa trabajando tarde?",
     },
+    # --- GL 5: chat companion of `grammar_spelling_changes_4` ---
+    "grammar_spelling_changes_4_chat": {
+        "title": "Spelling Changes (4/4) — Chat",
+        "grammar_level": 5,
+        "lesson_number": 4.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["recoger", "dirigir", "convencer", "continuar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Spelling Changes lesson 4: recoger, dirigir, convencer, continuar', 'targets': [{'verb': 'recoger', 'pronoun': 'tú'}, {'verb': 'recoger', 'pronoun': 'usted'}, {'verb': 'dirigir', 'pronoun': 'yo'}, {'verb': 'dirigir', 'pronoun': 'nosotras'}, {'verb': 'dirigir', 'pronoun': 'ellos'}, {'verb': 'convencer', 'pronoun': 'ella'}, {'verb': 'convencer', 'pronoun': 'nosotros'}, {'verb': 'continuar', 'pronoun': 'él'}, {'verb': 'continuar', 'pronoun': 'ellas'}, {'verb': 'continuar', 'pronoun': 'ustedes'}]},
+    },
     # --- GL 5.5: Saber vs. Conocer ---
     "grammar_saber_conocer": {
         "title": "Saber vs. Conocer",
@@ -1278,18 +1656,19 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "rule_chart": {'kind': 'comparison', 'title': 'Saber vs. Conocer', 'left': {'heading': 'saber', 'items': ['Facts  →  Yo sé la respuesta', 'Skills (saber + infinitive)  →  Sé hablar español', 'Information  →  Sabes qué hora es']}, 'right': {'heading': 'conocer', 'items': ['People  →  Conozco a María', 'Places  →  Conozco la ciudad', 'Familiarity  →  Conoces el restaurante']}, 'footnote': 'saber = knowledge / how-to; conocer = acquaintance / familiarity.'},
         "drill_sentences": [
-            {"en": "I know how to speak Spanish (fact/skill)", "es": "Yo sé hablar español", "noun_id": None, "type": "written"},
-            {"en": "You know the city (acquainted with)", "es": "Tú conoces la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "She knows the answer (knowledge)", "es": "Ella sabe la respuesta", "noun_id": None, "type": "written"},
-            {"en": "He knows the restaurant (familiar with)", "es": "Él conoce el restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "We know how to cook (skill)", "es": "Nosotros sabemos cocinar", "noun_id": None, "type": "written"},
-            {"en": "We (f) know the market (place)", "es": "Nosotras conocemos el mercado", "noun_id": "mercado", "type": "auditory"},
-            {"en": "They know the way (knowledge)", "es": "Ellos saben el camino", "noun_id": None, "type": "written"},
-            {"en": "They (f) know the park (familiarity)", "es": "Ellas conocen el parque", "noun_id": "parque", "type": "auditory"},
-            {"en": "You know what time it is (fact)", "es": "Usted sabe qué hora es", "noun_id": None, "type": "written"},
-            {"en": "You all know the neighbors (acquaintance)", "es": "Ustedes conocen a los vecinos", "noun_id": None, "type": "auditory"},
+            {"en": "I know how to speak Spanish", "es": "Yo sé hablar español", "noun_id": None, "type": "written"},
+            {"en": "You know the city", "es": "Tú conoces la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "She knows the answer", "es": "Ella sabe la respuesta", "noun_id": "respuesta", "type": "written"},
+            {"en": "He knows the restaurant", "es": "Él conoce el restaurante", "noun_id": "restaurante", "type": "auditory"},
+            {"en": "We know how to cook", "es": "Nosotros sabemos cocinar", "noun_id": "cocinar", "type": "written"},
+            {"en": "We know the market", "es": "Nosotras conocemos el mercado", "noun_id": "mercado", "type": "auditory"},
+            {"en": "They know the way", "es": "Ellos saben el camino", "noun_id": "camino", "type": "written"},
+            {"en": "They know the park", "es": "Ellas conocen el parque", "noun_id": "parque", "type": "auditory"},
+            {"en": "You know what time it is", "es": "Usted sabe qué hora es", "noun_id": "hora", "type": "written"},
+            {"en": "You all know the neighbors", "es": "Ustedes conocen a los vecinos", "noun_id": "vecino", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "saber", "pronoun": "yo"}, {"verb": "conocer", "pronoun": "tú"},
@@ -1310,6 +1689,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Do you know this area?",
         "opener_es": "¿Conoces esta zona?",
     },
+    # --- GL 5.5: chat companion of `grammar_saber_conocer` ---
+    "grammar_saber_conocer_chat": {
+        "title": "Saber vs. Conocer — Chat",
+        "grammar_level": 5.5,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["saber", "conocer"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Saber vs. Conocer: saber (facts/skills) vs. conocer (people/places)', 'targets': [{'verb': 'saber', 'pronoun': 'yo'}, {'verb': 'conocer', 'pronoun': 'tú'}, {'verb': 'saber', 'pronoun': 'ella'}, {'verb': 'conocer', 'pronoun': 'él'}, {'verb': 'saber', 'pronoun': 'nosotros'}, {'verb': 'conocer', 'pronoun': 'nosotras'}, {'verb': 'saber', 'pronoun': 'ellos'}, {'verb': 'conocer', 'pronoun': 'ellas'}]},
+    },
     # --- GL 6: Present O→UE — 3 lessons ---
     "grammar_present_o_ue_1": {
         "title": "Present O→UE (1/3)",
@@ -1328,7 +1721,7 @@ GRAMMAR_SITUATIONS = {
             "dormir": {"yo": "duermo", "tú": "duermes", "él": "duerme", "ella": "duerme", "usted": "duerme", "nosotros": "dormimos", "nosotras": "dormimos", "ellos": "duermen", "ellas": "duermen", "ustedes": "duermen"},
             "volver": {"yo": "vuelvo", "tú": "vuelves", "él": "vuelve", "ella": "vuelve", "usted": "vuelve", "nosotros": "volvemos", "nosotras": "volvemos", "ellos": "vuelven", "ellas": "vuelven", "ustedes": "vuelven"},
         }},
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I move the table", "es": "Yo muevo la mesa", "noun_id": None, "type": "written"},
@@ -1372,6 +1765,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Can you move your car?",
         "opener_es": "¿Puedes mover tu carro?",
     },
+    # --- GL 6: chat companion of `grammar_present_o_ue_1` ---
+    "grammar_present_o_ue_1_chat": {
+        "title": "Present O→UE (1/3) — Chat",
+        "grammar_level": 6,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["mover", "almorzar", "morir", "poder", "dormir", "volver"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present O→UE lesson 1', 'targets': [{'verb': 'mover', 'pronoun': 'yo'}, {'verb': 'almorzar', 'pronoun': 'tú'}, {'verb': 'morir', 'pronoun': 'él'}, {'verb': 'poder', 'pronoun': 'ella'}, {'verb': 'dormir', 'pronoun': 'usted'}, {'verb': 'volver', 'pronoun': 'nosotros'}, {'verb': 'mover', 'pronoun': 'nosotras'}, {'verb': 'almorzar', 'pronoun': 'ellos'}, {'verb': 'morir', 'pronoun': 'ellas'}, {'verb': 'poder', 'pronoun': 'ustedes'}]},
+    },
     "grammar_present_o_ue_2": {
         "title": "Present O→UE (2/3)",
         "grammar_level": 6,
@@ -1389,7 +1796,7 @@ GRAMMAR_SITUATIONS = {
             "dormir": {"yo": "duermo", "tú": "duermes", "él": "duerme", "ella": "duerme", "usted": "duerme", "nosotros": "dormimos", "nosotras": "dormimos", "ellos": "duermen", "ellas": "duermen", "ustedes": "duermen"},
             "volver": {"yo": "vuelvo", "tú": "vuelves", "él": "vuelve", "ella": "vuelve", "usted": "vuelve", "nosotros": "volvemos", "nosotras": "volvemos", "ellos": "vuelven", "ellas": "vuelven", "ustedes": "vuelven"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You move the chair", "es": "Tú mueves la silla", "noun_id": "silla", "type": "written"},
@@ -1433,6 +1840,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Where does your sister eat lunch?",
         "opener_es": "¿Dónde almuerza tu hermana?",
     },
+    # --- GL 6: chat companion of `grammar_present_o_ue_2` ---
+    "grammar_present_o_ue_2_chat": {
+        "title": "Present O→UE (2/3) — Chat",
+        "grammar_level": 6,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["mover", "almorzar", "morir", "poder", "dormir", "volver"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present O→UE lesson 2', 'targets': [{'verb': 'mover', 'pronoun': 'tú'}, {'verb': 'almorzar', 'pronoun': 'yo'}, {'verb': 'morir', 'pronoun': 'ella'}, {'verb': 'poder', 'pronoun': 'él'}, {'verb': 'dormir', 'pronoun': 'nosotros'}, {'verb': 'volver', 'pronoun': 'usted'}, {'verb': 'mover', 'pronoun': 'ellos'}, {'verb': 'almorzar', 'pronoun': 'nosotras'}, {'verb': 'morir', 'pronoun': 'ustedes'}, {'verb': 'poder', 'pronoun': 'ellas'}]},
+    },
     "grammar_present_o_ue_3": {
         "title": "Present O→UE (3/3)",
         "grammar_level": 6,
@@ -1450,7 +1871,7 @@ GRAMMAR_SITUATIONS = {
             "dormir": {"yo": "duermo", "tú": "duermes", "él": "duerme", "ella": "duerme", "usted": "duerme", "nosotros": "dormimos", "nosotras": "dormimos", "ellos": "duermen", "ellas": "duermen", "ustedes": "duermen"},
             "volver": {"yo": "vuelvo", "tú": "vuelves", "él": "vuelve", "ella": "vuelve", "usted": "vuelve", "nosotros": "volvemos", "nosotras": "volvemos", "ellos": "vuelven", "ellas": "vuelven", "ustedes": "vuelven"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "He moves the car", "es": "Él mueve el carro", "noun_id": "carro", "type": "written"},
@@ -1494,6 +1915,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What time do your kids sleep?",
         "opener_es": "¿A qué hora duermen tus hijas?",
     },
+    # --- GL 6: chat companion of `grammar_present_o_ue_3` ---
+    "grammar_present_o_ue_3_chat": {
+        "title": "Present O→UE (3/3) — Chat",
+        "grammar_level": 6,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["mover", "almorzar", "morir", "poder", "dormir", "volver"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present O→UE lesson 3', 'targets': [{'verb': 'mover', 'pronoun': 'él'}, {'verb': 'almorzar', 'pronoun': 'ella'}, {'verb': 'morir', 'pronoun': 'yo'}, {'verb': 'poder', 'pronoun': 'tú'}, {'verb': 'dormir', 'pronoun': 'nosotras'}, {'verb': 'volver', 'pronoun': 'ellos'}, {'verb': 'mover', 'pronoun': 'usted'}, {'verb': 'almorzar', 'pronoun': 'nosotros'}, {'verb': 'dormir', 'pronoun': 'ellas'}, {'verb': 'volver', 'pronoun': 'ustedes'}]},
+    },
     # --- GL 7: Present E→IE — 3 lessons ---
     "grammar_present_e_ie_1": {
         "title": "Present E→IE (1/3)",
@@ -1512,7 +1947,7 @@ GRAMMAR_SITUATIONS = {
             "preferir": {"yo": "prefiero", "tú": "prefieres", "él": "prefiere", "ella": "prefiere", "usted": "prefiere", "nosotros": "preferimos", "nosotras": "preferimos", "ellos": "prefieren", "ellas": "prefieren", "ustedes": "prefieren"},
             "empezar": {"yo": "empiezo", "tú": "empiezas", "él": "empieza", "ella": "empieza", "usted": "empieza", "nosotros": "empezamos", "nosotras": "empezamos", "ellos": "empiezan", "ellas": "empiezan", "ustedes": "empiezan"},
         }},
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I close the door", "es": "Yo cierro la puerta", "noun_id": "puerta", "type": "written"},
@@ -1556,6 +1991,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What time do they close?",
         "opener_es": "¿A qué hora cierran aquí?",
     },
+    # --- GL 7: chat companion of `grammar_present_e_ie_1` ---
+    "grammar_present_e_ie_1_chat": {
+        "title": "Present E→IE (1/3) — Chat",
+        "grammar_level": 7,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["cerrar", "entender", "pensar", "querer", "preferir", "empezar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present E→IE lesson 1', 'targets': [{'verb': 'cerrar', 'pronoun': 'yo'}, {'verb': 'entender', 'pronoun': 'tú'}, {'verb': 'pensar', 'pronoun': 'él'}, {'verb': 'querer', 'pronoun': 'ella'}, {'verb': 'preferir', 'pronoun': 'usted'}, {'verb': 'empezar', 'pronoun': 'nosotros'}, {'verb': 'cerrar', 'pronoun': 'nosotras'}, {'verb': 'entender', 'pronoun': 'ellos'}, {'verb': 'pensar', 'pronoun': 'ellas'}, {'verb': 'querer', 'pronoun': 'ustedes'}]},
+    },
     "grammar_present_e_ie_2": {
         "title": "Present E→IE (2/3)",
         "grammar_level": 7,
@@ -1573,7 +2022,7 @@ GRAMMAR_SITUATIONS = {
             "preferir": {"yo": "prefiero", "tú": "prefieres", "él": "prefiere", "ella": "prefiere", "usted": "prefiere", "nosotros": "preferimos", "nosotras": "preferimos", "ellos": "prefieren", "ellas": "prefieren", "ustedes": "prefieren"},
             "empezar": {"yo": "empiezo", "tú": "empiezas", "él": "empieza", "ella": "empieza", "usted": "empieza", "nosotros": "empezamos", "nosotras": "empezamos", "ellos": "empiezan", "ellas": "empiezan", "ustedes": "empiezan"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You close the window", "es": "Tú cierras la ventana", "noun_id": "ventana", "type": "written"},
@@ -1617,6 +2066,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Does your partner prefer the beach?",
         "opener_es": "¿Tu pareja prefiere la playa?",
     },
+    # --- GL 7: chat companion of `grammar_present_e_ie_2` ---
+    "grammar_present_e_ie_2_chat": {
+        "title": "Present E→IE (2/3) — Chat",
+        "grammar_level": 7,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["cerrar", "entender", "pensar", "querer", "preferir", "empezar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present E→IE lesson 2', 'targets': [{'verb': 'cerrar', 'pronoun': 'tú'}, {'verb': 'entender', 'pronoun': 'yo'}, {'verb': 'pensar', 'pronoun': 'ella'}, {'verb': 'querer', 'pronoun': 'él'}, {'verb': 'preferir', 'pronoun': 'nosotros'}, {'verb': 'empezar', 'pronoun': 'usted'}, {'verb': 'cerrar', 'pronoun': 'ellos'}, {'verb': 'entender', 'pronoun': 'nosotras'}, {'verb': 'pensar', 'pronoun': 'ustedes'}, {'verb': 'querer', 'pronoun': 'ellas'}]},
+    },
     "grammar_present_e_ie_3": {
         "title": "Present E→IE (3/3)",
         "grammar_level": 7,
@@ -1634,7 +2097,7 @@ GRAMMAR_SITUATIONS = {
             "preferir": {"yo": "prefiero", "tú": "prefieres", "él": "prefiere", "ella": "prefiere", "usted": "prefiere", "nosotros": "preferimos", "nosotras": "preferimos", "ellos": "prefieren", "ellas": "prefieren", "ustedes": "prefieren"},
             "empezar": {"yo": "empiezo", "tú": "empiezas", "él": "empieza", "ella": "empieza", "usted": "empieza", "nosotros": "empezamos", "nosotras": "empezamos", "ellos": "empiezan", "ellas": "empiezan", "ustedes": "empiezan"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "He closes the shop at night", "es": "Él cierra la tienda de noche", "noun_id": "tienda", "type": "written"},
@@ -1678,6 +2141,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Do your friends want to come?",
         "opener_es": "¿Tus amigas quieren venir?",
     },
+    # --- GL 7: chat companion of `grammar_present_e_ie_3` ---
+    "grammar_present_e_ie_3_chat": {
+        "title": "Present E→IE (3/3) — Chat",
+        "grammar_level": 7,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["cerrar", "entender", "pensar", "querer", "preferir", "empezar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present E→IE lesson 3', 'targets': [{'verb': 'cerrar', 'pronoun': 'él'}, {'verb': 'entender', 'pronoun': 'ella'}, {'verb': 'pensar', 'pronoun': 'yo'}, {'verb': 'querer', 'pronoun': 'tú'}, {'verb': 'preferir', 'pronoun': 'nosotras'}, {'verb': 'empezar', 'pronoun': 'ellos'}, {'verb': 'cerrar', 'pronoun': 'usted'}, {'verb': 'entender', 'pronoun': 'nosotros'}, {'verb': 'preferir', 'pronoun': 'ellas'}, {'verb': 'empezar', 'pronoun': 'ustedes'}]},
+    },
     # --- GL 8: Present E→I — 3 lessons ---
     "grammar_present_e_i_1": {
         "title": "Present E→I (1/3)",
@@ -1696,7 +2173,7 @@ GRAMMAR_SITUATIONS = {
             "vestir": {"yo": "visto", "tú": "vistes", "él": "viste", "ella": "viste", "usted": "viste", "nosotros": "vestimos", "nosotras": "vestimos", "ellos": "visten", "ellas": "visten", "ustedes": "visten"},
             "elegir": {"yo": "elijo", "tú": "eliges", "él": "elige", "ella": "elige", "usted": "elige", "nosotros": "elegimos", "nosotras": "elegimos", "ellos": "eligen", "ellas": "eligen", "ustedes": "eligen"},
         }},
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I order coffee at the restaurant", "es": "Yo pido café en el restaurante", "noun_id": "café", "type": "written"},
@@ -1740,6 +2217,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What do you order at a restaurant?",
         "opener_es": "¿Qué pides en un restaurante?",
     },
+    # --- GL 8: chat companion of `grammar_present_e_i_1` ---
+    "grammar_present_e_i_1_chat": {
+        "title": "Present E→I (1/3) — Chat",
+        "grammar_level": 8,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["pedir", "repetir", "seguir", "servir", "vestir", "elegir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present E→I lesson 1', 'targets': [{'verb': 'pedir', 'pronoun': 'yo'}, {'verb': 'repetir', 'pronoun': 'tú'}, {'verb': 'seguir', 'pronoun': 'él'}, {'verb': 'servir', 'pronoun': 'ella'}, {'verb': 'vestir', 'pronoun': 'usted'}, {'verb': 'elegir', 'pronoun': 'nosotros'}, {'verb': 'pedir', 'pronoun': 'nosotras'}, {'verb': 'repetir', 'pronoun': 'ellos'}, {'verb': 'seguir', 'pronoun': 'ellas'}, {'verb': 'servir', 'pronoun': 'ustedes'}]},
+    },
     "grammar_present_e_i_2": {
         "title": "Present E→I (2/3)",
         "grammar_level": 8,
@@ -1757,7 +2248,7 @@ GRAMMAR_SITUATIONS = {
             "vestir": {"yo": "visto", "tú": "vistes", "él": "viste", "ella": "viste", "usted": "viste", "nosotros": "vestimos", "nosotras": "vestimos", "ellos": "visten", "ellas": "visten", "ustedes": "visten"},
             "elegir": {"yo": "elijo", "tú": "eliges", "él": "elige", "ella": "elige", "usted": "elige", "nosotros": "elegimos", "nosotras": "elegimos", "ellos": "eligen", "ellas": "eligen", "ustedes": "eligen"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You order the food", "es": "Tú pides la comida", "noun_id": "comida", "type": "written"},
@@ -1801,6 +2292,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What does your friend usually order?",
         "opener_es": "¿Qué pide tu amiga normalmente?",
     },
+    # --- GL 8: chat companion of `grammar_present_e_i_2` ---
+    "grammar_present_e_i_2_chat": {
+        "title": "Present E→I (2/3) — Chat",
+        "grammar_level": 8,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["pedir", "repetir", "seguir", "servir", "vestir", "elegir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present E→I lesson 2', 'targets': [{'verb': 'pedir', 'pronoun': 'tú'}, {'verb': 'repetir', 'pronoun': 'yo'}, {'verb': 'seguir', 'pronoun': 'ella'}, {'verb': 'servir', 'pronoun': 'él'}, {'verb': 'vestir', 'pronoun': 'nosotros'}, {'verb': 'elegir', 'pronoun': 'usted'}, {'verb': 'pedir', 'pronoun': 'ellos'}, {'verb': 'repetir', 'pronoun': 'nosotras'}, {'verb': 'seguir', 'pronoun': 'ustedes'}, {'verb': 'servir', 'pronoun': 'ellas'}]},
+    },
     "grammar_present_e_i_3": {
         "title": "Present E→I (3/3)",
         "grammar_level": 8,
@@ -1818,7 +2323,7 @@ GRAMMAR_SITUATIONS = {
             "vestir": {"yo": "visto", "tú": "vistes", "él": "viste", "ella": "viste", "usted": "viste", "nosotros": "vestimos", "nosotras": "vestimos", "ellos": "visten", "ellas": "visten", "ustedes": "visten"},
             "elegir": {"yo": "elijo", "tú": "eliges", "él": "elige", "ella": "elige", "usted": "elige", "nosotros": "elegimos", "nosotras": "elegimos", "ellos": "eligen", "ellas": "eligen", "ustedes": "eligen"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "He orders a coffee", "es": "Él pide un café", "noun_id": "café", "type": "written"},
@@ -1862,6 +2367,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Do your kids choose their own clothes?",
         "opener_es": "¿Tus hijas eligen su ropa?",
     },
+    # --- GL 8: chat companion of `grammar_present_e_i_3` ---
+    "grammar_present_e_i_3_chat": {
+        "title": "Present E→I (3/3) — Chat",
+        "grammar_level": 8,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["pedir", "repetir", "seguir", "servir", "vestir", "elegir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Present E→I lesson 3', 'targets': [{'verb': 'pedir', 'pronoun': 'él'}, {'verb': 'repetir', 'pronoun': 'ella'}, {'verb': 'seguir', 'pronoun': 'yo'}, {'verb': 'servir', 'pronoun': 'tú'}, {'verb': 'vestir', 'pronoun': 'nosotras'}, {'verb': 'elegir', 'pronoun': 'ellos'}, {'verb': 'pedir', 'pronoun': 'usted'}, {'verb': 'repetir', 'pronoun': 'nosotros'}, {'verb': 'vestir', 'pronoun': 'ellas'}, {'verb': 'elegir', 'pronoun': 'ustedes'}]},
+    },
     # --- GL 9: Ir A + Infinitive — 3 lessons ---
     "grammar_ir_a_inf_1": {
         "title": "Ir A + Infinitive (1/3)",
@@ -1880,7 +2399,7 @@ GRAMMAR_SITUATIONS = {
             "escribir": {"yo": "voy a escribir", "tú": "vas a escribir", "él": "va a escribir", "ella": "va a escribir", "usted": "va a escribir", "nosotros": "vamos a escribir", "nosotras": "vamos a escribir", "ellos": "van a escribir", "ellas": "van a escribir", "ustedes": "van a escribir"},
             "estudiar": {"yo": "voy a estudiar", "tú": "vas a estudiar", "él": "va a estudiar", "ella": "va a estudiar", "usted": "va a estudiar", "nosotros": "vamos a estudiar", "nosotras": "vamos a estudiar", "ellos": "van a estudiar", "ellas": "van a estudiar", "ustedes": "van a estudiar"},
         }},
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I am going to speak Spanish", "es": "Voy a hablar español", "noun_id": None, "type": "written"},
@@ -1924,6 +2443,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What are you going to eat today?",
         "opener_es": "¿Qué vas a comer hoy?",
     },
+    # --- GL 9: chat companion of `grammar_ir_a_inf_1` ---
+    "grammar_ir_a_inf_1_chat": {
+        "title": "Ir A + Infinitive (1/3) — Chat",
+        "grammar_level": 9,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "comer", "dormir", "vivir", "escribir", "estudiar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "ir_a_infinitive",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Ir A + Infinitive lesson 1', 'targets': [{'verb': 'hablar', 'pronoun': 'yo'}, {'verb': 'comer', 'pronoun': 'tú'}, {'verb': 'dormir', 'pronoun': 'él'}, {'verb': 'vivir', 'pronoun': 'ella'}, {'verb': 'escribir', 'pronoun': 'usted'}, {'verb': 'estudiar', 'pronoun': 'nosotros'}, {'verb': 'hablar', 'pronoun': 'nosotras'}, {'verb': 'comer', 'pronoun': 'ellos'}, {'verb': 'dormir', 'pronoun': 'ellas'}, {'verb': 'vivir', 'pronoun': 'ustedes'}]},
+    },
     "grammar_ir_a_inf_2": {
         "title": "Ir A + Infinitive (2/3)",
         "grammar_level": 9,
@@ -1941,7 +2474,7 @@ GRAMMAR_SITUATIONS = {
             "escribir": {"yo": "voy a escribir", "tú": "vas a escribir", "él": "va a escribir", "ella": "va a escribir", "usted": "va a escribir", "nosotros": "vamos a escribir", "nosotras": "vamos a escribir", "ellos": "van a escribir", "ellas": "van a escribir", "ustedes": "van a escribir"},
             "estudiar": {"yo": "voy a estudiar", "tú": "vas a estudiar", "él": "va a estudiar", "ella": "va a estudiar", "usted": "va a estudiar", "nosotros": "vamos a estudiar", "nosotras": "vamos a estudiar", "ellos": "van a estudiar", "ellas": "van a estudiar", "ustedes": "van a estudiar"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are going to speak Spanish", "es": "Tú vas a hablar español", "noun_id": None, "type": "written"},
@@ -1985,6 +2518,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Where is your family going to live?",
         "opener_es": "¿Dónde va a vivir tu familia?",
     },
+    # --- GL 9: chat companion of `grammar_ir_a_inf_2` ---
+    "grammar_ir_a_inf_2_chat": {
+        "title": "Ir A + Infinitive (2/3) — Chat",
+        "grammar_level": 9,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "comer", "dormir", "vivir", "escribir", "estudiar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "ir_a_infinitive",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Ir A + Infinitive lesson 2', 'targets': [{'verb': 'hablar', 'pronoun': 'tú'}, {'verb': 'comer', 'pronoun': 'yo'}, {'verb': 'dormir', 'pronoun': 'ella'}, {'verb': 'vivir', 'pronoun': 'él'}, {'verb': 'escribir', 'pronoun': 'nosotros'}, {'verb': 'estudiar', 'pronoun': 'usted'}, {'verb': 'hablar', 'pronoun': 'ellos'}, {'verb': 'comer', 'pronoun': 'nosotras'}, {'verb': 'dormir', 'pronoun': 'ustedes'}, {'verb': 'vivir', 'pronoun': 'ellas'}]},
+    },
     "grammar_ir_a_inf_3": {
         "title": "Ir A + Infinitive (3/3)",
         "grammar_level": 9,
@@ -2002,7 +2549,7 @@ GRAMMAR_SITUATIONS = {
             "escribir": {"yo": "voy a escribir", "tú": "vas a escribir", "él": "va a escribir", "ella": "va a escribir", "usted": "va a escribir", "nosotros": "vamos a escribir", "nosotras": "vamos a escribir", "ellos": "van a escribir", "ellas": "van a escribir", "ustedes": "van a escribir"},
             "estudiar": {"yo": "voy a estudiar", "tú": "vas a estudiar", "él": "va a estudiar", "ella": "va a estudiar", "usted": "va a estudiar", "nosotros": "vamos a estudiar", "nosotras": "vamos a estudiar", "ellos": "van a estudiar", "ellas": "van a estudiar", "ustedes": "van a estudiar"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "He is going to speak Spanish", "es": "Él va a hablar español", "noun_id": None, "type": "written"},
@@ -2045,6 +2592,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Are your friends going to study too?",
         "opener_es": "¿Tus amigas van a estudiar también?",
+    },
+    # --- GL 9: chat companion of `grammar_ir_a_inf_3` ---
+    "grammar_ir_a_inf_3_chat": {
+        "title": "Ir A + Infinitive (3/3) — Chat",
+        "grammar_level": 9,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "comer", "dormir", "vivir", "escribir", "estudiar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "ir_a_infinitive",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Ir A + Infinitive lesson 3', 'targets': [{'verb': 'hablar', 'pronoun': 'él'}, {'verb': 'comer', 'pronoun': 'ella'}, {'verb': 'dormir', 'pronoun': 'yo'}, {'verb': 'vivir', 'pronoun': 'tú'}, {'verb': 'escribir', 'pronoun': 'nosotras'}, {'verb': 'estudiar', 'pronoun': 'ellos'}, {'verb': 'hablar', 'pronoun': 'usted'}, {'verb': 'comer', 'pronoun': 'nosotros'}, {'verb': 'escribir', 'pronoun': 'ellas'}, {'verb': 'estudiar', 'pronoun': 'ustedes'}]},
     },
     "grammar_gustar_1": {
         "title": "Gustar Part 1",
@@ -2118,7 +2679,7 @@ GRAMMAR_SITUATIONS = {
         ]
 },
         "lesson_type": "rule",
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "gustar_singular"},
         "drill_sentences": [
             {"en": "I like the coffee", "es": "Me gusta el café", "noun_id": "café", "type": "written"},
@@ -2137,6 +2698,20 @@ GRAMMAR_SITUATIONS = {
             "targets": 5,
             "pattern": "pronoun_gusta_singular",
         },
+    },
+    # --- GL 10: chat companion of `grammar_gustar_1` ---
+    "grammar_gustar_1_chat": {
+        "title": "Gustar Part 1 — Chat",
+        "grammar_level": 10,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["gusta"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gustar",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': '5 pronoun+gusta+noun combos', 'targets': 5, 'pattern': 'pronoun_gusta_singular'},
     },
     "grammar_gustar_2": {
         "title": "Gustar Part 2",
@@ -2210,7 +2785,7 @@ GRAMMAR_SITUATIONS = {
         ]
 },
         "lesson_type": "rule",
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "gustar_plural"},
         "drill_sentences": [
             {"en": "I like the cats", "es": "Me gustan los gatos", "noun_id": "gato", "type": "written"},
@@ -2229,6 +2804,20 @@ GRAMMAR_SITUATIONS = {
             "targets": 5,
             "pattern": "pronoun_gustan_plural",
         },
+    },
+    # --- GL 10.3: chat companion of `grammar_gustar_2` ---
+    "grammar_gustar_2_chat": {
+        "title": "Gustar Part 2 — Chat",
+        "grammar_level": 10.3,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["gustan"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gustar",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': '5 pronoun+gustan+noun combos', 'targets': 5, 'pattern': 'pronoun_gustan_plural'},
     },
     "grammar_gustar_3": {
         "title": "Gustar Part 3",
@@ -2302,7 +2891,7 @@ GRAMMAR_SITUATIONS = {
         ]
 },
         "lesson_type": "rule",
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "gustar_prefix"},
         "drill_sentences": [
             {"en": "I like the coffee (emphatic)", "es": "A mí me gusta el café", "noun_id": "café", "type": "written"},
@@ -2322,6 +2911,20 @@ GRAMMAR_SITUATIONS = {
             "pattern": "a_prefix",
         },
     },
+    # --- GL 10.6: chat companion of `grammar_gustar_3` ---
+    "grammar_gustar_3_chat": {
+        "title": "Gustar Part 3 — Chat",
+        "grammar_level": 10.6,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["gusta", "gustan"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gustar",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': '1 per pronoun type (10 total)', 'targets': 10, 'pattern': 'a_prefix'},
+    },
     # --- GL 13.5: Imperatives — 2 lessons ---
     "grammar_imperatives_1": {
         "title": "Imperatives (1/2)",
@@ -2337,7 +2940,7 @@ GRAMMAR_SITUATIONS = {
             "comer": {"tú": "come", "usted": "coma", "nosotros": "comamos", "vosotros": "comed", "ustedes": "coman"},
             "vivir": {"tú": "vive", "usted": "viva", "nosotros": "vivamos", "vosotros": "vivid", "ustedes": "vivan"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "Speak slowly (tú)", "es": "Habla despacio", "noun_id": None, "type": "written"},
@@ -2377,6 +2980,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Can you tell me where to go?",
         "opener_es": "¿Me puedes decir adónde ir?",
     },
+    # --- GL 13.5: chat companion of `grammar_imperatives_1` ---
+    "grammar_imperatives_1_chat": {
+        "title": "Imperatives (1/2) — Chat",
+        "grammar_level": 13.5,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "comer", "vivir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "imperative",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Imperatives lesson 1: hablar, comer, vivir (tú/usted/nosotros commands)', 'targets': [{'verb': 'hablar', 'pronoun': 'tú'}, {'verb': 'hablar', 'pronoun': 'usted'}, {'verb': 'comer', 'pronoun': 'tú'}, {'verb': 'comer', 'pronoun': 'usted'}, {'verb': 'vivir', 'pronoun': 'tú'}, {'verb': 'vivir', 'pronoun': 'usted'}]},
+    },
     "grammar_imperatives_2": {
         "title": "Imperatives (2/2)",
         "grammar_level": 13.5,
@@ -2391,7 +3008,7 @@ GRAMMAR_SITUATIONS = {
             "ser": {"tú": "sé", "usted": "sea", "nosotros": "seamos", "ustedes": "sean"},
             "tener": {"tú": "ten", "usted": "tenga", "nosotros": "tengamos", "ustedes": "tengan"},
         }},
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "Go now (tú)", "es": "Ve ahora", "noun_id": None, "type": "written"},
@@ -2431,6 +3048,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Go ahead, tell me what you need.",
         "opener_es": "Ve, dime lo que necesitas.",
     },
+    # --- GL 13.5: chat companion of `grammar_imperatives_2` ---
+    "grammar_imperatives_2_chat": {
+        "title": "Imperatives (2/2) — Chat",
+        "grammar_level": 13.5,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["ir", "ser", "tener"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "imperative",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Imperatives lesson 2: ir, ser, tener (tú/usted/ustedes commands)', 'targets': [{'verb': 'ir', 'pronoun': 'tú'}, {'verb': 'ir', 'pronoun': 'usted'}, {'verb': 'ser', 'pronoun': 'tú'}, {'verb': 'ser', 'pronoun': 'usted'}, {'verb': 'tener', 'pronoun': 'tú'}, {'verb': 'tener', 'pronoun': 'usted'}]},
+    },
     # --- GL 17: Preterite Regular — 3 lessons ---
     "grammar_preterite_regular_1": {
         "title": "Preterite Regular (1/3)",
@@ -2449,7 +3080,7 @@ GRAMMAR_SITUATIONS = {
             "salir": {"yo": "salí", "tú": "saliste", "él": "salió", "ella": "salió", "usted": "salió", "nosotros": "salimos", "nosotras": "salimos", "ellos": "salieron", "ellas": "salieron", "ustedes": "salieron"},
         }},
         "lesson_type": "conjugation",
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I spoke Spanish", "es": "Yo hablé español", "noun_id": None, "type": "written"},
@@ -2493,6 +3124,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Did you talk to anyone today?",
         "opener_es": "¿Hablaste con alguien hoy?",
     },
+    # --- GL 17: chat companion of `grammar_preterite_regular_1` ---
+    "grammar_preterite_regular_1_chat": {
+        "title": "Preterite Regular (1/3) — Chat",
+        "grammar_level": 17,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "encontrar", "comer", "unir", "beber", "salir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Preterite Regular lesson 1', 'targets': [{'verb': 'hablar', 'pronoun': 'yo'}, {'verb': 'encontrar', 'pronoun': 'tú'}, {'verb': 'comer', 'pronoun': 'él'}, {'verb': 'unir', 'pronoun': 'ella'}, {'verb': 'beber', 'pronoun': 'usted'}, {'verb': 'salir', 'pronoun': 'nosotros'}, {'verb': 'hablar', 'pronoun': 'nosotras'}, {'verb': 'encontrar', 'pronoun': 'ellos'}, {'verb': 'comer', 'pronoun': 'ellas'}, {'verb': 'unir', 'pronoun': 'ustedes'}]},
+    },
     "grammar_preterite_regular_2": {
         "title": "Preterite Regular (2/3)",
         "grammar_level": 17,
@@ -2510,7 +3155,7 @@ GRAMMAR_SITUATIONS = {
             "salir": {"yo": "salí", "tú": "saliste", "él": "salió", "ella": "salió", "usted": "salió", "nosotros": "salimos", "nosotras": "salimos", "ellos": "salieron", "ellas": "salieron", "ustedes": "salieron"},
         }},
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You spoke first", "es": "Tú hablaste primero", "noun_id": None, "type": "written"},
@@ -2554,6 +3199,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What did your friend eat?",
         "opener_es": "¿Qué comió tu amiga ayer?",
     },
+    # --- GL 17: chat companion of `grammar_preterite_regular_2` ---
+    "grammar_preterite_regular_2_chat": {
+        "title": "Preterite Regular (2/3) — Chat",
+        "grammar_level": 17,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "encontrar", "comer", "unir", "beber", "salir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Preterite Regular lesson 2', 'targets': [{'verb': 'hablar', 'pronoun': 'tú'}, {'verb': 'encontrar', 'pronoun': 'yo'}, {'verb': 'comer', 'pronoun': 'ella'}, {'verb': 'unir', 'pronoun': 'él'}, {'verb': 'beber', 'pronoun': 'nosotros'}, {'verb': 'salir', 'pronoun': 'usted'}, {'verb': 'hablar', 'pronoun': 'ellos'}, {'verb': 'encontrar', 'pronoun': 'nosotras'}, {'verb': 'comer', 'pronoun': 'ustedes'}, {'verb': 'unir', 'pronoun': 'ellas'}]},
+    },
     "grammar_preterite_regular_3": {
         "title": "Preterite Regular (3/3)",
         "grammar_level": 17,
@@ -2571,7 +3230,7 @@ GRAMMAR_SITUATIONS = {
             "salir": {"yo": "salí", "tú": "saliste", "él": "salió", "ella": "salió", "usted": "salió", "nosotros": "salimos", "nosotras": "salimos", "ellos": "salieron", "ellas": "salieron", "ustedes": "salieron"},
         }},
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "He spoke the truth", "es": "Él habló la verdad", "noun_id": None, "type": "written"},
@@ -2615,6 +3274,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Did they go out last weekend?",
         "opener_es": "¿Salieron el fin de semana?",
     },
+    # --- GL 17: chat companion of `grammar_preterite_regular_3` ---
+    "grammar_preterite_regular_3_chat": {
+        "title": "Preterite Regular (3/3) — Chat",
+        "grammar_level": 17,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "encontrar", "comer", "unir", "beber", "salir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Preterite Regular lesson 3', 'targets': [{'verb': 'hablar', 'pronoun': 'él'}, {'verb': 'encontrar', 'pronoun': 'ella'}, {'verb': 'comer', 'pronoun': 'yo'}, {'verb': 'unir', 'pronoun': 'tú'}, {'verb': 'beber', 'pronoun': 'nosotras'}, {'verb': 'salir', 'pronoun': 'ellos'}, {'verb': 'hablar', 'pronoun': 'usted'}, {'verb': 'encontrar', 'pronoun': 'nosotros'}, {'verb': 'beber', 'pronoun': 'ellas'}, {'verb': 'salir', 'pronoun': 'ustedes'}]},
+    },
     # --- GL 17.1: Preterite Highly Irregular — 4 lessons (L1&3: ser/ir,dar,ver,hacer,decir / L2&4: traer,dormir,morir + 2 from first) ---
     "grammar_preterite_irregular_1": {
         "title": "Preterite Highly Irregular (1/4)",
@@ -2635,7 +3308,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I was a student", "es": "Yo fui estudiante", "noun_id": None, "type": "written"},
@@ -2679,6 +3352,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Did you go to the market?",
         "opener_es": "¿Fuiste al mercado?",
     },
+    # --- GL 17.1: chat companion of `grammar_preterite_irregular_1` ---
+    "grammar_preterite_irregular_1_chat": {
+        "title": "Preterite Highly Irregular (1/4) — Chat",
+        "grammar_level": 17.1,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["ser", "ir", "dar", "ver", "hacer", "decir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Preterite Highly Irregular lesson 1: ser, ir, dar, ver, hacer, decir', 'targets': [{'verb': 'ser', 'pronoun': 'yo'}, {'verb': 'ser', 'pronoun': 'ella'}, {'verb': 'ir', 'pronoun': 'tú'}, {'verb': 'dar', 'pronoun': 'nosotras'}, {'verb': 'dar', 'pronoun': 'él'}, {'verb': 'ver', 'pronoun': 'ustedes'}, {'verb': 'ver', 'pronoun': 'usted'}, {'verb': 'hacer', 'pronoun': 'nosotros'}, {'verb': 'hacer', 'pronoun': 'ellas'}, {'verb': 'decir', 'pronoun': 'ellos'}]},
+    },
     "grammar_preterite_irregular_2": {
         "title": "Preterite Highly Irregular (2/4)",
         "grammar_level": 17.1,
@@ -2697,7 +3384,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I brought the food", "es": "Yo traje la comida", "noun_id": "comida", "type": "written"},
@@ -2741,6 +3428,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What did you bring?",
         "opener_es": "¿Qué trajiste?",
     },
+    # --- GL 17.1: chat companion of `grammar_preterite_irregular_2` ---
+    "grammar_preterite_irregular_2_chat": {
+        "title": "Preterite Highly Irregular (2/4) — Chat",
+        "grammar_level": 17.1,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["traer", "dormir", "morir", "ser", "hacer"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Preterite Highly Irregular lesson 2: traer, dormir, morir, ser, hacer', 'targets': [{'verb': 'traer', 'pronoun': 'yo'}, {'verb': 'traer', 'pronoun': 'nosotros'}, {'verb': 'traer', 'pronoun': 'ellas'}, {'verb': 'dormir', 'pronoun': 'tú'}, {'verb': 'dormir', 'pronoun': 'ella'}, {'verb': 'morir', 'pronoun': 'él'}, {'verb': 'morir', 'pronoun': 'ustedes'}, {'verb': 'ser', 'pronoun': 'usted'}, {'verb': 'ser', 'pronoun': 'nosotras'}, {'verb': 'hacer', 'pronoun': 'ellos'}]},
+    },
     "grammar_preterite_irregular_3": {
         "title": "Preterite Highly Irregular (3/4)",
         "grammar_level": 17.1,
@@ -2760,7 +3461,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You were a teacher", "es": "Tú fuiste profesor", "noun_id": None, "type": "written"},
@@ -2804,6 +3505,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "What did your friend do?",
         "opener_es": "¿Qué hizo tu amiga?",
     },
+    # --- GL 17.1: chat companion of `grammar_preterite_irregular_3` ---
+    "grammar_preterite_irregular_3_chat": {
+        "title": "Preterite Highly Irregular (3/4) — Chat",
+        "grammar_level": 17.1,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["ser", "ir", "dar", "ver", "hacer", "decir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Preterite Highly Irregular lesson 3: ser, ir, dar, ver, hacer, decir', 'targets': [{'verb': 'ser', 'pronoun': 'tú'}, {'verb': 'ir', 'pronoun': 'nosotros'}, {'verb': 'ir', 'pronoun': 'ellos'}, {'verb': 'dar', 'pronoun': 'usted'}, {'verb': 'dar', 'pronoun': 'yo'}, {'verb': 'ver', 'pronoun': 'ella'}, {'verb': 'ver', 'pronoun': 'nosotras'}, {'verb': 'hacer', 'pronoun': 'él'}, {'verb': 'hacer', 'pronoun': 'ustedes'}, {'verb': 'decir', 'pronoun': 'ellas'}]},
+    },
     "grammar_preterite_irregular_4": {
         "title": "Preterite Highly Irregular (4/4)",
         "grammar_level": 17.1,
@@ -2822,7 +3537,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You brought the food", "es": "Tú trajiste la comida", "noun_id": "comida", "type": "written"},
@@ -2866,6 +3581,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Did your friends see the game?",
         "opener_es": "¿Tus amigas vieron el partido?",
     },
+    # --- GL 17.1: chat companion of `grammar_preterite_irregular_4` ---
+    "grammar_preterite_irregular_4_chat": {
+        "title": "Preterite Highly Irregular (4/4) — Chat",
+        "grammar_level": 17.1,
+        "lesson_number": 4.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["traer", "dormir", "morir", "ir", "decir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Preterite Highly Irregular lesson 4: traer, dormir, morir, ir, decir', 'targets': [{'verb': 'traer', 'pronoun': 'tú'}, {'verb': 'traer', 'pronoun': 'usted'}, {'verb': 'dormir', 'pronoun': 'yo'}, {'verb': 'dormir', 'pronoun': 'nosotras'}, {'verb': 'dormir', 'pronoun': 'ellos'}, {'verb': 'morir', 'pronoun': 'ella'}, {'verb': 'morir', 'pronoun': 'nosotros'}, {'verb': 'ir', 'pronoun': 'él'}, {'verb': 'ir', 'pronoun': 'ellas'}, {'verb': 'decir', 'pronoun': 'ustedes'}]},
+    },
     # --- GL 18: Gerund — 4 lessons (L1&3: hablar,caminar,charlar,comer / L2&4: beber,inhibir,prohibir,salir) ---
     "grammar_gerund_1": {
         "title": "Gerund (1/4)",
@@ -2884,7 +3613,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I am speaking Spanish", "es": "Yo estoy hablando español", "noun_id": None, "type": "written"},
@@ -2928,6 +3657,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Are you talking on the phone?",
         "opener_es": "¿Estás hablando por teléfono?",
     },
+    # --- GL 18: chat companion of `grammar_gerund_1` ---
+    "grammar_gerund_1_chat": {
+        "title": "Gerund (1/4) — Chat",
+        "grammar_level": 18,
+        "lesson_number": 1.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "caminar", "charlar", "comer"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gerund",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Gerund lesson 1: hablar, caminar, charlar, comer', 'targets': [{'verb': 'hablar', 'pronoun': 'yo'}, {'verb': 'hablar', 'pronoun': 'ella'}, {'verb': 'hablar', 'pronoun': 'ustedes'}, {'verb': 'caminar', 'pronoun': 'tú'}, {'verb': 'caminar', 'pronoun': 'nosotras'}, {'verb': 'charlar', 'pronoun': 'él'}, {'verb': 'charlar', 'pronoun': 'ellos'}, {'verb': 'comer', 'pronoun': 'usted'}, {'verb': 'comer', 'pronoun': 'nosotros'}, {'verb': 'comer', 'pronoun': 'ellas'}]},
+    },
     "grammar_gerund_2": {
         "title": "Gerund (2/4)",
         "grammar_level": 18,
@@ -2945,7 +3688,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I am drinking the water", "es": "Yo estoy bebiendo el agua", "noun_id": "agua", "type": "written"},
@@ -2989,6 +3732,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Are you leaving already?",
         "opener_es": "¿Estás saliendo ya?",
     },
+    # --- GL 18: chat companion of `grammar_gerund_2` ---
+    "grammar_gerund_2_chat": {
+        "title": "Gerund (2/4) — Chat",
+        "grammar_level": 18,
+        "lesson_number": 2.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["beber", "inhibir", "prohibir", "salir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gerund",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Gerund lesson 2: beber, inhibir, prohibir, salir', 'targets': [{'verb': 'beber', 'pronoun': 'yo'}, {'verb': 'beber', 'pronoun': 'nosotros'}, {'verb': 'beber', 'pronoun': 'ellas'}, {'verb': 'inhibir', 'pronoun': 'tú'}, {'verb': 'inhibir', 'pronoun': 'ella'}, {'verb': 'prohibir', 'pronoun': 'él'}, {'verb': 'prohibir', 'pronoun': 'ustedes'}, {'verb': 'salir', 'pronoun': 'usted'}, {'verb': 'salir', 'pronoun': 'nosotras'}, {'verb': 'salir', 'pronoun': 'ellos'}]},
+    },
     "grammar_gerund_3": {
         "title": "Gerund (3/4)",
         "grammar_level": 18,
@@ -3006,7 +3763,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are speaking now", "es": "Tú estás hablando ahora", "noun_id": None, "type": "written"},
@@ -3050,6 +3807,20 @@ GRAMMAR_SITUATIONS = {
         "opener_en": "Is your friend eating now?",
         "opener_es": "¿Tu amiga está comiendo?",
     },
+    # --- GL 18: chat companion of `grammar_gerund_3` ---
+    "grammar_gerund_3_chat": {
+        "title": "Gerund (3/4) — Chat",
+        "grammar_level": 18,
+        "lesson_number": 3.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "caminar", "charlar", "comer"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gerund",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Gerund lesson 3: hablar, caminar, charlar, comer', 'targets': [{'verb': 'hablar', 'pronoun': 'tú'}, {'verb': 'hablar', 'pronoun': 'nosotros'}, {'verb': 'caminar', 'pronoun': 'usted'}, {'verb': 'caminar', 'pronoun': 'ellas'}, {'verb': 'charlar', 'pronoun': 'yo'}, {'verb': 'charlar', 'pronoun': 'nosotras'}, {'verb': 'charlar', 'pronoun': 'ustedes'}, {'verb': 'comer', 'pronoun': 'él'}, {'verb': 'comer', 'pronoun': 'ella'}, {'verb': 'comer', 'pronoun': 'ellos'}]},
+    },
     "grammar_gerund_4": {
         "title": "Gerund (4/4)",
         "grammar_level": 18,
@@ -3067,7 +3838,7 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "lesson_type": "conjugation",
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are drinking the water", "es": "Tú estás bebiendo el agua", "noun_id": "agua", "type": "written"},
@@ -3110,6 +3881,20 @@ GRAMMAR_SITUATIONS = {
         },
         "opener_en": "Are they going out tonight?",
         "opener_es": "¿Están saliendo esta noche?",
+    },
+    # --- GL 18: chat companion of `grammar_gerund_4` ---
+    "grammar_gerund_4_chat": {
+        "title": "Gerund (4/4) — Chat",
+        "grammar_level": 18,
+        "lesson_number": 4.1,
+        "lesson_type": "conjugation",
+        "word_workload": ["beber", "inhibir", "prohibir", "salir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gerund",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Gerund lesson 4: beber, inhibir, prohibir, salir', 'targets': [{'verb': 'beber', 'pronoun': 'tú'}, {'verb': 'beber', 'pronoun': 'usted'}, {'verb': 'inhibir', 'pronoun': 'yo'}, {'verb': 'inhibir', 'pronoun': 'nosotras'}, {'verb': 'inhibir', 'pronoun': 'ellos'}, {'verb': 'prohibir', 'pronoun': 'ella'}, {'verb': 'prohibir', 'pronoun': 'nosotros'}, {'verb': 'salir', 'pronoun': 'él'}, {'verb': 'salir', 'pronoun': 'ellas'}, {'verb': 'salir', 'pronoun': 'ustedes'}]},
     },
 
     # --- GL 18.5: Perfect Tenses — placeholder (video content pending) ---
@@ -7396,74 +8181,25 @@ GRAMMAR_SITUATIONS = {
         'tense': 'preterite_imperfect',
         'phases': {
             '0a': False,
-            '0b': False,
+            '0b': True,
             '1a': False,
             '1b': False,
             '1c': False,
-            '2': True,
+            '2': False,
             '3': False
         },
+        "rule_chart": {'kind': 'comparison', 'title': 'Preterite vs. Imperfect', 'left': {'heading': 'preterite', 'items': ['Completed actions with a clear endpoint', 'Specific moment in time', 'Series of finished events', 'Examples: comí ayer, viví allí cinco años']}, 'right': {'heading': 'imperfect', 'items': ['Habitual / repeated past actions', 'Background description / setting', 'Ongoing state of being or feeling', 'Examples: comía todos los días, era niño']}, 'footnote': 'Snapshot vs. movie: preterite is the photo, imperfect is the video.'},
         'drill_sentences': [
-            {
-                'en': 'I was reading when she arrived (background + completed)',
-                'es': 'Yo leía cuando ella llegó',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We used to play every day (habitual)',
-                'es': 'Jugábamos todos los días',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'He ate the bread (completed)',
-                'es': 'Él comió el pan',
-                'noun_id': 'pan',
-                'type': 'written'
-            },
-            {
-                'en': 'She was eating when I called (background)',
-                'es': 'Ella comía cuando yo llamé',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'It was raining all morning (ongoing)',
-                'es': 'Llovía toda la mañana',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'It rained yesterday (completed)',
-                'es': 'Llovió ayer',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I was tired (state)',
-                'es': 'Yo estaba cansado',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I was tired for an hour (delimited state → preterite)',
-                'es': 'Estuve cansado por una hora',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'When I was a kid, I used to live in Mexico (habitual past)',
-                'es': 'Cuando era niño, vivía en México',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She lived in Mexico for five years (completed)',
-                'es': 'Ella vivió en México por cinco años',
-                'noun_id': None,
-                'type': 'auditory'
-            }
+            {"en": "I was reading when she arrived", "es": "Yo leía cuando ella llegó", "noun_id": None, "type": "written"},
+            {"en": "We used to play every day", "es": "Jugábamos todos los días", "noun_id": None, "type": "auditory"},
+            {"en": "He ate the bread", "es": "Él comió el pan", "noun_id": "pan", "type": "written"},
+            {"en": "She was eating when I called", "es": "Ella comía cuando yo llamé", "noun_id": None, "type": "auditory"},
+            {"en": "It was raining all morning", "es": "Llovía toda la mañana", "noun_id": None, "type": "written"},
+            {"en": "It rained yesterday", "es": "Llovió ayer", "noun_id": None, "type": "auditory"},
+            {"en": "I was tired", "es": "Yo estaba cansado", "noun_id": None, "type": "written"},
+            {"en": "I was tired for an hour", "es": "Estuve cansado por una hora", "noun_id": "hora", "type": "auditory"},
+            {"en": "When I was a kid, I used to live in Mexico", "es": "Cuando era niño, vivía en México", "noun_id": None, "type": "written"},
+            {"en": "She lived in Mexico for five years", "es": "Ella vivió en México por cinco años", "noun_id": None, "type": "auditory"}
         ],
         'phase_2_config': {
             'description': 'Choosing between preterite (completed) and imperfect (ongoing/habitual)',
@@ -7478,6 +8214,20 @@ GRAMMAR_SITUATIONS = {
         },
         'opener_en': 'Tell me about a memorable day from your childhood.',
         'opener_es': 'Cuéntame de un día memorable de tu niñez.',
+    },
+    # --- GL 16: chat companion of `grammar_pret_vs_imperfect` ---
+    "grammar_pret_vs_imperfect_chat": {
+        "title": "Preterite vs. Imperfect — Chat",
+        "grammar_level": 16,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["preterite", "imperfect"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "preterite_imperfect",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Choosing between preterite (completed) and imperfect (ongoing/habitual)', 'targets': [{'word': 'preterite'}, {'word': 'imperfect'}]},
     },
     # === GL 17.2 — Preterite Spelling Changes ===
     'grammar_pret_spelling_1': {
@@ -10708,74 +11458,25 @@ GRAMMAR_SITUATIONS = {
         'tense': 'object_pronouns',
         'phases': {
             '0a': False,
-            '0b': False,
+            '0b': True,
             '1a': False,
             '1b': False,
             '1c': False,
-            '2': True,
+            '2': False,
             '3': False
         },
+        "rule_chart": {'kind': 'table', 'title': "Direct object pronouns — 'it / them'", 'headers': ['Pronoun', 'Replaces', 'Example'], 'rows': [['lo', 'masculine singular', 'Lo veo (the book)'], ['la', 'feminine singular', 'La compro (the bag)'], ['los', 'masculine plural / mixed', 'Los oyes (the children)'], ['las', 'feminine plural', 'Las traen (the apples)']], 'footnote': 'Position: directly before a conjugated verb (Lo veo) or attached to an infinitive/gerund (Voy a verlo).'},
         'drill_sentences': [
-            {
-                'en': 'I see it (the book)',
-                'es': 'Lo veo',
-                'noun_id': 'libro',
-                'type': 'written'
-            },
-            {
-                'en': 'She buys them (the apples)',
-                'es': 'Las compra',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We eat it (the bread)',
-                'es': 'Lo comemos',
-                'noun_id': 'pan',
-                'type': 'written'
-            },
-            {
-                'en': 'They bring her (Maria)',
-                'es': 'La traen',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You hear them (the children)',
-                'es': 'Los oyes',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I read it (the letter)',
-                'es': 'La leo',
-                'noun_id': 'carta',
-                'type': 'auditory'
-            },
-            {
-                'en': 'He drinks it (the coffee)',
-                'es': 'Lo bebe',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'We see them (the cars)',
-                'es': 'Los vemos',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She wants it (the book)',
-                'es': 'Lo quiere',
-                'noun_id': 'libro',
-                'type': 'written'
-            },
-            {
-                'en': 'I take her',
-                'es': 'La llevo',
-                'noun_id': None,
-                'type': 'auditory'
-            }
+            {"en": "I see it", "es": "Lo veo", "noun_id": None, "type": "written"},
+            {"en": "She buys them", "es": "Las compra", "noun_id": None, "type": "auditory"},
+            {"en": "We eat it", "es": "Lo comemos", "noun_id": None, "type": "written"},
+            {"en": "They bring her", "es": "La traen", "noun_id": None, "type": "auditory"},
+            {"en": "You hear them", "es": "Los oyes", "noun_id": None, "type": "written"},
+            {"en": "I read it", "es": "La leo", "noun_id": None, "type": "auditory"},
+            {"en": "He drinks it", "es": "Lo bebe", "noun_id": None, "type": "written"},
+            {"en": "We see them", "es": "Los vemos", "noun_id": None, "type": "auditory"},
+            {"en": "She wants it", "es": "Lo quiere", "noun_id": None, "type": "written"},
+            {"en": "I take her", "es": "La llevo", "noun_id": None, "type": "auditory"}
         ],
         'phase_2_config': {
             'description': 'Direct Object Pronouns',
@@ -10797,6 +11498,20 @@ GRAMMAR_SITUATIONS = {
         'opener_en': 'Tell me what you do for your friends.',
         'opener_es': 'Cuéntame qué haces por tus amigos.',
     },
+    # --- GL 19: chat companion of `grammar_obj_direct` ---
+    "grammar_obj_direct_chat": {
+        "title": "Direct Object Pronouns — Chat",
+        "grammar_level": 19,
+        "lesson_number": 1.1,
+        "lesson_type": "rule",
+        "word_workload": ["lo", "la", "los", "las"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "object_pronouns",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Direct Object Pronouns', 'targets': [{'word': 'lo'}, {'word': 'la'}, {'word': 'los'}, {'word': 'las'}]},
+    },
     'grammar_obj_indirect': {
         'title': 'Indirect Object Pronouns',
         'grammar_level': 19,
@@ -10811,74 +11526,25 @@ GRAMMAR_SITUATIONS = {
         'tense': 'object_pronouns',
         'phases': {
             '0a': False,
-            '0b': False,
+            '0b': True,
             '1a': False,
             '1b': False,
             '1c': False,
-            '2': True,
+            '2': False,
             '3': False
         },
+        "rule_chart": {'kind': 'table', 'title': "Indirect object pronouns — 'to him / to them'", 'headers': ['Pronoun', 'Used for', 'Example'], 'rows': [['me', 'to me', 'Me da el libro'], ['te', 'to you (informal)', 'Te digo la verdad'], ['le', 'to him / her / you (formal)', 'Le doy el libro'], ['nos', 'to us', 'Nos traen comida'], ['les', 'to them / you all', 'Les pagamos']], 'footnote': 'Indirect = receiver of the action. Same position rules as direct objects.'},
         'drill_sentences': [
-            {
-                'en': 'I give him the book',
-                'es': 'Le doy el libro',
-                'noun_id': 'libro',
-                'type': 'written'
-            },
-            {
-                'en': 'She tells them the truth',
-                'es': 'Les dice la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We bring her the food',
-                'es': 'Le traemos la comida',
-                'noun_id': 'comida',
-                'type': 'written'
-            },
-            {
-                'en': 'They send him the letter',
-                'es': 'Le mandan la carta',
-                'noun_id': 'carta',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I write him a message',
-                'es': 'Le escribo un mensaje',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We pay them the money',
-                'es': 'Les pagamos el dinero',
-                'noun_id': 'dinero',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You give them the gift',
-                'es': 'Les das el regalo',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She buys him the shirt',
-                'es': 'Le compra la camisa',
-                'noun_id': 'camisa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I show him the photo',
-                'es': 'Le muestro la foto',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We tell them everything',
-                'es': 'Les decimos todo',
-                'noun_id': None,
-                'type': 'auditory'
-            }
+            {"en": "I give him the book", "es": "Le doy el libro", "noun_id": "libro", "type": "written"},
+            {"en": "She tells them the truth", "es": "Les dice la verdad", "noun_id": "verdad", "type": "auditory"},
+            {"en": "We bring her the food", "es": "Le traemos la comida", "noun_id": "comida", "type": "written"},
+            {"en": "They send him the letter", "es": "Le mandan la carta", "noun_id": "carta", "type": "auditory"},
+            {"en": "I write him a message", "es": "Le escribo un mensaje", "noun_id": "mensaje", "type": "written"},
+            {"en": "We pay them the money", "es": "Les pagamos el dinero", "noun_id": "dinero", "type": "auditory"},
+            {"en": "You give them the gift", "es": "Les das el regalo", "noun_id": "regalo", "type": "written"},
+            {"en": "She buys him the shirt", "es": "Le compra la camisa", "noun_id": "camisa", "type": "auditory"},
+            {"en": "I show him the photo", "es": "Le muestro la foto", "noun_id": "foto", "type": "written"},
+            {"en": "We tell them everything", "es": "Les decimos todo", "noun_id": None, "type": "auditory"}
         ],
         'phase_2_config': {
             'description': 'Indirect Object Pronouns',
@@ -10893,6 +11559,20 @@ GRAMMAR_SITUATIONS = {
         },
         'opener_en': 'Tell me what you do for your friends.',
         'opener_es': 'Cuéntame qué haces por tus amigos.',
+    },
+    # --- GL 19: chat companion of `grammar_obj_indirect` ---
+    "grammar_obj_indirect_chat": {
+        "title": "Indirect Object Pronouns — Chat",
+        "grammar_level": 19,
+        "lesson_number": 2.1,
+        "lesson_type": "rule",
+        "word_workload": ["le", "les"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "object_pronouns",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Indirect Object Pronouns', 'targets': [{'word': 'le'}, {'word': 'les'}]},
     },
     'grammar_obj_chat_1': {
         'title': 'Object Pronouns — Chat 1',
@@ -10962,74 +11642,24 @@ GRAMMAR_SITUATIONS = {
         'tense': 'object_pronouns',
         'phases': {
             '0a': False,
-            '0b': False,
+            '0b': True,
             '1a': False,
             '1b': False,
             '1c': False,
-            '2': True,
+            '2': False,
             '3': False
         },
         'drill_sentences': [
-            {
-                'en': 'She gives it to me',
-                'es': 'Me lo da',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I give it to you',
-                'es': 'Te lo doy',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She gives it to him',
-                'es': 'Se lo da',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We bring it to her',
-                'es': 'Se lo traemos',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I tell it to you',
-                'es': 'Te lo digo',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'He sends it to me',
-                'es': 'Me lo manda',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She writes it to me',
-                'es': 'Me la escribe',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We bring it to you',
-                'es': 'Te la traemos',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'They give it to him',
-                'es': 'Se la dan',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I show it to her',
-                'es': 'Se la muestro',
-                'noun_id': None,
-                'type': 'auditory'
-            }
+            {"en": "She gives it to me", "es": "Me lo da", "noun_id": None, "type": "written"},
+            {"en": "I give it to you", "es": "Te lo doy", "noun_id": None, "type": "auditory"},
+            {"en": "She gives it to him", "es": "Se lo da", "noun_id": None, "type": "written"},
+            {"en": "We bring it to her", "es": "Se lo traemos", "noun_id": None, "type": "auditory"},
+            {"en": "I tell it to you", "es": "Te lo digo", "noun_id": None, "type": "written"},
+            {"en": "He sends it to me", "es": "Me lo manda", "noun_id": None, "type": "auditory"},
+            {"en": "She writes it to me", "es": "Me la escribe", "noun_id": None, "type": "written"},
+            {"en": "We bring it to you", "es": "Te la traemos", "noun_id": None, "type": "auditory"},
+            {"en": "They give it to him", "es": "Se la dan", "noun_id": None, "type": "written"},
+            {"en": "I show it to her", "es": "Se la muestro", "noun_id": None, "type": "auditory"}
         ],
         'phase_2_config': {
             'description': 'Combined Object Pronouns (1/2)',
@@ -11054,6 +11684,20 @@ GRAMMAR_SITUATIONS = {
         'opener_en': 'Tell me what you do for your friends.',
         'opener_es': 'Cuéntame qué haces por tus amigos.',
     },
+    # --- GL 19: chat companion of `grammar_obj_combined_a` ---
+    "grammar_obj_combined_a_chat": {
+        "title": "Combined Object Pronouns (1/2) — Chat",
+        "grammar_level": 19,
+        "lesson_number": 4.1,
+        "lesson_type": "rule",
+        "word_workload": ["se", "lo", "la", "me", "te"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "object_pronouns",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Combined Object Pronouns (1/2)', 'targets': [{'word': 'se'}, {'word': 'lo'}, {'word': 'la'}, {'word': 'me'}, {'word': 'te'}]},
+    },
     'grammar_obj_combined_b': {
         'title': 'Combined Object Pronouns (2/2)',
         'grammar_level': 19,
@@ -11070,74 +11714,24 @@ GRAMMAR_SITUATIONS = {
         'tense': 'object_pronouns',
         'phases': {
             '0a': False,
-            '0b': False,
+            '0b': True,
             '1a': False,
             '1b': False,
             '1c': False,
-            '2': True,
+            '2': False,
             '3': False
         },
         'drill_sentences': [
-            {
-                'en': 'They bring them to us',
-                'es': 'Nos los traen',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She tells them to us',
-                'es': 'Nos los dice',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'He gives them to them',
-                'es': 'Se los da',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We send them to her',
-                'es': 'Se las mandamos',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'They show them to us',
-                'es': 'Nos las muestran',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I write them to him',
-                'es': 'Se las escribo',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We pay them to them',
-                'es': 'Se los pagamos',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You give them to us',
-                'es': 'Nos los das',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She brings them to me',
-                'es': 'Me las trae',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I send them to you',
-                'es': 'Te las mando',
-                'noun_id': None,
-                'type': 'auditory'
-            }
+            {"en": "They bring them to us", "es": "Nos los traen", "noun_id": None, "type": "written"},
+            {"en": "She tells them to us", "es": "Nos los dice", "noun_id": None, "type": "auditory"},
+            {"en": "He gives them to them", "es": "Se los da", "noun_id": None, "type": "written"},
+            {"en": "We send them to her", "es": "Se las mandamos", "noun_id": None, "type": "auditory"},
+            {"en": "They show them to us", "es": "Nos las muestran", "noun_id": None, "type": "written"},
+            {"en": "I write them to him", "es": "Se las escribo", "noun_id": None, "type": "auditory"},
+            {"en": "We pay them to them", "es": "Se los pagamos", "noun_id": None, "type": "written"},
+            {"en": "You give them to us", "es": "Nos los das", "noun_id": None, "type": "auditory"},
+            {"en": "She brings them to me", "es": "Me las trae", "noun_id": None, "type": "written"},
+            {"en": "I send them to you", "es": "Te las mando", "noun_id": None, "type": "auditory"}
         ],
         'phase_2_config': {
             'description': 'Combined Object Pronouns (2/2)',
@@ -11158,6 +11752,20 @@ GRAMMAR_SITUATIONS = {
         },
         'opener_en': 'Tell me what you do for your friends.',
         'opener_es': 'Cuéntame qué haces por tus amigos.',
+    },
+    # --- GL 19: chat companion of `grammar_obj_combined_b` ---
+    "grammar_obj_combined_b_chat": {
+        "title": "Combined Object Pronouns (2/2) — Chat",
+        "grammar_level": 19,
+        "lesson_number": 5.1,
+        "lesson_type": "rule",
+        "word_workload": ["nos", "los", "las", "se"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "object_pronouns",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Combined Object Pronouns (2/2)', 'targets': [{'word': 'nos'}, {'word': 'los'}, {'word': 'las'}, {'word': 'se'}]},
     },
     'grammar_obj_chat_2': {
         'title': 'Object Pronouns — Chat 2',

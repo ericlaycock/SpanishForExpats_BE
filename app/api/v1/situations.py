@@ -890,6 +890,7 @@ async def get_grammar_config_endpoint(
         phase_2_config=config.get("phase_2_config"),
         lesson_type=config.get("lesson_type"),
         drill_sentences=config.get("drill_sentences"),
+        rule_chart=config.get("rule_chart"),
     )
 
 

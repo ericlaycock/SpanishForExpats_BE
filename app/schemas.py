@@ -339,6 +339,11 @@ class GrammarConfigResponse(BaseModel):
     phase_2_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
     lesson_type: Optional[str] = None       # "conjugation" | "rule"
     drill_sentences: Optional[List[Dict[str, Any]]] = Field(default=None, json_schema_extra=_freeform_object_list_schema)
+    # Optional rule chart for non-conjugation rule lessons (Ser/Estar, Por/Para,
+    # Gender's MAJE LONERS / DIONZA, Pronouns formality, etc.). Renders above
+    # the drill exercise via the FE RuleChart component as an alternative to
+    # the VerbChart used for conjugation lessons.
+    rule_chart: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
 
 
 # Grammar gate / completion schemas
