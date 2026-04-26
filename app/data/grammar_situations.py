@@ -11603,6 +11603,74 @@ def get_grammar_config(situation_id: str) -> dict | None:
     return GRAMMAR_SITUATIONS.get(situation_id)
 
 
+def derive_intro_chart(config: dict) -> dict | None:
+    """Compute the gentle-intro chart for a lesson on the fly when the author
+    hasn't supplied one. Returns None for chat-only lessons.
+
+    - If the lesson already carries an `intro_chart`, that wins (manual override).
+    - Conjugation lessons → kind: 'verb_conjugation' built from word_workload + drill_config.answers.
+    - Rule lessons with rule_chart of kind 'table' → drop the optional 'Note' column for a cleaner reveal/quiz.
+    - Rule lessons with rule_chart of kinds 'comparison' / 'list' / 'rule_pack' → reused verbatim.
+    - Rule lessons with no rule_chart → minimal kind: 'list' from word_workload (reveal-only fallback).
+    - Chat-only lessons (drill_type='skip') → no intro.
+    """
+    authored = config.get("intro_chart")
+    if authored:
+        return authored
+
+    drill_type = config.get("drill_type")
+    if drill_type == "skip":
+        return None
+
+    # Conjugation pipeline
+    if drill_type in ("conjugation", "ir_a_inf"):
+        verbs = config.get("word_workload") or []
+        answers = (config.get("drill_config") or {}).get("answers") or {}
+        verbs_in_answers = [v for v in verbs if v in answers]
+        if not verbs_in_answers:
+            return None
+        return {
+            "kind": "verb_conjugation",
+            "tense_label": config.get("tense") or "present",
+            "verbs": verbs_in_answers,
+            "answers": {v: answers[v] for v in verbs_in_answers},
+        }
+
+    # Rule pipeline — prefer existing rule_chart, simplified
+    rule_chart = config.get("rule_chart")
+    if rule_chart:
+        kind = rule_chart.get("kind")
+        if kind == "table":
+            headers = list(rule_chart.get("headers") or [])
+            rows = [list(r) for r in (rule_chart.get("rows") or [])]
+            # Drop trailing "Note"-style columns (last column is often optional commentary).
+            note_idxs = [i for i, h in enumerate(headers) if h.strip().lower() in ("note", "notes", "example", "examples")]
+            if note_idxs:
+                keep = [i for i in range(len(headers)) if i not in note_idxs]
+                headers = [headers[i] for i in keep]
+                rows = [[r[i] if i < len(r) else "" for i in keep] for r in rows]
+            return {
+                "kind": "table",
+                "title": rule_chart.get("title") or config.get("title") or "",
+                "headers": headers,
+                "rows": rows,
+                "footnote": rule_chart.get("footnote"),
+                "quiz_column_index": 1 if len(headers) > 1 else 0,
+            }
+        if kind in ("comparison", "list", "rule_pack"):
+            return rule_chart
+
+    # Last resort — show the new vocabulary as a list
+    workload = config.get("word_workload") or []
+    if workload:
+        return {
+            "kind": "list",
+            "title": config.get("title") or "New words",
+            "items": [str(w) for w in workload],
+        }
+    return None
+
+
 def get_all_grammar_situation_ids() -> list[str]:
     """Get all grammar situation IDs sorted by grammar_level."""
     return sorted(GRAMMAR_SITUATIONS.keys(), key=lambda k: GRAMMAR_SITUATIONS[k]["grammar_level"])

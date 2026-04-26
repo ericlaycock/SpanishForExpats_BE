@@ -27,6 +27,7 @@ from app.services.word_selection_service import (
 )
 from app.data.grammar_situations import (
     get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS,
+    derive_intro_chart,
     get_next_gate, GL_VL_THRESHOLDS, GL_TITLES, GL_SORTED,
 )
 from app.data.seed_bank import ANIMATION_NAMES
@@ -891,7 +892,7 @@ async def get_grammar_config_endpoint(
         lesson_type=config.get("lesson_type"),
         drill_sentences=config.get("drill_sentences"),
         rule_chart=config.get("rule_chart"),
-        intro_chart=config.get("intro_chart"),
+        intro_chart=derive_intro_chart(config),
     )
 
 
