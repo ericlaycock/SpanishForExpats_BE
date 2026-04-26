@@ -417,16 +417,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I speak Spanish at home", "es": "Yo hablo español en casa", "noun_id": "casa", "type": "written"},
+            {"en": "I speak Spanish", "es": "Yo hablo español", "noun_id": None, "type": "written"},
+            {"en": "You drink water", "es": "Tú bebes agua", "noun_id": None, "type": "auditory"},
+            {"en": "He lives here", "es": "Él vive aquí", "noun_id": None, "type": "written"},
             {"en": "She speaks English", "es": "Ella habla inglés", "noun_id": None, "type": "auditory"},
-            {"en": "You all speak well", "es": "Ustedes hablan bien", "noun_id": None, "type": "written"},
-            {"en": "You drink coffee every day", "es": "Tú bebes café todos los días", "noun_id": "café", "type": "auditory"},
-            {"en": "We (f) drink water", "es": "Nosotras bebemos agua", "noun_id": "agua", "type": "written"},
-            {"en": "He drinks juice in the morning", "es": "Él bebe jugo por la mañana", "noun_id": "jugo", "type": "auditory"},
-            {"en": "You live in the city", "es": "Usted vive en la ciudad", "noun_id": "ciudad", "type": "written"},
-            {"en": "We live in a house", "es": "Nosotros vivimos en una casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "They (f) live here", "es": "Ellas viven aquí", "noun_id": None, "type": "written"},
-            {"en": "They live in Colombia", "es": "Ellos viven en Colombia", "noun_id": None, "type": "auditory"},
+            {"en": "You drink coffee", "es": "Usted bebe café", "noun_id": "café", "type": "written"},
+            {"en": "We live nearby", "es": "Nosotros vivimos cerca", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) speak well", "es": "Nosotras hablamos bien", "noun_id": None, "type": "written"},
+            {"en": "They drink juice", "es": "Ellos beben jugo", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) live together", "es": "Ellas viven juntos", "noun_id": None, "type": "written"},
+            {"en": "You all speak fast", "es": "Ustedes hablan rápido", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "ella"},
@@ -493,16 +493,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I listen to music every day", "es": "Yo escucho música todos los días", "noun_id": "música", "type": "written"},
-            {"en": "You listen to the radio", "es": "Usted escucha la radio", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) listen at home", "es": "Ellas escuchan en casa", "noun_id": "casa", "type": "written"},
-            {"en": "You eat meat at lunch", "es": "Tú comes carne al almuerzo", "noun_id": "carne", "type": "auditory"},
-            {"en": "We eat bread every morning", "es": "Nosotros comemos pan cada mañana", "noun_id": "pan", "type": "written"},
-            {"en": "She eats at the restaurant", "es": "Ella come en el restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "He writes a letter", "es": "Él escribe una carta", "noun_id": "carta", "type": "written"},
-            {"en": "We (f) write in Spanish", "es": "Nosotras escribimos en español", "noun_id": None, "type": "auditory"},
-            {"en": "You all write your names", "es": "Ustedes escriben sus nombres", "noun_id": None, "type": "written"},
-            {"en": "They write books", "es": "Ellos escriben libros", "noun_id": "libro", "type": "auditory"},
+            {"en": "I listen the radio", "es": "Yo escucho la radio", "noun_id": None, "type": "written"},
+            {"en": "You eat food", "es": "Tú comes comida", "noun_id": None, "type": "auditory"},
+            {"en": "He writes a book", "es": "Él escribe un libro", "noun_id": "libro", "type": "written"},
+            {"en": "She listens a song", "es": "Ella escucha una canción", "noun_id": None, "type": "auditory"},
+            {"en": "You eat fruit", "es": "Usted come fruta", "noun_id": None, "type": "written"},
+            {"en": "We write messages", "es": "Nosotros escribimos mensajes", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) listen well", "es": "Nosotras escuchamos bien", "noun_id": None, "type": "written"},
+            {"en": "They eat meat", "es": "Ellos comen carne", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) write names", "es": "Ellas escriben nombres", "noun_id": "nombre", "type": "written"},
+            {"en": "You all listen carefully", "es": "Ustedes escuchan atentamente", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "escuchar", "pronoun": "yo"}, {"verb": "escuchar", "pronoun": "usted"},
@@ -569,16 +569,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I sing at home", "es": "Yo canto en casa", "noun_id": "casa", "type": "written"},
-            {"en": "We (f) sing in Spanish", "es": "Nosotras cantamos en español", "noun_id": None, "type": "auditory"},
-            {"en": "You all sing well", "es": "Ustedes cantan bien", "noun_id": None, "type": "written"},
-            {"en": "You read a book every day", "es": "Tú lees un libro cada día", "noun_id": "libro", "type": "auditory"},
-            {"en": "She reads a book", "es": "Ella lee un libro", "noun_id": "libro", "type": "written"},
-            {"en": "They read Spanish books", "es": "Ellos leen libros en español", "noun_id": "libro", "type": "auditory"},
-            {"en": "He opens the door", "es": "Él abre la puerta", "noun_id": "puerta", "type": "written"},
-            {"en": "You open the window", "es": "Usted abre la ventana", "noun_id": "ventana", "type": "auditory"},
-            {"en": "We open the store", "es": "Nosotros abrimos la tienda", "noun_id": "tienda", "type": "written"},
-            {"en": "They (f) open their books", "es": "Ellas abren sus libros", "noun_id": "libro", "type": "auditory"},
+            {"en": "I sing in Spanish", "es": "Yo canto en español", "noun_id": None, "type": "written"},
+            {"en": "You read a lot", "es": "Tú lees mucho", "noun_id": None, "type": "auditory"},
+            {"en": "He opens the store", "es": "Él abre la tienda", "noun_id": "tienda", "type": "written"},
+            {"en": "She sings together", "es": "Ella canta juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You read out loud", "es": "Usted lee en voz alta", "noun_id": None, "type": "written"},
+            {"en": "We open the book", "es": "Nosotros abrimos el libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "We (f) sing loudly", "es": "Nosotras cantamos alto", "noun_id": None, "type": "written"},
+            {"en": "They read fast", "es": "Ellos leen rápido", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) open the box", "es": "Ellas abren la caja", "noun_id": None, "type": "written"},
+            {"en": "You all sing a song", "es": "Ustedes cantan una canción", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "cantar", "pronoun": "yo"}, {"verb": "cantar", "pronoun": "nosotras"},
@@ -635,16 +635,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I am from Colombia", "es": "Yo soy de Colombia", "noun_id": None, "type": "written"},
-            {"en": "She is at the bank", "es": "Ella está en el banco", "noun_id": "banco", "type": "auditory"},
-            {"en": "You go to the market", "es": "Usted va al mercado", "noun_id": "mercado", "type": "written"},
-            {"en": "You (f) are at home", "es": "Tú estás en casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "They (f) go to the store", "es": "Ellas van a la tienda", "noun_id": "tienda", "type": "written"},
-            {"en": "We (f) are from the city", "es": "Nosotras somos de la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "You all give money", "es": "Ustedes dan dinero", "noun_id": "dinero", "type": "written"},
-            {"en": "He has a dog", "es": "Él tiene un perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "We have the book", "es": "Nosotros tenemos el libro", "noun_id": "libro", "type": "written"},
-            {"en": "They come from the house", "es": "Ellos vienen de la casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "I am tall", "es": "Yo soy alto", "noun_id": None, "type": "written"},
+            {"en": "You are here", "es": "Tú estás aquí", "noun_id": None, "type": "auditory"},
+            {"en": "He goes to the market", "es": "Él va al mercado", "noun_id": "mercado", "type": "written"},
+            {"en": "She gives the book", "es": "Ella da el libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "You have a dog", "es": "Usted tiene un perro", "noun_id": "perro", "type": "written"},
+            {"en": "We come home", "es": "Nosotros venimos a casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "We (f) are professional", "es": "Nosotras somos profesional", "noun_id": None, "type": "written"},
+            {"en": "They are at home", "es": "Ellos están en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "They (f) go home", "es": "Ellas van a casa", "noun_id": "casa", "type": "written"},
+            {"en": "You all give money", "es": "Ustedes dan dinero", "noun_id": "dinero", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "ella"},
@@ -700,16 +700,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You are from Mexico", "es": "Tú eres de México", "noun_id": None, "type": "written"},
-            {"en": "We are from here", "es": "Nosotros somos de aquí", "noun_id": None, "type": "auditory"},
-            {"en": "He is at the office", "es": "Él está en la oficina", "noun_id": "oficina", "type": "written"},
-            {"en": "You all are in the city", "es": "Ustedes están en la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "She goes to the market", "es": "Ella va al mercado", "noun_id": "mercado", "type": "written"},
-            {"en": "We (f) go to the store", "es": "Nosotras vamos a la tienda", "noun_id": "tienda", "type": "auditory"},
-            {"en": "I give the book to her", "es": "Yo doy el libro", "noun_id": "libro", "type": "written"},
-            {"en": "They give money", "es": "Ellos dan dinero", "noun_id": "dinero", "type": "auditory"},
-            {"en": "You have a car", "es": "Usted tiene un carro", "noun_id": "carro", "type": "written"},
-            {"en": "They (f) come from the house", "es": "Ellas vienen de la casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "I am professional", "es": "Yo soy profesional", "noun_id": None, "type": "written"},
+            {"en": "You are at home", "es": "Tú estás en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "He goes home", "es": "Él va a casa", "noun_id": "casa", "type": "written"},
+            {"en": "She gives money", "es": "Ella da dinero", "noun_id": "dinero", "type": "auditory"},
+            {"en": "You have a house", "es": "Usted tiene una casa", "noun_id": "casa", "type": "written"},
+            {"en": "We come from the park", "es": "Nosotros venimos del parque", "noun_id": "parque", "type": "auditory"},
+            {"en": "We (f) are important", "es": "Nosotras somos importante", "noun_id": None, "type": "written"},
+            {"en": "They are tired", "es": "Ellos están cansado", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) go to the park", "es": "Ellas van al parque", "noun_id": "parque", "type": "written"},
+            {"en": "You all give water", "es": "Ustedes dan agua", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "nosotros"},
@@ -765,16 +765,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You are a good person", "es": "Usted es una buena persona", "noun_id": None, "type": "written"},
-            {"en": "They are at the restaurant", "es": "Ellos están en el restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "I am at the store", "es": "Yo estoy en la tienda", "noun_id": "tienda", "type": "written"},
-            {"en": "They (f) are in the city", "es": "Ellas están en la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "You go to the office", "es": "Tú vas a la oficina", "noun_id": "oficina", "type": "written"},
-            {"en": "We go to the park", "es": "Nosotros vamos al parque", "noun_id": "parque", "type": "auditory"},
-            {"en": "She gives bread to them", "es": "Ella da pan", "noun_id": "pan", "type": "written"},
-            {"en": "We (f) give water", "es": "Nosotras damos agua", "noun_id": "agua", "type": "auditory"},
-            {"en": "You all have a dog", "es": "Ustedes tienen un perro", "noun_id": "perro", "type": "written"},
-            {"en": "He comes from the park", "es": "Él viene del parque", "noun_id": "parque", "type": "auditory"},
+            {"en": "I am important", "es": "Yo soy importante", "noun_id": None, "type": "written"},
+            {"en": "You are tired", "es": "Tú estás cansado", "noun_id": None, "type": "auditory"},
+            {"en": "He goes to the park", "es": "Él va al parque", "noun_id": "parque", "type": "written"},
+            {"en": "She gives water", "es": "Ella da agua", "noun_id": None, "type": "auditory"},
+            {"en": "You have hunger", "es": "Usted tiene hambre", "noun_id": None, "type": "written"},
+            {"en": "We come early", "es": "Nosotros venimos temprano", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) are likeable", "es": "Nosotras somos simpático", "noun_id": None, "type": "written"},
+            {"en": "They are well", "es": "Ellos están bien", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) go to the store", "es": "Ellas van a la tienda", "noun_id": "tienda", "type": "written"},
+            {"en": "You all give an answer", "es": "Ustedes dan una respuesta", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "ser", "pronoun": "usted"}, {"verb": "ser", "pronoun": "ellos"},
@@ -1019,16 +1019,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I make the food at home", "es": "Yo hago la comida en casa", "noun_id": "comida", "type": "written"},
-            {"en": "She makes the coffee", "es": "Ella hace el café", "noun_id": "café", "type": "auditory"},
-            {"en": "You all do the work", "es": "Ustedes hacen el trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "I make homework", "es": "Yo hago la tarea", "noun_id": None, "type": "written"},
             {"en": "You put the book here", "es": "Tú pones el libro aquí", "noun_id": "libro", "type": "auditory"},
-            {"en": "We (f) put the water here", "es": "Nosotras ponemos el agua aquí", "noun_id": "agua", "type": "written"},
-            {"en": "He leaves the house", "es": "Él sale de la casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "They leave the office", "es": "Ellos salen de la oficina", "noun_id": "oficina", "type": "written"},
-            {"en": "You say the truth", "es": "Usted dice la verdad", "noun_id": None, "type": "auditory"},
-            {"en": "We say hello every day", "es": "Nosotros decimos hola cada día", "noun_id": None, "type": "written"},
-            {"en": "They (f) say the name", "es": "Ellas dicen el nombre", "noun_id": None, "type": "auditory"},
+            {"en": "He leaves early", "es": "Él sale temprano", "noun_id": None, "type": "written"},
+            {"en": "She says the truth", "es": "Ella dice la verdad", "noun_id": None, "type": "auditory"},
+            {"en": "You make food", "es": "Usted hace comida", "noun_id": None, "type": "written"},
+            {"en": "We put the table", "es": "Nosotros ponemos la mesa", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) leave from home", "es": "Nosotras salimos de casa", "noun_id": "casa", "type": "written"},
+            {"en": "They say hi", "es": "Ellos dicen hola", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) make exercise", "es": "Ellas hacen ejercicio", "noun_id": None, "type": "written"},
+            {"en": "You all put water", "es": "Ustedes ponen agua", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hacer", "pronoun": "yo"}, {"verb": "hacer", "pronoun": "ella"},
@@ -1100,16 +1100,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I hear the music", "es": "Yo oigo la música", "noun_id": None, "type": "written"},
-            {"en": "We hear the dog at night", "es": "Nosotros oímos el perro de noche", "noun_id": "perro", "type": "auditory"},
-            {"en": "They (f) hear the door", "es": "Ellas oyen la puerta", "noun_id": "puerta", "type": "written"},
-            {"en": "You fall in the park", "es": "Tú caes en el parque", "noun_id": "parque", "type": "auditory"},
-            {"en": "She falls in the house", "es": "Ella cae en la casa", "noun_id": "casa", "type": "written"},
-            {"en": "He brings the food", "es": "Él trae la comida", "noun_id": "comida", "type": "auditory"},
-            {"en": "You all bring water", "es": "Ustedes traen agua", "noun_id": "agua", "type": "written"},
-            {"en": "It is worth the money", "es": "Usted vale el dinero", "noun_id": "dinero", "type": "auditory"},
-            {"en": "We (f) are worth a lot", "es": "Nosotras valemos mucho", "noun_id": None, "type": "written"},
-            {"en": "They cost a lot", "es": "Ellos valen mucho", "noun_id": None, "type": "auditory"},
+            {"en": "I hear the noise", "es": "Yo oigo el ruido", "noun_id": None, "type": "written"},
+            {"en": "You fall today", "es": "Tú caes hoy", "noun_id": None, "type": "auditory"},
+            {"en": "He brings water", "es": "Él trae agua", "noun_id": None, "type": "written"},
+            {"en": "She is worth it", "es": "Ella vale la pena", "noun_id": None, "type": "auditory"},
+            {"en": "You hear a song", "es": "Usted oye una canción", "noun_id": None, "type": "written"},
+            {"en": "We fall asleep", "es": "Nosotros caemos dormido", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) bring the book", "es": "Nosotras traemos el libro", "noun_id": "libro", "type": "written"},
+            {"en": "They be worth little", "es": "Ellos valen poco", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) hear well", "es": "Ellas oyen bien", "noun_id": None, "type": "written"},
+            {"en": "You all fall here", "es": "Ustedes caen aquí", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "oír", "pronoun": "yo"}, {"verb": "oír", "pronoun": "nosotros"},
@@ -1181,16 +1181,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You make breakfast every day", "es": "Tú haces el desayuno cada día", "noun_id": None, "type": "written"},
-            {"en": "We do the work together", "es": "Nosotros hacemos el trabajo juntos", "noun_id": "trabajo", "type": "auditory"},
-            {"en": "You put the book here", "es": "Usted pone el libro aquí", "noun_id": "libro", "type": "written"},
-            {"en": "They (f) put the water here", "es": "Ellas ponen el agua aquí", "noun_id": "agua", "type": "auditory"},
-            {"en": "I leave the house", "es": "Yo salgo de la casa", "noun_id": "casa", "type": "written"},
-            {"en": "We (f) leave early", "es": "Nosotras salimos temprano", "noun_id": None, "type": "auditory"},
-            {"en": "You all leave the office", "es": "Ustedes salen de la oficina", "noun_id": "oficina", "type": "written"},
-            {"en": "He says hello in Spanish", "es": "Él dice hola en español", "noun_id": None, "type": "auditory"},
-            {"en": "She says the truth", "es": "Ella dice la verdad", "noun_id": None, "type": "written"},
-            {"en": "They say the name", "es": "Ellos dicen el nombre", "noun_id": None, "type": "auditory"},
+            {"en": "I make exercise", "es": "Yo hago ejercicio", "noun_id": None, "type": "written"},
+            {"en": "You put water", "es": "Tú pones agua", "noun_id": None, "type": "auditory"},
+            {"en": "He leaves from work", "es": "Él sale del trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "She says thanks", "es": "Ella dice gracias", "noun_id": None, "type": "auditory"},
+            {"en": "You make a plan", "es": "Usted hace un plan", "noun_id": "plan", "type": "written"},
+            {"en": "We put music", "es": "Nosotros ponemos música", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) leave together", "es": "Nosotras salimos juntos", "noun_id": None, "type": "written"},
+            {"en": "They say nothing", "es": "Ellos dicen nada", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) make the bed", "es": "Ellas hacen la cama", "noun_id": None, "type": "written"},
+            {"en": "You all put the coffee", "es": "Ustedes ponen el café", "noun_id": "café", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hacer", "pronoun": "tú"}, {"verb": "hacer", "pronoun": "nosotros"},
@@ -1262,16 +1262,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You hear the music", "es": "Tú oyes la música", "noun_id": "música", "type": "written"},
-            {"en": "You hear the dog", "es": "Usted oye el perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "I fall near the door", "es": "Yo caigo cerca de la puerta", "noun_id": "puerta", "type": "written"},
-            {"en": "We (f) fall in the street", "es": "Nosotras caemos en la calle", "noun_id": None, "type": "auditory"},
-            {"en": "They fall at the park", "es": "Ellos caen en el parque", "noun_id": "parque", "type": "written"},
-            {"en": "She brings the food from the market", "es": "Ella trae la comida del mercado", "noun_id": "comida", "type": "auditory"},
-            {"en": "We bring water", "es": "Nosotros traemos agua", "noun_id": "agua", "type": "written"},
-            {"en": "It is worth the price", "es": "Él vale el precio", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) are worth a lot", "es": "Ellas valen mucho", "noun_id": None, "type": "written"},
-            {"en": "You all are worth the effort", "es": "Ustedes valen el esfuerzo", "noun_id": None, "type": "auditory"},
+            {"en": "I hear well", "es": "Yo oigo bien", "noun_id": None, "type": "written"},
+            {"en": "You fall here", "es": "Tú caes aquí", "noun_id": None, "type": "auditory"},
+            {"en": "He brings gifts", "es": "Él trae regalos", "noun_id": None, "type": "written"},
+            {"en": "She is worth gold", "es": "Ella vale oro", "noun_id": None, "type": "auditory"},
+            {"en": "You hear the radio", "es": "Usted oye la radio", "noun_id": None, "type": "written"},
+            {"en": "We fall fast", "es": "Nosotros caemos rápido", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) bring coffee", "es": "Nosotras traemos café", "noun_id": "café", "type": "written"},
+            {"en": "They be worth the wait", "es": "Ellos valen la espera", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) hear music", "es": "Ellas oyen música", "noun_id": None, "type": "written"},
+            {"en": "You all fall on the street", "es": "Ustedes caen en la calle", "noun_id": "calle", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "oír", "pronoun": "tú"}, {"verb": "oír", "pronoun": "usted"},
@@ -1344,16 +1344,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I know a good restaurant", "es": "Yo conozco un buen restaurante", "noun_id": "restaurante", "type": "written"},
-            {"en": "She knows the city well", "es": "Ella conoce la ciudad bien", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "You all know the area", "es": "Ustedes conocen la zona", "noun_id": None, "type": "written"},
-            {"en": "You produce food every day", "es": "Tú produces comida cada día", "noun_id": "comida", "type": "auditory"},
-            {"en": "We (f) produce good work", "es": "Nosotras producimos buen trabajo", "noun_id": "trabajo", "type": "written"},
-            {"en": "He builds a house", "es": "Él construye una casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "They build in the city", "es": "Ellos construyen en la ciudad", "noun_id": "ciudad", "type": "written"},
-            {"en": "You get the book", "es": "Usted consigue el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "We get the money", "es": "Nosotros conseguimos el dinero", "noun_id": "dinero", "type": "written"},
-            {"en": "They (f) get a good job", "es": "Ellas consiguen un buen trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "I know the city", "es": "Yo conozco la ciudad", "noun_id": "ciudad", "type": "written"},
+            {"en": "You produce food", "es": "Tú produces comida", "noun_id": None, "type": "auditory"},
+            {"en": "He builds a house", "es": "Él construye una casa", "noun_id": "casa", "type": "written"},
+            {"en": "She gets the book", "es": "Ella consigue el libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "You know Maria", "es": "Usted conoce a María", "noun_id": None, "type": "written"},
+            {"en": "We produce coffee", "es": "Nosotros producimos café", "noun_id": "café", "type": "auditory"},
+            {"en": "We (f) build a bridge", "es": "Nosotras construimos un puente", "noun_id": None, "type": "written"},
+            {"en": "They get money", "es": "Ellos consiguen dinero", "noun_id": "dinero", "type": "auditory"},
+            {"en": "They (f) know the neighborhood", "es": "Ellas conocen el barrio", "noun_id": None, "type": "written"},
+            {"en": "You all produce work", "es": "Ustedes producen trabajo", "noun_id": "trabajo", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "conocer", "pronoun": "yo"}, {"verb": "conocer", "pronoun": "ella"},
@@ -1425,16 +1425,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I pick up the food", "es": "Yo recojo la comida", "noun_id": "comida", "type": "written"},
-            {"en": "We pick up the bags", "es": "Nosotros recogemos las bolsas", "noun_id": "bolsa", "type": "auditory"},
-            {"en": "They (f) pick up the books", "es": "Ellas recogen los libros", "noun_id": "libro", "type": "written"},
-            {"en": "You direct the work", "es": "Tú diriges el trabajo", "noun_id": "trabajo", "type": "auditory"},
-            {"en": "She directs the team", "es": "Ella dirige el equipo", "noun_id": None, "type": "written"},
-            {"en": "He convinces the client", "es": "Él convence al cliente", "noun_id": None, "type": "auditory"},
-            {"en": "You all convince the family", "es": "Ustedes convencen a la familia", "noun_id": None, "type": "written"},
-            {"en": "You continue working every day", "es": "Usted continúa trabajando cada día", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) continue with the plan", "es": "Nosotras continuamos con el plan", "noun_id": None, "type": "written"},
-            {"en": "They continue in the city", "es": "Ellos continúan en la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "I pick up the bags", "es": "Yo recojo las bolsas", "noun_id": None, "type": "written"},
+            {"en": "You direct the team", "es": "Tú diriges el equipo", "noun_id": None, "type": "auditory"},
+            {"en": "He convinces the family", "es": "Él convence a la familia", "noun_id": "familia", "type": "written"},
+            {"en": "She continues working", "es": "Ella continúa trabajando", "noun_id": None, "type": "auditory"},
+            {"en": "You pick up the books", "es": "Usted recoge los libros", "noun_id": "libro", "type": "written"},
+            {"en": "We direct the project", "es": "Nosotros dirigimos el proyecto", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) convince the neighbors", "es": "Nosotras convencemos a los vecinos", "noun_id": None, "type": "written"},
+            {"en": "They continue here", "es": "Ellos continúan aquí", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) pick up the trash", "es": "Ellas recogen la basura", "noun_id": None, "type": "written"},
+            {"en": "You all direct the office", "es": "Ustedes dirigen la oficina", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "recoger", "pronoun": "yo"}, {"verb": "recoger", "pronoun": "nosotros"},
@@ -1506,16 +1506,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You know a good park", "es": "Tú conoces un buen parque", "noun_id": "parque", "type": "written"},
-            {"en": "We know this neighborhood", "es": "Nosotros conocemos este barrio", "noun_id": None, "type": "auditory"},
-            {"en": "You produce good results", "es": "Usted produce buenos resultados", "noun_id": None, "type": "written"},
-            {"en": "They (f) produce the best food", "es": "Ellas producen la mejor comida", "noun_id": "comida", "type": "auditory"},
-            {"en": "I build a house", "es": "Yo construyo una casa", "noun_id": "casa", "type": "written"},
-            {"en": "We (f) build near the market", "es": "Nosotras construimos cerca del mercado", "noun_id": "mercado", "type": "auditory"},
-            {"en": "You all build the office", "es": "Ustedes construyen la oficina", "noun_id": "oficina", "type": "written"},
-            {"en": "He gets the job", "es": "Él consigue el trabajo", "noun_id": "trabajo", "type": "auditory"},
-            {"en": "She gets the book", "es": "Ella consigue el libro", "noun_id": "libro", "type": "written"},
-            {"en": "They get the money", "es": "Ellos consiguen el dinero", "noun_id": "dinero", "type": "auditory"},
+            {"en": "I know the neighborhood", "es": "Yo conozco el barrio", "noun_id": None, "type": "written"},
+            {"en": "You produce work", "es": "Tú produces trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "He builds the office", "es": "Él construye la oficina", "noun_id": None, "type": "written"},
+            {"en": "She gets work", "es": "Ella consigue trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "You know the neighbors", "es": "Usted conoce a los vecinos", "noun_id": None, "type": "written"},
+            {"en": "We produce good wine", "es": "Nosotros producimos buen vino", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) build fast", "es": "Nosotras construimos rápido", "noun_id": None, "type": "written"},
+            {"en": "They get a ticket", "es": "Ellos consiguen una entrada", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) know a good place", "es": "Ellas conocen un buen lugar", "noun_id": None, "type": "written"},
+            {"en": "You all produce results", "es": "Ustedes producen resultados", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "conocer", "pronoun": "tú"}, {"verb": "conocer", "pronoun": "nosotros"},
@@ -1587,16 +1587,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You pick up the food", "es": "Tú recoges la comida", "noun_id": "comida", "type": "written"},
-            {"en": "You pick up the book", "es": "Usted recoge el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "I direct the work", "es": "Yo dirijo el trabajo", "noun_id": "trabajo", "type": "written"},
-            {"en": "We (f) direct the project", "es": "Nosotras dirigimos el proyecto", "noun_id": None, "type": "auditory"},
-            {"en": "They direct from the office", "es": "Ellos dirigen desde la oficina", "noun_id": "oficina", "type": "written"},
-            {"en": "She convinces the neighbor", "es": "Ella convence a la vecina", "noun_id": None, "type": "auditory"},
-            {"en": "We convince with the truth", "es": "Nosotros convencemos con la verdad", "noun_id": None, "type": "written"},
-            {"en": "He continues with the plan", "es": "Él continúa con el plan", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) continue in the city", "es": "Ellas continúan en la ciudad", "noun_id": "ciudad", "type": "written"},
-            {"en": "You all continue working", "es": "Ustedes continúan trabajando", "noun_id": None, "type": "auditory"},
+            {"en": "I pick up the trash", "es": "Yo recojo la basura", "noun_id": None, "type": "written"},
+            {"en": "You direct the office", "es": "Tú diriges la oficina", "noun_id": None, "type": "auditory"},
+            {"en": "He convinces Maria", "es": "Él convence a María", "noun_id": None, "type": "written"},
+            {"en": "She continues talking", "es": "Ella continúa hablando", "noun_id": None, "type": "auditory"},
+            {"en": "You pick up flowers", "es": "Usted recoge flores", "noun_id": None, "type": "written"},
+            {"en": "We direct an orchestra", "es": "Nosotros dirigimos una orquesta", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) convince everyone", "es": "Nosotras convencemos a todos", "noun_id": None, "type": "written"},
+            {"en": "They continue together", "es": "Ellos continúan juntos", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) pick up the food", "es": "Ellas recogen la comida", "noun_id": None, "type": "written"},
+            {"en": "You all direct the work", "es": "Ustedes dirigen el trabajo", "noun_id": "trabajo", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "recoger", "pronoun": "tú"}, {"verb": "recoger", "pronoun": "usted"},
@@ -1659,16 +1659,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "rule_chart": {'kind': 'comparison', 'title': 'Saber vs. Conocer', 'left': {'heading': 'saber', 'items': ['Facts  →  Yo sé la respuesta', 'Skills (saber + infinitive)  →  Sé hablar español', 'Information  →  Sabes qué hora es']}, 'right': {'heading': 'conocer', 'items': ['People  →  Conozco a María', 'Places  →  Conozco la ciudad', 'Familiarity  →  Conoces el restaurante']}, 'footnote': 'saber = knowledge / how-to; conocer = acquaintance / familiarity.'},
         "drill_sentences": [
-            {"en": "I know how to speak Spanish", "es": "Yo sé hablar español", "noun_id": None, "type": "written"},
+            {"en": "I know the truth", "es": "Yo sé la verdad", "noun_id": None, "type": "written"},
             {"en": "You know the city", "es": "Tú conoces la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "She knows the answer", "es": "Ella sabe la respuesta", "noun_id": "respuesta", "type": "written"},
-            {"en": "He knows the restaurant", "es": "Él conoce el restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "We know how to cook", "es": "Nosotros sabemos cocinar", "noun_id": "cocinar", "type": "written"},
-            {"en": "We know the market", "es": "Nosotras conocemos el mercado", "noun_id": "mercado", "type": "auditory"},
-            {"en": "They know the way", "es": "Ellos saben el camino", "noun_id": "camino", "type": "written"},
-            {"en": "They know the park", "es": "Ellas conocen el parque", "noun_id": "parque", "type": "auditory"},
-            {"en": "You know what time it is", "es": "Usted sabe qué hora es", "noun_id": "hora", "type": "written"},
-            {"en": "You all know the neighbors", "es": "Ustedes conocen a los vecinos", "noun_id": "vecino", "type": "auditory"},
+            {"en": "He knows the answer", "es": "Él sabe la respuesta", "noun_id": None, "type": "written"},
+            {"en": "She knows Maria", "es": "Ella conoce a María", "noun_id": None, "type": "auditory"},
+            {"en": "You know the time", "es": "Usted sabe la hora", "noun_id": None, "type": "written"},
+            {"en": "We know the neighborhood", "es": "Nosotros conocemos el barrio", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) know English", "es": "Nosotras sabemos inglés", "noun_id": None, "type": "written"},
+            {"en": "They know the neighbors", "es": "Ellos conocen a los vecinos", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) know how to cook", "es": "Ellas saben cocinar", "noun_id": None, "type": "written"},
+            {"en": "You all know a good place", "es": "Ustedes conocen un buen lugar", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "saber", "pronoun": "yo"}, {"verb": "conocer", "pronoun": "tú"},
@@ -1725,15 +1725,15 @@ GRAMMAR_SITUATIONS = {
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I move the table", "es": "Yo muevo la mesa", "noun_id": None, "type": "written"},
-            {"en": "You have lunch at the restaurant", "es": "Tú almuerzas en el restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "He is dying of hunger", "es": "Él muere de hambre", "noun_id": None, "type": "written"},
-            {"en": "She can help at the office", "es": "Ella puede ayudar en la oficina", "noun_id": "oficina", "type": "auditory"},
-            {"en": "You sleep eight hours", "es": "Usted duerme ocho horas", "noun_id": None, "type": "written"},
+            {"en": "You have lunch together", "es": "Tú almuerzas juntos", "noun_id": None, "type": "auditory"},
+            {"en": "He dies laughing", "es": "Él muere de risa", "noun_id": None, "type": "written"},
+            {"en": "She can speak", "es": "Ella puede hablar", "noun_id": None, "type": "auditory"},
+            {"en": "You sleep well", "es": "Usted duerme bien", "noun_id": None, "type": "written"},
             {"en": "We return home", "es": "Nosotros volvemos a casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "We (f) move the chairs", "es": "Nosotras movemos las sillas", "noun_id": None, "type": "written"},
-            {"en": "They have lunch in the city", "es": "Ellos almuerzan en la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "They (f) die laughing", "es": "Ellas mueren de risa", "noun_id": None, "type": "written"},
-            {"en": "You all can speak Spanish", "es": "Ustedes pueden hablar español", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) move the chair", "es": "Nosotras movemos la silla", "noun_id": None, "type": "written"},
+            {"en": "They have lunch here", "es": "Ellos almuerzan aquí", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) die of hunger", "es": "Ellas mueren de hambre", "noun_id": None, "type": "written"},
+            {"en": "You all can come", "es": "Ustedes pueden venir", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "mover", "pronoun": "yo"},
@@ -1799,16 +1799,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You move the chair", "es": "Tú mueves la silla", "noun_id": "silla", "type": "written"},
-            {"en": "I have lunch at the market", "es": "Yo almuerzo en el mercado", "noun_id": "mercado", "type": "auditory"},
-            {"en": "She is dying of tiredness", "es": "Ella muere de cansancio", "noun_id": None, "type": "written"},
-            {"en": "He can come to the house", "es": "Él puede venir a la casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "We sleep in the bedroom", "es": "Nosotros dormimos en la habitación", "noun_id": None, "type": "written"},
-            {"en": "You return to the city", "es": "Usted vuelve a la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "They move to the park", "es": "Ellos mueven al parque", "noun_id": "parque", "type": "written"},
-            {"en": "We (f) have lunch near the store", "es": "Nosotras almorzamos cerca de la tienda", "noun_id": "tienda", "type": "auditory"},
-            {"en": "You all are dying of laughter", "es": "Ustedes mueren de risa", "noun_id": None, "type": "written"},
-            {"en": "They (f) can speak Spanish", "es": "Ellas pueden hablar español", "noun_id": None, "type": "auditory"},
+            {"en": "I move the chair", "es": "Yo muevo la silla", "noun_id": None, "type": "written"},
+            {"en": "You have lunch here", "es": "Tú almuerzas aquí", "noun_id": None, "type": "auditory"},
+            {"en": "He dies of hunger", "es": "Él muere de hambre", "noun_id": None, "type": "written"},
+            {"en": "She can come", "es": "Ella puede venir", "noun_id": None, "type": "auditory"},
+            {"en": "You sleep eight hours", "es": "Usted duerme ocho horas", "noun_id": None, "type": "written"},
+            {"en": "We return early", "es": "Nosotros volvemos temprano", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) move the car", "es": "Nosotras movemos el carro", "noun_id": "carro", "type": "written"},
+            {"en": "They have lunch early", "es": "Ellos almuerzan temprano", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) die young", "es": "Ellas mueren joven", "noun_id": None, "type": "written"},
+            {"en": "You all can help", "es": "Ustedes pueden ayudar", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "mover", "pronoun": "tú"},
@@ -1874,16 +1874,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "He moves the car", "es": "Él mueve el carro", "noun_id": "carro", "type": "written"},
-            {"en": "She has lunch at home", "es": "Ella almuerza en casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "I am dying of thirst", "es": "Yo muero de sed", "noun_id": None, "type": "written"},
-            {"en": "You can go to the market", "es": "Tú puedes ir al mercado", "noun_id": "mercado", "type": "auditory"},
-            {"en": "We (f) sleep eight hours at night", "es": "Nosotras dormimos ocho horas de noche", "noun_id": None, "type": "written"},
-            {"en": "They return to the restaurant", "es": "Ellos vuelven al restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "You move to a new house", "es": "Usted se mueve a una nueva casa", "noun_id": "casa", "type": "written"},
-            {"en": "We have lunch near the office", "es": "Nosotros almorzamos cerca de la oficina", "noun_id": "oficina", "type": "auditory"},
-            {"en": "They (f) sleep in the house", "es": "Ellas duermen en la casa", "noun_id": "casa", "type": "written"},
-            {"en": "You all return to the city", "es": "Ustedes vuelven a la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "I move the car", "es": "Yo muevo el carro", "noun_id": "carro", "type": "written"},
+            {"en": "You have lunch early", "es": "Tú almuerzas temprano", "noun_id": None, "type": "auditory"},
+            {"en": "He dies young", "es": "Él muere joven", "noun_id": None, "type": "written"},
+            {"en": "She can help", "es": "Ella puede ayudar", "noun_id": None, "type": "auditory"},
+            {"en": "You sleep a lot", "es": "Usted duerme mucho", "noun_id": None, "type": "written"},
+            {"en": "We return tomorrow", "es": "Nosotros volvemos mañana", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) move the boxes", "es": "Nosotras movemos las cajas", "noun_id": None, "type": "written"},
+            {"en": "They have lunch fast", "es": "Ellos almuerzan rápido", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) die of thirst", "es": "Ellas mueren de sed", "noun_id": None, "type": "written"},
+            {"en": "You all can go", "es": "Ustedes pueden ir", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "mover", "pronoun": "él"},
@@ -1951,15 +1951,15 @@ GRAMMAR_SITUATIONS = {
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I close the door", "es": "Yo cierro la puerta", "noun_id": "puerta", "type": "written"},
-            {"en": "You understand Spanish well", "es": "Tú entiendes bien el español", "noun_id": None, "type": "auditory"},
-            {"en": "He thinks about the plan", "es": "Él piensa en el plan", "noun_id": None, "type": "written"},
-            {"en": "She wants water", "es": "Ella quiere agua", "noun_id": "agua", "type": "auditory"},
-            {"en": "You prefer coffee", "es": "Usted prefiere el café", "noun_id": "café", "type": "written"},
+            {"en": "You understand Spanish", "es": "Tú entiendes español", "noun_id": None, "type": "auditory"},
+            {"en": "He thinks of you", "es": "Él piensa en ti", "noun_id": None, "type": "written"},
+            {"en": "She wants coffee", "es": "Ella quiere café", "noun_id": "café", "type": "auditory"},
+            {"en": "You prefer coffee", "es": "Usted prefiere café", "noun_id": "café", "type": "written"},
             {"en": "We start early", "es": "Nosotros empezamos temprano", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) close the store", "es": "Nosotras cerramos la tienda", "noun_id": "tienda", "type": "written"},
-            {"en": "They understand the situation", "es": "Ellos entienden la situación", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) think about the house", "es": "Ellas piensan en la casa", "noun_id": "casa", "type": "written"},
-            {"en": "You all want to eat", "es": "Ustedes quieren comer", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) close the window", "es": "Nosotras cerramos la ventana", "noun_id": "ventana", "type": "written"},
+            {"en": "They understand the question", "es": "Ellos entienden la pregunta", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) think a lot", "es": "Ellas piensan mucho", "noun_id": None, "type": "written"},
+            {"en": "You all want water", "es": "Ustedes quieren agua", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "cerrar", "pronoun": "yo"},
@@ -2025,16 +2025,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You close the window", "es": "Tú cierras la ventana", "noun_id": "ventana", "type": "written"},
-            {"en": "I understand the problem", "es": "Yo entiendo el problema", "noun_id": None, "type": "auditory"},
-            {"en": "She thinks about work", "es": "Ella piensa en el trabajo", "noun_id": "trabajo", "type": "written"},
-            {"en": "He wants a coffee", "es": "Él quiere un café", "noun_id": "café", "type": "auditory"},
-            {"en": "We prefer the park", "es": "Nosotros preferimos el parque", "noun_id": "parque", "type": "written"},
-            {"en": "You start the day early", "es": "Usted empieza el día temprano", "noun_id": None, "type": "auditory"},
-            {"en": "They close the door", "es": "Ellos cierran la puerta", "noun_id": "puerta", "type": "written"},
-            {"en": "We (f) understand the situation", "es": "Nosotras entendemos la situación", "noun_id": None, "type": "auditory"},
-            {"en": "You all think about it", "es": "Ustedes piensan en eso", "noun_id": None, "type": "written"},
-            {"en": "They (f) want to go home", "es": "Ellas quieren ir a casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "I close the window", "es": "Yo cierro la ventana", "noun_id": "ventana", "type": "written"},
+            {"en": "You understand the question", "es": "Tú entiendes la pregunta", "noun_id": None, "type": "auditory"},
+            {"en": "He thinks a lot", "es": "Él piensa mucho", "noun_id": None, "type": "written"},
+            {"en": "She wants water", "es": "Ella quiere agua", "noun_id": None, "type": "auditory"},
+            {"en": "You prefer the park", "es": "Usted prefiere el parque", "noun_id": "parque", "type": "written"},
+            {"en": "We start now", "es": "Nosotros empezamos ahora", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) close the store", "es": "Nosotras cerramos la tienda", "noun_id": "tienda", "type": "written"},
+            {"en": "They understand the plan", "es": "Ellos entienden el plan", "noun_id": "plan", "type": "auditory"},
+            {"en": "They (f) think fast", "es": "Ellas piensan rápido", "noun_id": None, "type": "written"},
+            {"en": "You all want to help", "es": "Ustedes quieren ayudar", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "cerrar", "pronoun": "tú"},
@@ -2100,16 +2100,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "He closes the shop at night", "es": "Él cierra la tienda de noche", "noun_id": "tienda", "type": "written"},
-            {"en": "She understands Spanish", "es": "Ella entiende español", "noun_id": None, "type": "auditory"},
-            {"en": "I think about the house", "es": "Yo pienso en la casa", "noun_id": "casa", "type": "written"},
-            {"en": "You want a dog", "es": "Tú quieres un perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "We (f) prefer water", "es": "Nosotras preferimos agua", "noun_id": "agua", "type": "written"},
-            {"en": "They start the work early", "es": "Ellos empiezan el trabajo temprano", "noun_id": "trabajo", "type": "auditory"},
-            {"en": "You close the door", "es": "Usted cierra la puerta", "noun_id": "puerta", "type": "written"},
-            {"en": "We understand the plan", "es": "Nosotros entendemos el plan", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) prefer the city", "es": "Ellas prefieren la ciudad", "noun_id": "ciudad", "type": "written"},
-            {"en": "You all start today", "es": "Ustedes empiezan hoy", "noun_id": None, "type": "auditory"},
+            {"en": "I close the store", "es": "Yo cierro la tienda", "noun_id": "tienda", "type": "written"},
+            {"en": "You understand the plan", "es": "Tú entiendes el plan", "noun_id": "plan", "type": "auditory"},
+            {"en": "He thinks fast", "es": "Él piensa rápido", "noun_id": None, "type": "written"},
+            {"en": "She wants to help", "es": "Ella quiere ayudar", "noun_id": None, "type": "auditory"},
+            {"en": "You prefer water", "es": "Usted prefiere agua", "noun_id": None, "type": "written"},
+            {"en": "We start work", "es": "Nosotros empezamos el trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "We (f) close the book", "es": "Nosotras cerramos el libro", "noun_id": "libro", "type": "written"},
+            {"en": "They understand well", "es": "Ellos entienden bien", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) think about the plan", "es": "Ellas piensan en el plan", "noun_id": "plan", "type": "written"},
+            {"en": "You all want to go", "es": "Ustedes quieren ir", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "cerrar", "pronoun": "él"},
@@ -2176,15 +2176,15 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I order coffee at the restaurant", "es": "Yo pido café en el restaurante", "noun_id": "café", "type": "written"},
+            {"en": "I ask for coffee", "es": "Yo pido café", "noun_id": "café", "type": "written"},
             {"en": "You repeat the word", "es": "Tú repites la palabra", "noun_id": None, "type": "auditory"},
-            {"en": "He continues on the road", "es": "Él sigue en el camino", "noun_id": None, "type": "written"},
-            {"en": "She serves the food", "es": "Ella sirve la comida", "noun_id": "comida", "type": "auditory"},
+            {"en": "He follows the plan", "es": "Él sigue el plan", "noun_id": "plan", "type": "written"},
+            {"en": "She serves the food", "es": "Ella sirve la comida", "noun_id": None, "type": "auditory"},
             {"en": "You dress the child", "es": "Usted viste al niño", "noun_id": None, "type": "written"},
             {"en": "We choose the book", "es": "Nosotros elegimos el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "We (f) order water", "es": "Nosotras pedimos agua", "noun_id": "agua", "type": "written"},
+            {"en": "We (f) ask for water", "es": "Nosotras pedimos agua", "noun_id": None, "type": "written"},
             {"en": "They repeat the sentence", "es": "Ellos repiten la frase", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) continue working", "es": "Ellas siguen trabajando", "noun_id": None, "type": "written"},
+            {"en": "They (f) follow working", "es": "Ellas siguen trabajando", "noun_id": None, "type": "written"},
             {"en": "You all serve the coffee", "es": "Ustedes sirven el café", "noun_id": "café", "type": "auditory"},
         ],
         "drill_targets": [
@@ -2251,16 +2251,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You order the food", "es": "Tú pides la comida", "noun_id": "comida", "type": "written"},
-            {"en": "I repeat the name", "es": "Yo repito el nombre", "noun_id": None, "type": "auditory"},
-            {"en": "She follows the plan", "es": "Ella sigue el plan", "noun_id": None, "type": "written"},
-            {"en": "He serves the water", "es": "Él sirve el agua", "noun_id": "agua", "type": "auditory"},
-            {"en": "We dress for work", "es": "Nosotros vestimos para el trabajo", "noun_id": "trabajo", "type": "written"},
-            {"en": "You choose the restaurant", "es": "Usted elige el restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "They order at the restaurant", "es": "Ellos piden en el restaurante", "noun_id": "restaurante", "type": "written"},
-            {"en": "We (f) repeat every day", "es": "Nosotras repetimos cada día", "noun_id": None, "type": "auditory"},
-            {"en": "You all continue on the road", "es": "Ustedes siguen en el camino", "noun_id": None, "type": "written"},
-            {"en": "They (f) serve the food", "es": "Ellas sirven la comida", "noun_id": "comida", "type": "auditory"},
+            {"en": "I ask for water", "es": "Yo pido agua", "noun_id": None, "type": "written"},
+            {"en": "You repeat the sentence", "es": "Tú repites la frase", "noun_id": None, "type": "auditory"},
+            {"en": "He follows working", "es": "Él sigue trabajando", "noun_id": None, "type": "written"},
+            {"en": "She serves the coffee", "es": "Ella sirve el café", "noun_id": "café", "type": "auditory"},
+            {"en": "You dress well", "es": "Usted viste bien", "noun_id": None, "type": "written"},
+            {"en": "We choose the city", "es": "Nosotros elegimos la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "We (f) ask for help", "es": "Nosotras pedimos ayuda", "noun_id": None, "type": "written"},
+            {"en": "They repeat a song", "es": "Ellos repiten una canción", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) follow here", "es": "Ellas siguen aquí", "noun_id": None, "type": "written"},
+            {"en": "You all serve water", "es": "Ustedes sirven agua", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "pedir", "pronoun": "tú"},
@@ -2326,16 +2326,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "He orders a coffee", "es": "Él pide un café", "noun_id": "café", "type": "written"},
-            {"en": "She repeats the word", "es": "Ella repite la palabra", "noun_id": None, "type": "auditory"},
-            {"en": "I continue working at home", "es": "Yo sigo trabajando en casa", "noun_id": "casa", "type": "written"},
-            {"en": "You serve the customers", "es": "Tú sirves a los clientes", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) dress well for work", "es": "Nosotras vestimos bien para el trabajo", "noun_id": "trabajo", "type": "written"},
-            {"en": "They choose the best restaurant", "es": "Ellos eligen el mejor restaurante", "noun_id": "restaurante", "type": "auditory"},
-            {"en": "You ask for the book", "es": "Usted pide el libro", "noun_id": "libro", "type": "written"},
-            {"en": "We repeat the Spanish words", "es": "Nosotros repetimos las palabras en español", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) dress the children", "es": "Ellas visten a los niños", "noun_id": None, "type": "written"},
-            {"en": "You all choose the city", "es": "Ustedes eligen la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "I ask for help", "es": "Yo pido ayuda", "noun_id": None, "type": "written"},
+            {"en": "You repeat a song", "es": "Tú repites una canción", "noun_id": None, "type": "auditory"},
+            {"en": "He follows here", "es": "Él sigue aquí", "noun_id": None, "type": "written"},
+            {"en": "She serves water", "es": "Ella sirve agua", "noun_id": None, "type": "auditory"},
+            {"en": "You dress fast", "es": "Usted viste rápido", "noun_id": None, "type": "written"},
+            {"en": "We choose the restaurant", "es": "Nosotros elegimos el restaurante", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) ask for the bill", "es": "Nosotras pedimos la cuenta", "noun_id": None, "type": "written"},
+            {"en": "They repeat well", "es": "Ellos repiten bien", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) follow the recipe", "es": "Ellas siguen la receta", "noun_id": None, "type": "written"},
+            {"en": "You all serve the customers", "es": "Ustedes sirven a los clientes", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "pedir", "pronoun": "él"},
@@ -2402,16 +2402,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I am going to speak Spanish", "es": "Voy a hablar español", "noun_id": None, "type": "written"},
-            {"en": "You are going to eat", "es": "Vas a comer", "noun_id": None, "type": "auditory"},
-            {"en": "He is going to sleep", "es": "Él va a dormir", "noun_id": None, "type": "written"},
-            {"en": "She is going to live here", "es": "Ella va a vivir aquí", "noun_id": None, "type": "auditory"},
-            {"en": "You are going to write a letter", "es": "Usted va a escribir una carta", "noun_id": "carta", "type": "written"},
-            {"en": "We are going to study", "es": "Nosotros vamos a estudiar", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) are going to speak Spanish", "es": "Nosotras vamos a hablar español", "noun_id": None, "type": "written"},
-            {"en": "They are going to eat", "es": "Ellos van a comer", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) are going to sleep", "es": "Ellas van a dormir", "noun_id": None, "type": "written"},
-            {"en": "You all are going to live here", "es": "Ustedes van a vivir aquí", "noun_id": None, "type": "auditory"},
+            {"en": "I speak Spanish", "es": "Yo voy a hablar español", "noun_id": None, "type": "written"},
+            {"en": "You eat bread", "es": "Tú vas a comer pan", "noun_id": None, "type": "auditory"},
+            {"en": "He sleeps well", "es": "Él va a dormir bien", "noun_id": None, "type": "written"},
+            {"en": "She lives here", "es": "Ella va a vivir aquí", "noun_id": None, "type": "auditory"},
+            {"en": "You write a letter", "es": "Usted va a escribir una carta", "noun_id": "carta", "type": "written"},
+            {"en": "We study Spanish", "es": "Nosotros vamos a estudiar español", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) speak English", "es": "Nosotras vamos a hablar inglés", "noun_id": None, "type": "written"},
+            {"en": "They eat food", "es": "Ellos van a comer comida", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) sleep eight hours", "es": "Ellas van a dormir ocho horas", "noun_id": None, "type": "written"},
+            {"en": "You all live nearby", "es": "Ustedes van a vivir cerca", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "yo"},
@@ -2477,16 +2477,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You are going to speak Spanish", "es": "Tú vas a hablar español", "noun_id": None, "type": "written"},
-            {"en": "I am going to eat lunch", "es": "Yo voy a comer", "noun_id": None, "type": "auditory"},
-            {"en": "She is going to sleep", "es": "Ella va a dormir", "noun_id": None, "type": "written"},
-            {"en": "He is going to live here", "es": "Él va a vivir aquí", "noun_id": None, "type": "auditory"},
-            {"en": "We are going to write a letter", "es": "Nosotros vamos a escribir una carta", "noun_id": "carta", "type": "written"},
-            {"en": "You are going to study", "es": "Usted va a estudiar", "noun_id": None, "type": "auditory"},
-            {"en": "They are going to speak Spanish", "es": "Ellos van a hablar español", "noun_id": None, "type": "written"},
-            {"en": "We (f) are going to eat", "es": "Nosotras vamos a comer", "noun_id": None, "type": "auditory"},
-            {"en": "You all are going to sleep", "es": "Ustedes van a dormir", "noun_id": None, "type": "written"},
-            {"en": "They (f) are going to live here", "es": "Ellas van a vivir aquí", "noun_id": None, "type": "auditory"},
+            {"en": "I speak English", "es": "Yo voy a hablar inglés", "noun_id": None, "type": "written"},
+            {"en": "You eat food", "es": "Tú vas a comer comida", "noun_id": None, "type": "auditory"},
+            {"en": "He sleeps eight hours", "es": "Él va a dormir ocho horas", "noun_id": None, "type": "written"},
+            {"en": "She lives nearby", "es": "Ella va a vivir cerca", "noun_id": None, "type": "auditory"},
+            {"en": "You write a book", "es": "Usted va a escribir un libro", "noun_id": "libro", "type": "written"},
+            {"en": "We study a lot", "es": "Nosotros vamos a estudiar mucho", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) speak well", "es": "Nosotras vamos a hablar bien", "noun_id": None, "type": "written"},
+            {"en": "They eat fruit", "es": "Ellos van a comer fruta", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) sleep a lot", "es": "Ellas van a dormir mucho", "noun_id": None, "type": "written"},
+            {"en": "You all live together", "es": "Ustedes van a vivir juntos", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "tú"},
@@ -2552,16 +2552,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "He is going to speak Spanish", "es": "Él va a hablar español", "noun_id": None, "type": "written"},
-            {"en": "She is going to eat", "es": "Ella va a comer", "noun_id": None, "type": "auditory"},
-            {"en": "I am going to sleep", "es": "Yo voy a dormir", "noun_id": None, "type": "written"},
-            {"en": "You are going to live here", "es": "Tú vas a vivir aquí", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) are going to write a book", "es": "Nosotras vamos a escribir un libro", "noun_id": "libro", "type": "written"},
-            {"en": "They are going to study", "es": "Ellos van a estudiar", "noun_id": None, "type": "auditory"},
-            {"en": "You are going to speak Spanish", "es": "Usted va a hablar español", "noun_id": None, "type": "written"},
-            {"en": "We are going to eat", "es": "Nosotros vamos a comer", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) are going to write", "es": "Ellas van a escribir", "noun_id": None, "type": "written"},
-            {"en": "You all are going to study", "es": "Ustedes van a estudiar", "noun_id": None, "type": "auditory"},
+            {"en": "I speak well", "es": "Yo voy a hablar bien", "noun_id": None, "type": "written"},
+            {"en": "You eat fruit", "es": "Tú vas a comer fruta", "noun_id": None, "type": "auditory"},
+            {"en": "He sleeps a lot", "es": "Él va a dormir mucho", "noun_id": None, "type": "written"},
+            {"en": "She lives together", "es": "Ella va a vivir juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You write messages", "es": "Usted va a escribir mensajes", "noun_id": None, "type": "written"},
+            {"en": "We study at home", "es": "Nosotros vamos a estudiar en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "We (f) speak fast", "es": "Nosotras vamos a hablar rápido", "noun_id": None, "type": "written"},
+            {"en": "They eat meat", "es": "Ellos van a comer carne", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) sleep here", "es": "Ellas van a dormir aquí", "noun_id": None, "type": "written"},
+            {"en": "You all live alone", "es": "Ustedes van a vivir solo", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "él"},
@@ -3085,14 +3085,14 @@ GRAMMAR_SITUATIONS = {
         "drill_sentences": [
             {"en": "I spoke Spanish", "es": "Yo hablé español", "noun_id": None, "type": "written"},
             {"en": "You found the book", "es": "Tú encontraste el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "He ate the food", "es": "Él comió la comida", "noun_id": "comida", "type": "written"},
-            {"en": "She united the group", "es": "Ella unió al grupo", "noun_id": None, "type": "auditory"},
-            {"en": "You (formal) drank the water", "es": "Usted bebió el agua", "noun_id": "agua", "type": "written"},
-            {"en": "We left the house", "es": "Nosotros salimos de la casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "We (f) spoke a lot", "es": "Nosotras hablamos mucho", "noun_id": None, "type": "written"},
-            {"en": "They found the dog", "es": "Ellos encontraron el perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "They (f) ate the bread", "es": "Ellas comieron el pan", "noun_id": "pan", "type": "written"},
-            {"en": "You all united here", "es": "Ustedes unieron aquí", "noun_id": None, "type": "auditory"},
+            {"en": "He ate bread", "es": "Él comió pan", "noun_id": None, "type": "written"},
+            {"en": "She united the family", "es": "Ella unió la familia", "noun_id": "familia", "type": "auditory"},
+            {"en": "You drank water", "es": "Usted bebió agua", "noun_id": None, "type": "written"},
+            {"en": "We left early", "es": "Nosotros salimos temprano", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) spoke English", "es": "Nosotras hablamos inglés", "noun_id": None, "type": "written"},
+            {"en": "They found work", "es": "Ellos encontraron trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "They (f) ate food", "es": "Ellas comieron comida", "noun_id": None, "type": "written"},
+            {"en": "You all united the team", "es": "Ustedes unieron al equipo", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "yo"},
@@ -3158,16 +3158,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You spoke first", "es": "Tú hablaste primero", "noun_id": None, "type": "written"},
-            {"en": "I found the letter", "es": "Yo encontré la carta", "noun_id": "carta", "type": "auditory"},
-            {"en": "She ate the bread", "es": "Ella comió el pan", "noun_id": "pan", "type": "written"},
-            {"en": "He united the family", "es": "Él unió a la familia", "noun_id": None, "type": "auditory"},
-            {"en": "We drank the water", "es": "Nosotros bebimos el agua", "noun_id": "agua", "type": "written"},
-            {"en": "You (formal) left the house", "es": "Usted salió de la casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "They spoke Spanish", "es": "Ellos hablaron español", "noun_id": None, "type": "written"},
-            {"en": "We (f) found the dog", "es": "Nosotras encontramos el perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "You all ate the food", "es": "Ustedes comieron la comida", "noun_id": "comida", "type": "written"},
-            {"en": "They (f) united here", "es": "Ellas unieron aquí", "noun_id": None, "type": "auditory"},
+            {"en": "I spoke English", "es": "Yo hablé inglés", "noun_id": None, "type": "written"},
+            {"en": "You found work", "es": "Tú encontraste trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "He ate food", "es": "Él comió comida", "noun_id": None, "type": "written"},
+            {"en": "She united the team", "es": "Ella unió al equipo", "noun_id": None, "type": "auditory"},
+            {"en": "You drank coffee", "es": "Usted bebió café", "noun_id": "café", "type": "written"},
+            {"en": "We left from home", "es": "Nosotros salimos de casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "We (f) spoke well", "es": "Nosotras hablamos bien", "noun_id": None, "type": "written"},
+            {"en": "They found Maria", "es": "Ellos encontraron a María", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) ate fruit", "es": "Ellas comieron fruta", "noun_id": None, "type": "written"},
+            {"en": "You all united everyone", "es": "Ustedes unieron a todos", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "tú"},
@@ -3233,16 +3233,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "He spoke the truth", "es": "Él habló la verdad", "noun_id": None, "type": "written"},
-            {"en": "She found the book", "es": "Ella encontró el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "I ate the bread", "es": "Yo comí el pan", "noun_id": "pan", "type": "written"},
-            {"en": "You united the group", "es": "Tú uniste al grupo", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) drank the water", "es": "Nosotras bebimos el agua", "noun_id": "agua", "type": "written"},
-            {"en": "They left the house", "es": "Ellos salieron de la casa", "noun_id": "casa", "type": "auditory"},
-            {"en": "You (formal) spoke a lot", "es": "Usted habló mucho", "noun_id": None, "type": "written"},
-            {"en": "We found the dog", "es": "Nosotros encontramos el perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "They (f) drank the coffee", "es": "Ellas bebieron el café", "noun_id": "café", "type": "written"},
-            {"en": "You all left the city", "es": "Ustedes salieron de la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "I spoke well", "es": "Yo hablé bien", "noun_id": None, "type": "written"},
+            {"en": "You found Maria", "es": "Tú encontraste a María", "noun_id": None, "type": "auditory"},
+            {"en": "He ate fruit", "es": "Él comió fruta", "noun_id": None, "type": "written"},
+            {"en": "She united everyone", "es": "Ella unió a todos", "noun_id": None, "type": "auditory"},
+            {"en": "You drank juice", "es": "Usted bebió jugo", "noun_id": None, "type": "written"},
+            {"en": "We left from work", "es": "Nosotros salimos del trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "We (f) spoke fast", "es": "Nosotras hablamos rápido", "noun_id": None, "type": "written"},
+            {"en": "They found the answer", "es": "Ellos encontraron la respuesta", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) ate meat", "es": "Ellas comieron carne", "noun_id": None, "type": "written"},
+            {"en": "You all united two houses", "es": "Ustedes unieron dos casas", "noun_id": "casa", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "él"},
@@ -3311,16 +3311,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I was a student", "es": "Yo fui estudiante", "noun_id": None, "type": "written"},
-            {"en": "She was at the park", "es": "Ella fue al parque", "noun_id": "parque", "type": "auditory"},
-            {"en": "You went to the market", "es": "Tú fuiste al mercado", "noun_id": "mercado", "type": "written"},
-            {"en": "We (f) gave the letter", "es": "Nosotras dimos la carta", "noun_id": "carta", "type": "auditory"},
+            {"en": "I was tall", "es": "Yo fui alto", "noun_id": None, "type": "written"},
+            {"en": "You went to the market", "es": "Tú fuiste al mercado", "noun_id": "mercado", "type": "auditory"},
             {"en": "He gave the book", "es": "Él dio el libro", "noun_id": "libro", "type": "written"},
-            {"en": "You all saw the dog", "es": "Ustedes vieron el perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "You (formal) saw the house", "es": "Usted vio la casa", "noun_id": "casa", "type": "written"},
-            {"en": "We made the plan", "es": "Nosotros hicimos el plan", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) made the food", "es": "Ellas hicieron la comida", "noun_id": "comida", "type": "written"},
-            {"en": "They said the truth", "es": "Ellos dijeron la verdad", "noun_id": None, "type": "auditory"},
+            {"en": "She saw the movie", "es": "Ella vio la película", "noun_id": None, "type": "auditory"},
+            {"en": "You made homework", "es": "Usted hizo la tarea", "noun_id": None, "type": "written"},
+            {"en": "We said the truth", "es": "Nosotros dijimos la verdad", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) were professional", "es": "Nosotras fuimos profesional", "noun_id": None, "type": "written"},
+            {"en": "They went home", "es": "Ellos fueron a casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "They (f) gave money", "es": "Ellas dieron dinero", "noun_id": "dinero", "type": "written"},
+            {"en": "You all saw the family", "es": "Ustedes vieron a la familia", "noun_id": "familia", "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "ser", "pronoun": "yo"},
@@ -3387,16 +3387,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I brought the food", "es": "Yo traje la comida", "noun_id": "comida", "type": "written"},
-            {"en": "We brought the letter", "es": "Nosotros trajimos la carta", "noun_id": "carta", "type": "auditory"},
-            {"en": "They (f) brought the bags", "es": "Ellas trajeron las bolsas", "noun_id": "bolsa", "type": "written"},
-            {"en": "You slept well", "es": "Tú dormiste bien", "noun_id": None, "type": "auditory"},
-            {"en": "She slept a lot", "es": "Ella durmió mucho", "noun_id": None, "type": "written"},
-            {"en": "He died young", "es": "Él murió joven", "noun_id": None, "type": "auditory"},
-            {"en": "You all died of fear", "es": "Ustedes murieron de miedo", "noun_id": None, "type": "written"},
-            {"en": "You (formal) were a doctor", "es": "Usted fue doctor", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) were at the park", "es": "Nosotras fuimos al parque", "noun_id": "parque", "type": "written"},
-            {"en": "They made the plan", "es": "Ellos hicieron el plan", "noun_id": None, "type": "auditory"},
+            {"en": "I brought water", "es": "Yo traje agua", "noun_id": None, "type": "written"},
+            {"en": "You slept eight hours", "es": "Tú dormiste ocho horas", "noun_id": None, "type": "auditory"},
+            {"en": "He died of hunger", "es": "Él murió de hambre", "noun_id": None, "type": "written"},
+            {"en": "She was professional", "es": "Ella fue profesional", "noun_id": None, "type": "auditory"},
+            {"en": "You made food", "es": "Usted hizo comida", "noun_id": None, "type": "written"},
+            {"en": "We brought the book", "es": "Nosotros trajimos el libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "We (f) slept a lot", "es": "Nosotras dormimos mucho", "noun_id": None, "type": "written"},
+            {"en": "They died young", "es": "Ellos murieron joven", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) were important", "es": "Ellas fueron importante", "noun_id": None, "type": "written"},
+            {"en": "You all made exercise", "es": "Ustedes hicieron ejercicio", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "traer", "pronoun": "yo"},
@@ -3464,16 +3464,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You were a teacher", "es": "Tú fuiste profesor", "noun_id": None, "type": "written"},
-            {"en": "We went to the park", "es": "Nosotros fuimos al parque", "noun_id": "parque", "type": "auditory"},
-            {"en": "They went to the city", "es": "Ellos fueron a la ciudad", "noun_id": "ciudad", "type": "written"},
-            {"en": "You (formal) gave the book", "es": "Usted dio el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "I gave the letter", "es": "Yo di la carta", "noun_id": "carta", "type": "written"},
-            {"en": "She saw the dog", "es": "Ella vio el perro", "noun_id": "perro", "type": "auditory"},
-            {"en": "We (f) saw the house", "es": "Nosotras vimos la casa", "noun_id": "casa", "type": "written"},
-            {"en": "He made the plan", "es": "Él hizo el plan", "noun_id": None, "type": "auditory"},
-            {"en": "You all made the food", "es": "Ustedes hicieron la comida", "noun_id": "comida", "type": "written"},
-            {"en": "They (f) said the truth", "es": "Ellas dijeron la verdad", "noun_id": None, "type": "auditory"},
+            {"en": "I was important", "es": "Yo fui importante", "noun_id": None, "type": "written"},
+            {"en": "You went to the park", "es": "Tú fuiste al parque", "noun_id": "parque", "type": "auditory"},
+            {"en": "He gave water", "es": "Él dio agua", "noun_id": None, "type": "written"},
+            {"en": "She saw a photo", "es": "Ella vio una foto", "noun_id": None, "type": "auditory"},
+            {"en": "You made exercise", "es": "Usted hizo ejercicio", "noun_id": None, "type": "written"},
+            {"en": "We said thanks", "es": "Nosotros dijimos gracias", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) were likeable", "es": "Nosotras fuimos simpático", "noun_id": None, "type": "written"},
+            {"en": "They went to the store", "es": "Ellos fueron a la tienda", "noun_id": "tienda", "type": "auditory"},
+            {"en": "They (f) gave an answer", "es": "Ellas dieron una respuesta", "noun_id": None, "type": "written"},
+            {"en": "You all saw well", "es": "Ustedes vieron bien", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "ser", "pronoun": "tú"},
@@ -3540,16 +3540,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You brought the food", "es": "Tú trajiste la comida", "noun_id": "comida", "type": "written"},
-            {"en": "You (formal) brought the letter", "es": "Usted trajo la carta", "noun_id": "carta", "type": "auditory"},
-            {"en": "I slept eight hours", "es": "Yo dormí ocho horas", "noun_id": None, "type": "written"},
-            {"en": "We (f) slept here", "es": "Nosotras dormimos aquí", "noun_id": None, "type": "auditory"},
-            {"en": "They slept in the house", "es": "Ellos durmieron en la casa", "noun_id": "casa", "type": "written"},
-            {"en": "She died at home", "es": "Ella murió en casa", "noun_id": None, "type": "auditory"},
-            {"en": "We died of laughter", "es": "Nosotros morimos de risa", "noun_id": None, "type": "written"},
-            {"en": "He went to the market", "es": "Él fue al mercado", "noun_id": "mercado", "type": "auditory"},
-            {"en": "They (f) went to the park", "es": "Ellas fueron al parque", "noun_id": "parque", "type": "written"},
-            {"en": "You all said the truth", "es": "Ustedes dijeron la verdad", "noun_id": None, "type": "auditory"},
+            {"en": "I brought gifts", "es": "Yo traje regalos", "noun_id": None, "type": "written"},
+            {"en": "You slept here", "es": "Tú dormiste aquí", "noun_id": None, "type": "auditory"},
+            {"en": "He died of thirst", "es": "Él murió de sed", "noun_id": None, "type": "written"},
+            {"en": "She went to the store", "es": "Ella fue a la tienda", "noun_id": "tienda", "type": "auditory"},
+            {"en": "You said nothing", "es": "Usted dijo nada", "noun_id": None, "type": "written"},
+            {"en": "We brought coffee", "es": "Nosotros trajimos café", "noun_id": "café", "type": "auditory"},
+            {"en": "We (f) slept early", "es": "Nosotras dormimos temprano", "noun_id": None, "type": "written"},
+            {"en": "They died of exhaustion", "es": "Ellos murieron de cansancio", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) went to work", "es": "Ellas fueron al trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "You all said a story", "es": "Ustedes dijeron una historia", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "traer", "pronoun": "tú"},
@@ -3616,16 +3616,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I am speaking Spanish", "es": "Yo estoy hablando español", "noun_id": None, "type": "written"},
-            {"en": "She is speaking now", "es": "Ella está hablando ahora", "noun_id": None, "type": "auditory"},
-            {"en": "You all are speaking", "es": "Ustedes están hablando", "noun_id": None, "type": "written"},
-            {"en": "You are walking here", "es": "Tú estás caminando aquí", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) are walking a lot", "es": "Nosotras estamos caminando mucho", "noun_id": None, "type": "written"},
-            {"en": "He is chatting now", "es": "Él está charlando ahora", "noun_id": None, "type": "auditory"},
-            {"en": "They are chatting here", "es": "Ellos están charlando aquí", "noun_id": None, "type": "written"},
-            {"en": "You (formal) are eating the food", "es": "Usted está comiendo la comida", "noun_id": "comida", "type": "auditory"},
-            {"en": "We are eating the bread", "es": "Nosotros estamos comiendo el pan", "noun_id": "pan", "type": "written"},
-            {"en": "They (f) are eating a lot", "es": "Ellas están comiendo mucho", "noun_id": None, "type": "auditory"},
+            {"en": "I speak Spanish", "es": "Yo estoy hablando español", "noun_id": None, "type": "written"},
+            {"en": "You walk together", "es": "Tú estás caminando juntos", "noun_id": None, "type": "auditory"},
+            {"en": "He chats together", "es": "Él está charlando juntos", "noun_id": None, "type": "written"},
+            {"en": "She eats bread", "es": "Ella está comiendo pan", "noun_id": None, "type": "auditory"},
+            {"en": "You speak English", "es": "Usted está hablando inglés", "noun_id": None, "type": "written"},
+            {"en": "We walk through the park", "es": "Nosotros estamos caminando por el parque", "noun_id": "parque", "type": "auditory"},
+            {"en": "We (f) chat here", "es": "Nosotras estamos charlando aquí", "noun_id": None, "type": "written"},
+            {"en": "They eat food", "es": "Ellos están comiendo comida", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) speak well", "es": "Ellas están hablando bien", "noun_id": None, "type": "written"},
+            {"en": "You all walk fast", "es": "Ustedes están caminando rápido", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "yo"},
@@ -3691,16 +3691,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I am drinking the water", "es": "Yo estoy bebiendo el agua", "noun_id": "agua", "type": "written"},
-            {"en": "We are drinking the coffee", "es": "Nosotros estamos bebiendo el café", "noun_id": "café", "type": "auditory"},
-            {"en": "They (f) are drinking a lot", "es": "Ellas están bebiendo mucho", "noun_id": None, "type": "written"},
-            {"en": "You are inhibiting me", "es": "Tú estás inhibiendo aquí", "noun_id": None, "type": "auditory"},
-            {"en": "She is inhibiting now", "es": "Ella está inhibiendo ahora", "noun_id": None, "type": "written"},
-            {"en": "He is prohibiting the entry", "es": "Él está prohibiendo la entrada", "noun_id": None, "type": "auditory"},
-            {"en": "You all are prohibiting it", "es": "Ustedes están prohibiendo eso", "noun_id": None, "type": "written"},
-            {"en": "You (formal) are leaving now", "es": "Usted está saliendo ahora", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) are leaving the house", "es": "Nosotras estamos saliendo de la casa", "noun_id": "casa", "type": "written"},
-            {"en": "They are leaving the city", "es": "Ellos están saliendo de la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "I drink coffee", "es": "Yo estoy bebiendo café", "noun_id": "café", "type": "written"},
+            {"en": "You inhibit progress", "es": "Tú estás inhibiendo el progreso", "noun_id": None, "type": "auditory"},
+            {"en": "He prohibits smoking", "es": "Él está prohibiendo fumar", "noun_id": None, "type": "written"},
+            {"en": "She leaves from home", "es": "Ella está saliendo de casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "You drink juice", "es": "Usted está bebiendo jugo", "noun_id": None, "type": "written"},
+            {"en": "We inhibit the idea", "es": "Nosotros estamos inhibiendo la idea", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) prohibit exit", "es": "Nosotras estamos prohibiendo la salida", "noun_id": None, "type": "written"},
+            {"en": "They leave from work", "es": "Ellos están saliendo del trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "They (f) drink milk", "es": "Ellas están bebiendo leche", "noun_id": None, "type": "written"},
+            {"en": "You all inhibit the desire", "es": "Ustedes están inhibiendo el deseo", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "beber", "pronoun": "yo"},
@@ -3766,16 +3766,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You are speaking now", "es": "Tú estás hablando ahora", "noun_id": None, "type": "written"},
-            {"en": "We are speaking Spanish", "es": "Nosotros estamos hablando español", "noun_id": None, "type": "auditory"},
-            {"en": "You (formal) are walking here", "es": "Usted está caminando aquí", "noun_id": None, "type": "written"},
-            {"en": "They (f) are walking a lot", "es": "Ellas están caminando mucho", "noun_id": None, "type": "auditory"},
-            {"en": "I am chatting now", "es": "Yo estoy charlando ahora", "noun_id": None, "type": "written"},
-            {"en": "We (f) are chatting here", "es": "Nosotras estamos charlando aquí", "noun_id": None, "type": "auditory"},
-            {"en": "You all are chatting a lot", "es": "Ustedes están charlando mucho", "noun_id": None, "type": "written"},
-            {"en": "He is eating the food", "es": "Él está comiendo la comida", "noun_id": "comida", "type": "auditory"},
-            {"en": "She is eating the bread", "es": "Ella está comiendo el pan", "noun_id": "pan", "type": "written"},
-            {"en": "They are eating now", "es": "Ellos están comiendo ahora", "noun_id": None, "type": "auditory"},
+            {"en": "I speak well", "es": "Yo estoy hablando bien", "noun_id": None, "type": "written"},
+            {"en": "You walk fast", "es": "Tú estás caminando rápido", "noun_id": None, "type": "auditory"},
+            {"en": "He chats at home", "es": "Él está charlando en casa", "noun_id": "casa", "type": "written"},
+            {"en": "She eats fruit", "es": "Ella está comiendo fruta", "noun_id": None, "type": "auditory"},
+            {"en": "You speak fast", "es": "Usted está hablando rápido", "noun_id": None, "type": "written"},
+            {"en": "We walk home", "es": "Nosotros estamos caminando a casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "We (f) chat well", "es": "Nosotras estamos charlando bien", "noun_id": None, "type": "written"},
+            {"en": "They eat meat", "es": "Ellos están comiendo carne", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) speak a lot", "es": "Ellas están hablando mucho", "noun_id": None, "type": "written"},
+            {"en": "You all walk a lot", "es": "Ustedes están caminando mucho", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "hablar", "pronoun": "tú"},
@@ -3841,16 +3841,16 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You are drinking the water", "es": "Tú estás bebiendo el agua", "noun_id": "agua", "type": "written"},
-            {"en": "You (formal) are drinking the coffee", "es": "Usted está bebiendo el café", "noun_id": "café", "type": "auditory"},
-            {"en": "I am inhibiting it", "es": "Yo estoy inhibiendo eso", "noun_id": None, "type": "written"},
-            {"en": "We (f) are inhibiting now", "es": "Nosotras estamos inhibiendo ahora", "noun_id": None, "type": "auditory"},
-            {"en": "They are inhibiting here", "es": "Ellos están inhibiendo aquí", "noun_id": None, "type": "written"},
-            {"en": "She is prohibiting the entry", "es": "Ella está prohibiendo la entrada", "noun_id": None, "type": "auditory"},
-            {"en": "We are prohibiting it", "es": "Nosotros estamos prohibiendo eso", "noun_id": None, "type": "written"},
-            {"en": "He is leaving now", "es": "Él está saliendo ahora", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) are leaving the house", "es": "Ellas están saliendo de la casa", "noun_id": "casa", "type": "written"},
-            {"en": "You all are leaving the city", "es": "Ustedes están saliendo de la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "I drink milk", "es": "Yo estoy bebiendo leche", "noun_id": None, "type": "written"},
+            {"en": "You inhibit the desire", "es": "Tú estás inhibiendo el deseo", "noun_id": None, "type": "auditory"},
+            {"en": "He prohibits noise", "es": "Él está prohibiendo el ruido", "noun_id": None, "type": "written"},
+            {"en": "She leaves together", "es": "Ella está saliendo juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You drink wine", "es": "Usted está bebiendo vino", "noun_id": None, "type": "written"},
+            {"en": "We inhibit the action", "es": "Nosotros estamos inhibiendo la acción", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) prohibit that", "es": "Nosotras estamos prohibiendo eso", "noun_id": None, "type": "written"},
+            {"en": "They leave now", "es": "Ellos están saliendo ahora", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) drink water", "es": "Ellas están bebiendo agua", "noun_id": None, "type": "written"},
+            {"en": "You all inhibit the response", "es": "Ustedes están inhibiendo la respuesta", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
             {"verb": "beber", "pronoun": "tú"},
@@ -3972,66 +3972,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) tengo que + verb the letter',
-                'es': 'Nosotras tenemos que comer la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) tengo que + verb Spanish',
-                'es': 'Nosotras tenemos que hablar español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You tengo que + verb water',
-                'es': 'Tú tienes que comer agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) tengo que + verb the bread',
-                'es': 'Ellas tienen que comer el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You tengo que + verb the coffee',
-                'es': 'Tú tienes que hablar el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) tengo que + verb the music',
-                'es': 'Usted tiene que hablar la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I tengo que + verb the letter',
-                'es': 'Yo tengo que comer la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all tengo que + verb the book',
-                'es': 'Ustedes tienen que comer el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She tengo que + verb water',
-                'es': 'Ella tiene que comer agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I tengo que + verb at home',
-                'es': 'Yo tengo que hablar en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I have to speak Spanish", "es": "Yo tengo que hablar español", "noun_id": None, "type": "written"},
+            {"en": "You have to eat bread", "es": "Tú tienes que comer pan", "noun_id": None, "type": "auditory"},
+            {"en": "He has to speak English", "es": "Él tiene que hablar inglés", "noun_id": None, "type": "written"},
+            {"en": "She has to eat food", "es": "Ella tiene que comer comida", "noun_id": None, "type": "auditory"},
+            {"en": "You have to speak well", "es": "Usted tiene que hablar bien", "noun_id": None, "type": "written"},
+            {"en": "We have to eat fruit", "es": "Nosotros tenemos que comer fruta", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) have to speak fast", "es": "Nosotras tenemos que hablar rápido", "noun_id": None, "type": "written"},
+            {"en": "They have to eat meat", "es": "Ellos tienen que comer carne", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) have to speak a lot", "es": "Ellas tienen que hablar mucho", "noun_id": None, "type": "written"},
+            {"en": "You all have to eat salad", "es": "Ustedes tienen que comer ensalada", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -4137,66 +4087,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all me toca + verb the letter',
-                'es': 'Ustedes les toca vivir la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all me toca + verb Spanish',
-                'es': 'Ustedes les toca estudiar español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She me toca + verb water',
-                'es': 'Ella le toca vivir agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) me toca + verb the bread',
-                'es': 'Nosotras nos toca vivir el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You me toca + verb the coffee',
-                'es': 'Tú te toca estudiar el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) me toca + verb the truth',
-                'es': 'Usted le toca vivir la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) me toca + verb the song',
-                'es': 'Nosotras nos toca estudiar la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) me toca + verb Spanish',
-                'es': 'Ellas les toca estudiar español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) me toca + verb English',
-                'es': 'Usted le toca estudiar inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I me toca + verb the bread',
-                'es': 'Yo me toca vivir el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "It's my turn to live nearby", "es": "Yo me toca vivir cerca", "noun_id": None, "type": "written"},
+            {"en": "It's your turn to study a lot", "es": "Tú te toca estudiar mucho", "noun_id": None, "type": "auditory"},
+            {"en": "It's his turn to live together", "es": "Él le toca vivir juntos", "noun_id": None, "type": "written"},
+            {"en": "It's her turn to study at home", "es": "Ella le toca estudiar en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "It's your turn to live alone", "es": "Usted le toca vivir solo", "noun_id": None, "type": "written"},
+            {"en": "It's our turn to study together", "es": "Nosotros nos toca estudiar juntos", "noun_id": None, "type": "auditory"},
+            {"en": "It's our turn to live in the city", "es": "Nosotras nos toca vivir en la ciudad", "noun_id": "ciudad", "type": "written"},
+            {"en": "It's their turn to study here", "es": "Ellos les toca estudiar aquí", "noun_id": None, "type": "auditory"},
+            {"en": "It's their turn to live here", "es": "Ellas les toca vivir aquí", "noun_id": None, "type": "written"},
+            {"en": "It's your turn to study Spanish", "es": "Ustedes les toca estudiar español", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -4302,66 +4202,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) necesito + verb the letter',
-                'es': 'Ellas necesitan escribir la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I necesito + verb the book',
-                'es': 'Yo necesito dormir el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) necesito + verb water',
-                'es': 'Ellas necesitan dormir agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) necesito + verb the bread',
-                'es': 'Usted necesita dormir el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She necesito + verb here',
-                'es': 'Ella necesita escribir aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all necesito + verb the truth',
-                'es': 'Ustedes necesitan escribir la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She necesito + verb the letter',
-                'es': 'Ella necesita dormir la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) necesito + verb the book',
-                'es': 'Nosotras necesitamos escribir el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) necesito + verb water',
-                'es': 'Usted necesita escribir agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I necesito + verb the bread',
-                'es': 'Yo necesito escribir el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I need to sleep a lot", "es": "Yo necesito dormir mucho", "noun_id": None, "type": "written"},
+            {"en": "You need to write messages", "es": "Tú necesitas escribir mensajes", "noun_id": None, "type": "auditory"},
+            {"en": "He needs to sleep here", "es": "Él necesita dormir aquí", "noun_id": None, "type": "written"},
+            {"en": "She needs to write names", "es": "Ella necesita escribir nombres", "noun_id": "nombre", "type": "auditory"},
+            {"en": "You need to sleep early", "es": "Usted necesita dormir temprano", "noun_id": None, "type": "written"},
+            {"en": "We need to write fast", "es": "Nosotros necesitamos escribir rápido", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) need to sleep well", "es": "Nosotras necesitamos dormir bien", "noun_id": None, "type": "written"},
+            {"en": "They need to write a letter", "es": "Ellos necesitan escribir una carta", "noun_id": "carta", "type": "auditory"},
+            {"en": "They (f) need to sleep eight hours", "es": "Ellas necesitan dormir ocho horas", "noun_id": None, "type": "written"},
+            {"en": "You all need to write a book", "es": "Ustedes necesitan escribir un libro", "noun_id": "libro", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -4608,66 +4458,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all used to (imperfect) the song',
-                'es': 'Ustedes hablaban la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) used to (imperfect) Spanish',
-                'es': 'Usted hablaba español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) used to (imperfect) English',
-                'es': 'Nosotras escuchábamos inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) used to (imperfect) at home',
-                'es': 'Nosotras hablábamos en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I used to (imperfect) the coffee',
-                'es': 'Yo hablaba el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'She used to (imperfect) the music',
-                'es': 'Ella escuchaba la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I used to (imperfect) the song',
-                'es': 'Yo escuchaba la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) used to (imperfect) Spanish',
-                'es': 'Ellas hablaban español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all used to (imperfect) English',
-                'es': 'Ustedes escuchaban inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) used to (imperfect) at home',
-                'es': 'Usted escuchaba en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I used to speak Spanish", "es": "Yo hablaba español", "noun_id": None, "type": "written"},
+            {"en": "You used to listen music", "es": "Tú escuchabas música", "noun_id": None, "type": "auditory"},
+            {"en": "He used to speak English", "es": "Él hablaba inglés", "noun_id": None, "type": "written"},
+            {"en": "She used to listen the radio", "es": "Ella escuchaba la radio", "noun_id": None, "type": "auditory"},
+            {"en": "You used to speak well", "es": "Usted hablaba bien", "noun_id": None, "type": "written"},
+            {"en": "We used to listen a song", "es": "Nosotros escuchábamos una canción", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) used to speak fast", "es": "Nosotras hablábamos rápido", "noun_id": None, "type": "written"},
+            {"en": "They used to listen well", "es": "Ellos escuchaban bien", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) used to speak a lot", "es": "Ellas hablaban mucho", "noun_id": None, "type": "written"},
+            {"en": "You all used to listen carefully", "es": "Ustedes escuchaban atentamente", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -4773,66 +4573,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You used to (imperfect) the letter',
-                'es': 'Tú vivías la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all used to (imperfect) the book',
-                'es': 'Ustedes vivían el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She used to (imperfect) water',
-                'es': 'Ella vivía agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) used to (imperfect) the bread',
-                'es': 'Nosotras comíamos el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She used to (imperfect) here',
-                'es': 'Ella comía aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) used to (imperfect) the truth',
-                'es': 'Ellas comían la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) used to (imperfect) the letter',
-                'es': 'Ellas vivían la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all used to (imperfect) the book',
-                'es': 'Ustedes comían el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) used to (imperfect) water',
-                'es': 'Nosotras vivíamos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You used to (imperfect) the bread',
-                'es': 'Tú comías el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I used to eat food", "es": "Yo comía comida", "noun_id": None, "type": "written"},
+            {"en": "You used to live nearby", "es": "Tú vivías cerca", "noun_id": None, "type": "auditory"},
+            {"en": "He used to eat fruit", "es": "Él comía fruta", "noun_id": None, "type": "written"},
+            {"en": "She used to live together", "es": "Ella vivía juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You used to eat meat", "es": "Usted comía carne", "noun_id": None, "type": "written"},
+            {"en": "We used to live alone", "es": "Nosotros vivíamos solo", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) used to eat salad", "es": "Nosotras comíamos ensalada", "noun_id": None, "type": "written"},
+            {"en": "They used to live in the city", "es": "Ellos vivían en la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "They (f) used to eat bread", "es": "Ellas comían pan", "noun_id": None, "type": "written"},
+            {"en": "You all used to live here", "es": "Ustedes vivían aquí", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -5009,66 +4759,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You used to (imperfect) the letter',
-                'es': 'Tú eras la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I used to (imperfect) the book',
-                'es': 'Yo iba el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) used to (imperfect) water',
-                'es': 'Usted era agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) used to (imperfect) the bread',
-                'es': 'Usted iba el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You used to (imperfect) here',
-                'es': 'Tú ibas aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I used to (imperfect) the truth',
-                'es': 'Yo era la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all used to (imperfect) the letter',
-                'es': 'Ustedes eran la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She used to (imperfect) the book',
-                'es': 'Ella era el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She used to (imperfect) water',
-                'es': 'Ella iba agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) used to (imperfect) the bread',
-                'es': 'Ellas eran el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I used to go to the store", "es": "Yo iba a la tienda", "noun_id": "tienda", "type": "written"},
+            {"en": "You used to be likeable", "es": "Tú eras simpático", "noun_id": None, "type": "auditory"},
+            {"en": "He used to go to work", "es": "Él iba al trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "She used to be Colombian", "es": "Ella era colombiano", "noun_id": None, "type": "auditory"},
+            {"en": "You used to go to the market", "es": "Usted iba al mercado", "noun_id": "mercado", "type": "written"},
+            {"en": "We used to be tall", "es": "Nosotros éramos alto", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) used to go home", "es": "Nosotras íbamos a casa", "noun_id": "casa", "type": "written"},
+            {"en": "They used to be professional", "es": "Ellos eran profesional", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) used to go to the park", "es": "Ellas iban al parque", "noun_id": "parque", "type": "written"},
+            {"en": "You all used to be important", "es": "Ustedes eran importante", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -5174,66 +4874,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) used to (imperfect) the letter',
-                'es': 'Ellas escribían la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all used to (imperfect) the book',
-                'es': 'Ustedes veían el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You used to (imperfect) water',
-                'es': 'Tú escribías agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) used to (imperfect) the bread',
-                'es': 'Usted escribía el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) used to (imperfect) here',
-                'es': 'Nosotras veíamos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) used to (imperfect) the truth',
-                'es': 'Usted veía la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She used to (imperfect) the letter',
-                'es': 'Ella escribía la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I used to (imperfect) the book',
-                'es': 'Yo veía el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) used to (imperfect) water',
-                'es': 'Nosotras escribíamos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) used to (imperfect) the bread',
-                'es': 'Ellas veían el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I used to see the light", "es": "Yo veía la luz", "noun_id": "luz", "type": "written"},
+            {"en": "You used to write fast", "es": "Tú escribías rápido", "noun_id": None, "type": "auditory"},
+            {"en": "He used to see the movie", "es": "Él veía la película", "noun_id": None, "type": "written"},
+            {"en": "She used to write a letter", "es": "Ella escribía una carta", "noun_id": "carta", "type": "auditory"},
+            {"en": "You used to see the family", "es": "Usted veía a la familia", "noun_id": "familia", "type": "written"},
+            {"en": "We used to write a book", "es": "Nosotros escribíamos un libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "We (f) used to see a photo", "es": "Nosotras veíamos una foto", "noun_id": None, "type": "written"},
+            {"en": "They used to write messages", "es": "Ellos escribían mensajes", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) used to see well", "es": "Ellas veían bien", "noun_id": None, "type": "written"},
+            {"en": "You all used to write names", "es": "Ustedes escribían nombres", "noun_id": "nombre", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -5411,66 +5061,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (reflexive present) the letter',
-                'es': 'Nosotras nos lavamos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (reflexive present) the book',
-                'es': 'Nosotras nos llamamos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (reflexive present) water',
-                'es': 'Ellas se llaman agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (reflexive present) the bread',
-                'es': 'Tú te llamas el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (reflexive present) here',
-                'es': 'Usted se llama aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I (reflexive present) the truth',
-                'es': 'Yo me llamo la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (reflexive present) the letter',
-                'es': 'Ellas se lavan la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (reflexive present) the book',
-                'es': 'Tú te lavas el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (reflexive present) water',
-                'es': 'Ella se lava agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (reflexive present) the bread',
-                'es': 'Usted se lava el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I wash hands", "es": "Yo me lavo las manos", "noun_id": None, "type": "written"},
+            {"en": "You are called Carlos", "es": "Tú te llamas Carlos", "noun_id": None, "type": "auditory"},
+            {"en": "He washes face", "es": "Él se lava la cara", "noun_id": None, "type": "written"},
+            {"en": "She is called Maria", "es": "Ella se llama María", "noun_id": None, "type": "auditory"},
+            {"en": "You wash hair", "es": "Usted se lava el pelo", "noun_id": None, "type": "written"},
+            {"en": "We are called Ana", "es": "Nosotros nos llamamos Ana", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) wash quickly", "es": "Nosotras nos lavamos rápido", "noun_id": None, "type": "written"},
+            {"en": "They are called Luis", "es": "Ellos se llaman Luis", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) wash well", "es": "Ellas se lavan bien", "noun_id": None, "type": "written"},
+            {"en": "You all are called Sofía", "es": "Ustedes se llaman Sofía", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -5576,66 +5176,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You (reflexive present) the letter',
-                'es': 'Tú te duchas la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She (reflexive present) the book',
-                'es': 'Ella se ducha el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (reflexive present) water',
-                'es': 'Usted se levanta agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (reflexive present) the bread',
-                'es': 'Ellas se levantan el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (reflexive present) here',
-                'es': 'Ustedes se duchan aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (reflexive present) the truth',
-                'es': 'Nosotras nos levantamos la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (reflexive present) the letter',
-                'es': 'Tú te levantas la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She (reflexive present) the book',
-                'es': 'Ella se levanta el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (reflexive present) water',
-                'es': 'Yo me levanto agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (reflexive present) the bread',
-                'es': 'Usted se ducha el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I get up late", "es": "Yo me levanto tarde", "noun_id": None, "type": "written"},
+            {"en": "You shower well", "es": "Tú te duchas bien", "noun_id": None, "type": "auditory"},
+            {"en": "He gets up fast", "es": "Él se levanta rápido", "noun_id": None, "type": "written"},
+            {"en": "She showers early", "es": "Ella se ducha temprano", "noun_id": None, "type": "auditory"},
+            {"en": "You get up at seven", "es": "Usted se levanta a las siete", "noun_id": None, "type": "written"},
+            {"en": "We shower in the morning", "es": "Nosotros nos duchamos por la mañana", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) get up together", "es": "Nosotras nos levantamos juntos", "noun_id": None, "type": "written"},
+            {"en": "They shower here", "es": "Ellos se duchan aquí", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) get up early", "es": "Ellas se levantan temprano", "noun_id": None, "type": "written"},
+            {"en": "You all shower fast", "es": "Ustedes se duchan rápido", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -5812,66 +5362,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) (reflexive present) the letter',
-                'es': 'Ellas se despiertan la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (reflexive present) the book',
-                'es': 'Usted se acuesta el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (reflexive present) water',
-                'es': 'Usted se despierta agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (reflexive present) the bread',
-                'es': 'Ellas se acuestan el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (reflexive present) here',
-                'es': 'Yo me acuesto aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She (reflexive present) the truth',
-                'es': 'Ella se despierta la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (reflexive present) the letter',
-                'es': 'Ella se acuesta la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (reflexive present) the book',
-                'es': 'Tú te acuestas el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (reflexive present) water',
-                'es': 'Yo me despierto agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (reflexive present) the bread',
-                'es': 'Ustedes se despiertan el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I wake up fast", "es": "Yo me despierto rápido", "noun_id": None, "type": "written"},
+            {"en": "You go to bed here", "es": "Tú te acuestas aquí", "noun_id": None, "type": "auditory"},
+            {"en": "He wakes up at six", "es": "Él se despierta a las seis", "noun_id": None, "type": "written"},
+            {"en": "She goes to bed now", "es": "Ella se acuesta ahora", "noun_id": None, "type": "auditory"},
+            {"en": "You wake up early", "es": "Usted se despierta temprano", "noun_id": None, "type": "written"},
+            {"en": "We go to bed early", "es": "Nosotros nos acostamos temprano", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) wake up late", "es": "Nosotras nos despertamos tarde", "noun_id": None, "type": "written"},
+            {"en": "They go to bed late", "es": "Ellos se acuestan tarde", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) wake up together", "es": "Ellas se despiertan juntos", "noun_id": None, "type": "written"},
+            {"en": "You all go to bed together", "es": "Ustedes se acuestan juntos", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -5977,66 +5477,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) (reflexive present) the letter',
-                'es': 'Ellas se sientan la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I (reflexive present) the book',
-                'es': 'Yo me visto el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (reflexive present) water',
-                'es': 'Ustedes se sientan agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (reflexive present) the bread',
-                'es': 'Tú te vistes el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (reflexive present) here',
-                'es': 'Usted se sienta aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (reflexive present) the truth',
-                'es': 'Ellas se visten la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (reflexive present) the letter',
-                'es': 'Nosotras nos vestemos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I (reflexive present) the book',
-                'es': 'Yo me siento el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (reflexive present) water',
-                'es': 'Ella se sienta agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (reflexive present) the bread',
-                'es': 'Ustedes se visten el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I get dressed together", "es": "Yo me visto juntos", "noun_id": None, "type": "written"},
+            {"en": "You sit down now", "es": "Tú te sientas ahora", "noun_id": None, "type": "auditory"},
+            {"en": "He gets dressed fast", "es": "Él se viste rápido", "noun_id": None, "type": "written"},
+            {"en": "She sits down here", "es": "Ella se sienta aquí", "noun_id": None, "type": "auditory"},
+            {"en": "You get dressed well", "es": "Usted se viste bien", "noun_id": None, "type": "written"},
+            {"en": "We sit down together", "es": "Nosotros nos sentamos juntos", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) get dressed early", "es": "Nosotras nos vestemos temprano", "noun_id": None, "type": "written"},
+            {"en": "They sit down on the chair", "es": "Ellos se sientan en la silla", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) get dressed for work", "es": "Ellas se visten para el trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "You all sit down nearby", "es": "Ustedes se sientan cerca", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -6214,66 +5664,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) will the song',
-                'es': 'Ellas hablarán la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) will the book',
-                'es': 'Usted comerá el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will water',
-                'es': 'Nosotras comeremos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all will at home',
-                'es': 'Ustedes hablarán en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will the coffee',
-                'es': 'Nosotras hablaremos el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'You will the truth',
-                'es': 'Tú comerás la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) will the song',
-                'es': 'Usted hablará la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) will the book',
-                'es': 'Ellas comerán el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all will water',
-                'es': 'Ustedes comerán agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I will the bread',
-                'es': 'Yo comeré el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I will speak Spanish", "es": "Yo hablaré español", "noun_id": None, "type": "written"},
+            {"en": "You will eat bread", "es": "Tú comerás pan", "noun_id": None, "type": "auditory"},
+            {"en": "He will speak English", "es": "Él hablará inglés", "noun_id": None, "type": "written"},
+            {"en": "She will eat food", "es": "Ella comerá comida", "noun_id": None, "type": "auditory"},
+            {"en": "You will speak well", "es": "Usted hablará bien", "noun_id": None, "type": "written"},
+            {"en": "We will eat fruit", "es": "Nosotros comeremos fruta", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) will speak fast", "es": "Nosotras hablaremos rápido", "noun_id": None, "type": "written"},
+            {"en": "They will eat meat", "es": "Ellos comerán carne", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) will speak a lot", "es": "Ellas hablarán mucho", "noun_id": None, "type": "written"},
+            {"en": "You all will eat salad", "es": "Ustedes comerán ensalada", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -6379,66 +5779,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You (formal) will the letter',
-                'es': 'Usted vivirá la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You will Spanish',
-                'es': 'Tú estudiarás español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She will English',
-                'es': 'Ella estudiará inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You will the bread',
-                'es': 'Tú vivirás el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She will here',
-                'es': 'Ella vivirá aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) will the truth',
-                'es': 'Nosotras viviremos la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will the song',
-                'es': 'Nosotras estudiaremos la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all will the book',
-                'es': 'Ustedes vivirán el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) will English',
-                'es': 'Usted estudiará inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all will at home',
-                'es': 'Ustedes estudiarán en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I will live nearby", "es": "Yo viviré cerca", "noun_id": None, "type": "written"},
+            {"en": "You will study a lot", "es": "Tú estudiarás mucho", "noun_id": None, "type": "auditory"},
+            {"en": "He will live together", "es": "Él vivirá juntos", "noun_id": None, "type": "written"},
+            {"en": "She will study at home", "es": "Ella estudiará en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "You will live alone", "es": "Usted vivirá solo", "noun_id": None, "type": "written"},
+            {"en": "We will study together", "es": "Nosotros estudiaremos juntos", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) will live in the city", "es": "Nosotras viviremos en la ciudad", "noun_id": "ciudad", "type": "written"},
+            {"en": "They will study here", "es": "Ellos estudiarán aquí", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) will live here", "es": "Ellas vivirán aquí", "noun_id": None, "type": "written"},
+            {"en": "You all will study Spanish", "es": "Ustedes estudiarán español", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -6615,66 +5965,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all will the letter',
-                'es': 'Ustedes harán la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) will the book',
-                'es': 'Nosotras haremos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) will water',
-                'es': 'Ellas tendrán agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) will the bread',
-                'es': 'Usted tendrá el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I will here',
-                'es': 'Yo tendré aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) will the truth',
-                'es': 'Usted hará la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She will the letter',
-                'es': 'Ella tendrá la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) will the book',
-                'es': 'Ellas harán el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I will water',
-                'es': 'Yo haré agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You will the bread',
-                'es': 'Tú harás el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I will have the right answer", "es": "Yo tendré razón", "noun_id": None, "type": "written"},
+            {"en": "You will make a plan", "es": "Tú harás un plan", "noun_id": "plan", "type": "auditory"},
+            {"en": "He will have time", "es": "Él tendrá tiempo", "noun_id": "tiempo", "type": "written"},
+            {"en": "She will make the bed", "es": "Ella hará la cama", "noun_id": None, "type": "auditory"},
+            {"en": "You will have a dog", "es": "Usted tendrá un perro", "noun_id": "perro", "type": "written"},
+            {"en": "We will make homework", "es": "Nosotros haremos la tarea", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) will have a house", "es": "Nosotras tendremos una casa", "noun_id": "casa", "type": "written"},
+            {"en": "They will make food", "es": "Ellos harán comida", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) will have hunger", "es": "Ellas tendrán hambre", "noun_id": None, "type": "written"},
+            {"en": "You all will make exercise", "es": "Ustedes harán ejercicio", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -6780,66 +6080,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'I will the letter',
-                'es': 'Yo podré la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You will the book',
-                'es': 'Tú dirás el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) will water',
-                'es': 'Usted dirá agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) will the bread',
-                'es': 'Usted podrá el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She will here',
-                'es': 'Ella dirá aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) will the truth',
-                'es': 'Ellas dirán la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I will the letter',
-                'es': 'Yo diré la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all will the book',
-                'es': 'Ustedes podrán el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will water',
-                'es': 'Nosotras diremos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She will the bread',
-                'es': 'Ella podrá el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I will say a story", "es": "Yo diré una historia", "noun_id": None, "type": "written"},
+            {"en": "You will be able work", "es": "Tú podrás trabajar", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "He will say the truth", "es": "Él dirá la verdad", "noun_id": None, "type": "written"},
+            {"en": "She will be able speak", "es": "Ella podrá hablar", "noun_id": None, "type": "auditory"},
+            {"en": "You will say hi", "es": "Usted dirá hola", "noun_id": None, "type": "written"},
+            {"en": "We will be able come", "es": "Nosotros podremos venir", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) will say thanks", "es": "Nosotras diremos gracias", "noun_id": None, "type": "written"},
+            {"en": "They will be able help", "es": "Ellos podrán ayudar", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) will say nothing", "es": "Ellas dirán nada", "noun_id": None, "type": "written"},
+            {"en": "You all will be able go", "es": "Ustedes podrán ir", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -7016,66 +6266,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all will the letter',
-                'es': 'Ustedes querrán la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She will the book',
-                'es': 'Ella sabrá el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will water',
-                'es': 'Nosotras querremos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) will the bread',
-                'es': 'Ellas querrán el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I will here',
-                'es': 'Yo sabré aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I will the truth',
-                'es': 'Yo querré la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will the letter',
-                'es': 'Nosotras sabremos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You will the book',
-                'es': 'Tú sabrás el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) will water',
-                'es': 'Ellas sabrán agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She will the bread',
-                'es': 'Ella querrá el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I will know the answer", "es": "Yo sabré la respuesta", "noun_id": None, "type": "written"},
+            {"en": "You will want water", "es": "Tú querrás agua", "noun_id": None, "type": "auditory"},
+            {"en": "He will know the time", "es": "Él sabrá la hora", "noun_id": None, "type": "written"},
+            {"en": "She will want to help", "es": "Ella querrá ayudar", "noun_id": None, "type": "auditory"},
+            {"en": "You will know English", "es": "Usted sabrá inglés", "noun_id": None, "type": "written"},
+            {"en": "We will want to go", "es": "Nosotros querremos ir", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) will know how to cook", "es": "Nosotras sabremos cocinar", "noun_id": None, "type": "written"},
+            {"en": "They will want to rest", "es": "Ellos querrán descansar", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) will know the truth", "es": "Ellas sabrán la verdad", "noun_id": None, "type": "written"},
+            {"en": "You all will want coffee", "es": "Ustedes querrán café", "noun_id": "café", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -7181,66 +6381,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You will the letter',
-                'es': 'Tú saldrás la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I will the book',
-                'es': 'Yo vendré el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will water',
-                'es': 'Nosotras vendremos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She will the bread',
-                'es': 'Ella saldrá el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) will here',
-                'es': 'Nosotras saldremos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) will the truth',
-                'es': 'Usted vendrá la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) will the letter',
-                'es': 'Usted saldrá la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all will the book',
-                'es': 'Ustedes vendrán el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She will water',
-                'es': 'Ella vendrá agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You will the bread',
-                'es': 'Tú vendrás el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I will come early", "es": "Yo vendré temprano", "noun_id": None, "type": "written"},
+            {"en": "You will leave from work", "es": "Tú saldrás del trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "He will come tomorrow", "es": "Él vendrá mañana", "noun_id": None, "type": "written"},
+            {"en": "She will leave together", "es": "Ella saldrá juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You will come from the store", "es": "Usted vendrá de la tienda", "noun_id": "tienda", "type": "written"},
+            {"en": "We will leave now", "es": "Nosotros saldremos ahora", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) will come home", "es": "Nosotras vendremos a casa", "noun_id": "casa", "type": "written"},
+            {"en": "They will leave early", "es": "Ellos saldrán temprano", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) will come from the park", "es": "Ellas vendrán del parque", "noun_id": "parque", "type": "written"},
+            {"en": "You all will leave from home", "es": "Ustedes saldrán de casa", "noun_id": "casa", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -7418,66 +6568,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all would the letter',
-                'es': 'Ustedes comerían la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She would the book',
-                'es': 'Ella comería el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I would English',
-                'es': 'Yo hablaría inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She would at home',
-                'es': 'Ella hablaría en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) would here',
-                'es': 'Nosotras comeríamos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all would the music',
-                'es': 'Ustedes hablarían la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) would the letter',
-                'es': 'Ellas comerían la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) would the book',
-                'es': 'Usted comería el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) would English',
-                'es': 'Ellas hablarían inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You would at home',
-                'es': 'Tú hablarías en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I would speak Spanish", "es": "Yo hablaría español", "noun_id": None, "type": "written"},
+            {"en": "You would eat bread", "es": "Tú comerías pan", "noun_id": None, "type": "auditory"},
+            {"en": "He would speak English", "es": "Él hablaría inglés", "noun_id": None, "type": "written"},
+            {"en": "She would eat food", "es": "Ella comería comida", "noun_id": None, "type": "auditory"},
+            {"en": "You would speak well", "es": "Usted hablaría bien", "noun_id": None, "type": "written"},
+            {"en": "We would eat fruit", "es": "Nosotros comeríamos fruta", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) would speak fast", "es": "Nosotras hablaríamos rápido", "noun_id": None, "type": "written"},
+            {"en": "They would eat meat", "es": "Ellos comerían carne", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) would speak a lot", "es": "Ellas hablarían mucho", "noun_id": None, "type": "written"},
+            {"en": "You all would eat salad", "es": "Ustedes comerían ensalada", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -7583,66 +6683,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'I would the letter',
-                'es': 'Yo viviría la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all would Spanish',
-                'es': 'Ustedes estudiarían español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You would water',
-                'es': 'Tú vivirías agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) would at home',
-                'es': 'Usted estudiaría en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You would the coffee',
-                'es': 'Tú estudiarías el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'She would the truth',
-                'es': 'Ella viviría la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) would the letter',
-                'es': 'Ellas vivirían la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all would the book',
-                'es': 'Ustedes vivirían el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) would water',
-                'es': 'Usted viviría agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She would at home',
-                'es': 'Ella estudiaría en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I would live nearby", "es": "Yo viviría cerca", "noun_id": None, "type": "written"},
+            {"en": "You would study a lot", "es": "Tú estudiarías mucho", "noun_id": None, "type": "auditory"},
+            {"en": "He would live together", "es": "Él viviría juntos", "noun_id": None, "type": "written"},
+            {"en": "She would study at home", "es": "Ella estudiaría en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "You would live alone", "es": "Usted viviría solo", "noun_id": None, "type": "written"},
+            {"en": "We would study together", "es": "Nosotros estudiaríamos juntos", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) would live in the city", "es": "Nosotras viviríamos en la ciudad", "noun_id": "ciudad", "type": "written"},
+            {"en": "They would study here", "es": "Ellos estudiarían aquí", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) would live here", "es": "Ellas vivirían aquí", "noun_id": None, "type": "written"},
+            {"en": "You all would study Spanish", "es": "Ustedes estudiarían español", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -7819,66 +6869,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) would the letter',
-                'es': 'Ellas tendrían la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You would the book',
-                'es': 'Tú tendrías el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She would water',
-                'es': 'Ella haría agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) would the bread',
-                'es': 'Ellas harían el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all would here',
-                'es': 'Ustedes harían aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I would the truth',
-                'es': 'Yo tendría la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) would the letter',
-                'es': 'Nosotras tendríamos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You would the book',
-                'es': 'Tú harías el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all would water',
-                'es': 'Ustedes tendrían agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I would the bread',
-                'es': 'Yo haría el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I would have the right answer", "es": "Yo tendría razón", "noun_id": None, "type": "written"},
+            {"en": "You would make a plan", "es": "Tú harías un plan", "noun_id": "plan", "type": "auditory"},
+            {"en": "He would have time", "es": "Él tendría tiempo", "noun_id": "tiempo", "type": "written"},
+            {"en": "She would make the bed", "es": "Ella haría la cama", "noun_id": None, "type": "auditory"},
+            {"en": "You would have a dog", "es": "Usted tendría un perro", "noun_id": "perro", "type": "written"},
+            {"en": "We would make homework", "es": "Nosotros haríamos la tarea", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) would have a house", "es": "Nosotras tendríamos una casa", "noun_id": "casa", "type": "written"},
+            {"en": "They would make food", "es": "Ellos harían comida", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) would have hunger", "es": "Ellas tendrían hambre", "noun_id": None, "type": "written"},
+            {"en": "You all would make exercise", "es": "Ustedes harían ejercicio", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -7984,66 +6984,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You would the letter',
-                'es': 'Tú podrías la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I would the book',
-                'es': 'Yo podría el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) would water',
-                'es': 'Ellas dirían agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all would the bread',
-                'es': 'Ustedes dirían el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She would here',
-                'es': 'Ella diría aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) would the truth',
-                'es': 'Nosotras podríamos la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all would the letter',
-                'es': 'Ustedes podrían la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You would the book',
-                'es': 'Tú dirías el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I would water',
-                'es': 'Yo diría agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) would the bread',
-                'es': 'Usted podría el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I would say a story", "es": "Yo diría una historia", "noun_id": None, "type": "written"},
+            {"en": "You could work", "es": "Tú podrías trabajar", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "He would say the truth", "es": "Él diría la verdad", "noun_id": None, "type": "written"},
+            {"en": "She could speak", "es": "Ella podría hablar", "noun_id": None, "type": "auditory"},
+            {"en": "You would say hi", "es": "Usted diría hola", "noun_id": None, "type": "written"},
+            {"en": "We could come", "es": "Nosotros podríamos venir", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) would say thanks", "es": "Nosotras diríamos gracias", "noun_id": None, "type": "written"},
+            {"en": "They could help", "es": "Ellos podrían ayudar", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) would say nothing", "es": "Ellas dirían nada", "noun_id": None, "type": "written"},
+            {"en": "You all could go", "es": "Ustedes podrían ir", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -8284,66 +7234,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (preterite) the song',
-                'es': 'Nosotras jugamos la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) Spanish',
-                'es': 'Tú pagaste español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) English',
-                'es': 'Tú jugaste inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) at home',
-                'es': 'Ella pagó en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) the coffee',
-                'es': 'Usted jugó el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the music',
-                'es': 'Ustedes pagaron la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) the song',
-                'es': 'Ellas pagaron la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) Spanish',
-                'es': 'Usted pagó español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) English',
-                'es': 'Nosotras pagamos inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) at home',
-                'es': 'Ellas jugaron en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I paid the bill", "es": "Yo pagué la cuenta", "noun_id": None, "type": "written"},
+            {"en": "You played soccer", "es": "Tú jugaste fútbol", "noun_id": None, "type": "auditory"},
+            {"en": "He paid the food", "es": "Él pagó la comida", "noun_id": None, "type": "written"},
+            {"en": "She played together", "es": "Ella jugó juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You paid the coffee", "es": "Usted pagó el café", "noun_id": "café", "type": "written"},
+            {"en": "We played in the park", "es": "Nosotros jugamos en el parque", "noun_id": "parque", "type": "auditory"},
+            {"en": "We (f) paid fast", "es": "Nosotras pagamos rápido", "noun_id": None, "type": "written"},
+            {"en": "They played well", "es": "Ellos jugaron bien", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) paid together", "es": "Ellas pagaron juntos", "noun_id": None, "type": "written"},
+            {"en": "You all played here", "es": "Ustedes jugaron aquí", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -8449,66 +7349,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (preterite) the song',
-                'es': 'Nosotras buscamos la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) Spanish',
-                'es': 'Tú buscaste español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) English',
-                'es': 'Tú tocaste inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) at home',
-                'es': 'Yo toqué en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) the coffee',
-                'es': 'Ellas buscaron el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the music',
-                'es': 'Ellas tocaron la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) the song',
-                'es': 'Ustedes tocaron la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) Spanish',
-                'es': 'Usted tocó español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (preterite) English',
-                'es': 'Ella tocó inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) at home',
-                'es': 'Ustedes buscaron en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I looked for work", "es": "Yo busqué trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "You touched the piano", "es": "Tú tocaste el piano", "noun_id": None, "type": "auditory"},
+            {"en": "He looked for Maria", "es": "Él buscó a María", "noun_id": None, "type": "written"},
+            {"en": "She touched the door", "es": "Ella tocó la puerta", "noun_id": "puerta", "type": "auditory"},
+            {"en": "You looked for the truth", "es": "Usted buscó la verdad", "noun_id": None, "type": "written"},
+            {"en": "We touched music", "es": "Nosotros tocamos música", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) looked for an answer", "es": "Nosotras buscamos una respuesta", "noun_id": None, "type": "written"},
+            {"en": "They touched the song", "es": "Ellos tocaron la canción", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) looked for the book", "es": "Ellas buscaron el libro", "noun_id": "libro", "type": "written"},
+            {"en": "You all touched the guitar", "es": "Ustedes tocaron la guitarra", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -8685,66 +7535,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) (preterite) the song',
-                'es': 'Ellas empezaron la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) Spanish',
-                'es': 'Usted empezó español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) English',
-                'es': 'Yo almorcé inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) at home',
-                'es': 'Ella empezó en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) the coffee',
-                'es': 'Yo empecé el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the music',
-                'es': 'Ellas almorzaron la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) the song',
-                'es': 'Tú almorzaste la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) Spanish',
-                'es': 'Nosotras almorzamos español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) English',
-                'es': 'Tú empezaste inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) at home',
-                'es': 'Nosotras empezamos en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I started the class", "es": "Yo empecé la clase", "noun_id": None, "type": "written"},
+            {"en": "You had lunch fast", "es": "Tú almorzaste rápido", "noun_id": None, "type": "auditory"},
+            {"en": "He started fast", "es": "Él empezó rápido", "noun_id": None, "type": "written"},
+            {"en": "She had lunch at home", "es": "Ella almorzó en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "You started early", "es": "Usted empezó temprano", "noun_id": None, "type": "written"},
+            {"en": "We had lunch together", "es": "Nosotros almorzamos juntos", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) started now", "es": "Nosotras empezamos ahora", "noun_id": None, "type": "written"},
+            {"en": "They had lunch here", "es": "Ellos almorzaron aquí", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) started work", "es": "Ellas empezaron el trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "You all had lunch early", "es": "Ustedes almorzaron temprano", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -8850,66 +7650,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all (preterite) the letter',
-                'es': 'Ustedes leyeron la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the book',
-                'es': 'Ustedes creyeron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) water',
-                'es': 'Usted leyó agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the bread',
-                'es': 'Ellas creyeron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) here',
-                'es': 'Nosotras leímos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the truth',
-                'es': 'Tú leíste la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (preterite) the letter',
-                'es': 'Ella leyó la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the book',
-                'es': 'Nosotras creímos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) water',
-                'es': 'Yo leí agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the bread',
-                'es': 'Ellas leyeron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I believed everything", "es": "Yo creí todo", "noun_id": None, "type": "written"},
+            {"en": "You read fast", "es": "Tú leíste rápido", "noun_id": None, "type": "auditory"},
+            {"en": "He believed the story", "es": "Él creyó la historia", "noun_id": None, "type": "written"},
+            {"en": "She read a book", "es": "Ella leyó un libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "You believed the truth", "es": "Usted creyó la verdad", "noun_id": None, "type": "written"},
+            {"en": "We read the newspaper", "es": "Nosotros leímos el periódico", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) believed in you", "es": "Nosotras creímos en ti", "noun_id": None, "type": "written"},
+            {"en": "They read a lot", "es": "Ellos leyeron mucho", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) believed Maria", "es": "Ellas creyeron a María", "noun_id": None, "type": "written"},
+            {"en": "You all read out loud", "es": "Ustedes leyeron en voz alta", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -9086,66 +7836,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You (preterite) the letter',
-                'es': 'Tú oíste la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the book',
-                'es': 'Nosotras caímos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) water',
-                'es': 'Nosotras oímos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the bread',
-                'es': 'Tú caíste el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) here',
-                'es': 'Ustedes oyeron aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) the truth',
-                'es': 'Usted cayó la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) the letter',
-                'es': 'Usted oyó la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the book',
-                'es': 'Ellas cayeron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) water',
-                'es': 'Ustedes cayeron agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the bread',
-                'es': 'Yo oí el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I fell today", "es": "Yo caí hoy", "noun_id": None, "type": "written"},
+            {"en": "You heard the noise", "es": "Tú oíste el ruido", "noun_id": None, "type": "auditory"},
+            {"en": "He fell asleep", "es": "Él cayó dormido", "noun_id": None, "type": "written"},
+            {"en": "She heard a song", "es": "Ella oyó una canción", "noun_id": None, "type": "auditory"},
+            {"en": "You fell here", "es": "Usted cayó aquí", "noun_id": None, "type": "written"},
+            {"en": "We heard well", "es": "Nosotros oímos bien", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) fell fast", "es": "Nosotras caímos rápido", "noun_id": None, "type": "written"},
+            {"en": "They heard the radio", "es": "Ellos oyeron la radio", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) fell on the street", "es": "Ellas cayeron en la calle", "noun_id": "calle", "type": "written"},
+            {"en": "You all heard music", "es": "Ustedes oyeron música", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -9251,66 +7951,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'She (preterite) the letter',
-                'es': 'Ella construyó la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the book',
-                'es': 'Tú fluiste el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (preterite) water',
-                'es': 'Ella fluyó agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) the bread',
-                'es': 'Usted fluyó el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) here',
-                'es': 'Yo fluí aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the truth',
-                'es': 'Tú construiste la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) the letter',
-                'es': 'Ustedes construyeron la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the book',
-                'es': 'Nosotras construimos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) water',
-                'es': 'Ustedes fluyeron agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) the bread',
-                'es': 'Usted construyó el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I built the office", "es": "Yo construí la oficina", "noun_id": None, "type": "written"},
+            {"en": "You flowed here", "es": "Tú fluiste aquí", "noun_id": None, "type": "auditory"},
+            {"en": "He built fast", "es": "Él construyó rápido", "noun_id": None, "type": "written"},
+            {"en": "She flowed together", "es": "Ella fluyó juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You built a home", "es": "Usted construyó un hogar", "noun_id": None, "type": "written"},
+            {"en": "We flowed naturally", "es": "Nosotros fluimos naturalmente", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) built a house", "es": "Nosotras construimos una casa", "noun_id": "casa", "type": "written"},
+            {"en": "They flowed fast", "es": "Ellos fluyeron rápido", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) built a bridge", "es": "Ellas construyeron un puente", "noun_id": None, "type": "written"},
+            {"en": "You all flowed well", "es": "Ustedes fluyeron bien", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -9488,66 +8138,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all (preterite) the song',
-                'es': 'Ustedes estuvieron la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) the book',
-                'es': 'Usted tuvo el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) water',
-                'es': 'Ellas tuvieron agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the bread',
-                'es': 'Tú tuviste el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) here',
-                'es': 'Nosotras tuvimos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the music',
-                'es': 'Ella estuvo la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) the letter',
-                'es': 'Yo tuve la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the book',
-                'es': 'Ustedes tuvieron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) English',
-                'es': 'Nosotras estuvimos inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) at home',
-                'es': 'Tú estuviste en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I was here", "es": "Yo estuve aquí", "noun_id": None, "type": "written"},
+            {"en": "You had a dog", "es": "Tú tuviste un perro", "noun_id": "perro", "type": "auditory"},
+            {"en": "He was at home", "es": "Él estuvo en casa", "noun_id": "casa", "type": "written"},
+            {"en": "She had a house", "es": "Ella tuvo una casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "You were tired", "es": "Usted estuvo cansado", "noun_id": None, "type": "written"},
+            {"en": "We had hunger", "es": "Nosotros tuvimos hambre", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) were well", "es": "Nosotras estuvimos bien", "noun_id": None, "type": "written"},
+            {"en": "They had the right answer", "es": "Ellos tuvieron razón", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) were ready", "es": "Ellas estuvieron listo", "noun_id": None, "type": "written"},
+            {"en": "You all had time", "es": "Ustedes tuvieron tiempo", "noun_id": "tiempo", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -9653,66 +8253,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all (preterite) the letter',
-                'es': 'Ustedes pudieron la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the book',
-                'es': 'Ella puso el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) water',
-                'es': 'Ellas pudieron agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the bread',
-                'es': 'Ustedes pusieron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) here',
-                'es': 'Ellas pusieron aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the truth',
-                'es': 'Nosotras pusimos la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) the letter',
-                'es': 'Yo pude la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the book',
-                'es': 'Nosotras pudimos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) water',
-                'es': 'Usted pudo agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the bread',
-                'es': 'Yo puse el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I could come", "es": "Yo pude venir", "noun_id": None, "type": "written"},
+            {"en": "You put the table", "es": "Tú pusiste la mesa", "noun_id": None, "type": "auditory"},
+            {"en": "He could help", "es": "Él pudo ayudar", "noun_id": None, "type": "written"},
+            {"en": "She put water", "es": "Ella puso agua", "noun_id": None, "type": "auditory"},
+            {"en": "You could go", "es": "Usted pudo ir", "noun_id": None, "type": "written"},
+            {"en": "We put music", "es": "Nosotros pusimos música", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) could work", "es": "Nosotras pudimos trabajar", "noun_id": "trabajo", "type": "written"},
+            {"en": "They put the coffee", "es": "Ellos pusieron el café", "noun_id": "café", "type": "auditory"},
+            {"en": "They (f) could speak", "es": "Ellas pudieron hablar", "noun_id": None, "type": "written"},
+            {"en": "You all put the book here", "es": "Ustedes pusieron el libro aquí", "noun_id": "libro", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -9889,66 +8439,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You (preterite) the letter',
-                'es': 'Tú supiste la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the book',
-                'es': 'Ellas quisieron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) water',
-                'es': 'Ustedes supieron agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the bread',
-                'es': 'Yo supe el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) here',
-                'es': 'Nosotras supimos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the truth',
-                'es': 'Ella quiso la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) the letter',
-                'es': 'Tú quisiste la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the book',
-                'es': 'Ellas supieron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) water',
-                'es': 'Usted quiso agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the bread',
-                'es': 'Yo quise el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I knew English", "es": "Yo supe inglés", "noun_id": None, "type": "written"},
+            {"en": "You wanted to go", "es": "Tú quisiste ir", "noun_id": None, "type": "auditory"},
+            {"en": "He knew how to cook", "es": "Él supo cocinar", "noun_id": None, "type": "written"},
+            {"en": "She wanted to rest", "es": "Ella quiso descansar", "noun_id": None, "type": "auditory"},
+            {"en": "You knew the truth", "es": "Usted supo la verdad", "noun_id": None, "type": "written"},
+            {"en": "We wanted coffee", "es": "Nosotros quisimos café", "noun_id": "café", "type": "auditory"},
+            {"en": "We (f) knew the answer", "es": "Nosotras supimos la respuesta", "noun_id": None, "type": "written"},
+            {"en": "They wanted water", "es": "Ellos quisieron agua", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) knew the time", "es": "Ellas supieron la hora", "noun_id": None, "type": "written"},
+            {"en": "You all wanted to help", "es": "Ustedes quisieron ayudar", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -10054,66 +8554,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (preterite) the song',
-                'es': 'Nosotras anduvimos la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the book',
-                'es': 'Nosotras vinimos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (preterite) English',
-                'es': 'Ella anduvo inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the bread',
-                'es': 'Ellas vinieron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) the coffee',
-                'es': 'Ellas anduvieron el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the truth',
-                'es': 'Ella vino la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) the letter',
-                'es': 'Tú viniste la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the book',
-                'es': 'Yo vine el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) English',
-                'es': 'Tú anduviste inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) at home',
-                'es': 'Ustedes anduvieron en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I walked alone", "es": "Yo anduve solo", "noun_id": None, "type": "written"},
+            {"en": "You came from the store", "es": "Tú viniste de la tienda", "noun_id": "tienda", "type": "auditory"},
+            {"en": "He walked fast", "es": "Él anduvo rápido", "noun_id": None, "type": "written"},
+            {"en": "She came home", "es": "Ella vino a casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "You walked together", "es": "Usted anduvo juntos", "noun_id": None, "type": "written"},
+            {"en": "We came from the park", "es": "Nosotros vinimos del parque", "noun_id": "parque", "type": "auditory"},
+            {"en": "We (f) walked through the park", "es": "Nosotras anduvimos por el parque", "noun_id": "parque", "type": "written"},
+            {"en": "They came early", "es": "Ellos vinieron temprano", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) walked here", "es": "Ellas anduvieron aquí", "noun_id": None, "type": "written"},
+            {"en": "You all came tomorrow", "es": "Ustedes vinieron mañana", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -10290,66 +8740,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'I (preterite) the letter',
-                'es': 'Yo hube la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the book',
-                'es': 'Ella cupo el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) water',
-                'es': 'Nosotras hubimos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the bread',
-                'es': 'Ustedes hubieron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) here',
-                'es': 'Ellas hubieron aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the truth',
-                'es': 'Ella hubo la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) the letter',
-                'es': 'Tú cupiste la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the book',
-                'es': 'Ellas cupieron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) water',
-                'es': 'Usted hubo agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) the bread',
-                'es': 'Usted cupo el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I had eaten", "es": "Yo hube comido", "noun_id": None, "type": "written"},
+            {"en": "You fit in the box", "es": "Tú cupiste en la caja", "noun_id": None, "type": "auditory"},
+            {"en": "He had spoken", "es": "Él hubo hablado", "noun_id": None, "type": "written"},
+            {"en": "She fit together", "es": "Ella cupo juntos", "noun_id": None, "type": "auditory"},
+            {"en": "You had gone", "es": "Usted hubo ido", "noun_id": None, "type": "written"},
+            {"en": "We fit inside", "es": "Nosotros cupimos dentro", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) had lived", "es": "Nosotras hubimos vivido", "noun_id": None, "type": "written"},
+            {"en": "They fit well", "es": "Ellos cupieron bien", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) had been", "es": "Ellas hubieron estado", "noun_id": None, "type": "written"},
+            {"en": "You all fit here", "es": "Ustedes cupieron aquí", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -10455,66 +8855,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) (preterite) the letter',
-                'es': 'Ellas mantuvieron la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the book',
-                'es': 'Ustedes obtuvieron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) water',
-                'es': 'Nosotras obtuvimos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the bread',
-                'es': 'Tú obtuviste el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) here',
-                'es': 'Ustedes mantuvieron aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the truth',
-                'es': 'Tú mantuviste la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) the letter',
-                'es': 'Usted mantuvo la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the book',
-                'es': 'Nosotras mantuvimos el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (preterite) water',
-                'es': 'Ella mantuvo agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the bread',
-                'es': 'Yo mantuve el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I maintained a promise", "es": "Yo mantuve una promesa", "noun_id": None, "type": "written"},
+            {"en": "You obtained an answer", "es": "Tú obtuviste una respuesta", "noun_id": None, "type": "auditory"},
+            {"en": "He maintained the house", "es": "Él mantuvo la casa", "noun_id": "casa", "type": "written"},
+            {"en": "She obtained permission", "es": "Ella obtuvo permiso", "noun_id": None, "type": "auditory"},
+            {"en": "You maintained the job", "es": "Usted mantuvo el trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "We obtained information", "es": "Nosotros obtuvimos información", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) maintained calm", "es": "Nosotras mantuvimos la calma", "noun_id": None, "type": "written"},
+            {"en": "They obtained the book", "es": "Ellos obtuvieron el libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "They (f) maintained the plan", "es": "Ellas mantuvieron el plan", "noun_id": "plan", "type": "written"},
+            {"en": "You all obtained work", "es": "Ustedes obtuvieron trabajo", "noun_id": "trabajo", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -10692,66 +9042,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'They (f) (preterite) the letter',
-                'es': 'Ellas condujeron la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the book',
-                'es': 'Yo traduje el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) water',
-                'es': 'Usted tradujo agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the bread',
-                'es': 'Tú tradujiste el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) here',
-                'es': 'Tú condujiste aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the truth',
-                'es': 'Ustedes tradujeron la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) the letter',
-                'es': 'Nosotras condujimos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the book',
-                'es': 'Ustedes condujeron el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) water',
-                'es': 'Usted condujo agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the bread',
-                'es': 'Ella condujo el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I translated the book", "es": "Yo traduje el libro", "noun_id": "libro", "type": "written"},
+            {"en": "You drove fast", "es": "Tú condujiste rápido", "noun_id": None, "type": "auditory"},
+            {"en": "He translated a letter", "es": "Él tradujo una carta", "noun_id": "carta", "type": "written"},
+            {"en": "She drove the car", "es": "Ella condujo el carro", "noun_id": "carro", "type": "auditory"},
+            {"en": "You translated fast", "es": "Usted tradujo rápido", "noun_id": None, "type": "written"},
+            {"en": "We drove to the city", "es": "Nosotros condujimos a la ciudad", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "We (f) translated well", "es": "Nosotras tradujimos bien", "noun_id": None, "type": "written"},
+            {"en": "They drove carefully", "es": "Ellos condujeron con cuidado", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) translated the document", "es": "Ellas tradujeron el documento", "noun_id": None, "type": "written"},
+            {"en": "You all drove home", "es": "Ustedes condujeron a casa", "noun_id": "casa", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -10857,66 +9157,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You (preterite) the letter',
-                'es': 'Tú produjiste la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) the book',
-                'es': 'Usted introdujo el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) water',
-                'es': 'Ustedes introdujeron agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (preterite) the bread',
-                'es': 'Usted produjo el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) here',
-                'es': 'Yo produje aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the truth',
-                'es': 'Nosotras introdujimos la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) the letter',
-                'es': 'Ellas introdujeron la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She (preterite) the book',
-                'es': 'Ella produjo el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) water',
-                'es': 'Yo introduje agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the bread',
-                'es': 'Nosotras produjimos el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I produced coffee", "es": "Yo produje café", "noun_id": "café", "type": "written"},
+            {"en": "You introduced an idea", "es": "Tú introdujiste una idea", "noun_id": None, "type": "auditory"},
+            {"en": "He produced work", "es": "Él produjo trabajo", "noun_id": "trabajo", "type": "written"},
+            {"en": "She introduced Maria", "es": "Ella introdujo a María", "noun_id": None, "type": "auditory"},
+            {"en": "You produced good wine", "es": "Usted produjo buen vino", "noun_id": None, "type": "written"},
+            {"en": "We introduced the topic", "es": "Nosotros introdujimos el tema", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) produced results", "es": "Nosotras produjimos resultados", "noun_id": None, "type": "written"},
+            {"en": "They introduced the information", "es": "Ellos introdujeron la información", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) produced food", "es": "Ellas produjeron comida", "noun_id": None, "type": "written"},
+            {"en": "You all introduced the book", "es": "Ustedes introdujeron el libro", "noun_id": "libro", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -11094,66 +9344,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (preterite) the letter',
-                'es': 'Nosotras pedimos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the book',
-                'es': 'Yo sentí el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (preterite) water',
-                'es': 'Ella sintió agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (preterite) the bread',
-                'es': 'Ustedes sintieron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (preterite) here',
-                'es': 'Tú sentiste aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the truth',
-                'es': 'Nosotras sentimos la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) the letter',
-                'es': 'Usted pidió la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the book',
-                'es': 'Tú pediste el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (preterite) water',
-                'es': 'Yo pedí agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the bread',
-                'es': 'Ellas pidieron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I asked for coffee", "es": "Yo pedí café", "noun_id": "café", "type": "written"},
+            {"en": "You felt cold", "es": "Tú sentiste frío", "noun_id": None, "type": "auditory"},
+            {"en": "He asked for water", "es": "Él pidió agua", "noun_id": None, "type": "written"},
+            {"en": "She felt heat", "es": "Ella sintió calor", "noun_id": None, "type": "auditory"},
+            {"en": "You asked for help", "es": "Usted pidió ayuda", "noun_id": None, "type": "written"},
+            {"en": "We felt the music", "es": "Nosotros sentimos la música", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) asked for the bill", "es": "Nosotras pedimos la cuenta", "noun_id": None, "type": "written"},
+            {"en": "They felt pain", "es": "Ellos sintieron dolor", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) asked for permission", "es": "Ellas pidieron permiso", "noun_id": None, "type": "written"},
+            {"en": "You all felt the breeze", "es": "Ustedes sintieron la brisa", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -11259,66 +9459,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'I (preterite) the letter',
-                'es': 'Yo serví la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the book',
-                'es': 'Tú serviste el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (preterite) water',
-                'es': 'Ellas repitieron agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (preterite) the bread',
-                'es': 'Ellas sirvieron el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (preterite) here',
-                'es': 'Ustedes repitieron aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (preterite) the truth',
-                'es': 'Tú repetiste la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (preterite) the letter',
-                'es': 'Nosotras servimos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'I (preterite) the book',
-                'es': 'Yo repetí el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (preterite) water',
-                'es': 'Usted repitió agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (preterite) the bread',
-                'es': 'Nosotras repetimos el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I repeated the sentence", "es": "Yo repetí la frase", "noun_id": None, "type": "written"},
+            {"en": "You served the coffee", "es": "Tú serviste el café", "noun_id": "café", "type": "auditory"},
+            {"en": "He repeated a song", "es": "Él repitió una canción", "noun_id": None, "type": "written"},
+            {"en": "She served water", "es": "Ella sirvió agua", "noun_id": None, "type": "auditory"},
+            {"en": "You repeated well", "es": "Usted repitió bien", "noun_id": None, "type": "written"},
+            {"en": "We served the customers", "es": "Nosotros servimos a los clientes", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) repeated fast", "es": "Nosotras repetimos rápido", "noun_id": None, "type": "written"},
+            {"en": "They served wine", "es": "Ellos sirvieron vino", "noun_id": None, "type": "auditory"},
+            {"en": "They (f) repeated the word", "es": "Ellas repitieron la palabra", "noun_id": None, "type": "written"},
+            {"en": "You all served the food", "es": "Ustedes sirvieron la comida", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -11884,66 +10034,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'I (that ___ ) — present subj the letter',
-                'es': 'Yo coma la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (that ___ ) — present subj the book',
-                'es': 'Ustedes coman el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (that ___ ) — present subj water',
-                'es': 'Tú comas agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She (that ___ ) — present subj at home',
-                'es': 'Ella hable en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (that ___ ) — present subj the coffee',
-                'es': 'Ellas hablen el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (that ___ ) — present subj the truth',
-                'es': 'Ellas coman la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (that ___ ) — present subj the letter',
-                'es': 'Usted coma la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (that ___ ) — present subj Spanish',
-                'es': 'Tú hables español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (that ___ ) — present subj English',
-                'es': 'Nosotras hablemos inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all (that ___ ) — present subj at home',
-                'es': 'Ustedes hablen en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I hope that I speak Spanish", "es": "Espero que yo hable español", "noun_id": None, "type": "written"},
+            {"en": "I hope that you eat bread", "es": "Espero que tú comas pan", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that he speaks English", "es": "Espero que él hable inglés", "noun_id": None, "type": "written"},
+            {"en": "I hope that she eats food", "es": "Espero que ella coma comida", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that you speak well", "es": "Espero que usted hable bien", "noun_id": None, "type": "written"},
+            {"en": "I hope that we eat fruit", "es": "Espero que nosotros comamos fruta", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that we (f) speak fast", "es": "Espero que nosotras hablemos rápido", "noun_id": None, "type": "written"},
+            {"en": "I hope that they eat meat", "es": "Espero que ellos coman carne", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that they (f) speak a lot", "es": "Espero que ellas hablen mucho", "noun_id": None, "type": "written"},
+            {"en": "I hope that you all eat salad", "es": "Espero que ustedes coman ensalada", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -12049,66 +10149,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'I (that ___ ) — present subj the letter',
-                'es': 'Yo viva la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (that ___ ) — present subj Spanish',
-                'es': 'Ustedes estudien español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (that ___ ) — present subj English',
-                'es': 'Yo estudie inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (that ___ ) — present subj the bread',
-                'es': 'Usted viva el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (that ___ ) — present subj here',
-                'es': 'Nosotras vivamos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (that ___ ) — present subj the truth',
-                'es': 'Tú vivas la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (that ___ ) — present subj the letter',
-                'es': 'Ella viva la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (that ___ ) — present subj the book',
-                'es': 'Ustedes vivan el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (that ___ ) — present subj English',
-                'es': 'Ella estudie inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (that ___ ) — present subj at home',
-                'es': 'Nosotras estudiemos en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I hope that I live nearby", "es": "Espero que yo viva cerca", "noun_id": None, "type": "written"},
+            {"en": "I hope that you study a lot", "es": "Espero que tú estudies mucho", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that he lives together", "es": "Espero que él viva juntos", "noun_id": None, "type": "written"},
+            {"en": "I hope that she studies at home", "es": "Espero que ella estudie en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "I hope that you live alone", "es": "Espero que usted viva solo", "noun_id": None, "type": "written"},
+            {"en": "I hope that we study together", "es": "Espero que nosotros estudiemos juntos", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that we (f) live in the city", "es": "Espero que nosotras vivamos en la ciudad", "noun_id": "ciudad", "type": "written"},
+            {"en": "I hope that they study here", "es": "Espero que ellos estudien aquí", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that they (f) live here", "es": "Espero que ellas vivan aquí", "noun_id": None, "type": "written"},
+            {"en": "I hope that you all study Spanish", "es": "Espero que ustedes estudien español", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -12285,66 +10335,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (that ___ ) — present subj the letter',
-                'es': 'Nosotras seamos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'She (that ___ ) — present subj the book',
-                'es': 'Ella sea el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (that ___ ) — present subj water',
-                'es': 'Usted vaya agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (that ___ ) — present subj the bread',
-                'es': 'Tú seas el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (that ___ ) — present subj here',
-                'es': 'Nosotras vayamos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I (that ___ ) — present subj the truth',
-                'es': 'Yo vaya la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (that ___ ) — present subj the letter',
-                'es': 'Yo sea la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (that ___ ) — present subj the book',
-                'es': 'Tú vayas el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (that ___ ) — present subj water',
-                'es': 'Ellas sean agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (that ___ ) — present subj the bread',
-                'es': 'Usted sea el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I hope that I am likeable", "es": "Espero que yo sea simpático", "noun_id": None, "type": "written"},
+            {"en": "I hope that you go to the store", "es": "Espero que tú vayas a la tienda", "noun_id": "tienda", "type": "auditory"},
+            {"en": "I hope that he is Colombian", "es": "Espero que él sea colombiano", "noun_id": None, "type": "written"},
+            {"en": "I hope that she goes to work", "es": "Espero que ella vaya al trabajo", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "I hope that you are tall", "es": "Espero que usted sea alto", "noun_id": None, "type": "written"},
+            {"en": "I hope that we go to the market", "es": "Espero que nosotros vayamos al mercado", "noun_id": "mercado", "type": "auditory"},
+            {"en": "I hope that we (f) are professional", "es": "Espero que nosotras seamos profesional", "noun_id": None, "type": "written"},
+            {"en": "I hope that they go home", "es": "Espero que ellos vayan a casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "I hope that they (f) are important", "es": "Espero que ellas sean importante", "noun_id": None, "type": "written"},
+            {"en": "I hope that you all go to the park", "es": "Espero que ustedes vayan al parque", "noun_id": "parque", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -12450,66 +10450,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'She (that ___ ) — present subj the song',
-                'es': 'Ella esté la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (that ___ ) — present subj Spanish',
-                'es': 'Nosotras estemos español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (that ___ ) — present subj English',
-                'es': 'Ustedes estén inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (that ___ ) — present subj at home',
-                'es': 'Ellas den en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (that ___ ) — present subj the coffee',
-                'es': 'Usted esté el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'I (that ___ ) — present subj the music',
-                'es': 'Yo dé la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (that ___ ) — present subj the song',
-                'es': 'Tú estés la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (that ___ ) — present subj Spanish',
-                'es': 'Nosotras demos español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (that ___ ) — present subj English',
-                'es': 'Ustedes den inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (that ___ ) — present subj at home',
-                'es': 'Ellas estén en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "I hope that I am ready", "es": "Espero que yo esté listo", "noun_id": None, "type": "written"},
+            {"en": "I hope that you give thanks", "es": "Espero que tú des las gracias", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that he is here", "es": "Espero que él esté aquí", "noun_id": None, "type": "written"},
+            {"en": "I hope that she gives the book", "es": "Espero que ella dé el libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "I hope that you are at home", "es": "Espero que usted esté en casa", "noun_id": "casa", "type": "written"},
+            {"en": "I hope that we give money", "es": "Espero que nosotros demos dinero", "noun_id": "dinero", "type": "auditory"},
+            {"en": "I hope that we (f) are tired", "es": "Espero que nosotras estemos cansado", "noun_id": None, "type": "written"},
+            {"en": "I hope that they give water", "es": "Espero que ellos den agua", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that they (f) are well", "es": "Espero que ellas estén bien", "noun_id": None, "type": "written"},
+            {"en": "I hope that you all give an answer", "es": "Espero que ustedes den una respuesta", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -12686,66 +10636,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (that ___ ) — present subj the letter',
-                'es': 'Nosotras sepamos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (that ___ ) — present subj the book',
-                'es': 'Usted haya el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (that ___ ) — present subj water',
-                'es': 'Nosotras hayamos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (that ___ ) — present subj the bread',
-                'es': 'Tú sepas el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (that ___ ) — present subj here',
-                'es': 'Ellas hayan aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'She (that ___ ) — present subj the truth',
-                'es': 'Ella haya la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (that ___ ) — present subj the letter',
-                'es': 'Yo sepa la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (that ___ ) — present subj the book',
-                'es': 'Ustedes sepan el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (that ___ ) — present subj water',
-                'es': 'Ella sepa agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (that ___ ) — present subj the bread',
-                'es': 'Ellas sepan el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "I hope that I know the answer", "es": "Espero que yo sepa la respuesta", "noun_id": None, "type": "written"},
+            {"en": "I hope that you have eaten", "es": "Espero que tú hayas comido", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that he knows the time", "es": "Espero que él sepa la hora", "noun_id": None, "type": "written"},
+            {"en": "I hope that she has spoken", "es": "Espero que ella haya hablado", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that you know English", "es": "Espero que usted sepa inglés", "noun_id": None, "type": "written"},
+            {"en": "I hope that we have gone", "es": "Espero que nosotros hayamos ido", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that we (f) know how to cook", "es": "Espero que nosotras sepamos cocinar", "noun_id": None, "type": "written"},
+            {"en": "I hope that they have lived", "es": "Espero que ellos hayan vivido", "noun_id": None, "type": "auditory"},
+            {"en": "I hope that they (f) know the truth", "es": "Espero que ellas sepan la verdad", "noun_id": None, "type": "written"},
+            {"en": "I hope that you all have been", "es": "Espero que ustedes hayan estado", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -12920,66 +10820,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You (if ___ ) — imperfect subj the song',
-                'es': 'Tú hablaras la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I (if ___ ) — imperfect subj Spanish',
-                'es': 'Yo hablara español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj English',
-                'es': 'Nosotras habláramos inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj the bread',
-                'es': 'Nosotras comiéramos el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj the coffee',
-                'es': 'Ella hablara el café',
-                'noun_id': 'café',
-                'type': 'written'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj the truth',
-                'es': 'Ella comiera la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (if ___ ) — imperfect subj the song',
-                'es': 'Ustedes hablaran la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (if ___ ) — imperfect subj Spanish',
-                'es': 'Usted hablara español',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (if ___ ) — imperfect subj water',
-                'es': 'Tú comieras agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (if ___ ) — imperfect subj the bread',
-                'es': 'Ustedes comieran el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "If I spoke fast", "es": "Si yo hablara rápido", "noun_id": None, "type": "written"},
+            {"en": "If you ate meat", "es": "Si tú comieras carne", "noun_id": None, "type": "auditory"},
+            {"en": "If he spoke a lot", "es": "Si él hablara mucho", "noun_id": None, "type": "written"},
+            {"en": "If she ate salad", "es": "Si ella comiera ensalada", "noun_id": None, "type": "auditory"},
+            {"en": "If you spoke Spanish", "es": "Si usted hablara español", "noun_id": None, "type": "written"},
+            {"en": "If we ate bread", "es": "Si nosotros comiéramos pan", "noun_id": None, "type": "auditory"},
+            {"en": "If we (f) spoke English", "es": "Si nosotras habláramos inglés", "noun_id": None, "type": "written"},
+            {"en": "If they ate food", "es": "Si ellos comieran comida", "noun_id": None, "type": "auditory"},
+            {"en": "If they (f) spoke well", "es": "Si ellas hablaran bien", "noun_id": None, "type": "written"},
+            {"en": "If you all ate fruit", "es": "Si ustedes comieran fruta", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -13085,66 +10935,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj the song',
-                'es': 'Nosotras estudiáramos la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (if ___ ) — imperfect subj the book',
-                'es': 'Tú vivieras el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj water',
-                'es': 'Nosotras viviéramos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (if ___ ) — imperfect subj at home',
-                'es': 'Tú estudiaras en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (if ___ ) — imperfect subj here',
-                'es': 'Ustedes vivieran aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (if ___ ) — imperfect subj the music',
-                'es': 'Ellas estudiaran la música',
-                'noun_id': 'música',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (if ___ ) — imperfect subj the song',
-                'es': 'Usted estudiara la canción',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I (if ___ ) — imperfect subj the book',
-                'es': 'Yo viviera el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj English',
-                'es': 'Ella estudiara inglés',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I (if ___ ) — imperfect subj at home',
-                'es': 'Yo estudiara en casa',
-                'noun_id': 'casa',
-                'type': 'auditory'
-            }
+            {"en": "If I lived in the city", "es": "Si yo viviera en la ciudad", "noun_id": "ciudad", "type": "written"},
+            {"en": "If you studied here", "es": "Si tú estudiaras aquí", "noun_id": None, "type": "auditory"},
+            {"en": "If he lived here", "es": "Si él viviera aquí", "noun_id": None, "type": "written"},
+            {"en": "If she studied Spanish", "es": "Si ella estudiara español", "noun_id": None, "type": "auditory"},
+            {"en": "If you lived nearby", "es": "Si usted viviera cerca", "noun_id": None, "type": "written"},
+            {"en": "If we studied a lot", "es": "Si nosotros estudiáramos mucho", "noun_id": None, "type": "auditory"},
+            {"en": "If we (f) lived together", "es": "Si nosotras viviéramos juntos", "noun_id": None, "type": "written"},
+            {"en": "If they studied at home", "es": "Si ellos estudiaran en casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "If they (f) lived alone", "es": "Si ellas vivieran solo", "noun_id": None, "type": "written"},
+            {"en": "If you all studied together", "es": "Si ustedes estudiaran juntos", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -13321,66 +11121,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You (if ___ ) — imperfect subj the letter',
-                'es': 'Tú fueras la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (if ___ ) — imperfect subj the book',
-                'es': 'Ustedes fueran el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You all (if ___ ) — imperfect subj water',
-                'es': 'Ustedes tuvieran agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj the bread',
-                'es': 'Ella fuera el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj here',
-                'es': 'Nosotras tuviéramos aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'I (if ___ ) — imperfect subj the truth',
-                'es': 'Yo tuviera la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj the letter',
-                'es': 'Ella tuviera la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (if ___ ) — imperfect subj the book',
-                'es': 'Tú tuvieras el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (if ___ ) — imperfect subj water',
-                'es': 'Ellas fueran agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (if ___ ) — imperfect subj the bread',
-                'es': 'Usted fuera el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "If I was professional", "es": "Si yo fuera profesional", "noun_id": None, "type": "written"},
+            {"en": "If you had a house", "es": "Si tú tuvieras una casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "If he was important", "es": "Si él fuera importante", "noun_id": None, "type": "written"},
+            {"en": "If she had hunger", "es": "Si ella tuviera hambre", "noun_id": None, "type": "auditory"},
+            {"en": "If you were likeable", "es": "Si usted fuera simpático", "noun_id": None, "type": "written"},
+            {"en": "If we had the right answer", "es": "Si nosotros tuviéramos razón", "noun_id": None, "type": "auditory"},
+            {"en": "If we (f) were Colombian", "es": "Si nosotras fuéramos colombiano", "noun_id": None, "type": "written"},
+            {"en": "If they had time", "es": "Si ellos tuvieran tiempo", "noun_id": "tiempo", "type": "auditory"},
+            {"en": "If they (f) were tall", "es": "Si ellas fueran alto", "noun_id": None, "type": "written"},
+            {"en": "If you all had a dog", "es": "Si ustedes tuvieran un perro", "noun_id": "perro", "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -13486,66 +11236,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'You all (if ___ ) — imperfect subj the letter',
-                'es': 'Ustedes hicieran la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (if ___ ) — imperfect subj the book',
-                'es': 'Tú hicieras el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (if ___ ) — imperfect subj water',
-                'es': 'Yo hiciera agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (if ___ ) — imperfect subj the bread',
-                'es': 'Usted hiciera el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj here',
-                'es': 'Ella quisiera aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You (formal) (if ___ ) — imperfect subj the truth',
-                'es': 'Usted quisiera la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'They (f) (if ___ ) — imperfect subj the letter',
-                'es': 'Ellas quisieran la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You all (if ___ ) — imperfect subj the book',
-                'es': 'Ustedes quisieran el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'I (if ___ ) — imperfect subj water',
-                'es': 'Yo quisiera agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj the bread',
-                'es': 'Nosotras hiciéramos el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "If I made exercise", "es": "Si yo hiciera ejercicio", "noun_id": None, "type": "written"},
+            {"en": "If you wanted to help", "es": "Si tú quisieras ayudar", "noun_id": None, "type": "auditory"},
+            {"en": "If he made a plan", "es": "Si él hiciera un plan", "noun_id": "plan", "type": "written"},
+            {"en": "If she wanted to go", "es": "Si ella quisiera ir", "noun_id": None, "type": "auditory"},
+            {"en": "If you made the bed", "es": "Si usted hiciera la cama", "noun_id": None, "type": "written"},
+            {"en": "If we wanted to rest", "es": "Si nosotros quisiéramos descansar", "noun_id": None, "type": "auditory"},
+            {"en": "If we (f) made homework", "es": "Si nosotras hiciéramos la tarea", "noun_id": None, "type": "written"},
+            {"en": "If they wanted coffee", "es": "Si ellos quisieran café", "noun_id": "café", "type": "auditory"},
+            {"en": "If they (f) made food", "es": "Si ellas hicieran comida", "noun_id": None, "type": "written"},
+            {"en": "If you all wanted water", "es": "Si ustedes quisieran agua", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
@@ -13722,66 +11422,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj the letter',
-                'es': 'Nosotras pudiéramos la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'You (if ___ ) — imperfect subj the book',
-                'es': 'Tú dijeras el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (formal) (if ___ ) — imperfect subj water',
-                'es': 'Usted dijera agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'I (if ___ ) — imperfect subj the bread',
-                'es': 'Yo pudiera el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj here',
-                'es': 'Ella pudiera aquí',
-                'noun_id': None,
-                'type': 'written'
-            },
-            {
-                'en': 'You all (if ___ ) — imperfect subj the truth',
-                'es': 'Ustedes pudieran la verdad',
-                'noun_id': None,
-                'type': 'auditory'
-            },
-            {
-                'en': 'You (if ___ ) — imperfect subj the letter',
-                'es': 'Tú pudieras la carta',
-                'noun_id': 'carta',
-                'type': 'written'
-            },
-            {
-                'en': 'They (f) (if ___ ) — imperfect subj the book',
-                'es': 'Ellas dijeran el libro',
-                'noun_id': 'libro',
-                'type': 'auditory'
-            },
-            {
-                'en': 'We (f) (if ___ ) — imperfect subj water',
-                'es': 'Nosotras dijéramos agua',
-                'noun_id': 'agua',
-                'type': 'written'
-            },
-            {
-                'en': 'She (if ___ ) — imperfect subj the bread',
-                'es': 'Ella dijera el pan',
-                'noun_id': 'pan',
-                'type': 'auditory'
-            }
+            {"en": "If I said a story", "es": "Si yo dijera una historia", "noun_id": None, "type": "written"},
+            {"en": "If you could work", "es": "Si tú pudieras trabajar", "noun_id": "trabajo", "type": "auditory"},
+            {"en": "If he said the truth", "es": "Si él dijera la verdad", "noun_id": None, "type": "written"},
+            {"en": "If she could speak", "es": "Si ella pudiera hablar", "noun_id": None, "type": "auditory"},
+            {"en": "If you said hi", "es": "Si usted dijera hola", "noun_id": None, "type": "written"},
+            {"en": "If we could come", "es": "Si nosotros pudiéramos venir", "noun_id": None, "type": "auditory"},
+            {"en": "If we (f) said thanks", "es": "Si nosotras dijéramos gracias", "noun_id": None, "type": "written"},
+            {"en": "If they could help", "es": "Si ellos pudieran ayudar", "noun_id": None, "type": "auditory"},
+            {"en": "If they (f) said nothing", "es": "Si ellas dijeran nada", "noun_id": None, "type": "written"},
+            {"en": "If you all could go", "es": "Si ustedes pudieran ir", "noun_id": None, "type": "auditory"},
         ],
         'drill_targets': [
             {
