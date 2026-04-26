@@ -344,6 +344,10 @@ class GrammarConfigResponse(BaseModel):
     # the drill exercise via the FE RuleChart component as an alternative to
     # the VerbChart used for conjugation lessons.
     rule_chart: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
+    # Optional gentle-intro chart for rule lessons. Renders as a new pre-drill
+    # phase ('intro') with animated reveal + recall quiz. Distinct from
+    # rule_chart, which is the dense reference table shown alongside drills.
+    intro_chart: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
 
 
 # Grammar gate / completion schemas
