@@ -11643,19 +11643,35 @@ def derive_intro_chart(config: dict) -> dict | None:
         if kind == "table":
             headers = list(rule_chart.get("headers") or [])
             rows = [list(r) for r in (rule_chart.get("rows") or [])]
-            # Drop trailing "Note"-style columns (last column is often optional commentary).
-            note_idxs = [i for i, h in enumerate(headers) if h.strip().lower() in ("note", "notes", "example", "examples")]
-            if note_idxs:
-                keep = [i for i in range(len(headers)) if i not in note_idxs]
+            # Drop optional commentary columns (kept inputs are the prompt + Spanish target).
+            DROP_HEADERS = {"note", "notes", "example", "examples"}
+            drop_idxs = [i for i, h in enumerate(headers) if h.strip().lower() in DROP_HEADERS]
+            if drop_idxs:
+                keep = [i for i in range(len(headers)) if i not in drop_idxs]
                 headers = [headers[i] for i in keep]
                 rows = [[r[i] if i < len(r) else "" for i in keep] for r in rows]
+            # Pick the Spanish-target column to blank for the recall quiz.
+            # Headers like "Person", "Distance", "English", "Used for", "Replaces",
+            # "Meaning" are *prompts* (English-side); the remaining column(s) hold
+            # the Spanish forms the user should produce.
+            NON_TARGET_HEADERS = {
+                "person", "distance", "english", "used for", "meaning",
+                "replaces", "rule", "category",
+            }
+            non_target_idxs = [i for i, h in enumerate(headers) if h.strip().lower() in NON_TARGET_HEADERS]
+            target_idxs = [i for i in range(len(headers)) if i not in non_target_idxs]
+            quiz_col = target_idxs[0] if target_idxs else 0
+            # Prompts default to all non-target columns; if every header looks
+            # Spanish-side, fall back to whichever column ISN'T the quiz column.
+            prompt_idxs = non_target_idxs or [i for i in range(len(headers)) if i != quiz_col]
             return {
                 "kind": "table",
                 "title": rule_chart.get("title") or config.get("title") or "",
                 "headers": headers,
                 "rows": rows,
                 "footnote": rule_chart.get("footnote"),
-                "quiz_column_index": 1 if len(headers) > 1 else 0,
+                "quiz_column_index": quiz_col,
+                "prompt_column_indices": prompt_idxs,
             }
         if kind in ("comparison", "list", "rule_pack"):
             return rule_chart
