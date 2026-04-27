@@ -11598,6 +11598,32 @@ GRAMMAR_SITUATIONS = {
 }
 
 
+# ── Merge auto-generated noun-only glosses into each drill_sentence ──────────
+# Sidecar `grammar_drill_glosses.py` is produced by
+# `scripts/generate_drill_glosses.py`. Glosses are noun-only by design — they
+# let learners look up unfamiliar nouns ("casa", "tienda", "maestro") without
+# revealing the verb/conjugation/grammar form the drill is testing. We merge
+# at import time so consumers see one uniform shape.
+from app.data.grammar_drill_glosses import DRILL_GLOSSES as _DRILL_GLOSSES
+
+for _sid, _glosses_per_sent in _DRILL_GLOSSES.items():
+    _cfg = GRAMMAR_SITUATIONS.get(_sid)
+    if not _cfg:
+        continue
+    _sents = _cfg.get('drill_sentences') or []
+    for _i, _g in enumerate(_glosses_per_sent):
+        if _g is None or _i >= len(_sents):
+            continue
+        _sent = _sents[_i]
+        if not isinstance(_sent, dict):
+            continue
+        # Sidecar always wins — earlier hand-authored glosses included
+        # verbs/adjectives that revealed the drill answer.
+        _sent['glosses'] = _g
+
+del _sid, _cfg, _sents, _i, _g, _sent, _glosses_per_sent, _DRILL_GLOSSES
+
+
 def get_grammar_config(situation_id: str) -> dict | None:
     """Get grammar config for a situation ID, or None if not a grammar situation."""
     return GRAMMAR_SITUATIONS.get(situation_id)
