@@ -11624,6 +11624,23 @@ for _sid, _glosses_per_sent in _DRILL_GLOSSES.items():
 del _sid, _cfg, _sents, _i, _g, _sent, _glosses_per_sent, _DRILL_GLOSSES
 
 
+# ── Merge scene-anchored opener lines for every grammar `*_chat` lesson ──────
+# Sidecar `grammar_chat_openers.py` carries opener_es / opener_en / scene per
+# chat lesson. Without it, every chat falls through to the FE's generic
+# "Hello! How can I help you today?" line. The scene field is consumed by
+# `situation_roles.py`; here we only patch in the openers.
+from app.data.grammar_chat_openers import CHAT_OPENERS as _CHAT_OPENERS
+
+for _sid, _opener in _CHAT_OPENERS.items():
+    _cfg = GRAMMAR_SITUATIONS.get(_sid)
+    if not _cfg:
+        continue
+    _cfg['opener_es'] = _opener['opener_es']
+    _cfg['opener_en'] = _opener['opener_en']
+
+del _sid, _cfg, _opener, _CHAT_OPENERS
+
+
 def get_grammar_config(situation_id: str) -> dict | None:
     """Get grammar config for a situation ID, or None if not a grammar situation."""
     return GRAMMAR_SITUATIONS.get(situation_id)

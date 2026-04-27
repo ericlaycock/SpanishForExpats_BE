@@ -86,6 +86,17 @@ for _sid in _GS:
     if _sid not in GRAMMAR_SCENE_MAP:
         GRAMMAR_SCENE_MAP[_sid] = "core"
 
+# ── Per-chat-lesson scene overrides (drives the cold-open redesign) ──────────
+# Source of truth lives alongside the openers in `grammar_chat_openers.py`.
+# Each entry there carries an `opener_es` / `opener_en` AND a `scene`; the
+# openers are merged into GRAMMAR_SITUATIONS, the scenes are flipped here.
+# Override AFTER the auto-populate so these win over the default `core`.
+from app.data.grammar_chat_openers import CHAT_OPENERS as _CHAT_OPENERS
+for _sid, _opener in _CHAT_OPENERS.items():
+    if _sid in GRAMMAR_SCENE_MAP:
+        GRAMMAR_SCENE_MAP[_sid] = _opener["scene"]
+del _sid, _opener, _CHAT_OPENERS
+
 # ── Grammar structure definitions ────────────────────────────────────────────
 # Each grammar situation has a grammar_structure the user must deploy,
 # plus bespoke example questions that naturally elicit that structure.
