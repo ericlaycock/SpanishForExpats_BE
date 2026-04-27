@@ -181,6 +181,12 @@ def seed():
         db.execute(text("DELETE FROM user_words WHERE word_id LIKE 'grammar_%'"))
         db.execute(text("DELETE FROM situation_words WHERE situation_id LIKE 'grammar_%'"))
         db.execute(text("DELETE FROM situation_words WHERE word_id LIKE 'grammar_%'"))
+        # Grenades hold a FK on words.id — clear any that reference grammar
+        # words so the subsequent words-table wipe doesn't trip on
+        # ForeignKeyViolation. This was breaking QA deploys whenever a
+        # previously-seeded grammar word (e.g. `grammar_sus`) had been used
+        # to create a grenade row before being dropped from the seed.
+        db.execute(text("DELETE FROM grenades WHERE word_id LIKE 'grammar_%'"))
         db.execute(text("DELETE FROM words WHERE word_category = 'grammar'"))
 
         grammar_word_set = set()
