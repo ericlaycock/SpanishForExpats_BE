@@ -77,7 +77,16 @@ async def generate_and_upload(situation_id: str, title: str, animation_type: str
     if not message:
         return "no_message"
 
-    voice, tts_instructions = VOICE_CONFIG.get(animation_type, ("alloy", _ACCENT))
+    # Grammar lessons all carry animation_type='grammar'; resolve the actual
+    # scene per-lesson so the audio matches the visual character (e.g.
+    # small_talk → female `shimmer`, restaurant → male `ash`, …).
+    voice_key = animation_type
+    if animation_type == "grammar":
+        from app.data.situation_roles import GRAMMAR_SCENE_MAP
+        mapped = GRAMMAR_SCENE_MAP.get(situation_id)
+        if mapped:
+            voice_key = mapped
+    voice, tts_instructions = VOICE_CONFIG.get(voice_key, ("alloy", _ACCENT))
 
     # Build the same system prompt the realtime conversation uses
     system_prompt = build_system_prompt(animation_type, situation_id, language_mode="english")

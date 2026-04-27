@@ -56,6 +56,7 @@ _DEFAULT_INPUT_TRANSCRIPTION = {"model": "whisper-1"}
 def resolve_voice(
     animation_type: str,
     alt_language: Optional[str] = None,
+    situation_id: Optional[str] = None,
 ) -> tuple[str, Optional[str]]:
     """Look up (voice, tts_instructions) for this situation's animation type.
 
@@ -70,7 +71,11 @@ def resolve_voice(
     """
     from app.api.v1.conversations import get_tts_instructions
 
-    return get_tts_instructions(animation_type, alt_language=alt_language)
+    return get_tts_instructions(
+        animation_type,
+        alt_language=alt_language,
+        situation_id=situation_id,
+    )
 
 
 def _resolve_system_prompt(
@@ -156,7 +161,9 @@ def build_session_config(
         )
 
     voice, tts_instructions = resolve_voice(
-        situation.animation_type, alt_language=alt_language
+        situation.animation_type,
+        alt_language=alt_language,
+        situation_id=situation.id,
     )
     system_prompt = _resolve_system_prompt(
         conversation, situation, alt_language, vocab_level, grammar_level

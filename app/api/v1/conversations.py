@@ -483,9 +483,27 @@ SITUATION_VOICE_CONFIG = {
 }
 
 
-def get_tts_instructions(animation_type: str, alt_language: str | None = None) -> tuple[str, str | None]:
-    """Return (voice, instructions) for TTS, adjusted for alt language mode."""
-    cfg = SITUATION_VOICE_CONFIG.get(animation_type, {})
+def get_tts_instructions(
+    animation_type: str,
+    alt_language: str | None = None,
+    situation_id: str | None = None,
+) -> tuple[str, str | None]:
+    """Return (voice, instructions) for TTS, adjusted for alt language mode.
+
+    Grammar lessons all carry animation_type='grammar', but each chat lesson
+    is mapped to a specific scene/character in GRAMMAR_SCENE_MAP (small_talk
+    neighbor, restaurant waiter, contractor, etc.). When a situation_id is
+    supplied for a grammar lesson, defer to the mapped scene's voice config
+    so the audio matches the visual character — without this, every grammar
+    chat speaks in the male `ash` core voice regardless of who's on screen.
+    """
+    key = animation_type
+    if animation_type == "grammar" and situation_id:
+        from app.data.situation_roles import GRAMMAR_SCENE_MAP
+        mapped = GRAMMAR_SCENE_MAP.get(situation_id)
+        if mapped:
+            key = mapped
+    cfg = SITUATION_VOICE_CONFIG.get(key, {})
     voice = cfg.get("voice", "alloy")
     instructions = cfg.get("instructions")
     if alt_language and instructions and alt_language in _ALT_ACCENTS:
@@ -1026,7 +1044,9 @@ async def voice_turn_respond(
 
     # TTS voice config
     tts_voice, tts_instructions = get_tts_instructions(
-        situation.animation_type if situation else "", alt_language=alt_language,
+        situation.animation_type if situation else "",
+        alt_language=alt_language,
+        situation_id=situation.id if situation else None,
     )
 
     # Log full messages object for debugging
