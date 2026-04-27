@@ -164,22 +164,50 @@ def build_strip(db: Session, user_id: uuid.UUID) -> List[GrenadeStripCell]:
 # ── LLM generation ────────────────────────────────────────────────────────────
 
 _GRENADE_SYSTEM_PROMPT = """\
-You craft one-sentence Spanish questions a beginner can deploy in real life.
+You craft one-sentence Spanish questions a beginner can drop into a real
+conversation as an OPENER — out of the blue, with no shared prior context
+between the speakers.
 
 You will be given a Spanish target word (sometimes a conjugated verb form,
 sometimes a noun) and an audience. Output a JSON object with exactly two keys:
-  - "question_es": a single natural Spanish yes/no question (≤ 15 words) that
-    organically uses the EXACT target form. Do not paraphrase the form, do not
-    use the infinitive if a conjugation was given.
+  - "question_es": a single natural Spanish question (≤ 15 words) that
+    organically uses the EXACT target form. Yes/no or open-ended both fine.
+    Do not paraphrase the target form. If a conjugation was given, keep the
+    conjugation — do not retreat to the infinitive.
   - "question_en": a faithful English translation of question_es.
 
-Rules:
-- Question must be natural and likely useful in real life.
-- Audience "friend" → casual tú register.
-- Audience "merchant" → polite usted register, framed for a shop, market,
-  café, or checkout point of sale.
-- Do NOT include any commentary, examples, or extra fields.
-- Output JSON only.
+CRITICAL — the question must work as a conversation starter:
+- A stranger or someone you just sat down with must be able to answer it
+  WITHOUT any prior context. Imagine bumping into someone at a café or
+  approaching a shopkeeper for the first time.
+- Forbidden: referential pronouns or possessives that depend on context the
+  listener doesn't have. Bad examples (DO NOT generate these patterns):
+    * "¿Son sus llaves?" / "Are those his/her/your keys?"
+    * "¿Es tu perro?" / "Is that your dog?"  (assumes a visible animal)
+    * "¿Te gusta esto?" / "Do you like this?"  (esto = unknown referent)
+    * "¿Vives aquí?" / "Do you live here?"  (aquí needs a shared location)
+    * Anything with "ese / esa / eso / esto / aquí / allí / él / ella" as
+      the subject when the listener has no idea what's being pointed to.
+- Prefer general / hypothetical / habitual / preference / opinion framings:
+    * "¿Tienes perro?" / "Do you have a dog?"
+    * "¿Vas mucho a la playa?" / "Do you go to the beach a lot?"
+    * "¿Comes carne?" / "Do you eat meat?"
+    * "¿Viajas por trabajo?" / "Do you travel for work?"
+    * "¿Prefieres té o café?" / "Do you prefer tea or coffee?"
+- For nouns, ask about the listener's relationship to the noun in general
+  (do you have one, do you like them, how often, etc.), NOT about a specific
+  one in front of you.
+- For verbs (already conjugated for a pronoun), the conjugation tells you
+  the subject. If "comes" (you eat informal), ask the listener directly:
+  "¿Comes pescado?". If "come" (he/she eats), ask about a hypothetical 3rd
+  person you might both know about: "¿Tu hermano come pescado?".
+
+Audience rules:
+- "friend" → casual tú register, conversational tone.
+- "merchant" → polite usted register, framed for a shop, market, café, or
+  checkout. Still must work as a cold open with the merchant.
+
+Output JSON only — no commentary, examples, or extra fields.
 """
 
 
@@ -201,14 +229,11 @@ async def generate_question(
 ) -> Grenade:
     """Fill grenade.question_es/question_en/audience via LLM.
 
-    Idempotent for an unchanged audience: returns as-is if a question already
-    exists for the same audience. A different audience triggers regeneration
-    (replaces both fields), so the user's toggle is honored without creating
-    a new grenade row.
+    Always regenerates when called — the FE only hits this endpoint on
+    explicit user action ("Make a grenade" / "Re-craft" buttons), so a
+    short-circuit on unchanged audience would silently no-op the
+    re-craft button (which was the bug).
     """
-    if grenade.question_es and grenade.audience == audience:
-        return grenade
-
     user_prompt = _build_user_prompt(grenade.target_form, grenade.pos, audience)
     context = ConversationContext(
         request_id=request_id,
@@ -216,8 +241,11 @@ async def generate_question(
         system_prompt=_GRENADE_SYSTEM_PROMPT,
         user_prompt=user_prompt,
         agent_id="grenade_agent",
-        prompt_version="v1",
+        prompt_version="v2",
         return_json=True,
+        # Crank temperature for variety — Re-craft should produce a notably
+        # different question on each tap, not a near-identical rephrasing.
+        temperature=1.5,
     )
     result = await generate_conversation(context, db)
     content = result.get("content")
