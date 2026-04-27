@@ -3949,7 +3949,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,  # placeholder — content not yet produced
         "drill_type": "skip",
         "tense": "perfect",
-        "phases": {"0a": False, "0b": False, "1a": True, "1b": True, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
         "phase_2_config": {
             "description": "Perfect tenses: present perfect, pluperfect, future perfect, conditional perfect",
             "targets": [],
