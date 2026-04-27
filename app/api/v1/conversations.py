@@ -782,6 +782,12 @@ async def voice_turn_transcribe(
     request: Request,
     audio: UploadFile = File(...),
     messages_json: Optional[str] = Form(None),
+    # When set, the FE knows exactly what sentence the user is being asked
+    # to produce (drill phase). Bias STT toward that exact sentence the same
+    # way /check-pronunciation does — without the bias Whisper free-runs and
+    # routinely garbles short target sentences (e.g. "nuestras familias"
+    # transcribed as "¿Cómo estás, Daniel?").
+    expected_text: Optional[str] = Form(None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
@@ -811,9 +817,17 @@ async def voice_turn_transcribe(
     alt_language = current_user.alt_language
     words = apply_alt_language(words, alt_language, db)
 
-    transcription_prompt = build_transcription_prompt(
-        situation.title if situation else "a situation", words, alt_language=alt_language,
-    )
+    if expected_text:
+        # Drill mode — bias STT to the exact sentence so a near-miss doesn't
+        # come back as a wildly off transcript. Mirrors /check-pronunciation.
+        transcription_prompt = (
+            f"The user is saying this {get_target_language_name(alt_language)} sentence: "
+            f"{expected_text}. Transcribe exactly what they say."
+        )
+    else:
+        transcription_prompt = build_transcription_prompt(
+            situation.title if situation else "a situation", words, alt_language=alt_language,
+        )
 
     stt_start = time.time()
     user_transcript = await gateway_transcribe_audio(
