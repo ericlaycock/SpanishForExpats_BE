@@ -819,9 +819,11 @@ async def voice_turn_transcribe(
 
     if expected_text:
         # Drill mode — bias STT to the exact sentence so a near-miss doesn't
-        # come back as a wildly off transcript. Mirrors /check-pronunciation.
+        # come back as a wildly off transcript. Phrasing mirrors the
+        # benchmarked /check-pronunciation prompt (see line 653) exactly,
+        # only swapping "word or phrase" for "sentence".
         transcription_prompt = (
-            f"The user is saying this {get_target_language_name(alt_language)} sentence: "
+            f"The user is saying a {get_target_language_name(alt_language)} sentence: "
             f"{expected_text}. Transcribe exactly what they say."
         )
     else:
