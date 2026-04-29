@@ -185,6 +185,9 @@ class Conversation(Base):
     # limit in check_completion even when the backend isn't orchestrating each
     # round-trip. Migration 020 adds it with default 0.
     turn_count = Column(Integer, default=0, nullable=False, server_default="0")
+    # Per-conversation counter for "Need help?" sentence hints. Capped by
+    # sentence_hint_service to prevent farming. Migration 026.
+    sentence_hints_used = Column(Integer, default=0, nullable=False, server_default="0")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)
@@ -298,5 +301,47 @@ class UserMilestoneEvent(Base):
     situation_id = Column(String, ForeignKey("situations.id"), nullable=True)
     conversation_id = Column(UUID(as_uuid=True), ForeignKey("conversations.id"), nullable=True)
     occurred_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SentenceHint(Base):
+    """Audit row for each sentence hint generated in /voice-chat.
+
+    Migration 026 introduces this table alongside `conversations.sentence_hints_used`.
+    The counter on `conversations` enforces the per-encounter cap; this table
+    keeps the human-readable artefacts (Spanish + gloss + audio URL) plus
+    pointers back to the LLM/TTS rows so we can replay or investigate later.
+    """
+    __tablename__ = "sentence_hints"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    conversation_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("conversations.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    situation_id = Column(String, ForeignKey("situations.id"), nullable=True)
+    spanish = Column(Text, nullable=False)
+    english_gloss = Column(Text, nullable=False)
+    audio_url = Column(Text, nullable=True)
+    used_item_ids = Column(JSONB, default=list, nullable=False, server_default="[]")
+    pending_count = Column(Integer, nullable=True)
+    llm_request_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("llm_requests.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    tts_request_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("tts_requests.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
 
