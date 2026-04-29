@@ -269,9 +269,23 @@ async def generate_sentence_hint(
         max_tokens=200,
     )
 
-    result = await generate_conversation(context, db)
-    content = result.get("content") if isinstance(result, dict) else None
-    llm_request_id = result.get("llm_request_id") if isinstance(result, dict) else None
+    # gpt-5.4-mini's Responses API + reasoning: low + return_json
+    # occasionally hands back an empty `output_text` (the LLM gateway
+    # then chokes on `json.loads("")`). Treat any failure here as
+    # "model didn't produce parseable output" and let the parser fall
+    # back to a first-pending-item suggestion — better than 500'ing the
+    # user out of the encounter.
+    content: Any = None
+    llm_request_id: Optional[str] = None
+    try:
+        result = await generate_conversation(context, db)
+        if isinstance(result, dict):
+            content = result.get("content")
+            llm_request_id = result.get("llm_request_id")
+    except json.JSONDecodeError as e:
+        logger.warning(f"[SentenceHint] LLM returned unparseable JSON: {e}")
+    except Exception as e:
+        logger.warning(f"[SentenceHint] LLM call failed: {type(e).__name__}: {e}")
 
     spanish, english_gloss, used_item_ids = _parse_hint_payload(content, pending_items)
     return spanish, english_gloss, used_item_ids, llm_request_id
