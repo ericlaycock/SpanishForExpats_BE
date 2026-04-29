@@ -354,6 +354,56 @@ def test_sentence_hint_audio_failure_returns_text_only(
     assert conv.sentence_hints_used == 1
 
 
+def test_sentence_hint_falls_back_when_llm_returns_unparseable_json(
+    client, db, auth_user, monkeypatch
+):
+    """gpt-5.4-mini's Responses API + reasoning + return_json sometimes
+    returns an empty output_text, which makes `json.loads('')` raise.
+    The endpoint must NOT 500 — it should fall back to a first-pending-
+    item suggestion so the user keeps getting hints.
+    """
+    import json as _json
+
+    _, headers = auth_user
+    user_id = _get_auth_user_id(headers)
+    _seed_vocab_situation(db)
+    conv = _make_voice_conv(
+        db, user_id, "bank_hint",
+        target_word_ids=["word_cuenta", "word_depositar"],
+    )
+    db.commit()
+
+    from app.services import sentence_hint_service as svc
+
+    async def boom(context, db):
+        raise _json.JSONDecodeError("Expecting value", "", 0)
+
+    async def fake_synthesize(db, *, text, voice, instructions, request_id, user_id):
+        return None, None
+
+    monkeypatch.setattr(svc, "generate_conversation", boom)
+    monkeypatch.setattr(svc, "synthesize_hint_audio", fake_synthesize)
+
+    resp = client.post(
+        f"/v1/conversations/{conv.id}/sentence-hint",
+        json={},
+        headers=headers,
+    )
+    assert resp.status_code == 200, resp.text
+    body = resp.json()
+    # Fallback uses the first pending item — it must surface a non-empty
+    # spanish + english_gloss (no 500, no blank bubble).
+    assert body["spanish"], "expected fallback spanish text, got empty"
+    assert body["english_gloss"], "expected fallback gloss, got empty"
+    assert body["used_item_ids"]  # at least one fallback id
+
+    db.refresh(conv)
+    # The cap counter still increments — a malformed model reply still
+    # consumed the user's quota; we don't want to charge the user but
+    # we also don't want to game the cap by returning empty hints.
+    assert conv.sentence_hints_used == 1
+
+
 def test_sentence_hint_does_not_change_turn_count(
     client, db, auth_user, monkeypatch
 ):
