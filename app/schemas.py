@@ -287,6 +287,19 @@ class VoiceTurnResponse(BaseModel):
     conversation_complete: bool
 
 
+# "Need help?" hint generated on demand from /voice-chat. The avatar
+# renders `spanish` in its bubble, `english_gloss` as the translation,
+# and uses `audio_url` for the Listen affordance. `used_item_ids` is
+# what the LLM claims it used — vocab `word_*` ids and/or grammar
+# `conj_<verb>_<pronoun>` chip ids — surfaced for telemetry only.
+class SentenceHintResponse(BaseModel):
+    spanish: str
+    english_gloss: str
+    audio_url: Optional[str] = None
+    used_item_ids: List[str]
+    hints_remaining: int
+
+
 # Realtime (WebRTC) session schemas
 # Minted by POST /v1/realtime/sessions — the browser trades this client_secret
 # for a direct OpenAI Realtime WebRTC connection. Backend never relays audio.

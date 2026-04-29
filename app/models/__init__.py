@@ -27,6 +27,7 @@ DailyEncounterLog = models_legacy.DailyEncounterLog
 UserReport = models_legacy.UserReport
 UserMilestoneEvent = models_legacy.UserMilestoneEvent
 Grenade = models_legacy.Grenade
+SentenceHint = models_legacy.SentenceHint
 REPORT_CATEGORIES = models_legacy.REPORT_CATEGORIES
 REPORT_STATUSES = models_legacy.REPORT_STATUSES
 # Base is imported from database, not from models.py
@@ -52,6 +53,7 @@ __all__ = [
     "UserReport",
     "UserMilestoneEvent",
     "Grenade",
+    "SentenceHint",
     "REPORT_CATEGORIES",
     "REPORT_STATUSES",
     "LLMRequest",

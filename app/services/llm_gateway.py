@@ -210,6 +210,7 @@ async def generate_conversation(
             "tokens_out": tokens_out,
             "latency_ms": latency_ms,
             "estimated_cost": estimated_cost,
+            "llm_request_id": str(llm_record.id),
         }
         
     except Exception as e:

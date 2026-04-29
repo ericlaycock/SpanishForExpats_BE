@@ -17,6 +17,7 @@ from app.schemas import (
     MessageResponse,
     RealtimeTurnRequest,
     RealtimeTurnResponse,
+    SentenceHintResponse,
     VoiceTurnResponse,
     WordSchema
 )
@@ -1175,4 +1176,170 @@ async def realtime_turn(
         missing_word_ids=missing_word_ids,
         conversation_complete=complete,
         turns_remaining=turns_remaining,
+    )
+
+
+# ── "Need help?" sentence hint ────────────────────────────────────────
+# Avatar-side button on /voice-chat. Pulls the conversation's pending
+# items (vocab `word_*` or grammar `conj_<verb>_<pronoun>` candidates),
+# asks the LLM for ONE sentence the user could say next, TTS'es it with
+# the character voice, and audits the result. Capped per conversation
+# to keep cost predictable. Does NOT touch turn_count or
+# used_spoken_word_ids — see issue ericlaycock/SpanishForExpats_BE#12.
+
+class _SentenceHintRequest(_BaseModel):
+    # Optional: FE may pass the recent message log (same shape it uses
+    # for /voice-turn/respond) so the suggestion matches the live thread.
+    # When absent we fall back to "no prior turns" in the prompt.
+    messages_json: Optional[str] = None
+
+
+@router.post(
+    "/{conversation_id}/sentence-hint",
+    response_model=SentenceHintResponse,
+)
+async def sentence_hint(
+    conversation_id: str,
+    body: _SentenceHintRequest,
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Generate one short Spanish sentence the learner could say next."""
+    import logging as _logging
+    from app.services.sentence_hint_service import (
+        SENTENCE_HINT_CAP_PER_CONVERSATION,
+        compute_pending_items,
+        generate_sentence_hint,
+        persist_hint_audit,
+        synthesize_hint_audio,
+    )
+    from app.core.logger import log_event
+
+    logger = _logging.getLogger(__name__)
+    request_id = getattr(request.state, "request_id", "unknown")
+    # Stringify so the request_logging middleware's JSON encoder doesn't
+    # choke when an HTTPException bubbles up before the success path.
+    request.state.user_id = str(current_user.id)
+
+    conversation = (
+        db.query(Conversation)
+        .filter(
+            Conversation.id == conversation_id,
+            Conversation.user_id == current_user.id,
+        )
+        .with_for_update()
+        .first()
+    )
+    if not conversation:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Conversation not found"
+        )
+    if conversation.mode != "voice":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="This endpoint is for voice mode only",
+        )
+    if conversation.status == "complete":
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="NO_PENDING_ITEMS"
+        )
+
+    used = conversation.sentence_hints_used or 0
+    if used >= SENTENCE_HINT_CAP_PER_CONVERSATION:
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="HINT_RATE_LIMIT",
+        )
+
+    alt_language = current_user.alt_language
+    pending_items = compute_pending_items(db, conversation, alt_language)
+    if not pending_items:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail="NO_PENDING_ITEMS"
+        )
+
+    recent_messages = None
+    if body.messages_json:
+        try:
+            recent_messages = json_module.loads(body.messages_json)
+            if not isinstance(recent_messages, list):
+                recent_messages = None
+        except (json_module.JSONDecodeError, TypeError):
+            recent_messages = None
+
+    situation = (
+        db.query(Situation)
+        .filter(Situation.id == conversation.situation_id)
+        .first()
+    )
+
+    spanish, english_gloss, used_item_ids, llm_request_id = await generate_sentence_hint(
+        db,
+        user_id=str(current_user.id),
+        request_id=request_id,
+        pending_items=pending_items,
+        recent_messages=recent_messages,
+        situation_title=situation.title if situation else None,
+        alt_language=alt_language,
+    )
+
+    tts_voice, tts_instructions = get_tts_instructions(
+        situation.animation_type if situation else "",
+        alt_language=alt_language,
+        situation_id=situation.id if situation else None,
+    )
+
+    audio_url, tts_request_id = await synthesize_hint_audio(
+        db,
+        text=spanish,
+        voice=tts_voice,
+        instructions=tts_instructions,
+        request_id=request_id,
+        user_id=str(current_user.id),
+    )
+
+    # Increment + audit + commit. The cap check above already locked the
+    # conversation row via with_for_update so two parallel hint requests
+    # serialize through the increment cleanly.
+    conversation.sentence_hints_used = used + 1
+    persist_hint_audit(
+        db,
+        conversation=conversation,
+        user_id=current_user.id,
+        spanish=spanish,
+        english_gloss=english_gloss,
+        audio_url=audio_url,
+        used_item_ids=used_item_ids,
+        pending_count=len(pending_items),
+        llm_request_id=llm_request_id,
+        tts_request_id=tts_request_id,
+    )
+    db.commit()
+
+    log_event(
+        level="info",
+        event="sentence_hint_used",
+        message=f"Sentence hint generated for conversation {conversation_id}",
+        request_id=request_id,
+        user_id=str(current_user.id),
+        extra={
+            "conversation_id": str(conversation.id),
+            "situation_id": conversation.situation_id,
+            "pending_count": len(pending_items),
+            "used_item_ids": used_item_ids,
+            "hints_used": conversation.sentence_hints_used,
+            "audio_uploaded": audio_url is not None,
+        },
+    )
+
+    hints_remaining = max(
+        0, SENTENCE_HINT_CAP_PER_CONVERSATION - conversation.sentence_hints_used
+    )
+    return SentenceHintResponse(
+        spanish=spanish,
+        english_gloss=english_gloss,
+        audio_url=audio_url,
+        used_item_ids=used_item_ids,
+        hints_remaining=hints_remaining,
     )
