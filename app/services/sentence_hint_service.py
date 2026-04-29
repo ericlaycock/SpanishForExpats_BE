@@ -180,18 +180,44 @@ def build_hint_messages(
 
     title = situation_title or "this conversation"
 
+    # The learner is stuck in a real roleplay and needs help unblocking
+    # the conversation. The prompt deliberately fights the model's
+    # default "Quiero/Necesito el <word>" stitching by anchoring every
+    # suggestion in a concrete real-world need, with explicit bad/good
+    # contrast so the few-shot grounding actually transfers. Without
+    # these examples GPT happily produces flat vocab-quiz sentences.
     system = (
-        f"You are a {target_language} tutor helping a learner finish a sentence "
-        "in a live roleplay conversation. Generate ONE short sentence "
-        "(≤12 words) the LEARNER could naturally say NEXT, using 1 or 2 of the "
-        "pending items provided.\n\n"
+        f"You are a {target_language} tutor helping a learner who is STUCK "
+        "mid-conversation in a live roleplay. They need a natural sentence they "
+        "can say RIGHT NOW that moves the scene forward AND uses 1 or 2 of "
+        "the pending items.\n\n"
+        "The sentence must feel like something a real traveler / customer / "
+        "patient / student would actually say in this exact situation. Anchor "
+        "it in a concrete real-world need (a problem, a request, a question) "
+        "that motivates the words.\n\n"
+        "AVOID flat vocab-quiz formulas like \"Quiero el X\" / \"Necesito el X\" "
+        "/ \"Tengo el X\". Those are correct but feel mechanical and don't "
+        "actually help the learner converse.\n\n"
+        "Examples:\n"
+        "- pending: número, vuelo, perdón, ayuda\n"
+        "    BAD:  \"Quiero el número de vuelo, por favor.\"\n"
+        "    GOOD: \"Perdón, perdí mi número de vuelo. ¿Me podría ayudar?\"\n"
+        "- pending: pasaporte, mostrar\n"
+        "    BAD:  \"Le muestro mi pasaporte.\"\n"
+        "    GOOD: \"Aquí tiene mi pasaporte, ¿lo ve bien?\"\n"
+        "- pending: mesa, reservar\n"
+        "    BAD:  \"Quiero una mesa.\"\n"
+        "    GOOD: \"Tengo una reserva a las ocho, ¿la mesa está lista?\"\n\n"
         "Rules:\n"
-        "- Write in first person — the LEARNER is the speaker.\n"
-        "- Match the register/tone of the last assistant turn (formal vs informal).\n"
-        f"- For grammar items, use the EXACT conjugated form from the item list. "
-        f"Do not substitute another tense, person, or verb.\n"
-        f"- Keep the sentence natural — the goal is something a real speaker would say.\n"
-        "- Do not greet, do not summarize, do not narrate.\n\n"
+        "- ONE sentence, up to ~14 words. First person — the LEARNER is the "
+        "speaker.\n"
+        "- Match the register of the last assistant turn (formal \"usted\" vs "
+        "informal \"tú\").\n"
+        "- For grammar items, use the EXACT conjugated form from the item list. "
+        "Never substitute another tense, person, or verb.\n"
+        "- The English gloss should be a faithful, natural translation — not "
+        "stiff or word-for-word.\n"
+        "- No greeting, no narration, no \"You could say…\" framing.\n\n"
         "Return ONLY valid JSON with this exact shape:\n"
         '{"spanish": "<the sentence>", "english_gloss": "<English translation>", '
         '"used_item_ids": ["<id from pending items>"]}'
@@ -263,10 +289,12 @@ async def generate_sentence_hint(
         system_prompt="",  # overridden by `messages` below
         user_prompt="",
         agent_id="sentence_hint",
-        prompt_version="v1",
+        prompt_version="v2",
         messages=messages,
         return_json=True,
-        max_tokens=200,
+        # Bumped from 200 → 300 to give the model headroom for natural
+        # 12–14 word sentences plus the gloss without truncating mid-JSON.
+        max_tokens=300,
     )
 
     result = await generate_conversation(context, db)
