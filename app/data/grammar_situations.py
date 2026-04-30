@@ -345,18 +345,62 @@ GRAMMAR_SITUATIONS = {
         "drill_type": "rule",
         "tense": "gender",
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "intro_chart": {
+            "kind": "cards",
+            "title": "Grammatical gender",
+            "cards": [
+                {
+                    "kind": "text",
+                    "title": "Spanish has gender",
+                    "body": "Spanish nouns are either masculine or feminine. There's a trick to knowing which is which — how the word ends.",
+                },
+                {
+                    "kind": "rule_pack",
+                    "title": "Spanish noun gender — endings",
+                    "sections": [
+                        {"heading": "MAJE LONERS — masculine endings", "items": ["-ma  →  el problema, el sistema", "-je  →  el viaje, el pasaje", "-l  →  el animal, el papel", "-o  →  el libro, el caso", "-n  →  el limón, el examen", "-e  →  el café, el coche", "-r  →  el doctor, el actor", "-s  →  el atlas, el lunes"]},
+                        {"heading": "DIONZA — feminine endings", "items": ["-d  →  la libertad, la verdad", "-ion  →  la nación, la opción", "-z  →  la vez, la luz", "-a  →  la casa, la mesa"]},
+                    ],
+                    "footnote": "These rules cover most nouns; learn exceptions case-by-case.",
+                },
+                {
+                    "kind": "text",
+                    "title": "The articles: el / la",
+                    "body": "Singular nouns use **el** (masculine, like *niño*) or **la** (feminine, like *niña*) to mean \"the\". When the noun is plural (*niños*, *niñas*), **el** becomes **los** and **la** becomes **las**.",
+                },
+                {
+                    "kind": "text",
+                    "title": "Forming the plural",
+                    "body": "In Spanish, most nouns add **-s** when they end in a vowel (libro → libros, casa → casas). Nouns ending in a consonant add **-es** (papel → papeles, ciudad → ciudades). Nouns ending in **-z** change to **-ces** (luz → luces).",
+                },
+            ],
+        },
         "rule_chart": {'kind': 'rule_pack', 'title': 'Spanish noun gender — endings', 'sections': [{'heading': 'MAJE LONERS — masculine endings', 'items': ['-ma  →  el problema, el sistema', '-je  →  el viaje, el pasaje', '-l  →  el animal, el papel', '-o  →  el libro, el caso', '-n  →  el limón, el examen', '-e  →  el café, el coche', '-r  →  el doctor, el actor', '-s  →  el atlas, el lunes']}, {'heading': 'DIONZA — feminine endings', 'items': ['-d  →  la libertad, la verdad', '-ion  →  la nación, la opción', '-z  →  la vez, la luz', '-a  →  la casa, la mesa']}], 'footnote': 'Definite articles: el / la (singular), los / las (plural). These rules cover most nouns; learn exceptions case-by-case.'},
         "drill_sentences": [
-            {"en": "the problem", "es": "el problema", "noun_id": "problema", "type": "written"},
-            {"en": "the trip", "es": "el viaje", "noun_id": "viaje", "type": "auditory"},
-            {"en": "the animal", "es": "el animal", "noun_id": "animal", "type": "written"},
-            {"en": "the book", "es": "el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "the lemon", "es": "el limón", "noun_id": "limón", "type": "written"},
-            {"en": "the coffee", "es": "el café", "noun_id": "café", "type": "auditory"},
-            {"en": "the freedom", "es": "la libertad", "noun_id": "libertad", "type": "written"},
-            {"en": "the nation", "es": "la nación", "noun_id": "nación", "type": "auditory"},
-            {"en": "the time", "es": "la vez", "noun_id": "vez", "type": "written"},
-            {"en": "the house", "es": "la casa", "noun_id": "casa", "type": "auditory"},
+            # 5 masculine singular
+            {"en": "the book", "es": "el libro", "noun_id": "libro", "type": "written"},
+            {"en": "the problem", "es": "el problema", "noun_id": "problema", "type": "auditory"},
+            {"en": "the trip", "es": "el viaje", "noun_id": "viaje", "type": "written"},
+            {"en": "the paper", "es": "el papel", "noun_id": "papel", "type": "auditory"},
+            {"en": "the doctor", "es": "el doctor", "noun_id": "doctor", "type": "written"},
+            # 5 masculine plural
+            {"en": "the books", "es": "los libros", "noun_id": "libro", "type": "auditory"},
+            {"en": "the lemons", "es": "los limones", "noun_id": "limón", "type": "written"},
+            {"en": "the coffees", "es": "los cafés", "noun_id": "café", "type": "auditory"},
+            {"en": "the actors", "es": "los actores", "noun_id": "actor", "type": "written"},
+            {"en": "the Mondays", "es": "los lunes", "noun_id": "lunes", "type": "auditory"},
+            # 5 feminine singular
+            {"en": "the house", "es": "la casa", "noun_id": "casa", "type": "written"},
+            {"en": "the freedom", "es": "la libertad", "noun_id": "libertad", "type": "auditory"},
+            {"en": "the nation", "es": "la nación", "noun_id": "nación", "type": "written"},
+            {"en": "the light", "es": "la luz", "noun_id": "luz", "type": "auditory"},
+            {"en": "the table", "es": "la mesa", "noun_id": "mesa", "type": "written"},
+            # 5 feminine plural
+            {"en": "the houses", "es": "las casas", "noun_id": "casa", "type": "auditory"},
+            {"en": "the truths", "es": "las verdades", "noun_id": "verdad", "type": "written"},
+            {"en": "the nations", "es": "las naciones", "noun_id": "nación", "type": "auditory"},
+            {"en": "the lights", "es": "las luces", "noun_id": "luz", "type": "written"},
+            {"en": "the options", "es": "las opciones", "noun_id": "opción", "type": "auditory"},
         ],
         "drill_config": {
             "curated_nouns": [
@@ -395,6 +439,27 @@ GRAMMAR_SITUATIONS = {
         "drill_type": "rule",
         "tense": "gender",
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "intro_chart": {
+            "kind": "cards",
+            "title": "Indefinite articles — un / una / unos / unas",
+            "cards": [
+                {
+                    "kind": "text",
+                    "title": "Singular: un / una",
+                    "body": "**un** + masculine noun → *un libro*, *un actor*\n\n**una** + feminine noun → *una verdad*, *una luz*",
+                },
+                {
+                    "kind": "text",
+                    "title": "Plural: unos / unas",
+                    "body": "**unos** + masculine plural → *unos libros*, *unos actores*\n\n**unas** + feminine plural → *unas verdades*, *unas luces*",
+                },
+                {
+                    "kind": "text",
+                    "title": "What about \"uno\"?",
+                    "body": "**uno** is only used for counting or numbers (*uno, dos, tres*; *tengo uno*). Never use it as an article before a noun — use **un** or **una**.",
+                },
+            ],
+        },
         "rule_chart": {'kind': 'rule_pack', 'title': 'Indefinite articles — un / una / unos / unas', 'sections': [{'heading': 'Singular', 'items': ['un + masculine noun  →  un libro, un actor', 'una + feminine noun  →  una verdad, una luz']}, {'heading': 'Plural', 'items': ['unos + masculine plural  →  unos libros', 'unas + feminine plural  →  unas verdades']}], 'footnote': "MAJE LONERS / DIONZA still apply: pick the article from the noun's ending."},
         "drill_sentences": [
             {"en": "a system", "es": "un sistema", "noun_id": "sistema", "type": "written"},
@@ -11716,7 +11781,7 @@ def derive_intro_chart(config: dict) -> dict | None:
                 "quiz_column_index": quiz_col,
                 "prompt_column_indices": prompt_idxs,
             }
-        if kind in ("comparison", "list", "rule_pack"):
+        if kind in ("comparison", "list", "rule_pack", "cards", "text"):
             return rule_chart
 
     # Last resort — show the new vocabulary as a list
