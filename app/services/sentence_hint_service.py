@@ -36,7 +36,9 @@ from app.services.alt_language_service import (
 )
 from app.services.conversation_service import get_missing_word_ids
 from app.services.llm_gateway import ConversationContext, generate_conversation
-from app.services.openai_media_gateway import synthesize_speech as gateway_synthesize_speech
+from app.services.openai_media_gateway import PROVIDER, sha256_hash
+from app.services.realtime_config import REALTIME_MODEL
+from app.services.realtime_service import generate_with_realtime, pcm16_to_mp3
 from app.services.word_detection import get_words_by_ids
 from app.utils.audio import generate_audio_filename, get_audio_path, upload_to_r2
 
@@ -407,52 +409,128 @@ async def synthesize_hint_audio(
     request_id: str,
     user_id: str,
 ) -> Tuple[Optional[str], Optional[str]]:
-    """TTS the hint sentence and upload to R2. Returns (audio_url,
-    tts_request_id). Either may be None if TTS or upload fails — the
-    endpoint must handle that gracefully (FE shows text only).
+    """TTS the hint sentence via the OpenAI Realtime API and upload to R2.
+
+    The live voice-chat session runs on the Realtime API (`gpt-realtime-mini`)
+    and ignores `tts_instructions`, so the standard TTS model
+    (`gpt-4o-mini-tts`) the legacy hint flow used produced a noticeably
+    different voice — same `voice` id, different rendering model, plus the
+    persona styling instructions only the legacy flow applies. Mid-conversation
+    that voice swap is jarring. Routing the hint through the same Realtime
+    pipeline (and dropping `tts_instructions`) keeps the voice identical to
+    what the user just heard from the avatar.
+
+    The model is coaxed into parrot mode via a strict system prompt; we use
+    the `voice` to pick the speaker but skip `tts_instructions` so the styling
+    matches the live ephemeral session, which also ignores them.
+
+    Returns `(audio_url, tts_request_id)`. Either may be None if Realtime,
+    ffmpeg, or R2 upload fails — the endpoint already handles that gracefully
+    (FE shows text only).
+
+    `instructions` is accepted for API parity with callers that still hand it
+    through, but intentionally not forwarded to the Realtime call.
     """
+    import time
+    import uuid as _uuid
+
+    from app.models import TTSRequest
+
     filename = f"hint_{generate_audio_filename()}"
     output_path = str(get_audio_path(filename))
 
+    user_id_uuid: Optional[_uuid.UUID]
+    if isinstance(user_id, str):
+        try:
+            user_id_uuid = _uuid.UUID(user_id)
+        except ValueError:
+            user_id_uuid = None
+    else:
+        user_id_uuid = user_id
+
+    # Insert audit row up front so failed attempts still leave a trail with
+    # latency + error info — mirrors the pattern in
+    # `openai_media_gateway.synthesize_speech`.
+    tts_record = TTSRequest(
+        id=_uuid.uuid4(),
+        request_id=request_id or "unknown",
+        user_id=user_id_uuid,
+        provider=PROVIDER,
+        model=REALTIME_MODEL,
+        voice=voice,
+        input_text_sha256=sha256_hash(text.encode("utf-8")),
+        input_chars=len(text),
+        output_format="mp3",
+        success=False,
+    )
+    db.add(tts_record)
+    db.commit()
+    db.refresh(tts_record)
+
+    # Strict parrot-mode prompt — we ship the user's hint as a `user` turn
+    # and tell the model to read it back verbatim. Empirically the realtime
+    # model honors this for short single-sentence inputs; longer or more
+    # ambiguous inputs may drift, which is fine because we still render the
+    # canonical Spanish text alongside the audio.
+    parrot_messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are a text-to-speech engine. Read the user's message "
+                "aloud verbatim in the same language. Do not add greetings, "
+                "commentary, translation, or rephrase the text. Output only "
+                "the words the user gave you, exactly as written."
+            ),
+        },
+        {"role": "user", "content": text},
+    ]
+
+    start = time.time()
     try:
-        # `gateway_synthesize_speech` writes the file and inserts a
-        # `tts_requests` row. We pull the row id back via the latest
-        # successful insert in the session — gateway doesn't return it
-        # today and threading through would cascade to every caller.
-        await gateway_synthesize_speech(
-            text=text,
-            output_path=output_path,
+        result = await generate_with_realtime(
+            messages=parrot_messages,
             voice=voice,
-            instructions=instructions,
-            request_id=request_id,
-            user_id=user_id,
-            db=db,
-            learning_phase="hint",
+            # Intentionally omitted — the live ephemeral session also ignores
+            # these, so feeding them here would re-introduce the styling drift
+            # we are trying to eliminate.
+            tts_instructions=None,
+            request_id=request_id or "hint",
         )
+        audio_bytes = result.get("audio_bytes") or b""
+        if not audio_bytes:
+            raise RuntimeError("Realtime returned no audio bytes")
+        pcm16_to_mp3(audio_bytes, output_path)
     except Exception as e:
-        logger.error(f"[SentenceHint] TTS failed: {e}")
+        latency_ms = int((time.time() - start) * 1000)
+        tts_record.latency_ms = latency_ms
+        tts_record.error_code = type(e).__name__
+        tts_record.error_message = str(e)
+        db.commit()
+        logger.error(f"[SentenceHint] Realtime TTS failed: {e}")
         return None, None
 
+    latency_ms = int((time.time() - start) * 1000)
+    audio_bytes_written = len(audio_bytes)
+    tts_record.success = True
+    tts_record.audio_bytes = audio_bytes_written
+    tts_record.audio_path = output_path
+    tts_record.latency_ms = latency_ms
+    db.commit()
+
+    # If the model deviated from the requested text, log it but ship the audio
+    # anyway — the FE shows the canonical Spanish next to the bubble, and an
+    # imperfect read still beats no audio. Significant drift is rare and worth
+    # spotting in logs so we can tune the parrot prompt if it surfaces.
+    spoken_text = (result.get("text") or "").strip()
+    if spoken_text and spoken_text != text.strip():
+        logger.warning(
+            "[SentenceHint] Realtime drifted from input — wanted %r, heard %r",
+            text,
+            spoken_text,
+        )
+
     audio_url = upload_to_r2(output_path, filename)
-    tts_request_id = _latest_tts_request_id(db, request_id)
-    return audio_url, tts_request_id
-
-
-def _latest_tts_request_id(db: Session, request_id: str) -> Optional[str]:
-    """Look up the TTSRequest row this gateway call just persisted.
-
-    Matched by `request_id` (the per-call correlation id) ordered by
-    `created_at DESC`. Returns the UUID as a string for the audit row.
-    """
-    from app.models import TTSRequest
-
-    row = (
-        db.query(TTSRequest)
-        .filter(TTSRequest.request_id == request_id)
-        .order_by(TTSRequest.created_at.desc())
-        .first()
-    )
-    return str(row.id) if row else None
+    return audio_url, str(tts_record.id)
 
 
 def persist_hint_audit(
