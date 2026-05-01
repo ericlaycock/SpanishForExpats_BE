@@ -73,7 +73,11 @@ async def generate_and_upload(situation_id: str, title: str, animation_type: str
     if not force and r2_file_exists(filename):
         return "skip"
 
-    message = get_initial_message_for_encounter(situation_id, title)
+    messages_by_lang = get_initial_message_for_encounter(situation_id, title)
+    # Pregenerated audio is Spanish-only (matches default voice flow); fall
+    # back to English when a Spanish version isn't available so we don't
+    # silently skip otherwise valid encounters.
+    message = messages_by_lang.get("es") or messages_by_lang.get("en")
     if not message:
         return "no_message"
 
