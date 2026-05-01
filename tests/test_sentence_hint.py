@@ -193,9 +193,12 @@ def test_sentence_hint_grammar_emits_conjugation_candidates(
 
     real_build = svc.build_hint_messages
 
-    def spy_build(pending_items, recent_messages, situation_title, alt_language):
+    def spy_build(pending_items, recent_messages, situation_title, alt_language, spanish_level=None):
         captured["items"] = list(pending_items)
-        return real_build(pending_items, recent_messages, situation_title, alt_language)
+        return real_build(
+            pending_items, recent_messages, situation_title, alt_language,
+            spanish_level=spanish_level,
+        )
 
     monkeypatch.setattr(svc, "build_hint_messages", spy_build)
     _stub_llm_and_tts(

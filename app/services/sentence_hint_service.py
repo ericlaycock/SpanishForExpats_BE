@@ -161,11 +161,45 @@ def _grammar_pending_items(
     return items
 
 
+def _level_rules(spanish_level: Optional[str]) -> str:
+    """Length/complexity rule for the prompt, keyed on q0_spanish_level.
+
+    A 14-word hint is unspeakable for an absolute beginner, so we tighten
+    word budget and forbid subordinates as the level drops. Null/unknown
+    falls back to 'c' (intermediate) — safe middle ground for legacy
+    users who never went through V2 onboarding.
+    """
+    level = (spanish_level or "c").lower()
+    if level == "a":
+        return (
+            "- LEARNER LEVEL: absolute beginner. The sentence MUST be 5–7 words "
+            "and use EXACTLY ONE pending item. No subordinate clauses, no "
+            "compound sentences, no embedded questions. Keep it as simple as "
+            "physically possible to say out loud."
+        )
+    if level == "b":
+        return (
+            "- LEARNER LEVEL: novice. The sentence MUST be 7–9 words and use 1 "
+            "pending item (a second only if it fits naturally). No complex "
+            "subordinates."
+        )
+    if level == "d":
+        return (
+            "- LEARNER LEVEL: advanced. Sentence may be up to ~14 words and "
+            "use 1 or 2 pending items with natural complexity."
+        )
+    return (
+        "- LEARNER LEVEL: intermediate. The sentence MUST be 9–12 words and "
+        "use 1 or 2 pending items. Simple subordinates allowed."
+    )
+
+
 def build_hint_messages(
     pending_items: List[PendingItem],
     recent_messages: Optional[List[Dict[str, str]]],
     situation_title: Optional[str],
     alt_language: Optional[str],
+    spanish_level: Optional[str] = None,
 ) -> List[Dict[str, str]]:
     """Build the LLM messages for hint generation.
 
@@ -179,6 +213,7 @@ def build_hint_messages(
     history_block = _format_history_for_prompt(recent_messages or [])
 
     title = situation_title or "this conversation"
+    level_rule = _level_rules(spanish_level)
 
     # The learner is stuck in a real roleplay and needs help unblocking
     # the conversation. The prompt deliberately fights the model's
@@ -209,8 +244,8 @@ def build_hint_messages(
         "    BAD:  \"Quiero una mesa.\"\n"
         "    GOOD: \"Tengo una reserva a las ocho, ¿la mesa está lista?\"\n\n"
         "Rules:\n"
-        "- ONE sentence, up to ~14 words. First person — the LEARNER is the "
-        "speaker.\n"
+        "- ONE sentence, first person — the LEARNER is the speaker.\n"
+        f"{level_rule}\n"
         "- Match the register of the last assistant turn (formal \"usted\" vs "
         "informal \"tú\").\n"
         "- For grammar items, use the EXACT conjugated form from the item list. "
@@ -269,6 +304,7 @@ async def generate_sentence_hint(
     recent_messages: Optional[List[Dict[str, str]]],
     situation_title: Optional[str],
     alt_language: Optional[str],
+    spanish_level: Optional[str] = None,
 ) -> Tuple[str, str, List[str], Optional[str]]:
     """Call the LLM to produce a hint sentence. Returns (spanish,
     english_gloss, used_item_ids, llm_request_id).
@@ -280,7 +316,8 @@ async def generate_sentence_hint(
     empty so we never ship "(none)" to the user.
     """
     messages = build_hint_messages(
-        pending_items, recent_messages, situation_title, alt_language
+        pending_items, recent_messages, situation_title, alt_language,
+        spanish_level=spanish_level,
     )
 
     context = ConversationContext(

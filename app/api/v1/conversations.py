@@ -1282,6 +1282,7 @@ async def sentence_hint(
         recent_messages=recent_messages,
         situation_title=situation.title if situation else None,
         alt_language=alt_language,
+        spanish_level=current_user.q0_spanish_level,
     )
 
     tts_voice, tts_instructions = get_tts_instructions(
