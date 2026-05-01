@@ -42,8 +42,14 @@ def log_event(
     # Merge extra fields
     log_entry.update(extra)
     
-    # Always print JSON to stdout (Railway/Better Stack will capture)
-    print(json.dumps(log_entry), file=sys.stdout, flush=True)
+    # Always print JSON to stdout (Railway/Better Stack will capture).
+    # `default=str` so UUIDs/datetimes/etc. coming through `user_id` or `extra`
+    # don't crash the global exception handlers — endpoints set
+    # `request.state.user_id = current_user.id` (a UUID) and we read that back
+    # here when an HTTPException bubbles up. Without `default=str` the dumps
+    # raises TypeError, which then re-enters the exception path and masks the
+    # original 4xx/5xx with an opaque 500.
+    print(json.dumps(log_entry, default=str), file=sys.stdout, flush=True)
     
     # Additionally ship to Better Stack asynchronously (fire-and-forget)
     schedule_ship_log(log_entry)
