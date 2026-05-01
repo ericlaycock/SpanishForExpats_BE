@@ -198,7 +198,10 @@ class CreateConversationRequest(BaseModel):
 class CreateConversationResponse(BaseModel):
     conversation_id: UUID
     words: List[WordSchema]  # Return the words used in this conversation
-    initial_message: str  # Custom initial message for this encounter
+    # Initial message keyed by ISO-style language code (es/en/ca/sv).
+    # The target-language entry is what the avatar will speak; the FE keeps
+    # the English entry for tooltips / "what does this mean?" surfaces.
+    initial_message: Dict[str, str]
     initial_audio_url: Optional[str] = None  # TTS audio for the initial message
     language_mode: str = "english"  # "english", "spanish_text", or "spanish_audio"
     vocab_level: int = 0
@@ -320,7 +323,7 @@ class PendingRefreshesResponse(BaseModel):
 class StartRefreshResponse(BaseModel):
     conversation_id: UUID
     words: List[WordSchema]
-    initial_message: str
+    initial_message: Dict[str, str]
     language_mode: str = "english"
     conversation_type: str = "refresh"
 

@@ -88,7 +88,8 @@ def test_grammar_situations(token, filter_id=None):
             continue
 
         conv_id = conv.get("conversation_id", "?")
-        initial_msg = conv.get("initial_message", "")
+        initial_msg_dict = conv.get("initial_message") or {}
+        initial_msg = initial_msg_dict.get("es") or initial_msg_dict.get("en") or ""
         words = conv.get("words", [])
         lang_mode = conv.get("language_mode", "?")
 

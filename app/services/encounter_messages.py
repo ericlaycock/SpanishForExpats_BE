@@ -1,8 +1,8 @@
 """
 Custom initial messages for each encounter type.
-Supports multi-language openers (es/ca/sv) — AI always speaks in target language.
+Supports multi-language openers (es/en/ca/sv) — AI always speaks in target language.
 """
-from typing import Optional
+from typing import Dict, Optional
 from app.services.alt_language_service import get_language_code
 
 ENCOUNTER_INITIAL_MESSAGES = {
@@ -90,10 +90,17 @@ def get_initial_message_for_encounter(
     encounter_title: str = "",
     language_mode: str = "spanish_text",
     alt_language: Optional[str] = None,
-) -> str:
+) -> Dict[str, str]:
     """
-    Get a custom initial message for an encounter in the target language.
-    Priority: grammar opener → per-encounter generated → title match → category fallback → generic.
+    Return the initial message for an encounter as a dict keyed by language code.
+
+    Always includes the target-language entry (es/ca/sv depending on alt_language)
+    plus an `en` entry when an English version is available — the FE uses the
+    target-language string for the avatar bubble and the English string for
+    "what does this mean?" surfaces.
+
+    Resolution order: grammar opener → per-encounter generated → title match →
+    category fallback → generic.
     """
     lang_code = get_language_code(alt_language)
 
@@ -101,30 +108,37 @@ def get_initial_message_for_encounter(
     from app.data.grammar_situations import get_grammar_config
     grammar_cfg = get_grammar_config(situation_id)
     if grammar_cfg:
-        # Try language-specific opener first, fall back to opener_es
-        opener_key = f"opener_{lang_code}"
-        opener = grammar_cfg.get(opener_key) or grammar_cfg.get("opener_es")
-        if opener:
-            return opener
+        target = grammar_cfg.get(f"opener_{lang_code}") or grammar_cfg.get("opener_es")
+        english = grammar_cfg.get("opener_en")
+        if target:
+            out: Dict[str, str] = {lang_code: target}
+            if english:
+                out["en"] = english
+            return out
 
     # 1. Per-encounter generated message (situation_id lookup, multi-language)
     try:
         from app.services.encounter_messages_generated import ENCOUNTER_MESSAGES
         if situation_id in ENCOUNTER_MESSAGES:
             msg = ENCOUNTER_MESSAGES[situation_id]
-            # Support both old flat format and new nested dict format
             if isinstance(msg, dict):
-                return msg.get(lang_code, msg.get("es", msg.get("en", "")))
+                # Return every available language so the FE can pick what it needs.
+                # Guarantee target-language presence by falling back es → en.
+                if lang_code not in msg:
+                    fallback = msg.get("es") or msg.get("en")
+                    if fallback:
+                        msg = {**msg, lang_code: fallback}
+                return dict(msg)
             else:
-                # Old flat format (English string) — return as-is
-                return msg
+                # Legacy flat (English) format — surface as English-only.
+                return {"en": msg}
     except ImportError:
         pass
 
     # 2. Legacy title-based match (English fallback)
     for key, message in ENCOUNTER_INITIAL_MESSAGES.items():
         if key in encounter_title:
-            return message
+            return {"en": message}
 
     # 3. Category-level fallback
     CATEGORY_FALLBACKS = {
@@ -145,6 +159,6 @@ def get_initial_message_for_encounter(
     title_lower = encounter_title.lower()
     for keyword, message in CATEGORY_FALLBACKS.items():
         if keyword in title_lower:
-            return message
+            return {"en": message}
 
-    return "Hello! How can I help you today?"
+    return {"en": "Hello! How can I help you today?"}
