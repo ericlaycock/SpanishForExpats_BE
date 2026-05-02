@@ -33,10 +33,25 @@ Any data field, doc, or audit that contradicts the above is wrong.
 - Reading the data fields directly will mislead.
 - `docs/grammar-curriculum.md` must include a prominent "Data migration needed" callout.
 
+## Migration progress (2026-05-01)
+
+The grammar audit identified a 5-step migration path. Status:
+
+1. ✅ **Quick wins** — 3 `gustar` `_chat` `phase_2_config.targets` normalized from `int`+`pattern` to proper pronoun-phrase lists.
+2. ✅ **Block-pattern fix** — GL 11 `modal` re-sequenced from `[D D D C C]` → `[D D C][D C]`.
+3. ✅ **Anatomy backfill** — 30+ module-level slide constants (`*_INTRO`, `*_RULE`) added to `grammar_situations.py` and wired into 90+ drill entries across 25 grammar groups (every conjugation drill now renders a 3-card intro + endings table).
+4. ✅ **Stub build-out** — GL 18.5 `perfect_tenses` expanded from a 1-entry stub into a proper `[D D C]` block (present perfect drill + pluperfect drill + recap chat). GL 19 `obj_chat_1`/`obj_chat_2` recap chats kept in place with clarified descriptions.
+5. ⛔ **Vestigial `phases` dict cleanup — BLOCKED.** Although the dict is documented as "wrong and bad" above, grep proves it is *actively consumed* in production:
+   - `app/api/v1/situations.py:887` — `phases=config["phases"]` (BE serializes the dict to API responses).
+   - `SpanishForExpats_FE/app/[locale]/app/situation/[id]/learn/hooks/useLearnFlow.ts:49` — `const phases = grammarConfig?.phases` (FE drives phase routing from the dict).
+   Removing the dict in `grammar_situations.py` would break both BE serialization and FE phase routing. Migration of the BE serializer + FE `useLearnFlow.ts` to a different signal (probably `lesson_type` + `drill_type` checks, or an explicit phase-list field) must land first.
+
 ## Code references
 
-- `SpanishForExpats_BE/app/data/grammar_situations.py` — current (wrong) data shape.
+- `SpanishForExpats_BE/app/data/grammar_situations.py` — partially migrated to the new shape (per-lesson split + slide packs in place); `phases` dict still present pending step 5.
 - `SpanishForExpats_BE/app/data/situation_roles.py:104+` — `GRAMMAR_STRUCTURES` dict, keyed by group ID.
+- `SpanishForExpats_BE/app/api/v1/situations.py:887` — BE consumer of `phases` dict (blocker for step 5).
+- `SpanishForExpats_FE/app/[locale]/app/situation/[id]/learn/hooks/useLearnFlow.ts:49` — FE consumer of `phases` dict (blocker for step 5).
 
 ## Related docs
 

@@ -159,6 +159,1332 @@ GL_TITLES: dict[float, str] = {
 # Sorted list of all grammar levels for iteration.
 GL_SORTED = sorted(GL_VL_THRESHOLDS.keys())
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Slide packs — intro_chart + rule_chart shared across the lessons of a group.
+#
+# Each conjugation group teaches one rule across 2-4 lessons that vary the
+# example verbs. The slide content is the same per group; the lesson's own
+# `word_workload` supplies the verbs the user will actually drill.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# --- GL 3: Regular Present (-ar / -er / -ir) ---
+REGULAR_PRESENT_INTRO = {
+    "kind": "cards",
+    "title": "Regular present tense",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Verbs change to match who",
+            "body": "In Spanish, the verb itself tells you who is doing the action. The infinitive form (the dictionary form, like *hablar* — to speak) drops its ending and gets a new one based on the subject.",
+        },
+        {
+            "kind": "text",
+            "title": "Three families: -ar, -er, -ir",
+            "body": "Every Spanish infinitive ends in one of three letter pairs: **-ar** (hablar, escuchar), **-er** (beber, comer), or **-ir** (vivir, escribir). Each family takes its own set of endings.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Drop the ending, add the new one",
+            "sections": [
+                {"heading": "-AR endings", "items": ["yo → -o (hablo)", "tú → -as (hablas)", "él/ella/usted → -a (habla)", "nosotros/as → -amos (hablamos)", "ellos/ellas/ustedes → -an (hablan)"]},
+                {"heading": "-ER endings", "items": ["yo → -o (bebo)", "tú → -es (bebes)", "él/ella/usted → -e (bebe)", "nosotros/as → -emos (bebemos)", "ellos/ellas/ustedes → -en (beben)"]},
+                {"heading": "-IR endings", "items": ["yo → -o (vivo)", "tú → -es (vives)", "él/ella/usted → -e (vive)", "nosotros/as → -imos (vivimos)", "ellos/ellas/ustedes → -en (viven)"]},
+            ],
+            "footnote": "Notice -er and -ir share the same endings except for nosotros (-emos vs. -imos).",
+        },
+    ],
+}
+
+REGULAR_PRESENT_RULE = {
+    "kind": "table",
+    "title": "Regular present — endings by ending type",
+    "headers": ["Pronoun", "-AR (hablar)", "-ER (beber)", "-IR (vivir)"],
+    "rows": [
+        ["yo", "hablo", "bebo", "vivo"],
+        ["tú", "hablas", "bebes", "vives"],
+        ["él / ella / usted", "habla", "bebe", "vive"],
+        ["nosotros / nosotras", "hablamos", "bebemos", "vivimos"],
+        ["ellos / ellas / ustedes", "hablan", "beben", "viven"],
+    ],
+    "footnote": "All three families share the yo (-o) form. -er and -ir differ only in the nosotros row.",
+}
+
+# --- GL 1.5: Possessive Adjectives (intro only — rule chart already exists per lesson) ---
+POSSESSIVE_ADJ_INTRO = {
+    "kind": "cards",
+    "title": "Possessive adjectives",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "\"My,\" \"your,\" \"our\" — short words that go before the noun",
+            "body": "Possessive adjectives sit *before* the noun, just like in English: **mi casa** (my house), **tu amigo** (your friend). They tell you who owns the thing.",
+        },
+        {
+            "kind": "text",
+            "title": "They agree with the THING, not the owner",
+            "body": "The possessive matches the noun's number (and sometimes gender), not the speaker. *mi libro* / *mis libros* — \"my\" changes because *libros* is plural. The fact that I'm one person doesn't matter.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "The full set",
+            "sections": [
+                {"heading": "Singular noun", "items": ["mi (my)", "tu (your, informal)", "su (his / her / your-formal / their)", "nuestro / nuestra (our)"]},
+                {"heading": "Plural noun", "items": ["mis", "tus", "sus", "nuestros / nuestras"]},
+            ],
+            "footnote": "Only nuestro/nuestra agrees with gender. The others change only with number (add -s).",
+        },
+    ],
+}
+
+# --- GL 4: Irregular Present (ser, estar, ir, dar, tener, venir) ---
+IRREGULAR_PRESENT_INTRO = {
+    "kind": "cards",
+    "title": "Six irregular workhorse verbs",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "These six don't follow the rules — and they're everywhere",
+            "body": "**ser, estar, ir, dar, tener, venir** are the most common verbs in Spanish, and every one of them breaks the regular pattern. There's no shortcut: you memorize them once and they pay for themselves a thousand times.",
+        },
+        {
+            "kind": "text",
+            "title": "ser vs. estar — both mean \"to be\"",
+            "body": "Spanish splits English's \"to be\" into two verbs. **ser** is for permanent identity (*soy americano*). **estar** is for location and temporary states (*estoy cansado*, *estoy en casa*). You'll see this contrast in every conversation.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "All six, present tense",
+            "sections": [
+                {"heading": "ser (to be — identity)", "items": ["yo soy", "tú eres", "él/ella/usted es", "nosotros/as somos", "ellos/ellas/ustedes son"]},
+                {"heading": "estar (to be — state/location)", "items": ["yo estoy", "tú estás", "él/ella/usted está", "nosotros/as estamos", "ellos/ellas/ustedes están"]},
+                {"heading": "ir (to go)", "items": ["yo voy", "tú vas", "él/ella/usted va", "nosotros/as vamos", "ellos/ellas/ustedes van"]},
+                {"heading": "dar (to give)", "items": ["yo doy", "tú das", "él/ella/usted da", "nosotros/as damos", "ellos/ellas/ustedes dan"]},
+                {"heading": "tener (to have)", "items": ["yo tengo", "tú tienes", "él/ella/usted tiene", "nosotros/as tenemos", "ellos/ellas/ustedes tienen"]},
+                {"heading": "venir (to come)", "items": ["yo vengo", "tú vienes", "él/ella/usted viene", "nosotros/as venimos", "ellos/ellas/ustedes vienen"]},
+            ],
+            "footnote": "tener and venir share a pattern: irregular yo (-go), and e→ie stem change in tú/él/ellos.",
+        },
+    ],
+}
+
+IRREGULAR_PRESENT_RULE = {
+    "kind": "table",
+    "title": "Irregular present — six core verbs",
+    "headers": ["Pronoun", "ser", "estar", "ir", "dar", "tener", "venir"],
+    "rows": [
+        ["yo", "soy", "estoy", "voy", "doy", "tengo", "vengo"],
+        ["tú", "eres", "estás", "vas", "das", "tienes", "vienes"],
+        ["él / ella / usted", "es", "está", "va", "da", "tiene", "viene"],
+        ["nosotros / nosotras", "somos", "estamos", "vamos", "damos", "tenemos", "venimos"],
+        ["ellos / ellas / ustedes", "son", "están", "van", "dan", "tienen", "vienen"],
+    ],
+    "footnote": "ser is permanent identity; estar is state or location. tener/venir both go yo → -go.",
+}
+
+# --- GL 4.1: Ser vs. Estar (intro only — rule chart already exists) ---
+SER_ESTAR_INTRO = {
+    "kind": "cards",
+    "title": "ser vs. estar",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Spanish has two verbs for \"to be\"",
+            "body": "English uses *am / is / are* for everything. Spanish splits this into **ser** and **estar**. Choosing the wrong one is the most common beginner mistake — and the rule is mostly about *permanence vs. condition*.",
+        },
+        {
+            "kind": "comparison",
+            "title": "The core split",
+            "left": {"heading": "ser — what something IS", "items": ["Identity (soy doctora)", "Nationality (soy mexicano)", "Profession (es ingeniero)", "Permanent traits (es alto)", "Time and date (son las tres)", "Material (es de madera)"]},
+            "right": {"heading": "estar — how/where it IS right now", "items": ["Location (está en casa)", "Mood / health (estoy bien)", "Temporary state (la sopa está fría)", "Ongoing action (estoy comiendo)", "Result of change (está roto)"]},
+            "footnote": "Trick: if you can swap \"is\" for \"feels\" or \"is currently,\" you almost always want estar.",
+        },
+        {
+            "kind": "text",
+            "title": "Same adjective, different meaning",
+            "body": "**Es aburrido** = he's boring (a trait). **Está aburrido** = he's bored (right now). Same word, opposite meaning. The verb you pick changes everything.",
+        },
+    ],
+}
+
+# --- GL 4.2: por vs. para (intro only) ---
+POR_PARA_INTRO = {
+    "kind": "cards",
+    "title": "por vs. para",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Both translate as \"for\" — but they mean very different things",
+            "body": "**para** points forward — toward a goal, a recipient, a deadline, a destination. **por** points backward or sideways — to a cause, a duration, a route, an exchange.",
+        },
+        {
+            "kind": "comparison",
+            "title": "Which one when",
+            "left": {"heading": "para → forward / purpose", "items": ["Recipient: para mi madre", "Deadline: para el lunes", "Destination: salgo para Lima", "Purpose: estudio para aprender", "Opinion: para mí, está bien"]},
+            "right": {"heading": "por → cause / motion through", "items": ["Reason: gracias por la ayuda", "Duration: por dos horas", "Route: caminamos por el parque", "Exchange: pagué $10 por el libro", "On behalf of: lo hago por ti"]},
+            "footnote": "Mnemonic: PARA → Purpose, Audience, Recipient, Arrival. POR → reason, route, time spent, swap.",
+        },
+    ],
+}
+
+# --- GL 4.3: Demonstratives (intro only) ---
+DEMONSTRATIVES_INTRO = {
+    "kind": "cards",
+    "title": "Demonstratives — \"this,\" \"that,\" \"that over there\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Spanish has THREE distances, not two",
+            "body": "English has *this* (here) and *that* (there). Spanish splits *that* into two: **ese/esa** (near the listener) and **aquel/aquella** (far from both of you). Three zones of distance.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "All forms by distance",
+            "sections": [
+                {"heading": "Near me (this)", "items": ["este libro (m sg)", "esta casa (f sg)", "estos libros (m pl)", "estas casas (f pl)"]},
+                {"heading": "Near you (that)", "items": ["ese libro", "esa casa", "esos libros", "esas casas"]},
+                {"heading": "Far from us both (that over there)", "items": ["aquel libro", "aquella casa", "aquellos libros", "aquellas casas"]},
+            ],
+            "footnote": "All three sets follow the same -e/-a/-os/-as pattern, just with different stems: est-, es-, aquel-.",
+        },
+    ],
+}
+
+# --- GL 4.4: Possessive Pronouns (intro only) ---
+POSSESSIVE_PRONOUNS_INTRO = {
+    "kind": "cards",
+    "title": "Possessive pronouns — \"mine, yours, ours\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Different from possessive ADJECTIVES",
+            "body": "Earlier you learned **mi casa** (my house) — that's a possessive *adjective*, sitting before a noun. Possessive *pronouns* REPLACE the noun: \"the house is **mine**\" → *la casa es **mía***. They stand on their own.",
+        },
+        {
+            "kind": "text",
+            "title": "They agree with the thing owned",
+            "body": "Like adjectives, they match the noun's gender and number — but here you can hear it on every form: **mío / mía / míos / mías**. Same root, four endings.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "The forms",
+            "sections": [
+                {"heading": "mine", "items": ["mío, mía, míos, mías"]},
+                {"heading": "yours (informal)", "items": ["tuyo, tuya, tuyos, tuyas"]},
+                {"heading": "his / hers / yours-formal / theirs", "items": ["suyo, suya, suyos, suyas"]},
+                {"heading": "ours", "items": ["nuestro, nuestra, nuestros, nuestras"]},
+            ],
+            "footnote": "Often used with the article: *el mío, la tuya, los suyos*.",
+        },
+    ],
+}
+
+# --- GL 4.5: Irregular Present II (yo-irregular: hacer/poner/salir/decir/oír/caer/traer/valer) ---
+IRREGULAR_PRESENT_II_INTRO = {
+    "kind": "cards",
+    "title": "More irregulars — the \"yo-go\" verbs",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Strange yo, normal everywhere else",
+            "body": "Eight common verbs share a quirk: their **yo** form ends in **-go** even though the rest of the conjugation is regular. *hacer* → *yo hago*, *poner* → *yo pongo*, *salir* → *yo salgo*. From tú onward, they behave like normal -er/-ir verbs.",
+        },
+        {
+            "kind": "text",
+            "title": "Two oddballs: oír and decir",
+            "body": "**oír** (to hear) gets a y in tú/él/ellos: *oigo, oyes, oye, oímos, oyen*. **decir** (to say) does both: *yo digo* AND e→i stem change: *digo, dices, dice, decimos, dicen*.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "All eight, present tense",
+            "sections": [
+                {"heading": "Pure yo-go verbs", "items": ["hacer → hago, haces, hace, hacemos, hacen", "poner → pongo, pones, pone, ponemos, ponen", "salir → salgo, sales, sale, salimos, salen", "valer → valgo, vales, vale, valemos, valen", "caer → caigo, caes, cae, caemos, caen", "traer → traigo, traes, trae, traemos, traen"]},
+                {"heading": "yo-go + extras", "items": ["decir → digo, dices, dice, decimos, dicen", "oír → oigo, oyes, oye, oímos, oyen"]},
+            ],
+        },
+    ],
+}
+
+IRREGULAR_PRESENT_II_RULE = {
+    "kind": "table",
+    "title": "yo-go verbs — present tense",
+    "headers": ["Pronoun", "hacer", "poner", "salir", "decir", "oír", "traer"],
+    "rows": [
+        ["yo", "hago", "pongo", "salgo", "digo", "oigo", "traigo"],
+        ["tú", "haces", "pones", "sales", "dices", "oyes", "traes"],
+        ["él / ella / usted", "hace", "pone", "sale", "dice", "oye", "trae"],
+        ["nosotros / nosotras", "hacemos", "ponemos", "salimos", "decimos", "oímos", "traemos"],
+        ["ellos / ellas / ustedes", "hacen", "ponen", "salen", "dicen", "oyen", "traen"],
+    ],
+    "footnote": "All take yo → -go. decir adds e→i (dices, dice, dicen). oír adds y in tú/él/ellos.",
+}
+
+# --- GL 5: Spelling Changes (consonant adjustments to keep sound) ---
+SPELLING_CHANGES_INTRO = {
+    "kind": "cards",
+    "title": "Spelling changes — protecting the sound",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "When the ending changes the consonant's sound",
+            "body": "Spanish wants verbs to *sound* consistent across conjugation. So when an ending forces a soft consonant to go hard (or vice versa), Spanish swaps in a different letter to preserve the original sound. This only affects spelling — the ear hears the same verb.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "The five common swaps (yo form, present)",
+            "sections": [
+                {"heading": "Soft → hard (keep the soft sound)", "items": ["c → zc:  conocer → yo conozco", "c → z:  convencer → yo convenzo", "g → j:  recoger → yo recojo, dirigir → yo dirijo"]},
+                {"heading": "Add a letter to keep the y-sound or break the vowel", "items": ["i → y:  construir → yo construyo, construyes...", "u → ú:  continuar → yo continúo (accent breaks the diphthong)"]},
+                {"heading": "Specials", "items": ["seguir / conseguir → yo sigo, consigo (gu → g)", "producir → yo produzco (c → zc, like conocer)"]},
+            ],
+            "footnote": "These are spelling choices, not rule violations — Spanish is being phonetically consistent.",
+        },
+    ],
+}
+
+SPELLING_CHANGES_RULE = {
+    "kind": "table",
+    "title": "Spelling-change verbs — present tense",
+    "headers": ["Pronoun", "conocer", "recoger", "construir", "continuar", "conseguir"],
+    "rows": [
+        ["yo", "conozco", "recojo", "construyo", "continúo", "consigo"],
+        ["tú", "conoces", "recoges", "construyes", "continúas", "consigues"],
+        ["él / ella / usted", "conoce", "recoge", "construye", "continúa", "consigue"],
+        ["nosotros / nosotras", "conocemos", "recogemos", "construimos", "continuamos", "conseguimos"],
+        ["ellos / ellas / ustedes", "conocen", "recogen", "construyen", "continúan", "consiguen"],
+    ],
+    "footnote": "Only the spelling shifts — the SOUND of conoc-, recog-, etc. stays the same across all forms.",
+}
+
+# --- GL 5.5: saber vs. conocer ---
+SABER_CONOCER_INTRO = {
+    "kind": "cards",
+    "title": "saber vs. conocer — two flavors of \"to know\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "English uses one word; Spanish uses two",
+            "body": "**saber** = to know a fact, a piece of information, or how to do something. **conocer** = to be familiar with a person, a place, or a thing through experience. Picking the wrong one rarely confuses meaning, but it always sounds non-native.",
+        },
+        {
+            "kind": "comparison",
+            "title": "Which to use",
+            "left": {"heading": "saber → information / skills", "items": ["sé la respuesta (I know the answer)", "sé hablar francés (I know how to speak French)", "no sé qué hora es (I don't know what time it is)"]},
+            "right": {"heading": "conocer → familiarity", "items": ["conozco a María (I know María)", "conozco Madrid (I've been to Madrid)", "no conozco esta canción (I don't know this song — never heard it)"]},
+            "footnote": "Both have irregular yo: sé and conozco. Otherwise they conjugate normally.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Conjugation",
+            "sections": [
+                {"heading": "saber", "items": ["yo sé", "tú sabes", "él/ella/usted sabe", "nosotros/as sabemos", "ellos/ellas/ustedes saben"]},
+                {"heading": "conocer", "items": ["yo conozco", "tú conoces", "él/ella/usted conoce", "nosotros/as conocemos", "ellos/ellas/ustedes conocen"]},
+            ],
+        },
+    ],
+}
+
+SABER_CONOCER_RULE = {
+    "kind": "table",
+    "title": "saber vs. conocer — present tense",
+    "headers": ["Pronoun", "saber (know a fact)", "conocer (be familiar with)"],
+    "rows": [
+        ["yo", "sé", "conozco"],
+        ["tú", "sabes", "conoces"],
+        ["él / ella / usted", "sabe", "conoce"],
+        ["nosotros / nosotras", "sabemos", "conocemos"],
+        ["ellos / ellas / ustedes", "saben", "conocen"],
+    ],
+    "footnote": "saber for facts and skills; conocer for people, places, things you've experienced.",
+}
+
+# --- GL 6: Stem-changing O→UE (boot verbs) ---
+PRESENT_O_UE_INTRO = {
+    "kind": "cards",
+    "title": "Stem change O → UE",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "When stressed, the O breaks into UE",
+            "body": "Some verbs change their stem vowel from **o** to **ue** when that vowel carries the stress — which happens in every form *except* nosotros/nosotras. The endings stay completely regular.",
+        },
+        {
+            "kind": "text",
+            "title": "Why it's called the \"boot\"",
+            "body": "If you draw a line around the forms that change (yo, tú, él, ellos) and skip the ones that don't (nosotros, vosotros), the shape on a verb chart looks like a boot. Same idea applies to all stem-change patterns.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Common O→UE verbs",
+            "sections": [
+                {"heading": "Examples (yo / nosotros contrast)", "items": ["dormir → duermo / dormimos", "poder → puedo / podemos", "almorzar → almuerzo / almorzamos", "volver → vuelvo / volvemos", "morir → muero / morimos", "mover → muevo / movemos"]},
+            ],
+            "footnote": "The o→ue switch happens whenever the o is stressed. Nosotros stresses the ending, so the stem stays put.",
+        },
+    ],
+}
+
+PRESENT_O_UE_RULE = {
+    "kind": "table",
+    "title": "O→UE stem change — present tense",
+    "headers": ["Pronoun", "dormir", "poder", "almorzar", "volver"],
+    "rows": [
+        ["yo", "duermo", "puedo", "almuerzo", "vuelvo"],
+        ["tú", "duermes", "puedes", "almuerzas", "vuelves"],
+        ["él / ella / usted", "duerme", "puede", "almuerza", "vuelve"],
+        ["nosotros / nosotras", "dormimos", "podemos", "almorzamos", "volvemos"],
+        ["ellos / ellas / ustedes", "duermen", "pueden", "almuerzan", "vuelven"],
+    ],
+    "footnote": "The boot: every form changes EXCEPT nosotros, where the stress lands on the ending.",
+}
+
+# --- GL 7: Stem-changing E→IE ---
+PRESENT_E_IE_INTRO = {
+    "kind": "cards",
+    "title": "Stem change E → IE",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Stressed E becomes IE",
+            "body": "Same pattern as O→UE, with a different vowel. When the **e** in the verb's stem is stressed, it splits into **ie**. Every form changes except nosotros/nosotras (where the stress moves to the ending).",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Common E→IE verbs",
+            "sections": [
+                {"heading": "Examples (yo / nosotros contrast)", "items": ["cerrar → cierro / cerramos", "entender → entiendo / entendemos", "pensar → pienso / pensamos", "querer → quiero / queremos", "preferir → prefiero / preferimos", "empezar → empiezo / empezamos"]},
+            ],
+            "footnote": "Same boot shape: yo, tú, él, ellos change. Nosotros keeps the original e.",
+        },
+    ],
+}
+
+PRESENT_E_IE_RULE = {
+    "kind": "table",
+    "title": "E→IE stem change — present tense",
+    "headers": ["Pronoun", "cerrar", "entender", "querer", "preferir"],
+    "rows": [
+        ["yo", "cierro", "entiendo", "quiero", "prefiero"],
+        ["tú", "cierras", "entiendes", "quieres", "prefieres"],
+        ["él / ella / usted", "cierra", "entiende", "quiere", "prefiere"],
+        ["nosotros / nosotras", "cerramos", "entendemos", "queremos", "preferimos"],
+        ["ellos / ellas / ustedes", "cierran", "entienden", "quieren", "prefieren"],
+    ],
+    "footnote": "Same boot pattern as O→UE — every form except nosotros.",
+}
+
+# --- GL 8: Stem-changing E→I (only -ir verbs) ---
+PRESENT_E_I_INTRO = {
+    "kind": "cards",
+    "title": "Stem change E → I (only -ir verbs)",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "A milder split — E becomes plain I",
+            "body": "This pattern only affects **-ir** verbs. The stem **e** doesn't break into a diphthong like e→ie; it just slides to **i**. Same boot shape: every form except nosotros.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Common E→I verbs",
+            "sections": [
+                {"heading": "Examples (yo / nosotros contrast)", "items": ["pedir → pido / pedimos", "repetir → repito / repetimos", "seguir → sigo / seguimos", "servir → sirvo / servimos", "vestir → visto / vestimos", "elegir → elijo / elegimos"]},
+            ],
+            "footnote": "If a verb ends in -ar or -er, it's NOT in this group. E→I is exclusively -ir.",
+        },
+    ],
+}
+
+PRESENT_E_I_RULE = {
+    "kind": "table",
+    "title": "E→I stem change — present tense (-ir only)",
+    "headers": ["Pronoun", "pedir", "repetir", "seguir", "servir"],
+    "rows": [
+        ["yo", "pido", "repito", "sigo", "sirvo"],
+        ["tú", "pides", "repites", "sigues", "sirves"],
+        ["él / ella / usted", "pide", "repite", "sigue", "sirve"],
+        ["nosotros / nosotras", "pedimos", "repetimos", "seguimos", "servimos"],
+        ["ellos / ellas / ustedes", "piden", "repiten", "siguen", "sirven"],
+    ],
+    "footnote": "seguir / conseguir / elegir also drop the silent gu/g in yo: sigo, consigo, elijo.",
+}
+
+# --- GL 9: ir + a + infinitive ---
+IR_A_INF_INTRO = {
+    "kind": "cards",
+    "title": "ir + a + infinitive — \"going to\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "The easiest way to talk about the future",
+            "body": "Spanish has a true future tense, but in everyday speech people use **ir + a + [infinitive]** — exactly like English \"I'm going to + verb.\" *Voy a comer*. *Vamos a salir*. Conjugate **ir**, add **a**, then the verb in its dictionary form.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Just conjugate ir; the rest stays the same",
+            "sections": [
+                {"heading": "ir (present)", "items": ["yo voy", "tú vas", "él/ella/usted va", "nosotros/as vamos", "ellos/ellas/ustedes van"]},
+                {"heading": "Pattern: ir + a + infinitive", "items": ["voy a hablar (I'm going to speak)", "vas a comer (you're going to eat)", "vamos a vivir (we're going to live)", "van a estudiar (they're going to study)"]},
+            ],
+            "footnote": "The infinitive never conjugates. All the work happens on ir.",
+        },
+    ],
+}
+
+IR_A_INF_RULE = {
+    "kind": "table",
+    "title": "ir + a + infinitive",
+    "headers": ["Pronoun", "ir + a + hablar", "ir + a + comer", "ir + a + vivir"],
+    "rows": [
+        ["yo", "voy a hablar", "voy a comer", "voy a vivir"],
+        ["tú", "vas a hablar", "vas a comer", "vas a vivir"],
+        ["él / ella / usted", "va a hablar", "va a comer", "va a vivir"],
+        ["nosotros / nosotras", "vamos a hablar", "vamos a comer", "vamos a vivir"],
+        ["ellos / ellas / ustedes", "van a hablar", "van a comer", "van a vivir"],
+    ],
+    "footnote": "The infinitive (hablar / comer / vivir) never changes. Only ir conjugates.",
+}
+
+# --- GL 10 / 10.3 / 10.6: Gustar (used by gustar_1, _2, _3) ---
+GUSTAR_INTRO = {
+    "kind": "cards",
+    "title": "gustar — Spanish doesn't \"like\" the way English does",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "It's literally \"X is pleasing TO me\"",
+            "body": "**Me gusta el café** doesn't translate as \"I like the coffee.\" It translates as \"the coffee is pleasing to me.\" The thing you like is the *subject*; you (the liker) are an indirect object. This flips the whole sentence.",
+        },
+        {
+            "kind": "text",
+            "title": "Two forms: gusta vs. gustan",
+            "body": "Because the *thing* is the subject, the verb agrees with the thing. **Singular thing → gusta**: *me gusta el libro*. **Plural thing → gustan**: *me gustan los libros*. The pronoun (me/te/le/nos/les) stays the same.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Indirect object pronouns + gusta(n)",
+            "sections": [
+                {"heading": "Singular thing (gusta)", "items": ["me gusta (I like it)", "te gusta (you like it)", "le gusta (he/she/you-formal likes it)", "nos gusta (we like it)", "les gusta (they / you-all like it)"]},
+                {"heading": "Plural thing (gustan)", "items": ["me gustan", "te gustan", "le gustan", "nos gustan", "les gustan"]},
+                {"heading": "Adding emphasis with \"a + pronoun\"", "items": ["a mí me gusta — \"as for me, I like it\"", "a ti te gusta — \"and YOU like it\"", "a él / ella / usted le gusta", "a nosotros nos gusta", "a ellos / ellas / ustedes les gusta"]},
+            ],
+            "footnote": "The \"a + pronoun\" prefix is optional — used for contrast or emphasis, not always required.",
+        },
+    ],
+}
+
+GUSTAR_RULE = {
+    "kind": "table",
+    "title": "gustar — pronoun × singular/plural thing",
+    "headers": ["Liker", "Singular thing", "Plural thing"],
+    "rows": [
+        ["yo (me)", "me gusta el libro", "me gustan los libros"],
+        ["tú (te)", "te gusta", "te gustan"],
+        ["él / ella / usted (le)", "le gusta", "le gustan"],
+        ["nosotros / nosotras (nos)", "nos gusta", "nos gustan"],
+        ["ellos / ellas / ustedes (les)", "les gusta", "les gustan"],
+    ],
+    "footnote": "The verb agrees with the THING (singular → gusta, plural → gustan), not the liker.",
+}
+
+# --- GL 11: Modal + infinitive (tengo que / me toca / necesito) ---
+MODAL_INF_INTRO = {
+    "kind": "cards",
+    "title": "Modal + infinitive — \"have to,\" \"my turn to,\" \"need to\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Three everyday ways to say what you must do",
+            "body": "Spanish has three super-common phrases that all take an infinitive: **tengo que + inf** (I have to), **me toca + inf** (it's my turn to), **necesito + inf** (I need to). The first verb conjugates; the action verb stays in its dictionary form.",
+        },
+        {
+            "kind": "comparison",
+            "title": "When to use which",
+            "left": {"heading": "tengo que / necesito", "items": ["tengo que estudiar — obligation, external pressure", "necesito dormir — internal need", "Both conjugate normally: tengo, tienes, tiene… / necesito, necesitas, necesita…"]},
+            "right": {"heading": "me toca", "items": ["me toca lavar los platos — \"it's my turn to do the dishes\"", "Conjugate the indirect object: me / te / le / nos / les + toca + inf", "The verb \"toca\" stays in 3rd person singular"]},
+            "footnote": "tengo que: most common for obligations. necesito: emphasizes need. me toca: rotation/turn-taking.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Conjugation patterns",
+            "sections": [
+                {"heading": "tengo que + inf", "items": ["yo tengo que…", "tú tienes que…", "él/ella/usted tiene que…", "nosotros/as tenemos que…", "ellos/ellas/ustedes tienen que…"]},
+                {"heading": "me toca + inf", "items": ["me toca, te toca, le toca, nos toca, les toca + infinitive"]},
+                {"heading": "necesito + inf", "items": ["necesito, necesitas, necesita, necesitamos, necesitan + infinitive"]},
+            ],
+        },
+    ],
+}
+
+MODAL_INF_RULE = {
+    "kind": "table",
+    "title": "Modal + infinitive — three patterns",
+    "headers": ["Pronoun", "tengo que + hablar", "me toca + hablar", "necesito + hablar"],
+    "rows": [
+        ["yo", "tengo que hablar", "me toca hablar", "necesito hablar"],
+        ["tú", "tienes que hablar", "te toca hablar", "necesitas hablar"],
+        ["él / ella / usted", "tiene que hablar", "le toca hablar", "necesita hablar"],
+        ["nosotros / nosotras", "tenemos que hablar", "nos toca hablar", "necesitamos hablar"],
+        ["ellos / ellas / ustedes", "tienen que hablar", "les toca hablar", "necesitan hablar"],
+    ],
+    "footnote": "The infinitive never changes. Only the modal verb conjugates (or, for me toca, the pronoun).",
+}
+
+# --- GL 12: Imperfect tense ---
+IMPERFECT_INTRO = {
+    "kind": "cards",
+    "title": "Imperfect — the \"used to\" past",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "A past tense for what kept happening",
+            "body": "The imperfect describes what *used to happen*, what was *ongoing*, or what was *true for a while* in the past. It's the soundtrack of the story — background, habits, descriptions, age, time, weather.",
+        },
+        {
+            "kind": "comparison",
+            "title": "Imperfect vs. preterite (the other past)",
+            "left": {"heading": "Imperfect — background / habit", "items": ["cuando era niño, vivía en Lima", "siempre comíamos juntos", "eran las tres de la tarde", "llovía mucho ese invierno"]},
+            "right": {"heading": "Preterite — completed event", "items": ["ayer fui al cine", "comí toda la pizza", "nació en 1985", "llovió ayer"]},
+            "footnote": "Imperfect = ongoing or repeated. Preterite = a single, finished event.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Imperfect endings — only TWO patterns",
+            "sections": [
+                {"heading": "-AR verbs (hablar)", "items": ["yo hablaba", "tú hablabas", "él/ella/usted hablaba", "nosotros/as hablábamos", "ellos/ellas/ustedes hablaban"]},
+                {"heading": "-ER and -IR verbs (comer / vivir)", "items": ["yo comía / vivía", "tú comías / vivías", "él/ella/usted comía / vivía", "nosotros/as comíamos / vivíamos", "ellos/ellas/ustedes comían / vivían"]},
+                {"heading": "Only THREE irregulars", "items": ["ir → iba, ibas, iba, íbamos, iban", "ser → era, eras, era, éramos, eran", "ver → veía, veías, veía, veíamos, veían"]},
+            ],
+            "footnote": "The imperfect has the fewest irregulars of any Spanish tense. Just three.",
+        },
+    ],
+}
+
+IMPERFECT_RULE = {
+    "kind": "table",
+    "title": "Imperfect tense",
+    "headers": ["Pronoun", "hablar", "comer", "vivir", "ir (irreg.)", "ser (irreg.)"],
+    "rows": [
+        ["yo", "hablaba", "comía", "vivía", "iba", "era"],
+        ["tú", "hablabas", "comías", "vivías", "ibas", "eras"],
+        ["él / ella / usted", "hablaba", "comía", "vivía", "iba", "era"],
+        ["nosotros / nosotras", "hablábamos", "comíamos", "vivíamos", "íbamos", "éramos"],
+        ["ellos / ellas / ustedes", "hablaban", "comían", "vivían", "iban", "eran"],
+    ],
+    "footnote": "Yo and él forms are identical — context tells you who. Only ir, ser, ver are irregular.",
+}
+
+# --- GL 13: Reflexive verbs ---
+REFLEXIVE_INTRO = {
+    "kind": "cards",
+    "title": "Reflexive verbs — when the action loops back to the doer",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "The doer and the receiver are the same person",
+            "body": "Reflexive verbs describe actions you do *to yourself*: wash yourself, get yourself up, get yourself dressed. The infinitive ends in **-se** (lavarse, levantarse), and you replace -se with the right reflexive pronoun for whoever's doing it.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Reflexive pronouns",
+            "sections": [
+                {"heading": "The pronouns", "items": ["yo → me", "tú → te", "él / ella / usted → se", "nosotros / nosotras → nos", "ellos / ellas / ustedes → se"]},
+                {"heading": "Pattern: pronoun + conjugated verb", "items": ["me lavo (I wash myself)", "te levantas (you get up)", "se ducha (he/she showers)", "nos vestimos (we get dressed)", "se acuestan (they go to bed)"]},
+            ],
+            "footnote": "The verb conjugates normally — only the leading pronoun marks it as reflexive.",
+        },
+        {
+            "kind": "text",
+            "title": "When the verb has a stem change, the stem still changes",
+            "body": "*acostarse* is o→ue: *me acuesto*, *te acuestas*… *vestirse* is e→i: *me visto*, *te vistes*… The reflexive pronoun doesn't suppress the stem-change rule.",
+        },
+    ],
+}
+
+REFLEXIVE_RULE = {
+    "kind": "table",
+    "title": "Reflexive present tense",
+    "headers": ["Pronoun + reflexive", "lavarse", "levantarse", "vestirse (e→i)", "acostarse (o→ue)"],
+    "rows": [
+        ["yo + me", "me lavo", "me levanto", "me visto", "me acuesto"],
+        ["tú + te", "te lavas", "te levantas", "te vistes", "te acuestas"],
+        ["él / ella / usted + se", "se lava", "se levanta", "se viste", "se acuesta"],
+        ["nosotros / nosotras + nos", "nos lavamos", "nos levantamos", "nos vestimos", "nos acostamos"],
+        ["ellos / ellas / ustedes + se", "se lavan", "se levantan", "se visten", "se acuestan"],
+    ],
+    "footnote": "The reflexive pronoun goes BEFORE the conjugated verb. Stem changes still apply.",
+}
+
+# --- GL 13.5: Imperatives (commands) ---
+IMPERATIVES_INTRO = {
+    "kind": "cards",
+    "title": "Imperatives — telling someone what to do",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "One form for tú, one for usted/ustedes",
+            "body": "Spanish commands depend on who you're talking to. Informal **tú** uses the él/ella present-tense form. Formal **usted** and plural **ustedes** use the subjunctive form (it doubles as the command form). At this stage we focus on the affirmative — the \"do this\" version.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Affirmative commands — regular verbs",
+            "sections": [
+                {"heading": "tú command (= él present form)", "items": ["hablar → ¡habla!", "comer → ¡come!", "vivir → ¡vive!", "escribir → ¡escribe!"]},
+                {"heading": "usted command (= -e for -ar, -a for -er/-ir)", "items": ["hablar → ¡hable!", "comer → ¡coma!", "vivir → ¡viva!"]},
+                {"heading": "ustedes command (= add -n)", "items": ["¡hablen!  ¡coman!  ¡vivan!"]},
+            ],
+            "footnote": "Endings flip: -ar verbs use -e endings for commands; -er/-ir verbs use -a endings.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Common irregular tú commands",
+            "sections": [
+                {"heading": "Eight to memorize", "items": ["ir → ¡ve!", "ser → ¡sé!", "tener → ¡ten!", "venir → ¡ven!", "salir → ¡sal!", "poner → ¡pon!", "hacer → ¡haz!", "decir → ¡di!"]},
+            ],
+            "footnote": "Mnemonic: \"Vin Diesel has ten weapons\" → ven, di, sal, haz, ten, ve, pon, sé.",
+        },
+    ],
+}
+
+IMPERATIVES_RULE = {
+    "kind": "table",
+    "title": "Affirmative commands",
+    "headers": ["Verb", "tú (informal)", "usted (formal)", "ustedes (plural)"],
+    "rows": [
+        ["hablar", "habla", "hable", "hablen"],
+        ["comer", "come", "coma", "coman"],
+        ["vivir", "vive", "viva", "vivan"],
+        ["ir", "ve", "vaya", "vayan"],
+        ["ser", "sé", "sea", "sean"],
+        ["tener", "ten", "tenga", "tengan"],
+    ],
+    "footnote": "tú command = él present form (regular verbs). usted/ustedes commands use the subjunctive stem.",
+}
+
+# --- GL 14: Future tense ---
+FUTURE_INTRO = {
+    "kind": "cards",
+    "title": "Future tense — \"will\" do something",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "One set of endings, attached to the WHOLE infinitive",
+            "body": "Unlike most tenses, the future doesn't drop -ar/-er/-ir. You take the whole infinitive (*hablar*, *comer*, *vivir*) and add the same set of endings — same set for all three verb families. That's the regular pattern.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Regular future endings (one set, all verbs)",
+            "sections": [
+                {"heading": "Endings", "items": ["yo → -é (hablaré)", "tú → -ás (hablarás)", "él/ella/usted → -á (hablará)", "nosotros/as → -emos (hablaremos)", "ellos/ellas/ustedes → -án (hablarán)"]},
+                {"heading": "Same endings on -er and -ir", "items": ["comer → comeré, comerás, comerá, comeremos, comerán", "vivir → viviré, vivirás, vivirá, viviremos, vivirán"]},
+            ],
+            "footnote": "Notice all forms except nosotros carry an accent.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Irregular futures — modified stem, same endings",
+            "sections": [
+                {"heading": "Twelve common irregulars (stem change, same endings)", "items": ["tener → tendr- (tendré)", "poner → pondr-", "venir → vendr-", "salir → saldr-", "poder → podr-", "saber → sabr-", "haber → habr-", "caber → cabr-", "querer → querr-", "hacer → har- (haré)", "decir → dir- (diré)"]},
+            ],
+            "footnote": "Endings stay the same; the stem just collapses or shifts. hacer and decir are the most contracted.",
+        },
+    ],
+}
+
+FUTURE_RULE = {
+    "kind": "table",
+    "title": "Future tense",
+    "headers": ["Pronoun", "hablar", "comer", "vivir", "tener (irreg.)", "hacer (irreg.)"],
+    "rows": [
+        ["yo", "hablaré", "comeré", "viviré", "tendré", "haré"],
+        ["tú", "hablarás", "comerás", "vivirás", "tendrás", "harás"],
+        ["él / ella / usted", "hablará", "comerá", "vivirá", "tendrá", "hará"],
+        ["nosotros / nosotras", "hablaremos", "comeremos", "viviremos", "tendremos", "haremos"],
+        ["ellos / ellas / ustedes", "hablarán", "comerán", "vivirán", "tendrán", "harán"],
+    ],
+    "footnote": "Same endings on every verb. Irregulars only change the stem (tendr-, har-, dir-).",
+}
+
+# --- GL 15: Conditional ---
+CONDITIONAL_INTRO = {
+    "kind": "cards",
+    "title": "Conditional — \"would\" do something",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Same stem as the future, different endings",
+            "body": "Conditional shares the future's stem (full infinitive, or the same irregular shortcuts: *tendr-, har-, dir-…*). What changes are the endings: instead of future's -é/-ás/-á, conditional uses imperfect-style -ía endings. *Hablaría* = \"I would speak.\"",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Conditional endings (one set for all verbs)",
+            "sections": [
+                {"heading": "Endings — added to the infinitive", "items": ["yo → -ía (hablaría)", "tú → -ías (hablarías)", "él/ella/usted → -ía (hablaría)", "nosotros/as → -íamos (hablaríamos)", "ellos/ellas/ustedes → -ían (hablarían)"]},
+            ],
+            "footnote": "yo and él share the same form — context tells you who. Same -ía pattern as the imperfect.",
+        },
+        {
+            "kind": "text",
+            "title": "Use it for politeness, hypotheticals, soft suggestions",
+            "body": "*¿Podrías ayudarme?* (Could you help me?) — softer than \"can you?\" *Yo iría contigo* (I'd go with you). *En tu lugar, hablaría con ella* (In your place, I would talk to her). It's the diplomat's tense.",
+        },
+    ],
+}
+
+CONDITIONAL_RULE = {
+    "kind": "table",
+    "title": "Conditional tense",
+    "headers": ["Pronoun", "hablar", "comer", "vivir", "tener (irreg.)", "hacer (irreg.)"],
+    "rows": [
+        ["yo", "hablaría", "comería", "viviría", "tendría", "haría"],
+        ["tú", "hablarías", "comerías", "vivirías", "tendrías", "harías"],
+        ["él / ella / usted", "hablaría", "comería", "viviría", "tendría", "haría"],
+        ["nosotros / nosotras", "hablaríamos", "comeríamos", "viviríamos", "tendríamos", "haríamos"],
+        ["ellos / ellas / ustedes", "hablarían", "comerían", "vivirían", "tendrían", "harían"],
+    ],
+    "footnote": "Same stems as the future; -ía endings throughout. yo and él are identical forms.",
+}
+
+# --- GL 16: Preterite vs. Imperfect (intro only — rule chart already exists) ---
+PRET_VS_IMPERFECT_INTRO = {
+    "kind": "cards",
+    "title": "Preterite vs. Imperfect — two flavors of past",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "English uses one past; Spanish uses two",
+            "body": "*\"I ate\"* could be one bite (preterite) or a regular habit (imperfect) — English doesn't care. Spanish makes you choose. The choice is about *aspect*: was the action a single completed event, or an ongoing/repeated background?",
+        },
+        {
+            "kind": "comparison",
+            "title": "How to choose",
+            "left": {"heading": "Preterite — one finished event", "items": ["ayer comí pizza (yesterday I ate pizza)", "fue a Madrid en 2020", "se rompió la pierna", "el partido empezó a las ocho", "Marker words: ayer, anoche, una vez, en 1995"]},
+            "right": {"heading": "Imperfect — ongoing / habitual / background", "items": ["de niño comía pizza todos los viernes", "cuando vivía en Madrid…", "estaba lloviendo", "siempre me llamaba", "Marker words: siempre, todos los días, mientras, cada"]},
+            "footnote": "Preterite advances the story (\"and then…\"). Imperfect describes the scene (\"meanwhile, the room was…\").",
+        },
+        {
+            "kind": "text",
+            "title": "Often they appear in the same sentence",
+            "body": "*Cuando **caminaba** por el parque (imp. — ongoing), **vi** a María (pret. — single event).* The imperfect sets the scene; the preterite is the thing that happened against that scene.",
+        },
+    ],
+}
+
+# --- GL 17: Preterite Regular ---
+PRETERITE_REGULAR_INTRO = {
+    "kind": "cards",
+    "title": "Preterite — the \"and then this happened\" past",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "For single, completed events",
+            "body": "The preterite tells what *happened* — one event, finished, done. *Ayer hablé con Juan*. *Comimos pizza*. *Salieron a las ocho*. If you can put a beginning and an end on it, this is your tense.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Regular preterite endings",
+            "sections": [
+                {"heading": "-AR verbs (hablar)", "items": ["yo hablé", "tú hablaste", "él/ella/usted habló", "nosotros/as hablamos", "ellos/ellas/ustedes hablaron"]},
+                {"heading": "-ER and -IR verbs (comer / vivir — same endings)", "items": ["yo comí / viví", "tú comiste / viviste", "él/ella/usted comió / vivió", "nosotros/as comimos / vivimos", "ellos/ellas/ustedes comieron / vivieron"]},
+            ],
+            "footnote": "Notice the accents on yo and él (-é, -ó for -ar; -í, -ió for -er/-ir). They're load-bearing — they distinguish the form.",
+        },
+        {
+            "kind": "text",
+            "title": "-AR nosotros looks identical to the present",
+            "body": "*hablamos* could be \"we speak\" OR \"we spoke.\" Spanish lets context disambiguate. -ir verbs do the same: *vivimos* = we live / we lived.",
+        },
+    ],
+}
+
+PRETERITE_REGULAR_RULE = {
+    "kind": "table",
+    "title": "Regular preterite endings",
+    "headers": ["Pronoun", "-AR (hablar)", "-ER (comer)", "-IR (vivir)"],
+    "rows": [
+        ["yo", "hablé", "comí", "viví"],
+        ["tú", "hablaste", "comiste", "viviste"],
+        ["él / ella / usted", "habló", "comió", "vivió"],
+        ["nosotros / nosotras", "hablamos", "comimos", "vivimos"],
+        ["ellos / ellas / ustedes", "hablaron", "comieron", "vivieron"],
+    ],
+    "footnote": "-er and -ir share endings completely. -ar nosotros / -ir nosotros match their present forms — context disambiguates.",
+}
+
+# --- GL 17.1: Preterite Irregular (highly irregular: ser/ir/dar/ver/hacer/decir/traer/dormir/morir) ---
+PRETERITE_IRREGULAR_INTRO = {
+    "kind": "cards",
+    "title": "Highly irregular preterites — memorize these",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "ser and ir share the SAME preterite",
+            "body": "Both *ser* and *ir* conjugate to *fui, fuiste, fue, fuimos, fueron* in the preterite. Context tells you which: *fui a Lima* = I went; *fui doctora* = I was a doctor. They merge in this tense and only this one.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "The irregulars",
+            "sections": [
+                {"heading": "ser / ir (identical)", "items": ["fui, fuiste, fue, fuimos, fueron"]},
+                {"heading": "dar (uses -er/-ir endings, no accents)", "items": ["di, diste, dio, dimos, dieron"]},
+                {"heading": "ver (uses -er/-ir endings, no accents)", "items": ["vi, viste, vio, vimos, vieron"]},
+                {"heading": "hacer (c→z in él)", "items": ["hice, hiciste, hizo, hicimos, hicieron"]},
+                {"heading": "decir (j-stem, drop the i in ellos)", "items": ["dije, dijiste, dijo, dijimos, dijeron"]},
+                {"heading": "traer (j-stem, drop the i in ellos)", "items": ["traje, trajiste, trajo, trajimos, trajeron"]},
+                {"heading": "dormir / morir (o→u in él, ellos)", "items": ["dormí, dormiste, durmió, dormimos, durmieron", "morí, moriste, murió, morimos, murieron"]},
+            ],
+            "footnote": "Pattern: j-stem verbs (decir, traer, traducir) drop the i in ellos: dijeron, NOT dijieron.",
+        },
+    ],
+}
+
+PRETERITE_IRREGULAR_RULE = {
+    "kind": "table",
+    "title": "Highly irregular preterites",
+    "headers": ["Pronoun", "ser / ir", "dar", "hacer", "decir", "dormir"],
+    "rows": [
+        ["yo", "fui", "di", "hice", "dije", "dormí"],
+        ["tú", "fuiste", "diste", "hiciste", "dijiste", "dormiste"],
+        ["él / ella / usted", "fue", "dio", "hizo", "dijo", "durmió"],
+        ["nosotros / nosotras", "fuimos", "dimos", "hicimos", "dijimos", "dormimos"],
+        ["ellos / ellas / ustedes", "fueron", "dieron", "hicieron", "dijeron", "durmieron"],
+    ],
+    "footnote": "ser and ir share fui/fuiste/… in preterite. j-stem verbs (decir, traer) drop the i in ellos.",
+}
+
+# --- GL 17.2: Preterite Spelling Changes (yo-form spelling shifts) ---
+PRET_SPELLING_INTRO = {
+    "kind": "cards",
+    "title": "Preterite spelling changes — yo form only",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Same sound problem as the present, different fix",
+            "body": "Some verbs need a spelling tweak in the **yo** form of the preterite to keep the original sound. The endings stay regular (-é, -aste, -ó…); only the consonant just before the ending shifts.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Three patterns (yo form)",
+            "sections": [
+                {"heading": "-CAR verbs → c becomes qu", "items": ["buscar → busqué", "tocar → toqué", "sacar → saqué"]},
+                {"heading": "-GAR verbs → g becomes gu", "items": ["pagar → pagué", "jugar → jugué", "llegar → llegué"]},
+                {"heading": "-ZAR verbs → z becomes c", "items": ["empezar → empecé", "almorzar → almorcé", "comenzar → comencé"]},
+            ],
+            "footnote": "These changes only happen in the yo form. The rest of the conjugation is regular: buscaste, buscó, buscamos, buscaron.",
+        },
+        {
+            "kind": "text",
+            "title": "Vowel-stem verbs: i → y in él / ellos",
+            "body": "Verbs like **leer, creer, oír, caer, construir** — where an unstressed *i* would land between vowels — turn that i into y. *Leyó* (not *leió*). *Construyeron* (not *construieron*).",
+        },
+    ],
+}
+
+PRET_SPELLING_RULE = {
+    "kind": "table",
+    "title": "Preterite spelling changes",
+    "headers": ["Pronoun", "buscar (c→qu)", "pagar (g→gu)", "empezar (z→c)", "leer (i→y)"],
+    "rows": [
+        ["yo", "busqué", "pagué", "empecé", "leí"],
+        ["tú", "buscaste", "pagaste", "empezaste", "leíste"],
+        ["él / ella / usted", "buscó", "pagó", "empezó", "leyó"],
+        ["nosotros / nosotras", "buscamos", "pagamos", "empezamos", "leímos"],
+        ["ellos / ellas / ustedes", "buscaron", "pagaron", "empezaron", "leyeron"],
+    ],
+    "footnote": "-car/-gar/-zar shift only in yo. Vowel-stem verbs (leer, construir) shift i→y in él/ellos.",
+}
+
+# --- GL 17.3: Preterite Strong (-u-, -i- stem irregulars) ---
+PRET_STRONG_INTRO = {
+    "kind": "cards",
+    "title": "Strong preterites — no accents, modified stems",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "A different shape — and they share endings",
+            "body": "About 15 important verbs use a special preterite called the \"strong\" preterite. They all swap their stem (estar → estuv-, tener → tuv-, poder → pud-…) and they all share the SAME set of endings — endings with NO accent marks.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Shared endings (no accents)",
+            "sections": [
+                {"heading": "-e, -iste, -o, -imos, -ieron", "items": ["yo → -e (estuve)", "tú → -iste (estuviste)", "él/ella/usted → -o (estuvo)", "nosotros/as → -imos (estuvimos)", "ellos/ellas/ustedes → -ieron (estuvieron)"]},
+            ],
+            "footnote": "Notice yo and él end in plain -e and -o (not -é, -ó). The accent is what tells you it's strong.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Common strong stems",
+            "sections": [
+                {"heading": "u-stems", "items": ["estar → estuv-", "tener → tuv-", "poder → pud-", "poner → pus-", "saber → sup-", "haber → hub-", "caber → cup-", "andar → anduv-"]},
+                {"heading": "i-stems", "items": ["venir → vin-", "querer → quis-", "hacer → hic- (él: hizo)"]},
+            ],
+            "footnote": "Compounds inherit: mantener → mantuv-, obtener → obtuv-, contener → contuv-.",
+        },
+    ],
+}
+
+PRET_STRONG_RULE = {
+    "kind": "table",
+    "title": "Strong preterites — shared endings, modified stems",
+    "headers": ["Pronoun", "estar (estuv-)", "tener (tuv-)", "poder (pud-)", "poner (pus-)", "venir (vin-)"],
+    "rows": [
+        ["yo", "estuve", "tuve", "pude", "puse", "vine"],
+        ["tú", "estuviste", "tuviste", "pudiste", "pusiste", "viniste"],
+        ["él / ella / usted", "estuvo", "tuvo", "pudo", "puso", "vino"],
+        ["nosotros / nosotras", "estuvimos", "tuvimos", "pudimos", "pusimos", "vinimos"],
+        ["ellos / ellas / ustedes", "estuvieron", "tuvieron", "pudieron", "pusieron", "vinieron"],
+    ],
+    "footnote": "Plain -e in yo and -o in él (no accents) is the giveaway. Same endings across all strong preterites.",
+}
+
+# --- GL 17.4: Preterite -DUCIR verbs ---
+PRET_DUCIR_INTRO = {
+    "kind": "cards",
+    "title": "Preterite of -ducir verbs",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "All -DUCIR verbs use the j-stem pattern",
+            "body": "Every Spanish verb ending in **-ducir** (traducir, conducir, producir, introducir, reducir…) uses the same preterite: stem ends in **-duj-** and takes strong-preterite endings. They share a special quirk with decir and traer: the ellos form drops the i.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Pattern",
+            "sections": [
+                {"heading": "Stem and endings", "items": ["traducir → traduj- + -e/-iste/-o/-imos/-eron", "conducir → conduj-", "producir → produj-", "introducir → introduj-"]},
+                {"heading": "ellos drops the i", "items": ["tradujeron (NOT tradujieron)", "condujeron, produjeron, introdujeron"]},
+            ],
+            "footnote": "Same j-stem trick as decir (dijeron) and traer (trajeron). It's a family pattern.",
+        },
+    ],
+}
+
+PRET_DUCIR_RULE = {
+    "kind": "table",
+    "title": "Preterite of -DUCIR verbs",
+    "headers": ["Pronoun", "traducir", "conducir", "producir", "introducir"],
+    "rows": [
+        ["yo", "traduje", "conduje", "produje", "introduje"],
+        ["tú", "tradujiste", "condujiste", "produjiste", "introdujiste"],
+        ["él / ella / usted", "tradujo", "condujo", "produjo", "introdujo"],
+        ["nosotros / nosotras", "tradujimos", "condujimos", "produjimos", "introdujimos"],
+        ["ellos / ellas / ustedes", "tradujeron", "condujeron", "produjeron", "introdujeron"],
+    ],
+    "footnote": "All -ducir verbs follow this pattern. ellos always drops the i: -jeron, never -jieron.",
+}
+
+# --- GL 17.5: Preterite e→i (only in él/ellos for -ir verbs) ---
+PRET_E_TO_I_INTRO = {
+    "kind": "cards",
+    "title": "Preterite e→i — only -ir stem-changers",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "A small change in just two forms",
+            "body": "**-ir verbs** that have a stem change in the present (pedir, sentir, repetir, servir, dormir, morir) keep a smaller version of that change in the preterite — but only in the **él** and **ellos** forms. Everything else is regular.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "The pattern",
+            "sections": [
+                {"heading": "él / ellos: e → i", "items": ["pedir → pidió, pidieron", "sentir → sintió, sintieron", "repetir → repitió, repitieron", "servir → sirvió, sirvieron"]},
+                {"heading": "yo, tú, nosotros: completely regular", "items": ["pedí, pediste, pedimos", "sentí, sentiste, sentimos"]},
+            ],
+            "footnote": "Only -ir verbs do this in the preterite. -ar and -er verbs with present stem changes (pensar, querer) are fully regular in the preterite.",
+        },
+    ],
+}
+
+PRET_E_TO_I_RULE = {
+    "kind": "table",
+    "title": "Preterite e→i (-ir stem changers)",
+    "headers": ["Pronoun", "pedir", "sentir", "repetir", "servir"],
+    "rows": [
+        ["yo", "pedí", "sentí", "repetí", "serví"],
+        ["tú", "pediste", "sentiste", "repetiste", "serviste"],
+        ["él / ella / usted", "pidió", "sintió", "repitió", "sirvió"],
+        ["nosotros / nosotras", "pedimos", "sentimos", "repetimos", "servimos"],
+        ["ellos / ellas / ustedes", "pidieron", "sintieron", "repitieron", "sirvieron"],
+    ],
+    "footnote": "Stem changes ONLY in él and ellos. yo, tú, nosotros stay fully regular.",
+}
+
+# --- GL 18: Gerund (estar + -ando / -iendo) ---
+GERUND_INTRO = {
+    "kind": "cards",
+    "title": "Gerund — \"to be doing something\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "estar + gerund — what's happening RIGHT NOW",
+            "body": "When the action is in progress at this moment, Spanish uses **estar + the gerund** (-ando / -iendo). *Estoy comiendo* — I am eating (this very second). This is the present progressive: ongoing right now, not just \"I eat in general.\"",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "How to form the gerund",
+            "sections": [
+                {"heading": "-AR verbs → -ando", "items": ["hablar → hablando", "caminar → caminando", "estudiar → estudiando"]},
+                {"heading": "-ER and -IR verbs → -iendo", "items": ["comer → comiendo", "beber → bebiendo", "vivir → viviendo", "salir → saliendo"]},
+                {"heading": "Vowel-stem verbs → -yendo (i becomes y between vowels)", "items": ["leer → leyendo", "oír → oyendo", "construir → construyendo"]},
+                {"heading": "-ir stem-changers shift e→i / o→u", "items": ["pedir → pidiendo", "sentir → sintiendo", "dormir → durmiendo", "morir → muriendo"]},
+            ],
+            "footnote": "The gerund itself is invariable (no agreement). Only estar conjugates.",
+        },
+        {
+            "kind": "text",
+            "title": "Don't use the gerund for the future",
+            "body": "In English we say \"I'm leaving tomorrow.\" In Spanish, that's NOT *estoy saliendo mañana* — use simple present (*salgo mañana*) or *ir a + inf* (*voy a salir mañana*). The Spanish gerund really means \"in progress right now.\"",
+        },
+    ],
+}
+
+GERUND_RULE = {
+    "kind": "table",
+    "title": "estar + gerund — present progressive",
+    "headers": ["Pronoun", "hablando (-ar)", "comiendo (-er)", "viviendo (-ir)", "leyendo (i→y)"],
+    "rows": [
+        ["yo", "estoy hablando", "estoy comiendo", "estoy viviendo", "estoy leyendo"],
+        ["tú", "estás hablando", "estás comiendo", "estás viviendo", "estás leyendo"],
+        ["él / ella / usted", "está hablando", "está comiendo", "está viviendo", "está leyendo"],
+        ["nosotros / nosotras", "estamos hablando", "estamos comiendo", "estamos viviendo", "estamos leyendo"],
+        ["ellos / ellas / ustedes", "están hablando", "están comiendo", "están viviendo", "están leyendo"],
+    ],
+    "footnote": "Only estar conjugates. The gerund stays fixed regardless of who's doing it.",
+}
+
+# --- GL 19: Object pronouns ---
+OBJ_DIRECT_INTRO = {
+    "kind": "cards",
+    "title": "Direct object pronouns — \"it,\" \"them,\" \"him,\" \"her\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Replace the noun receiving the action",
+            "body": "Instead of repeating *el libro* in every sentence, you say *lo*: \"I read **it**.\" Direct object pronouns answer *what?* or *who?* the verb is acting on, and they go BEFORE the conjugated verb.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Forms",
+            "sections": [
+                {"heading": "Singular", "items": ["lo (it/him, masculine)", "la (it/her, feminine)"]},
+                {"heading": "Plural", "items": ["los (them, masculine/mixed)", "las (them, all-feminine)"]},
+                {"heading": "Examples", "items": ["¿Tienes el libro? — Sí, **lo** tengo.", "¿Conoces a María? — Sí, **la** conozco.", "¿Compraste los boletos? — Sí, **los** compré.", "¿Vas a hacer las tareas? — Sí, voy a hacer**las**. (or: las voy a hacer)"]},
+            ],
+            "footnote": "With infinitives and gerunds, the pronoun can attach to the end (hacerlas, comprándolos) or sit before the conjugated helper.",
+        },
+    ],
+}
+
+OBJ_INDIRECT_INTRO = {
+    "kind": "cards",
+    "title": "Indirect object pronouns — \"to me,\" \"to him,\" \"to them\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "The recipient of the action",
+            "body": "Indirect objects answer *to whom?* or *for whom?* In *I gave the book to María*, **to María** is the indirect object. Spanish uses pronouns: *Le di el libro*. They go before the verb, just like direct objects.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Forms (these don't change for gender)",
+            "sections": [
+                {"heading": "Singular", "items": ["me (to me)", "te (to you, informal)", "le (to him / her / you-formal)"]},
+                {"heading": "Plural", "items": ["nos (to us)", "les (to them / to you-all)"]},
+                {"heading": "Examples", "items": ["**Me** dijo la verdad. (He told me the truth.)", "**Te** voy a comprar un regalo.", "**Le** escribí una carta a Juan.", "**Les** mandamos las fotos."]},
+            ],
+            "footnote": "Often you'll see redundancy: *Le di el libro a María.* The 'le' is required even though 'a María' clarifies. Spanish loves the double-mention.",
+        },
+    ],
+}
+
+OBJ_COMBINED_INTRO = {
+    "kind": "cards",
+    "title": "Two pronouns at once — indirect THEN direct",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Order matters: indirect first, then direct",
+            "body": "When you have both — \"He gave it to me\" — the indirect goes first, the direct second, and both go before the verb. **Me lo dio.** (To-me + it + he-gave.) Always: indirect → direct → verb.",
+        },
+        {
+            "kind": "text",
+            "title": "le + lo / la / los / las → SE",
+            "body": "Spanish doesn't allow two pronouns starting with l in a row. So **le lo** and **les la** and similar combos all change to **se**: *Se lo di* (I gave it to him), *Se las mandamos* (We sent them to her). The 'se' here doesn't mean reflexive — it's a phonetic workaround.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "All combinations",
+            "sections": [
+                {"heading": "me / te / nos + direct", "items": ["me lo, me la, me los, me las", "te lo, te la, te los, te las", "nos lo, nos la, nos los, nos las"]},
+                {"heading": "le / les become se", "items": ["se lo, se la, se los, se las (used for him, her, you-formal, them, you-all)"]},
+                {"heading": "Examples", "items": ["¿El libro? — **Me lo** dio ayer.", "¿La carta? — **Se la** mandé a Juan.", "¿Los boletos? — Te **los** compro yo."]},
+            ],
+            "footnote": "Order is rigid: indirect first, direct second, both before the verb (or both attached to an infinitive/gerund).",
+        },
+    ],
+}
+
+OBJ_COMBINED_RULE = {
+    "kind": "table",
+    "title": "Combined object pronouns",
+    "headers": ["Indirect", "+ lo", "+ la", "+ los", "+ las"],
+    "rows": [
+        ["me", "me lo", "me la", "me los", "me las"],
+        ["te", "te lo", "te la", "te los", "te las"],
+        ["le → se", "se lo", "se la", "se los", "se las"],
+        ["nos", "nos lo", "nos la", "nos los", "nos las"],
+        ["les → se", "se lo", "se la", "se los", "se las"],
+    ],
+    "footnote": "Indirect (me/te/se/nos/se) goes BEFORE direct (lo/la/los/las). le/les always become se before lo/la/los/las.",
+}
+
+# --- GL 20: Present Subjunctive ---
+SUBJ_PRES_INTRO = {
+    "kind": "cards",
+    "title": "Present Subjunctive — for desires, doubts, emotions",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Not a tense — a mood",
+            "body": "The subjunctive isn't about *when* — it's about *attitude*. You use it when the speaker is expressing wishes, doubts, emotions, or things that aren't yet real: *Espero que vengas* (I hope you come). *Quiero que sepa la verdad* (I want him to know).",
+        },
+        {
+            "kind": "text",
+            "title": "Trigger phrases (the WEDDING acronym)",
+            "body": "**W**ish: *quiero que…*  **E**motion: *me alegro de que…*  **D**oubt: *dudo que…*  **D**enial: *no creo que…*  **I**mpersonal: *es importante que…*  **N**egation: *no es verdad que…*  **G**od / wishes: *ojalá que…*  When you see one of these phrases, the verb that follows goes in the subjunctive.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "How to form it — \"opposite vowel\" rule",
+            "sections": [
+                {"heading": "Step 1: Take the yo form of the present, drop the -o", "items": ["hablar → habl-", "comer → com-", "vivir → viv-", "tener → teng- (irregular yo carries through)"]},
+                {"heading": "Step 2: Add opposite-vowel endings", "items": ["-AR verbs take -e endings: hable, hables, hable, hablemos, hablen", "-ER and -IR verbs take -a endings: coma, comas, coma, comamos, coman / viva, vivas…"]},
+            ],
+            "footnote": "The opposite-vowel switch is the heart of it: -ar → -e, -er/-ir → -a.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Six fully irregular verbs",
+            "sections": [
+                {"heading": "Don't follow the yo-stem rule", "items": ["ser → sea, seas, sea, seamos, sean", "ir → vaya, vayas, vaya, vayamos, vayan", "estar → esté, estés, esté, estemos, estén", "dar → dé, des, dé, demos, den", "saber → sepa, sepas, sepa, sepamos, sepan", "haber → haya, hayas, haya, hayamos, hayan"]},
+            ],
+            "footnote": "Mnemonic: \"DISHES\" — Dar, Ir, Ser, Haber, Estar, Saber.",
+        },
+    ],
+}
+
+SUBJ_PRES_RULE = {
+    "kind": "table",
+    "title": "Present Subjunctive",
+    "headers": ["Pronoun", "hablar", "comer", "vivir", "ser (irreg.)", "ir (irreg.)"],
+    "rows": [
+        ["yo", "hable", "coma", "viva", "sea", "vaya"],
+        ["tú", "hables", "comas", "vivas", "seas", "vayas"],
+        ["él / ella / usted", "hable", "coma", "viva", "sea", "vaya"],
+        ["nosotros / nosotras", "hablemos", "comamos", "vivamos", "seamos", "vayamos"],
+        ["ellos / ellas / ustedes", "hablen", "coman", "vivan", "sean", "vayan"],
+    ],
+    "footnote": "Opposite vowel: -ar → -e, -er/-ir → -a. yo and él identical. Six irregulars: D-I-S-H-E-S.",
+}
+
+# --- GL 20: Imperfect Subjunctive ---
+SUBJ_IMPF_INTRO = {
+    "kind": "cards",
+    "title": "Imperfect Subjunctive — past wishes, hypotheticals",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Same triggers as present subjunctive, but in a past context",
+            "body": "Same WEDDING triggers (wishes, doubts, emotions…), but for past or hypothetical situations: *Quería que vinieras* (I wanted you to come). *Si tuviera dinero…* (If I had money…). It's also the workhorse of \"if I were\" sentences.",
+        },
+        {
+            "kind": "text",
+            "title": "Built from the THIRD-person preterite",
+            "body": "Take the **ellos** form of the preterite, drop the -ron, and add new endings: *hablaron → habla- → hablara, hablaras…* Because it's based on the preterite, every preterite irregularity comes along for the ride.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Endings (same set for all verbs)",
+            "sections": [
+                {"heading": "From the ellos preterite stem (drop -ron)", "items": ["yo → -ra (hablara)", "tú → -ras (hablaras)", "él/ella/usted → -ra (hablara)", "nosotros/as → -´ramos (habláramos — accent!)", "ellos/ellas/ustedes → -ran (hablaran)"]},
+            ],
+            "footnote": "The nosotros form takes a written accent on the 3rd-to-last syllable (habláramos, comiéramos, viviéramos).",
+        },
+        {
+            "kind": "text",
+            "title": "Two valid endings: -ra and -se",
+            "body": "There's an alternate form ending in -se: *hablase, hablases, hablase, hablásemos, hablasen*. They're interchangeable, but the **-ra form is far more common** in everyday speech and is what we'll teach. Recognize -se when you read; produce -ra when you speak.",
+        },
+    ],
+}
+
+SUBJ_IMPF_RULE = {
+    "kind": "table",
+    "title": "Imperfect Subjunctive (-ra form)",
+    "headers": ["Pronoun", "hablar", "comer", "vivir", "ser/ir", "tener"],
+    "rows": [
+        ["yo", "hablara", "comiera", "viviera", "fuera", "tuviera"],
+        ["tú", "hablaras", "comieras", "vivieras", "fueras", "tuvieras"],
+        ["él / ella / usted", "hablara", "comiera", "viviera", "fuera", "tuviera"],
+        ["nosotros / nosotras", "habláramos", "comiéramos", "viviéramos", "fuéramos", "tuviéramos"],
+        ["ellos / ellas / ustedes", "hablaran", "comieran", "vivieran", "fueran", "tuvieran"],
+    ],
+    "footnote": "Built from the ellos preterite stem. Inherits every preterite irregularity. nosotros always carries an accent.",
+}
+
+# --- GL 18.5: Perfect Tenses (haber + past participle) ---
+PERFECT_TENSES_INTRO = {
+    "kind": "cards",
+    "title": "Perfect tenses — \"have done,\" \"had done\"",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Two pieces: haber + past participle",
+            "body": "Every perfect tense in Spanish has the same shape: conjugate **haber** (the auxiliary) + add the **past participle** of the action verb. *He hablado* = I have spoken. *Habían comido* = they had eaten. Only haber moves; the participle never changes.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Building the past participle",
+            "sections": [
+                {"heading": "Regular: drop the ending, add -ado / -ido", "items": ["-AR verbs → -ado: hablar → hablado, caminar → caminado", "-ER verbs → -ido: comer → comido, beber → bebido", "-IR verbs → -ido: vivir → vivido, salir → salido"]},
+                {"heading": "Common irregulars (memorize these)", "items": ["decir → dicho", "hacer → hecho", "ver → visto", "escribir → escrito", "poner → puesto", "abrir → abierto", "volver → vuelto", "morir → muerto", "romper → roto", "cubrir → cubierto", "resolver → resuelto"]},
+            ],
+            "footnote": "The participle is invariant — it doesn't change for gender or number when used with haber.",
+        },
+        {
+            "kind": "comparison",
+            "title": "Four perfect tenses, all built the same way",
+            "left": {"heading": "Past-leaning", "items": ["Present perfect: he hablado (I have spoken — recent or relevant now)", "Pluperfect: había hablado (I had spoken — past before another past)"]},
+            "right": {"heading": "Future-leaning", "items": ["Future perfect: habré hablado (I will have spoken)", "Conditional perfect: habría hablado (I would have spoken)"]},
+            "footnote": "Same recipe each time — only haber's tense changes. We focus on the present perfect and pluperfect first.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "haber — the only piece that conjugates",
+            "sections": [
+                {"heading": "Present (for present perfect)", "items": ["yo he", "tú has", "él/ella/usted ha", "nosotros/as hemos", "ellos/ellas/ustedes han"]},
+                {"heading": "Imperfect (for pluperfect)", "items": ["yo había", "tú habías", "él/ella/usted había", "nosotros/as habíamos", "ellos/ellas/ustedes habían"]},
+            ],
+            "footnote": "haber here is auxiliary-only. It never means \"to have something\" — that's tener.",
+        },
+    ],
+}
+
+PERFECT_TENSES_RULE = {
+    "kind": "table",
+    "title": "Perfect tenses — present perfect & pluperfect",
+    "headers": ["Pronoun", "Present perfect (hablar)", "Present perfect (comer)", "Pluperfect (vivir)", "Pluperfect (hacer — irreg.)"],
+    "rows": [
+        ["yo", "he hablado", "he comido", "había vivido", "había hecho"],
+        ["tú", "has hablado", "has comido", "habías vivido", "habías hecho"],
+        ["él / ella / usted", "ha hablado", "ha comido", "había vivido", "había hecho"],
+        ["nosotros / nosotras", "hemos hablado", "hemos comido", "habíamos vivido", "habíamos hecho"],
+        ["ellos / ellas / ustedes", "han hablado", "han comido", "habían vivido", "habían hecho"],
+    ],
+    "footnote": "Same recipe: conjugate haber (present → present perfect, imperfect → pluperfect) + invariant past participle.",
+}
+
+
 GRAMMAR_SITUATIONS = {
     "grammar_pronouns": {
         "title": "Pronouns (singular)",
@@ -278,6 +1604,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "possessive",
+        "intro_chart": POSSESSIVE_ADJ_INTRO,
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "rule_chart": {'kind': 'table', 'title': 'Possessive adjectives — singular', 'headers': ['Form', 'Used for', 'Example'], 'rows': [['mi', 'my', 'mi casa'], ['tu', 'your (informal)', 'tu amigo'], ['su', 'his / her / your (formal) / their', 'su carro'], ['nuestro', 'our (masculine noun)', 'nuestro perro'], ['nuestra', 'our (feminine noun)', 'nuestra familia']], 'footnote': "'nuestro' / 'nuestra' agrees with the noun's gender. The others don't change with gender — only with number (mi → mis, tu → tus, su → sus)."},
         "drill_sentences": [
@@ -303,6 +1630,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "possessive",
+        "intro_chart": POSSESSIVE_ADJ_INTRO,
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "rule_chart": {'kind': 'table', 'title': 'Possessive adjectives — plural', 'headers': ['Form', 'Used for', 'Example'], 'rows': [['mis', 'my (plural)', 'mis libros'], ['tus', 'your (plural)', 'tus amigos'], ['sus', 'his/her/your(formal)/their (plural)', 'sus carros'], ['nuestros', 'our (masc. plural)', 'nuestros perros'], ['nuestras', 'our (fem. plural)', 'nuestras familias']]},
         "drill_sentences": [
@@ -502,6 +1830,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": REGULAR_PRESENT_INTRO,
+        "rule_chart": REGULAR_PRESENT_RULE,
         "drill_config": {
             "answers": {
                 "hablar": {
@@ -578,6 +1908,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": REGULAR_PRESENT_INTRO,
+        "rule_chart": REGULAR_PRESENT_RULE,
         "drill_config": {
             "answers": {
                 "escuchar": {
@@ -654,6 +1986,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": REGULAR_PRESENT_INTRO,
+        "rule_chart": REGULAR_PRESENT_RULE,
         "drill_config": {
             "answers": {
                 "cantar": {
@@ -731,6 +2065,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "sD2tovQc7pB",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_RULE,
         "drill_config": {"answers": {
             "ser": {"yo": "soy", "tú": "eres", "él": "es", "ella": "es", "usted": "es", "nosotros": "somos", "nosotras": "somos", "ellos": "son", "ellas": "son", "ustedes": "son"},
             "estar": {"yo": "estoy", "tú": "estás", "él": "está", "ella": "está", "usted": "está", "nosotros": "estamos", "nosotras": "estamos", "ellos": "están", "ellas": "están", "ustedes": "están"},
@@ -796,6 +2132,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "sD2tovQc7pB",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_RULE,
         "drill_config": {"answers": {
             "ser": {"yo": "soy", "tú": "eres", "él": "es", "ella": "es", "usted": "es", "nosotros": "somos", "nosotras": "somos", "ellos": "son", "ellas": "son", "ustedes": "son"},
             "estar": {"yo": "estoy", "tú": "estás", "él": "está", "ella": "está", "usted": "está", "nosotros": "estamos", "nosotras": "estamos", "ellos": "están", "ellas": "están", "ustedes": "están"},
@@ -861,6 +2199,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "sD2tovQc7pB",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_RULE,
         "drill_config": {"answers": {
             "ser": {"yo": "soy", "tú": "eres", "él": "es", "ella": "es", "usted": "es", "nosotros": "somos", "nosotras": "somos", "ellos": "son", "ellas": "son", "ustedes": "son"},
             "estar": {"yo": "estoy", "tú": "estás", "él": "está", "ella": "está", "usted": "está", "nosotros": "estamos", "nosotras": "estamos", "ellos": "están", "ellas": "están", "ustedes": "están"},
@@ -927,6 +2267,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "present",
+        "intro_chart": SER_ESTAR_INTRO,
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "rule_chart": {'kind': 'comparison', 'title': 'Ser vs. Estar', 'left': {'heading': 'ser', 'items': ['Identity / profession  →  Yo soy profesora', 'Origin / nationality  →  Ella es de Colombia', 'Permanent traits  →  La casa es grande', 'Time / dates  →  Son las tres']}, 'right': {'heading': 'estar', 'items': ['Location  →  Estoy en el mercado', 'Temporary states  →  Él está cansado', 'Conditions / feelings  →  La puerta está abierta', 'Ongoing actions  →  Estoy hablando']}, 'footnote': "Rule of thumb: ser = essence, estar = state. If it'll change in an hour, use estar."},
         "drill_sentences": [
@@ -970,6 +2311,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "present",
+        "intro_chart": POR_PARA_INTRO,
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "rule_chart": {'kind': 'comparison', 'title': 'Por vs. Para', 'left': {'heading': 'por', 'items': ['Movement through  →  Voy por el parque', 'Cause / reason  →  Trabaja por dinero', "Means / 'by'  →  Viajo por avión", 'Duration  →  Estudié por dos horas', 'Exchange  →  Gracias por el libro']}, 'right': {'heading': 'para', 'items': ['Recipient  →  Esto es para ti', 'Purpose / goal  →  Estudiamos para aprender', 'Deadline  →  Lo necesito para mañana', 'Destination  →  Salgo para Bogotá']}, 'footnote': 'para = forward (purpose, recipient, deadline); por = around / through / because.'},
         "drill_sentences": [
@@ -1013,6 +2355,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "demonstratives",
+        "intro_chart": DEMONSTRATIVES_INTRO,
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "rule_chart": {'kind': 'table', 'title': 'Demonstratives — this / that / that-yonder', 'headers': ['Distance', 'Masc. sg', 'Fem. sg', 'Masc. pl', 'Fem. pl'], 'rows': [['near (this)', 'este', 'esta', 'estos', 'estas'], ['far from speaker (that)', 'ese', 'esa', 'esos', 'esas'], ['far from both (that yonder)', 'aquel', 'aquella', 'aquellos', 'aquellas']], 'footnote': "Match gender + number with the noun. Use 'aquel' for things visibly distant from both speaker and listener."},
         "drill_sentences": [
@@ -1056,6 +2399,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "rule",
         "tense": "possessive_pronouns",
+        "intro_chart": POSSESSIVE_PRONOUNS_INTRO,
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "rule_chart": {'kind': 'table', 'title': "Possessive pronouns — 'mine / yours / his …'", 'headers': ['Form', 'Used for'], 'rows': [['el mío / la mía', 'mine'], ['el tuyo / la tuya', 'yours (informal)'], ['el suyo / la suya', 'his / hers / yours (formal) / theirs'], ['el nuestro / la nuestra', 'ours']], 'footnote': 'Stand-alone — replaces the noun. Agree in gender and number with the thing owned. Plural forms add -s (los míos, las nuestras).'},
         "drill_sentences": [
@@ -1099,6 +2443,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "tPXOw1Rz82y",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
                 "hacer": {
@@ -1180,6 +2526,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "tPXOw1Rz82y",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
                 "oír": {
@@ -1261,6 +2609,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "tPXOw1Rz82y",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
                 "hacer": {
@@ -1342,6 +2692,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "tPXOw1Rz82y",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
                 "oír": {
@@ -1424,6 +2776,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "dYyywu1hOVp",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_INTRO,
+        "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
                 "conocer": {
@@ -1505,6 +2859,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "dYyywu1hOVp",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_INTRO,
+        "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
                 "recoger": {
@@ -1586,6 +2942,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "dYyywu1hOVp",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_INTRO,
+        "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
                 "conocer": {
@@ -1667,6 +3025,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "dYyywu1hOVp",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_INTRO,
+        "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
                 "recoger": {
@@ -1749,6 +3109,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SABER_CONOCER_INTRO,
+        "rule_chart": SABER_CONOCER_RULE,
         "drill_config": {
             "answers": {
                 "saber": {
@@ -1764,35 +3126,6 @@ GRAMMAR_SITUATIONS = {
             },
         },
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
-        "rule_chart": {'kind': 'comparison', 'title': 'Saber vs. Conocer', 'left': {'heading': 'saber', 'items': ['Facts  →  Yo sé la respuesta', 'Skills (saber + infinitive)  →  Sé hablar español', 'Information  →  Sabes qué hora es']}, 'right': {'heading': 'conocer', 'items': ['People  →  Conozco a María', 'Places  →  Conozco la ciudad', 'Familiarity  →  Conoces el restaurante']}, 'footnote': 'saber = knowledge / how-to; conocer = acquaintance / familiarity.'},
-        "drill_sentences": [
-            {"en": "I know the truth", "es": "Yo sé la verdad", "noun_id": None, "type": "written"},
-            {"en": "You know the city", "es": "Tú conoces la ciudad", "noun_id": "ciudad", "type": "auditory"},
-            {"en": "He knows the answer", "es": "Él sabe la respuesta", "noun_id": None, "type": "written"},
-            {"en": "She knows Maria", "es": "Ella conoce a María", "noun_id": None, "type": "auditory"},
-            {"en": "You know the time", "es": "Usted sabe la hora", "noun_id": None, "type": "written"},
-            {"en": "We know the neighborhood", "es": "Nosotros conocemos el barrio", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) know English", "es": "Nosotras sabemos inglés", "noun_id": None, "type": "written"},
-            {"en": "They know the neighbors", "es": "Ellos conocen a los vecinos", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) know how to cook", "es": "Ellas saben cocinar", "noun_id": None, "type": "written"},
-            {"en": "You all know a good place", "es": "Ustedes conocen un buen lugar", "noun_id": None, "type": "auditory"},
-        ],
-        "drill_targets": [
-            {"verb": "saber", "pronoun": "yo"}, {"verb": "conocer", "pronoun": "tú"},
-            {"verb": "saber", "pronoun": "ella"}, {"verb": "conocer", "pronoun": "él"},
-            {"verb": "saber", "pronoun": "nosotros"}, {"verb": "conocer", "pronoun": "nosotras"},
-            {"verb": "saber", "pronoun": "ellos"}, {"verb": "conocer", "pronoun": "ellas"},
-            {"verb": "saber", "pronoun": "usted"}, {"verb": "conocer", "pronoun": "ustedes"},
-        ],
-        "phase_2_config": {
-            "description": "Saber vs. Conocer: saber (facts/skills) vs. conocer (people/places)",
-            "targets": [
-                {"verb": "saber", "pronoun": "yo"}, {"verb": "conocer", "pronoun": "tú"},
-                {"verb": "saber", "pronoun": "ella"}, {"verb": "conocer", "pronoun": "él"},
-                {"verb": "saber", "pronoun": "nosotros"}, {"verb": "conocer", "pronoun": "nosotras"},
-                {"verb": "saber", "pronoun": "ellos"}, {"verb": "conocer", "pronoun": "ellas"},
-            ],
-        },
         "opener_en": "Do you know this area?",
         "opener_es": "¿Conoces esta zona?",
     },
@@ -1820,6 +3153,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "My2TaOGsmet",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_O_UE_INTRO,
+        "rule_chart": PRESENT_O_UE_RULE,
         "drill_config": {"answers": {
             "mover": {"yo": "muevo", "tú": "mueves", "él": "mueve", "ella": "mueve", "usted": "mueve", "nosotros": "movemos", "nosotras": "movemos", "ellos": "mueven", "ellas": "mueven", "ustedes": "mueven"},
             "almorzar": {"yo": "almuerzo", "tú": "almuerzas", "él": "almuerza", "ella": "almuerza", "usted": "almuerza", "nosotros": "almorzamos", "nosotras": "almorzamos", "ellos": "almuerzan", "ellas": "almuerzan", "ustedes": "almuerzan"},
@@ -1895,6 +3230,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "My2TaOGsmet",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_O_UE_INTRO,
+        "rule_chart": PRESENT_O_UE_RULE,
         "drill_config": {"answers": {
             "mover": {"yo": "muevo", "tú": "mueves", "él": "mueve", "ella": "mueve", "usted": "mueve", "nosotros": "movemos", "nosotras": "movemos", "ellos": "mueven", "ellas": "mueven", "ustedes": "mueven"},
             "almorzar": {"yo": "almuerzo", "tú": "almuerzas", "él": "almuerza", "ella": "almuerza", "usted": "almuerza", "nosotros": "almorzamos", "nosotras": "almorzamos", "ellos": "almuerzan", "ellas": "almuerzan", "ustedes": "almuerzan"},
@@ -1970,6 +3307,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "My2TaOGsmet",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_O_UE_INTRO,
+        "rule_chart": PRESENT_O_UE_RULE,
         "drill_config": {"answers": {
             "mover": {"yo": "muevo", "tú": "mueves", "él": "mueve", "ella": "mueve", "usted": "mueve", "nosotros": "movemos", "nosotras": "movemos", "ellos": "mueven", "ellas": "mueven", "ustedes": "mueven"},
             "almorzar": {"yo": "almuerzo", "tú": "almuerzas", "él": "almuerza", "ella": "almuerza", "usted": "almuerza", "nosotros": "almorzamos", "nosotras": "almorzamos", "ellos": "almuerzan", "ellas": "almuerzan", "ustedes": "almuerzan"},
@@ -2046,6 +3385,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "BwvOV8xReZZ",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_IE_INTRO,
+        "rule_chart": PRESENT_E_IE_RULE,
         "drill_config": {"answers": {
             "cerrar": {"yo": "cierro", "tú": "cierras", "él": "cierra", "ella": "cierra", "usted": "cierra", "nosotros": "cerramos", "nosotras": "cerramos", "ellos": "cierran", "ellas": "cierran", "ustedes": "cierran"},
             "entender": {"yo": "entiendo", "tú": "entiendes", "él": "entiende", "ella": "entiende", "usted": "entiende", "nosotros": "entendemos", "nosotras": "entendemos", "ellos": "entienden", "ellas": "entienden", "ustedes": "entienden"},
@@ -2121,6 +3462,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "BwvOV8xReZZ",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_IE_INTRO,
+        "rule_chart": PRESENT_E_IE_RULE,
         "drill_config": {"answers": {
             "cerrar": {"yo": "cierro", "tú": "cierras", "él": "cierra", "ella": "cierra", "usted": "cierra", "nosotros": "cerramos", "nosotras": "cerramos", "ellos": "cierran", "ellas": "cierran", "ustedes": "cierran"},
             "entender": {"yo": "entiendo", "tú": "entiendes", "él": "entiende", "ella": "entiende", "usted": "entiende", "nosotros": "entendemos", "nosotras": "entendemos", "ellos": "entienden", "ellas": "entienden", "ustedes": "entienden"},
@@ -2196,6 +3539,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "BwvOV8xReZZ",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_IE_INTRO,
+        "rule_chart": PRESENT_E_IE_RULE,
         "drill_config": {"answers": {
             "cerrar": {"yo": "cierro", "tú": "cierras", "él": "cierra", "ella": "cierra", "usted": "cierra", "nosotros": "cerramos", "nosotras": "cerramos", "ellos": "cierran", "ellas": "cierran", "ustedes": "cierran"},
             "entender": {"yo": "entiendo", "tú": "entiendes", "él": "entiende", "ella": "entiende", "usted": "entiende", "nosotros": "entendemos", "nosotras": "entendemos", "ellos": "entienden", "ellas": "entienden", "ustedes": "entienden"},
@@ -2272,6 +3617,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "meS3lef4ubp",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_I_INTRO,
+        "rule_chart": PRESENT_E_I_RULE,
         "drill_config": {"answers": {
             "pedir": {"yo": "pido", "tú": "pides", "él": "pide", "ella": "pide", "usted": "pide", "nosotros": "pedimos", "nosotras": "pedimos", "ellos": "piden", "ellas": "piden", "ustedes": "piden"},
             "repetir": {"yo": "repito", "tú": "repites", "él": "repite", "ella": "repite", "usted": "repite", "nosotros": "repetimos", "nosotras": "repetimos", "ellos": "repiten", "ellas": "repiten", "ustedes": "repiten"},
@@ -2347,6 +3694,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "meS3lef4ubp",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_I_INTRO,
+        "rule_chart": PRESENT_E_I_RULE,
         "drill_config": {"answers": {
             "pedir": {"yo": "pido", "tú": "pides", "él": "pide", "ella": "pide", "usted": "pide", "nosotros": "pedimos", "nosotras": "pedimos", "ellos": "piden", "ellas": "piden", "ustedes": "piden"},
             "repetir": {"yo": "repito", "tú": "repites", "él": "repite", "ella": "repite", "usted": "repite", "nosotros": "repetimos", "nosotras": "repetimos", "ellos": "repiten", "ellas": "repiten", "ustedes": "repiten"},
@@ -2422,6 +3771,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "meS3lef4ubp",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_I_INTRO,
+        "rule_chart": PRESENT_E_I_RULE,
         "drill_config": {"answers": {
             "pedir": {"yo": "pido", "tú": "pides", "él": "pide", "ella": "pide", "usted": "pide", "nosotros": "pedimos", "nosotras": "pedimos", "ellos": "piden", "ellas": "piden", "ustedes": "piden"},
             "repetir": {"yo": "repito", "tú": "repites", "él": "repite", "ella": "repite", "usted": "repite", "nosotros": "repetimos", "nosotras": "repetimos", "ellos": "repiten", "ellas": "repiten", "ustedes": "repiten"},
@@ -2498,6 +3849,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
         "tense": "ir_a_infinitive",
+        "intro_chart": IR_A_INF_INTRO,
+        "rule_chart": IR_A_INF_RULE,
         "drill_config": {"answers": {
             "hablar": {"yo": "voy a hablar", "tú": "vas a hablar", "él": "va a hablar", "ella": "va a hablar", "usted": "va a hablar", "nosotros": "vamos a hablar", "nosotras": "vamos a hablar", "ellos": "van a hablar", "ellas": "van a hablar", "ustedes": "van a hablar"},
             "comer": {"yo": "voy a comer", "tú": "vas a comer", "él": "va a comer", "ella": "va a comer", "usted": "va a comer", "nosotros": "vamos a comer", "nosotras": "vamos a comer", "ellos": "van a comer", "ellas": "van a comer", "ustedes": "van a comer"},
@@ -2573,6 +3926,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
         "tense": "ir_a_infinitive",
+        "intro_chart": IR_A_INF_INTRO,
+        "rule_chart": IR_A_INF_RULE,
         "drill_config": {"answers": {
             "hablar": {"yo": "voy a hablar", "tú": "vas a hablar", "él": "va a hablar", "ella": "va a hablar", "usted": "va a hablar", "nosotros": "vamos a hablar", "nosotras": "vamos a hablar", "ellos": "van a hablar", "ellas": "van a hablar", "ustedes": "van a hablar"},
             "comer": {"yo": "voy a comer", "tú": "vas a comer", "él": "va a comer", "ella": "va a comer", "usted": "va a comer", "nosotros": "vamos a comer", "nosotras": "vamos a comer", "ellos": "van a comer", "ellas": "van a comer", "ustedes": "van a comer"},
@@ -2648,6 +4003,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
         "tense": "ir_a_infinitive",
+        "intro_chart": IR_A_INF_INTRO,
+        "rule_chart": IR_A_INF_RULE,
         "drill_config": {"answers": {
             "hablar": {"yo": "voy a hablar", "tú": "vas a hablar", "él": "va a hablar", "ella": "va a hablar", "usted": "va a hablar", "nosotros": "vamos a hablar", "nosotras": "vamos a hablar", "ellos": "van a hablar", "ellas": "van a hablar", "ustedes": "van a hablar"},
             "comer": {"yo": "voy a comer", "tú": "vas a comer", "él": "va a comer", "ella": "va a comer", "usted": "va a comer", "nosotros": "vamos a comer", "nosotras": "vamos a comer", "ellos": "van a comer", "ellas": "van a comer", "ustedes": "van a comer"},
@@ -2721,6 +4078,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "rfPPtJI9prc",
         "drill_type": "gustar",
         "tense": "gustar",
+        "intro_chart": GUSTAR_INTRO,
+        "rule_chart": GUSTAR_RULE,
         "drill_config": {
         "items": [
                 {
@@ -2818,7 +4177,17 @@ GRAMMAR_SITUATIONS = {
         "tense": "gustar",
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
-        "phase_2_config": {'description': '5 pronoun+gusta+noun combos', 'targets': 5, 'pattern': 'pronoun_gusta_singular'},
+        "phase_2_config": {
+            "description": "5 pronoun+gusta+singular noun combos",
+            "targets": [
+                {"phrase": "me gusta"},
+                {"phrase": "te gusta"},
+                {"phrase": "le gusta"},
+                {"phrase": "nos gusta"},
+                {"phrase": "les gusta"},
+            ],
+            "pattern": "pronoun_gusta_singular",
+        },
     },
     "grammar_gustar_2": {
         "title": "Gustar Part 2",
@@ -2827,6 +4196,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "WjOxPPu1uQo",
         "drill_type": "gustar",
         "tense": "gustar",
+        "intro_chart": GUSTAR_INTRO,
+        "rule_chart": GUSTAR_RULE,
         "drill_config": {
         "items": [
                 {
@@ -2924,7 +4295,17 @@ GRAMMAR_SITUATIONS = {
         "tense": "gustar",
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
-        "phase_2_config": {'description': '5 pronoun+gustan+noun combos', 'targets': 5, 'pattern': 'pronoun_gustan_plural'},
+        "phase_2_config": {
+            "description": "5 pronoun+gustan+plural noun combos",
+            "targets": [
+                {"phrase": "me gustan"},
+                {"phrase": "te gustan"},
+                {"phrase": "le gustan"},
+                {"phrase": "nos gustan"},
+                {"phrase": "les gustan"},
+            ],
+            "pattern": "pronoun_gustan_plural",
+        },
     },
     "grammar_gustar_3": {
         "title": "Gustar Part 3",
@@ -2933,6 +4314,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "lIAdqI5fpun",
         "drill_type": "gustar_prefix",
         "tense": "gustar",
+        "intro_chart": GUSTAR_INTRO,
+        "rule_chart": GUSTAR_RULE,
         "drill_config": {
         "items": [
                 {
@@ -3030,7 +4413,22 @@ GRAMMAR_SITUATIONS = {
         "tense": "gustar",
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
-        "phase_2_config": {'description': '1 per pronoun type (10 total)', 'targets': 10, 'pattern': 'a_prefix'},
+        "phase_2_config": {
+            "description": "1 emphatic 'a + pronoun' combo per pronoun type (10 total)",
+            "targets": [
+                {"phrase": "a mí me gusta"},
+                {"phrase": "a ti te gusta"},
+                {"phrase": "a él le gusta"},
+                {"phrase": "a ella le gusta"},
+                {"phrase": "a usted le gusta"},
+                {"phrase": "a nosotros nos gusta"},
+                {"phrase": "a nosotras nos gusta"},
+                {"phrase": "a ellos les gusta"},
+                {"phrase": "a ellas les gusta"},
+                {"phrase": "a ustedes les gusta"},
+            ],
+            "pattern": "a_prefix",
+        },
     },
     # --- GL 13.5: Imperatives — 2 lessons ---
     "grammar_imperatives_1": {
@@ -3042,6 +4440,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "conjugation",
         "tense": "imperative",
+        "intro_chart": IMPERATIVES_INTRO,
+        "rule_chart": IMPERATIVES_RULE,
         "drill_config": {"answers": {
             "hablar": {"tú": "habla", "usted": "hable", "nosotros": "hablemos", "vosotros": "hablad", "ustedes": "hablen"},
             "comer": {"tú": "come", "usted": "coma", "nosotros": "comamos", "vosotros": "comed", "ustedes": "coman"},
@@ -3110,6 +4510,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "conjugation",
         "tense": "imperative",
+        "intro_chart": IMPERATIVES_INTRO,
+        "rule_chart": IMPERATIVES_RULE,
         "drill_config": {"answers": {
             "ir": {"tú": "ve", "usted": "vaya", "nosotros": "vamos", "ustedes": "vayan"},
             "ser": {"tú": "sé", "usted": "sea", "nosotros": "seamos", "ustedes": "sean"},
@@ -3178,6 +4580,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_REGULAR_INTRO,
+        "rule_chart": PRETERITE_REGULAR_RULE,
         "drill_config": {"answers": {
             "hablar": {"yo": "hablé", "tú": "hablaste", "él": "habló", "ella": "habló", "usted": "habló", "nosotros": "hablamos", "nosotras": "hablamos", "ellos": "hablaron", "ellas": "hablaron", "ustedes": "hablaron"},
             "encontrar": {"yo": "encontré", "tú": "encontraste", "él": "encontró", "ella": "encontró", "usted": "encontró", "nosotros": "encontramos", "nosotras": "encontramos", "ellos": "encontraron", "ellas": "encontraron", "ustedes": "encontraron"},
@@ -3253,6 +4657,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_REGULAR_INTRO,
+        "rule_chart": PRETERITE_REGULAR_RULE,
         "drill_config": {"answers": {
             "hablar": {"yo": "hablé", "tú": "hablaste", "él": "habló", "ella": "habló", "usted": "habló", "nosotros": "hablamos", "nosotras": "hablamos", "ellos": "hablaron", "ellas": "hablaron", "ustedes": "hablaron"},
             "encontrar": {"yo": "encontré", "tú": "encontraste", "él": "encontró", "ella": "encontró", "usted": "encontró", "nosotros": "encontramos", "nosotras": "encontramos", "ellos": "encontraron", "ellas": "encontraron", "ustedes": "encontraron"},
@@ -3328,6 +4734,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_REGULAR_INTRO,
+        "rule_chart": PRETERITE_REGULAR_RULE,
         "drill_config": {"answers": {
             "hablar": {"yo": "hablé", "tú": "hablaste", "él": "habló", "ella": "habló", "usted": "habló", "nosotros": "hablamos", "nosotras": "hablamos", "ellos": "hablaron", "ellas": "hablaron", "ustedes": "hablaron"},
             "encontrar": {"yo": "encontré", "tú": "encontraste", "él": "encontró", "ella": "encontró", "usted": "encontró", "nosotros": "encontramos", "nosotras": "encontramos", "ellos": "encontraron", "ellas": "encontraron", "ustedes": "encontraron"},
@@ -3404,6 +4812,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_INTRO,
+        "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
             "ser": {"yo": "fui", "tú": "fuiste", "él": "fue", "ella": "fue", "usted": "fue", "nosotros": "fuimos", "nosotras": "fuimos", "ellos": "fueron", "ellas": "fueron", "ustedes": "fueron"},
@@ -3481,6 +4891,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_INTRO,
+        "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
             "traer": {"yo": "traje", "tú": "trajiste", "él": "trajo", "ella": "trajo", "usted": "trajo", "nosotros": "trajimos", "nosotras": "trajimos", "ellos": "trajeron", "ellas": "trajeron", "ustedes": "trajeron"},
@@ -3557,6 +4969,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_INTRO,
+        "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
             "ser": {"yo": "fui", "tú": "fuiste", "él": "fue", "ella": "fue", "usted": "fue", "nosotros": "fuimos", "nosotras": "fuimos", "ellos": "fueron", "ellas": "fueron", "ustedes": "fueron"},
@@ -3634,6 +5048,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_INTRO,
+        "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
             "traer": {"yo": "traje", "tú": "trajiste", "él": "trajo", "ella": "trajo", "usted": "trajo", "nosotros": "trajimos", "nosotras": "trajimos", "ellos": "trajeron", "ellas": "trajeron", "ustedes": "trajeron"},
@@ -3711,6 +5127,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
         "tense": "gerund",
+        "intro_chart": GERUND_INTRO,
+        "rule_chart": GERUND_RULE,
         "drill_config": {
             "answers": {
             "hablar": {"yo": "estoy hablando", "tú": "estás hablando", "él": "está hablando", "ella": "está hablando", "usted": "está hablando", "nosotros": "estamos hablando", "nosotras": "estamos hablando", "ellos": "están hablando", "ellas": "están hablando", "ustedes": "están hablando"},
@@ -3786,6 +5204,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
         "tense": "gerund",
+        "intro_chart": GERUND_INTRO,
+        "rule_chart": GERUND_RULE,
         "drill_config": {
             "answers": {
             "beber": {"yo": "estoy bebiendo", "tú": "estás bebiendo", "él": "está bebiendo", "ella": "está bebiendo", "usted": "está bebiendo", "nosotros": "estamos bebiendo", "nosotras": "estamos bebiendo", "ellos": "están bebiendo", "ellas": "están bebiendo", "ustedes": "están bebiendo"},
@@ -3861,6 +5281,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
         "tense": "gerund",
+        "intro_chart": GERUND_INTRO,
+        "rule_chart": GERUND_RULE,
         "drill_config": {
             "answers": {
             "hablar": {"yo": "estoy hablando", "tú": "estás hablando", "él": "está hablando", "ella": "está hablando", "usted": "está hablando", "nosotros": "estamos hablando", "nosotras": "estamos hablando", "ellos": "están hablando", "ellas": "están hablando", "ustedes": "están hablando"},
@@ -3936,6 +5358,8 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
         "tense": "gerund",
+        "intro_chart": GERUND_INTRO,
+        "rule_chart": GERUND_RULE,
         "drill_config": {
             "answers": {
             "beber": {"yo": "estoy bebiendo", "tú": "estás bebiendo", "él": "está bebiendo", "ella": "está bebiendo", "usted": "está bebiendo", "nosotros": "estamos bebiendo", "nosotras": "estamos bebiendo", "ellos": "están bebiendo", "ellas": "están bebiendo", "ustedes": "están bebiendo"},
@@ -4004,23 +5428,142 @@ GRAMMAR_SITUATIONS = {
         "phase_2_config": {'description': 'Gerund lesson 4: beber, inhibir, prohibir, salir', 'targets': [{'verb': 'beber', 'pronoun': 'tú'}, {'verb': 'beber', 'pronoun': 'usted'}, {'verb': 'inhibir', 'pronoun': 'yo'}, {'verb': 'inhibir', 'pronoun': 'nosotras'}, {'verb': 'inhibir', 'pronoun': 'ellos'}, {'verb': 'prohibir', 'pronoun': 'ella'}, {'verb': 'prohibir', 'pronoun': 'nosotros'}, {'verb': 'salir', 'pronoun': 'él'}, {'verb': 'salir', 'pronoun': 'ellas'}, {'verb': 'salir', 'pronoun': 'ustedes'}]},
     },
 
-    # --- GL 18.5: Perfect Tenses — placeholder (video content pending) ---
-    "grammar_perfect_tenses": {
-        "title": "Perfect Tenses",
+    # --- GL 18.5: Perfect Tenses — [drill_1][drill_2][chat] block ---
+    # video_embed_id stays None until intro video is produced.
+    "grammar_perfect_tenses_drill_1": {
+        "title": "Perfect Tenses (1/2) — Present Perfect",
         "grammar_level": 18.5,
         "lesson_number": 1,
         "lesson_type": "conjugation",
-        "word_workload": ["haber"],
+        "word_workload": ["hablar", "comer", "vivir"],
         "video_embed_id": None,  # placeholder — content not yet produced
+        "drill_type": "conjugation",
+        "tense": "perfect",
+        "intro_chart": PERFECT_TENSES_INTRO,
+        "rule_chart": PERFECT_TENSES_RULE,
+        "drill_config": {
+            "answers": {
+                "hablar": {
+                    "yo": "he hablado", "tú": "has hablado", "él": "ha hablado", "ella": "ha hablado",
+                    "usted": "ha hablado", "nosotros": "hemos hablado", "nosotras": "hemos hablado",
+                    "ellos": "han hablado", "ellas": "han hablado", "ustedes": "han hablado",
+                },
+                "comer": {
+                    "yo": "he comido", "tú": "has comido", "él": "ha comido", "ella": "ha comido",
+                    "usted": "ha comido", "nosotros": "hemos comido", "nosotras": "hemos comido",
+                    "ellos": "han comido", "ellas": "han comido", "ustedes": "han comido",
+                },
+                "vivir": {
+                    "yo": "he vivido", "tú": "has vivido", "él": "ha vivido", "ella": "ha vivido",
+                    "usted": "ha vivido", "nosotros": "hemos vivido", "nosotras": "hemos vivido",
+                    "ellos": "han vivido", "ellas": "han vivido", "ustedes": "han vivido",
+                },
+            },
+        },
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I have spoken with the doctor", "es": "He hablado con el doctor", "noun_id": "doctor", "type": "written"},
+            {"en": "You have eaten breakfast", "es": "Has comido el desayuno", "noun_id": None, "type": "auditory"},
+            {"en": "She has lived here for years", "es": "Ella ha vivido aquí por años", "noun_id": None, "type": "written"},
+            {"en": "We have spoken with our family", "es": "Hemos hablado con la familia", "noun_id": "familia", "type": "auditory"},
+            {"en": "They have eaten already", "es": "Ellos han comido ya", "noun_id": None, "type": "written"},
+            {"en": "You all have lived in many cities", "es": "Ustedes han vivido en muchas ciudades", "noun_id": "ciudad", "type": "auditory"},
+            {"en": "He has spoken English his whole life", "es": "Él ha hablado inglés toda su vida", "noun_id": None, "type": "written"},
+            {"en": "I have eaten too much", "es": "He comido demasiado", "noun_id": None, "type": "auditory"},
+            {"en": "We (f) have lived together for a year", "es": "Nosotras hemos vivido juntas por un año", "noun_id": None, "type": "written"},
+            {"en": "You have spoken very well", "es": "Has hablado muy bien", "noun_id": None, "type": "auditory"},
+        ],
+        "drill_targets": [
+            {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "ella"},
+            {"verb": "hablar", "pronoun": "ustedes"}, {"verb": "comer", "pronoun": "tú"},
+            {"verb": "comer", "pronoun": "nosotras"}, {"verb": "comer", "pronoun": "él"},
+            {"verb": "vivir", "pronoun": "usted"}, {"verb": "vivir", "pronoun": "nosotros"},
+            {"verb": "vivir", "pronoun": "ellas"}, {"verb": "vivir", "pronoun": "ellos"},
+        ],
+        "phase_2_config": None,
+    },
+    "grammar_perfect_tenses_drill_2": {
+        "title": "Perfect Tenses (2/2) — Pluperfect",
+        "grammar_level": 18.5,
+        "lesson_number": 2,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "comer", "vivir"],
+        "video_embed_id": None,
+        "drill_type": "conjugation",
+        "tense": "perfect",
+        "intro_chart": PERFECT_TENSES_INTRO,
+        "rule_chart": PERFECT_TENSES_RULE,
+        "drill_config": {
+            "answers": {
+                "hablar": {
+                    "yo": "había hablado", "tú": "habías hablado", "él": "había hablado", "ella": "había hablado",
+                    "usted": "había hablado", "nosotros": "habíamos hablado", "nosotras": "habíamos hablado",
+                    "ellos": "habían hablado", "ellas": "habían hablado", "ustedes": "habían hablado",
+                },
+                "comer": {
+                    "yo": "había comido", "tú": "habías comido", "él": "había comido", "ella": "había comido",
+                    "usted": "había comido", "nosotros": "habíamos comido", "nosotras": "habíamos comido",
+                    "ellos": "habían comido", "ellas": "habían comido", "ustedes": "habían comido",
+                },
+                "vivir": {
+                    "yo": "había vivido", "tú": "habías vivido", "él": "había vivido", "ella": "había vivido",
+                    "usted": "había vivido", "nosotros": "habíamos vivido", "nosotras": "habíamos vivido",
+                    "ellos": "habían vivido", "ellas": "habían vivido", "ustedes": "habían vivido",
+                },
+            },
+        },
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I had spoken before the meeting", "es": "Había hablado antes de la reunión", "noun_id": None, "type": "written"},
+            {"en": "You had eaten before we arrived", "es": "Habías comido antes de que llegáramos", "noun_id": None, "type": "auditory"},
+            {"en": "He had lived there for ten years", "es": "Él había vivido allí por diez años", "noun_id": None, "type": "written"},
+            {"en": "We had spoken about that topic", "es": "Habíamos hablado de ese tema", "noun_id": None, "type": "auditory"},
+            {"en": "They had eaten everything", "es": "Ellos habían comido todo", "noun_id": None, "type": "written"},
+            {"en": "You all had lived in this house", "es": "Ustedes habían vivido en esta casa", "noun_id": "casa", "type": "auditory"},
+            {"en": "She had spoken with her sister", "es": "Ella había hablado con su hermana", "noun_id": None, "type": "written"},
+            {"en": "I had eaten in that restaurant", "es": "Había comido en ese restaurante", "noun_id": "restaurante", "type": "auditory"},
+            {"en": "We (f) had lived together for years", "es": "Nosotras habíamos vivido juntas por años", "noun_id": None, "type": "written"},
+            {"en": "You had spoken too quickly", "es": "Habías hablado demasiado rápido", "noun_id": None, "type": "auditory"},
+        ],
+        "drill_targets": [
+            {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "ella"},
+            {"verb": "hablar", "pronoun": "ellos"}, {"verb": "comer", "pronoun": "tú"},
+            {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ustedes"},
+            {"verb": "vivir", "pronoun": "él"}, {"verb": "vivir", "pronoun": "usted"},
+            {"verb": "vivir", "pronoun": "nosotras"}, {"verb": "vivir", "pronoun": "ellas"},
+        ],
+        "phase_2_config": None,
+    },
+    "grammar_perfect_tenses_chat": {
+        "title": "Perfect Tenses — Chat",
+        "grammar_level": 18.5,
+        "lesson_number": 3,
+        "lesson_type": "conjugation",
+        "word_workload": ["hablar", "comer", "vivir"],
+        "video_embed_id": None,
         "drill_type": "skip",
         "tense": "perfect",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": True},
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
         "phase_2_config": {
-            "description": "Perfect tenses: present perfect, pluperfect, future perfect, conditional perfect",
-            "targets": [],
+            "description": "Perfect-tense voice chat: practice present perfect (he/has/ha/hemos/han + participle) and pluperfect (había/habías/había/habíamos/habían + participle)",
+            "targets": [
+                {"phrase": "he hablado"},
+                {"phrase": "has comido"},
+                {"phrase": "ha vivido"},
+                {"phrase": "hemos hablado"},
+                {"phrase": "han comido"},
+                {"phrase": "había hablado"},
+                {"phrase": "habías comido"},
+                {"phrase": "había vivido"},
+                {"phrase": "habíamos hablado"},
+                {"phrase": "habían vivido"},
+            ],
         },
-        "opener_en": "Have you been to the market?",
-        "opener_es": "¿Has ido al mercado?",
+        "opener_en": "Have you been to the market today?",
+        "opener_es": "¿Has ido al mercado hoy?",
     },
 
     # ─── Generated by scripts/build_grammar_lessons.py ───
@@ -4037,6 +5580,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'ir_a_inf',
         'tense': 'modal_inf',
+        'intro_chart': MODAL_INF_INTRO,
+        'rule_chart': MODAL_INF_RULE,
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -4152,6 +5697,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'ir_a_inf',
         'tense': 'modal_inf',
+        'intro_chart': MODAL_INF_INTRO,
+        'rule_chart': MODAL_INF_RULE,
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -4258,7 +5805,7 @@ GRAMMAR_SITUATIONS = {
     'grammar_modal_necesito': {
         'title': 'Necesito + Inf (3/3)',
         'grammar_level': 11,
-        'lesson_number': 3,
+        'lesson_number': 4,
         'lesson_type': 'conjugation',
         'word_workload': [
             'dormir',
@@ -4267,6 +5814,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'ir_a_inf',
         'tense': 'modal_inf',
+        'intro_chart': MODAL_INF_INTRO,
+        'rule_chart': MODAL_INF_RULE,
         'drill_config': {
             'answers': {
                 'dormir': {
@@ -4373,7 +5922,7 @@ GRAMMAR_SITUATIONS = {
     'grammar_modal_chat_1': {
         'title': 'Tengo Que / Me Toca — Voice Chat',
         'grammar_level': 11,
-        'lesson_number': 4,
+        'lesson_number': 3,
         'lesson_type': 'conjugation',
         'word_workload': [
             'hablar',
@@ -4463,7 +6012,7 @@ GRAMMAR_SITUATIONS = {
             '3': True
         },
         'phase_2_config': {
-            'description': 'Necesito — Voice Chat: pulls from previous two drill lessons',
+            'description': 'Necesito — Voice Chat: pulls from previous drill lesson',
             'targets': [
                 {
                     'verb': 'escribir',
@@ -4523,6 +6072,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect',
+        'intro_chart': IMPERFECT_INTRO,
+        'rule_chart': IMPERFECT_RULE,
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -4638,6 +6189,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect',
+        'intro_chart': IMPERFECT_INTRO,
+        'rule_chart': IMPERFECT_RULE,
         'drill_config': {
             'answers': {
                 'comer': {
@@ -4824,6 +6377,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect',
+        'intro_chart': IMPERFECT_INTRO,
+        'rule_chart': IMPERFECT_RULE,
         'drill_config': {
             'answers': {
                 'ir': {
@@ -4939,6 +6494,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect',
+        'intro_chart': IMPERFECT_INTRO,
+        'rule_chart': IMPERFECT_RULE,
         'drill_config': {
             'answers': {
                 'ver': {
@@ -5126,6 +6683,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
+        'intro_chart': REFLEXIVE_INTRO,
+        'rule_chart': REFLEXIVE_RULE,
         'drill_config': {
             'answers': {
                 'lavarse': {
@@ -5241,6 +6800,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
+        'intro_chart': REFLEXIVE_INTRO,
+        'rule_chart': REFLEXIVE_RULE,
         'drill_config': {
             'answers': {
                 'levantarse': {
@@ -5427,6 +6988,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
+        'intro_chart': REFLEXIVE_INTRO,
+        'rule_chart': REFLEXIVE_RULE,
         'drill_config': {
             'answers': {
                 'despertarse': {
@@ -5542,6 +7105,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
+        'intro_chart': REFLEXIVE_INTRO,
+        'rule_chart': REFLEXIVE_RULE,
         'drill_config': {
             'answers': {
                 'vestirse': {
@@ -5729,6 +7294,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'future',
+        'intro_chart': FUTURE_INTRO,
+        'rule_chart': FUTURE_RULE,
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -5844,6 +7411,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'future',
+        'intro_chart': FUTURE_INTRO,
+        'rule_chart': FUTURE_RULE,
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -6030,6 +7599,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'future',
+        'intro_chart': FUTURE_INTRO,
+        'rule_chart': FUTURE_RULE,
         'drill_config': {
             'answers': {
                 'tener': {
@@ -6145,6 +7716,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'future',
+        'intro_chart': FUTURE_INTRO,
+        'rule_chart': FUTURE_RULE,
         'drill_config': {
             'answers': {
                 'decir': {
@@ -6331,6 +7904,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'future',
+        'intro_chart': FUTURE_INTRO,
+        'rule_chart': FUTURE_RULE,
         'drill_config': {
             'answers': {
                 'saber': {
@@ -6446,6 +8021,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'future',
+        'intro_chart': FUTURE_INTRO,
+        'rule_chart': FUTURE_RULE,
         'drill_config': {
             'answers': {
                 'venir': {
@@ -6633,6 +8210,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'conditional',
+        'intro_chart': CONDITIONAL_INTRO,
+        'rule_chart': CONDITIONAL_RULE,
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -6748,6 +8327,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'conditional',
+        'intro_chart': CONDITIONAL_INTRO,
+        'rule_chart': CONDITIONAL_RULE,
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -6934,6 +8515,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'conditional',
+        'intro_chart': CONDITIONAL_INTRO,
+        'rule_chart': CONDITIONAL_RULE,
         'drill_config': {
             'answers': {
                 'tener': {
@@ -7049,6 +8632,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'conditional',
+        'intro_chart': CONDITIONAL_INTRO,
+        'rule_chart': CONDITIONAL_RULE,
         'drill_config': {
             'answers': {
                 'decir': {
@@ -7236,6 +8821,7 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'rule',
         'tense': 'preterite_imperfect',
+        'intro_chart': PRET_VS_IMPERFECT_INTRO,
         'phases': {
             '0a': False,
             '0b': True,
@@ -7299,6 +8885,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_SPELLING_INTRO,
+        'rule_chart': PRET_SPELLING_RULE,
         'drill_config': {
             'answers': {
                 'pagar': {
@@ -7414,6 +9002,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_SPELLING_INTRO,
+        'rule_chart': PRET_SPELLING_RULE,
         'drill_config': {
             'answers': {
                 'buscar': {
@@ -7600,6 +9190,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_SPELLING_INTRO,
+        'rule_chart': PRET_SPELLING_RULE,
         'drill_config': {
             'answers': {
                 'empezar': {
@@ -7715,6 +9307,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_SPELLING_INTRO,
+        'rule_chart': PRET_SPELLING_RULE,
         'drill_config': {
             'answers': {
                 'creer': {
@@ -7901,6 +9495,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_SPELLING_INTRO,
+        'rule_chart': PRET_SPELLING_RULE,
         'drill_config': {
             'answers': {
                 'caer': {
@@ -8016,6 +9612,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_SPELLING_INTRO,
+        'rule_chart': PRET_SPELLING_RULE,
         'drill_config': {
             'answers': {
                 'construir': {
@@ -8203,6 +9801,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_STRONG_INTRO,
+        'rule_chart': PRET_STRONG_RULE,
         'drill_config': {
             'answers': {
                 'estar': {
@@ -8318,6 +9918,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_STRONG_INTRO,
+        'rule_chart': PRET_STRONG_RULE,
         'drill_config': {
             'answers': {
                 'poder': {
@@ -8504,6 +10106,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_STRONG_INTRO,
+        'rule_chart': PRET_STRONG_RULE,
         'drill_config': {
             'answers': {
                 'saber': {
@@ -8619,6 +10223,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_STRONG_INTRO,
+        'rule_chart': PRET_STRONG_RULE,
         'drill_config': {
             'answers': {
                 'andar': {
@@ -8805,6 +10411,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_STRONG_INTRO,
+        'rule_chart': PRET_STRONG_RULE,
         'drill_config': {
             'answers': {
                 'haber': {
@@ -8920,6 +10528,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_STRONG_INTRO,
+        'rule_chart': PRET_STRONG_RULE,
         'drill_config': {
             'answers': {
                 'mantener': {
@@ -9107,6 +10717,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_DUCIR_INTRO,
+        'rule_chart': PRET_DUCIR_RULE,
         'drill_config': {
             'answers': {
                 'traducir': {
@@ -9222,6 +10834,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_DUCIR_INTRO,
+        'rule_chart': PRET_DUCIR_RULE,
         'drill_config': {
             'answers': {
                 'producir': {
@@ -9409,6 +11023,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_E_TO_I_INTRO,
+        'rule_chart': PRET_E_TO_I_RULE,
         'drill_config': {
             'answers': {
                 'pedir': {
@@ -9524,6 +11140,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'preterite',
+        'intro_chart': PRET_E_TO_I_INTRO,
+        'rule_chart': PRET_E_TO_I_RULE,
         'drill_config': {
             'answers': {
                 'repetir': {
@@ -9713,6 +11331,7 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'rule',
         'tense': 'object_pronouns',
+        'intro_chart': OBJ_DIRECT_INTRO,
         'phases': {
             '0a': False,
             '0b': True,
@@ -9781,6 +11400,7 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'rule',
         'tense': 'object_pronouns',
+        'intro_chart': OBJ_INDIRECT_INTRO,
         'phases': {
             '0a': False,
             '0b': True,
@@ -9857,7 +11477,7 @@ GRAMMAR_SITUATIONS = {
             '3': True
         },
         'phase_2_config': {
-            'description': 'Voice chat: substitute nouns with direct + indirect pronouns',
+            'description': 'Recap voice chat (mid-section): consolidate direct + indirect object pronouns covered in obj_direct and obj_indirect',
             'targets': [
                 {
                     'word': 'lo'
@@ -9897,6 +11517,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'rule',
         'tense': 'object_pronouns',
+        'intro_chart': OBJ_COMBINED_INTRO,
+        'rule_chart': OBJ_COMBINED_RULE,
         'phases': {
             '0a': False,
             '0b': True,
@@ -9969,6 +11591,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'rule',
         'tense': 'object_pronouns',
+        'intro_chart': OBJ_COMBINED_INTRO,
+        'rule_chart': OBJ_COMBINED_RULE,
         'phases': {
             '0a': False,
             '0b': True,
@@ -10052,7 +11676,7 @@ GRAMMAR_SITUATIONS = {
             '3': True
         },
         'phase_2_config': {
-            'description': 'Voice chat: combined object pronouns (se lo, me la, te los, etc.)',
+            'description': 'Recap voice chat (end-of-section): consolidate combined object pronouns (se lo, me la, te los) covered in obj_combined_a and obj_combined_b',
             'targets': [
                 {
                     'word': 'se'
@@ -10099,6 +11723,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
+        'intro_chart': SUBJ_PRES_INTRO,
+        'rule_chart': SUBJ_PRES_RULE,
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -10214,6 +11840,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
+        'intro_chart': SUBJ_PRES_INTRO,
+        'rule_chart': SUBJ_PRES_RULE,
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -10400,6 +12028,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
+        'intro_chart': SUBJ_PRES_INTRO,
+        'rule_chart': SUBJ_PRES_RULE,
         'drill_config': {
             'answers': {
                 'ser': {
@@ -10515,6 +12145,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
+        'intro_chart': SUBJ_PRES_INTRO,
+        'rule_chart': SUBJ_PRES_RULE,
         'drill_config': {
             'answers': {
                 'estar': {
@@ -10701,6 +12333,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
+        'intro_chart': SUBJ_PRES_INTRO,
+        'rule_chart': SUBJ_PRES_RULE,
         'drill_config': {
             'answers': {
                 'saber': {
@@ -10885,6 +12519,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
+        'intro_chart': SUBJ_IMPF_INTRO,
+        'rule_chart': SUBJ_IMPF_RULE,
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -11000,6 +12636,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
+        'intro_chart': SUBJ_IMPF_INTRO,
+        'rule_chart': SUBJ_IMPF_RULE,
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -11186,6 +12824,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
+        'intro_chart': SUBJ_IMPF_INTRO,
+        'rule_chart': SUBJ_IMPF_RULE,
         'drill_config': {
             'answers': {
                 'ser': {
@@ -11301,6 +12941,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
+        'intro_chart': SUBJ_IMPF_INTRO,
+        'rule_chart': SUBJ_IMPF_RULE,
         'drill_config': {
             'answers': {
                 'hacer': {
@@ -11487,6 +13129,8 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
+        'intro_chart': SUBJ_IMPF_INTRO,
+        'rule_chart': SUBJ_IMPF_RULE,
         'drill_config': {
             'answers': {
                 'decir': {
