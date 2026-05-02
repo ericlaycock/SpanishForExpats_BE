@@ -1,5 +1,6 @@
 """OpenAI Media Gateway for STT and TTS with logging"""
 from typing import Optional, Dict, Any
+import asyncio
 import hashlib
 import time
 import uuid
@@ -126,8 +127,13 @@ async def transcribe_audio(
         if prompt:
             params["prompt"] = prompt
 
+        # Sync OpenAI SDK call inside an async handler — offload to a
+        # thread so the ~1s STT round-trip doesn't block other requests
+        # on the worker.
         try:
-            transcript_response = client.audio.transcriptions.create(**params)
+            transcript_response = await asyncio.to_thread(
+                client.audio.transcriptions.create, **params
+            )
         except Exception as primary_err:
             # Fallback to whisper-1 if gpt-4o-mini-transcribe rejects the audio format
             log_event(
@@ -144,7 +150,9 @@ async def transcribe_audio(
                 retry_params["language"] = language
             if prompt:
                 retry_params["prompt"] = prompt
-            transcript_response = client.audio.transcriptions.create(**retry_params)
+            transcript_response = await asyncio.to_thread(
+                client.audio.transcriptions.create, **retry_params
+            )
 
         transcript_text = transcript_response.text
         
@@ -317,14 +325,20 @@ async def synthesize_speech(
         tts_kwargs = dict(model=TTS_MODEL, voice=voice, input=text)
         if instructions:
             tts_kwargs["instructions"] = instructions
-        response = client.audio.speech.create(**tts_kwargs)
-        
-        # Save to file and get size
-        audio_bytes_written = 0
-        with open(output_path, "wb") as f:
-            for chunk in response.iter_bytes():
-                f.write(chunk)
-                audio_bytes_written += len(chunk)
+        # The OpenAI SDK is synchronous; calling it directly in an async
+        # handler blocks the event loop for the full TTS round-trip
+        # (~1–2s) and starves every other request on the worker. Offload
+        # the network call AND the chunked file write to a thread.
+        def _tts_and_write() -> int:
+            resp = client.audio.speech.create(**tts_kwargs)
+            written = 0
+            with open(output_path, "wb") as f:
+                for chunk in resp.iter_bytes():
+                    f.write(chunk)
+                    written += len(chunk)
+            return written
+
+        audio_bytes_written = await asyncio.to_thread(_tts_and_write)
         
         # Calculate latency
         latency_ms = int((time.time() - start_time) * 1000)

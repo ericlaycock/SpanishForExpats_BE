@@ -22,6 +22,7 @@ items for an already-mastered verb.
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 from dataclasses import dataclass
@@ -329,16 +330,21 @@ async def generate_sentence_hint(
         prompt_version="v2",
         messages=messages,
         return_json=True,
-        # Bumped from 200 → 300 to give the model headroom for natural
-        # 12–14 word sentences plus the gloss without truncating mid-JSON.
-        max_tokens=300,
+        # Non-reasoning model — a single first-person sentence with a
+        # gloss is well within gpt-4.1-mini's range, and we save the
+        # 1.5–3s of reasoning tokens that gpt-5.4-mini was burning on
+        # every hint. Few-shots in the system prompt do the steering.
+        model="gpt-4.1-mini",
+        # 150 fits the JSON payload (sentence + gloss + ids) with
+        # margin; 300 was a holdover from the reasoning-model era when
+        # truncation mid-JSON was a real risk.
+        max_tokens=150,
     )
 
-    # gpt-5.4-mini's Responses API + reasoning: low + return_json
-    # occasionally hands back an empty `output_text` (the LLM gateway
-    # then chokes on `json.loads("")`). Treat any failure here as
-    # "model didn't produce parseable output" and let the parser fall
-    # back to a first-pending-item suggestion — better than 500'ing the
+    # Some Responses API edge cases (empty output_text, malformed
+    # JSON) used to surface here under the reasoning model. The
+    # try/except stays as defense-in-depth so a misfire still falls
+    # back to a first-pending-item suggestion instead of 500'ing the
     # user out of the encounter.
     content: Any = None
     llm_request_id: Optional[str] = None
@@ -433,7 +439,10 @@ async def synthesize_hint_audio(
         logger.error(f"[SentenceHint] TTS failed: {e}")
         return None, None
 
-    audio_url = upload_to_r2(output_path, filename)
+    # boto3 is synchronous — running it directly here would block the
+    # event loop for the upload's ~200–500ms. Push it to a thread so the
+    # hint endpoint stops being a bottleneck for concurrent requests.
+    audio_url = await asyncio.to_thread(upload_to_r2, output_path, filename)
     tts_request_id = _latest_tts_request_id(db, request_id)
     return audio_url, tts_request_id
 
