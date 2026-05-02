@@ -22,7 +22,11 @@ The intended grammar curriculum shape is:
    - **Rule slides**: multi-slide explanations of one rule, big-font, very high signal-to-noise. Non-grammatical language except for the core concept (e.g. "possessive pronouns").
    - **Conjugation table slides**: rendered as a `mini_table` card (one verb per card, max 2 verbs per lesson) with the changing letters in crimson via pipe-encoded forms (`habl|o`).
    - **Recall quiz**: the intro_chart carries a `recall: {verb, answers}` field. After the last rule slide, the table is hidden and the user types each conjugation from memory before drills start. Powered by the existing `RecallQuiz` component.
-   - **Generalizing drills**: 10-20 drills that apply the rule by combining it with other common words. Every drill sentence carries a `glosses` dict (`{en_word: es_word, es_word: en_word}`) so every content word is tap-translatable. Alternates between typing and speech.
+   - **Generalizing drills**: 10-20 drills that apply the rule by combining it with other common words. Every drill sentence carries a `glosses` dict covering **only nouns, adjectives, and adverbs** (bidirectional EN↔ES).
+
+     **VERB FORMS AND PRONOUNS ARE NEVER GLOSSED, NO EXCEPTIONS.** This is a universal invariant across every grammar lesson, every tense, every group. The conjugated verb being tested, every other verb form in the sentence (gerunds, infinitives, auxiliaries, copulas), every pronoun (subject, object, reflexive), every article, and pure-glue prepositions are all excluded. Glosses exist to remove vocabulary friction on nouns/adjectives/adverbs the user hasn't met yet — they are NOT a general-purpose translator.
+
+     If you encounter existing drill_sentences whose glosses include verb forms or pronouns, **the data is wrong and must be corrected**. Do not template off of legacy violations. See `docs/learning-flow.md` "THE GLOSS RULE" section for the authoritative spec and worked examples.
 4. **Chat lesson**: one consolidating voice conversation per `[drill][drill][chat]` block. No P2/P3 split.
 
 Any data field, doc, or audit that contradicts the above is wrong.

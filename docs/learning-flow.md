@@ -133,7 +133,41 @@ The frontend phase type is defined as: `type Phase = 'video' | 'drill' | 'learn'
 To ensure consistency across grammar groups, every conjugation lesson must satisfy:
 
 - **`word_workload` has at most 2 verbs.** Larger groups are split into sub-blocks (e.g. Irregular Present's 6 verbs split into ser+estar / ir+dar / tener+venir).
-- **Every drill sentence has a non-empty `glosses` dict** with translations in both directions for every content word (`{"speak": "hablo", "Spanish": "español", "hablo": "speak", "español": "Spanish"}`). Words like pronouns and definite articles can be omitted; verbs, nouns, adjectives, adverbs are required.
+### THE GLOSS RULE (universal, no exceptions)
+
+> **Drill sentence glosses cover ONLY nouns, adjectives, and adverbs.**
+> **VERB FORMS AND PRONOUNS ARE NEVER GLOSSED. EVER.**
+
+This applies to **every drill sentence in every grammar lesson, regardless of GL, tense, or topic**. There is no exception. If you find existing data that violates this rule, the data is wrong and must be corrected — do not template off of it.
+
+What goes IN a `glosses` dict (each entry bidirectional EN↔ES):
+- ✅ Nouns: `"water": "agua", "agua": "water"`, `"trucks": "camiones", "camiones": "trucks"`
+- ✅ Adjectives: `"happy": "feliz", "feliz": "happy"`, `"tall": "alto", "alto": "tall"`
+- ✅ Adverbs: `"quickly": "rápidamente", "rápidamente": "quickly"`, `"out loud": "en voz alta", "en voz alta": "out loud"`
+- ✅ Multi-word noun/adjective/adverb phrases that translate as a unit
+
+What is NEVER in a glosses dict, **without exception**:
+- ❌ The conjugated verb being tested (revealing it defeats the drill)
+- ❌ ANY other verb form in the sentence — gerunds, infinitives, auxiliaries (haber, ir+a, estar+gerundio, etc.)
+- ❌ Copulas in any form (am, is, are, was, were, be, been; soy, eres, es, somos, son, era, fue, sido, …)
+- ❌ Subject pronouns (yo, tú, él, ella, usted, nosotros, nosotras, ellos, ellas, ustedes; I, you, he, she, we, they)
+- ❌ Object pronouns (me, te, lo, la, le, nos, los, las, les; me, you, him, her, us, them)
+- ❌ Reflexive pronouns (me, te, se, nos)
+- ❌ Articles (el, la, los, las, un, una; the, a, an)
+- ❌ Pure-glue prepositions when they're grammatical (a, de, en, con; to, of, in, with) — unless they're part of a glossable adverbial phrase
+
+Worked examples:
+| Sentence | Glosses dict |
+|----------|-------------|
+| "I love eating cheese" / "Yo amo comer queso" | `{"cheese": "queso", "queso": "cheese"}` |
+| "The trucks move quickly" / "Los camiones mueven rápidamente" | `{"trucks": "camiones", "quickly": "rápidamente", "camiones": "trucks", "rápidamente": "quickly"}` |
+| "I am tall" / "Yo soy alto" | `{"tall": "alto", "alto": "tall"}` |
+| "She lives in Mexico" / "Ella vive en México" | `{"Mexico": "México", "México": "Mexico"}` |
+| "We are going to study" / "Vamos a estudiar" | `{}` (empty) — every word is verb/pronoun/article. If a sentence has zero glossable content, that's fine. |
+
+**Why:** the user is being tested on grammar (verb conjugation, agreement, etc.). Glossing the test target leaks the answer; glossing pronouns blunts the conjugation signal. Glosses exist to remove vocabulary friction so the user can focus on the grammar — they are NOT a general-purpose translator.
+
+If you ever find yourself adding a verb form or pronoun to a glosses dict, stop. You are doing it wrong.
 - **Every verb-chart intro_chart has a `recall` field** (`{verb, answers}`) referencing the lesson's first verb so the user gets a memory test before sentence drills.
 - **Every conjugation form in `mini_table` rows, `rule_chart` cells, and `recall` answers is pipe-encoded** (`stem|ending`) so the FE renders endings in crimson via `ConjugationCell`. Drill `answers` are also pipe-encoded so the live drill VerbChart shows crimson endings too. Total-suppletion forms (`voy`, `soy`) use a leading-pipe (`|voy`) or in-word boundary (`v|oy`) — author by hand, not algorithmic.
 
