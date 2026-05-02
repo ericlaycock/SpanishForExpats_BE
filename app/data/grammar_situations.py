@@ -232,7 +232,7 @@ REGULAR_PRESENT_AR_INTRO = {
         },
         {
             "kind": "mini_table",
-            "title": "-AR endings (example: hablar)",
+            "title": "hablar (to speak)",
             "rows": [
                 ["yo", "habl|o"],
                 ["tú", "habl|as"],
@@ -242,14 +242,31 @@ REGULAR_PRESENT_AR_INTRO = {
             ],
             "footnote": "The stem (habl-) stays the same. Only the ending changes with the subject.",
         },
-    ],
-    "recall": {
-        "verb": "hablar",
-        "answers": {
-            "yo": "habl|o", "tú": "habl|as", "él": "habl|a",
-            "nosotros": "habl|amos", "ellos": "habl|an",
+        {
+            "kind": "mini_table",
+            "title": "escuchar (to listen)",
+            "rows": [
+                ["yo", "escuch|o"],
+                ["tú", "escuch|as"],
+                ["él / ella / usted", "escuch|a"],
+                ["nosotros / nosotras", "escuch|amos"],
+                ["ellos / ellas / ustedes", "escuch|an"],
+            ],
+            "footnote": "Same -AR endings — the stem (escuch-) is the only difference.",
         },
-    },
+    ],
+    "recall": [
+        {
+            "verb": "hablar",
+            "answers": {"yo": "habl|o", "tú": "habl|as", "él": "habl|a",
+                        "nosotros": "habl|amos", "ellos": "habl|an"},
+        },
+        {
+            "verb": "escuchar",
+            "answers": {"yo": "escuch|o", "tú": "escuch|as", "él": "escuch|a",
+                        "nosotros": "escuch|amos", "ellos": "escuch|an"},
+        },
+    ],
 }
 
 REGULAR_PRESENT_AR_RULE = {
@@ -277,7 +294,7 @@ REGULAR_PRESENT_ER_INTRO = {
         },
         {
             "kind": "mini_table",
-            "title": "-ER endings (example: beber)",
+            "title": "beber (to drink)",
             "rows": [
                 ["yo", "beb|o"],
                 ["tú", "beb|es"],
@@ -287,14 +304,31 @@ REGULAR_PRESENT_ER_INTRO = {
             ],
             "footnote": "Yo still ends in -o (same as -ar). The other forms swap the -a for -e: -es, -e, -emos, -en.",
         },
-    ],
-    "recall": {
-        "verb": "beber",
-        "answers": {
-            "yo": "beb|o", "tú": "beb|es", "él": "beb|e",
-            "nosotros": "beb|emos", "ellos": "beb|en",
+        {
+            "kind": "mini_table",
+            "title": "comer (to eat)",
+            "rows": [
+                ["yo", "com|o"],
+                ["tú", "com|es"],
+                ["él / ella / usted", "com|e"],
+                ["nosotros / nosotras", "com|emos"],
+                ["ellos / ellas / ustedes", "com|en"],
+            ],
+            "footnote": "Same -ER endings. Only the stem (com-) differs.",
         },
-    },
+    ],
+    "recall": [
+        {
+            "verb": "beber",
+            "answers": {"yo": "beb|o", "tú": "beb|es", "él": "beb|e",
+                        "nosotros": "beb|emos", "ellos": "beb|en"},
+        },
+        {
+            "verb": "comer",
+            "answers": {"yo": "com|o", "tú": "com|es", "él": "com|e",
+                        "nosotros": "com|emos", "ellos": "com|en"},
+        },
+    ],
 }
 
 REGULAR_PRESENT_ER_RULE = {
@@ -322,7 +356,7 @@ REGULAR_PRESENT_IR_INTRO = {
         },
         {
             "kind": "mini_table",
-            "title": "-IR endings (example: vivir)",
+            "title": "vivir (to live)",
             "rows": [
                 ["yo", "viv|o"],
                 ["tú", "viv|es"],
@@ -332,14 +366,31 @@ REGULAR_PRESENT_IR_INTRO = {
             ],
             "footnote": "Same as -er except nosotros: -emos (beb|emos) vs -imos (viv|imos).",
         },
-    ],
-    "recall": {
-        "verb": "vivir",
-        "answers": {
-            "yo": "viv|o", "tú": "viv|es", "él": "viv|e",
-            "nosotros": "viv|imos", "ellos": "viv|en",
+        {
+            "kind": "mini_table",
+            "title": "escribir (to write)",
+            "rows": [
+                ["yo", "escrib|o"],
+                ["tú", "escrib|es"],
+                ["él / ella / usted", "escrib|e"],
+                ["nosotros / nosotras", "escrib|imos"],
+                ["ellos / ellas / ustedes", "escrib|en"],
+            ],
+            "footnote": "Same -IR endings. Only the stem (escrib-) differs.",
         },
-    },
+    ],
+    "recall": [
+        {
+            "verb": "vivir",
+            "answers": {"yo": "viv|o", "tú": "viv|es", "él": "viv|e",
+                        "nosotros": "viv|imos", "ellos": "viv|en"},
+        },
+        {
+            "verb": "escribir",
+            "answers": {"yo": "escrib|o", "tú": "escrib|es", "él": "escrib|e",
+                        "nosotros": "escrib|imos", "ellos": "escrib|en"},
+        },
+    ],
 }
 
 REGULAR_PRESENT_IR_RULE = {
@@ -496,6 +547,143 @@ IRREGULAR_PRESENT_RULE = {
     ],
     "footnote": "ser is permanent identity; estar is state or location. tener/venir both go yo → -go.",
 }
+
+IRREGULAR_PRESENT_SER_ESTAR_INTRO = {
+    "kind": "cards",
+    "title": "Irregular Present — ser + estar",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "ser + estar: high-frequency, hand-memorize",
+            "body": "**ser** and **estar** both translate as 'to be,' but Spanish splits them: **ser** is permanent identity (*soy americano*), **estar** is location and state (*estoy cansado*).",
+        },
+        {
+            "kind": "text",
+            "title": "Why these two together",
+            "body": "Both are deeply irregular — yo soy / yo estoy share nothing with their infinitives. Memorize them whole.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ser (to be (identity))",
+            "rows": [
+            ["yo", "|soy"],
+            ["tú", "|eres"],
+            ["él / ella / usted", "|es"],
+            ["nosotros / nosotras", "|somos"],
+            ["ellos / ellas / ustedes", "|son"],
+            ],
+        },
+        {
+            "kind": "mini_table",
+            "title": "estar (to be (state))",
+            "rows": [
+            ["yo", "est|oy"],
+            ["tú", "est|ás"],
+            ["él / ella / usted", "est|á"],
+            ["nosotros / nosotras", "est|amos"],
+            ["ellos / ellas / ustedes", "est|án"],
+            ],
+        },
+    ],
+    "recall": [
+        {"verb": "ser",
+         "answers": {"yo": "|soy", "tú": "|eres", "él": "|es", "nosotros": "|somos", "ellos": "|son"}},
+        {"verb": "estar",
+         "answers": {"yo": "est|oy", "tú": "est|ás", "él": "est|á", "nosotros": "est|amos", "ellos": "est|án"}},
+    ],
+}
+
+IRREGULAR_PRESENT_IR_DAR_INTRO = {
+    "kind": "cards",
+    "title": "Irregular Present — ir + dar",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "ir + dar: high-frequency, hand-memorize",
+            "body": "**ir** (to go) and **dar** (to give) are short, suppletive verbs. Both end in **-oy** in yo (voy / doy) and follow a similar pattern.",
+        },
+        {
+            "kind": "text",
+            "title": "Why these two together",
+            "body": "ir is the workhorse for the *ir + a + infinitive* future construction (you'll meet it again in GL 9). dar is essential for any 'give' or 'pass' construction.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ir (to go)",
+            "rows": [
+            ["yo", "|voy"],
+            ["tú", "|vas"],
+            ["él / ella / usted", "|va"],
+            ["nosotros / nosotras", "|vamos"],
+            ["ellos / ellas / ustedes", "|van"],
+            ],
+        },
+        {
+            "kind": "mini_table",
+            "title": "dar (to give)",
+            "rows": [
+            ["yo", "d|oy"],
+            ["tú", "d|as"],
+            ["él / ella / usted", "d|a"],
+            ["nosotros / nosotras", "d|amos"],
+            ["ellos / ellas / ustedes", "d|an"],
+            ],
+        },
+    ],
+    "recall": [
+        {"verb": "ir",
+         "answers": {"yo": "|voy", "tú": "|vas", "él": "|va", "nosotros": "|vamos", "ellos": "|van"}},
+        {"verb": "dar",
+         "answers": {"yo": "d|oy", "tú": "d|as", "él": "d|a", "nosotros": "d|amos", "ellos": "d|an"}},
+    ],
+}
+
+IRREGULAR_PRESENT_TENER_VENIR_INTRO = {
+    "kind": "cards",
+    "title": "Irregular Present — tener + venir",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "tener + venir: high-frequency, hand-memorize",
+            "body": "**tener** (to have) and **venir** (to come) share two irregularities: yo ends in **-go** (tengo, vengo), and the e→ie stem change appears in tú / él / ellos (tienes, viene, vienen).",
+        },
+        {
+            "kind": "text",
+            "title": "Why these two together",
+            "body": "tener is also used for ages and obligations: *tengo 30 años*, *tengo que trabajar*. venir works for arrivals and origins.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "tener (to have)",
+            "rows": [
+            ["yo", "ten|go"],
+            ["tú", "t|ienes"],
+            ["él / ella / usted", "t|iene"],
+            ["nosotros / nosotras", "ten|emos"],
+            ["ellos / ellas / ustedes", "t|ienen"],
+            ],
+        },
+        {
+            "kind": "mini_table",
+            "title": "venir (to come)",
+            "rows": [
+            ["yo", "ven|go"],
+            ["tú", "v|ienes"],
+            ["él / ella / usted", "v|iene"],
+            ["nosotros / nosotras", "ven|imos"],
+            ["ellos / ellas / ustedes", "v|ienen"],
+            ],
+        },
+    ],
+    "recall": [
+        {"verb": "tener",
+         "answers": {"yo": "ten|go", "tú": "t|ienes", "él": "t|iene", "nosotros": "ten|emos", "ellos": "t|ienen"}},
+        {"verb": "venir",
+         "answers": {"yo": "ven|go", "tú": "v|ienes", "él": "v|iene", "nosotros": "ven|imos", "ellos": "v|ienen"}},
+    ],
+}
+
+
 
 # --- GL 4.1: Ser vs. Estar (intro only — rule chart already exists) ---
 SER_ESTAR_INTRO = {
@@ -2982,15 +3170,15 @@ GRAMMAR_SITUATIONS = {
              "glosses": {"well": "bien", "bien": "well"}},
             {"en": "You all speak a lot", "es": "Ustedes hablan mucho", "noun_id": None, "type": "written",
              "glosses": {"a lot": "mucho", "mucho": "a lot"}},
-            {"en": "I listen the radio", "es": "Yo escucho la radio", "noun_id": None, "type": "auditory",
+            {"en": "I listen to the radio", "es": "Yo escucho la radio", "noun_id": None, "type": "auditory",
              "glosses": {"radio": "radio"}},
-            {"en": "You listen music", "es": "Tú escuchas música", "noun_id": None, "type": "written",
+            {"en": "You listen to music", "es": "Tú escuchas música", "noun_id": None, "type": "written",
              "glosses": {"music": "música", "música": "music"}},
-            {"en": "He listens the song", "es": "Él escucha la canción", "noun_id": None, "type": "auditory",
+            {"en": "He listens to the song", "es": "Él escucha la canción", "noun_id": None, "type": "auditory",
              "glosses": {"song": "canción", "canción": "song"}},
             {"en": "We listen carefully", "es": "Nosotros escuchamos atentamente", "noun_id": None, "type": "written",
              "glosses": {"carefully": "atentamente", "atentamente": "carefully"}},
-            {"en": "They (f) listen the news", "es": "Ellas escuchan la noticia", "noun_id": None, "type": "auditory",
+            {"en": "They (f) listen to the news", "es": "Ellas escuchan la noticia", "noun_id": None, "type": "auditory",
              "glosses": {"news": "noticia", "noticia": "news"}},
         ],
         "drill_targets": [
@@ -3052,11 +3240,11 @@ GRAMMAR_SITUATIONS = {
              "glosses": {"song": "canción", "canción": "song"}},
             {"en": "I listen attentively", "es": "Yo escucho atentamente", "noun_id": None, "type": "auditory",
              "glosses": {"attentively": "atentamente", "atentamente": "attentively"}},
-            {"en": "You listen the news", "es": "Tú escuchas la noticia", "noun_id": None, "type": "written",
+            {"en": "You listen to the news", "es": "Tú escuchas la noticia", "noun_id": None, "type": "written",
              "glosses": {"news": "noticia", "noticia": "news"}},
-            {"en": "He listens his teacher", "es": "Él escucha a su maestro", "noun_id": None, "type": "auditory",
+            {"en": "He listens to his teacher", "es": "Él escucha a su maestro", "noun_id": None, "type": "auditory",
              "glosses": {"teacher": "maestro", "maestro": "teacher"}},
-            {"en": "We listen the music", "es": "Nosotros escuchamos la música", "noun_id": None, "type": "written",
+            {"en": "We listen to the music", "es": "Nosotros escuchamos la música", "noun_id": None, "type": "written",
              "glosses": {"music": "música", "música": "music"}},
             {"en": "You all listen carefully", "es": "Ustedes escuchan con cuidado", "noun_id": None, "type": "auditory",
              "glosses": {"carefully": "con cuidado", "con cuidado": "carefully"}},
@@ -3416,208 +3604,297 @@ GRAMMAR_SITUATIONS = {
             {"verb": "abrir", "pronoun": "él"}, {"verb": "abrir", "pronoun": "ellos"},
         ]},
     },
-    # --- GL 4: Irregular Present — 3 lessons (all 6 verbs, pronouns distributed) ---
-    "grammar_irregular_present_1": {
-        "title": "Irregular Present (1/3)",
+    # --- GL 4: Irregular Present I — split into 3 sub-blocks of 2 verbs each ---
+    # Each sub-block is 2 drills + 1 chat. Sequence: ser+estar (1, 2, 2.5) →
+    # ir+dar (3, 4, 4.5) → tener+venir (5, 6, 6.5).
+    #
+    # RETIRED 2026-05-02 — replaced by the per-pair sub-blocks below:
+    #   grammar_irregular_present_1, _1_chat, _2, _2_chat, _3, _3_chat
+    # These IDs are intentionally absent from GRAMMAR_SITUATIONS so the
+    # dashboard's "next lesson" pointer skips them. DB rows referencing them
+    # are untouched (per the "never change situation IDs" rule);
+    # get_grammar_config() returns None for unknown IDs and the FE handles
+    # None as "no active lesson".
+
+    "grammar_irregular_present_ser_estar_1": {
+        "title": "Irregular Present — ser + estar (1/2)",
         "grammar_level": 4,
         "lesson_number": 1,
         "lesson_type": "conjugation",
-        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
-        "video_embed_id": "sD2tovQc7pB",
+        "word_workload": ["ser", "estar"],
+        "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
-        "intro_chart": IRREGULAR_PRESENT_INTRO,
+        "intro_chart": IRREGULAR_PRESENT_SER_ESTAR_INTRO,
         "rule_chart": IRREGULAR_PRESENT_RULE,
-        "drill_config": {"answers": {
-            "ser": {"yo": "soy", "tú": "eres", "él": "es", "ella": "es", "usted": "es", "nosotros": "somos", "nosotras": "somos", "ellos": "son", "ellas": "son", "ustedes": "son"},
-            "estar": {"yo": "estoy", "tú": "estás", "él": "está", "ella": "está", "usted": "está", "nosotros": "estamos", "nosotras": "estamos", "ellos": "están", "ellas": "están", "ustedes": "están"},
-            "ir": {"yo": "voy", "tú": "vas", "él": "va", "ella": "va", "usted": "va", "nosotros": "vamos", "nosotras": "vamos", "ellos": "van", "ellas": "van", "ustedes": "van"},
-            "dar": {"yo": "doy", "tú": "das", "él": "da", "ella": "da", "usted": "da", "nosotros": "damos", "nosotras": "damos", "ellos": "dan", "ellas": "dan", "ustedes": "dan"},
-            "tener": {"yo": "tengo", "tú": "tienes", "él": "tiene", "ella": "tiene", "usted": "tiene", "nosotros": "tenemos", "nosotras": "tenemos", "ellos": "tienen", "ellas": "tienen", "ustedes": "tienen"},
-            "venir": {"yo": "vengo", "tú": "vienes", "él": "viene", "ella": "viene", "usted": "viene", "nosotros": "venimos", "nosotras": "venimos", "ellos": "vienen", "ellas": "vienen", "ustedes": "vienen"},
-        }},
+        "drill_config": {
+            "answers": {
+                "ser": {"yo": "|soy", "tú": "|eres", "él": "|es", "ella": "|es", "usted": "|es", "nosotros": "|somos", "nosotras": "|somos", "ellos": "|son", "ellas": "|son", "ustedes": "|son"},
+                "estar": {"yo": "est|oy", "tú": "est|ás", "él": "est|á", "ella": "est|á", "usted": "est|á", "nosotros": "est|amos", "nosotras": "est|amos", "ellos": "est|án", "ellas": "est|án", "ustedes": "est|án"},
+            },
+        },
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I am tall", "es": "Yo soy alto", "noun_id": None, "type": "written", "glosses": {"tall": "alto", "alto": "tall"}},
-            {"en": "You are here", "es": "Tú estás aquí", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "He goes to the market", "es": "Él va al mercado", "noun_id": "mercado", "type": "written", "glosses": {"market": "mercado", "mercado": "market"}},
-            {"en": "She gives the book", "es": "Ella da el libro", "noun_id": "libro", "type": "auditory", "glosses": {"book": "libro", "libro": "book"}},
-            {"en": "You have a dog", "es": "Usted tiene un perro", "noun_id": "perro", "type": "written", "glosses": {}},
-            {"en": "We come home", "es": "Nosotros venimos a casa", "noun_id": "casa", "type": "auditory", "glosses": {"at home": "en casa", "en casa": "at home"}},
-            {"en": "We (f) are professional", "es": "Nosotras somos profesional", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "They are at home", "es": "Ellos están en casa", "noun_id": "casa", "type": "auditory", "glosses": {}},
-            {"en": "They (f) go home", "es": "Ellas van a casa", "noun_id": "casa", "type": "written", "glosses": {}},
-            {"en": "You all give money", "es": "Ustedes dan dinero", "noun_id": "dinero", "type": "auditory", "glosses": {"money": "dinero", "dinero": "money"}},
+            {"en": "I am a teacher", "es": "Yo soy profesora", "noun_id": None, "type": "written", "glosses": {"teacher": "profesora", "profesora": "teacher"}},
+            {"en": "You are tall", "es": "Tú eres alto", "noun_id": None, "type": "auditory", "glosses": {"tall": "alto", "alto": "tall"}},
+            {"en": "She is a student", "es": "Ella es estudiante", "noun_id": None, "type": "written", "glosses": {"student": "estudiante", "estudiante": "student"}},
+            {"en": "We (f) are friends", "es": "Nosotras somos amigas", "noun_id": None, "type": "auditory", "glosses": {"friends": "amigas", "amigas": "friends"}},
+            {"en": "You all are doctors", "es": "Ustedes son doctores", "noun_id": None, "type": "written", "glosses": {"doctors": "doctores", "doctores": "doctors"}},
+            {"en": "I am happy", "es": "Yo estoy feliz", "noun_id": None, "type": "written", "glosses": {"happy": "feliz", "feliz": "happy"}},
+            {"en": "You are tired", "es": "Tú estás cansado", "noun_id": None, "type": "auditory", "glosses": {"tired": "cansado", "cansado": "tired"}},
+            {"en": "She is at home", "es": "Ella está en casa", "noun_id": None, "type": "written", "glosses": {"home": "casa", "casa": "home"}},
+            {"en": "We (f) are here", "es": "Nosotras estamos aquí", "noun_id": None, "type": "auditory", "glosses": {"here": "aquí", "aquí": "here"}},
+            {"en": "You all are busy", "es": "Ustedes están ocupados", "noun_id": None, "type": "written", "glosses": {"busy": "ocupados", "ocupados": "busy"}},
         ],
-        "drill_targets": [
-            {"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "ella"},
-            {"verb": "estar", "pronoun": "tú"}, {"verb": "estar", "pronoun": "nosotras"},
-            {"verb": "ir", "pronoun": "usted"}, {"verb": "ir", "pronoun": "ellas"},
-            {"verb": "dar", "pronoun": "ustedes"}, {"verb": "tener", "pronoun": "él"},
-            {"verb": "tener", "pronoun": "nosotros"}, {"verb": "venir", "pronoun": "ellos"},
-        ],
+        "drill_targets": [{"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "ella"}, {"verb": "ser", "pronoun": "nosotras"}, {"verb": "ser", "pronoun": "ustedes"}, {"verb": "estar", "pronoun": "yo"}, {"verb": "estar", "pronoun": "tú"}, {"verb": "estar", "pronoun": "ella"}, {"verb": "estar", "pronoun": "nosotras"}, {"verb": "estar", "pronoun": "ustedes"}],
         "phase_2_config": {
-            "description": "Irregular Present lesson 1: ser, estar, ir, dar, tener, venir",
-            "targets": [
-                {"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "ella"},
-                {"verb": "estar", "pronoun": "tú"}, {"verb": "estar", "pronoun": "nosotras"},
-                {"verb": "ir", "pronoun": "usted"}, {"verb": "ir", "pronoun": "ellas"},
-                {"verb": "dar", "pronoun": "ustedes"}, {"verb": "tener", "pronoun": "él"},
-                {"verb": "tener", "pronoun": "nosotros"}, {"verb": "venir", "pronoun": "ellos"},
-            ],
+            "description": "Irregular Present ser + estar (1/2): ser, estar",
+            "targets": [{"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "ella"}, {"verb": "ser", "pronoun": "nosotras"}, {"verb": "ser", "pronoun": "ustedes"}, {"verb": "estar", "pronoun": "yo"}, {"verb": "estar", "pronoun": "tú"}, {"verb": "estar", "pronoun": "ella"}, {"verb": "estar", "pronoun": "nosotras"}, {"verb": "estar", "pronoun": "ustedes"}],
         },
-        "opener_en": "Are you from here?",
-        "opener_es": "¿Eres de aquí?",
+        "opener_en": "Where are you from?",
+        "opener_es": "¿De dónde eres?",
     },
-    # --- GL 4: chat companion of `grammar_irregular_present_1` ---
-    "grammar_irregular_present_1_chat": {
-        "title": "Irregular Present (1/3) — Chat",
-        "grammar_level": 4,
-        "lesson_number": 1.1,
-        "lesson_type": "conjugation",
-        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
-        "video_embed_id": None,
-        "drill_type": "skip",
-        "tense": "present",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
-        "drill_sentences": [],
-        "phase_2_config": {'description': 'Irregular Present lesson 1: ser, estar, ir, dar, tener, venir', 'targets': [{'verb': 'ser', 'pronoun': 'yo'}, {'verb': 'ser', 'pronoun': 'ella'}, {'verb': 'estar', 'pronoun': 'tú'}, {'verb': 'estar', 'pronoun': 'nosotras'}, {'verb': 'ir', 'pronoun': 'usted'}, {'verb': 'ir', 'pronoun': 'ellas'}, {'verb': 'dar', 'pronoun': 'ustedes'}, {'verb': 'tener', 'pronoun': 'él'}, {'verb': 'tener', 'pronoun': 'nosotros'}, {'verb': 'venir', 'pronoun': 'ellos'}]},
-    },
-    "grammar_irregular_present_2": {
-        "title": "Irregular Present (2/3)",
+
+    "grammar_irregular_present_ser_estar_2": {
+        "title": "Irregular Present — ser + estar (2/2)",
         "grammar_level": 4,
         "lesson_number": 2,
         "lesson_type": "conjugation",
-        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
-        "video_embed_id": "sD2tovQc7pB",
+        "word_workload": ["ser", "estar"],
+        "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
-        "intro_chart": IRREGULAR_PRESENT_INTRO,
         "rule_chart": IRREGULAR_PRESENT_RULE,
-        "drill_config": {"answers": {
-            "ser": {"yo": "soy", "tú": "eres", "él": "es", "ella": "es", "usted": "es", "nosotros": "somos", "nosotras": "somos", "ellos": "son", "ellas": "son", "ustedes": "son"},
-            "estar": {"yo": "estoy", "tú": "estás", "él": "está", "ella": "está", "usted": "está", "nosotros": "estamos", "nosotras": "estamos", "ellos": "están", "ellas": "están", "ustedes": "están"},
-            "ir": {"yo": "voy", "tú": "vas", "él": "va", "ella": "va", "usted": "va", "nosotros": "vamos", "nosotras": "vamos", "ellos": "van", "ellas": "van", "ustedes": "van"},
-            "dar": {"yo": "doy", "tú": "das", "él": "da", "ella": "da", "usted": "da", "nosotros": "damos", "nosotras": "damos", "ellos": "dan", "ellas": "dan", "ustedes": "dan"},
-            "tener": {"yo": "tengo", "tú": "tienes", "él": "tiene", "ella": "tiene", "usted": "tiene", "nosotros": "tenemos", "nosotras": "tenemos", "ellos": "tienen", "ellas": "tienen", "ustedes": "tienen"},
-            "venir": {"yo": "vengo", "tú": "vienes", "él": "viene", "ella": "viene", "usted": "viene", "nosotros": "venimos", "nosotras": "venimos", "ellos": "vienen", "ellas": "vienen", "ustedes": "vienen"},
-        }},
+        "drill_config": {
+            "answers": {
+                "ser": {"yo": "|soy", "tú": "|eres", "él": "|es", "ella": "|es", "usted": "|es", "nosotros": "|somos", "nosotras": "|somos", "ellos": "|son", "ellas": "|son", "ustedes": "|son"},
+                "estar": {"yo": "est|oy", "tú": "est|ás", "él": "est|á", "ella": "est|á", "usted": "est|á", "nosotros": "est|amos", "nosotras": "est|amos", "ellos": "est|án", "ellas": "est|án", "ustedes": "est|án"},
+            },
+        },
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I am professional", "es": "Yo soy profesional", "noun_id": None, "type": "written", "glosses": {"professional": "profesional", "profesional": "professional"}},
-            {"en": "You are at home", "es": "Tú estás en casa", "noun_id": "casa", "type": "auditory", "glosses": {}},
-            {"en": "He goes home", "es": "Él va a casa", "noun_id": "casa", "type": "written", "glosses": {}},
-            {"en": "She gives money", "es": "Ella da dinero", "noun_id": "dinero", "type": "auditory", "glosses": {}},
-            {"en": "You have a house", "es": "Usted tiene una casa", "noun_id": "casa", "type": "written", "glosses": {}},
-            {"en": "We come from the park", "es": "Nosotros venimos del parque", "noun_id": "parque", "type": "auditory", "glosses": {"park": "parque", "parque": "park"}},
-            {"en": "We (f) are important", "es": "Nosotras somos importante", "noun_id": None, "type": "written", "glosses": {"important": "importante", "importante": "important"}},
-            {"en": "They are tired", "es": "Ellos están cansado", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "They (f) go to the park", "es": "Ellas van al parque", "noun_id": "parque", "type": "written", "glosses": {}},
-            {"en": "You all give water", "es": "Ustedes dan agua", "noun_id": None, "type": "auditory", "glosses": {"water": "agua", "agua": "water"}},
+            {"en": "You are a student", "es": "Tú eres estudiante", "noun_id": None, "type": "written", "glosses": {"student": "estudiante", "estudiante": "student"}},
+            {"en": "I am tall", "es": "Yo soy alto", "noun_id": None, "type": "auditory", "glosses": {"tall": "alto", "alto": "tall"}},
+            {"en": "He is a doctor", "es": "Él es doctor", "noun_id": None, "type": "written", "glosses": {"doctor": "doctor"}},
+            {"en": "We are friends", "es": "Nosotros somos amigos", "noun_id": None, "type": "auditory", "glosses": {"friends": "amigos", "amigos": "friends"}},
+            {"en": "They (f) are teachers", "es": "Ellas son profesoras", "noun_id": None, "type": "written", "glosses": {"teachers": "profesoras", "profesoras": "teachers"}},
+            {"en": "You are happy", "es": "Tú estás feliz", "noun_id": None, "type": "written", "glosses": {"happy": "feliz", "feliz": "happy"}},
+            {"en": "I am at home", "es": "Yo estoy en casa", "noun_id": None, "type": "auditory", "glosses": {"home": "casa", "casa": "home"}},
+            {"en": "He is tired", "es": "Él está cansado", "noun_id": None, "type": "written", "glosses": {"tired": "cansado", "cansado": "tired"}},
+            {"en": "We (f) are here", "es": "Nosotras estamos aquí", "noun_id": None, "type": "auditory", "glosses": {"here": "aquí", "aquí": "here"}},
+            {"en": "They (f) are busy", "es": "Ellas están ocupadas", "noun_id": None, "type": "written", "glosses": {"busy": "ocupadas", "ocupadas": "busy"}},
         ],
-        "drill_targets": [
-            {"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "nosotros"},
-            {"verb": "estar", "pronoun": "él"}, {"verb": "estar", "pronoun": "ustedes"},
-            {"verb": "ir", "pronoun": "ella"}, {"verb": "ir", "pronoun": "nosotras"},
-            {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "ellos"},
-            {"verb": "tener", "pronoun": "usted"}, {"verb": "venir", "pronoun": "ellas"},
-        ],
+        "drill_targets": [{"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "él"}, {"verb": "ser", "pronoun": "nosotros"}, {"verb": "ser", "pronoun": "ellas"}, {"verb": "estar", "pronoun": "tú"}, {"verb": "estar", "pronoun": "yo"}, {"verb": "estar", "pronoun": "él"}, {"verb": "estar", "pronoun": "nosotros"}, {"verb": "estar", "pronoun": "ellas"}],
         "phase_2_config": {
-            "description": "Irregular Present lesson 2: ser, estar, ir, dar, tener, venir",
-            "targets": [
-                {"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "nosotros"},
-                {"verb": "estar", "pronoun": "él"}, {"verb": "estar", "pronoun": "ustedes"},
-                {"verb": "ir", "pronoun": "ella"}, {"verb": "ir", "pronoun": "nosotras"},
-                {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "ellos"},
-                {"verb": "tener", "pronoun": "usted"}, {"verb": "venir", "pronoun": "ellas"},
-            ],
+            "description": "Irregular Present ser + estar (2/2): ser, estar",
+            "targets": [{"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "él"}, {"verb": "ser", "pronoun": "nosotros"}, {"verb": "ser", "pronoun": "ellas"}, {"verb": "estar", "pronoun": "tú"}, {"verb": "estar", "pronoun": "yo"}, {"verb": "estar", "pronoun": "él"}, {"verb": "estar", "pronoun": "nosotros"}, {"verb": "estar", "pronoun": "ellas"}],
         },
-        "opener_en": "Where is your family from?",
-        "opener_es": "¿De dónde es tu familia?",
+        "opener_en": "How are you today?",
+        "opener_es": "¿Cómo estás hoy?",
     },
-    # --- GL 4: chat companion of `grammar_irregular_present_2` ---
-    "grammar_irregular_present_2_chat": {
-        "title": "Irregular Present (2/3) — Chat",
-        "grammar_level": 4,
-        "lesson_number": 2.1,
-        "lesson_type": "conjugation",
-        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
-        "video_embed_id": None,
-        "drill_type": "skip",
-        "tense": "present",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
-        "drill_sentences": [],
-        "phase_2_config": {'description': 'Irregular Present lesson 2: ser, estar, ir, dar, tener, venir', 'targets': [{'verb': 'ser', 'pronoun': 'tú'}, {'verb': 'ser', 'pronoun': 'nosotros'}, {'verb': 'estar', 'pronoun': 'él'}, {'verb': 'estar', 'pronoun': 'ustedes'}, {'verb': 'ir', 'pronoun': 'ella'}, {'verb': 'ir', 'pronoun': 'nosotras'}, {'verb': 'dar', 'pronoun': 'yo'}, {'verb': 'dar', 'pronoun': 'ellos'}, {'verb': 'tener', 'pronoun': 'usted'}, {'verb': 'venir', 'pronoun': 'ellas'}]},
-    },
-    "grammar_irregular_present_3": {
-        "title": "Irregular Present (3/3)",
+
+    "grammar_irregular_present_ir_dar_1": {
+        "title": "Irregular Present — ir + dar (1/2)",
         "grammar_level": 4,
         "lesson_number": 3,
         "lesson_type": "conjugation",
-        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
-        "video_embed_id": "sD2tovQc7pB",
+        "word_workload": ["ir", "dar"],
+        "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
-        "intro_chart": IRREGULAR_PRESENT_INTRO,
+        "intro_chart": IRREGULAR_PRESENT_IR_DAR_INTRO,
         "rule_chart": IRREGULAR_PRESENT_RULE,
-        "drill_config": {"answers": {
-            "ser": {"yo": "soy", "tú": "eres", "él": "es", "ella": "es", "usted": "es", "nosotros": "somos", "nosotras": "somos", "ellos": "son", "ellas": "son", "ustedes": "son"},
-            "estar": {"yo": "estoy", "tú": "estás", "él": "está", "ella": "está", "usted": "está", "nosotros": "estamos", "nosotras": "estamos", "ellos": "están", "ellas": "están", "ustedes": "están"},
-            "ir": {"yo": "voy", "tú": "vas", "él": "va", "ella": "va", "usted": "va", "nosotros": "vamos", "nosotras": "vamos", "ellos": "van", "ellas": "van", "ustedes": "van"},
-            "dar": {"yo": "doy", "tú": "das", "él": "da", "ella": "da", "usted": "da", "nosotros": "damos", "nosotras": "damos", "ellos": "dan", "ellas": "dan", "ustedes": "dan"},
-            "tener": {"yo": "tengo", "tú": "tienes", "él": "tiene", "ella": "tiene", "usted": "tiene", "nosotros": "tenemos", "nosotras": "tenemos", "ellos": "tienen", "ellas": "tienen", "ustedes": "tienen"},
-            "venir": {"yo": "vengo", "tú": "vienes", "él": "viene", "ella": "viene", "usted": "viene", "nosotros": "venimos", "nosotras": "venimos", "ellos": "vienen", "ellas": "vienen", "ustedes": "vienen"},
-        }},
+        "drill_config": {
+            "answers": {
+                "ir": {"yo": "|voy", "tú": "|vas", "él": "|va", "ella": "|va", "usted": "|va", "nosotros": "|vamos", "nosotras": "|vamos", "ellos": "|van", "ellas": "|van", "ustedes": "|van"},
+                "dar": {"yo": "d|oy", "tú": "d|as", "él": "d|a", "ella": "d|a", "usted": "d|a", "nosotros": "d|amos", "nosotras": "d|amos", "ellos": "d|an", "ellas": "d|an", "ustedes": "d|an"},
+            },
+        },
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I go to the park", "es": "Yo voy al parque", "noun_id": None, "type": "written", "glosses": {"park": "parque", "parque": "park"}},
+            {"en": "You go to school", "es": "Tú vas a la escuela", "noun_id": None, "type": "auditory", "glosses": {"school": "escuela", "escuela": "school"}},
+            {"en": "She goes home", "es": "Ella va a casa", "noun_id": None, "type": "written", "glosses": {"home": "casa", "casa": "home"}},
+            {"en": "We (f) go to the market", "es": "Nosotras vamos al mercado", "noun_id": None, "type": "auditory", "glosses": {"market": "mercado", "mercado": "market"}},
+            {"en": "You all go to the city", "es": "Ustedes van a la ciudad", "noun_id": None, "type": "written", "glosses": {"city": "ciudad", "ciudad": "city"}},
+            {"en": "I give a book", "es": "Yo doy un libro", "noun_id": None, "type": "written", "glosses": {"book": "libro", "libro": "book"}},
+            {"en": "You give a gift", "es": "Tú das un regalo", "noun_id": None, "type": "auditory", "glosses": {"gift": "regalo", "regalo": "gift"}},
+            {"en": "She gives flowers", "es": "Ella da flores", "noun_id": None, "type": "written", "glosses": {"flowers": "flores", "flores": "flowers"}},
+            {"en": "We (f) give food", "es": "Nosotras damos comida", "noun_id": None, "type": "auditory", "glosses": {"food": "comida", "comida": "food"}},
+            {"en": "You all give money", "es": "Ustedes dan dinero", "noun_id": None, "type": "written", "glosses": {"money": "dinero", "dinero": "money"}},
+        ],
+        "drill_targets": [{"verb": "ir", "pronoun": "yo"}, {"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "ella"}, {"verb": "ir", "pronoun": "nosotras"}, {"verb": "ir", "pronoun": "ustedes"}, {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "tú"}, {"verb": "dar", "pronoun": "ella"}, {"verb": "dar", "pronoun": "nosotras"}, {"verb": "dar", "pronoun": "ustedes"}],
+        "phase_2_config": {
+            "description": "Irregular Present ir + dar (1/2): ir, dar",
+            "targets": [{"verb": "ir", "pronoun": "yo"}, {"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "ella"}, {"verb": "ir", "pronoun": "nosotras"}, {"verb": "ir", "pronoun": "ustedes"}, {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "tú"}, {"verb": "dar", "pronoun": "ella"}, {"verb": "dar", "pronoun": "nosotras"}, {"verb": "dar", "pronoun": "ustedes"}],
+        },
+        "opener_en": "Where are you going?",
+        "opener_es": "¿Adónde vas?",
+    },
+
+    "grammar_irregular_present_ir_dar_2": {
+        "title": "Irregular Present — ir + dar (2/2)",
+        "grammar_level": 4,
+        "lesson_number": 4,
+        "lesson_type": "conjugation",
+        "word_workload": ["ir", "dar"],
+        "video_embed_id": "6jpCj97AHMN",
+        "drill_type": "conjugation",
+        "tense": "present",
+        "rule_chart": IRREGULAR_PRESENT_RULE,
+        "drill_config": {
+            "answers": {
+                "ir": {"yo": "|voy", "tú": "|vas", "él": "|va", "ella": "|va", "usted": "|va", "nosotros": "|vamos", "nosotras": "|vamos", "ellos": "|van", "ellas": "|van", "ustedes": "|van"},
+                "dar": {"yo": "d|oy", "tú": "d|as", "él": "d|a", "ella": "d|a", "usted": "d|a", "nosotros": "d|amos", "nosotras": "d|amos", "ellos": "d|an", "ellas": "d|an", "ustedes": "d|an"},
+            },
+        },
         "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I am important", "es": "Yo soy importante", "noun_id": None, "type": "written", "glosses": {"important": "importante", "importante": "important"}},
-            {"en": "You are tired", "es": "Tú estás cansado", "noun_id": None, "type": "auditory", "glosses": {"tired": "cansado", "cansado": "tired"}},
-            {"en": "He goes to the park", "es": "Él va al parque", "noun_id": "parque", "type": "written", "glosses": {}},
-            {"en": "She gives water", "es": "Ella da agua", "noun_id": None, "type": "auditory", "glosses": {"water": "agua", "agua": "water"}},
-            {"en": "You have hunger", "es": "Usted tiene hambre", "noun_id": None, "type": "written", "glosses": {"hunger": "hambre", "hambre": "hunger"}},
-            {"en": "We come early", "es": "Nosotros venimos temprano", "noun_id": None, "type": "auditory", "glosses": {"early": "temprano", "temprano": "early"}},
-            {"en": "We (f) are likeable", "es": "Nosotras somos simpático", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "They are well", "es": "Ellos están bien", "noun_id": None, "type": "auditory", "glosses": {"well": "bien", "bien": "well"}},
-            {"en": "They (f) go to the store", "es": "Ellas van a la tienda", "noun_id": "tienda", "type": "written", "glosses": {}},
-            {"en": "You all give an answer", "es": "Ustedes dan una respuesta", "noun_id": None, "type": "auditory", "glosses": {"answer": "respuesta", "respuesta": "answer"}},
+            {"en": "You go to school", "es": "Tú vas a la escuela", "noun_id": None, "type": "written", "glosses": {"school": "escuela", "escuela": "school"}},
+            {"en": "I go to the park", "es": "Yo voy al parque", "noun_id": None, "type": "auditory", "glosses": {"park": "parque", "parque": "park"}},
+            {"en": "He goes to the market", "es": "Él va al mercado", "noun_id": None, "type": "written", "glosses": {"market": "mercado", "mercado": "market"}},
+            {"en": "We go to the beach", "es": "Nosotros vamos a la playa", "noun_id": None, "type": "auditory", "glosses": {"beach": "playa", "playa": "beach"}},
+            {"en": "They (f) go to the museum", "es": "Ellas van al museo", "noun_id": None, "type": "written", "glosses": {"museum": "museo", "museo": "museum"}},
+            {"en": "You give a gift", "es": "Tú das un regalo", "noun_id": None, "type": "written", "glosses": {"gift": "regalo", "regalo": "gift"}},
+            {"en": "I give water", "es": "Yo doy agua", "noun_id": None, "type": "auditory", "glosses": {"water": "agua", "agua": "water"}},
+            {"en": "He gives a book", "es": "Él da un libro", "noun_id": None, "type": "written", "glosses": {"book": "libro", "libro": "book"}},
+            {"en": "We give food", "es": "Nosotros damos comida", "noun_id": None, "type": "auditory", "glosses": {"food": "comida", "comida": "food"}},
+            {"en": "They (f) give flowers", "es": "Ellas dan flores", "noun_id": None, "type": "written", "glosses": {"flowers": "flores", "flores": "flowers"}},
         ],
-        "drill_targets": [
-            {"verb": "ser", "pronoun": "usted"}, {"verb": "ser", "pronoun": "ellos"},
-            {"verb": "estar", "pronoun": "yo"}, {"verb": "estar", "pronoun": "ellas"},
-            {"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "nosotros"},
-            {"verb": "dar", "pronoun": "ella"}, {"verb": "dar", "pronoun": "nosotras"},
-            {"verb": "tener", "pronoun": "ustedes"}, {"verb": "venir", "pronoun": "él"},
-        ],
+        "drill_targets": [{"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "yo"}, {"verb": "ir", "pronoun": "él"}, {"verb": "ir", "pronoun": "nosotros"}, {"verb": "ir", "pronoun": "ellas"}, {"verb": "dar", "pronoun": "tú"}, {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "él"}, {"verb": "dar", "pronoun": "nosotros"}, {"verb": "dar", "pronoun": "ellas"}],
         "phase_2_config": {
-            "description": "Irregular Present lesson 3: ser, estar, ir, dar, tener, venir",
-            "targets": [
-                {"verb": "ser", "pronoun": "usted"}, {"verb": "ser", "pronoun": "ellos"},
-                {"verb": "estar", "pronoun": "yo"}, {"verb": "estar", "pronoun": "ellas"},
-                {"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "nosotros"},
-                {"verb": "dar", "pronoun": "ella"}, {"verb": "dar", "pronoun": "nosotras"},
-                {"verb": "tener", "pronoun": "ustedes"}, {"verb": "venir", "pronoun": "él"},
-            ],
+            "description": "Irregular Present ir + dar (2/2): ir, dar",
+            "targets": [{"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "yo"}, {"verb": "ir", "pronoun": "él"}, {"verb": "ir", "pronoun": "nosotros"}, {"verb": "ir", "pronoun": "ellas"}, {"verb": "dar", "pronoun": "tú"}, {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "él"}, {"verb": "dar", "pronoun": "nosotros"}, {"verb": "dar", "pronoun": "ellas"}],
         },
-        "opener_en": "Do your neighbors have pets?",
-        "opener_es": "¿Tus vecinas tienen mascotas?",
+        "opener_en": "Do you give classes?",
+        "opener_es": "¿Das clases?",
     },
-    # --- GL 4: chat companion of `grammar_irregular_present_3` ---
-    "grammar_irregular_present_3_chat": {
-        "title": "Irregular Present (3/3) — Chat",
+
+    "grammar_irregular_present_tener_venir_1": {
+        "title": "Irregular Present — tener + venir (1/2)",
         "grammar_level": 4,
-        "lesson_number": 3.1,
+        "lesson_number": 5,
         "lesson_type": "conjugation",
-        "word_workload": ["ser", "estar", "ir", "dar", "tener", "venir"],
+        "word_workload": ["tener", "venir"],
+        "video_embed_id": "6jpCj97AHMN",
+        "drill_type": "conjugation",
+        "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_TENER_VENIR_INTRO,
+        "rule_chart": IRREGULAR_PRESENT_RULE,
+        "drill_config": {
+            "answers": {
+                "tener": {"yo": "ten|go", "tú": "t|ienes", "él": "t|iene", "ella": "t|iene", "usted": "t|iene", "nosotros": "ten|emos", "nosotras": "ten|emos", "ellos": "t|ienen", "ellas": "t|ienen", "ustedes": "t|ienen"},
+                "venir": {"yo": "ven|go", "tú": "v|ienes", "él": "v|iene", "ella": "v|iene", "usted": "v|iene", "nosotros": "ven|imos", "nosotras": "ven|imos", "ellos": "v|ienen", "ellas": "v|ienen", "ustedes": "v|ienen"},
+            },
+        },
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I have a red book", "es": "Yo tengo un libro rojo", "noun_id": None, "type": "written", "glosses": {"book": "libro", "red": "rojo", "libro": "book", "rojo": "red"}},
+            {"en": "You have two cats", "es": "Tú tienes dos gatos", "noun_id": None, "type": "auditory", "glosses": {"cats": "gatos", "gatos": "cats"}},
+            {"en": "She has a big house", "es": "Ella tiene una casa grande", "noun_id": None, "type": "written", "glosses": {"house": "casa", "big": "grande", "casa": "house", "grande": "big"}},
+            {"en": "We (f) have new friends", "es": "Nosotras tenemos amigas nuevas", "noun_id": None, "type": "auditory", "glosses": {"friends": "amigas", "new": "nuevas", "amigas": "friends", "nuevas": "new"}},
+            {"en": "You (pl) have many questions", "es": "Ustedes tienen muchas preguntas", "noun_id": None, "type": "written", "glosses": {"questions": "preguntas", "many": "muchas", "preguntas": "questions", "muchas": "many"}},
+            {"en": "I come from Spain", "es": "Yo vengo de España", "noun_id": None, "type": "written", "glosses": {"Spain": "España", "España": "Spain"}},
+            {"en": "You come early today", "es": "Tú vienes temprano hoy", "noun_id": None, "type": "auditory", "glosses": {"early": "temprano", "today": "hoy", "temprano": "early", "hoy": "today"}},
+            {"en": "She comes with her mother", "es": "Ella viene con su madre", "noun_id": None, "type": "written", "glosses": {"mother": "madre", "madre": "mother"}},
+            {"en": "We (f) come to the park", "es": "Nosotras venimos al parque", "noun_id": None, "type": "auditory", "glosses": {"park": "parque", "parque": "park"}},
+            {"en": "You (pl) come late every day", "es": "Ustedes vienen tarde todos los días", "noun_id": None, "type": "written", "glosses": {"late": "tarde", "every day": "todos los días", "tarde": "late", "todos los días": "every day"}},
+        ],
+        "drill_targets": [{"verb": "tener", "pronoun": "yo"}, {"verb": "tener", "pronoun": "tú"}, {"verb": "tener", "pronoun": "ella"}, {"verb": "tener", "pronoun": "nosotras"}, {"verb": "tener", "pronoun": "ustedes"}, {"verb": "venir", "pronoun": "yo"}, {"verb": "venir", "pronoun": "tú"}, {"verb": "venir", "pronoun": "ella"}, {"verb": "venir", "pronoun": "nosotras"}, {"verb": "venir", "pronoun": "ustedes"}],
+        "phase_2_config": {
+            "description": "Irregular Present tener + venir (1/2): tener, venir",
+            "targets": [{"verb": "tener", "pronoun": "yo"}, {"verb": "tener", "pronoun": "tú"}, {"verb": "tener", "pronoun": "ella"}, {"verb": "tener", "pronoun": "nosotras"}, {"verb": "tener", "pronoun": "ustedes"}, {"verb": "venir", "pronoun": "yo"}, {"verb": "venir", "pronoun": "tú"}, {"verb": "venir", "pronoun": "ella"}, {"verb": "venir", "pronoun": "nosotras"}, {"verb": "venir", "pronoun": "ustedes"}],
+        },
+        "opener_en": "Do you have time?",
+        "opener_es": "¿Tienes tiempo?",
+    },
+
+    "grammar_irregular_present_tener_venir_2": {
+        "title": "Irregular Present — tener + venir (2/2)",
+        "grammar_level": 4,
+        "lesson_number": 6,
+        "lesson_type": "conjugation",
+        "word_workload": ["tener", "venir"],
+        "video_embed_id": "6jpCj97AHMN",
+        "drill_type": "conjugation",
+        "tense": "present",
+        "rule_chart": IRREGULAR_PRESENT_RULE,
+        "drill_config": {
+            "answers": {
+                "tener": {"yo": "ten|go", "tú": "t|ienes", "él": "t|iene", "ella": "t|iene", "usted": "t|iene", "nosotros": "ten|emos", "nosotras": "ten|emos", "ellos": "t|ienen", "ellas": "t|ienen", "ustedes": "t|ienen"},
+                "venir": {"yo": "ven|go", "tú": "v|ienes", "él": "v|iene", "ella": "v|iene", "usted": "v|iene", "nosotros": "ven|imos", "nosotras": "ven|imos", "ellos": "v|ienen", "ellas": "v|ienen", "ustedes": "v|ienen"},
+            },
+        },
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "You have a small dog", "es": "Tú tienes un perro pequeño", "noun_id": None, "type": "written", "glosses": {"dog": "perro", "small": "pequeño", "pequeño": "small", "perro": "dog"}},
+            {"en": "I have two books", "es": "Yo tengo dos libros", "noun_id": None, "type": "auditory", "glosses": {"books": "libros", "libros": "books", "two": "dos", "dos": "two"}},
+            {"en": "He has a red car", "es": "Él tiene un coche rojo", "noun_id": None, "type": "written", "glosses": {"car": "coche", "red": "rojo", "rojo": "red", "coche": "car"}},
+            {"en": "We have a big house", "es": "Nosotros tenemos una casa grande", "noun_id": None, "type": "auditory", "glosses": {"house": "casa", "big": "grande", "grande": "big", "casa": "house"}},
+            {"en": "They (f) have three cats", "es": "Ellas tienen tres gatos", "noun_id": None, "type": "written", "glosses": {"cats": "gatos", "gatos": "cats", "three": "tres", "tres": "three"}},
+            {"en": "You come to the school", "es": "Tú vienes a la escuela", "noun_id": None, "type": "written", "glosses": {"school": "escuela", "escuela": "school"}},
+            {"en": "I come from the city", "es": "Yo vengo de la ciudad", "noun_id": None, "type": "auditory", "glosses": {"city": "ciudad", "ciudad": "city"}},
+            {"en": "He comes with his friend", "es": "Él viene con su amigo", "noun_id": None, "type": "written", "glosses": {"friend": "amigo", "amigo": "friend"}},
+            {"en": "We (m) come early today", "es": "Nosotros venimos temprano hoy", "noun_id": None, "type": "auditory", "glosses": {"early": "temprano", "temprano": "early", "today": "hoy", "hoy": "today"}},
+            {"en": "They (f) come from Spain", "es": "Ellas vienen de España", "noun_id": None, "type": "written", "glosses": {"Spain": "España", "España": "Spain"}},
+        ],
+        "drill_targets": [{"verb": "tener", "pronoun": "tú"}, {"verb": "tener", "pronoun": "yo"}, {"verb": "tener", "pronoun": "él"}, {"verb": "tener", "pronoun": "nosotros"}, {"verb": "tener", "pronoun": "ellas"}, {"verb": "venir", "pronoun": "tú"}, {"verb": "venir", "pronoun": "yo"}, {"verb": "venir", "pronoun": "él"}, {"verb": "venir", "pronoun": "nosotros"}, {"verb": "venir", "pronoun": "ellas"}],
+        "phase_2_config": {
+            "description": "Irregular Present tener + venir (2/2): tener, venir",
+            "targets": [{"verb": "tener", "pronoun": "tú"}, {"verb": "tener", "pronoun": "yo"}, {"verb": "tener", "pronoun": "él"}, {"verb": "tener", "pronoun": "nosotros"}, {"verb": "tener", "pronoun": "ellas"}, {"verb": "venir", "pronoun": "tú"}, {"verb": "venir", "pronoun": "yo"}, {"verb": "venir", "pronoun": "él"}, {"verb": "venir", "pronoun": "nosotros"}, {"verb": "venir", "pronoun": "ellas"}],
+        },
+        "opener_en": "When are you coming?",
+        "opener_es": "¿Cuándo vienes?",
+    },
+
+    "grammar_irregular_present_ser_estar_chat": {
+        "title": "Irregular Present — ser + estar Chat",
+        "grammar_level": 4,
+        "lesson_number": 2.5,
+        "lesson_type": "conjugation",
+        "word_workload": ["ser", "estar"],
         "video_embed_id": None,
         "drill_type": "skip",
         "tense": "present",
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
-        "phase_2_config": {'description': 'Irregular Present lesson 3: ser, estar, ir, dar, tener, venir', 'targets': [{'verb': 'ser', 'pronoun': 'usted'}, {'verb': 'ser', 'pronoun': 'ellos'}, {'verb': 'estar', 'pronoun': 'yo'}, {'verb': 'estar', 'pronoun': 'ellas'}, {'verb': 'ir', 'pronoun': 'tú'}, {'verb': 'ir', 'pronoun': 'nosotros'}, {'verb': 'dar', 'pronoun': 'ella'}, {'verb': 'dar', 'pronoun': 'nosotras'}, {'verb': 'tener', 'pronoun': 'ustedes'}, {'verb': 'venir', 'pronoun': 'él'}]},
+        "phase_2_config": {"description": "Irregular Present ser + estar chat: ser, estar", "targets": [{"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "ella"}, {"verb": "ser", "pronoun": "nosotras"}, {"verb": "ser", "pronoun": "ustedes"}, {"verb": "estar", "pronoun": "tú"}, {"verb": "estar", "pronoun": "yo"}, {"verb": "estar", "pronoun": "él"}, {"verb": "estar", "pronoun": "nosotros"}, {"verb": "estar", "pronoun": "ellas"}]},
     },
+
+    "grammar_irregular_present_ir_dar_chat": {
+        "title": "Irregular Present — ir + dar Chat",
+        "grammar_level": 4,
+        "lesson_number": 4.5,
+        "lesson_type": "conjugation",
+        "word_workload": ["ir", "dar"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {"description": "Irregular Present ir + dar chat: ir, dar", "targets": [{"verb": "ir", "pronoun": "yo"}, {"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "ella"}, {"verb": "ir", "pronoun": "nosotras"}, {"verb": "ir", "pronoun": "ustedes"}, {"verb": "dar", "pronoun": "tú"}, {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "él"}, {"verb": "dar", "pronoun": "nosotros"}, {"verb": "dar", "pronoun": "ellas"}]},
+    },
+
+    "grammar_irregular_present_tener_venir_chat": {
+        "title": "Irregular Present — tener + venir Chat",
+        "grammar_level": 4,
+        "lesson_number": 6.5,
+        "lesson_type": "conjugation",
+        "word_workload": ["tener", "venir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {"description": "Irregular Present tener + venir chat: tener, venir", "targets": [{"verb": "tener", "pronoun": "yo"}, {"verb": "tener", "pronoun": "tú"}, {"verb": "tener", "pronoun": "ella"}, {"verb": "tener", "pronoun": "nosotras"}, {"verb": "tener", "pronoun": "ustedes"}, {"verb": "venir", "pronoun": "tú"}, {"verb": "venir", "pronoun": "yo"}, {"verb": "venir", "pronoun": "él"}, {"verb": "venir", "pronoun": "nosotros"}, {"verb": "venir", "pronoun": "ellas"}]},
+    },
+
     # --- GL 4.1: Ser vs. Estar ---
     "grammar_ser_estar_rules": {
         "title": "Ser vs. Estar",
@@ -7478,11 +7755,11 @@ GRAMMAR_SITUATIONS = {
         },
         'drill_sentences': [
             {"en": "I used to speak Spanish", "es": "Yo hablaba español", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "You used to listen music", "es": "Tú escuchabas música", "noun_id": None, "type": "auditory", "glosses": {"music": "música", "música": "music"}},
+            {"en": "You used to listen to music", "es": "Tú escuchabas música", "noun_id": None, "type": "auditory", "glosses": {"music": "música", "música": "music"}},
             {"en": "He used to speak English", "es": "Él hablaba inglés", "noun_id": None, "type": "written", "glosses": {"English": "inglés", "inglés": "English"}},
-            {"en": "She used to listen the radio", "es": "Ella escuchaba la radio", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "She used to listen to the radio", "es": "Ella escuchaba la radio", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "You used to speak well", "es": "Usted hablaba bien", "noun_id": None, "type": "written", "glosses": {"well": "bien", "bien": "well"}},
-            {"en": "We used to listen a song", "es": "Nosotros escuchábamos una canción", "noun_id": None, "type": "auditory", "glosses": {"song": "canción", "canción": "song"}},
+            {"en": "We used to listen to a song", "es": "Nosotros escuchábamos una canción", "noun_id": None, "type": "auditory", "glosses": {"song": "canción", "canción": "song"}},
             {"en": "We (f) used to speak fast", "es": "Nosotras hablábamos rápido", "noun_id": None, "type": "written", "glosses": {"fast": "rápido", "rápido": "fast"}},
             {"en": "They used to listen well", "es": "Ellos escuchaban bien", "noun_id": None, "type": "auditory", "glosses": {"well": "bien", "bien": "well"}},
             {"en": "They (f) used to speak a lot", "es": "Ellas hablaban mucho", "noun_id": None, "type": "written", "glosses": {"a lot": "mucho", "mucho": "a lot"}},
