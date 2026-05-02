@@ -132,9 +132,9 @@ The frontend phase type is defined as: `type Phase = 'video' | 'drill' | 'learn'
 
 Every grammar chat lesson (`drill_type: "skip"`, `phases.2: True`) MUST satisfy these rules. Many of these regressed in the past — they're load-bearing UX requirements, not stylistic preferences.
 
-1. **Custom opener (no fallback to "How can I help you today?").** Every chat lesson appears in `app/data/grammar_chat_openers.py` with both `opener_es` and `opener_en` and a `scene` field. The opener must use the verbs / patterns drilled in the preceding drill lessons of the same sub-block — that's literally what the user just learned to deploy.
+1. **Custom opener (no fallback to "How can I help you today?").** Every chat lesson appears in `app/data/grammar_chat_openers.py` with both `opener_es` and `opener_en` and a `scene` field. The opener must use the verbs / patterns drilled in the preceding drill lessons of the same sub-block — that's literally what the user just learned to deploy. **When you add a new chat lesson, you also add an entry to `CHAT_OPENERS` — there is no "TODO add later". Skipping this falls through to the rainforest scene + "How can I help you today?", which is broken UX.**
 
-2. **Real-life scene, never the rainforest.** The default scene `"core"` (Eric in a Latin American rainforest) is for vocab encounters, not grammar chats. Grammar chats MUST set `scene` to one of the situational scenes in `SITUATION_ROLES` — e.g. `"small_talk"` (neighbor), `"groceries"` (cashier), `"restaurant"` (waiter), `"clothing"` (shop assistant), `"banking"` (teller), `"airport"` (check-in agent), `"mechanic"`, `"contractor"`, `"police"`, `"internet"` (technician). Pick the scene where the lesson's verbs would naturally come up: -ER verbs (drink/eat) → restaurant or groceries; reflexive (get up / get dressed) → small_talk; transactional (querer/poder) → groceries.
+2. **Real-life scene, never the rainforest.** The default scene `"core"` (Eric in a Latin American rainforest) is for vocab encounters, not grammar chats. Grammar chats MUST set `scene` to one of the situational scenes in `SITUATION_ROLES` — `small_talk` (neighbor), `groceries` (cashier), `restaurant` (waiter), `clothing` (shop assistant), `banking` (teller), `airport` (check-in agent), `mechanic`, `contractor`, `police`, `internet` (technician). Pick the scene where the lesson's verbs would naturally come up: -ER verbs (drink/eat) → restaurant or groceries; reflexive (get up / get dressed) → small_talk; transactional (querer/poder) → groceries; preterite of past events → small_talk.
 
 3. **Word checklist = drilled conjugations, NOT infinitives.** The "Use these words to progress" panel must display a random sample of **8 conjugations from the 2 preceding drill lessons** of the sub-block — e.g. for the AR chat, sample from the AR drill_1 + AR drill_2 drill_targets. Each chip shows the English conjugation (`"you speak"`, `"we eat"`, `"she lives"`) and is detected when the user says the Spanish form. Showing infinitives (`"to speak"`) defeats the lesson — the user just drilled `hablas`/`hablamos`/`hablan`, not `hablar`.
 
@@ -149,6 +149,25 @@ The daily grenade (`app/services/grenade_service.py`) generates a one-sentence S
 2. **Conjugated form, never the bare infinitive.** `_pick_grammar_form` returns a conjugated form from the latest drill (with the pipe delimiter stripped). When the target form is somehow an infinitive, the system prompt instructs the LLM to conjugate it for tú itself — never wrap it in another verb's periphrasis.
 
 3. **Cold-open viable.** The grenade is a question dropped on a stranger with no shared context. No demonstratives or possessives that need a referent (`¿Es tu perro?`, `¿Te gusta esto?` — both forbidden). Prefer general / habitual / preference framings (`¿Comes pescado?`, `¿Hablas inglés?`).
+
+### Verb-chart visual invariants
+
+The verb chart looks the **same** in every place it appears — drill_1 intro, drill_2 intro, refresh-time rule_chart, drill-time rule_chart. There is exactly one visual layout for every conjugation table; it never silently degrades.
+
+The canonical layout (`MinimalTable` in `RuleIntroPhase.tsx`, also produced by `RuleChart` `TableView` for conjugation-shaped tables):
+
+- **One mini-table per verb.** A drill that teaches two verbs renders two mini-tables stacked vertically, each titled with the verb and its EN gloss (`"hablar (to speak)"`).
+- **5 rows per mini-table**, in this exact order: `yo`, `tú`, `él / ella / usted`, `nosotros / nosotras`, `ellos / ellas / ustedes`.
+- **2 columns**: pronoun (left, gray, regular weight) + conjugated form (right, mono font, gray-900). Left-aligned. No center alignment.
+- **Endings in crimson** via `ConjugationCell` — the form data is pipe-encoded (`habl|o`); the renderer splits on `|` and applies the crimson Tailwind token to the suffix. Strings without `|` render unchanged.
+- **Optional footnote** below the table, italic gray-500.
+
+Tables that aren't pronoun-major conjugation tables (e.g. 4-column reference tables with a "Note" column, or comparison tables) keep their existing flat-row layout; the RuleChart `TableView` heuristically detects conjugation tables (first column header is "Pronoun", remaining columns look like single-word verbs with optional EN gloss in parens) and switches to the mini-table render only for those.
+
+Code paths that must stay aligned:
+- `components/grammar/RuleChart.tsx` `TableView` — produces stacked mini-tables for conjugation-shaped data, falls back to flat for everything else.
+- `app/[locale]/app/situation/[id]/learn/components/RuleIntroPhase.tsx` `MinimalTable` — same layout for the intro `mini_table` card kind.
+- BE: every conjugation lesson populates `intro_chart` AND `rule_chart` (the latter is hidden when intro fires, but is the fallback for refresh users).
 
 ### Conjugation lesson invariants
 

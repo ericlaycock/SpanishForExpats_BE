@@ -81,18 +81,30 @@ class TestSituationRoles:
             assert scene in SITUATION_ROLES, f"{grammar_id} maps to unknown scene '{scene}'"
 
     def test_legacy_grammar_situations_have_structures(self):
-        """Grammar situations without drill_targets have GRAMMAR_STRUCTURES entries."""
+        """Grammar situations without drill_targets have GRAMMAR_STRUCTURES entries.
+
+        Walks shorter and shorter prefix matches so a sub-block ID like
+        `grammar_pronouns_plural` falls back to `grammar_pronouns_plural` →
+        `grammar_pronouns_plural` (no match) → `grammar_pronouns` (match).
+        """
         for grammar_id in GRAMMAR_SCENE_MAP:
             cfg = GRAMMAR_SITUATIONS.get(grammar_id, {})
             has_drill_targets = bool(cfg.get("drill_targets"))
-            if not has_drill_targets:
-                struct = GRAMMAR_STRUCTURES.get(grammar_id)
-                if struct is None:
-                    base_name = "_".join(grammar_id.rsplit("_", 1)[:-1]) if grammar_id[-1].isdigit() else grammar_id
-                    struct = GRAMMAR_STRUCTURES.get(base_name)
-                assert struct is not None, f"{grammar_id} has no drill_targets and no GRAMMAR_STRUCTURES entry"
-                assert "grammar_structure" in struct
-                assert "examples" in struct
+            if has_drill_targets:
+                continue
+            struct = GRAMMAR_STRUCTURES.get(grammar_id)
+            if struct is None:
+                # Try progressively shorter prefixes by stripping trailing
+                # `_<token>` suffixes one at a time.
+                parts = grammar_id.split("_")
+                for i in range(len(parts) - 1, 0, -1):
+                    candidate = "_".join(parts[:i])
+                    struct = GRAMMAR_STRUCTURES.get(candidate)
+                    if struct is not None:
+                        break
+            assert struct is not None, f"{grammar_id} has no drill_targets and no GRAMMAR_STRUCTURES entry"
+            assert "grammar_structure" in struct
+            assert "examples" in struct
 
     def test_get_roles_for_main_situation(self):
         """get_roles_for_situation returns correct roles for main situations."""
@@ -125,7 +137,7 @@ class TestBuildSystemPrompt:
 
     def test_grammar_prompt_is_concise(self):
         """Grammar system prompt is short — targeting is via injected assistant messages."""
-        prompt = build_system_prompt("grammar", "grammar_regular_present_1", "spanish_text", alt_language=None)
+        prompt = build_system_prompt("grammar", "grammar_regular_present_ar_1", "spanish_text", alt_language=None)
         assert "grammar practice" in prompt.lower()
         assert "Speak in Spanish" in prompt
         assert "assistant messages" in prompt.lower()

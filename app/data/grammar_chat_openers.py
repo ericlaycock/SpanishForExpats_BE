@@ -299,4 +299,202 @@ CHAT_OPENERS: dict[str, dict[str, str]] = {
         "opener_es": "Tenemos dos cafés listos. ¿Se los llevo a la mesa o nos los tomamos en la barra?",
         "opener_en": "Two coffees are ready. Should I bring them to the table or have them at the bar?",
     },
+
+    # ── Phase C.3 sub-block chat openers ──
+    # GL 4.5 Irregular Present II
+    "grammar_irregular_present_ii_hacer_poner_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Qué haces los fines de semana? Yo pongo música y descanso.",
+        "opener_en": "What do you do on weekends? I put on music and relax.",
+    },
+    "grammar_irregular_present_ii_salir_decir_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Sales mucho los viernes? Mis amigos siempre dicen que sí.",
+        "opener_en": "Do you go out a lot on Fridays? My friends always say yes.",
+    },
+    "grammar_irregular_present_ii_oir_caer_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Oyes ese ruido? Algo se cae en la calle todas las noches.",
+        "opener_en": "Do you hear that noise? Something falls in the street every night.",
+    },
+    "grammar_irregular_present_ii_traer_valer_chat": {
+        "scene": "groceries",
+        "opener_es": "¿Trae su bolsa? La fruta de hoy vale la pena.",
+        "opener_en": "Did you bring your bag? Today's fruit is worth it.",
+    },
+
+    # GL 5 Spelling Changes
+    "grammar_spelling_changes_conocer_producir_chat": {
+        "scene": "contractor",
+        "opener_es": "¿Conoce a alguien que produzca buenos materiales? Necesitamos un proveedor nuevo.",
+        "opener_en": "Do you know anyone who produces good materials? We need a new supplier.",
+    },
+    "grammar_spelling_changes_construir_conseguir_chat": {
+        "scene": "contractor",
+        "opener_es": "¿Construye casas usted? Yo no consigo un buen contratista por aquí.",
+        "opener_en": "Do you build houses? I can't find a good contractor around here.",
+    },
+    "grammar_spelling_changes_recoger_dirigir_chat": {
+        "scene": "small_talk",
+        "opener_es": "Yo dirijo el coro del barrio. ¿Recoges a los niños del colegio hoy?",
+        "opener_en": "I run the neighborhood choir. Are you picking up the kids from school today?",
+    },
+    "grammar_spelling_changes_convencer_continuar_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Te convenzo de continuar con el plan? La idea es buena.",
+        "opener_en": "Can I convince you to keep going with the plan? The idea's a good one.",
+    },
+
+    # GL 6 o→ue
+    "grammar_present_o_ue_poder_volver_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Puedes volver el sábado? Yo no puedo trabajar ese día.",
+        "opener_en": "Can you come back on Saturday? I can't work that day.",
+    },
+    "grammar_present_o_ue_dormir_morir_chat": {
+        "scene": "small_talk",
+        "opener_es": "Me muero de sueño hoy. ¿Duermes bien tú últimamente?",
+        "opener_en": "I'm dying of sleepiness today. Have you been sleeping well lately?",
+    },
+    "grammar_present_o_ue_mover_almorzar_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Almuerza a esta hora siempre? Yo muevo el almuerzo según el día.",
+        "opener_en": "Do you always have lunch at this time? I move my lunch around depending on the day.",
+    },
+
+    # GL 7 e→ie
+    "grammar_present_e_ie_querer_pensar_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Qué quiere hoy? Pienso que el plato del día está rico.",
+        "opener_en": "What do you want today? I think the daily special is good.",
+    },
+    "grammar_present_e_ie_cerrar_empezar_chat": {
+        "scene": "small_talk",
+        "opener_es": "Cerramos a las ocho. ¿A qué hora empiezas tú mañana?",
+        "opener_en": "We close at eight. What time do you start tomorrow?",
+    },
+    "grammar_present_e_ie_entender_preferir_chat": {
+        "scene": "clothing",
+        "opener_es": "¿Entiende la talla europea? ¿Prefiere probarse el rojo o el azul?",
+        "opener_en": "Do you understand European sizing? Would you rather try the red or the blue?",
+    },
+
+    # GL 8 e→i
+    "grammar_present_e_i_pedir_servir_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Qué pide hoy? Le sirvo lo de siempre si quiere.",
+        "opener_en": "What are you ordering today? I'll serve you the usual if you want.",
+    },
+    "grammar_present_e_i_repetir_seguir_chat": {
+        "scene": "small_talk",
+        "opener_es": "Repito la pregunta: ¿sigues con el mismo plan o cambiaste?",
+        "opener_en": "Let me repeat the question — are you sticking with the plan or did you change it?",
+    },
+    "grammar_present_e_i_vestir_elegir_chat": {
+        "scene": "clothing",
+        "opener_es": "¿Cómo se viste para el trabajo? Yo elijo algo cómodo siempre.",
+        "opener_en": "How do you dress for work? I always pick something comfortable.",
+    },
+
+    # GL 9 ir + a + infinitive
+    "grammar_ir_a_inf_hablar_comer_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Va a comer aquí hoy? Voy a hablar con el chef sobre el especial.",
+        "opener_en": "Are you going to eat here today? I'm going to talk to the chef about the special.",
+    },
+    "grammar_ir_a_inf_vivir_escribir_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Vas a vivir aquí mucho tiempo? Yo voy a escribir un libro sobre el barrio.",
+        "opener_en": "Are you going to live here long? I'm going to write a book about the neighborhood.",
+    },
+    "grammar_ir_a_inf_dormir_estudiar_chat": {
+        "scene": "small_talk",
+        "opener_es": "Esta noche voy a dormir temprano. ¿Vas a estudiar mañana?",
+        "opener_en": "Tonight I'm going to sleep early. Are you going to study tomorrow?",
+    },
+
+    # GL 13.5 Imperatives
+    "grammar_imperatives_hablar_comer_chat": {
+        "scene": "restaurant",
+        "opener_es": "Habla con el chef y come algo rico. ¿Listo para pedir?",
+        "opener_en": "Talk to the chef and eat something tasty. Ready to order?",
+    },
+    "grammar_imperatives_tener_venir_chat": {
+        "scene": "small_talk",
+        "opener_es": "Ten paciencia y ven mañana, ¿vale? Hoy estoy ocupada.",
+        "opener_en": "Be patient and come back tomorrow, ok? I'm busy today.",
+    },
+
+    # GL 17 Preterite Regular
+    "grammar_preterite_regular_hablar_encontrar_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Hablaste con la vecina ayer? Yo encontré las llaves perdidas.",
+        "opener_en": "Did you talk to the neighbor yesterday? I found the lost keys.",
+    },
+    "grammar_preterite_regular_comer_beber_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Qué comió ayer aquí? Bebimos un vino muy rico anoche.",
+        "opener_en": "What did you eat here yesterday? We had a really nice wine last night.",
+    },
+    "grammar_preterite_regular_salir_unir_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Saliste el fin de semana? Toda la familia se unió en mi casa.",
+        "opener_en": "Did you go out over the weekend? The whole family got together at my place.",
+    },
+
+    # GL 17.1 Preterite Highly Irregular
+    "grammar_preterite_irregular_ser_ir_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Adónde fuiste de vacaciones? El año pasado fui a la costa.",
+        "opener_en": "Where did you go on vacation? Last year I went to the coast.",
+    },
+    "grammar_preterite_irregular_dar_ver_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Viste el partido anoche? Yo le di mi entrada a un amigo.",
+        "opener_en": "Did you see the game last night? I gave my ticket to a friend.",
+    },
+    "grammar_preterite_irregular_hacer_decir_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Qué hiciste el sábado? Mi hijo me dijo algo raro.",
+        "opener_en": "What did you do on Saturday? My son told me something strange.",
+    },
+    "grammar_preterite_irregular_traer_dormir_chat": {
+        "scene": "small_talk",
+        "opener_es": "¿Dormiste bien anoche? Mi vecino trajo música hasta tarde.",
+        "opener_en": "Did you sleep well last night? My neighbor brought music until late.",
+    },
+
+    # GL 18 Gerund
+    "grammar_gerund_hablar_caminar_chat": {
+        "scene": "small_talk",
+        "opener_es": "Estoy hablando con todos los vecinos hoy. ¿Estás caminando mucho últimamente?",
+        "opener_en": "I'm talking to all the neighbors today. Are you walking a lot lately?",
+    },
+    "grammar_gerund_comer_beber_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Qué está comiendo? Estoy bebiendo el vino que me recomendó.",
+        "opener_en": "What are you eating? I'm drinking the wine you recommended.",
+    },
+    "grammar_gerund_salir_inhibir_chat": {
+        "scene": "small_talk",
+        "opener_es": "Estoy saliendo más estos días. ¿Algo te está inhibiendo de venir conmigo?",
+        "opener_en": "I'm going out more these days. Is something stopping you from coming with me?",
+    },
+
+    # GL 18.5 Perfect Tenses
+    "grammar_perfect_tenses_present_perfect_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Ha comido aquí antes? Hemos cambiado el menú hace poco.",
+        "opener_en": "Have you eaten here before? We've changed the menu recently.",
+    },
+    "grammar_perfect_tenses_pluperfect_chat": {
+        "scene": "small_talk",
+        "opener_es": "Antes de mudarme aquí, había vivido en tres ciudades. ¿Y tú?",
+        "opener_en": "Before moving here, I had lived in three cities. What about you?",
+    },
+    "grammar_perfect_tenses_chat": {
+        "scene": "restaurant",
+        "opener_es": "¿Has probado el plato del día? Lo hemos preparado especialmente esta semana.",
+        "opener_en": "Have you tried today's special? We've prepared it specially this week.",
+    },
 }

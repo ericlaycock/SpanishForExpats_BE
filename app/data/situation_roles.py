@@ -230,6 +230,206 @@ GRAMMAR_STRUCTURES = {
             "What are you going to wear it for? We're going to get new stock next week.",
         ],
     },
+    "grammar_possessive_adj": {
+        "grammar_structure": "possessive adjectives (mi, tu, su, nuestro/nuestra) before nouns",
+        "examples": [
+            "Is this your card? Or is it your husband's?",
+            "Our policies require ID. Do you have yours?",
+            "My branch closes early on Fridays. What about your usual one?",
+        ],
+    },
+    "grammar_possessive_pronouns": {
+        "grammar_structure": "possessive pronouns (mío, tuyo, suyo, nuestro) standing alone",
+        "examples": [
+            "This account is mine. Is yours new or established?",
+            "The card on the desk — is it yours? Mine is in my wallet.",
+            "My signature is here, ours both go on the joint account.",
+        ],
+    },
+    "grammar_demonstratives": {
+        "grammar_structure": "demonstratives (este, ese, aquel and feminine/plural variants)",
+        "examples": [
+            "This avocado is ripe, that one's not. Want this or that?",
+            "These tomatoes are local; those over there are imported.",
+            "That bread by the window is from yesterday. This here is fresh.",
+        ],
+    },
+    "grammar_ser_estar_rules": {
+        "grammar_structure": "ser vs estar (ser = identity / permanent, estar = state / location)",
+        "examples": [
+            "Are you tired? You look it. Where are you from originally?",
+            "This dress is silk, but it's wrinkled — I can steam it. Is it for tonight?",
+            "The fitting room's over there. Are you ready to try it on?",
+        ],
+    },
+    "grammar_por_para": {
+        "grammar_structure": "por (cause / route / duration / exchange) vs para (recipient / deadline / destination)",
+        "examples": [
+            "Is this for your wife? You can pay for it by card if you'd like.",
+            "We deliver for free for orders over $50. When is it for?",
+            "Thanks for waiting. We close for an hour at lunch.",
+        ],
+    },
+    "grammar_saber_conocer": {
+        "grammar_structure": "saber (facts / how-to) vs conocer (familiarity with people / places / things)",
+        "examples": [
+            "Do you know my colleague? She knows the system better than I do.",
+            "I know how to check the balance — do you know your account number?",
+            "Have you been to our other branch? They know the regulars there.",
+        ],
+    },
+    "grammar_imperfect": {
+        "grammar_structure": "imperfect tense for habits / background / ongoing past actions (-aba, -ía endings)",
+        "examples": [
+            "When I was younger, we used to come here every Sunday. Did you grow up nearby?",
+            "We didn't have ATMs back then. How did you used to get cash?",
+            "My grandmother always cooked on Sundays. What did your family use to do?",
+        ],
+    },
+    "grammar_future": {
+        "grammar_structure": "simple future tense (-é, -ás, -á, -emos, -án; irregular roots tendr-, har-, dir-, etc.)",
+        "examples": [
+            "Will you be paying with this card? I'll process it now.",
+            "We'll have the new stock by Tuesday. What size will you need?",
+            "I'll call when it arrives. When will you be in the area?",
+        ],
+    },
+    "grammar_conditional": {
+        "grammar_structure": "conditional tense for hypotheticals / polite requests (-ía, -ías, etc.)",
+        "examples": [
+            "Could you sign here, please? I would also need a second ID.",
+            "What would you do if you got a third card? Would you still keep this one?",
+            "Would it be possible to come back tomorrow? It would be quicker.",
+        ],
+    },
+    "grammar_subj_pres": {
+        "grammar_structure": "present subjunctive after que / cuando / espero que / etc. (-e/-a opposite-vowel endings)",
+        "examples": [
+            "I hope you have a good experience. Want me to walk you through the menu?",
+            "When you're ready, just let me know. We don't want anyone to feel rushed.",
+            "It's important that you know we serve this fresh. Anything you'd like us to recommend?",
+        ],
+    },
+    "grammar_subj_impf": {
+        "grammar_structure": "imperfect subjunctive for past hypothesis / si-clauses (-ara, -iera endings)",
+        "examples": [
+            "If I were you, I'd take the lobster. What would you order if money were no object?",
+            "I wish you had told me you were vegetarian. Would you like me to bring something else?",
+            "If we had known you were coming, we'd have set a better table.",
+        ],
+    },
+    "grammar_imperatives": {
+        "grammar_structure": "tú affirmative imperative (3rd-person form for regulars; ten/ven/pon/sal/di/haz/ve/sé for irregulars) and usted (subjunctive)",
+        "examples": [
+            "Open the hood and tell me what you hear when I rev it.",
+            "Come back next week. Bring the receipt.",
+            "Listen to this — does it sound like the noise you described?",
+        ],
+    },
+    "grammar_reflexive": {
+        "grammar_structure": "reflexive verbs with me/te/se/nos pronouns (levantarse, ducharse, vestirse, sentirse)",
+        "examples": [
+            "What time do you usually wake up? My alarm goes off at six.",
+            "I get dressed in five minutes flat. How long does it take you?",
+            "Does the new neighbor introduce himself, or does he keep to himself?",
+        ],
+    },
+    "grammar_obj_direct": {
+        "grammar_structure": "direct object pronouns (lo, la, los, las) replacing the thing receiving the action",
+        "examples": [
+            "I have the receipt — do you want it? I can leave it here.",
+            "These keys — are they yours? I found them in the parking lot.",
+            "The shirt fits well. Are you taking it or leaving it?",
+        ],
+    },
+    "grammar_obj_indirect": {
+        "grammar_structure": "indirect object pronouns (me, te, le, nos, les) for the recipient of an action",
+        "examples": [
+            "I gave him the change. Did he give you the receipt back?",
+            "We're sending you a confirmation. Did the bank tell you the timeline?",
+            "I'll bring you a sample. Does this work for you?",
+        ],
+    },
+    "grammar_obj_combined": {
+        "grammar_structure": "combined indirect + direct object pronouns (te lo, me la, se lo) — IO before DO",
+        "examples": [
+            "I'll bring it to you tomorrow. Did they send it to you already?",
+            "She gave it to him last week. Have you given them yours?",
+            "Bring it to me when you get a chance. I'll explain it to you then.",
+        ],
+    },
+    "grammar_pret_vs_imperfect": {
+        "grammar_structure": "preterite (completed event) vs imperfect (ongoing/habitual past) contrast",
+        "examples": [
+            "I was driving when the alarm went off. What were you doing when it happened?",
+            "We always closed at six, but yesterday we stayed late. Did you used to come in?",
+            "She was crossing the street when the car hit her. Did you see what happened?",
+        ],
+    },
+    "grammar_pret_spelling": {
+        "grammar_structure": "preterite spelling-change yo forms (-gué, -qué, -cé) for -gar / -car / -zar verbs",
+        "examples": [
+            "I paid the deposit yesterday. Did you also pay yours?",
+            "I started the engine — it sputtered. When did the issue start for you?",
+            "I parked just outside. Where did you park?",
+        ],
+    },
+    "grammar_pret_strong": {
+        "grammar_structure": "preterite strong-stem irregulars (tuv-, pus-, hic-, dij-, quis-, vin-) with -e/-iste/-o endings",
+        "examples": [
+            "I had to call backup yesterday. Did you have any incidents on your shift?",
+            "I put the report on your desk. Where did you put yours?",
+            "We did the inspection at noon. What did you do during the wait?",
+        ],
+    },
+    "grammar_pret_ducir": {
+        "grammar_structure": "preterite -ducir verbs (produj-, traduj-, conduj-) — strong stem with -j-",
+        "examples": [
+            "I drove all night. Did you drive yourself or take a cab?",
+            "We translated the manual last spring. Have you translated documents before?",
+            "The factory produced 500 units this quarter. How many did yours produce?",
+        ],
+    },
+    "grammar_pret_e_to_i": {
+        "grammar_structure": "preterite e→i / o→u stem changes in 3rd person (pidió, sirvió, durmió)",
+        "examples": [
+            "He asked for the menu twice. Did you order yet?",
+            "She slept the whole flight. Did you sleep on the plane?",
+            "They served fish last night. What did you serve at home?",
+        ],
+    },
+    "grammar_gerund": {
+        "grammar_structure": "gerund / present participle (-ando, -iendo) for ongoing actions, often with estar",
+        "examples": [
+            "What are you reading these days? I'm working through a thriller.",
+            "Are you waiting for someone? I'm just looking around.",
+            "She's living abroad now — what is she doing there?",
+        ],
+    },
+    "grammar_perfect_tenses": {
+        "grammar_structure": "perfect tenses (haber + past participle) — present perfect (he hablado) and pluperfect (había hablado)",
+        "examples": [
+            "Have you eaten here before? We've added new dishes this season.",
+            "I had already ordered when she arrived. Have you been to the new place?",
+            "We had lived in three cities before settling here. Have you moved a lot?",
+        ],
+    },
+    "grammar_obj": {
+        "grammar_structure": "object pronouns (direct lo/la/los/las, indirect me/te/le/nos/les, and combined te lo / se la)",
+        "examples": [
+            "I'll send it to you tomorrow. Did they bring it to you?",
+            "Give me the receipt and I'll process it. Have you paid for it yet?",
+            "She told us about it. Have you told them yet?",
+        ],
+    },
+    "grammar_modal": {
+        "grammar_structure": "modal helpers + infinitive: tener que (have to), me toca (it's my turn), necesitar (need to)",
+        "examples": [
+            "I have to renew this card. What do you need to take care of today?",
+            "It's my turn to clean the office on Fridays. Whose turn is it at home?",
+            "We need to verify your address. Do you have proof of residence?",
+        ],
+    },
 }
 
 
