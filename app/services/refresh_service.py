@@ -54,7 +54,10 @@ def _pick_grammar_form(word_spanish: str, situation_id: str) -> Optional[str]:
     if not candidate_pronouns:
         candidate_pronouns = [p for p in forms_for_verb.keys()]
     chosen = random.choice(candidate_pronouns)
-    return forms_for_verb.get(chosen)
+    form = forms_for_verb.get(chosen)
+    # Strip the pipe delimiter — it's a content marker for crimson rendering
+    # in the verb chart, not part of the actual word the user types/hears.
+    return form.replace("|", "") if form else None
 
 
 def set_initial_mastery(

@@ -33,36 +33,42 @@ CHAT_OPENERS: dict[str, dict[str, str]] = {
         "opener_es": "¿Quiere el aguacate o la manzana? Hoy tengo unos buenos.",
         "opener_en": "Want the avocado or the apple? Got some good ones today.",
     },
-    "grammar_regular_present_1_chat": {
+    # GL 3 (Regular Present) — split into AR / ER / IR sub-blocks
+    "grammar_regular_present_ar_chat": {
         "scene": "small_talk",
-        "opener_es": "¿Hablas inglés en casa? ¿Y dónde vives ahora?",
-        "opener_en": "Do you speak English at home? Where do you live now?",
+        "opener_es": "¿Hablas inglés en casa? ¿Escuchas música o las noticias?",
+        "opener_en": "Do you speak English at home? Do you listen to music or the news?",
     },
-    "grammar_regular_present_2_chat": {
+    "grammar_regular_present_er_chat": {
         "scene": "small_talk",
-        "opener_es": "¿Escuchas música cuando comes? Yo escribo mejor sin ruido.",
-        "opener_en": "Do you listen to music while you eat? I write better in silence.",
+        "opener_es": "¿Bebes café o té? ¿Comes mucho a esta hora?",
+        "opener_en": "Do you drink coffee or tea? Do you eat much around this time?",
     },
-    "grammar_regular_present_3_chat": {
+    "grammar_regular_present_ir_chat": {
         "scene": "small_talk",
-        "opener_es": "Yo leo todas las noches. ¿Tú cantas o lees antes de dormir?",
-        "opener_en": "I read every night. Do you sing or read before bed?",
+        "opener_es": "¿Dónde vives? ¿Escribes mensajes o cartas?",
+        "opener_en": "Where do you live? Do you write messages or letters?",
     },
-    "grammar_irregular_present_1_chat": {
+
+    # GL 4 (Irregular Present I) — split into ser+estar / ir+dar / tener+venir
+    "grammar_irregular_present_ser_estar_chat": {
         "scene": "small_talk",
-        "opener_es": "¡Bienvenido! ¿De dónde eres? ¿Tienes familia aquí?",
-        "opener_en": "Welcome! Where are you from? Do you have family here?",
+        "opener_es": "¿De dónde eres? ¿Estás cansado del viaje?",
+        "opener_en": "Where are you from? Are you tired from the trip?",
     },
-    "grammar_irregular_present_2_chat": {
+    "grammar_irregular_present_ir_dar_chat": {
         "scene": "small_talk",
-        "opener_es": "¿A dónde vas hoy? ¿Vienes conmigo al mercado?",
-        "opener_en": "Where are you headed today? Want to come to the market with me?",
+        "opener_es": "¿A dónde vas hoy? ¿Le das el regalo a tu hermano?",
+        "opener_en": "Where are you going today? Are you giving the gift to your brother?",
     },
-    "grammar_irregular_present_3_chat": {
+    "grammar_irregular_present_tener_venir_chat": {
         "scene": "small_talk",
-        "opener_es": "Te ves cansado. ¿Estás bien? Te doy un café si quieres.",
-        "opener_en": "You look tired. You okay? I'll give you a coffee if you want.",
+        "opener_es": "¿Tienes familia aquí? ¿Vienes mucho al mercado?",
+        "opener_en": "Do you have family here? Do you come to the market often?",
     },
+
+    # NOTE: the old GL 3/4 chat keys above are retired — they no longer
+    # appear in GRAMMAR_SITUATIONS. New keys above replace them.
     "grammar_ser_estar_rules_chat": {
         "scene": "small_talk",
         "opener_es": "¿Eres de aquí? Pareces nervioso, ¿estás bien?",

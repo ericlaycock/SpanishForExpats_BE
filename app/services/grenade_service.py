@@ -202,6 +202,23 @@ CRITICAL — the question must work as a conversation starter:
   "¿Comes pescado?". If "come" (he/she eats), ask about a hypothetical 3rd
   person you might both know about: "¿Tu hermano come pescado?".
 
+VOCABULARY CONSTRAINT — the user is a beginner with a finite vocabulary:
+- You will be given a `learned_vocab` list of words the user has demonstrated
+  knowledge of. Restrict every content word in your question to this list,
+  PLUS the target form itself.
+- You may use closed-class function words freely: subject pronouns (yo, tú,
+  él, ella, usted, nosotros, ellos), articles (el, la, los, las, un, una),
+  pure prepositions (a, de, en, con, por, para), basic conjunctions (y, o,
+  pero, que), and question words (qué, cómo, cuándo, dónde, por qué).
+- DO NOT introduce verbs the user hasn't learned. Specifically, do not lean
+  on "gustar + infinitive" or "ir a + infinitive" framings unless gustar / ir
+  are already in learned_vocab.
+- If the target form is an infinitive, conjugate it for tú yourself and use
+  that conjugated form as the main verb. Don't wrap the infinitive in
+  another verb's periphrasis.
+- Keep questions SIMPLE: ≤ 8 words preferred. No subordinate clauses, no
+  flowery time/place qualifiers unless they really land.
+
 Audience rules:
 - "friend" → casual tú register, conversational tone.
 - "merchant" → polite usted register, framed for a shop, market, café, or
@@ -211,11 +228,19 @@ Output JSON only — no commentary, examples, or extra fields.
 """
 
 
-def _build_user_prompt(target_form: str, pos: Optional[str], audience: str) -> str:
+def _build_user_prompt(target_form: str, pos: Optional[str], audience: str,
+                       learned_vocab: Optional[list[str]] = None) -> str:
     pos_label = pos or "word"
+    vocab_line = ""
+    if learned_vocab:
+        # Cap the list at a reasonable size — 60 should give the LLM enough room
+        # without crowding the prompt.
+        vocab_str = ", ".join(learned_vocab[:60])
+        vocab_line = f"learned_vocab (Spanish words the user knows): [{vocab_str}]\n"
     return (
         f"Target form: {target_form}\n"
         f"Part of speech: {pos_label}\n"
+        f"{vocab_line}"
         f"Audience: {audience}\n\n"
         f"Return JSON: {{\"question_es\": \"...\", \"question_en\": \"...\"}}."
     )
@@ -234,7 +259,21 @@ async def generate_question(
     short-circuit on unchanged audience would silently no-op the
     re-craft button (which was the bug).
     """
-    user_prompt = _build_user_prompt(grenade.target_form, grenade.pos, audience)
+    # Pull the user's learned vocabulary so the LLM stays inside it.
+    # Beginner users have ~30-60 words; pulling the most-recently-touched 60
+    # captures both high-frequency and recent grammar-lesson verbs.
+    from app.models import UserWord, Word
+    learned_rows = (
+        db.query(Word.spanish)
+        .join(UserWord, UserWord.word_id == Word.id)
+        .filter(UserWord.user_id == grenade.user_id, UserWord.mastery_level >= 1)
+        .order_by(UserWord.updated_at.desc())
+        .limit(60)
+        .all()
+    )
+    learned_vocab = [row[0] for row in learned_rows if row[0]]
+
+    user_prompt = _build_user_prompt(grenade.target_form, grenade.pos, audience, learned_vocab)
     context = ConversationContext(
         request_id=request_id,
         user_id=str(grenade.user_id),
