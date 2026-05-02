@@ -1,6 +1,7 @@
 """LLM Gateway for chat completions with logging and replay"""
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
+import asyncio
 import json
 import time
 import uuid
@@ -147,7 +148,13 @@ async def generate_conversation(
         if context.max_tokens is not None:
             api_params["max_output_tokens"] = context.max_tokens
 
-        response = client.responses.create(**api_params)
+        # `client.responses.create` is the sync OpenAI SDK call; it does a
+        # blocking HTTP request to the Responses API. Inside an async
+        # handler that pins the event loop for 1–4s and starves every
+        # other concurrent request on the worker (voice-turn, hints,
+        # everything). Offload to a thread so other requests can
+        # interleave; the SDK is thread-safe.
+        response = await asyncio.to_thread(client.responses.create, **api_params)
 
         # Extract response — output_text excludes reasoning tokens
         import re
