@@ -4695,6 +4695,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": REGULAR_PRESENT_AR_INTRO,
         "rule_chart": REGULAR_PRESENT_AR_RULE,
         "drill_config": {
             "answers": {
@@ -4710,7 +4711,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I sing in Spanish", "es": "Yo canto en español", "noun_id": None, "type": "written",
@@ -4853,6 +4854,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": REGULAR_PRESENT_ER_INTRO,
         "rule_chart": REGULAR_PRESENT_ER_RULE,
         "drill_config": {
             "answers": {
@@ -4868,7 +4870,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I read a lot", "es": "Yo leo mucho", "noun_id": None, "type": "written",
@@ -5011,6 +5013,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": REGULAR_PRESENT_IR_INTRO,
         "rule_chart": REGULAR_PRESENT_IR_RULE,
         "drill_config": {
             "answers": {
@@ -5026,7 +5029,7 @@ GRAMMAR_SITUATIONS = {
                 },
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I open the door", "es": "Yo abro la puerta", "noun_id": None, "type": "written",
@@ -5150,6 +5153,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_SER_ESTAR_INTRO,
         "rule_chart": IRREGULAR_PRESENT_RULE,
         "drill_config": {
             "answers": {
@@ -5157,7 +5161,7 @@ GRAMMAR_SITUATIONS = {
                 "estar": {"yo": "est|oy", "tú": "est|ás", "él": "est|á", "ella": "est|á", "usted": "est|á", "nosotros": "est|amos", "nosotras": "est|amos", "ellos": "est|án", "ellas": "est|án", "ustedes": "est|án"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are a student", "es": "Tú eres estudiante", "noun_id": None, "type": "written", "glosses": {"student": "estudiante", "estudiante": "student"}},
@@ -5229,6 +5233,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_IR_DAR_INTRO,
         "rule_chart": IRREGULAR_PRESENT_RULE,
         "drill_config": {
             "answers": {
@@ -5236,7 +5241,7 @@ GRAMMAR_SITUATIONS = {
                 "dar": {"yo": "d|oy", "tú": "d|as", "él": "d|a", "ella": "d|a", "usted": "d|a", "nosotros": "d|amos", "nosotras": "d|amos", "ellos": "d|an", "ellas": "d|an", "ustedes": "d|an"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You go to school", "es": "Tú vas a la escuela", "noun_id": None, "type": "written", "glosses": {"school": "escuela", "escuela": "school"}},
@@ -5308,6 +5313,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_TENER_VENIR_INTRO,
         "rule_chart": IRREGULAR_PRESENT_RULE,
         "drill_config": {
             "answers": {
@@ -5315,7 +5321,7 @@ GRAMMAR_SITUATIONS = {
                 "venir": {"yo": "ven|go", "tú": "v|ienes", "él": "v|iene", "ella": "v|iene", "usted": "v|iene", "nosotros": "ven|imos", "nosotras": "ven|imos", "ellos": "v|ienen", "ellas": "v|ienen", "ustedes": "v|ienen"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You have a small dog", "es": "Tú tienes un perro pequeño", "noun_id": None, "type": "written", "glosses": {"dog": "perro", "small": "pequeño", "pequeño": "small", "perro": "dog"}},
@@ -13784,6 +13790,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Bg9XcrNn3LL",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_HACER_PONER_INTRO,
         "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
@@ -13791,7 +13798,7 @@ GRAMMAR_SITUATIONS = {
                 "poner": {"yo": "pon|go", "tú": "pon|es", "él": "pon|e", "ella": "pon|e", "usted": "pon|e", "nosotros": "pon|emos", "nosotras": "pon|emos", "ellos": "pon|en", "ellas": "pon|en", "ustedes": "pon|en"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You do the homework.", "es": "Tú haces la tarea.", "noun_id": None, "type": "written", "glosses": {"homework": "tarea", "tarea": "homework"}},
@@ -13863,6 +13870,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Bg9XcrNn3LL",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_SALIR_DECIR_INTRO,
         "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
@@ -13870,7 +13878,7 @@ GRAMMAR_SITUATIONS = {
                 "decir": {"yo": "di|go", "tú": "d|ices", "él": "d|ice", "ella": "d|ice", "usted": "d|ice", "nosotros": "dec|imos", "nosotras": "dec|imos", "ellos": "d|icen", "ellas": "d|icen", "ustedes": "d|icen"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You leave the house now.", "es": "Tú sales de la casa ahora.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "casa": "house"}},
@@ -13942,6 +13950,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Bg9XcrNn3LL",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_OIR_CAER_INTRO,
         "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
@@ -13949,7 +13958,7 @@ GRAMMAR_SITUATIONS = {
                 "caer": {"yo": "ca|igo", "tú": "ca|es", "él": "ca|e", "ella": "ca|e", "usted": "ca|e", "nosotros": "ca|emos", "nosotras": "ca|emos", "ellos": "ca|en", "ellas": "ca|en", "ustedes": "ca|en"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "Do you hear the music?", "es": "¿Tú oyes la música?", "noun_id": None, "type": "written", "glosses": {"music": "música", "música": "music"}},
@@ -14021,6 +14030,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Bg9XcrNn3LL",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": IRREGULAR_PRESENT_II_TRAER_VALER_INTRO,
         "rule_chart": IRREGULAR_PRESENT_II_RULE,
         "drill_config": {
             "answers": {
@@ -14028,7 +14038,7 @@ GRAMMAR_SITUATIONS = {
                 "valer": {"yo": "val|go", "tú": "val|es", "él": "val|e", "ella": "val|e", "usted": "val|e", "nosotros": "val|emos", "nosotras": "val|emos", "ellos": "val|en", "ellas": "val|en", "ustedes": "val|en"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You bring the books.", "es": "Tú traes los libros.", "noun_id": None, "type": "written", "glosses": {"books": "libros", "libros": "books"}},
@@ -14158,6 +14168,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_CONOCER_PRODUCIR_INTRO,
         "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
@@ -14165,7 +14176,7 @@ GRAMMAR_SITUATIONS = {
                 "producir": {"yo": "produz|co", "tú": "produc|es", "él": "produc|e", "ella": "produc|e", "usted": "produc|e", "nosotros": "produc|imos", "nosotras": "produc|imos", "ellos": "produc|en", "ellas": "produc|en", "ustedes": "produc|en"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You know the city well.", "es": "Tú conoces bien la ciudad.", "noun_id": None, "type": "written", "glosses": {"city": "ciudad", "well": "bien", "ciudad": "city", "bien": "well"}},
@@ -14237,6 +14248,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_CONSTRUIR_CONSEGUIR_INTRO,
         "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
@@ -14244,7 +14256,7 @@ GRAMMAR_SITUATIONS = {
                 "conseguir": {"yo": "consig|o", "tú": "consig|ues", "él": "consig|ue", "ella": "consig|ue", "usted": "consig|ue", "nosotros": "conseg|uimos", "nosotras": "conseg|uimos", "ellos": "consig|uen", "ellas": "consig|uen", "ustedes": "consig|uen"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You build a new house.", "es": "Tú construyes una casa nueva.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "new": "nueva", "casa": "house", "nueva": "new"}},
@@ -14316,6 +14328,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_RECOGER_DIRIGIR_INTRO,
         "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
@@ -14323,7 +14336,7 @@ GRAMMAR_SITUATIONS = {
                 "dirigir": {"yo": "diri|jo", "tú": "dirig|es", "él": "dirig|e", "ella": "dirig|e", "usted": "dirig|e", "nosotros": "dirig|imos", "nosotras": "dirig|imos", "ellos": "dirig|en", "ellas": "dirig|en", "ustedes": "dirig|en"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You pick up the red apples.", "es": "Tú recoges las manzanas rojas.", "noun_id": None, "type": "written", "glosses": {"apples": "manzanas", "red": "rojas", "manzanas": "apples", "rojas": "red"}},
@@ -14395,6 +14408,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": SPELLING_CHANGES_CONVENCER_CONTINUAR_INTRO,
         "rule_chart": SPELLING_CHANGES_RULE,
         "drill_config": {
             "answers": {
@@ -14402,7 +14416,7 @@ GRAMMAR_SITUATIONS = {
                 "continuar": {"yo": "contin|úo", "tú": "contin|úas", "él": "contin|úa", "ella": "contin|úa", "usted": "contin|úa", "nosotros": "contin|uamos", "nosotras": "contin|uamos", "ellos": "contin|úan", "ellas": "contin|úan", "ustedes": "contin|úan"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You convince the teacher.", "es": "Tú convences al profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
@@ -14532,6 +14546,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "9JFpAFFVQzc",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_O_UE_PODER_VOLVER_INTRO,
         "rule_chart": PRESENT_O_UE_RULE,
         "drill_config": {
             "answers": {
@@ -14539,7 +14554,7 @@ GRAMMAR_SITUATIONS = {
                 "volver": {"yo": "v|uelvo", "tú": "v|uelves", "él": "v|uelve", "ella": "v|uelve", "usted": "v|uelve", "nosotros": "volv|emos", "nosotras": "volv|emos", "ellos": "v|uelven", "ellas": "v|uelven", "ustedes": "v|uelven"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You can speak Spanish.", "es": "Tú puedes hablar español.", "noun_id": None, "type": "written", "glosses": {"Spanish": "español", "spanish": "español", "español": "Spanish"}},
@@ -14611,6 +14626,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "9JFpAFFVQzc",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_O_UE_DORMIR_MORIR_INTRO,
         "rule_chart": PRESENT_O_UE_RULE,
         "drill_config": {
             "answers": {
@@ -14618,7 +14634,7 @@ GRAMMAR_SITUATIONS = {
                 "morir": {"yo": "m|uero", "tú": "m|ueres", "él": "m|uere", "ella": "m|uere", "usted": "m|uere", "nosotros": "mor|imos", "nosotras": "mor|imos", "ellos": "m|ueren", "ellas": "m|ueren", "ustedes": "m|ueren"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You sleep well.", "es": "Tú duermes bien.", "noun_id": None, "type": "written", "glosses": {"well": "bien", "bien": "well"}},
@@ -14690,6 +14706,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "9JFpAFFVQzc",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_O_UE_MOVER_ALMORZAR_INTRO,
         "rule_chart": PRESENT_O_UE_RULE,
         "drill_config": {
             "answers": {
@@ -14697,7 +14714,7 @@ GRAMMAR_SITUATIONS = {
                 "almorzar": {"yo": "alm|uerzo", "tú": "alm|uerzas", "él": "alm|uerza", "ella": "alm|uerza", "usted": "alm|uerza", "nosotros": "almorz|amos", "nosotras": "almorz|amos", "ellos": "alm|uerzan", "ellas": "alm|uerzan", "ustedes": "alm|uerzan"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You move the table.", "es": "Tú mueves la mesa.", "noun_id": None, "type": "written", "glosses": {"table": "mesa", "mesa": "table"}},
@@ -14813,6 +14830,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "rk0AwBA9PEa",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_IE_QUERER_PENSAR_INTRO,
         "rule_chart": PRESENT_E_IE_RULE,
         "drill_config": {
             "answers": {
@@ -14820,7 +14838,7 @@ GRAMMAR_SITUATIONS = {
                 "pensar": {"yo": "p|ienso", "tú": "p|iensas", "él": "p|iensa", "ella": "p|iensa", "usted": "p|iensa", "nosotros": "pens|amos", "nosotras": "pens|amos", "ellos": "p|iensan", "ellas": "p|iensan", "ustedes": "p|iensan"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You want a coffee.", "es": "Tú quieres un café.", "noun_id": None, "type": "written", "glosses": {"coffee": "café", "café": "coffee"}},
@@ -14892,6 +14910,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "rk0AwBA9PEa",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_IE_CERRAR_EMPEZAR_INTRO,
         "rule_chart": PRESENT_E_IE_RULE,
         "drill_config": {
             "answers": {
@@ -14899,7 +14918,7 @@ GRAMMAR_SITUATIONS = {
                 "empezar": {"yo": "emp|iezo", "tú": "emp|iezas", "él": "emp|ieza", "ella": "emp|ieza", "usted": "emp|ieza", "nosotros": "empez|amos", "nosotras": "empez|amos", "ellos": "emp|iezan", "ellas": "emp|iezan", "ustedes": "emp|iezan"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You close the door.", "es": "Tú cierras la puerta.", "noun_id": None, "type": "written", "glosses": {"door": "puerta", "puerta": "door"}},
@@ -14971,6 +14990,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "rk0AwBA9PEa",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_IE_ENTENDER_PREFERIR_INTRO,
         "rule_chart": PRESENT_E_IE_RULE,
         "drill_config": {
             "answers": {
@@ -14978,7 +14998,7 @@ GRAMMAR_SITUATIONS = {
                 "preferir": {"yo": "pref|iero", "tú": "pref|ieres", "él": "pref|iere", "ella": "pref|iere", "usted": "pref|iere", "nosotros": "prefer|imos", "nosotras": "prefer|imos", "ellos": "pref|ieren", "ellas": "pref|ieren", "ustedes": "pref|ieren"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You understand the question.", "es": "Tú entiendes la pregunta.", "noun_id": None, "type": "written", "glosses": {"question": "pregunta", "pregunta": "question"}},
@@ -15094,6 +15114,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "L8M2P3RDsfx",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_I_PEDIR_SERVIR_INTRO,
         "rule_chart": PRESENT_E_I_RULE,
         "drill_config": {
             "answers": {
@@ -15101,7 +15122,7 @@ GRAMMAR_SITUATIONS = {
                 "servir": {"yo": "s|irvo", "tú": "s|irves", "él": "s|irve", "ella": "s|irve", "usted": "s|irve", "nosotros": "serv|imos", "nosotras": "serv|imos", "ellos": "s|irven", "ellas": "s|irven", "ustedes": "s|irven"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "Do you ask for the menu?", "es": "¿Pides el menú?", "noun_id": None, "type": "written", "glosses": {"menu": "menú", "menú": "menu"}},
@@ -15173,6 +15194,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "L8M2P3RDsfx",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_I_REPETIR_SEGUIR_INTRO,
         "rule_chart": PRESENT_E_I_RULE,
         "drill_config": {
             "answers": {
@@ -15180,7 +15202,7 @@ GRAMMAR_SITUATIONS = {
                 "seguir": {"yo": "s|igo", "tú": "s|igues", "él": "s|igue", "ella": "s|igue", "usted": "s|igue", "nosotros": "segu|imos", "nosotras": "segu|imos", "ellos": "s|iguen", "ellas": "s|iguen", "ustedes": "s|iguen"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You repeat the question.", "es": "Tú repites la pregunta.", "noun_id": None, "type": "written", "glosses": {"question": "pregunta", "pregunta": "question"}},
@@ -15252,6 +15274,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "L8M2P3RDsfx",
         "drill_type": "conjugation",
         "tense": "present",
+        "intro_chart": PRESENT_E_I_VESTIR_ELEGIR_INTRO,
         "rule_chart": PRESENT_E_I_RULE,
         "drill_config": {
             "answers": {
@@ -15259,7 +15282,7 @@ GRAMMAR_SITUATIONS = {
                 "elegir": {"yo": "el|ijo", "tú": "el|iges", "él": "el|ige", "ella": "el|ige", "usted": "el|ige", "nosotros": "eleg|imos", "nosotras": "eleg|imos", "ellos": "el|igen", "ellas": "el|igen", "ustedes": "el|igen"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You dress quickly.", "es": "Tú vistes rápido.", "noun_id": None, "type": "written", "glosses": {"quickly": "rápido", "rápido": "quickly"}},
@@ -15375,6 +15398,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
         "tense": "ir_a_infinitive",
+        "intro_chart": IR_A_INF_HABLAR_COMER_INTRO,
         "rule_chart": IR_A_INF_RULE,
         "drill_config": {
             "answers": {
@@ -15382,7 +15406,7 @@ GRAMMAR_SITUATIONS = {
                 "comer": {"yo": "|voy a comer", "tú": "|vas a comer", "él": "|va a comer", "ella": "|va a comer", "usted": "|va a comer", "nosotros": "|vamos a comer", "nosotras": "|vamos a comer", "ellos": "|van a comer", "ellas": "|van a comer", "ustedes": "|van a comer"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are going to speak with the teacher.", "es": "Tú vas a hablar con el profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
@@ -15454,6 +15478,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
         "tense": "ir_a_infinitive",
+        "intro_chart": IR_A_INF_VIVIR_ESCRIBIR_INTRO,
         "rule_chart": IR_A_INF_RULE,
         "drill_config": {
             "answers": {
@@ -15461,7 +15486,7 @@ GRAMMAR_SITUATIONS = {
                 "escribir": {"yo": "|voy a escribir", "tú": "|vas a escribir", "él": "|va a escribir", "ella": "|va a escribir", "usted": "|va a escribir", "nosotros": "|vamos a escribir", "nosotras": "|vamos a escribir", "ellos": "|van a escribir", "ellas": "|van a escribir", "ustedes": "|van a escribir"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are going to live in Madrid.", "es": "Tú vas a vivir en Madrid.", "noun_id": None, "type": "written", "glosses": {"Madrid": "Madrid"}},
@@ -15533,6 +15558,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "geHPDI9tMdH",
         "drill_type": "ir_a_inf",
         "tense": "ir_a_infinitive",
+        "intro_chart": IR_A_INF_DORMIR_ESTUDIAR_INTRO,
         "rule_chart": IR_A_INF_RULE,
         "drill_config": {
             "answers": {
@@ -15540,7 +15566,7 @@ GRAMMAR_SITUATIONS = {
                 "estudiar": {"yo": "|voy a estudiar", "tú": "|vas a estudiar", "él": "|va a estudiar", "ella": "|va a estudiar", "usted": "|va a estudiar", "nosotros": "|vamos a estudiar", "nosotras": "|vamos a estudiar", "ellos": "|van a estudiar", "ellas": "|van a estudiar", "ustedes": "|van a estudiar"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are going to sleep early.", "es": "Tú vas a dormir temprano.", "noun_id": None, "type": "written", "glosses": {"early": "temprano", "temprano": "early"}},
@@ -15656,6 +15682,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "conjugation",
         "tense": "imperative",
+        "intro_chart": IMPERATIVES_HABLAR_COMER_INTRO,
         "rule_chart": IMPERATIVES_RULE,
         "drill_config": {
             "answers": {
@@ -15663,7 +15690,7 @@ GRAMMAR_SITUATIONS = {
                 "comer": {"tú": "com|e", "usted": "com|a", "nosotros": "com|amos", "ustedes": "com|an"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "Speak slowly, please.", "es": "Hable despacio, por favor.", "noun_id": None, "type": "written", "glosses": {"slowly": "despacio", "despacio": "slowly"}},
@@ -15735,6 +15762,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "conjugation",
         "tense": "imperative",
+        "intro_chart": IMPERATIVES_TENER_VENIR_INTRO,
         "rule_chart": IMPERATIVES_RULE,
         "drill_config": {
             "answers": {
@@ -15742,7 +15770,7 @@ GRAMMAR_SITUATIONS = {
                 "venir": {"tú": "|ven", "usted": "ven|ga", "nosotros": "ven|gamos", "ustedes": "ven|gan"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "Have patience, please.", "es": "Tenga paciencia, por favor.", "noun_id": None, "type": "written", "glosses": {"patience": "paciencia", "paciencia": "patience"}},
@@ -15844,6 +15872,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_REGULAR_HABLAR_ENCONTRAR_INTRO,
         "rule_chart": PRETERITE_REGULAR_RULE,
         "drill_config": {
             "answers": {
@@ -15851,7 +15880,7 @@ GRAMMAR_SITUATIONS = {
                 "encontrar": {"yo": "encontr|é", "tú": "encontr|aste", "él": "encontr|ó", "ella": "encontr|ó", "usted": "encontr|ó", "nosotros": "encontr|amos", "nosotras": "encontr|amos", "ellos": "encontr|aron", "ellas": "encontr|aron", "ustedes": "encontr|aron"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You spoke with the teacher.", "es": "Tú hablaste con el profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
@@ -15923,6 +15952,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_REGULAR_COMER_BEBER_INTRO,
         "rule_chart": PRETERITE_REGULAR_RULE,
         "drill_config": {
             "answers": {
@@ -15930,7 +15960,7 @@ GRAMMAR_SITUATIONS = {
                 "beber": {"yo": "beb|í", "tú": "beb|iste", "él": "beb|ió", "ella": "beb|ió", "usted": "beb|ió", "nosotros": "beb|imos", "nosotras": "beb|imos", "ellos": "beb|ieron", "ellas": "beb|ieron", "ustedes": "beb|ieron"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You ate the red apple.", "es": "Tú comiste la manzana roja.", "noun_id": None, "type": "written", "glosses": {"apple": "manzana", "red": "roja", "manzana": "apple", "roja": "red"}},
@@ -16002,6 +16032,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "uBOH6A3vO0U",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_REGULAR_SALIR_UNIR_INTRO,
         "rule_chart": PRETERITE_REGULAR_RULE,
         "drill_config": {
             "answers": {
@@ -16009,7 +16040,7 @@ GRAMMAR_SITUATIONS = {
                 "unir": {"yo": "un|í", "tú": "un|iste", "él": "un|ió", "ella": "un|ió", "usted": "un|ió", "nosotros": "un|imos", "nosotras": "un|imos", "ellos": "un|ieron", "ellas": "un|ieron", "ustedes": "un|ieron"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You left the house early.", "es": "Tú saliste de la casa temprano.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "early": "temprano", "casa": "house", "temprano": "early"}},
@@ -16125,6 +16156,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_SER_IR_INTRO,
         "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
@@ -16132,7 +16164,7 @@ GRAMMAR_SITUATIONS = {
                 "ir": {"yo": "|fui", "tú": "|fuiste", "él": "|fue", "ella": "|fue", "usted": "|fue", "nosotros": "|fuimos", "nosotras": "|fuimos", "ellos": "|fueron", "ellas": "|fueron", "ustedes": "|fueron"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You were the teacher.", "es": "Tú fuiste el profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
@@ -16204,6 +16236,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_DAR_VER_INTRO,
         "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
@@ -16211,7 +16244,7 @@ GRAMMAR_SITUATIONS = {
                 "ver": {"yo": "v|i", "tú": "v|iste", "él": "v|io", "ella": "v|io", "usted": "v|io", "nosotros": "v|imos", "nosotras": "v|imos", "ellos": "v|ieron", "ellas": "v|ieron", "ustedes": "v|ieron"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You gave her a red book.", "es": "Tú le diste un libro rojo.", "noun_id": None, "type": "written", "glosses": {"book": "libro", "red": "rojo", "libro": "book", "rojo": "red"}},
@@ -16283,6 +16316,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_HACER_DECIR_INTRO,
         "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
@@ -16290,7 +16324,7 @@ GRAMMAR_SITUATIONS = {
                 "decir": {"yo": "dij|e", "tú": "dij|iste", "él": "dij|o", "ella": "dij|o", "usted": "dij|o", "nosotros": "dij|imos", "nosotras": "dij|imos", "ellos": "dij|eron", "ellas": "dij|eron", "ustedes": "dij|eron"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You made a cake.", "es": "Tú hiciste un pastel.", "noun_id": None, "type": "written", "glosses": {"cake": "pastel", "pastel": "cake"}},
@@ -16362,6 +16396,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Ib68zJ3q7i8",
         "drill_type": "conjugation",
         "tense": "preterite",
+        "intro_chart": PRETERITE_IRREGULAR_TRAER_DORMIR_INTRO,
         "rule_chart": PRETERITE_IRREGULAR_RULE,
         "drill_config": {
             "answers": {
@@ -16369,7 +16404,7 @@ GRAMMAR_SITUATIONS = {
                 "dormir": {"yo": "dorm|í", "tú": "dorm|iste", "él": "d|urmió", "ella": "d|urmió", "usted": "d|urmió", "nosotros": "dorm|imos", "nosotras": "dorm|imos", "ellos": "d|urmieron", "ellas": "d|urmieron", "ustedes": "d|urmieron"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You brought the books.", "es": "Tú trajiste los libros.", "noun_id": None, "type": "written", "glosses": {"books": "libros", "libros": "books"}},
@@ -16499,6 +16534,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
         "tense": "gerund",
+        "intro_chart": GERUND_HABLAR_CAMINAR_INTRO,
         "rule_chart": GERUND_RULE,
         "drill_config": {
             "answers": {
@@ -16506,7 +16542,7 @@ GRAMMAR_SITUATIONS = {
                 "caminar": {"yo": "est|oy caminando", "tú": "est|ás caminando", "él": "est|á caminando", "ella": "est|á caminando", "usted": "est|á caminando", "nosotros": "est|amos caminando", "nosotras": "est|amos caminando", "ellos": "est|án caminando", "ellas": "est|án caminando", "ustedes": "est|án caminando"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are speaking Spanish.", "es": "Tú estás hablando español.", "noun_id": None, "type": "written", "glosses": {"Spanish": "español", "español": "Spanish"}},
@@ -16578,6 +16614,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
         "tense": "gerund",
+        "intro_chart": GERUND_COMER_BEBER_INTRO,
         "rule_chart": GERUND_RULE,
         "drill_config": {
             "answers": {
@@ -16585,7 +16622,7 @@ GRAMMAR_SITUATIONS = {
                 "beber": {"yo": "est|oy bebiendo", "tú": "est|ás bebiendo", "él": "est|á bebiendo", "ella": "est|á bebiendo", "usted": "est|á bebiendo", "nosotros": "est|amos bebiendo", "nosotras": "est|amos bebiendo", "ellos": "est|án bebiendo", "ellas": "est|án bebiendo", "ustedes": "est|án bebiendo"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are eating an apple.", "es": "Tú estás comiendo una manzana.", "noun_id": None, "type": "written", "glosses": {"apple": "manzana", "manzana": "apple"}},
@@ -16657,6 +16694,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "Xpma6w0jy7m",
         "drill_type": "conjugation",
         "tense": "gerund",
+        "intro_chart": GERUND_SALIR_INHIBIR_INTRO,
         "rule_chart": GERUND_RULE,
         "drill_config": {
             "answers": {
@@ -16664,7 +16702,7 @@ GRAMMAR_SITUATIONS = {
                 "inhibir": {"yo": "est|oy inhibiendo", "tú": "est|ás inhibiendo", "él": "est|á inhibiendo", "ella": "est|á inhibiendo", "usted": "est|á inhibiendo", "nosotros": "est|amos inhibiendo", "nosotras": "est|amos inhibiendo", "ellos": "est|án inhibiendo", "ellas": "est|án inhibiendo", "ustedes": "est|án inhibiendo"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You are leaving the house.", "es": "Tú estás saliendo de la casa.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "casa": "house"}},
@@ -16780,6 +16818,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "conjugation",
         "tense": "perfect",
+        "intro_chart": PERFECT_TENSES_PRESENT_INTRO,
         "rule_chart": PERFECT_TENSES_RULE,
         "drill_config": {
             "answers": {
@@ -16787,7 +16826,7 @@ GRAMMAR_SITUATIONS = {
                 "comer": {"yo": "|he comido", "tú": "|has comido", "él": "|ha comido", "ella": "|ha comido", "usted": "|ha comido", "nosotros": "|hemos comido", "nosotras": "|hemos comido", "ellos": "|han comido", "ellas": "|han comido", "ustedes": "|han comido"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You have spoken Spanish.", "es": "Tú has hablado español.", "noun_id": None, "type": "written", "glosses": {"Spanish": "español", "español": "Spanish"}},
@@ -16859,6 +16898,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": None,
         "drill_type": "conjugation",
         "tense": "perfect",
+        "intro_chart": PERFECT_TENSES_PLUPERFECT_INTRO,
         "rule_chart": PERFECT_TENSES_RULE,
         "drill_config": {
             "answers": {
@@ -16866,7 +16906,7 @@ GRAMMAR_SITUATIONS = {
                 "vivir": {"yo": "|había vivido", "tú": "|habías vivido", "él": "|había vivido", "ella": "|había vivido", "usted": "|había vivido", "nosotros": "|habíamos vivido", "nosotras": "|habíamos vivido", "ellos": "|habían vivido", "ellas": "|habían vivido", "ustedes": "|habían vivido"},
             },
         },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "You had spoken with the teacher.", "es": "Tú habías hablado con el profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
