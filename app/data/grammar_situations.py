@@ -210,6 +210,137 @@ REGULAR_PRESENT_RULE = {
     "footnote": "All three families share the yo (-o) form. -er and -ir differ only in the nosotros row.",
 }
 
+# --- GL 3 sub-blocks: per-family slide packs (-AR only, then -ER, then -IR) ---
+# Each sub-block is 2 drills + 1 chat. The intro_chart appears on the first drill
+# of each block; the rule_chart stays for both drills as a reference. The "|" in
+# verb forms marks the stem/ending boundary so the FE can render endings in
+# crimson (see ConjugationCell).
+
+REGULAR_PRESENT_AR_INTRO = {
+    "kind": "cards",
+    "title": "Regular present — -AR verbs",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Verbs change to match who",
+            "body": "In Spanish, the verb itself tells you who is doing the action. The infinitive form (the dictionary form, like *hablar* — to speak) drops its ending and gets a new one based on the subject.",
+        },
+        {
+            "kind": "text",
+            "title": "Three families: -ar, -er, -ir — starting with -ar",
+            "body": "Every Spanish infinitive ends in **-ar**, **-er**, or **-ir**. Each family takes its own endings. We'll start with the most common: **-ar** verbs (hablar, escuchar, cantar, trabajar…).",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Drop -ar, add the new ending",
+            "sections": [
+                {"heading": "-AR endings (example: hablar)", "items": [
+                    "yo → habl|o",
+                    "tú → habl|as",
+                    "él / ella / usted → habl|a",
+                    "nosotros / nosotras → habl|amos",
+                    "ellos / ellas / ustedes → habl|an",
+                ]},
+            ],
+            "footnote": "The stem (habl-) stays the same. Only the ending changes with the subject.",
+        },
+    ],
+}
+
+REGULAR_PRESENT_AR_RULE = {
+    "kind": "table",
+    "title": "Regular present — -AR endings",
+    "headers": ["Pronoun", "hablar", "escuchar"],
+    "rows": [
+        ["yo", "habl|o", "escuch|o"],
+        ["tú", "habl|as", "escuch|as"],
+        ["él / ella / usted", "habl|a", "escuch|a"],
+        ["nosotros / nosotras", "habl|amos", "escuch|amos"],
+        ["ellos / ellas / ustedes", "habl|an", "escuch|an"],
+    ],
+    "footnote": "Every regular -ar verb follows this pattern. Drop -ar, add -o / -as / -a / -amos / -an.",
+}
+
+REGULAR_PRESENT_ER_INTRO = {
+    "kind": "cards",
+    "title": "Regular present — -ER verbs",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Now: -er verbs",
+            "body": "You already know the -ar pattern. -er verbs (beber, comer, leer, aprender…) work the same way — drop the ending, add a new one — but the endings are different.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Drop -er, add the new ending",
+            "sections": [
+                {"heading": "-ER endings (example: beber)", "items": [
+                    "yo → beb|o",
+                    "tú → beb|es",
+                    "él / ella / usted → beb|e",
+                    "nosotros / nosotras → beb|emos",
+                    "ellos / ellas / ustedes → beb|en",
+                ]},
+            ],
+            "footnote": "Yo still ends in -o (same as -ar). The other forms swap the -a for -e: -es, -e, -emos, -en.",
+        },
+    ],
+}
+
+REGULAR_PRESENT_ER_RULE = {
+    "kind": "table",
+    "title": "Regular present — -ER endings",
+    "headers": ["Pronoun", "beber", "comer"],
+    "rows": [
+        ["yo", "beb|o", "com|o"],
+        ["tú", "beb|es", "com|es"],
+        ["él / ella / usted", "beb|e", "com|e"],
+        ["nosotros / nosotras", "beb|emos", "com|emos"],
+        ["ellos / ellas / ustedes", "beb|en", "com|en"],
+    ],
+    "footnote": "Every regular -er verb follows this pattern. Drop -er, add -o / -es / -e / -emos / -en.",
+}
+
+REGULAR_PRESENT_IR_INTRO = {
+    "kind": "cards",
+    "title": "Regular present — -IR verbs",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "Last family: -ir verbs",
+            "body": "-ir verbs (vivir, escribir, abrir, recibir…) share almost every ending with -er. The only difference is the *nosotros* form: -er says **-emos**, -ir says **-imos**.",
+        },
+        {
+            "kind": "rule_pack",
+            "title": "Drop -ir, add the new ending",
+            "sections": [
+                {"heading": "-IR endings (example: vivir)", "items": [
+                    "yo → viv|o",
+                    "tú → viv|es",
+                    "él / ella / usted → viv|e",
+                    "nosotros / nosotras → viv|imos",
+                    "ellos / ellas / ustedes → viv|en",
+                ]},
+            ],
+            "footnote": "Same as -er except nosotros: -emos (beb|emos) vs -imos (viv|imos).",
+        },
+    ],
+}
+
+REGULAR_PRESENT_IR_RULE = {
+    "kind": "table",
+    "title": "Regular present — -IR endings",
+    "headers": ["Pronoun", "vivir", "escribir"],
+    "rows": [
+        ["yo", "viv|o", "escrib|o"],
+        ["tú", "viv|es", "escrib|es"],
+        ["él / ella / usted", "viv|e", "escrib|e"],
+        ["nosotros / nosotras", "viv|imos", "escrib|imos"],
+        ["ellos / ellas / ustedes", "viv|en", "escrib|en"],
+    ],
+    "footnote": "Every regular -ir verb follows this pattern. Drop -ir, add -o / -es / -e / -imos / -en.",
+}
+
 # --- GL 1.5: Possessive Adjectives (intro only — rule chart already exists per lesson) ---
 POSSESSIVE_ADJ_INTRO = {
     "kind": "cards",
@@ -1820,34 +1951,42 @@ GRAMMAR_SITUATIONS = {
             "targets": [{"word": w} for w in ["el", "la", "los", "las", "un", "una", "unos", "unas"]],
         },
     },
-    # --- GL 3: Regular Present — 3 lessons (1 -ar + 1 -er + 1 -ir each) ---
-    "grammar_regular_present_1": {
-        "title": "Regular Present (1/3)",
+    # --- GL 3: Regular Present — split into per-family sub-blocks ---
+    # Each sub-block is 2 drills + 1 chat. Sequence: AR (lesson 1-2.5) →
+    # ER (3-4.5) → IR (5-6.5). Verbs are pipe-encoded (stem|ending) so the
+    # FE renders endings in crimson; see ConjugationCell.
+    #
+    # RETIRED 2026-05-02 — replaced by the per-family sub-blocks below:
+    #   grammar_regular_present_1, _1_chat, _2, _2_chat, _3, _3_chat
+    # These IDs are intentionally absent from GRAMMAR_SITUATIONS so the
+    # dashboard's "next lesson" pointer skips them. DB rows referencing
+    # them are untouched (per the "never change situation IDs" rule);
+    # get_grammar_config() returns None for unknown IDs and the FE handles
+    # None as "no active lesson".
+
+    # --- AR sub-block ---
+    "grammar_regular_present_ar_1": {
+        "title": "Regular Present — -AR (1/2)",
         "grammar_level": 3,
         "lesson_number": 1,
         "lesson_type": "conjugation",
-        "word_workload": ["hablar", "beber", "vivir"],
+        "word_workload": ["hablar", "escuchar"],
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
-        "intro_chart": REGULAR_PRESENT_INTRO,
-        "rule_chart": REGULAR_PRESENT_RULE,
+        "intro_chart": REGULAR_PRESENT_AR_INTRO,
+        "rule_chart": REGULAR_PRESENT_AR_RULE,
         "drill_config": {
             "answers": {
                 "hablar": {
-                    "yo": "hablo", "tú": "hablas", "él": "habla", "ella": "habla",
-                    "usted": "habla", "nosotros": "hablamos", "nosotras": "hablamos",
-                    "ellos": "hablan", "ellas": "hablan", "ustedes": "hablan",
+                    "yo": "habl|o", "tú": "habl|as", "él": "habl|a", "ella": "habl|a",
+                    "usted": "habl|a", "nosotros": "habl|amos", "nosotras": "habl|amos",
+                    "ellos": "habl|an", "ellas": "habl|an", "ustedes": "habl|an",
                 },
-                "beber": {
-                    "yo": "bebo", "tú": "bebes", "él": "bebe", "ella": "bebe",
-                    "usted": "bebe", "nosotros": "bebemos", "nosotras": "bebemos",
-                    "ellos": "beben", "ellas": "beben", "ustedes": "beben",
-                },
-                "vivir": {
-                    "yo": "vivo", "tú": "vives", "él": "vive", "ella": "vive",
-                    "usted": "vive", "nosotros": "vivimos", "nosotras": "vivimos",
-                    "ellos": "viven", "ellas": "viven", "ustedes": "viven",
+                "escuchar": {
+                    "yo": "escuch|o", "tú": "escuch|as", "él": "escuch|a", "ella": "escuch|a",
+                    "usted": "escuch|a", "nosotros": "escuch|amos", "nosotras": "escuch|amos",
+                    "ellos": "escuch|an", "ellas": "escuch|an", "ustedes": "escuch|an",
                 },
             },
         },
@@ -1855,155 +1994,57 @@ GRAMMAR_SITUATIONS = {
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I speak Spanish", "es": "Yo hablo español", "noun_id": None, "type": "written"},
-            {"en": "You drink water", "es": "Tú bebes agua", "noun_id": None, "type": "auditory"},
-            {"en": "He lives here", "es": "Él vive aquí", "noun_id": None, "type": "written"},
-            {"en": "She speaks English", "es": "Ella habla inglés", "noun_id": None, "type": "auditory"},
-            {"en": "You drink coffee", "es": "Usted bebe café", "noun_id": "café", "type": "written"},
-            {"en": "We live nearby", "es": "Nosotros vivimos cerca", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) speak well", "es": "Nosotras hablamos bien", "noun_id": None, "type": "written"},
-            {"en": "They drink juice", "es": "Ellos beben jugo", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) live together", "es": "Ellas viven juntos", "noun_id": None, "type": "written"},
-            {"en": "You all speak fast", "es": "Ustedes hablan rápido", "noun_id": None, "type": "auditory"},
+            {"en": "You speak fast", "es": "Tú hablas rápido", "noun_id": None, "type": "auditory"},
+            {"en": "She speaks English", "es": "Ella habla inglés", "noun_id": None, "type": "written"},
+            {"en": "We (f) speak well", "es": "Nosotras hablamos bien", "noun_id": None, "type": "auditory"},
+            {"en": "You all speak a lot", "es": "Ustedes hablan mucho", "noun_id": None, "type": "written"},
+            {"en": "I listen the radio", "es": "Yo escucho la radio", "noun_id": None, "type": "auditory"},
+            {"en": "You listen music", "es": "Tú escuchas música", "noun_id": None, "type": "written"},
+            {"en": "He listens the song", "es": "Él escucha la canción", "noun_id": None, "type": "auditory"},
+            {"en": "We listen carefully", "es": "Nosotros escuchamos atentamente", "noun_id": None, "type": "written"},
+            {"en": "They (f) listen the news", "es": "Ellas escuchan la noticia", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
-            {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "ella"},
-            {"verb": "hablar", "pronoun": "ustedes"}, {"verb": "beber", "pronoun": "tú"},
-            {"verb": "beber", "pronoun": "nosotras"}, {"verb": "beber", "pronoun": "él"},
-            {"verb": "vivir", "pronoun": "usted"}, {"verb": "vivir", "pronoun": "nosotros"},
-            {"verb": "vivir", "pronoun": "ellas"}, {"verb": "vivir", "pronoun": "ellos"},
+            {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "tú"},
+            {"verb": "hablar", "pronoun": "ella"}, {"verb": "hablar", "pronoun": "nosotras"},
+            {"verb": "hablar", "pronoun": "ustedes"}, {"verb": "escuchar", "pronoun": "yo"},
+            {"verb": "escuchar", "pronoun": "tú"}, {"verb": "escuchar", "pronoun": "él"},
+            {"verb": "escuchar", "pronoun": "nosotros"}, {"verb": "escuchar", "pronoun": "ellas"},
         ],
         "phase_2_config": {
-            "description": "Regular Present lesson 1: hablar (-ar), beber (-er), vivir (-ir)",
+            "description": "Regular Present -AR (1/2): hablar, escuchar",
             "targets": [
-                {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "ella"},
-                {"verb": "hablar", "pronoun": "ustedes"}, {"verb": "beber", "pronoun": "tú"},
-                {"verb": "beber", "pronoun": "nosotras"}, {"verb": "beber", "pronoun": "él"},
-                {"verb": "vivir", "pronoun": "usted"}, {"verb": "vivir", "pronoun": "nosotros"},
-                {"verb": "vivir", "pronoun": "ellas"}, {"verb": "vivir", "pronoun": "ellos"},
+                {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "tú"},
+                {"verb": "hablar", "pronoun": "ella"}, {"verb": "hablar", "pronoun": "nosotras"},
+                {"verb": "hablar", "pronoun": "ustedes"}, {"verb": "escuchar", "pronoun": "yo"},
+                {"verb": "escuchar", "pronoun": "tú"}, {"verb": "escuchar", "pronoun": "él"},
+                {"verb": "escuchar", "pronoun": "nosotros"}, {"verb": "escuchar", "pronoun": "ellas"},
             ],
         },
         "opener_en": "Do you speak English?",
         "opener_es": "¿Hablas inglés?",
     },
-    # --- GL 3: chat companion of `grammar_regular_present_1` ---
-    "grammar_regular_present_1_chat": {
-        "title": "Regular Present (1/3) — Chat",
-        "grammar_level": 3,
-        "lesson_number": 1.1,
-        "lesson_type": "conjugation",
-        "word_workload": ["hablar", "beber", "vivir"],
-        "video_embed_id": None,
-        "drill_type": "skip",
-        "tense": "present",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
-        "drill_sentences": [],
-        "phase_2_config": {'description': 'Regular Present lesson 1: hablar (-ar), beber (-er), vivir (-ir)', 'targets': [{'verb': 'hablar', 'pronoun': 'yo'}, {'verb': 'hablar', 'pronoun': 'ella'}, {'verb': 'hablar', 'pronoun': 'ustedes'}, {'verb': 'beber', 'pronoun': 'tú'}, {'verb': 'beber', 'pronoun': 'nosotras'}, {'verb': 'beber', 'pronoun': 'él'}, {'verb': 'vivir', 'pronoun': 'usted'}, {'verb': 'vivir', 'pronoun': 'nosotros'}, {'verb': 'vivir', 'pronoun': 'ellas'}, {'verb': 'vivir', 'pronoun': 'ellos'}]},
-    },
-    "grammar_regular_present_2": {
-        "title": "Regular Present (2/3)",
+    "grammar_regular_present_ar_2": {
+        "title": "Regular Present — -AR (2/2)",
         "grammar_level": 3,
         "lesson_number": 2,
         "lesson_type": "conjugation",
-        "word_workload": ["escuchar", "comer", "escribir"],
+        "word_workload": ["cantar", "escuchar"],
         "video_embed_id": "6jpCj97AHMN",
         "drill_type": "conjugation",
         "tense": "present",
-        "intro_chart": REGULAR_PRESENT_INTRO,
-        "rule_chart": REGULAR_PRESENT_RULE,
-        "drill_config": {
-            "answers": {
-                "escuchar": {
-                    "yo": "escucho", "tú": "escuchas", "él": "escucha", "ella": "escucha",
-                    "usted": "escucha", "nosotros": "escuchamos", "nosotras": "escuchamos",
-                    "ellos": "escuchan", "ellas": "escuchan", "ustedes": "escuchan",
-                },
-                "comer": {
-                    "yo": "como", "tú": "comes", "él": "come", "ella": "come",
-                    "usted": "come", "nosotros": "comemos", "nosotras": "comemos",
-                    "ellos": "comen", "ellas": "comen", "ustedes": "comen",
-                },
-                "escribir": {
-                    "yo": "escribo", "tú": "escribes", "él": "escribe", "ella": "escribe",
-                    "usted": "escribe", "nosotros": "escribimos", "nosotras": "escribimos",
-                    "ellos": "escriben", "ellas": "escriben", "ustedes": "escriben",
-                },
-            },
-        },
-        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
-        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
-        "drill_sentences": [
-            {"en": "I listen the radio", "es": "Yo escucho la radio", "noun_id": None, "type": "written"},
-            {"en": "You eat food", "es": "Tú comes comida", "noun_id": None, "type": "auditory"},
-            {"en": "He writes a book", "es": "Él escribe un libro", "noun_id": "libro", "type": "written"},
-            {"en": "She listens a song", "es": "Ella escucha una canción", "noun_id": None, "type": "auditory"},
-            {"en": "You eat fruit", "es": "Usted come fruta", "noun_id": None, "type": "written"},
-            {"en": "We write messages", "es": "Nosotros escribimos mensajes", "noun_id": None, "type": "auditory"},
-            {"en": "We (f) listen well", "es": "Nosotras escuchamos bien", "noun_id": None, "type": "written"},
-            {"en": "They eat meat", "es": "Ellos comen carne", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) write names", "es": "Ellas escriben nombres", "noun_id": "nombre", "type": "written"},
-            {"en": "You all listen carefully", "es": "Ustedes escuchan atentamente", "noun_id": None, "type": "auditory"},
-        ],
-        "drill_targets": [
-            {"verb": "escuchar", "pronoun": "yo"}, {"verb": "escuchar", "pronoun": "usted"},
-            {"verb": "escuchar", "pronoun": "ellas"}, {"verb": "comer", "pronoun": "tú"},
-            {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ella"},
-            {"verb": "escribir", "pronoun": "él"}, {"verb": "escribir", "pronoun": "nosotras"},
-            {"verb": "escribir", "pronoun": "ustedes"}, {"verb": "escribir", "pronoun": "ellos"},
-        ],
-        "phase_2_config": {
-            "description": "Regular Present lesson 2: escuchar (-ar), comer (-er), escribir (-ir)",
-            "targets": [
-                {"verb": "escuchar", "pronoun": "yo"}, {"verb": "escuchar", "pronoun": "usted"},
-                {"verb": "escuchar", "pronoun": "ellas"}, {"verb": "comer", "pronoun": "tú"},
-                {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ella"},
-                {"verb": "escribir", "pronoun": "él"}, {"verb": "escribir", "pronoun": "nosotras"},
-                {"verb": "escribir", "pronoun": "ustedes"}, {"verb": "escribir", "pronoun": "ellos"},
-            ],
-        },
-        "opener_en": "What do you eat for lunch?",
-        "opener_es": "¿Qué comes para el almuerzo?",
-    },
-    # --- GL 3: chat companion of `grammar_regular_present_2` ---
-    "grammar_regular_present_2_chat": {
-        "title": "Regular Present (2/3) — Chat",
-        "grammar_level": 3,
-        "lesson_number": 2.1,
-        "lesson_type": "conjugation",
-        "word_workload": ["escuchar", "comer", "escribir"],
-        "video_embed_id": None,
-        "drill_type": "skip",
-        "tense": "present",
-        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
-        "drill_sentences": [],
-        "phase_2_config": {'description': 'Regular Present lesson 2: escuchar (-ar), comer (-er), escribir (-ir)', 'targets': [{'verb': 'escuchar', 'pronoun': 'yo'}, {'verb': 'escuchar', 'pronoun': 'usted'}, {'verb': 'escuchar', 'pronoun': 'ellas'}, {'verb': 'comer', 'pronoun': 'tú'}, {'verb': 'comer', 'pronoun': 'nosotros'}, {'verb': 'comer', 'pronoun': 'ella'}, {'verb': 'escribir', 'pronoun': 'él'}, {'verb': 'escribir', 'pronoun': 'nosotras'}, {'verb': 'escribir', 'pronoun': 'ustedes'}, {'verb': 'escribir', 'pronoun': 'ellos'}]},
-    },
-    "grammar_regular_present_3": {
-        "title": "Regular Present (3/3)",
-        "grammar_level": 3,
-        "lesson_number": 3,
-        "lesson_type": "conjugation",
-        "word_workload": ["cantar", "leer", "abrir"],
-        "video_embed_id": "6jpCj97AHMN",
-        "drill_type": "conjugation",
-        "tense": "present",
-        "intro_chart": REGULAR_PRESENT_INTRO,
-        "rule_chart": REGULAR_PRESENT_RULE,
+        "rule_chart": REGULAR_PRESENT_AR_RULE,
         "drill_config": {
             "answers": {
                 "cantar": {
-                    "yo": "canto", "tú": "cantas", "él": "canta", "ella": "canta",
-                    "usted": "canta", "nosotros": "cantamos", "nosotras": "cantamos",
-                    "ellos": "cantan", "ellas": "cantan", "ustedes": "cantan",
+                    "yo": "cant|o", "tú": "cant|as", "él": "cant|a", "ella": "cant|a",
+                    "usted": "cant|a", "nosotros": "cant|amos", "nosotras": "cant|amos",
+                    "ellos": "cant|an", "ellas": "cant|an", "ustedes": "cant|an",
                 },
-                "leer": {
-                    "yo": "leo", "tú": "lees", "él": "lee", "ella": "lee",
-                    "usted": "lee", "nosotros": "leemos", "nosotras": "leemos",
-                    "ellos": "leen", "ellas": "leen", "ustedes": "leen",
-                },
-                "abrir": {
-                    "yo": "abro", "tú": "abres", "él": "abre", "ella": "abre",
-                    "usted": "abre", "nosotros": "abrimos", "nosotras": "abrimos",
-                    "ellos": "abren", "ellas": "abren", "ustedes": "abren",
+                "escuchar": {
+                    "yo": "escuch|o", "tú": "escuch|as", "él": "escuch|a", "ella": "escuch|a",
+                    "usted": "escuch|a", "nosotros": "escuch|amos", "nosotras": "escuch|amos",
+                    "ellos": "escuch|an", "ellas": "escuch|an", "ustedes": "escuch|an",
                 },
             },
         },
@@ -2011,49 +2052,330 @@ GRAMMAR_SITUATIONS = {
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
             {"en": "I sing in Spanish", "es": "Yo canto en español", "noun_id": None, "type": "written"},
-            {"en": "You read a lot", "es": "Tú lees mucho", "noun_id": None, "type": "auditory"},
-            {"en": "He opens the store", "es": "Él abre la tienda", "noun_id": "tienda", "type": "written"},
-            {"en": "She sings together", "es": "Ella canta juntos", "noun_id": None, "type": "auditory"},
-            {"en": "You read out loud", "es": "Usted lee en voz alta", "noun_id": None, "type": "written"},
-            {"en": "We open the book", "es": "Nosotros abrimos el libro", "noun_id": "libro", "type": "auditory"},
-            {"en": "We (f) sing loudly", "es": "Nosotras cantamos alto", "noun_id": None, "type": "written"},
-            {"en": "They read fast", "es": "Ellos leen rápido", "noun_id": None, "type": "auditory"},
-            {"en": "They (f) open the box", "es": "Ellas abren la caja", "noun_id": None, "type": "written"},
-            {"en": "You all sing a song", "es": "Ustedes cantan una canción", "noun_id": None, "type": "auditory"},
+            {"en": "You sing well", "es": "Tú cantas bien", "noun_id": None, "type": "auditory"},
+            {"en": "She sings loudly", "es": "Ella canta alto", "noun_id": None, "type": "written"},
+            {"en": "We (f) sing together", "es": "Nosotras cantamos juntas", "noun_id": None, "type": "auditory"},
+            {"en": "They sing a song", "es": "Ellos cantan una canción", "noun_id": None, "type": "written"},
+            {"en": "I listen attentively", "es": "Yo escucho atentamente", "noun_id": None, "type": "auditory"},
+            {"en": "You listen the news", "es": "Tú escuchas la noticia", "noun_id": None, "type": "written"},
+            {"en": "He listens his teacher", "es": "Él escucha a su maestro", "noun_id": None, "type": "auditory"},
+            {"en": "We listen the music", "es": "Nosotros escuchamos la música", "noun_id": None, "type": "written"},
+            {"en": "You all listen carefully", "es": "Ustedes escuchan con cuidado", "noun_id": None, "type": "auditory"},
         ],
         "drill_targets": [
-            {"verb": "cantar", "pronoun": "yo"}, {"verb": "cantar", "pronoun": "nosotras"},
-            {"verb": "cantar", "pronoun": "ustedes"}, {"verb": "leer", "pronoun": "tú"},
-            {"verb": "leer", "pronoun": "ella"}, {"verb": "leer", "pronoun": "ellos"},
-            {"verb": "abrir", "pronoun": "él"}, {"verb": "abrir", "pronoun": "usted"},
-            {"verb": "abrir", "pronoun": "nosotros"}, {"verb": "abrir", "pronoun": "ellas"},
+            {"verb": "cantar", "pronoun": "yo"}, {"verb": "cantar", "pronoun": "tú"},
+            {"verb": "cantar", "pronoun": "ella"}, {"verb": "cantar", "pronoun": "nosotras"},
+            {"verb": "cantar", "pronoun": "ellos"}, {"verb": "escuchar", "pronoun": "yo"},
+            {"verb": "escuchar", "pronoun": "tú"}, {"verb": "escuchar", "pronoun": "él"},
+            {"verb": "escuchar", "pronoun": "nosotros"}, {"verb": "escuchar", "pronoun": "ustedes"},
         ],
         "phase_2_config": {
-            "description": "Regular Present lesson 3: cantar (-ar), leer (-er), abrir (-ir)",
+            "description": "Regular Present -AR (2/2): cantar, escuchar",
             "targets": [
-                {"verb": "cantar", "pronoun": "yo"}, {"verb": "cantar", "pronoun": "nosotras"},
-                {"verb": "cantar", "pronoun": "ustedes"}, {"verb": "leer", "pronoun": "tú"},
-                {"verb": "leer", "pronoun": "ella"}, {"verb": "leer", "pronoun": "ellos"},
-                {"verb": "abrir", "pronoun": "él"}, {"verb": "abrir", "pronoun": "usted"},
-                {"verb": "abrir", "pronoun": "nosotros"}, {"verb": "abrir", "pronoun": "ellas"},
+                {"verb": "cantar", "pronoun": "yo"}, {"verb": "cantar", "pronoun": "tú"},
+                {"verb": "cantar", "pronoun": "ella"}, {"verb": "cantar", "pronoun": "nosotras"},
+                {"verb": "cantar", "pronoun": "ellos"}, {"verb": "escuchar", "pronoun": "yo"},
+                {"verb": "escuchar", "pronoun": "tú"}, {"verb": "escuchar", "pronoun": "él"},
+                {"verb": "escuchar", "pronoun": "nosotros"}, {"verb": "escuchar", "pronoun": "ustedes"},
             ],
         },
-        "opener_en": "Do you read in Spanish?",
-        "opener_es": "¿Lees en español?",
+        "opener_en": "Do you sing in the shower?",
+        "opener_es": "¿Cantas en la ducha?",
     },
-    # --- GL 3: chat companion of `grammar_regular_present_3` ---
-    "grammar_regular_present_3_chat": {
-        "title": "Regular Present (3/3) — Chat",
+    "grammar_regular_present_ar_chat": {
+        "title": "Regular Present — -AR Chat",
         "grammar_level": 3,
-        "lesson_number": 3.1,
+        "lesson_number": 2.5,
         "lesson_type": "conjugation",
-        "word_workload": ["cantar", "leer", "abrir"],
+        "word_workload": ["hablar", "escuchar", "cantar"],
         "video_embed_id": None,
         "drill_type": "skip",
         "tense": "present",
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
-        "phase_2_config": {'description': 'Regular Present lesson 3: cantar (-ar), leer (-er), abrir (-ir)', 'targets': [{'verb': 'cantar', 'pronoun': 'yo'}, {'verb': 'cantar', 'pronoun': 'nosotras'}, {'verb': 'cantar', 'pronoun': 'ustedes'}, {'verb': 'leer', 'pronoun': 'tú'}, {'verb': 'leer', 'pronoun': 'ella'}, {'verb': 'leer', 'pronoun': 'ellos'}, {'verb': 'abrir', 'pronoun': 'él'}, {'verb': 'abrir', 'pronoun': 'usted'}, {'verb': 'abrir', 'pronoun': 'nosotros'}, {'verb': 'abrir', 'pronoun': 'ellas'}]},
+        "phase_2_config": {"description": "Regular Present -AR chat: hablar, escuchar, cantar", "targets": [
+            {"verb": "hablar", "pronoun": "yo"}, {"verb": "hablar", "pronoun": "ella"},
+            {"verb": "hablar", "pronoun": "ustedes"}, {"verb": "escuchar", "pronoun": "tú"},
+            {"verb": "escuchar", "pronoun": "nosotros"}, {"verb": "escuchar", "pronoun": "ellas"},
+            {"verb": "cantar", "pronoun": "yo"}, {"verb": "cantar", "pronoun": "nosotras"},
+            {"verb": "cantar", "pronoun": "él"}, {"verb": "cantar", "pronoun": "ellos"},
+        ]},
+    },
+
+    # --- ER sub-block ---
+    "grammar_regular_present_er_1": {
+        "title": "Regular Present — -ER (1/2)",
+        "grammar_level": 3,
+        "lesson_number": 3,
+        "lesson_type": "conjugation",
+        "word_workload": ["beber", "comer"],
+        "video_embed_id": "6jpCj97AHMN",
+        "drill_type": "conjugation",
+        "tense": "present",
+        "intro_chart": REGULAR_PRESENT_ER_INTRO,
+        "rule_chart": REGULAR_PRESENT_ER_RULE,
+        "drill_config": {
+            "answers": {
+                "beber": {
+                    "yo": "beb|o", "tú": "beb|es", "él": "beb|e", "ella": "beb|e",
+                    "usted": "beb|e", "nosotros": "beb|emos", "nosotras": "beb|emos",
+                    "ellos": "beb|en", "ellas": "beb|en", "ustedes": "beb|en",
+                },
+                "comer": {
+                    "yo": "com|o", "tú": "com|es", "él": "com|e", "ella": "com|e",
+                    "usted": "com|e", "nosotros": "com|emos", "nosotras": "com|emos",
+                    "ellos": "com|en", "ellas": "com|en", "ustedes": "com|en",
+                },
+            },
+        },
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I drink water", "es": "Yo bebo agua", "noun_id": None, "type": "written"},
+            {"en": "You drink coffee", "es": "Tú bebes café", "noun_id": "café", "type": "auditory"},
+            {"en": "She drinks juice", "es": "Ella bebe jugo", "noun_id": None, "type": "written"},
+            {"en": "We (f) drink tea", "es": "Nosotras bebemos té", "noun_id": None, "type": "auditory"},
+            {"en": "They drink milk", "es": "Ellos beben leche", "noun_id": None, "type": "written"},
+            {"en": "I eat fruit", "es": "Yo como fruta", "noun_id": None, "type": "auditory"},
+            {"en": "You eat bread", "es": "Tú comes pan", "noun_id": None, "type": "written"},
+            {"en": "He eats meat", "es": "Él come carne", "noun_id": None, "type": "auditory"},
+            {"en": "We eat together", "es": "Nosotros comemos juntos", "noun_id": None, "type": "written"},
+            {"en": "You all eat fast", "es": "Ustedes comen rápido", "noun_id": None, "type": "auditory"},
+        ],
+        "drill_targets": [
+            {"verb": "beber", "pronoun": "yo"}, {"verb": "beber", "pronoun": "tú"},
+            {"verb": "beber", "pronoun": "ella"}, {"verb": "beber", "pronoun": "nosotras"},
+            {"verb": "beber", "pronoun": "ellos"}, {"verb": "comer", "pronoun": "yo"},
+            {"verb": "comer", "pronoun": "tú"}, {"verb": "comer", "pronoun": "él"},
+            {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ustedes"},
+        ],
+        "phase_2_config": {
+            "description": "Regular Present -ER (1/2): beber, comer",
+            "targets": [
+                {"verb": "beber", "pronoun": "yo"}, {"verb": "beber", "pronoun": "tú"},
+                {"verb": "beber", "pronoun": "ella"}, {"verb": "beber", "pronoun": "nosotras"},
+                {"verb": "beber", "pronoun": "ellos"}, {"verb": "comer", "pronoun": "yo"},
+                {"verb": "comer", "pronoun": "tú"}, {"verb": "comer", "pronoun": "él"},
+                {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ustedes"},
+            ],
+        },
+        "opener_en": "What do you eat for lunch?",
+        "opener_es": "¿Qué comes para el almuerzo?",
+    },
+    "grammar_regular_present_er_2": {
+        "title": "Regular Present — -ER (2/2)",
+        "grammar_level": 3,
+        "lesson_number": 4,
+        "lesson_type": "conjugation",
+        "word_workload": ["leer", "comer"],
+        "video_embed_id": "6jpCj97AHMN",
+        "drill_type": "conjugation",
+        "tense": "present",
+        "rule_chart": REGULAR_PRESENT_ER_RULE,
+        "drill_config": {
+            "answers": {
+                "leer": {
+                    "yo": "le|o", "tú": "le|es", "él": "le|e", "ella": "le|e",
+                    "usted": "le|e", "nosotros": "le|emos", "nosotras": "le|emos",
+                    "ellos": "le|en", "ellas": "le|en", "ustedes": "le|en",
+                },
+                "comer": {
+                    "yo": "com|o", "tú": "com|es", "él": "com|e", "ella": "com|e",
+                    "usted": "com|e", "nosotros": "com|emos", "nosotras": "com|emos",
+                    "ellos": "com|en", "ellas": "com|en", "ustedes": "com|en",
+                },
+            },
+        },
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I read a lot", "es": "Yo leo mucho", "noun_id": None, "type": "written"},
+            {"en": "You read out loud", "es": "Tú lees en voz alta", "noun_id": None, "type": "auditory"},
+            {"en": "She reads a book", "es": "Ella lee un libro", "noun_id": "libro", "type": "written"},
+            {"en": "We (f) read in Spanish", "es": "Nosotras leemos en español", "noun_id": None, "type": "auditory"},
+            {"en": "They read fast", "es": "Ellos leen rápido", "noun_id": None, "type": "written"},
+            {"en": "I eat at home", "es": "Yo como en casa", "noun_id": None, "type": "auditory"},
+            {"en": "You eat fish", "es": "Tú comes pescado", "noun_id": None, "type": "written"},
+            {"en": "He eats vegetables", "es": "Él come verduras", "noun_id": None, "type": "auditory"},
+            {"en": "We eat early", "es": "Nosotros comemos temprano", "noun_id": None, "type": "written"},
+            {"en": "You all eat well", "es": "Ustedes comen bien", "noun_id": None, "type": "auditory"},
+        ],
+        "drill_targets": [
+            {"verb": "leer", "pronoun": "yo"}, {"verb": "leer", "pronoun": "tú"},
+            {"verb": "leer", "pronoun": "ella"}, {"verb": "leer", "pronoun": "nosotras"},
+            {"verb": "leer", "pronoun": "ellos"}, {"verb": "comer", "pronoun": "yo"},
+            {"verb": "comer", "pronoun": "tú"}, {"verb": "comer", "pronoun": "él"},
+            {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ustedes"},
+        ],
+        "phase_2_config": {
+            "description": "Regular Present -ER (2/2): leer, comer",
+            "targets": [
+                {"verb": "leer", "pronoun": "yo"}, {"verb": "leer", "pronoun": "tú"},
+                {"verb": "leer", "pronoun": "ella"}, {"verb": "leer", "pronoun": "nosotras"},
+                {"verb": "leer", "pronoun": "ellos"}, {"verb": "comer", "pronoun": "yo"},
+                {"verb": "comer", "pronoun": "tú"}, {"verb": "comer", "pronoun": "él"},
+                {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ustedes"},
+            ],
+        },
+        "opener_en": "Do you read in Spanish?",
+        "opener_es": "¿Lees en español?",
+    },
+    "grammar_regular_present_er_chat": {
+        "title": "Regular Present — -ER Chat",
+        "grammar_level": 3,
+        "lesson_number": 4.5,
+        "lesson_type": "conjugation",
+        "word_workload": ["beber", "comer", "leer"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {"description": "Regular Present -ER chat: beber, comer, leer", "targets": [
+            {"verb": "beber", "pronoun": "yo"}, {"verb": "beber", "pronoun": "ella"},
+            {"verb": "beber", "pronoun": "ustedes"}, {"verb": "comer", "pronoun": "tú"},
+            {"verb": "comer", "pronoun": "nosotros"}, {"verb": "comer", "pronoun": "ellas"},
+            {"verb": "leer", "pronoun": "yo"}, {"verb": "leer", "pronoun": "nosotras"},
+            {"verb": "leer", "pronoun": "él"}, {"verb": "leer", "pronoun": "ellos"},
+        ]},
+    },
+
+    # --- IR sub-block ---
+    "grammar_regular_present_ir_1": {
+        "title": "Regular Present — -IR (1/2)",
+        "grammar_level": 3,
+        "lesson_number": 5,
+        "lesson_type": "conjugation",
+        "word_workload": ["vivir", "escribir"],
+        "video_embed_id": "6jpCj97AHMN",
+        "drill_type": "conjugation",
+        "tense": "present",
+        "intro_chart": REGULAR_PRESENT_IR_INTRO,
+        "rule_chart": REGULAR_PRESENT_IR_RULE,
+        "drill_config": {
+            "answers": {
+                "vivir": {
+                    "yo": "viv|o", "tú": "viv|es", "él": "viv|e", "ella": "viv|e",
+                    "usted": "viv|e", "nosotros": "viv|imos", "nosotras": "viv|imos",
+                    "ellos": "viv|en", "ellas": "viv|en", "ustedes": "viv|en",
+                },
+                "escribir": {
+                    "yo": "escrib|o", "tú": "escrib|es", "él": "escrib|e", "ella": "escrib|e",
+                    "usted": "escrib|e", "nosotros": "escrib|imos", "nosotras": "escrib|imos",
+                    "ellos": "escrib|en", "ellas": "escrib|en", "ustedes": "escrib|en",
+                },
+            },
+        },
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I live here", "es": "Yo vivo aquí", "noun_id": None, "type": "written"},
+            {"en": "You live nearby", "es": "Tú vives cerca", "noun_id": None, "type": "auditory"},
+            {"en": "She lives in Mexico", "es": "Ella vive en México", "noun_id": None, "type": "written"},
+            {"en": "We (f) live together", "es": "Nosotras vivimos juntas", "noun_id": None, "type": "auditory"},
+            {"en": "They live in the city", "es": "Ellos viven en la ciudad", "noun_id": None, "type": "written"},
+            {"en": "I write a letter", "es": "Yo escribo una carta", "noun_id": None, "type": "auditory"},
+            {"en": "You write well", "es": "Tú escribes bien", "noun_id": None, "type": "written"},
+            {"en": "He writes a book", "es": "Él escribe un libro", "noun_id": "libro", "type": "auditory"},
+            {"en": "We write messages", "es": "Nosotros escribimos mensajes", "noun_id": None, "type": "written"},
+            {"en": "You all write often", "es": "Ustedes escriben a menudo", "noun_id": None, "type": "auditory"},
+        ],
+        "drill_targets": [
+            {"verb": "vivir", "pronoun": "yo"}, {"verb": "vivir", "pronoun": "tú"},
+            {"verb": "vivir", "pronoun": "ella"}, {"verb": "vivir", "pronoun": "nosotras"},
+            {"verb": "vivir", "pronoun": "ellos"}, {"verb": "escribir", "pronoun": "yo"},
+            {"verb": "escribir", "pronoun": "tú"}, {"verb": "escribir", "pronoun": "él"},
+            {"verb": "escribir", "pronoun": "nosotros"}, {"verb": "escribir", "pronoun": "ustedes"},
+        ],
+        "phase_2_config": {
+            "description": "Regular Present -IR (1/2): vivir, escribir",
+            "targets": [
+                {"verb": "vivir", "pronoun": "yo"}, {"verb": "vivir", "pronoun": "tú"},
+                {"verb": "vivir", "pronoun": "ella"}, {"verb": "vivir", "pronoun": "nosotras"},
+                {"verb": "vivir", "pronoun": "ellos"}, {"verb": "escribir", "pronoun": "yo"},
+                {"verb": "escribir", "pronoun": "tú"}, {"verb": "escribir", "pronoun": "él"},
+                {"verb": "escribir", "pronoun": "nosotros"}, {"verb": "escribir", "pronoun": "ustedes"},
+            ],
+        },
+        "opener_en": "Where do you live?",
+        "opener_es": "¿Dónde vives?",
+    },
+    "grammar_regular_present_ir_2": {
+        "title": "Regular Present — -IR (2/2)",
+        "grammar_level": 3,
+        "lesson_number": 6,
+        "lesson_type": "conjugation",
+        "word_workload": ["abrir", "vivir"],
+        "video_embed_id": "6jpCj97AHMN",
+        "drill_type": "conjugation",
+        "tense": "present",
+        "rule_chart": REGULAR_PRESENT_IR_RULE,
+        "drill_config": {
+            "answers": {
+                "abrir": {
+                    "yo": "abr|o", "tú": "abr|es", "él": "abr|e", "ella": "abr|e",
+                    "usted": "abr|e", "nosotros": "abr|imos", "nosotras": "abr|imos",
+                    "ellos": "abr|en", "ellas": "abr|en", "ustedes": "abr|en",
+                },
+                "vivir": {
+                    "yo": "viv|o", "tú": "viv|es", "él": "viv|e", "ella": "viv|e",
+                    "usted": "viv|e", "nosotros": "viv|imos", "nosotras": "viv|imos",
+                    "ellos": "viv|en", "ellas": "viv|en", "ustedes": "viv|en",
+                },
+            },
+        },
+        "phases": {"0a": False, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
+        "drill_sentences": [
+            {"en": "I open the door", "es": "Yo abro la puerta", "noun_id": None, "type": "written"},
+            {"en": "You open the window", "es": "Tú abres la ventana", "noun_id": None, "type": "auditory"},
+            {"en": "She opens the box", "es": "Ella abre la caja", "noun_id": None, "type": "written"},
+            {"en": "We (f) open the store", "es": "Nosotras abrimos la tienda", "noun_id": "tienda", "type": "auditory"},
+            {"en": "They open the gift", "es": "Ellos abren el regalo", "noun_id": None, "type": "written"},
+            {"en": "I live in the country", "es": "Yo vivo en el campo", "noun_id": None, "type": "auditory"},
+            {"en": "You live alone", "es": "Tú vives solo", "noun_id": None, "type": "written"},
+            {"en": "He lives far away", "es": "Él vive lejos", "noun_id": None, "type": "auditory"},
+            {"en": "We live in an apartment", "es": "Nosotros vivimos en un apartamento", "noun_id": None, "type": "written"},
+            {"en": "You all live well", "es": "Ustedes viven bien", "noun_id": None, "type": "auditory"},
+        ],
+        "drill_targets": [
+            {"verb": "abrir", "pronoun": "yo"}, {"verb": "abrir", "pronoun": "tú"},
+            {"verb": "abrir", "pronoun": "ella"}, {"verb": "abrir", "pronoun": "nosotras"},
+            {"verb": "abrir", "pronoun": "ellos"}, {"verb": "vivir", "pronoun": "yo"},
+            {"verb": "vivir", "pronoun": "tú"}, {"verb": "vivir", "pronoun": "él"},
+            {"verb": "vivir", "pronoun": "nosotros"}, {"verb": "vivir", "pronoun": "ustedes"},
+        ],
+        "phase_2_config": {
+            "description": "Regular Present -IR (2/2): abrir, vivir",
+            "targets": [
+                {"verb": "abrir", "pronoun": "yo"}, {"verb": "abrir", "pronoun": "tú"},
+                {"verb": "abrir", "pronoun": "ella"}, {"verb": "abrir", "pronoun": "nosotras"},
+                {"verb": "abrir", "pronoun": "ellos"}, {"verb": "vivir", "pronoun": "yo"},
+                {"verb": "vivir", "pronoun": "tú"}, {"verb": "vivir", "pronoun": "él"},
+                {"verb": "vivir", "pronoun": "nosotros"}, {"verb": "vivir", "pronoun": "ustedes"},
+            ],
+        },
+        "opener_en": "What time do you open the store?",
+        "opener_es": "¿A qué hora abres la tienda?",
+    },
+    "grammar_regular_present_ir_chat": {
+        "title": "Regular Present — -IR Chat",
+        "grammar_level": 3,
+        "lesson_number": 6.5,
+        "lesson_type": "conjugation",
+        "word_workload": ["vivir", "escribir", "abrir"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {"description": "Regular Present -IR chat: vivir, escribir, abrir", "targets": [
+            {"verb": "vivir", "pronoun": "yo"}, {"verb": "vivir", "pronoun": "ella"},
+            {"verb": "vivir", "pronoun": "ustedes"}, {"verb": "escribir", "pronoun": "tú"},
+            {"verb": "escribir", "pronoun": "nosotros"}, {"verb": "escribir", "pronoun": "ellas"},
+            {"verb": "abrir", "pronoun": "yo"}, {"verb": "abrir", "pronoun": "nosotras"},
+            {"verb": "abrir", "pronoun": "él"}, {"verb": "abrir", "pronoun": "ellos"},
+        ]},
     },
     # --- GL 4: Irregular Present — 3 lessons (all 6 verbs, pronouns distributed) ---
     "grammar_irregular_present_1": {
