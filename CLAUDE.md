@@ -1,7 +1,7 @@
 # Spanish for Expats — Backend Context
 
 > This file is auto-loaded by Claude when working in this directory.
-> For project-level context, see `../CLAUDE.md`.
+> For project-level context, see `../CLAUDE.md` (doc index) and `./docs/` (canonical references — lives in this repo).
 
 ## Quick Reference
 
