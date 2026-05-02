@@ -231,16 +231,14 @@ REGULAR_PRESENT_AR_INTRO = {
             "body": "Every Spanish infinitive ends in **-ar**, **-er**, or **-ir**. Each family takes its own endings. We'll start with the most common: **-ar** verbs (hablar, escuchar, cantar, trabajar…).",
         },
         {
-            "kind": "rule_pack",
-            "title": "Drop -ar, add the new ending",
-            "sections": [
-                {"heading": "-AR endings (example: hablar)", "items": [
-                    "yo → habl|o",
-                    "tú → habl|as",
-                    "él / ella / usted → habl|a",
-                    "nosotros / nosotras → habl|amos",
-                    "ellos / ellas / ustedes → habl|an",
-                ]},
+            "kind": "mini_table",
+            "title": "-AR endings (example: hablar)",
+            "rows": [
+                ["yo", "habl|o"],
+                ["tú", "habl|as"],
+                ["él / ella / usted", "habl|a"],
+                ["nosotros / nosotras", "habl|amos"],
+                ["ellos / ellas / ustedes", "habl|an"],
             ],
             "footnote": "The stem (habl-) stays the same. Only the ending changes with the subject.",
         },
@@ -271,16 +269,14 @@ REGULAR_PRESENT_ER_INTRO = {
             "body": "You already know the -ar pattern. -er verbs (beber, comer, leer, aprender…) work the same way — drop the ending, add a new one — but the endings are different.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Drop -er, add the new ending",
-            "sections": [
-                {"heading": "-ER endings (example: beber)", "items": [
-                    "yo → beb|o",
-                    "tú → beb|es",
-                    "él / ella / usted → beb|e",
-                    "nosotros / nosotras → beb|emos",
-                    "ellos / ellas / ustedes → beb|en",
-                ]},
+            "kind": "mini_table",
+            "title": "-ER endings (example: beber)",
+            "rows": [
+                ["yo", "beb|o"],
+                ["tú", "beb|es"],
+                ["él / ella / usted", "beb|e"],
+                ["nosotros / nosotras", "beb|emos"],
+                ["ellos / ellas / ustedes", "beb|en"],
             ],
             "footnote": "Yo still ends in -o (same as -ar). The other forms swap the -a for -e: -es, -e, -emos, -en.",
         },
@@ -311,16 +307,14 @@ REGULAR_PRESENT_IR_INTRO = {
             "body": "-ir verbs (vivir, escribir, abrir, recibir…) share almost every ending with -er. The only difference is the *nosotros* form: -er says **-emos**, -ir says **-imos**.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Drop -ir, add the new ending",
-            "sections": [
-                {"heading": "-IR endings (example: vivir)", "items": [
-                    "yo → viv|o",
-                    "tú → viv|es",
-                    "él / ella / usted → viv|e",
-                    "nosotros / nosotras → viv|imos",
-                    "ellos / ellas / ustedes → viv|en",
-                ]},
+            "kind": "mini_table",
+            "title": "-IR endings (example: vivir)",
+            "rows": [
+                ["yo", "viv|o"],
+                ["tú", "viv|es"],
+                ["él / ella / usted", "viv|e"],
+                ["nosotros / nosotras", "viv|imos"],
+                ["ellos / ellas / ustedes", "viv|en"],
             ],
             "footnote": "Same as -er except nosotros: -emos (beb|emos) vs -imos (viv|imos).",
         },
