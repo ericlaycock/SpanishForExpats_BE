@@ -596,10 +596,15 @@ async def create_conversation(
         chat_target_forms = [
             ChatTargetForm(**f) for f in get_chat_target_forms(situation.id)
         ]
+        scene = situation.animation_type
+        if situation.animation_type == "grammar":
+            from app.data.situation_roles import GRAMMAR_SCENE_MAP
+            scene = GRAMMAR_SCENE_MAP.get(situation.id, "core")
         return CreateConversationResponse(
             conversation_id=voice_conv.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
             chat_target_forms=chat_target_forms,
+            scene=scene,
             initial_message=initial_message,
             initial_audio_url=initial_audio_url,
             language_mode=language_mode,
@@ -649,10 +654,15 @@ async def create_conversation(
         chat_target_forms = [
             ChatTargetForm(**f) for f in get_chat_target_forms(situation.id)
         ]
+        scene = situation.animation_type
+        if situation.animation_type == "grammar":
+            from app.data.situation_roles import GRAMMAR_SCENE_MAP
+            scene = GRAMMAR_SCENE_MAP.get(situation.id, "core")
         return CreateConversationResponse(
             conversation_id=conversation.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english) for w in final_words],
             chat_target_forms=chat_target_forms,
+            scene=scene,
             initial_message=initial_message,
             initial_audio_url=initial_audio_url,
             language_mode=language_mode,

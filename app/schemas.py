@@ -273,6 +273,12 @@ class CreateConversationResponse(BaseModel):
     # "Use these words to progress" chips. Empty for non-grammar-chat
     # conversations; FE falls back to `words` rendering when empty.
     chat_target_forms: List[ChatTargetForm] = []
+    # Resolved character scene (e.g. "small_talk", "restaurant", "core").
+    # For grammar lessons this is the mapped scene from GRAMMAR_SCENE_MAP so
+    # the FE picks the correct character — without it every grammar lesson
+    # falls back to "core" (the rainforest). For non-grammar lessons this is
+    # the situation's animation_type.
+    scene: str = "core"
     # Initial message keyed by ISO-style language code (es/en/ca/sv).
     # The target-language entry is what the avatar will speak; the FE keeps
     # the English entry for tooltips / "what does this mean?" surfaces.
