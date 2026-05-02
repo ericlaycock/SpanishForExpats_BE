@@ -3685,7 +3685,7 @@ GRAMMAR_SITUATIONS = {
             {"en": "She travels by car", "es": "Ella viaja en carro", "noun_id": "carro", "type": "written", "glosses": {}},
             {"en": "I need it for tomorrow", "es": "Lo necesito para mañana", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "Thank you for the water", "es": "Gracias por el agua", "noun_id": "agua", "type": "written", "glosses": {"water": "agua", "agua": "water"}},
-            {"en": "We work to live", "es": "Nosotras trabajamos para vivir", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "We (f) work to live", "es": "Nosotras trabajamos para vivir", "noun_id": None, "type": "auditory", "glosses": {}},
         ],
         "phase_2_config": {
             "description": "Por vs. Para: different uses of each preposition",
@@ -7108,9 +7108,9 @@ GRAMMAR_SITUATIONS = {
             {"en": "It's her turn to study at home", "es": "Ella le toca estudiar en casa", "noun_id": "casa", "type": "auditory", "glosses": {"at home": "en casa", "en casa": "at home"}},
             {"en": "It's your turn to live alone", "es": "Usted le toca vivir solo", "noun_id": None, "type": "written", "glosses": {"alone": "solo", "solo": "alone"}},
             {"en": "It's our turn to study together", "es": "Nosotros nos toca estudiar juntos", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "It's our turn to live in the city", "es": "Nosotras nos toca vivir en la ciudad", "noun_id": "ciudad", "type": "written", "glosses": {"city": "ciudad", "ciudad": "city"}},
+            {"en": "It's our (f) turn to live in the city", "es": "A nosotras nos toca vivir en la ciudad", "noun_id": "ciudad", "type": "written", "glosses": {"city": "ciudad", "ciudad": "city"}},
             {"en": "It's their turn to study here", "es": "Ellos les toca estudiar aquí", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "It's their turn to live here", "es": "Ellas les toca vivir aquí", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "It's their (f) turn to live here", "es": "A ellas les toca vivir aquí", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "It's your turn to study Spanish", "es": "Ustedes les toca estudiar español", "noun_id": None, "type": "auditory", "glosses": {"Spanish": "español", "español": "Spanish"}},
         ],
         'drill_targets': [
