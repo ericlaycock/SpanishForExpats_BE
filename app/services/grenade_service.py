@@ -243,8 +243,10 @@ async def generate_question(
         agent_id="grenade_agent",
         prompt_version="v2",
         return_json=True,
-        # Crank temperature for variety — Re-craft should produce a notably
-        # different question on each tap, not a near-identical rephrasing.
+        # Non-reasoning model + high temperature for maximum variety — Re-craft
+        # should produce a notably different question on each tap, not a
+        # near-identical rephrasing.
+        model="gpt-4.1",
         temperature=1.5,
     )
     result = await generate_conversation(context, db)

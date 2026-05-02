@@ -43,6 +43,7 @@ class ConversationContext:
     return_json: bool = False
     learning_phase: Optional[str] = None
     messages: Optional[List[Dict[str, str]]] = None  # Full message history (overrides system_prompt + user_prompt)
+    model: Optional[str] = None  # Override default MODEL per-call (e.g. "gpt-4.1" for non-reasoning generation)
 
 
 def load_prompt(agent_id: str, prompt_version: str = "v2") -> str:
@@ -90,13 +91,16 @@ async def generate_conversation(
         else:
             user_id_uuid = context.user_id
     
+    model = context.model or MODEL
+    is_reasoning_model = model.startswith("gpt-5")
+
     # Insert initial record (success=false)
     llm_record = LLMRequest(
         id=llm_request_id,
         request_id=context.request_id,
         user_id=user_id_uuid,
         provider=PROVIDER,
-        model=MODEL,
+        model=model,
         prompt_version=context.prompt_version,
         agent_id=context.agent_id,
         messages_json=messages,
@@ -111,7 +115,7 @@ async def generate_conversation(
     # Log start event
     extra_llm_start = {
         "provider": PROVIDER,
-        "model": MODEL,
+        "model": model,
         "agent_id": context.agent_id,
         "prompt_version": context.prompt_version,
     }
@@ -130,10 +134,11 @@ async def generate_conversation(
         # Call OpenAI Responses API (supports reasoning for gpt-5.4-mini)
         client = get_client()
         api_params = {
-            "model": MODEL,
+            "model": model,
             "input": messages,
-            "reasoning": {"effort": "low"},
         }
+        if is_reasoning_model:
+            api_params["reasoning"] = {"effort": "low"}
 
         if context.return_json:
             api_params["text"] = {"format": {"type": "json_object"}}
@@ -183,7 +188,7 @@ async def generate_conversation(
         # Log success event
         extra_llm_success = {
             "provider": PROVIDER,
-            "model": MODEL,
+            "model": model,
             "agent_id": context.agent_id,
             "latency_ms": latency_ms,
             "tokens_in": tokens_in,
@@ -231,7 +236,7 @@ async def generate_conversation(
         # Log failure event
         extra_llm_failure = {
             "provider": PROVIDER,
-            "model": MODEL,
+            "model": model,
             "agent_id": context.agent_id,
             "latency_ms": latency_ms,
             "error_code": error_code,
