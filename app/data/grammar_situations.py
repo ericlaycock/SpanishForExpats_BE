@@ -399,19 +399,88 @@ IRREGULAR_PRESENT_INTRO = {
             "body": "Spanish splits English's \"to be\" into two verbs. **ser** is for permanent identity (*soy americano*). **estar** is for location and temporary states (*estoy cansado*, *estoy en casa*). You'll see this contrast in every conversation.",
         },
         {
-            "kind": "rule_pack",
-            "title": "All six, present tense",
-            "sections": [
-                {"heading": "ser (to be — identity)", "items": ["yo soy", "tú eres", "él/ella/usted es", "nosotros/as somos", "ellos/ellas/ustedes son"]},
-                {"heading": "estar (to be — state/location)", "items": ["yo estoy", "tú estás", "él/ella/usted está", "nosotros/as estamos", "ellos/ellas/ustedes están"]},
-                {"heading": "ir (to go)", "items": ["yo voy", "tú vas", "él/ella/usted va", "nosotros/as vamos", "ellos/ellas/ustedes van"]},
-                {"heading": "dar (to give)", "items": ["yo doy", "tú das", "él/ella/usted da", "nosotros/as damos", "ellos/ellas/ustedes dan"]},
-                {"heading": "tener (to have)", "items": ["yo tengo", "tú tienes", "él/ella/usted tiene", "nosotros/as tenemos", "ellos/ellas/ustedes tienen"]},
-                {"heading": "venir (to come)", "items": ["yo vengo", "tú vienes", "él/ella/usted viene", "nosotros/as venimos", "ellos/ellas/ustedes vienen"]},
+            "kind": "mini_table",
+            "title": "ser (to be — identity)",
+            "rows": [
+                ["yo", "|soy"],
+                ["tú", "|eres"],
+                ["él / ella / usted", "|es"],
+                ["nosotros / nosotras", "|somos"],
+                ["ellos / ellas / ustedes", "|son"],
             ],
-            "footnote": "tener and venir share a pattern: irregular yo (-go), and e→ie stem change in tú/él/ellos.",
+            "footnote": "Suppletive — every form is irregular.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "estar (to be — state/location)",
+            "rows": [
+                ["yo", "est|oy"],
+                ["tú", "est|ás"],
+                ["él / ella / usted", "est|á"],
+                ["nosotros / nosotras", "est|amos"],
+                ["ellos / ellas / ustedes", "est|án"],
+            ],
+            "footnote": "Irregular yo (-oy); accents on tú, él, ellos.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ir (to go)",
+            "rows": [
+                ["yo", "|voy"],
+                ["tú", "|vas"],
+                ["él / ella / usted", "|va"],
+                ["nosotros / nosotras", "va|mos"],
+                ["ellos / ellas / ustedes", "|van"],
+            ],
+            "footnote": "Suppletive v- stem; nosotros uses a regular split.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "dar (to give)",
+            "rows": [
+                ["yo", "|doy"],
+                ["tú", "|das"],
+                ["él / ella / usted", "|da"],
+                ["nosotros / nosotras", "da|mos"],
+                ["ellos / ellas / ustedes", "|dan"],
+            ],
+            "footnote": "Irregular yo (doy); otherwise looks like an -ar verb.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "tener (to have)",
+            "rows": [
+                ["yo", "ten|go"],
+                ["tú", "t|ienes"],
+                ["él / ella / usted", "t|iene"],
+                ["nosotros / nosotras", "ten|emos"],
+                ["ellos / ellas / ustedes", "t|ienen"],
+            ],
+            "footnote": "Yo-go irregular plus e→ie stem change in tú/él/ellos.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "venir (to come)",
+            "rows": [
+                ["yo", "ven|go"],
+                ["tú", "v|ienes"],
+                ["él / ella / usted", "v|iene"],
+                ["nosotros / nosotras", "ven|imos"],
+                ["ellos / ellas / ustedes", "v|ienen"],
+            ],
+            "footnote": "Same pattern as tener: -go yo + e→ie stem change.",
         },
     ],
+    "recall": {
+        "verb": "ser",
+        "answers": {
+            "yo": "|soy",
+            "tú": "|eres",
+            "él": "|es",
+            "nosotros": "|somos",
+            "ellos": "|son",
+        },
+    },
 }
 
 IRREGULAR_PRESENT_RULE = {
@@ -541,14 +610,88 @@ IRREGULAR_PRESENT_II_INTRO = {
             "body": "**oír** (to hear) gets a y in tú/él/ellos: *oigo, oyes, oye, oímos, oyen*. **decir** (to say) does both: *yo digo* AND e→i stem change: *digo, dices, dice, decimos, dicen*.",
         },
         {
-            "kind": "rule_pack",
-            "title": "All eight, present tense",
-            "sections": [
-                {"heading": "Pure yo-go verbs", "items": ["hacer → hago, haces, hace, hacemos, hacen", "poner → pongo, pones, pone, ponemos, ponen", "salir → salgo, sales, sale, salimos, salen", "valer → valgo, vales, vale, valemos, valen", "caer → caigo, caes, cae, caemos, caen", "traer → traigo, traes, trae, traemos, traen"]},
-                {"heading": "yo-go + extras", "items": ["decir → digo, dices, dice, decimos, dicen", "oír → oigo, oyes, oye, oímos, oyen"]},
+            "kind": "mini_table",
+            "title": "hacer (to do, to make)",
+            "rows": [
+                ["yo", "ha|go"],
+                ["tú", "hac|es"],
+                ["él / ella / usted", "hac|e"],
+                ["nosotros / nosotras", "hac|emos"],
+                ["ellos / ellas / ustedes", "hac|en"],
             ],
+            "footnote": "Yo-go irregular; otherwise regular -er.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "poner (to put)",
+            "rows": [
+                ["yo", "pon|go"],
+                ["tú", "pon|es"],
+                ["él / ella / usted", "pon|e"],
+                ["nosotros / nosotras", "pon|emos"],
+                ["ellos / ellas / ustedes", "pon|en"],
+            ],
+            "footnote": "Yo-go irregular; otherwise regular -er.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "salir (to leave, to go out)",
+            "rows": [
+                ["yo", "sal|go"],
+                ["tú", "sal|es"],
+                ["él / ella / usted", "sal|e"],
+                ["nosotros / nosotras", "sal|imos"],
+                ["ellos / ellas / ustedes", "sal|en"],
+            ],
+            "footnote": "Yo-go irregular; otherwise regular -ir.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "traer (to bring)",
+            "rows": [
+                ["yo", "tra|igo"],
+                ["tú", "tra|es"],
+                ["él / ella / usted", "tra|e"],
+                ["nosotros / nosotras", "tra|emos"],
+                ["ellos / ellas / ustedes", "tra|en"],
+            ],
+            "footnote": "Yo form picks up an i: traigo.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "decir (to say)",
+            "rows": [
+                ["yo", "di|go"],
+                ["tú", "d|ices"],
+                ["él / ella / usted", "d|ice"],
+                ["nosotros / nosotras", "dec|imos"],
+                ["ellos / ellas / ustedes", "d|icen"],
+            ],
+            "footnote": "Yo-go AND e→i stem change.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "oír (to hear)",
+            "rows": [
+                ["yo", "o|igo"],
+                ["tú", "o|yes"],
+                ["él / ella / usted", "o|ye"],
+                ["nosotros / nosotras", "o|ímos"],
+                ["ellos / ellas / ustedes", "o|yen"],
+            ],
+            "footnote": "Yo picks up an i; tú/él/ellos add a y.",
         },
     ],
+    "recall": {
+        "verb": "hacer",
+        "answers": {
+            "yo": "ha|go",
+            "tú": "hac|es",
+            "él": "hac|e",
+            "nosotros": "hac|emos",
+            "ellos": "hac|en",
+        },
+    },
 }
 
 IRREGULAR_PRESENT_II_RULE = {
@@ -576,16 +719,52 @@ SPELLING_CHANGES_INTRO = {
             "body": "Spanish wants verbs to *sound* consistent across conjugation. So when an ending forces a soft consonant to go hard (or vice versa), Spanish swaps in a different letter to preserve the original sound. This only affects spelling — the ear hears the same verb.",
         },
         {
-            "kind": "rule_pack",
-            "title": "The five common swaps (yo form, present)",
-            "sections": [
-                {"heading": "Soft → hard (keep the soft sound)", "items": ["c → zc:  conocer → yo conozco", "c → z:  convencer → yo convenzo", "g → j:  recoger → yo recojo, dirigir → yo dirijo"]},
-                {"heading": "Add a letter to keep the y-sound or break the vowel", "items": ["i → y:  construir → yo construyo, construyes...", "u → ú:  continuar → yo continúo (accent breaks the diphthong)"]},
-                {"heading": "Specials", "items": ["seguir / conseguir → yo sigo, consigo (gu → g)", "producir → yo produzco (c → zc, like conocer)"]},
+            "kind": "mini_table",
+            "title": "conocer (to know — c → zc in yo)",
+            "rows": [
+                ["yo", "cono|zco"],
+                ["tú", "conoc|es"],
+                ["él / ella / usted", "conoc|e"],
+                ["nosotros / nosotras", "conoc|emos"],
+                ["ellos / ellas / ustedes", "conoc|en"],
             ],
-            "footnote": "These are spelling choices, not rule violations — Spanish is being phonetically consistent.",
+            "footnote": "Only the yo form changes spelling; the rest is regular -er.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "escoger (to choose — g → j in yo)",
+            "rows": [
+                ["yo", "esco|jo"],
+                ["tú", "escog|es"],
+                ["él / ella / usted", "escog|e"],
+                ["nosotros / nosotras", "escog|emos"],
+                ["ellos / ellas / ustedes", "escog|en"],
+            ],
+            "footnote": "g → j only in yo to keep the soft sound.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "seguir (to follow — gu → g in yo, plus e→i stem)",
+            "rows": [
+                ["yo", "si|go"],
+                ["tú", "s|igues"],
+                ["él / ella / usted", "s|igue"],
+                ["nosotros / nosotras", "segu|imos"],
+                ["ellos / ellas / ustedes", "s|iguen"],
+            ],
+            "footnote": "Drop the silent u in yo (sigo), and apply the e→i stem change.",
         },
     ],
+    "recall": {
+        "verb": "conocer",
+        "answers": {
+            "yo": "cono|zco",
+            "tú": "conoc|es",
+            "él": "conoc|e",
+            "nosotros": "conoc|emos",
+            "ellos": "conoc|en",
+        },
+    },
 }
 
 SPELLING_CHANGES_RULE = {
@@ -620,14 +799,40 @@ SABER_CONOCER_INTRO = {
             "footnote": "Both have irregular yo: sé and conozco. Otherwise they conjugate normally.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Conjugation",
-            "sections": [
-                {"heading": "saber", "items": ["yo sé", "tú sabes", "él/ella/usted sabe", "nosotros/as sabemos", "ellos/ellas/ustedes saben"]},
-                {"heading": "conocer", "items": ["yo conozco", "tú conoces", "él/ella/usted conoce", "nosotros/as conocemos", "ellos/ellas/ustedes conocen"]},
+            "kind": "mini_table",
+            "title": "saber (to know a fact)",
+            "rows": [
+                ["yo", "|sé"],
+                ["tú", "sab|es"],
+                ["él / ella / usted", "sab|e"],
+                ["nosotros / nosotras", "sab|emos"],
+                ["ellos / ellas / ustedes", "sab|en"],
             ],
+            "footnote": "Irregular yo (sé with accent); rest is regular -er.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "conocer (to be familiar with)",
+            "rows": [
+                ["yo", "cono|zco"],
+                ["tú", "conoc|es"],
+                ["él / ella / usted", "conoc|e"],
+                ["nosotros / nosotras", "conoc|emos"],
+                ["ellos / ellas / ustedes", "conoc|en"],
+            ],
+            "footnote": "c → zc spelling change in yo; rest is regular.",
         },
     ],
+    "recall": {
+        "verb": "saber",
+        "answers": {
+            "yo": "|sé",
+            "tú": "sab|es",
+            "él": "sab|e",
+            "nosotros": "sab|emos",
+            "ellos": "sab|en",
+        },
+    },
 }
 
 SABER_CONOCER_RULE = {
@@ -660,14 +865,40 @@ PRESENT_O_UE_INTRO = {
             "body": "If you draw a line around the forms that change (yo, tú, él, ellos) and skip the ones that don't (nosotros, vosotros), the shape on a verb chart looks like a boot. Same idea applies to all stem-change patterns.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Common O→UE verbs",
-            "sections": [
-                {"heading": "Examples (yo / nosotros contrast)", "items": ["dormir → duermo / dormimos", "poder → puedo / podemos", "almorzar → almuerzo / almorzamos", "volver → vuelvo / volvemos", "morir → muero / morimos", "mover → muevo / movemos"]},
+            "kind": "mini_table",
+            "title": "poder (to be able to)",
+            "rows": [
+                ["yo", "p|uedo"],
+                ["tú", "p|uedes"],
+                ["él / ella / usted", "p|uede"],
+                ["nosotros / nosotras", "pod|emos"],
+                ["ellos / ellas / ustedes", "p|ueden"],
             ],
-            "footnote": "The o→ue switch happens whenever the o is stressed. Nosotros stresses the ending, so the stem stays put.",
+            "footnote": "Boot pattern: o→ue everywhere except nosotros.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "dormir (to sleep)",
+            "rows": [
+                ["yo", "d|uermo"],
+                ["tú", "d|uermes"],
+                ["él / ella / usted", "d|uerme"],
+                ["nosotros / nosotras", "dorm|imos"],
+                ["ellos / ellas / ustedes", "d|uermen"],
+            ],
+            "footnote": "Same boot: nosotros keeps the original o.",
         },
     ],
+    "recall": {
+        "verb": "poder",
+        "answers": {
+            "yo": "p|uedo",
+            "tú": "p|uedes",
+            "él": "p|uede",
+            "nosotros": "pod|emos",
+            "ellos": "p|ueden",
+        },
+    },
 }
 
 PRESENT_O_UE_RULE = {
@@ -695,14 +926,40 @@ PRESENT_E_IE_INTRO = {
             "body": "Same pattern as O→UE, with a different vowel. When the **e** in the verb's stem is stressed, it splits into **ie**. Every form changes except nosotros/nosotras (where the stress moves to the ending).",
         },
         {
-            "kind": "rule_pack",
-            "title": "Common E→IE verbs",
-            "sections": [
-                {"heading": "Examples (yo / nosotros contrast)", "items": ["cerrar → cierro / cerramos", "entender → entiendo / entendemos", "pensar → pienso / pensamos", "querer → quiero / queremos", "preferir → prefiero / preferimos", "empezar → empiezo / empezamos"]},
+            "kind": "mini_table",
+            "title": "querer (to want)",
+            "rows": [
+                ["yo", "qu|iero"],
+                ["tú", "qu|ieres"],
+                ["él / ella / usted", "qu|iere"],
+                ["nosotros / nosotras", "quer|emos"],
+                ["ellos / ellas / ustedes", "qu|ieren"],
             ],
-            "footnote": "Same boot shape: yo, tú, él, ellos change. Nosotros keeps the original e.",
+            "footnote": "Boot pattern: e→ie everywhere except nosotros.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "pensar (to think)",
+            "rows": [
+                ["yo", "p|ienso"],
+                ["tú", "p|iensas"],
+                ["él / ella / usted", "p|iensa"],
+                ["nosotros / nosotras", "pens|amos"],
+                ["ellos / ellas / ustedes", "p|iensan"],
+            ],
+            "footnote": "Same boot; nosotros keeps the plain e.",
         },
     ],
+    "recall": {
+        "verb": "querer",
+        "answers": {
+            "yo": "qu|iero",
+            "tú": "qu|ieres",
+            "él": "qu|iere",
+            "nosotros": "quer|emos",
+            "ellos": "qu|ieren",
+        },
+    },
 }
 
 PRESENT_E_IE_RULE = {
@@ -730,14 +987,40 @@ PRESENT_E_I_INTRO = {
             "body": "This pattern only affects **-ir** verbs. The stem **e** doesn't break into a diphthong like e→ie; it just slides to **i**. Same boot shape: every form except nosotros.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Common E→I verbs",
-            "sections": [
-                {"heading": "Examples (yo / nosotros contrast)", "items": ["pedir → pido / pedimos", "repetir → repito / repetimos", "seguir → sigo / seguimos", "servir → sirvo / servimos", "vestir → visto / vestimos", "elegir → elijo / elegimos"]},
+            "kind": "mini_table",
+            "title": "pedir (to ask for)",
+            "rows": [
+                ["yo", "p|ido"],
+                ["tú", "p|ides"],
+                ["él / ella / usted", "p|ide"],
+                ["nosotros / nosotras", "ped|imos"],
+                ["ellos / ellas / ustedes", "p|iden"],
             ],
-            "footnote": "If a verb ends in -ar or -er, it's NOT in this group. E→I is exclusively -ir.",
+            "footnote": "Boot pattern: e→i everywhere except nosotros.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "servir (to serve)",
+            "rows": [
+                ["yo", "s|irvo"],
+                ["tú", "s|irves"],
+                ["él / ella / usted", "s|irve"],
+                ["nosotros / nosotras", "serv|imos"],
+                ["ellos / ellas / ustedes", "s|irven"],
+            ],
+            "footnote": "Same boot; nosotros keeps the plain e.",
         },
     ],
+    "recall": {
+        "verb": "pedir",
+        "answers": {
+            "yo": "p|ido",
+            "tú": "p|ides",
+            "él": "p|ide",
+            "nosotros": "ped|imos",
+            "ellos": "p|iden",
+        },
+    },
 }
 
 PRESENT_E_I_RULE = {
@@ -765,15 +1048,36 @@ IR_A_INF_INTRO = {
             "body": "Spanish has a true future tense, but in everyday speech people use **ir + a + [infinitive]** — exactly like English \"I'm going to + verb.\" *Voy a comer*. *Vamos a salir*. Conjugate **ir**, add **a**, then the verb in its dictionary form.",
         },
         {
+            "kind": "mini_table",
+            "title": "ir (to go)",
+            "rows": [
+                ["yo", "|voy"],
+                ["tú", "|vas"],
+                ["él / ella / usted", "|va"],
+                ["nosotros / nosotras", "va|mos"],
+                ["ellos / ellas / ustedes", "|van"],
+            ],
+            "footnote": "Suppletive v- stem; nosotros uses a regular split.",
+        },
+        {
             "kind": "rule_pack",
-            "title": "Just conjugate ir; the rest stays the same",
+            "title": "Pattern: ir + a + infinitive",
             "sections": [
-                {"heading": "ir (present)", "items": ["yo voy", "tú vas", "él/ella/usted va", "nosotros/as vamos", "ellos/ellas/ustedes van"]},
-                {"heading": "Pattern: ir + a + infinitive", "items": ["voy a hablar (I'm going to speak)", "vas a comer (you're going to eat)", "vamos a vivir (we're going to live)", "van a estudiar (they're going to study)"]},
+                {"heading": "Examples", "items": ["voy a hablar (I'm going to speak)", "vas a comer (you're going to eat)", "vamos a vivir (we're going to live)", "van a estudiar (they're going to study)"]},
             ],
             "footnote": "The infinitive never conjugates. All the work happens on ir.",
         },
     ],
+    "recall": {
+        "verb": "ir",
+        "answers": {
+            "yo": "|voy",
+            "tú": "|vas",
+            "él": "|va",
+            "nosotros": "va|mos",
+            "ellos": "|van",
+        },
+    },
 }
 
 IR_A_INF_RULE = {
@@ -806,16 +1110,40 @@ GUSTAR_INTRO = {
             "body": "Because the *thing* is the subject, the verb agrees with the thing. **Singular thing → gusta**: *me gusta el libro*. **Plural thing → gustan**: *me gustan los libros*. The pronoun (me/te/le/nos/les) stays the same.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Indirect object pronouns + gusta(n)",
-            "sections": [
-                {"heading": "Singular thing (gusta)", "items": ["me gusta (I like it)", "te gusta (you like it)", "le gusta (he/she/you-formal likes it)", "nos gusta (we like it)", "les gusta (they / you-all like it)"]},
-                {"heading": "Plural thing (gustan)", "items": ["me gustan", "te gustan", "le gustan", "nos gustan", "les gustan"]},
-                {"heading": "Adding emphasis with \"a + pronoun\"", "items": ["a mí me gusta — \"as for me, I like it\"", "a ti te gusta — \"and YOU like it\"", "a él / ella / usted le gusta", "a nosotros nos gusta", "a ellos / ellas / ustedes les gusta"]},
+            "kind": "mini_table",
+            "title": "gustar (to be pleasing — singular and plural forms)",
+            "rows": [
+                ["me + singular thing", "me gust|a"],
+                ["te + singular thing", "te gust|a"],
+                ["le + singular thing", "le gust|a"],
+                ["nos + singular thing", "nos gust|a"],
+                ["les + singular thing", "les gust|a"],
             ],
-            "footnote": "The \"a + pronoun\" prefix is optional — used for contrast or emphasis, not always required.",
+            "footnote": "Singular thing → gusta. Pronoun changes; verb stays in 3rd-person singular.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "gustar — plural thing (gustan)",
+            "rows": [
+                ["me + plural things", "me gust|an"],
+                ["te + plural things", "te gust|an"],
+                ["le + plural things", "le gust|an"],
+                ["nos + plural things", "nos gust|an"],
+                ["les + plural things", "les gust|an"],
+            ],
+            "footnote": "Plural thing → gustan. The verb agrees with the THING, not the liker.",
         },
     ],
+    "recall": {
+        "verb": "gustar",
+        "answers": {
+            "yo": "me gust|a",
+            "tú": "te gust|a",
+            "él": "le gust|a",
+            "nosotros": "nos gust|a",
+            "ellos": "les gust|a",
+        },
+    },
 }
 
 GUSTAR_RULE = {
@@ -850,15 +1178,52 @@ MODAL_INF_INTRO = {
             "footnote": "tengo que: most common for obligations. necesito: emphasizes need. me toca: rotation/turn-taking.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Conjugation patterns",
-            "sections": [
-                {"heading": "tengo que + inf", "items": ["yo tengo que…", "tú tienes que…", "él/ella/usted tiene que…", "nosotros/as tenemos que…", "ellos/ellas/ustedes tienen que…"]},
-                {"heading": "me toca + inf", "items": ["me toca, te toca, le toca, nos toca, les toca + infinitive"]},
-                {"heading": "necesito + inf", "items": ["necesito, necesitas, necesita, necesitamos, necesitan + infinitive"]},
+            "kind": "mini_table",
+            "title": "tener que + inf (to have to)",
+            "rows": [
+                ["yo", "ten|go que"],
+                ["tú", "t|ienes que"],
+                ["él / ella / usted", "t|iene que"],
+                ["nosotros / nosotras", "ten|emos que"],
+                ["ellos / ellas / ustedes", "t|ienen que"],
             ],
+            "footnote": "Tener stays irregular (yo-go + e→ie); add que + infinitive.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "tocar + inf (it's __ turn to)",
+            "rows": [
+                ["yo (me)", "me toc|a"],
+                ["tú (te)", "te toc|a"],
+                ["él / ella / usted (le)", "le toc|a"],
+                ["nosotros / nosotras (nos)", "nos toc|a"],
+                ["ellos / ellas / ustedes (les)", "les toc|a"],
+            ],
+            "footnote": "Conjugate the indirect-object pronoun; toca stays in 3rd-person singular.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "necesitar + inf (to need to)",
+            "rows": [
+                ["yo", "necesit|o"],
+                ["tú", "necesit|as"],
+                ["él / ella / usted", "necesit|a"],
+                ["nosotros / nosotras", "necesit|amos"],
+                ["ellos / ellas / ustedes", "necesit|an"],
+            ],
+            "footnote": "Fully regular -ar verb; add an infinitive after it.",
         },
     ],
+    "recall": {
+        "verb": "tener",
+        "answers": {
+            "yo": "ten|go",
+            "tú": "t|ienes",
+            "él": "t|iene",
+            "nosotros": "ten|emos",
+            "ellos": "t|ienen",
+        },
+    },
 }
 
 MODAL_INF_RULE = {
@@ -893,16 +1258,76 @@ IMPERFECT_INTRO = {
             "footnote": "Imperfect = ongoing or repeated. Preterite = a single, finished event.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Imperfect endings — only TWO patterns",
-            "sections": [
-                {"heading": "-AR verbs (hablar)", "items": ["yo hablaba", "tú hablabas", "él/ella/usted hablaba", "nosotros/as hablábamos", "ellos/ellas/ustedes hablaban"]},
-                {"heading": "-ER and -IR verbs (comer / vivir)", "items": ["yo comía / vivía", "tú comías / vivías", "él/ella/usted comía / vivía", "nosotros/as comíamos / vivíamos", "ellos/ellas/ustedes comían / vivían"]},
-                {"heading": "Only THREE irregulars", "items": ["ir → iba, ibas, iba, íbamos, iban", "ser → era, eras, era, éramos, eran", "ver → veía, veías, veía, veíamos, veían"]},
+            "kind": "mini_table",
+            "title": "hablar — imperfect (-ar regular)",
+            "rows": [
+                ["yo", "habl|aba"],
+                ["tú", "habl|abas"],
+                ["él / ella / usted", "habl|aba"],
+                ["nosotros / nosotras", "habl|ábamos"],
+                ["ellos / ellas / ustedes", "habl|aban"],
             ],
-            "footnote": "The imperfect has the fewest irregulars of any Spanish tense. Just three.",
+            "footnote": "Yo and él are identical — context tells you who.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "comer — imperfect (-er/-ir regular)",
+            "rows": [
+                ["yo", "com|ía"],
+                ["tú", "com|ías"],
+                ["él / ella / usted", "com|ía"],
+                ["nosotros / nosotras", "com|íamos"],
+                ["ellos / ellas / ustedes", "com|ían"],
+            ],
+            "footnote": "Same -ía endings on every -er and -ir verb.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ir — imperfect (irregular)",
+            "rows": [
+                ["yo", "|iba"],
+                ["tú", "|ibas"],
+                ["él / ella / usted", "|iba"],
+                ["nosotros / nosotras", "|íbamos"],
+                ["ellos / ellas / ustedes", "|iban"],
+            ],
+            "footnote": "Suppletive — just memorize.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ser — imperfect (irregular)",
+            "rows": [
+                ["yo", "|era"],
+                ["tú", "|eras"],
+                ["él / ella / usted", "|era"],
+                ["nosotros / nosotras", "|éramos"],
+                ["ellos / ellas / ustedes", "|eran"],
+            ],
+            "footnote": "Suppletive era- stem.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ver — imperfect (irregular)",
+            "rows": [
+                ["yo", "|veía"],
+                ["tú", "|veías"],
+                ["él / ella / usted", "|veía"],
+                ["nosotros / nosotras", "|veíamos"],
+                ["ellos / ellas / ustedes", "|veían"],
+            ],
+            "footnote": "Keeps the e from old veer-: veía.",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "habl|aba",
+            "tú": "habl|abas",
+            "él": "habl|aba",
+            "nosotros": "habl|ábamos",
+            "ellos": "habl|aban",
+        },
+    },
 }
 
 IMPERFECT_RULE = {
@@ -930,13 +1355,16 @@ REFLEXIVE_INTRO = {
             "body": "Reflexive verbs describe actions you do *to yourself*: wash yourself, get yourself up, get yourself dressed. The infinitive ends in **-se** (lavarse, levantarse), and you replace -se with the right reflexive pronoun for whoever's doing it.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Reflexive pronouns",
-            "sections": [
-                {"heading": "The pronouns", "items": ["yo → me", "tú → te", "él / ella / usted → se", "nosotros / nosotras → nos", "ellos / ellas / ustedes → se"]},
-                {"heading": "Pattern: pronoun + conjugated verb", "items": ["me lavo (I wash myself)", "te levantas (you get up)", "se ducha (he/she showers)", "nos vestimos (we get dressed)", "se acuestan (they go to bed)"]},
+            "kind": "mini_table",
+            "title": "levantarse (to get oneself up)",
+            "rows": [
+                ["yo", "me levant|o"],
+                ["tú", "te levant|as"],
+                ["él / ella / usted", "se levant|a"],
+                ["nosotros / nosotras", "nos levant|amos"],
+                ["ellos / ellas / ustedes", "se levant|an"],
             ],
-            "footnote": "The verb conjugates normally — only the leading pronoun marks it as reflexive.",
+            "footnote": "Reflexive pronoun (me/te/se/nos/se) goes BEFORE the conjugated verb.",
         },
         {
             "kind": "text",
@@ -944,6 +1372,16 @@ REFLEXIVE_INTRO = {
             "body": "*acostarse* is o→ue: *me acuesto*, *te acuestas*… *vestirse* is e→i: *me visto*, *te vistes*… The reflexive pronoun doesn't suppress the stem-change rule.",
         },
     ],
+    "recall": {
+        "verb": "levantarse",
+        "answers": {
+            "yo": "me levant|o",
+            "tú": "te levant|as",
+            "él": "se levant|a",
+            "nosotros": "nos levant|amos",
+            "ellos": "se levant|an",
+        },
+    },
 }
 
 REFLEXIVE_RULE = {
@@ -971,24 +1409,61 @@ IMPERATIVES_INTRO = {
             "body": "Spanish commands depend on who you're talking to. Informal **tú** uses the él/ella present-tense form. Formal **usted** and plural **ustedes** use the subjunctive form (it doubles as the command form). At this stage we focus on the affirmative — the \"do this\" version.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Affirmative commands — regular verbs",
-            "sections": [
-                {"heading": "tú command (= él present form)", "items": ["hablar → ¡habla!", "comer → ¡come!", "vivir → ¡vive!", "escribir → ¡escribe!"]},
-                {"heading": "usted command (= -e for -ar, -a for -er/-ir)", "items": ["hablar → ¡hable!", "comer → ¡coma!", "vivir → ¡viva!"]},
-                {"heading": "ustedes command (= add -n)", "items": ["¡hablen!  ¡coman!  ¡vivan!"]},
+            "kind": "mini_table",
+            "title": "hablar — affirmative commands",
+            "rows": [
+                ["tú (informal)", "habl|a"],
+                ["usted (formal)", "habl|e"],
+                ["ustedes (plural)", "habl|en"],
             ],
-            "footnote": "Endings flip: -ar verbs use -e endings for commands; -er/-ir verbs use -a endings.",
+            "footnote": "Regular -ar: tú = él present form. Usted/ustedes flip to -e endings.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Common irregular tú commands",
-            "sections": [
-                {"heading": "Eight to memorize", "items": ["ir → ¡ve!", "ser → ¡sé!", "tener → ¡ten!", "venir → ¡ven!", "salir → ¡sal!", "poner → ¡pon!", "hacer → ¡haz!", "decir → ¡di!"]},
+            "kind": "mini_table",
+            "title": "comer — affirmative commands",
+            "rows": [
+                ["tú (informal)", "com|e"],
+                ["usted (formal)", "com|a"],
+                ["ustedes (plural)", "com|an"],
+            ],
+            "footnote": "Regular -er: usted/ustedes flip to -a endings.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "vivir — affirmative commands",
+            "rows": [
+                ["tú (informal)", "viv|e"],
+                ["usted (formal)", "viv|a"],
+                ["ustedes (plural)", "viv|an"],
+            ],
+            "footnote": "Regular -ir: same -a endings as -er.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "Irregular tú commands — eight to memorize",
+            "rows": [
+                ["ir → tú", "|ve"],
+                ["ser → tú", "|sé"],
+                ["tener → tú", "|ten"],
+                ["venir → tú", "|ven"],
+                ["salir → tú", "|sal"],
+                ["poner → tú", "|pon"],
+                ["hacer → tú", "|haz"],
+                ["decir → tú", "|di"],
             ],
             "footnote": "Mnemonic: \"Vin Diesel has ten weapons\" → ven, di, sal, haz, ten, ve, pon, sé.",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "habl|o",
+            "tú": "habl|a",
+            "él": "habl|e",
+            "nosotros": "habl|emos",
+            "ellos": "habl|en",
+        },
+    },
 }
 
 IMPERATIVES_RULE = {
@@ -1017,23 +1492,40 @@ FUTURE_INTRO = {
             "body": "Unlike most tenses, the future doesn't drop -ar/-er/-ir. You take the whole infinitive (*hablar*, *comer*, *vivir*) and add the same set of endings — same set for all three verb families. That's the regular pattern.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Regular future endings (one set, all verbs)",
-            "sections": [
-                {"heading": "Endings", "items": ["yo → -é (hablaré)", "tú → -ás (hablarás)", "él/ella/usted → -á (hablará)", "nosotros/as → -emos (hablaremos)", "ellos/ellas/ustedes → -án (hablarán)"]},
-                {"heading": "Same endings on -er and -ir", "items": ["comer → comeré, comerás, comerá, comeremos, comerán", "vivir → viviré, vivirás, vivirá, viviremos, vivirán"]},
+            "kind": "mini_table",
+            "title": "hablar — future (regular)",
+            "rows": [
+                ["yo", "hablar|é"],
+                ["tú", "hablar|ás"],
+                ["él / ella / usted", "hablar|á"],
+                ["nosotros / nosotras", "hablar|emos"],
+                ["ellos / ellas / ustedes", "hablar|án"],
             ],
-            "footnote": "Notice all forms except nosotros carry an accent.",
+            "footnote": "Endings attach to the WHOLE infinitive. Same endings on -er and -ir verbs.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Irregular futures — modified stem, same endings",
-            "sections": [
-                {"heading": "Twelve common irregulars (stem change, same endings)", "items": ["tener → tendr- (tendré)", "poner → pondr-", "venir → vendr-", "salir → saldr-", "poder → podr-", "saber → sabr-", "haber → habr-", "caber → cabr-", "querer → querr-", "hacer → har- (haré)", "decir → dir- (diré)"]},
+            "kind": "mini_table",
+            "title": "tener — future (irregular root tendr-)",
+            "rows": [
+                ["yo", "tendr|é"],
+                ["tú", "tendr|ás"],
+                ["él / ella / usted", "tendr|á"],
+                ["nosotros / nosotras", "tendr|emos"],
+                ["ellos / ellas / ustedes", "tendr|án"],
             ],
-            "footnote": "Endings stay the same; the stem just collapses or shifts. hacer and decir are the most contracted.",
+            "footnote": "Stem collapses to tendr-; endings stay identical to the regular set.",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "hablar|é",
+            "tú": "hablar|ás",
+            "él": "hablar|á",
+            "nosotros": "hablar|emos",
+            "ellos": "hablar|án",
+        },
+    },
 }
 
 FUTURE_RULE = {
@@ -1061,12 +1553,28 @@ CONDITIONAL_INTRO = {
             "body": "Conditional shares the future's stem (full infinitive, or the same irregular shortcuts: *tendr-, har-, dir-…*). What changes are the endings: instead of future's -é/-ás/-á, conditional uses imperfect-style -ía endings. *Hablaría* = \"I would speak.\"",
         },
         {
-            "kind": "rule_pack",
-            "title": "Conditional endings (one set for all verbs)",
-            "sections": [
-                {"heading": "Endings — added to the infinitive", "items": ["yo → -ía (hablaría)", "tú → -ías (hablarías)", "él/ella/usted → -ía (hablaría)", "nosotros/as → -íamos (hablaríamos)", "ellos/ellas/ustedes → -ían (hablarían)"]},
+            "kind": "mini_table",
+            "title": "hablar — conditional (regular)",
+            "rows": [
+                ["yo", "hablar|ía"],
+                ["tú", "hablar|ías"],
+                ["él / ella / usted", "hablar|ía"],
+                ["nosotros / nosotras", "hablar|íamos"],
+                ["ellos / ellas / ustedes", "hablar|ían"],
             ],
-            "footnote": "yo and él share the same form — context tells you who. Same -ía pattern as the imperfect.",
+            "footnote": "-ía endings attach to the whole infinitive. Yo and él are identical.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "tener — conditional (irregular root tendr-)",
+            "rows": [
+                ["yo", "tendr|ía"],
+                ["tú", "tendr|ías"],
+                ["él / ella / usted", "tendr|ía"],
+                ["nosotros / nosotras", "tendr|íamos"],
+                ["ellos / ellas / ustedes", "tendr|ían"],
+            ],
+            "footnote": "Same irregular stems as the future; only endings differ.",
         },
         {
             "kind": "text",
@@ -1074,6 +1582,16 @@ CONDITIONAL_INTRO = {
             "body": "*¿Podrías ayudarme?* (Could you help me?) — softer than \"can you?\" *Yo iría contigo* (I'd go with you). *En tu lugar, hablaría con ella* (In your place, I would talk to her). It's the diplomat's tense.",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "hablar|ía",
+            "tú": "hablar|ías",
+            "él": "hablar|ía",
+            "nosotros": "hablar|íamos",
+            "ellos": "hablar|ían",
+        },
+    },
 }
 
 CONDITIONAL_RULE = {
@@ -1126,13 +1644,40 @@ PRETERITE_REGULAR_INTRO = {
             "body": "The preterite tells what *happened* — one event, finished, done. *Ayer hablé con Juan*. *Comimos pizza*. *Salieron a las ocho*. If you can put a beginning and an end on it, this is your tense.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Regular preterite endings",
-            "sections": [
-                {"heading": "-AR verbs (hablar)", "items": ["yo hablé", "tú hablaste", "él/ella/usted habló", "nosotros/as hablamos", "ellos/ellas/ustedes hablaron"]},
-                {"heading": "-ER and -IR verbs (comer / vivir — same endings)", "items": ["yo comí / viví", "tú comiste / viviste", "él/ella/usted comió / vivió", "nosotros/as comimos / vivimos", "ellos/ellas/ustedes comieron / vivieron"]},
+            "kind": "mini_table",
+            "title": "hablar — preterite (-ar)",
+            "rows": [
+                ["yo", "habl|é"],
+                ["tú", "habl|aste"],
+                ["él / ella / usted", "habl|ó"],
+                ["nosotros / nosotras", "habl|amos"],
+                ["ellos / ellas / ustedes", "habl|aron"],
             ],
-            "footnote": "Notice the accents on yo and él (-é, -ó for -ar; -í, -ió for -er/-ir). They're load-bearing — they distinguish the form.",
+            "footnote": "Accents on yo (-é) and él (-ó) are load-bearing.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "comer — preterite (-er)",
+            "rows": [
+                ["yo", "com|í"],
+                ["tú", "com|iste"],
+                ["él / ella / usted", "com|ió"],
+                ["nosotros / nosotras", "com|imos"],
+                ["ellos / ellas / ustedes", "com|ieron"],
+            ],
+            "footnote": "-er and -ir share the same preterite endings.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "vivir — preterite (-ir)",
+            "rows": [
+                ["yo", "viv|í"],
+                ["tú", "viv|iste"],
+                ["él / ella / usted", "viv|ió"],
+                ["nosotros / nosotras", "viv|imos"],
+                ["ellos / ellas / ustedes", "viv|ieron"],
+            ],
+            "footnote": "Identical endings to -er. nosotros matches the present.",
         },
         {
             "kind": "text",
@@ -1140,6 +1685,16 @@ PRETERITE_REGULAR_INTRO = {
             "body": "*hablamos* could be \"we speak\" OR \"we spoke.\" Spanish lets context disambiguate. -ir verbs do the same: *vivimos* = we live / we lived.",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "habl|é",
+            "tú": "habl|aste",
+            "él": "habl|ó",
+            "nosotros": "habl|amos",
+            "ellos": "habl|aron",
+        },
+    },
 }
 
 PRETERITE_REGULAR_RULE = {
@@ -1167,20 +1722,100 @@ PRETERITE_IRREGULAR_INTRO = {
             "body": "Both *ser* and *ir* conjugate to *fui, fuiste, fue, fuimos, fueron* in the preterite. Context tells you which: *fui a Lima* = I went; *fui doctora* = I was a doctor. They merge in this tense and only this one.",
         },
         {
-            "kind": "rule_pack",
-            "title": "The irregulars",
-            "sections": [
-                {"heading": "ser / ir (identical)", "items": ["fui, fuiste, fue, fuimos, fueron"]},
-                {"heading": "dar (uses -er/-ir endings, no accents)", "items": ["di, diste, dio, dimos, dieron"]},
-                {"heading": "ver (uses -er/-ir endings, no accents)", "items": ["vi, viste, vio, vimos, vieron"]},
-                {"heading": "hacer (c→z in él)", "items": ["hice, hiciste, hizo, hicimos, hicieron"]},
-                {"heading": "decir (j-stem, drop the i in ellos)", "items": ["dije, dijiste, dijo, dijimos, dijeron"]},
-                {"heading": "traer (j-stem, drop the i in ellos)", "items": ["traje, trajiste, trajo, trajimos, trajeron"]},
-                {"heading": "dormir / morir (o→u in él, ellos)", "items": ["dormí, dormiste, durmió, dormimos, durmieron", "morí, moriste, murió, morimos, murieron"]},
+            "kind": "mini_table",
+            "title": "ser / ir — preterite (identical)",
+            "rows": [
+                ["yo", "|fui"],
+                ["tú", "|fuiste"],
+                ["él / ella / usted", "|fue"],
+                ["nosotros / nosotras", "|fuimos"],
+                ["ellos / ellas / ustedes", "|fueron"],
             ],
-            "footnote": "Pattern: j-stem verbs (decir, traer, traducir) drop the i in ellos: dijeron, NOT dijieron.",
+            "footnote": "Both verbs share these forms; context tells you which.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "dar — preterite (uses -er/-ir endings, no accents)",
+            "rows": [
+                ["yo", "|di"],
+                ["tú", "d|iste"],
+                ["él / ella / usted", "d|io"],
+                ["nosotros / nosotras", "d|imos"],
+                ["ellos / ellas / ustedes", "d|ieron"],
+            ],
+            "footnote": "Treats itself like an -er/-ir verb in the preterite.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ver — preterite (no accents)",
+            "rows": [
+                ["yo", "|vi"],
+                ["tú", "v|iste"],
+                ["él / ella / usted", "v|io"],
+                ["nosotros / nosotras", "v|imos"],
+                ["ellos / ellas / ustedes", "v|ieron"],
+            ],
+            "footnote": "Like dar — short forms, no accents.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "hacer — preterite (strong stem hic-)",
+            "rows": [
+                ["yo", "hic|e"],
+                ["tú", "hic|iste"],
+                ["él / ella / usted", "hi|zo"],
+                ["nosotros / nosotras", "hic|imos"],
+                ["ellos / ellas / ustedes", "hic|ieron"],
+            ],
+            "footnote": "él form: c → z to keep the soft sound (hizo).",
+        },
+        {
+            "kind": "mini_table",
+            "title": "decir — preterite (j-stem)",
+            "rows": [
+                ["yo", "dij|e"],
+                ["tú", "dij|iste"],
+                ["él / ella / usted", "dij|o"],
+                ["nosotros / nosotras", "dij|imos"],
+                ["ellos / ellas / ustedes", "dij|eron"],
+            ],
+            "footnote": "j-stem drops the i in ellos: dijeron, NOT dijieron.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "traer — preterite (j-stem)",
+            "rows": [
+                ["yo", "traj|e"],
+                ["tú", "traj|iste"],
+                ["él / ella / usted", "traj|o"],
+                ["nosotros / nosotras", "traj|imos"],
+                ["ellos / ellas / ustedes", "traj|eron"],
+            ],
+            "footnote": "Same j-stem family as decir.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "dormir — preterite (o→u in él/ellos)",
+            "rows": [
+                ["yo", "dorm|í"],
+                ["tú", "dorm|iste"],
+                ["él / ella / usted", "d|urmió"],
+                ["nosotros / nosotras", "dorm|imos"],
+                ["ellos / ellas / ustedes", "d|urmieron"],
+            ],
+            "footnote": "Stem o → u only in 3rd person. morir follows the same pattern.",
         },
     ],
+    "recall": {
+        "verb": "ser",
+        "answers": {
+            "yo": "|fui",
+            "tú": "|fuiste",
+            "él": "|fue",
+            "nosotros": "|fuimos",
+            "ellos": "|fueron",
+        },
+    },
 }
 
 PRETERITE_IRREGULAR_RULE = {
@@ -1208,14 +1843,40 @@ PRET_SPELLING_INTRO = {
             "body": "Some verbs need a spelling tweak in the **yo** form of the preterite to keep the original sound. The endings stay regular (-é, -aste, -ó…); only the consonant just before the ending shifts.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Three patterns (yo form)",
-            "sections": [
-                {"heading": "-CAR verbs → c becomes qu", "items": ["buscar → busqué", "tocar → toqué", "sacar → saqué"]},
-                {"heading": "-GAR verbs → g becomes gu", "items": ["pagar → pagué", "jugar → jugué", "llegar → llegué"]},
-                {"heading": "-ZAR verbs → z becomes c", "items": ["empezar → empecé", "almorzar → almorcé", "comenzar → comencé"]},
+            "kind": "mini_table",
+            "title": "llegar — preterite (g → gu in yo)",
+            "rows": [
+                ["yo", "llegu|é"],
+                ["tú", "lleg|aste"],
+                ["él / ella / usted", "lleg|ó"],
+                ["nosotros / nosotras", "lleg|amos"],
+                ["ellos / ellas / ustedes", "lleg|aron"],
             ],
-            "footnote": "These changes only happen in the yo form. The rest of the conjugation is regular: buscaste, buscó, buscamos, buscaron.",
+            "footnote": "Insert u after g in yo to keep the hard g sound: llegué.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "comenzar — preterite (z → c in yo)",
+            "rows": [
+                ["yo", "comenc|é"],
+                ["tú", "comenz|aste"],
+                ["él / ella / usted", "comenz|ó"],
+                ["nosotros / nosotras", "comenz|amos"],
+                ["ellos / ellas / ustedes", "comenz|aron"],
+            ],
+            "footnote": "z → c before -é in yo: comencé.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "sacar — preterite (c → qu in yo)",
+            "rows": [
+                ["yo", "saqu|é"],
+                ["tú", "sac|aste"],
+                ["él / ella / usted", "sac|ó"],
+                ["nosotros / nosotras", "sac|amos"],
+                ["ellos / ellas / ustedes", "sac|aron"],
+            ],
+            "footnote": "c → qu before -é in yo to keep the hard c sound.",
         },
         {
             "kind": "text",
@@ -1223,6 +1884,16 @@ PRET_SPELLING_INTRO = {
             "body": "Verbs like **leer, creer, oír, caer, construir** — where an unstressed *i* would land between vowels — turn that i into y. *Leyó* (not *leió*). *Construyeron* (not *construieron*).",
         },
     ],
+    "recall": {
+        "verb": "llegar",
+        "answers": {
+            "yo": "llegu|é",
+            "tú": "lleg|aste",
+            "él": "lleg|ó",
+            "nosotros": "lleg|amos",
+            "ellos": "lleg|aron",
+        },
+    },
 }
 
 PRET_SPELLING_RULE = {
@@ -1250,23 +1921,52 @@ PRET_STRONG_INTRO = {
             "body": "About 15 important verbs use a special preterite called the \"strong\" preterite. They all swap their stem (estar → estuv-, tener → tuv-, poder → pud-…) and they all share the SAME set of endings — endings with NO accent marks.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Shared endings (no accents)",
-            "sections": [
-                {"heading": "-e, -iste, -o, -imos, -ieron", "items": ["yo → -e (estuve)", "tú → -iste (estuviste)", "él/ella/usted → -o (estuvo)", "nosotros/as → -imos (estuvimos)", "ellos/ellas/ustedes → -ieron (estuvieron)"]},
+            "kind": "mini_table",
+            "title": "tener — strong preterite (stem tuv-)",
+            "rows": [
+                ["yo", "tuv|e"],
+                ["tú", "tuv|iste"],
+                ["él / ella / usted", "tuv|o"],
+                ["nosotros / nosotras", "tuv|imos"],
+                ["ellos / ellas / ustedes", "tuv|ieron"],
             ],
-            "footnote": "Notice yo and él end in plain -e and -o (not -é, -ó). The accent is what tells you it's strong.",
+            "footnote": "Plain -e in yo and -o in él (no accents).",
         },
         {
-            "kind": "rule_pack",
-            "title": "Common strong stems",
-            "sections": [
-                {"heading": "u-stems", "items": ["estar → estuv-", "tener → tuv-", "poder → pud-", "poner → pus-", "saber → sup-", "haber → hub-", "caber → cup-", "andar → anduv-"]},
-                {"heading": "i-stems", "items": ["venir → vin-", "querer → quis-", "hacer → hic- (él: hizo)"]},
+            "kind": "mini_table",
+            "title": "poner — strong preterite (stem pus-)",
+            "rows": [
+                ["yo", "pus|e"],
+                ["tú", "pus|iste"],
+                ["él / ella / usted", "pus|o"],
+                ["nosotros / nosotras", "pus|imos"],
+                ["ellos / ellas / ustedes", "pus|ieron"],
             ],
-            "footnote": "Compounds inherit: mantener → mantuv-, obtener → obtuv-, contener → contuv-.",
+            "footnote": "Same shared endings as tener.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "hacer — strong preterite (stem hic-, él: hizo)",
+            "rows": [
+                ["yo", "hic|e"],
+                ["tú", "hic|iste"],
+                ["él / ella / usted", "hi|zo"],
+                ["nosotros / nosotras", "hic|imos"],
+                ["ellos / ellas / ustedes", "hic|ieron"],
+            ],
+            "footnote": "él form: c → z to keep the soft sound (hizo).",
         },
     ],
+    "recall": {
+        "verb": "tener",
+        "answers": {
+            "yo": "tuv|e",
+            "tú": "tuv|iste",
+            "él": "tuv|o",
+            "nosotros": "tuv|imos",
+            "ellos": "tuv|ieron",
+        },
+    },
 }
 
 PRET_STRONG_RULE = {
@@ -1294,15 +1994,40 @@ PRET_DUCIR_INTRO = {
             "body": "Every Spanish verb ending in **-ducir** (traducir, conducir, producir, introducir, reducir…) uses the same preterite: stem ends in **-duj-** and takes strong-preterite endings. They share a special quirk with decir and traer: the ellos form drops the i.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Pattern",
-            "sections": [
-                {"heading": "Stem and endings", "items": ["traducir → traduj- + -e/-iste/-o/-imos/-eron", "conducir → conduj-", "producir → produj-", "introducir → introduj-"]},
-                {"heading": "ellos drops the i", "items": ["tradujeron (NOT tradujieron)", "condujeron, produjeron, introdujeron"]},
+            "kind": "mini_table",
+            "title": "producir — preterite (j-stem produj-)",
+            "rows": [
+                ["yo", "produj|e"],
+                ["tú", "produj|iste"],
+                ["él / ella / usted", "produj|o"],
+                ["nosotros / nosotras", "produj|imos"],
+                ["ellos / ellas / ustedes", "produj|eron"],
             ],
-            "footnote": "Same j-stem trick as decir (dijeron) and traer (trajeron). It's a family pattern.",
+            "footnote": "ellos drops the i: produjeron, NOT produjieron.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "traducir — preterite (j-stem traduj-)",
+            "rows": [
+                ["yo", "traduj|e"],
+                ["tú", "traduj|iste"],
+                ["él / ella / usted", "traduj|o"],
+                ["nosotros / nosotras", "traduj|imos"],
+                ["ellos / ellas / ustedes", "traduj|eron"],
+            ],
+            "footnote": "Same pattern as all -ducir verbs.",
         },
     ],
+    "recall": {
+        "verb": "producir",
+        "answers": {
+            "yo": "produj|e",
+            "tú": "produj|iste",
+            "él": "produj|o",
+            "nosotros": "produj|imos",
+            "ellos": "produj|eron",
+        },
+    },
 }
 
 PRET_DUCIR_RULE = {
@@ -1330,15 +2055,52 @@ PRET_E_TO_I_INTRO = {
             "body": "**-ir verbs** that have a stem change in the present (pedir, sentir, repetir, servir, dormir, morir) keep a smaller version of that change in the preterite — but only in the **él** and **ellos** forms. Everything else is regular.",
         },
         {
-            "kind": "rule_pack",
-            "title": "The pattern",
-            "sections": [
-                {"heading": "él / ellos: e → i", "items": ["pedir → pidió, pidieron", "sentir → sintió, sintieron", "repetir → repitió, repitieron", "servir → sirvió, sirvieron"]},
-                {"heading": "yo, tú, nosotros: completely regular", "items": ["pedí, pediste, pedimos", "sentí, sentiste, sentimos"]},
+            "kind": "mini_table",
+            "title": "pedir — preterite (e→i in él/ellos)",
+            "rows": [
+                ["yo", "ped|í"],
+                ["tú", "ped|iste"],
+                ["él / ella / usted", "p|idió"],
+                ["nosotros / nosotras", "ped|imos"],
+                ["ellos / ellas / ustedes", "p|idieron"],
             ],
-            "footnote": "Only -ir verbs do this in the preterite. -ar and -er verbs with present stem changes (pensar, querer) are fully regular in the preterite.",
+            "footnote": "Stem changes only in 3rd person; everything else is regular -ir.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "servir — preterite (e→i in él/ellos)",
+            "rows": [
+                ["yo", "serv|í"],
+                ["tú", "serv|iste"],
+                ["él / ella / usted", "s|irvió"],
+                ["nosotros / nosotras", "serv|imos"],
+                ["ellos / ellas / ustedes", "s|irvieron"],
+            ],
+            "footnote": "Same pattern as pedir.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "dormir — preterite (o→u in él/ellos)",
+            "rows": [
+                ["yo", "dorm|í"],
+                ["tú", "dorm|iste"],
+                ["él / ella / usted", "d|urmió"],
+                ["nosotros / nosotras", "dorm|imos"],
+                ["ellos / ellas / ustedes", "d|urmieron"],
+            ],
+            "footnote": "o→u variant of the same -ir 3rd-person pattern. morir follows the same.",
         },
     ],
+    "recall": {
+        "verb": "pedir",
+        "answers": {
+            "yo": "ped|í",
+            "tú": "ped|iste",
+            "él": "p|idió",
+            "nosotros": "ped|imos",
+            "ellos": "p|idieron",
+        },
+    },
 }
 
 PRET_E_TO_I_RULE = {
@@ -1366,15 +2128,52 @@ GERUND_INTRO = {
             "body": "When the action is in progress at this moment, Spanish uses **estar + the gerund** (-ando / -iendo). *Estoy comiendo* — I am eating (this very second). This is the present progressive: ongoing right now, not just \"I eat in general.\"",
         },
         {
-            "kind": "rule_pack",
-            "title": "How to form the gerund",
-            "sections": [
-                {"heading": "-AR verbs → -ando", "items": ["hablar → hablando", "caminar → caminando", "estudiar → estudiando"]},
-                {"heading": "-ER and -IR verbs → -iendo", "items": ["comer → comiendo", "beber → bebiendo", "vivir → viviendo", "salir → saliendo"]},
-                {"heading": "Vowel-stem verbs → -yendo (i becomes y between vowels)", "items": ["leer → leyendo", "oír → oyendo", "construir → construyendo"]},
-                {"heading": "-ir stem-changers shift e→i / o→u", "items": ["pedir → pidiendo", "sentir → sintiendo", "dormir → durmiendo", "morir → muriendo"]},
+            "kind": "mini_table",
+            "title": "hablar — gerund (-ando)",
+            "rows": [
+                ["yo", "estoy habl|ando"],
+                ["tú", "estás habl|ando"],
+                ["él / ella / usted", "está habl|ando"],
+                ["nosotros / nosotras", "estamos habl|ando"],
+                ["ellos / ellas / ustedes", "están habl|ando"],
             ],
-            "footnote": "The gerund itself is invariable (no agreement). Only estar conjugates.",
+            "footnote": "-ar verbs take -ando. The gerund itself never changes.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "comer — gerund (-iendo)",
+            "rows": [
+                ["yo", "estoy com|iendo"],
+                ["tú", "estás com|iendo"],
+                ["él / ella / usted", "está com|iendo"],
+                ["nosotros / nosotras", "estamos com|iendo"],
+                ["ellos / ellas / ustedes", "están com|iendo"],
+            ],
+            "footnote": "-er and -ir verbs both take -iendo.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "leer — gerund (-yendo, vowel-stem)",
+            "rows": [
+                ["yo", "estoy le|yendo"],
+                ["tú", "estás le|yendo"],
+                ["él / ella / usted", "está le|yendo"],
+                ["nosotros / nosotras", "estamos le|yendo"],
+                ["ellos / ellas / ustedes", "están le|yendo"],
+            ],
+            "footnote": "i → y between vowels. Same shift in oír (oyendo), construir (construyendo).",
+        },
+        {
+            "kind": "mini_table",
+            "title": "dormir — gerund (stem o→u)",
+            "rows": [
+                ["yo", "estoy d|urmiendo"],
+                ["tú", "estás d|urmiendo"],
+                ["él / ella / usted", "está d|urmiendo"],
+                ["nosotros / nosotras", "estamos d|urmiendo"],
+                ["ellos / ellas / ustedes", "están d|urmiendo"],
+            ],
+            "footnote": "-ir stem-changers shift in the gerund: dormir → durmiendo, pedir → pidiendo.",
         },
         {
             "kind": "text",
@@ -1382,6 +2181,16 @@ GERUND_INTRO = {
             "body": "In English we say \"I'm leaving tomorrow.\" In Spanish, that's NOT *estoy saliendo mañana* — use simple present (*salgo mañana*) or *ir a + inf* (*voy a salir mañana*). The Spanish gerund really means \"in progress right now.\"",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "estoy habl|ando",
+            "tú": "estás habl|ando",
+            "él": "está habl|ando",
+            "nosotros": "estamos habl|ando",
+            "ellos": "están habl|ando",
+        },
+    },
 }
 
 GERUND_RULE = {
@@ -1500,23 +2309,112 @@ SUBJ_PRES_INTRO = {
             "body": "**W**ish: *quiero que…*  **E**motion: *me alegro de que…*  **D**oubt: *dudo que…*  **D**enial: *no creo que…*  **I**mpersonal: *es importante que…*  **N**egation: *no es verdad que…*  **G**od / wishes: *ojalá que…*  When you see one of these phrases, the verb that follows goes in the subjunctive.",
         },
         {
-            "kind": "rule_pack",
-            "title": "How to form it — \"opposite vowel\" rule",
-            "sections": [
-                {"heading": "Step 1: Take the yo form of the present, drop the -o", "items": ["hablar → habl-", "comer → com-", "vivir → viv-", "tener → teng- (irregular yo carries through)"]},
-                {"heading": "Step 2: Add opposite-vowel endings", "items": ["-AR verbs take -e endings: hable, hables, hable, hablemos, hablen", "-ER and -IR verbs take -a endings: coma, comas, coma, comamos, coman / viva, vivas…"]},
+            "kind": "mini_table",
+            "title": "hablar — present subjunctive (-ar → -e)",
+            "rows": [
+                ["yo", "habl|e"],
+                ["tú", "habl|es"],
+                ["él / ella / usted", "habl|e"],
+                ["nosotros / nosotras", "habl|emos"],
+                ["ellos / ellas / ustedes", "habl|en"],
             ],
-            "footnote": "The opposite-vowel switch is the heart of it: -ar → -e, -er/-ir → -a.",
+            "footnote": "-ar verbs take opposite-vowel -e endings.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Six fully irregular verbs",
-            "sections": [
-                {"heading": "Don't follow the yo-stem rule", "items": ["ser → sea, seas, sea, seamos, sean", "ir → vaya, vayas, vaya, vayamos, vayan", "estar → esté, estés, esté, estemos, estén", "dar → dé, des, dé, demos, den", "saber → sepa, sepas, sepa, sepamos, sepan", "haber → haya, hayas, haya, hayamos, hayan"]},
+            "kind": "mini_table",
+            "title": "comer — present subjunctive (-er → -a)",
+            "rows": [
+                ["yo", "com|a"],
+                ["tú", "com|as"],
+                ["él / ella / usted", "com|a"],
+                ["nosotros / nosotras", "com|amos"],
+                ["ellos / ellas / ustedes", "com|an"],
             ],
-            "footnote": "Mnemonic: \"DISHES\" — Dar, Ir, Ser, Haber, Estar, Saber.",
+            "footnote": "-er and -ir take -a endings. Same set on vivir.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ser — present subjunctive (irregular)",
+            "rows": [
+                ["yo", "|sea"],
+                ["tú", "|seas"],
+                ["él / ella / usted", "|sea"],
+                ["nosotros / nosotras", "|seamos"],
+                ["ellos / ellas / ustedes", "|sean"],
+            ],
+            "footnote": "Suppletive sea- stem.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ir — present subjunctive (irregular)",
+            "rows": [
+                ["yo", "|vaya"],
+                ["tú", "|vayas"],
+                ["él / ella / usted", "|vaya"],
+                ["nosotros / nosotras", "|vayamos"],
+                ["ellos / ellas / ustedes", "|vayan"],
+            ],
+            "footnote": "Suppletive vaya- stem.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "haber — present subjunctive (irregular)",
+            "rows": [
+                ["yo", "|haya"],
+                ["tú", "|hayas"],
+                ["él / ella / usted", "|haya"],
+                ["nosotros / nosotras", "|hayamos"],
+                ["ellos / ellas / ustedes", "|hayan"],
+            ],
+            "footnote": "Auxiliary haber, used to form perfect subjunctives.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "saber — present subjunctive (irregular)",
+            "rows": [
+                ["yo", "sep|a"],
+                ["tú", "sep|as"],
+                ["él / ella / usted", "sep|a"],
+                ["nosotros / nosotras", "sep|amos"],
+                ["ellos / ellas / ustedes", "sep|an"],
+            ],
+            "footnote": "Stem changes from sab- to sep-.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "dar — present subjunctive (irregular)",
+            "rows": [
+                ["yo", "d|é"],
+                ["tú", "d|es"],
+                ["él / ella / usted", "d|é"],
+                ["nosotros / nosotras", "d|emos"],
+                ["ellos / ellas / ustedes", "d|en"],
+            ],
+            "footnote": "Accent on yo and él (dé) distinguishes from preposition de.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "estar — present subjunctive (irregular)",
+            "rows": [
+                ["yo", "est|é"],
+                ["tú", "est|és"],
+                ["él / ella / usted", "est|é"],
+                ["nosotros / nosotras", "est|emos"],
+                ["ellos / ellas / ustedes", "est|én"],
+            ],
+            "footnote": "Accents on every form except nosotros. Mnemonic for irregulars: DISHES — Dar, Ir, Ser, Haber, Estar, Saber.",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "habl|e",
+            "tú": "habl|es",
+            "él": "habl|e",
+            "nosotros": "habl|emos",
+            "ellos": "habl|en",
+        },
+    },
 }
 
 SUBJ_PRES_RULE = {
@@ -1549,12 +2447,40 @@ SUBJ_IMPF_INTRO = {
             "body": "Take the **ellos** form of the preterite, drop the -ron, and add new endings: *hablaron → habla- → hablara, hablaras…* Because it's based on the preterite, every preterite irregularity comes along for the ride.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Endings (same set for all verbs)",
-            "sections": [
-                {"heading": "From the ellos preterite stem (drop -ron)", "items": ["yo → -ra (hablara)", "tú → -ras (hablaras)", "él/ella/usted → -ra (hablara)", "nosotros/as → -´ramos (habláramos — accent!)", "ellos/ellas/ustedes → -ran (hablaran)"]},
+            "kind": "mini_table",
+            "title": "hablar — imperfect subjunctive (regular)",
+            "rows": [
+                ["yo", "habl|ara"],
+                ["tú", "habl|aras"],
+                ["él / ella / usted", "habl|ara"],
+                ["nosotros / nosotras", "habl|áramos"],
+                ["ellos / ellas / ustedes", "habl|aran"],
             ],
-            "footnote": "The nosotros form takes a written accent on the 3rd-to-last syllable (habláramos, comiéramos, viviéramos).",
+            "footnote": "Built from ellos preterite stem habla-. Accent on nosotros.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "tener — imperfect subjunctive (strong stem tuv-)",
+            "rows": [
+                ["yo", "tuv|iera"],
+                ["tú", "tuv|ieras"],
+                ["él / ella / usted", "tuv|iera"],
+                ["nosotros / nosotras", "tuv|iéramos"],
+                ["ellos / ellas / ustedes", "tuv|ieran"],
+            ],
+            "footnote": "Inherits the strong-preterite stem.",
+        },
+        {
+            "kind": "mini_table",
+            "title": "ser / ir — imperfect subjunctive (identical)",
+            "rows": [
+                ["yo", "|fuera"],
+                ["tú", "|fueras"],
+                ["él / ella / usted", "|fuera"],
+                ["nosotros / nosotras", "|fuéramos"],
+                ["ellos / ellas / ustedes", "|fueran"],
+            ],
+            "footnote": "Both verbs share these forms (from the shared preterite fui-).",
         },
         {
             "kind": "text",
@@ -1562,6 +2488,16 @@ SUBJ_IMPF_INTRO = {
             "body": "There's an alternate form ending in -se: *hablase, hablases, hablase, hablásemos, hablasen*. They're interchangeable, but the **-ra form is far more common** in everyday speech and is what we'll teach. Recognize -se when you read; produce -ra when you speak.",
         },
     ],
+    "recall": {
+        "verb": "hablar",
+        "answers": {
+            "yo": "habl|ara",
+            "tú": "habl|aras",
+            "él": "habl|ara",
+            "nosotros": "habl|áramos",
+            "ellos": "habl|aran",
+        },
+    },
 }
 
 SUBJ_IMPF_RULE = {
@@ -1589,13 +2525,28 @@ PERFECT_TENSES_INTRO = {
             "body": "Every perfect tense in Spanish has the same shape: conjugate **haber** (the auxiliary) + add the **past participle** of the action verb. *He hablado* = I have spoken. *Habían comido* = they had eaten. Only haber moves; the participle never changes.",
         },
         {
-            "kind": "rule_pack",
-            "title": "Building the past participle",
-            "sections": [
-                {"heading": "Regular: drop the ending, add -ado / -ido", "items": ["-AR verbs → -ado: hablar → hablado, caminar → caminado", "-ER verbs → -ido: comer → comido, beber → bebido", "-IR verbs → -ido: vivir → vivido, salir → salido"]},
-                {"heading": "Common irregulars (memorize these)", "items": ["decir → dicho", "hacer → hecho", "ver → visto", "escribir → escrito", "poner → puesto", "abrir → abierto", "volver → vuelto", "morir → muerto", "romper → roto", "cubrir → cubierto", "resolver → resuelto"]},
+            "kind": "mini_table",
+            "title": "haber — present (auxiliary for present perfect)",
+            "rows": [
+                ["yo", "|he"],
+                ["tú", "|has"],
+                ["él / ella / usted", "|ha"],
+                ["nosotros / nosotras", "|hemos"],
+                ["ellos / ellas / ustedes", "|han"],
             ],
-            "footnote": "The participle is invariant — it doesn't change for gender or number when used with haber.",
+            "footnote": "haber is auxiliary-only here; never means \"to have something.\"",
+        },
+        {
+            "kind": "mini_table",
+            "title": "hablar — past participle pattern (he hablado, etc.)",
+            "rows": [
+                ["yo", "he habl|ado"],
+                ["tú", "has habl|ado"],
+                ["él / ella / usted", "ha habl|ado"],
+                ["nosotros / nosotras", "hemos habl|ado"],
+                ["ellos / ellas / ustedes", "han habl|ado"],
+            ],
+            "footnote": "Regular -ar participle = -ado. -er/-ir take -ido (comido, vivido). The participle never changes for gender or number when used with haber.",
         },
         {
             "kind": "comparison",
@@ -1605,15 +2556,28 @@ PERFECT_TENSES_INTRO = {
             "footnote": "Same recipe each time — only haber's tense changes. We focus on the present perfect and pluperfect first.",
         },
         {
-            "kind": "rule_pack",
-            "title": "haber — the only piece that conjugates",
-            "sections": [
-                {"heading": "Present (for present perfect)", "items": ["yo he", "tú has", "él/ella/usted ha", "nosotros/as hemos", "ellos/ellas/ustedes han"]},
-                {"heading": "Imperfect (for pluperfect)", "items": ["yo había", "tú habías", "él/ella/usted había", "nosotros/as habíamos", "ellos/ellas/ustedes habían"]},
+            "kind": "mini_table",
+            "title": "haber — imperfect (auxiliary for pluperfect)",
+            "rows": [
+                ["yo", "hab|ía"],
+                ["tú", "hab|ías"],
+                ["él / ella / usted", "hab|ía"],
+                ["nosotros / nosotras", "hab|íamos"],
+                ["ellos / ellas / ustedes", "hab|ían"],
             ],
-            "footnote": "haber here is auxiliary-only. It never means \"to have something\" — that's tener.",
+            "footnote": "Combine with the participle: había hablado (I had spoken).",
         },
     ],
+    "recall": {
+        "verb": "haber",
+        "answers": {
+            "yo": "|he",
+            "tú": "|has",
+            "él": "|ha",
+            "nosotros": "|hemos",
+            "ellos": "|han",
+        },
+    },
 }
 
 PERFECT_TENSES_RULE = {

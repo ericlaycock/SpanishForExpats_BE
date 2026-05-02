@@ -107,19 +107,35 @@ Each encounter displays a prominent goal banner (e.g., "Complete the check-in pr
 
 ### Grammar Situation Phases
 
-Grammar situations use a **configurable multi-phase system**. Each grammar situation has a `phases` config object with boolean flags (e.g., `{ "0a": true, "0b": false, "1a": true, ... }`) that toggles individual phases on/off.
+Grammar situations use a **configurable multi-phase system**. Each grammar situation has a `phases` config object with boolean flags (e.g., `{ "0a": true, "0b": false, ... }`) that toggles individual phases on/off.
+
+For **conjugation lessons** the runtime flow is:
+
+1. **Intro cards** — multi-step explanation of one rule (text + `mini_table` cards showing pipe-encoded conjugations with crimson endings).
+2. **Recall quiz** — driven by the intro_chart's `recall: { verb, answers }` field. The conjugation chart is hidden and the user must type each form from memory before drills begin (`RecallQuiz` in `RuleIntroPhase.tsx`). 2 wrong attempts on a single row resets to the intro card.
+3. **Sentence drill** — 10–20 generalizing sentences exercising the rule. Every content word is tap-translatable via the per-sentence `glosses` dict. Alternates between typed (`written`) and audio (`auditory`) prompts.
+4. **(optional) Voice chat** — phase 2 conversation companion lesson, attached as a separate `_chat` lesson within the same group block.
 
 | Phase | Name | Description |
 |-------|------|-------------|
 | 0a | Grammar Video | Descript video embed explaining the grammar concept |
-| 0b | Grammar Drills | Customized exercises (conjugation, article matching, gustar, ir a + inf). Drill type set per situation. 2 wrong on same item → reveal answer. 2 total fails → rewatch video |
-| 1a | Learn | Typing exercise — user types Spanish word from prompt (`LearnPhase` component) |
-| 1b | Written Test | Recall — shows English, user types Spanish from memory. 2 fails → reset to 1a (`WrittenTestPhase`) |
-| 1c | Spoken Test | Pronunciation — shows English, user records Spanish. 2 fails → reset to 1a. Can be limited to N items via `phase_1c_config.total_items` (`SpokenTestPhase`) |
+| 0b | Grammar Drills | Intro cards → recall quiz → sentence drill (above). 2 wrong on same drill item → reveal answer. 2 total fails → rewatch video |
+| 1a | Learn | (legacy) Typing exercise — user types Spanish word from prompt |
+| 1b | Written Test | (legacy) Recall — shows English, user types Spanish from memory |
+| 1c | Spoken Test | (legacy) Pronunciation — shows English, user records Spanish |
 | 2 | Voice Conversation (hints) | Same as main situations |
 | 3 | Voice Conversation (no hints) | Same as main situations |
 
-The frontend phase type is defined as: `type Phase = 'video' | 'drill' | 'learn' | 'written-test' | 'spoken-test'`
+The frontend phase type is defined as: `type Phase = 'video' | 'drill' | 'learn' | 'written-test' | 'spoken-test'`. Phases 1a-1c are kept for backwards compatibility; conjugation lessons today rely on the 0b drill phase only.
+
+### Conjugation lesson invariants
+
+To ensure consistency across grammar groups, every conjugation lesson must satisfy:
+
+- **`word_workload` has at most 2 verbs.** Larger groups are split into sub-blocks (e.g. Irregular Present's 6 verbs split into ser+estar / ir+dar / tener+venir).
+- **Every drill sentence has a non-empty `glosses` dict** with translations in both directions for every content word (`{"speak": "hablo", "Spanish": "español", "hablo": "speak", "español": "Spanish"}`). Words like pronouns and definite articles can be omitted; verbs, nouns, adjectives, adverbs are required.
+- **Every verb-chart intro_chart has a `recall` field** (`{verb, answers}`) referencing the lesson's first verb so the user gets a memory test before sentence drills.
+- **Every conjugation form in `mini_table` rows, `rule_chart` cells, and `recall` answers is pipe-encoded** (`stem|ending`) so the FE renders endings in crimson via `ConjugationCell`. Drill `answers` are also pipe-encoded so the live drill VerbChart shows crimson endings too. Total-suppletion forms (`voy`, `soy`) use a leading-pipe (`|voy`) or in-word boundary (`v|oy`) — author by hand, not algorithmic.
 
 ### Phase Persistence
 

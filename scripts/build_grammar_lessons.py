@@ -45,28 +45,35 @@ def _ending(verb: str) -> str:
 
 
 def regular_imperfect(verb: str) -> dict[str, str]:
-    """Imperfect: -ar uses -aba family, -er/-ir uses -ía family."""
+    """Imperfect: -ar uses -aba family, -er/-ir uses -ía family.
+
+    Forms are pipe-encoded (`stem|ending`) so the FE renders endings in
+    crimson via ConjugationCell.
+    """
     s = _stem(verb)
     if _ending(verb) == "ar":
         return {
-            "yo": f"{s}aba", "tú": f"{s}abas", "él": f"{s}aba", "ella": f"{s}aba", "usted": f"{s}aba",
-            "nosotros": f"{s}ábamos", "nosotras": f"{s}ábamos",
-            "ellos": f"{s}aban", "ellas": f"{s}aban", "ustedes": f"{s}aban",
+            "yo": f"{s}|aba", "tú": f"{s}|abas", "él": f"{s}|aba", "ella": f"{s}|aba", "usted": f"{s}|aba",
+            "nosotros": f"{s}|ábamos", "nosotras": f"{s}|ábamos",
+            "ellos": f"{s}|aban", "ellas": f"{s}|aban", "ustedes": f"{s}|aban",
         }
     return {
-        "yo": f"{s}ía", "tú": f"{s}ías", "él": f"{s}ía", "ella": f"{s}ía", "usted": f"{s}ía",
-        "nosotros": f"{s}íamos", "nosotras": f"{s}íamos",
-        "ellos": f"{s}ían", "ellas": f"{s}ían", "ustedes": f"{s}ían",
+        "yo": f"{s}|ía", "tú": f"{s}|ías", "él": f"{s}|ía", "ella": f"{s}|ía", "usted": f"{s}|ía",
+        "nosotros": f"{s}|íamos", "nosotras": f"{s}|íamos",
+        "ellos": f"{s}|ían", "ellas": f"{s}|ían", "ustedes": f"{s}|ían",
     }
 
 
 def regular_future(verb: str, root: Optional[str] = None) -> dict[str, str]:
-    """Future: infinitive + -é/-ás/-á/-emos/-án.  `root` overrides for irregulars."""
+    """Future: infinitive + -é/-ás/-á/-emos/-án.  `root` overrides for irregulars.
+
+    Boundary: between the (possibly contracted) root/infinitive and the ending.
+    """
     base = root if root is not None else verb
     return {
-        "yo": f"{base}é", "tú": f"{base}ás", "él": f"{base}á", "ella": f"{base}á", "usted": f"{base}á",
-        "nosotros": f"{base}emos", "nosotras": f"{base}emos",
-        "ellos": f"{base}án", "ellas": f"{base}án", "ustedes": f"{base}án",
+        "yo": f"{base}|é", "tú": f"{base}|ás", "él": f"{base}|á", "ella": f"{base}|á", "usted": f"{base}|á",
+        "nosotros": f"{base}|emos", "nosotras": f"{base}|emos",
+        "ellos": f"{base}|án", "ellas": f"{base}|án", "ustedes": f"{base}|án",
     }
 
 
@@ -74,9 +81,9 @@ def regular_conditional(verb: str, root: Optional[str] = None) -> dict[str, str]
     """Conditional: infinitive + -ía family (same irregular roots as future)."""
     base = root if root is not None else verb
     return {
-        "yo": f"{base}ía", "tú": f"{base}ías", "él": f"{base}ía", "ella": f"{base}ía", "usted": f"{base}ía",
-        "nosotros": f"{base}íamos", "nosotras": f"{base}íamos",
-        "ellos": f"{base}ían", "ellas": f"{base}ían", "ustedes": f"{base}ían",
+        "yo": f"{base}|ía", "tú": f"{base}|ías", "él": f"{base}|ía", "ella": f"{base}|ía", "usted": f"{base}|ía",
+        "nosotros": f"{base}|íamos", "nosotras": f"{base}|íamos",
+        "ellos": f"{base}|ían", "ellas": f"{base}|ían", "ustedes": f"{base}|ían",
     }
 
 
@@ -85,14 +92,14 @@ def regular_present_subj(verb: str) -> dict[str, str]:
     s = _stem(verb)
     if _ending(verb) == "ar":
         return {
-            "yo": f"{s}e", "tú": f"{s}es", "él": f"{s}e", "ella": f"{s}e", "usted": f"{s}e",
-            "nosotros": f"{s}emos", "nosotras": f"{s}emos",
-            "ellos": f"{s}en", "ellas": f"{s}en", "ustedes": f"{s}en",
+            "yo": f"{s}|e", "tú": f"{s}|es", "él": f"{s}|e", "ella": f"{s}|e", "usted": f"{s}|e",
+            "nosotros": f"{s}|emos", "nosotras": f"{s}|emos",
+            "ellos": f"{s}|en", "ellas": f"{s}|en", "ustedes": f"{s}|en",
         }
     return {
-        "yo": f"{s}a", "tú": f"{s}as", "él": f"{s}a", "ella": f"{s}a", "usted": f"{s}a",
-        "nosotros": f"{s}amos", "nosotras": f"{s}amos",
-        "ellos": f"{s}an", "ellas": f"{s}an", "ustedes": f"{s}an",
+        "yo": f"{s}|a", "tú": f"{s}|as", "él": f"{s}|a", "ella": f"{s}|a", "usted": f"{s}|a",
+        "nosotros": f"{s}|amos", "nosotras": f"{s}|amos",
+        "ellos": f"{s}|an", "ellas": f"{s}|an", "ustedes": f"{s}|an",
     }
 
 
@@ -101,14 +108,14 @@ def regular_imperfect_subj(verb: str) -> dict[str, str]:
     s = _stem(verb)
     if _ending(verb) == "ar":
         return {
-            "yo": f"{s}ara", "tú": f"{s}aras", "él": f"{s}ara", "ella": f"{s}ara", "usted": f"{s}ara",
-            "nosotros": f"{s}áramos", "nosotras": f"{s}áramos",
-            "ellos": f"{s}aran", "ellas": f"{s}aran", "ustedes": f"{s}aran",
+            "yo": f"{s}|ara", "tú": f"{s}|aras", "él": f"{s}|ara", "ella": f"{s}|ara", "usted": f"{s}|ara",
+            "nosotros": f"{s}|áramos", "nosotras": f"{s}|áramos",
+            "ellos": f"{s}|aran", "ellas": f"{s}|aran", "ustedes": f"{s}|aran",
         }
     return {
-        "yo": f"{s}iera", "tú": f"{s}ieras", "él": f"{s}iera", "ella": f"{s}iera", "usted": f"{s}iera",
-        "nosotros": f"{s}iéramos", "nosotras": f"{s}iéramos",
-        "ellos": f"{s}ieran", "ellas": f"{s}ieran", "ustedes": f"{s}ieran",
+        "yo": f"{s}|iera", "tú": f"{s}|ieras", "él": f"{s}|iera", "ella": f"{s}|iera", "usted": f"{s}|iera",
+        "nosotros": f"{s}|iéramos", "nosotras": f"{s}|iéramos",
+        "ellos": f"{s}|ieran", "ellas": f"{s}|ieran", "ustedes": f"{s}|ieran",
     }
 
 
@@ -116,12 +123,12 @@ def regular_imperfect_subj(verb: str) -> dict[str, str]:
 
 
 IMPERFECT_IRREGULAR = {
-    "ir": {"yo": "iba", "tú": "ibas", "él": "iba", "ella": "iba", "usted": "iba",
-           "nosotros": "íbamos", "nosotras": "íbamos", "ellos": "iban", "ellas": "iban", "ustedes": "iban"},
-    "ser": {"yo": "era", "tú": "eras", "él": "era", "ella": "era", "usted": "era",
-            "nosotros": "éramos", "nosotras": "éramos", "ellos": "eran", "ellas": "eran", "ustedes": "eran"},
-    "ver": {"yo": "veía", "tú": "veías", "él": "veía", "ella": "veía", "usted": "veía",
-            "nosotros": "veíamos", "nosotras": "veíamos", "ellos": "veían", "ellas": "veían", "ustedes": "veían"},
+    "ir": {"yo": "|iba", "tú": "|ibas", "él": "|iba", "ella": "|iba", "usted": "|iba",
+           "nosotros": "|íbamos", "nosotras": "|íbamos", "ellos": "|iban", "ellas": "|iban", "ustedes": "|iban"},
+    "ser": {"yo": "|era", "tú": "|eras", "él": "|era", "ella": "|era", "usted": "|era",
+            "nosotros": "|éramos", "nosotras": "|éramos", "ellos": "|eran", "ellas": "|eran", "ustedes": "|eran"},
+    "ver": {"yo": "|veía", "tú": "|veías", "él": "|veía", "ella": "|veía", "usted": "|veía",
+            "nosotros": "|veíamos", "nosotras": "|veíamos", "ellos": "|veían", "ellas": "|veían", "ustedes": "|veían"},
 }
 
 # Future / conditional share these stems
@@ -132,18 +139,18 @@ FUT_COND_IRREGULAR_ROOTS = {
 }
 
 PRESENT_SUBJ_IRREGULAR = {
-    "ser": {"yo": "sea", "tú": "seas", "él": "sea", "ella": "sea", "usted": "sea",
-            "nosotros": "seamos", "nosotras": "seamos", "ellos": "sean", "ellas": "sean", "ustedes": "sean"},
-    "estar": {"yo": "esté", "tú": "estés", "él": "esté", "ella": "esté", "usted": "esté",
-              "nosotros": "estemos", "nosotras": "estemos", "ellos": "estén", "ellas": "estén", "ustedes": "estén"},
-    "ir": {"yo": "vaya", "tú": "vayas", "él": "vaya", "ella": "vaya", "usted": "vaya",
-           "nosotros": "vayamos", "nosotras": "vayamos", "ellos": "vayan", "ellas": "vayan", "ustedes": "vayan"},
-    "dar": {"yo": "dé", "tú": "des", "él": "dé", "ella": "dé", "usted": "dé",
-            "nosotros": "demos", "nosotras": "demos", "ellos": "den", "ellas": "den", "ustedes": "den"},
-    "saber": {"yo": "sepa", "tú": "sepas", "él": "sepa", "ella": "sepa", "usted": "sepa",
-              "nosotros": "sepamos", "nosotras": "sepamos", "ellos": "sepan", "ellas": "sepan", "ustedes": "sepan"},
-    "haber": {"yo": "haya", "tú": "hayas", "él": "haya", "ella": "haya", "usted": "haya",
-              "nosotros": "hayamos", "nosotras": "hayamos", "ellos": "hayan", "ellas": "hayan", "ustedes": "hayan"},
+    "ser": {"yo": "|sea", "tú": "|seas", "él": "|sea", "ella": "|sea", "usted": "|sea",
+            "nosotros": "|seamos", "nosotras": "|seamos", "ellos": "|sean", "ellas": "|sean", "ustedes": "|sean"},
+    "estar": {"yo": "est|é", "tú": "est|és", "él": "est|é", "ella": "est|é", "usted": "est|é",
+              "nosotros": "est|emos", "nosotras": "est|emos", "ellos": "est|én", "ellas": "est|én", "ustedes": "est|én"},
+    "ir": {"yo": "|vaya", "tú": "|vayas", "él": "|vaya", "ella": "|vaya", "usted": "|vaya",
+           "nosotros": "|vayamos", "nosotras": "|vayamos", "ellos": "|vayan", "ellas": "|vayan", "ustedes": "|vayan"},
+    "dar": {"yo": "|dé", "tú": "|des", "él": "|dé", "ella": "|dé", "usted": "|dé",
+            "nosotros": "|demos", "nosotras": "|demos", "ellos": "|den", "ellas": "|den", "ustedes": "|den"},
+    "saber": {"yo": "|sepa", "tú": "|sepas", "él": "|sepa", "ella": "|sepa", "usted": "|sepa",
+              "nosotros": "|sepamos", "nosotras": "|sepamos", "ellos": "|sepan", "ellas": "|sepan", "ustedes": "|sepan"},
+    "haber": {"yo": "|haya", "tú": "|hayas", "él": "|haya", "ella": "|haya", "usted": "|haya",
+              "nosotros": "|hayamos", "nosotras": "|hayamos", "ellos": "|hayan", "ellas": "|hayan", "ustedes": "|hayan"},
 }
 
 # Imperfect subjunctive stems (from preterite 3rd plural, drop -ron, add -ra family)
@@ -156,44 +163,46 @@ IMPERFECT_SUBJ_IRREGULAR_STEMS = {
 
 
 def imperfect_subj_from_stem(stem: str) -> dict[str, str]:
+    """Currently unused — build_gl20 has its own pipe-aware loop. Kept for future
+    callers; emits pipe-encoded forms with the boundary right after the passed stem."""
     return {
-        "yo": f"{stem}ra", "tú": f"{stem}ras", "él": f"{stem}ra", "ella": f"{stem}ra", "usted": f"{stem}ra",
-        "nosotros": f"{stem}´ramos".replace("e´", "é").replace("o´", "ó").replace("i´", "í"),
-        "nosotras": f"{stem}´ramos".replace("e´", "é").replace("o´", "ó").replace("i´", "í"),
-        "ellos": f"{stem}ran", "ellas": f"{stem}ran", "ustedes": f"{stem}ran",
+        "yo": f"{stem}|ra", "tú": f"{stem}|ras", "él": f"{stem}|ra", "ella": f"{stem}|ra", "usted": f"{stem}|ra",
+        "nosotros": f"{stem}|´ramos".replace("e|´", "|é").replace("o|´", "|ó").replace("i|´", "|í"),
+        "nosotras": f"{stem}|´ramos".replace("e|´", "|é").replace("o|´", "|ó").replace("i|´", "|í"),
+        "ellos": f"{stem}|ran", "ellas": f"{stem}|ran", "ustedes": f"{stem}|ran",
     }
 
 
 # Preterite spelling changes — only the irregular forms (mostly yo or 3rd-pers)
 PRETERITE_SPELLING = {
     # g→gu in yo
-    "pagar": {"yo": "pagué", "tú": "pagaste", "él": "pagó", "ella": "pagó", "usted": "pagó",
-              "nosotros": "pagamos", "nosotras": "pagamos", "ellos": "pagaron", "ellas": "pagaron", "ustedes": "pagaron"},
-    "jugar": {"yo": "jugué", "tú": "jugaste", "él": "jugó", "ella": "jugó", "usted": "jugó",
-              "nosotros": "jugamos", "nosotras": "jugamos", "ellos": "jugaron", "ellas": "jugaron", "ustedes": "jugaron"},
+    "pagar": {"yo": "pagu|é", "tú": "pag|aste", "él": "pag|ó", "ella": "pag|ó", "usted": "pag|ó",
+              "nosotros": "pag|amos", "nosotras": "pag|amos", "ellos": "pag|aron", "ellas": "pag|aron", "ustedes": "pag|aron"},
+    "jugar": {"yo": "jugu|é", "tú": "jug|aste", "él": "jug|ó", "ella": "jug|ó", "usted": "jug|ó",
+              "nosotros": "jug|amos", "nosotras": "jug|amos", "ellos": "jug|aron", "ellas": "jug|aron", "ustedes": "jug|aron"},
     # c→qu in yo
-    "buscar": {"yo": "busqué", "tú": "buscaste", "él": "buscó", "ella": "buscó", "usted": "buscó",
-               "nosotros": "buscamos", "nosotras": "buscamos", "ellos": "buscaron", "ellas": "buscaron", "ustedes": "buscaron"},
-    "tocar": {"yo": "toqué", "tú": "tocaste", "él": "tocó", "ella": "tocó", "usted": "tocó",
-              "nosotros": "tocamos", "nosotras": "tocamos", "ellos": "tocaron", "ellas": "tocaron", "ustedes": "tocaron"},
+    "buscar": {"yo": "busqu|é", "tú": "busc|aste", "él": "busc|ó", "ella": "busc|ó", "usted": "busc|ó",
+               "nosotros": "busc|amos", "nosotras": "busc|amos", "ellos": "busc|aron", "ellas": "busc|aron", "ustedes": "busc|aron"},
+    "tocar": {"yo": "toqu|é", "tú": "toc|aste", "él": "toc|ó", "ella": "toc|ó", "usted": "toc|ó",
+              "nosotros": "toc|amos", "nosotras": "toc|amos", "ellos": "toc|aron", "ellas": "toc|aron", "ustedes": "toc|aron"},
     # z→c in yo
-    "empezar": {"yo": "empecé", "tú": "empezaste", "él": "empezó", "ella": "empezó", "usted": "empezó",
-                "nosotros": "empezamos", "nosotras": "empezamos", "ellos": "empezaron", "ellas": "empezaron", "ustedes": "empezaron"},
-    "almorzar": {"yo": "almorcé", "tú": "almorzaste", "él": "almorzó", "ella": "almorzó", "usted": "almorzó",
-                 "nosotros": "almorzamos", "nosotras": "almorzamos", "ellos": "almorzaron", "ellas": "almorzaron", "ustedes": "almorzaron"},
+    "empezar": {"yo": "empec|é", "tú": "empez|aste", "él": "empez|ó", "ella": "empez|ó", "usted": "empez|ó",
+                "nosotros": "empez|amos", "nosotras": "empez|amos", "ellos": "empez|aron", "ellas": "empez|aron", "ustedes": "empez|aron"},
+    "almorzar": {"yo": "almorc|é", "tú": "almorz|aste", "él": "almorz|ó", "ella": "almorz|ó", "usted": "almorz|ó",
+                 "nosotros": "almorz|amos", "nosotras": "almorz|amos", "ellos": "almorz|aron", "ellas": "almorz|aron", "ustedes": "almorz|aron"},
     # i→y in 3rd-person
-    "creer": {"yo": "creí", "tú": "creíste", "él": "creyó", "ella": "creyó", "usted": "creyó",
-              "nosotros": "creímos", "nosotras": "creímos", "ellos": "creyeron", "ellas": "creyeron", "ustedes": "creyeron"},
-    "leer": {"yo": "leí", "tú": "leíste", "él": "leyó", "ella": "leyó", "usted": "leyó",
-             "nosotros": "leímos", "nosotras": "leímos", "ellos": "leyeron", "ellas": "leyeron", "ustedes": "leyeron"},
-    "caer": {"yo": "caí", "tú": "caíste", "él": "cayó", "ella": "cayó", "usted": "cayó",
-             "nosotros": "caímos", "nosotras": "caímos", "ellos": "cayeron", "ellas": "cayeron", "ustedes": "cayeron"},
-    "oír": {"yo": "oí", "tú": "oíste", "él": "oyó", "ella": "oyó", "usted": "oyó",
-            "nosotros": "oímos", "nosotras": "oímos", "ellos": "oyeron", "ellas": "oyeron", "ustedes": "oyeron"},
-    "construir": {"yo": "construí", "tú": "construiste", "él": "construyó", "ella": "construyó", "usted": "construyó",
-                  "nosotros": "construimos", "nosotras": "construimos", "ellos": "construyeron", "ellas": "construyeron", "ustedes": "construyeron"},
-    "fluir": {"yo": "fluí", "tú": "fluiste", "él": "fluyó", "ella": "fluyó", "usted": "fluyó",
-              "nosotros": "fluimos", "nosotras": "fluimos", "ellos": "fluyeron", "ellas": "fluyeron", "ustedes": "fluyeron"},
+    "creer": {"yo": "cre|í", "tú": "cre|íste", "él": "cre|yó", "ella": "cre|yó", "usted": "cre|yó",
+              "nosotros": "cre|ímos", "nosotras": "cre|ímos", "ellos": "cre|yeron", "ellas": "cre|yeron", "ustedes": "cre|yeron"},
+    "leer": {"yo": "le|í", "tú": "le|íste", "él": "le|yó", "ella": "le|yó", "usted": "le|yó",
+             "nosotros": "le|ímos", "nosotras": "le|ímos", "ellos": "le|yeron", "ellas": "le|yeron", "ustedes": "le|yeron"},
+    "caer": {"yo": "ca|í", "tú": "ca|íste", "él": "ca|yó", "ella": "ca|yó", "usted": "ca|yó",
+             "nosotros": "ca|ímos", "nosotras": "ca|ímos", "ellos": "ca|yeron", "ellas": "ca|yeron", "ustedes": "ca|yeron"},
+    "oír": {"yo": "o|í", "tú": "o|íste", "él": "o|yó", "ella": "o|yó", "usted": "o|yó",
+            "nosotros": "o|ímos", "nosotras": "o|ímos", "ellos": "o|yeron", "ellas": "o|yeron", "ustedes": "o|yeron"},
+    "construir": {"yo": "constru|í", "tú": "constru|iste", "él": "constru|yó", "ella": "constru|yó", "usted": "constru|yó",
+                  "nosotros": "constru|imos", "nosotras": "constru|imos", "ellos": "constru|yeron", "ellas": "constru|yeron", "ustedes": "constru|yeron"},
+    "fluir": {"yo": "flu|í", "tú": "flu|iste", "él": "flu|yó", "ella": "flu|yó", "usted": "flu|yó",
+              "nosotros": "flu|imos", "nosotras": "flu|imos", "ellos": "flu|yeron", "ellas": "flu|yeron", "ustedes": "flu|yeron"},
 }
 
 # Strong-stem preterites (no accent on yo / él endings: -e / -o)
@@ -205,11 +214,14 @@ PRETERITE_STRONG = {
 
 
 def preterite_strong(verb: str, stem: str) -> dict[str, str]:
-    """Strong-stem preterite: yo→-e, él→-o, others standard endings."""
+    """Strong-stem preterite: yo→-e, él→-o, others standard endings.
+
+    Forms are pipe-encoded between the strong stem and the inflection ending.
+    """
     return {
-        "yo": f"{stem}e", "tú": f"{stem}iste", "él": f"{stem}o", "ella": f"{stem}o", "usted": f"{stem}o",
-        "nosotros": f"{stem}imos", "nosotras": f"{stem}imos",
-        "ellos": f"{stem}ieron", "ellas": f"{stem}ieron", "ustedes": f"{stem}ieron",
+        "yo": f"{stem}|e", "tú": f"{stem}|iste", "él": f"{stem}|o", "ella": f"{stem}|o", "usted": f"{stem}|o",
+        "nosotros": f"{stem}|imos", "nosotras": f"{stem}|imos",
+        "ellos": f"{stem}|ieron", "ellas": f"{stem}|ieron", "ustedes": f"{stem}|ieron",
     }
 
 
@@ -220,23 +232,24 @@ PRETERITE_DUCIR = {
 
 
 def preterite_ducir(stem: str) -> dict[str, str]:
+    """Pipe-encoded between the -duj stem and the inflection ending."""
     return {
-        "yo": f"{stem}e", "tú": f"{stem}iste", "él": f"{stem}o", "ella": f"{stem}o", "usted": f"{stem}o",
-        "nosotros": f"{stem}imos", "nosotras": f"{stem}imos",
-        "ellos": f"{stem}eron", "ellas": f"{stem}eron", "ustedes": f"{stem}eron",
+        "yo": f"{stem}|e", "tú": f"{stem}|iste", "él": f"{stem}|o", "ella": f"{stem}|o", "usted": f"{stem}|o",
+        "nosotros": f"{stem}|imos", "nosotras": f"{stem}|imos",
+        "ellos": f"{stem}|eron", "ellas": f"{stem}|eron", "ustedes": f"{stem}|eron",
     }
 
 
 # e→i preterite verbs (3rd person stem changes e → i)
 PRETERITE_E_TO_I = {
-    "pedir": {"yo": "pedí", "tú": "pediste", "él": "pidió", "ella": "pidió", "usted": "pidió",
-              "nosotros": "pedimos", "nosotras": "pedimos", "ellos": "pidieron", "ellas": "pidieron", "ustedes": "pidieron"},
-    "sentir": {"yo": "sentí", "tú": "sentiste", "él": "sintió", "ella": "sintió", "usted": "sintió",
-               "nosotros": "sentimos", "nosotras": "sentimos", "ellos": "sintieron", "ellas": "sintieron", "ustedes": "sintieron"},
-    "repetir": {"yo": "repetí", "tú": "repetiste", "él": "repitió", "ella": "repitió", "usted": "repitió",
-                "nosotros": "repetimos", "nosotras": "repetimos", "ellos": "repitieron", "ellas": "repitieron", "ustedes": "repitieron"},
-    "servir": {"yo": "serví", "tú": "serviste", "él": "sirvió", "ella": "sirvió", "usted": "sirvió",
-               "nosotros": "servimos", "nosotras": "servimos", "ellos": "sirvieron", "ellas": "sirvieron", "ustedes": "sirvieron"},
+    "pedir": {"yo": "ped|í", "tú": "ped|iste", "él": "p|idió", "ella": "p|idió", "usted": "p|idió",
+              "nosotros": "ped|imos", "nosotras": "ped|imos", "ellos": "p|idieron", "ellas": "p|idieron", "ustedes": "p|idieron"},
+    "sentir": {"yo": "sent|í", "tú": "sent|iste", "él": "s|intió", "ella": "s|intió", "usted": "s|intió",
+               "nosotros": "sent|imos", "nosotras": "sent|imos", "ellos": "s|intieron", "ellas": "s|intieron", "ustedes": "s|intieron"},
+    "repetir": {"yo": "repet|í", "tú": "repet|iste", "él": "rep|itió", "ella": "rep|itió", "usted": "rep|itió",
+                "nosotros": "repet|imos", "nosotras": "repet|imos", "ellos": "rep|itieron", "ellas": "rep|itieron", "ustedes": "rep|itieron"},
+    "servir": {"yo": "serv|í", "tú": "serv|iste", "él": "s|irvió", "ella": "s|irvió", "usted": "s|irvió",
+               "nosotros": "serv|imos", "nosotras": "serv|imos", "ellos": "s|irvieron", "ellas": "s|irvieron", "ustedes": "s|irvieron"},
 }
 
 # Reflexive present (with reflexive pronoun prefix)
@@ -249,17 +262,18 @@ REFLEXIVE_PRONOUNS = {
 def reflexive_present(verb_se: str, stem_changes: Optional[dict] = None) -> dict[str, str]:
     """Reflexive present. verb_se is the infinitive ending in -se. stem_changes
     is an optional dict {'yo': 'levanto', 'tú': 'levantas', ...} of base conjugations
-    if the verb has stem changes."""
+    if the verb has stem changes (caller passes plain forms; we pipe-encode here)."""
     stem = verb_se[:-2]  # drop 'se'  → e.g. 'levantar' from 'levantarse'
     base_inf = stem
+    s = base_inf[:-2]  # verb stem without -ar/-er/-ir
     base = {
-        "yo": f"{base_inf[:-2]}o", "tú": f"{base_inf[:-2]}as", "él": f"{base_inf[:-2]}a", "ella": f"{base_inf[:-2]}a", "usted": f"{base_inf[:-2]}a",
-        "nosotros": f"{base_inf[:-2]}amos", "nosotras": f"{base_inf[:-2]}amos",
-        "ellos": f"{base_inf[:-2]}an", "ellas": f"{base_inf[:-2]}an", "ustedes": f"{base_inf[:-2]}an",
+        "yo": f"{s}|o", "tú": f"{s}|as", "él": f"{s}|a", "ella": f"{s}|a", "usted": f"{s}|a",
+        "nosotros": f"{s}|amos", "nosotras": f"{s}|amos",
+        "ellos": f"{s}|an", "ellas": f"{s}|an", "ustedes": f"{s}|an",
     } if base_inf.endswith("ar") else {
-        "yo": f"{base_inf[:-2]}o", "tú": f"{base_inf[:-2]}es", "él": f"{base_inf[:-2]}e", "ella": f"{base_inf[:-2]}e", "usted": f"{base_inf[:-2]}e",
-        "nosotros": f"{base_inf[:-2]}emos", "nosotras": f"{base_inf[:-2]}emos",
-        "ellos": f"{base_inf[:-2]}en", "ellas": f"{base_inf[:-2]}en", "ustedes": f"{base_inf[:-2]}en",
+        "yo": f"{s}|o", "tú": f"{s}|es", "él": f"{s}|e", "ella": f"{s}|e", "usted": f"{s}|e",
+        "nosotros": f"{s}|emos", "nosotras": f"{s}|emos",
+        "ellos": f"{s}|en", "ellas": f"{s}|en", "ustedes": f"{s}|en",
     }
     if stem_changes:
         base.update(stem_changes)
@@ -453,14 +467,16 @@ def build_gl11() -> list[tuple[str, dict]]:
         # me toca: a mí me toca, a ti te toca, a él le toca, etc. (use simplified "X + infinitive")
         # necesito: yo necesito, tú necesitas, etc.
         if helper == "tengo que":
-            base = {"yo": "tengo que", "tú": "tienes que", "él": "tiene que", "ella": "tiene que", "usted": "tiene que",
-                    "nosotros": "tenemos que", "nosotras": "tenemos que", "ellos": "tienen que", "ellas": "tienen que", "ustedes": "tienen que"}
+            # Pipe at the changed part of the conjugated tener form.
+            base = {"yo": "ten|go que", "tú": "t|ienes que", "él": "t|iene que", "ella": "t|iene que", "usted": "t|iene que",
+                    "nosotros": "ten|emos que", "nosotras": "ten|emos que", "ellos": "t|ienen que", "ellas": "t|ienen que", "ustedes": "t|ienen que"}
         elif helper == "me toca":
-            base = {"yo": "me toca", "tú": "te toca", "él": "le toca", "ella": "le toca", "usted": "le toca",
-                    "nosotros": "nos toca", "nosotras": "nos toca", "ellos": "les toca", "ellas": "les toca", "ustedes": "les toca"}
+            # Object pronoun changes; toca is invariant (3sg of tocar). Highlight the changing object pronoun.
+            base = {"yo": "|me toca", "tú": "|te toca", "él": "|le toca", "ella": "|le toca", "usted": "|le toca",
+                    "nosotros": "|nos toca", "nosotras": "|nos toca", "ellos": "|les toca", "ellas": "|les toca", "ustedes": "|les toca"}
         else:
-            base = {"yo": "necesito", "tú": "necesitas", "él": "necesita", "ella": "necesita", "usted": "necesita",
-                    "nosotros": "necesitamos", "nosotras": "necesitamos", "ellos": "necesitan", "ellas": "necesitan", "ustedes": "necesitan"}
+            base = {"yo": "necesit|o", "tú": "necesit|as", "él": "necesit|a", "ella": "necesit|a", "usted": "necesit|a",
+                    "nosotros": "necesit|amos", "nosotras": "necesit|amos", "ellos": "necesit|an", "ellas": "necesit|an", "ustedes": "necesit|an"}
         answers = {}
         for v in verbs:
             answers[v] = {p: f"{base[p]} {v}" for p in ALL_PRONOUNS}
@@ -589,20 +605,20 @@ def build_gl13() -> list[tuple[str, dict]]:
         "ducharse": reflexive_present("ducharse"),
         # despertarse: e→ie stem change
         "despertarse": reflexive_present("despertarse", stem_changes={
-            "yo": "despierto", "tú": "despiertas", "él": "despierta", "ella": "despierta", "usted": "despierta",
-            "ellos": "despiertan", "ellas": "despiertan", "ustedes": "despiertan",
+            "yo": "desp|ierto", "tú": "desp|iertas", "él": "desp|ierta", "ella": "desp|ierta", "usted": "desp|ierta",
+            "ellos": "desp|iertan", "ellas": "desp|iertan", "ustedes": "desp|iertan",
         }),
         "acostarse": reflexive_present("acostarse", stem_changes={
-            "yo": "acuesto", "tú": "acuestas", "él": "acuesta", "ella": "acuesta", "usted": "acuesta",
-            "ellos": "acuestan", "ellas": "acuestan", "ustedes": "acuestan",
+            "yo": "ac|uesto", "tú": "ac|uestas", "él": "ac|uesta", "ella": "ac|uesta", "usted": "ac|uesta",
+            "ellos": "ac|uestan", "ellas": "ac|uestan", "ustedes": "ac|uestan",
         }),
         "vestirse": reflexive_present("vestirse", stem_changes={
-            "yo": "visto", "tú": "vistes", "él": "viste", "ella": "viste", "usted": "viste",
-            "ellos": "visten", "ellas": "visten", "ustedes": "visten",
+            "yo": "v|isto", "tú": "v|istes", "él": "v|iste", "ella": "v|iste", "usted": "v|iste",
+            "ellos": "v|isten", "ellas": "v|isten", "ustedes": "v|isten",
         }),
         "sentarse": reflexive_present("sentarse", stem_changes={
-            "yo": "siento", "tú": "sientas", "él": "sienta", "ella": "sienta", "usted": "sienta",
-            "ellos": "sientan", "ellas": "sientan", "ustedes": "sientan",
+            "yo": "s|iento", "tú": "s|ientas", "él": "s|ienta", "ella": "s|ienta", "usted": "s|ienta",
+            "ellos": "s|ientan", "ellas": "s|ientan", "ustedes": "s|ientan",
         }),
     }
     # Reapply reflexive pronoun prefix on the stem-change overrides
@@ -931,26 +947,45 @@ def build_gl20() -> list[tuple[str, dict]]:
         "vivir": regular_imperfect_subj("vivir"),
         "estudiar": regular_imperfect_subj("estudiar"),
     }
-    # Build irregulars from preterite stems
+    # Build irregulars from preterite stems. Pipe-encoded forms:
+    # - ser/ir share the suppletive `fue-` stem, so the whole form is the
+    #   "ending" → leading pipe (`|fuera`, `|fuéramos`, etc.).
+    # - Strong-stem verbs split between the strong preterite stem (tuv/hic/dij/...)
+    #   and the inflection (iera, era, iéramos, …).
     for v in ["ser", "ir", "tener", "hacer", "decir", "querer", "poder"]:
         stem = IMPERFECT_SUBJ_IRREGULAR_STEMS.get(v)
         if stem:
-            # Manually build with correct accent on nosotros
-            base = {
-                "yo": f"{stem}ra", "tú": f"{stem}ras", "él": f"{stem}ra", "ella": f"{stem}ra", "usted": f"{stem}ra",
-                "ellos": f"{stem}ran", "ellas": f"{stem}ran", "ustedes": f"{stem}ran",
-            }
-            # Nosotros gets stress mark on the syllable before -ramos
-            # e.g. fueramos → fuéramos, tuvieramos → tuviéramos
-            if stem.endswith("e"):
-                noso = stem[:-1] + "éramos"
+            # Compute pipe boundary: ser/ir → leading-pipe (whole form suppletive);
+            # other strong stems split off the inflection vowel.
+            if v in ("ser", "ir"):
+                head = ""
+                tail_root = stem  # "fue" → endings appended directly: |fuera, |fueras...
+                # For nosotros use accented form
+                nosotros_tail = stem[:-1] + "é" + "ramos"  # "fué" + "ramos" = "fuéramos"
             elif stem.endswith("ie"):
-                noso = stem + "ramos"  # tuvie → tuviéramos but using é
-                noso = stem[:-2] + "iéramos"
+                head = stem[:-2]
+                tail_root = "ie"
+                nosotros_tail = "iéramos"
+            elif stem.endswith("e"):
+                head = stem[:-1]
+                tail_root = "e"
+                nosotros_tail = "éramos"
             else:
-                noso = stem + "ramos"
-            base["nosotros"] = noso
-            base["nosotras"] = noso
+                head = stem
+                tail_root = ""
+                nosotros_tail = "ramos"
+            base = {
+                "yo": f"{head}|{tail_root}ra",
+                "tú": f"{head}|{tail_root}ras",
+                "él": f"{head}|{tail_root}ra",
+                "ella": f"{head}|{tail_root}ra",
+                "usted": f"{head}|{tail_root}ra",
+                "ellos": f"{head}|{tail_root}ran",
+                "ellas": f"{head}|{tail_root}ran",
+                "ustedes": f"{head}|{tail_root}ran",
+            }
+            base["nosotros"] = f"{head}|{nosotros_tail}"
+            base["nosotras"] = f"{head}|{nosotros_tail}"
             impf_answers[v] = base
 
     impf_pairs = [

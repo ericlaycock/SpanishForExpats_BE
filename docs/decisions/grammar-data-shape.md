@@ -18,10 +18,11 @@ The intended grammar curriculum shape is:
 2. **Inside each group**, lessons follow the pattern `[1-2 drill lessons][1 chat lesson]`, repeating. Examples:
    - `[drill_1][drill_2][chat_1][drill_3][drill_4][chat_2]`
    - `[drill_1][chat_1]`
-3. **Drill lesson anatomy**: rule slides / conjugation table slides → *(sometimes)* table practice → 10-20 generalizing drills.
+3. **Drill lesson anatomy**: rule slides / conjugation table slides → **mandatory recall quiz** → 10-20 generalizing drills.
    - **Rule slides**: multi-slide explanations of one rule, big-font, very high signal-to-noise. Non-grammatical language except for the core concept (e.g. "possessive pronouns").
-   - **Conjugation/pronoun table slides**: just the tables. The user can quickly try to recall them.
-   - **Generalizing drills**: 10-20 drills that apply the rule by combining it with other common (translated) words. Alternates between typing and speech.
+   - **Conjugation table slides**: rendered as a `mini_table` card (one verb per card, max 2 verbs per lesson) with the changing letters in crimson via pipe-encoded forms (`habl|o`).
+   - **Recall quiz**: the intro_chart carries a `recall: {verb, answers}` field. After the last rule slide, the table is hidden and the user types each conjugation from memory before drills start. Powered by the existing `RecallQuiz` component.
+   - **Generalizing drills**: 10-20 drills that apply the rule by combining it with other common words. Every drill sentence carries a `glosses` dict (`{en_word: es_word, es_word: en_word}`) so every content word is tap-translatable. Alternates between typing and speech.
 4. **Chat lesson**: one consolidating voice conversation per `[drill][drill][chat]` block. No P2/P3 split.
 
 Any data field, doc, or audit that contradicts the above is wrong.
