@@ -1,7 +1,77 @@
 # Spanish for Expats — Backend Context
 
 > This file is auto-loaded by Claude when working in this directory.
-> For project-level context, see `../CLAUDE.md` (doc index) and `./docs/` (canonical references — lives in this repo).
+> It serves two purposes: **(1)** it is the canonical project-context index for the whole project (BE + FE), and **(2)** it is the backend-specific file map. The project-context sections below are the same for everyone working on this codebase, regardless of which repo they're in.
+
+---
+
+# Project Context (canonical — applies to BE + FE)
+
+## Project Layout
+
+- `SpanishForExpats_BE/` — FastAPI backend (this repo). **Hosts the canonical `docs/` tree** at `docs/` so it deploys with the backend.
+- `SpanishForExpats_FE/` — Next.js frontend (separate git repo, typically cloned as a sibling directory).
+- `assets/` (Eric's local only) — experimental scripts and venvs, not deployed and not in any git repo.
+
+## Documentation Map
+
+> Update this table when you create, rename, or significantly change a doc. Keep summaries to one line.
+
+| Document | Scope |
+|----------|-------|
+| `SpanishForExpats_BE/CLAUDE.md` (this file) | Project context index + backend file map. Auto-loaded in BE. |
+| `SpanishForExpats_FE/CLAUDE.md` | Frontend file map, hooks, patterns. Auto-loaded in FE. Defers to this file for project-wide context. |
+| `docs/architecture.md` | System architecture, infra, data model, auth, logging. |
+| `docs/api-contracts.md` | HTTP API surface — single source of truth for routes/schemas. (Phase 2 — not yet created.) |
+| `docs/learning-flow.md` | Phase model, mastery SRS, VL/GL gating, language modes, free-tier + daily limits. |
+| `docs/grammar-curriculum.md` | Grammar group structure, lesson pattern, drill anatomy. (Phase 2 — not yet created.) |
+| `docs/voice-chat.md` | **UPDATE FREQUENTLY** STT/TTS/LLM pipeline, R2, animation, realtime flag. |
+| `docs/design-system.md` | Brand identity, palette (`#28968C`), typography, component guidelines. |
+| `docs/env-variables.md` | All FE + BE environment variables. |
+| `docs/testing.md` | CI, pytest, vitest, Playwright. |
+| `docs/decisions/` | Durable confirmed product/architecture decisions — authoritative for **intent**. |
+| `docs/proposals/` | Speculative or historical docs — NEVER authoritative. |
+
+> Paths above are relative to this repo (`SpanishForExpats_BE/`). From the FE repo, prepend `../SpanishForExpats_BE/`. From a parent project directory, prepend `SpanishForExpats_BE/`.
+
+## Conflict-Resolution Order
+
+The hierarchy distinguishes **what currently runs** from **what should run**.
+
+**For "what currently runs":** source code → `docs/voice-chat.md` (UPDATE FREQUENTLY) → `docs/<topic>.md` → auto-loaded `CLAUDE.md` files.
+
+**For "what should run":** `docs/decisions/<topic>.md` → `docs/<topic>.md` (intended model). `docs/proposals/*` is never authoritative.
+
+**When code and an accepted decision disagree:** flag the mismatch explicitly in the relevant `docs/<topic>.md` (e.g. "Data migration needed" callout). Do NOT silently document code-as-is as if it were intended. Cross-link the decision and the runtime gap.
+
+## Working Discipline
+
+When you change code that affects business logic, update the relevant `docs/<topic>.md` in the same PR. When the user makes a new product/architecture call, capture it in `docs/decisions/<topic>.md` immediately so future agents inherit the intent. Auto-loaded `CLAUDE.md` files are indexes, not encyclopedias — depth lives in `docs/`.
+
+## Git Workflow
+
+- Always commit to `qa`, never `main` directly.
+- Always add + commit + push after a change.
+- `qa` → Railway QA + Vercel preview. `main` → production via PR after CI.
+- Backend tests: `pytest` (Postgres required). Frontend tests: `vitest`.
+
+## Tech Stack (one-line)
+
+FastAPI (Python 3.11) + PostgreSQL on Railway · Next.js 16 + React 19 + TypeScript + Tailwind + shadcn/ui · OpenAI GPT-4.1-mini / Whisper / TTS · JWT auth · Better Stack logging.
+Full details in `docs/architecture.md`.
+
+## Key Concepts (terminology only — semantics live in `docs/learning-flow.md`)
+
+- **Situation**: Real-world scenario the user learns through (banking, airport, etc.).
+- **Encounter**: One run-through of a situation. Series typically 1-50 per situation.
+- **Encounter words / High-frequency words**: Two word categories per encounter.
+- **Vocab Level (VL) / Grammar Level (GL)**: Progress trackers that gate content.
+- **Mastery levels (0-4)**: SRS-driven word progression.
+- **Grammar group**: Topic (e.g. Present Tense Regular) containing alternating `[1-2 drill][1 chat]` lessons.
+
+---
+
+# Backend-Specific Context
 
 ## Quick Reference
 
