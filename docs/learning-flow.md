@@ -128,6 +128,28 @@ For **conjugation lessons** the runtime flow is:
 
 The frontend phase type is defined as: `type Phase = 'video' | 'drill' | 'learn' | 'written-test' | 'spoken-test'`. Phases 1a-1c are kept for backwards compatibility; conjugation lessons today rely on the 0b drill phase only.
 
+### Grammar chat lesson invariants
+
+Every grammar chat lesson (`drill_type: "skip"`, `phases.2: True`) MUST satisfy these rules. Many of these regressed in the past — they're load-bearing UX requirements, not stylistic preferences.
+
+1. **Custom opener (no fallback to "How can I help you today?").** Every chat lesson appears in `app/data/grammar_chat_openers.py` with both `opener_es` and `opener_en` and a `scene` field. The opener must use the verbs / patterns drilled in the preceding drill lessons of the same sub-block — that's literally what the user just learned to deploy.
+
+2. **Real-life scene, never the rainforest.** The default scene `"core"` (Eric in a Latin American rainforest) is for vocab encounters, not grammar chats. Grammar chats MUST set `scene` to one of the situational scenes in `SITUATION_ROLES` — e.g. `"small_talk"` (neighbor), `"groceries"` (cashier), `"restaurant"` (waiter), `"clothing"` (shop assistant), `"banking"` (teller), `"airport"` (check-in agent), `"mechanic"`, `"contractor"`, `"police"`, `"internet"` (technician). Pick the scene where the lesson's verbs would naturally come up: -ER verbs (drink/eat) → restaurant or groceries; reflexive (get up / get dressed) → small_talk; transactional (querer/poder) → groceries.
+
+3. **Word checklist = drilled conjugations, NOT infinitives.** The "Use these words to progress" panel must display a random sample of **8 conjugations from the 2 preceding drill lessons** of the sub-block — e.g. for the AR chat, sample from the AR drill_1 + AR drill_2 drill_targets. Each chip shows the English conjugation (`"you speak"`, `"we eat"`, `"she lives"`) and is detected when the user says the Spanish form. Showing infinitives (`"to speak"`) defeats the lesson — the user just drilled `hablas`/`hablamos`/`hablan`, not `hablar`.
+
+   This is computed at API response time by `get_chat_target_forms(situation_id)`; chat lesson configs do not store the forms statically (they'd drift from the drills).
+
+### Daily Grenade invariants
+
+The daily grenade (`app/services/grenade_service.py`) generates a one-sentence Spanish question using the user's most recently-drilled word.
+
+1. **Vocabulary stays inside `learned_vocab`.** The grenade prompt is given the user's 60 most-recently-touched learned words. Every content word in the generated question must come from this list (plus the target form itself, plus closed-class function words: pronouns, articles, basic prepositions, conjunctions, question words). The LLM is explicitly forbidden from leaning on `gustar + INFINITIVE` or `ir a + INFINITIVE` framings unless `gustar` / `ir` are in the user's learned_vocab.
+
+2. **Conjugated form, never the bare infinitive.** `_pick_grammar_form` returns a conjugated form from the latest drill (with the pipe delimiter stripped). When the target form is somehow an infinitive, the system prompt instructs the LLM to conjugate it for tú itself — never wrap it in another verb's periphrasis.
+
+3. **Cold-open viable.** The grenade is a question dropped on a stranger with no shared context. No demonstratives or possessives that need a referent (`¿Es tu perro?`, `¿Te gusta esto?` — both forbidden). Prefer general / habitual / preference framings (`¿Comes pescado?`, `¿Hablas inglés?`).
+
 ### Conjugation lesson invariants
 
 To ensure consistency across grammar groups, every conjugation lesson must satisfy:

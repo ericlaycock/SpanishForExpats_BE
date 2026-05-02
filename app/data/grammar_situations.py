@@ -15099,6 +15099,151 @@ def get_situations_for_gl(gl: float) -> list[str]:
     return _GL_TO_SITUATIONS.get(gl, [])
 
 
+# ── Chat target forms (English-conjugation chips for grammar chat) ──────────
+
+# Subject pronouns mapped to their English subject form. We use a simple
+# default for usted/ustedes ("you" / "you all") rather than "(formal)" so the
+# checklist chip stays compact.
+_PRONOUN_EN_SUBJECT: dict[str, str] = {
+    "yo": "I",
+    "tú": "you",
+    "él": "he",
+    "ella": "she",
+    "usted": "you",
+    "nosotros": "we",
+    "nosotras": "we",
+    "ellos": "they",
+    "ellas": "they",
+    "ustedes": "you all",
+}
+
+# Hand-curated English conjugations for verbs that don't follow the
+# default add-s rule. Keyed by EN lemma (sans "to ").
+_EN_CONJ_OVERRIDES: dict[str, dict[str, str]] = {
+    "be": {"yo": "I am", "tú": "you are", "él": "he is", "ella": "she is",
+           "usted": "you are", "nosotros": "we are", "nosotras": "we are",
+           "ellos": "they are", "ellas": "they are", "ustedes": "you all are"},
+    "have": {"yo": "I have", "tú": "you have", "él": "he has", "ella": "she has",
+             "usted": "you have", "nosotros": "we have", "nosotras": "we have",
+             "ellos": "they have", "ellas": "they have", "ustedes": "you all have"},
+    "do": {"yo": "I do", "tú": "you do", "él": "he does", "ella": "she does",
+           "usted": "you do", "nosotros": "we do", "nosotras": "we do",
+           "ellos": "they do", "ellas": "they do", "ustedes": "you all do"},
+    "go": {"yo": "I go", "tú": "you go", "él": "he goes", "ella": "she goes",
+           "usted": "you go", "nosotros": "we go", "nosotras": "we go",
+           "ellos": "they go", "ellas": "they go", "ustedes": "you all go"},
+}
+
+
+def _conjugate_english_present(lemma_en: str, pronoun: str) -> str:
+    """Render an English present-tense conjugation for a chat checklist chip.
+
+    Strips a leading "to " from the lemma, applies a tiny set of irregulars,
+    else falls back to a regular add-s rule for 3rd person singular.
+    """
+    base = lemma_en.lower().strip()
+    if base.startswith("to "):
+        base = base[3:]
+    base = base.split("/")[0].strip()  # "to drink/take" → "drink"
+    base = base.split(" or ")[0].strip()  # "drink or take" → "drink"
+    base = base.split("(")[0].strip()  # "drink (water)" → "drink"
+
+    overrides = _EN_CONJ_OVERRIDES.get(base)
+    if overrides and pronoun in overrides:
+        return overrides[pronoun]
+
+    subj = _PRONOUN_EN_SUBJECT.get(pronoun, "you")
+    is_3sg = pronoun in ("él", "ella", "usted")
+    if is_3sg:
+        if base.endswith(("s", "x", "z", "ch", "sh")):
+            verb = f"{base}es"
+        elif base.endswith("y") and len(base) > 1 and base[-2] not in "aeiou":
+            verb = f"{base[:-1]}ies"
+        else:
+            verb = f"{base}s"
+    else:
+        verb = base
+    return f"{subj} {verb}"
+
+
+def get_chat_target_forms(chat_situation_id: str) -> list[dict]:
+    """Sample 8 conjugated forms from the 2 preceding drill lessons of a
+    grammar chat lesson's sub-block. Used by the conversation API to populate
+    the "Use these words to progress" chips with actual drilled conjugations
+    instead of the bare infinitives.
+
+    Returns a list of dicts:
+        {"verb": "hablar", "pronoun": "tú",
+         "spanish": "hablas", "english": "you speak"}
+
+    Returns [] if the chat isn't found, isn't a `_chat`-suffixed lesson, or
+    the preceding drills aren't recoverable (caller falls back to the default
+    word list in that case).
+    """
+    import random as _random
+
+    chat = GRAMMAR_SITUATIONS.get(chat_situation_id)
+    if not chat or not chat_situation_id.endswith("_chat"):
+        return []
+
+    gl = chat.get("grammar_level")
+    chat_lesson_num = chat.get("lesson_number")
+    if gl is None or chat_lesson_num is None:
+        return []
+
+    # The two preceding drill lessons are the two with lesson_number < chat
+    # at the same GL, picked closest first.
+    siblings = []
+    for sid in get_situations_for_gl(gl):
+        cfg = GRAMMAR_SITUATIONS.get(sid) or {}
+        if cfg.get("drill_type") == "skip":
+            continue
+        ln = cfg.get("lesson_number")
+        if ln is None or ln >= chat_lesson_num:
+            continue
+        siblings.append((ln, sid, cfg))
+    siblings.sort(reverse=True)
+    preceding = siblings[:2]
+    if not preceding:
+        return []
+
+    # Build a candidate pool of (verb, pronoun, spanish_form) triples.
+    candidates: list[tuple[str, str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for _ln, _sid, cfg in preceding:
+        targets = cfg.get("drill_targets") or []
+        answers = (cfg.get("drill_config") or {}).get("answers") or {}
+        for t in targets:
+            verb = t.get("verb")
+            pronoun = t.get("pronoun")
+            if not verb or not pronoun:
+                continue
+            form = (answers.get(verb) or {}).get(pronoun)
+            if not form:
+                continue
+            form = form.replace("|", "")
+            key = (verb, pronoun)
+            if key in seen:
+                continue
+            seen.add(key)
+            candidates.append((verb, pronoun, form))
+
+    if not candidates:
+        return []
+
+    # Look up English lemma per verb from GRAMMAR_WORD_TRANSLATIONS.
+    sampled = _random.sample(candidates, k=min(8, len(candidates)))
+    out = []
+    for verb, pronoun, spanish in sampled:
+        en_lemma = GRAMMAR_WORD_TRANSLATIONS.get(verb, verb)
+        en = _conjugate_english_present(en_lemma, pronoun)
+        out.append({
+            "verb": verb, "pronoun": pronoun,
+            "spanish": spanish, "english": en,
+        })
+    return out
+
+
 def get_next_gate(current_gl: float, vocab_level: int) -> dict | None:
     """Determine the next grammar gate for a user.
 

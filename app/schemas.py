@@ -259,9 +259,20 @@ class CreateConversationRequest(BaseModel):
     mode: str  # 'text' or 'voice'
 
 
+class ChatTargetForm(BaseModel):
+    verb: str           # lemma (e.g. "hablar")
+    pronoun: str        # Spanish subject pronoun (e.g. "tú")
+    spanish: str        # conjugated form to detect (e.g. "hablas")
+    english: str        # display label (e.g. "you speak")
+
+
 class CreateConversationResponse(BaseModel):
     conversation_id: UUID
     words: List[WordSchema]  # Return the words used in this conversation
+    # Grammar chat lessons surface 8 sampled drilled conjugations as the
+    # "Use these words to progress" chips. Empty for non-grammar-chat
+    # conversations; FE falls back to `words` rendering when empty.
+    chat_target_forms: List[ChatTargetForm] = []
     # Initial message keyed by ISO-style language code (es/en/ca/sv).
     # The target-language entry is what the avatar will speak; the FE keeps
     # the English entry for tooltips / "what does this mean?" surfaces.

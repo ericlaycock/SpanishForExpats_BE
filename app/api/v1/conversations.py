@@ -591,9 +591,15 @@ async def create_conversation(
             situation.animation_type, situation.id, language_mode,
             alt_language=current_user.alt_language,
         )
+        from app.data.grammar_situations import get_chat_target_forms
+        from app.schemas import ChatTargetForm
+        chat_target_forms = [
+            ChatTargetForm(**f) for f in get_chat_target_forms(situation.id)
+        ]
         return CreateConversationResponse(
             conversation_id=voice_conv.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english, notes=w.notes) for w in final_words],
+            chat_target_forms=chat_target_forms,
             initial_message=initial_message,
             initial_audio_url=initial_audio_url,
             language_mode=language_mode,
@@ -638,9 +644,15 @@ async def create_conversation(
             situation.animation_type, situation.id, language_mode,
             alt_language=current_user.alt_language,
         )
+        from app.data.grammar_situations import get_chat_target_forms
+        from app.schemas import ChatTargetForm
+        chat_target_forms = [
+            ChatTargetForm(**f) for f in get_chat_target_forms(situation.id)
+        ]
         return CreateConversationResponse(
             conversation_id=conversation.id,
             words=[WordSchema(id=w.id, spanish=w.spanish, english=w.english) for w in final_words],
+            chat_target_forms=chat_target_forms,
             initial_message=initial_message,
             initial_audio_url=initial_audio_url,
             language_mode=language_mode,
