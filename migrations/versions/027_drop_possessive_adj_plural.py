@@ -29,6 +29,15 @@ DEAD_SID = "grammar_possessive_adj_plural"
 
 
 def upgrade() -> None:
+    # `user_milestone_events.conversation_id` FKs to conversations.id with no
+    # ON DELETE clause, so deleting a referenced conversation row aborts the
+    # transaction. Nullify the link first — the milestone (e.g. first_word)
+    # remains, we just lose the pointer to which conversation it happened in.
+    op.execute(
+        f"UPDATE user_milestone_events SET conversation_id = NULL "
+        f"WHERE conversation_id IN ("
+        f"SELECT id FROM conversations WHERE situation_id = '{DEAD_SID}')"
+    )
     # NOT NULL situation_id → delete row.
     op.execute(f"DELETE FROM conversations WHERE situation_id = '{DEAD_SID}'")
     op.execute(f"DELETE FROM daily_encounter_logs WHERE situation_id = '{DEAD_SID}'")
