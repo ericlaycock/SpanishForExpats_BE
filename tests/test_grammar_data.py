@@ -7,7 +7,7 @@ populating its drill_config, which would surface to users as
 """
 import pytest
 
-from app.data.grammar_situations import GRAMMAR_SITUATIONS
+from app.data.grammar_situations import GRAMMAR_SITUATIONS, _validate_chart_drill_coverage
 
 
 DRILL_TYPES_REQUIRING_ANSWERS = {"conjugation", "ir_a_inf"}
@@ -96,4 +96,16 @@ def test_no_unexpected_drill_types():
     assert not unknown, (
         f"Unknown drill_types present: {unknown}. "
         f"Add a renderer in DrillPhase.tsx and update this test."
+    )
+
+
+def test_chart_models_every_drilled_verb():
+    """Every conjugation lesson must show every verb it drills in either its
+    rule_chart or intro_chart. The module-load validator already raises if
+    this is broken, but a test gives a friendlier failure message in CI.
+    """
+    violations = _validate_chart_drill_coverage()
+    assert not violations, (
+        "Chart/drill mismatch — fix data in grammar_situations.py:\n  "
+        + "\n  ".join(violations)
     )

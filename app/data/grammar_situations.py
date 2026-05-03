@@ -4696,7 +4696,7 @@ GRAMMAR_SITUATIONS = {
         "drill_type": "conjugation",
         "tense": "present",
         "intro_chart": REGULAR_PRESENT_AR_INTRO,
-        "rule_chart": REGULAR_PRESENT_AR_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Regular Present — -AR (2/2)', 'headers': ['Pronoun', 'cantar', 'escuchar'], 'rows': [['yo', 'cant|o', 'escuch|o'], ['tú', 'cant|as', 'escuch|as'], ['él / ella / usted', 'cant|a', 'escuch|a'], ['nosotros / nosotras', 'cant|amos', 'escuch|amos'], ['ellos / ellas / ustedes', 'cant|an', 'escuch|an']], 'footnote': 'Every regular -ar verb follows this pattern. Drop -ar, add -o / -as / -a / -amos / -an.'},
         "drill_config": {
             "answers": {
                 "cantar": {
@@ -4855,7 +4855,7 @@ GRAMMAR_SITUATIONS = {
         "drill_type": "conjugation",
         "tense": "present",
         "intro_chart": REGULAR_PRESENT_ER_INTRO,
-        "rule_chart": REGULAR_PRESENT_ER_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Regular Present — -ER (2/2)', 'headers': ['Pronoun', 'leer', 'comer'], 'rows': [['yo', 'le|o', 'com|o'], ['tú', 'le|es', 'com|es'], ['él / ella / usted', 'le|e', 'com|e'], ['nosotros / nosotras', 'le|emos', 'com|emos'], ['ellos / ellas / ustedes', 'le|en', 'com|en']], 'footnote': 'Every regular -er verb follows this pattern. Drop -er, add -o / -es / -e / -emos / -en.'},
         "drill_config": {
             "answers": {
                 "leer": {
@@ -5014,7 +5014,7 @@ GRAMMAR_SITUATIONS = {
         "drill_type": "conjugation",
         "tense": "present",
         "intro_chart": REGULAR_PRESENT_IR_INTRO,
-        "rule_chart": REGULAR_PRESENT_IR_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Regular Present — -IR (2/2)', 'headers': ['Pronoun', 'abrir', 'vivir'], 'rows': [['yo', 'abr|o', 'viv|o'], ['tú', 'abr|es', 'viv|es'], ['él / ella / usted', 'abr|e', 'viv|e'], ['nosotros / nosotras', 'abr|imos', 'viv|imos'], ['ellos / ellas / ustedes', 'abr|en', 'viv|en']], 'footnote': 'Every regular -ir verb follows this pattern. Drop -ir, add -o / -es / -e / -imos / -en.'},
         "drill_config": {
             "answers": {
                 "abrir": {
@@ -6011,7 +6011,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'ir_a_inf',
         'tense': 'modal_inf',
         'intro_chart': MODAL_INF_INTRO,
-        'rule_chart': MODAL_INF_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Tengo Que + Inf (1/3)', 'headers': ['Pronoun', 'hablar', 'comer'], 'rows': [['yo', 'tengo que hablar', 'tengo que comer'], ['tú', 'tienes que hablar', 'tienes que comer'], ['él / ella / usted', 'tiene que hablar', 'tiene que comer'], ['nosotros / nosotras', 'tenemos que hablar', 'tenemos que comer'], ['ellos / ellas / ustedes', 'tienen que hablar', 'tienen que comer']], 'footnote': 'The infinitive never changes. Only the modal verb conjugates (or, for me toca, the pronoun).'},
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -6128,7 +6128,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'ir_a_inf',
         'tense': 'modal_inf',
         'intro_chart': MODAL_INF_INTRO,
-        'rule_chart': MODAL_INF_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Me Toca + Inf (2/3)', 'headers': ['Pronoun', 'vivir', 'estudiar'], 'rows': [['yo', 'me toca vivir', 'me toca estudiar'], ['tú', 'te toca vivir', 'te toca estudiar'], ['él / ella / usted', 'le toca vivir', 'le toca estudiar'], ['nosotros / nosotras', 'nos toca vivir', 'nos toca estudiar'], ['ellos / ellas / ustedes', 'les toca vivir', 'les toca estudiar']], 'footnote': 'The infinitive never changes. Only the modal verb conjugates (or, for me toca, the pronoun).'},
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -6245,7 +6245,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'ir_a_inf',
         'tense': 'modal_inf',
         'intro_chart': MODAL_INF_INTRO,
-        'rule_chart': MODAL_INF_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Necesito + Inf (3/3)', 'headers': ['Pronoun', 'dormir', 'escribir'], 'rows': [['yo', 'necesito dormir', 'necesito escribir'], ['tú', 'necesitas dormir', 'necesitas escribir'], ['él / ella / usted', 'necesita dormir', 'necesita escribir'], ['nosotros / nosotras', 'necesitamos dormir', 'necesitamos escribir'], ['ellos / ellas / ustedes', 'necesitan dormir', 'necesitan escribir']], 'footnote': 'The infinitive never changes. Only the modal verb conjugates (or, for me toca, the pronoun).'},
         'drill_config': {
             'answers': {
                 'dormir': {
@@ -6503,7 +6503,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'imperfect',
         'intro_chart': IMPERFECT_INTRO,
-        'rule_chart': IMPERFECT_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Imperfect (1)', 'headers': ['Pronoun', 'hablar', 'escuchar'], 'rows': [['yo', 'hablaba', 'escuchaba'], ['tú', 'hablabas', 'escuchabas'], ['él / ella / usted', 'hablaba', 'escuchaba'], ['nosotros / nosotras', 'hablábamos', 'escuchábamos'], ['ellos / ellas / ustedes', 'hablaban', 'escuchaban']], 'footnote': 'Yo and él forms are identical — context tells you who. Only ir, ser, ver are irregular.'},
         'drill_config': {
             'answers': {
                 'hablar': {
@@ -6808,7 +6808,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'imperfect',
         'intro_chart': IMPERFECT_INTRO,
-        'rule_chart': IMPERFECT_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Imperfect (4)', 'headers': ['Pronoun', 'ir', 'ser'], 'rows': [['yo', 'iba', 'era'], ['tú', 'ibas', 'eras'], ['él / ella / usted', 'iba', 'era'], ['nosotros / nosotras', 'íbamos', 'éramos'], ['ellos / ellas / ustedes', 'iban', 'eran']], 'footnote': 'Yo and él forms are identical — context tells you who. Only ir, ser, ver are irregular.'},
         'drill_config': {
             'answers': {
                 'ir': {
@@ -6925,7 +6925,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'imperfect',
         'intro_chart': IMPERFECT_INTRO,
-        'rule_chart': IMPERFECT_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Imperfect (5)', 'headers': ['Pronoun', 'ver', 'escribir'], 'rows': [['yo', 'veía', 'escribía'], ['tú', 'veías', 'escribías'], ['él / ella / usted', 'veía', 'escribía'], ['nosotros / nosotras', 'veíamos', 'escribíamos'], ['ellos / ellas / ustedes', 'veían', 'escribían']], 'footnote': 'Yo and él forms are identical — context tells you who. Only ir, ser, ver are irregular.'},
         'drill_config': {
             'answers': {
                 'ver': {
@@ -7114,7 +7114,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
         'intro_chart': REFLEXIVE_INTRO,
-        'rule_chart': REFLEXIVE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Reflexive (1)', 'headers': ['Pronoun', 'lavarse', 'llamarse'], 'rows': [['yo', 'me lavo', 'me llamo'], ['tú', 'te lavas', 'te llamas'], ['él / ella / usted', 'se lava', 'se llama'], ['nosotros / nosotras', 'nos lavamos', 'nos llamamos'], ['ellos / ellas / ustedes', 'se lavan', 'se llaman']], 'footnote': 'The reflexive pronoun goes BEFORE the conjugated verb. Stem changes still apply.'},
         'drill_config': {
             'answers': {
                 'lavarse': {
@@ -7231,7 +7231,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
         'intro_chart': REFLEXIVE_INTRO,
-        'rule_chart': REFLEXIVE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Reflexive (2)', 'headers': ['Pronoun', 'levantarse', 'ducharse'], 'rows': [['yo', 'me levanto', 'me ducho'], ['tú', 'te levantas', 'te duchas'], ['él / ella / usted', 'se levanta', 'se ducha'], ['nosotros / nosotras', 'nos levantamos', 'nos duchamos'], ['ellos / ellas / ustedes', 'se levantan', 'se duchan']], 'footnote': 'The reflexive pronoun goes BEFORE the conjugated verb. Stem changes still apply.'},
         'drill_config': {
             'answers': {
                 'levantarse': {
@@ -7419,7 +7419,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
         'intro_chart': REFLEXIVE_INTRO,
-        'rule_chart': REFLEXIVE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Reflexive (4)', 'headers': ['Pronoun', 'despertarse', 'acostarse'], 'rows': [['yo', 'me despierto', 'me acuesto'], ['tú', 'te despiertas', 'te acuestas'], ['él / ella / usted', 'se despierta', 'se acuesta'], ['nosotros / nosotras', 'nos despertamos', 'nos acostamos'], ['ellos / ellas / ustedes', 'se despiertan', 'se acuestan']], 'footnote': 'The reflexive pronoun goes BEFORE the conjugated verb. Stem changes still apply.'},
         'drill_config': {
             'answers': {
                 'despertarse': {
@@ -7536,7 +7536,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
         'intro_chart': REFLEXIVE_INTRO,
-        'rule_chart': REFLEXIVE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Reflexive (5)', 'headers': ['Pronoun', 'vestirse', 'sentarse'], 'rows': [['yo', 'me visto', 'me siento'], ['tú', 'te vistes', 'te sientas'], ['él / ella / usted', 'se viste', 'se sienta'], ['nosotros / nosotras', 'nos vestemos', 'nos sentamos'], ['ellos / ellas / ustedes', 'se visten', 'se sientan']], 'footnote': 'The reflexive pronoun goes BEFORE the conjugated verb. Stem changes still apply.'},
         'drill_config': {
             'answers': {
                 'vestirse': {
@@ -7842,7 +7842,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'future',
         'intro_chart': FUTURE_INTRO,
-        'rule_chart': FUTURE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Future Simple (2)', 'headers': ['Pronoun', 'vivir', 'estudiar'], 'rows': [['yo', 'viviré', 'estudiaré'], ['tú', 'vivirás', 'estudiarás'], ['él / ella / usted', 'vivirá', 'estudiará'], ['nosotros / nosotras', 'viviremos', 'estudiaremos'], ['ellos / ellas / ustedes', 'vivirán', 'estudiarán']], 'footnote': 'Same endings on every verb. Irregulars only change the stem (tendr-, har-, dir-).'},
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -8030,7 +8030,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'future',
         'intro_chart': FUTURE_INTRO,
-        'rule_chart': FUTURE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Future Simple (4)', 'headers': ['Pronoun', 'tener', 'hacer'], 'rows': [['yo', 'tendré', 'haré'], ['tú', 'tendrás', 'harás'], ['él / ella / usted', 'tendrá', 'hará'], ['nosotros / nosotras', 'tendremos', 'haremos'], ['ellos / ellas / ustedes', 'tendrán', 'harán']], 'footnote': 'Same endings on every verb. Irregulars only change the stem (tendr-, har-, dir-).'},
         'drill_config': {
             'answers': {
                 'tener': {
@@ -8147,7 +8147,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'future',
         'intro_chart': FUTURE_INTRO,
-        'rule_chart': FUTURE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Future Simple (5)', 'headers': ['Pronoun', 'decir', 'poder'], 'rows': [['yo', 'diré', 'podré'], ['tú', 'dirás', 'podrás'], ['él / ella / usted', 'dirá', 'podrá'], ['nosotros / nosotras', 'diremos', 'podremos'], ['ellos / ellas / ustedes', 'dirán', 'podrán']], 'footnote': 'Same endings on every verb. Irregulars only change the stem (tendr-, har-, dir-).'},
         'drill_config': {
             'answers': {
                 'decir': {
@@ -8335,7 +8335,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'future',
         'intro_chart': FUTURE_INTRO,
-        'rule_chart': FUTURE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Future Simple (7)', 'headers': ['Pronoun', 'saber', 'querer'], 'rows': [['yo', 'sabré', 'querré'], ['tú', 'sabrás', 'querrás'], ['él / ella / usted', 'sabrá', 'querrá'], ['nosotros / nosotras', 'sabremos', 'querremos'], ['ellos / ellas / ustedes', 'sabrán', 'querrán']], 'footnote': 'Same endings on every verb. Irregulars only change the stem (tendr-, har-, dir-).'},
         'drill_config': {
             'answers': {
                 'saber': {
@@ -8452,7 +8452,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'future',
         'intro_chart': FUTURE_INTRO,
-        'rule_chart': FUTURE_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Future Simple (8)', 'headers': ['Pronoun', 'venir', 'salir'], 'rows': [['yo', 'vendré', 'saldré'], ['tú', 'vendrás', 'saldrás'], ['él / ella / usted', 'vendrá', 'saldrá'], ['nosotros / nosotras', 'vendremos', 'saldremos'], ['ellos / ellas / ustedes', 'vendrán', 'saldrán']], 'footnote': 'Same endings on every verb. Irregulars only change the stem (tendr-, har-, dir-).'},
         'drill_config': {
             'answers': {
                 'venir': {
@@ -8758,7 +8758,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'conditional',
         'intro_chart': CONDITIONAL_INTRO,
-        'rule_chart': CONDITIONAL_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Conditional (2)', 'headers': ['Pronoun', 'vivir', 'estudiar'], 'rows': [['yo', 'viviría', 'estudiaría'], ['tú', 'vivirías', 'estudiarías'], ['él / ella / usted', 'viviría', 'estudiaría'], ['nosotros / nosotras', 'viviríamos', 'estudiaríamos'], ['ellos / ellas / ustedes', 'vivirían', 'estudiarían']], 'footnote': 'Same stems as the future; -ía endings throughout. yo and él are identical forms.'},
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -8946,7 +8946,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'conditional',
         'intro_chart': CONDITIONAL_INTRO,
-        'rule_chart': CONDITIONAL_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Conditional (4)', 'headers': ['Pronoun', 'tener', 'hacer'], 'rows': [['yo', 'tendría', 'haría'], ['tú', 'tendrías', 'harías'], ['él / ella / usted', 'tendría', 'haría'], ['nosotros / nosotras', 'tendríamos', 'haríamos'], ['ellos / ellas / ustedes', 'tendrían', 'harían']], 'footnote': 'Same stems as the future; -ía endings throughout. yo and él are identical forms.'},
         'drill_config': {
             'answers': {
                 'tener': {
@@ -9063,7 +9063,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'conditional',
         'intro_chart': CONDITIONAL_INTRO,
-        'rule_chart': CONDITIONAL_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Conditional (5)', 'headers': ['Pronoun', 'decir', 'poder'], 'rows': [['yo', 'diría', 'podría'], ['tú', 'dirías', 'podrías'], ['él / ella / usted', 'diría', 'podría'], ['nosotros / nosotras', 'diríamos', 'podríamos'], ['ellos / ellas / ustedes', 'dirían', 'podrían']], 'footnote': 'Same stems as the future; -ía endings throughout. yo and él are identical forms.'},
         'drill_config': {
             'answers': {
                 'decir': {
@@ -9316,7 +9316,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_SPELLING_INTRO,
-        'rule_chart': PRET_SPELLING_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Spelling Changes (1)', 'headers': ['Pronoun', 'pagar', 'jugar'], 'rows': [['yo', 'pagué', 'jugué'], ['tú', 'pagaste', 'jugaste'], ['él / ella / usted', 'pagó', 'jugó'], ['nosotros / nosotras', 'pagamos', 'jugamos'], ['ellos / ellas / ustedes', 'pagaron', 'jugaron']], 'footnote': '-car/-gar/-zar shift only in yo. Vowel-stem verbs (leer, construir) shift i→y in él/ellos.'},
         'drill_config': {
             'answers': {
                 'pagar': {
@@ -9433,7 +9433,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_SPELLING_INTRO,
-        'rule_chart': PRET_SPELLING_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Spelling Changes (2)', 'headers': ['Pronoun', 'buscar', 'tocar'], 'rows': [['yo', 'busqué', 'toqué'], ['tú', 'buscaste', 'tocaste'], ['él / ella / usted', 'buscó', 'tocó'], ['nosotros / nosotras', 'buscamos', 'tocamos'], ['ellos / ellas / ustedes', 'buscaron', 'tocaron']], 'footnote': '-car/-gar/-zar shift only in yo. Vowel-stem verbs (leer, construir) shift i→y in él/ellos.'},
         'drill_config': {
             'answers': {
                 'buscar': {
@@ -9621,7 +9621,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_SPELLING_INTRO,
-        'rule_chart': PRET_SPELLING_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Spelling Changes (4)', 'headers': ['Pronoun', 'empezar', 'almorzar'], 'rows': [['yo', 'empecé', 'almorcé'], ['tú', 'empezaste', 'almorzaste'], ['él / ella / usted', 'empezó', 'almorzó'], ['nosotros / nosotras', 'empezamos', 'almorzamos'], ['ellos / ellas / ustedes', 'empezaron', 'almorzaron']], 'footnote': '-car/-gar/-zar shift only in yo. Vowel-stem verbs (leer, construir) shift i→y in él/ellos.'},
         'drill_config': {
             'answers': {
                 'empezar': {
@@ -9738,7 +9738,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_SPELLING_INTRO,
-        'rule_chart': PRET_SPELLING_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Spelling Changes (5)', 'headers': ['Pronoun', 'creer', 'leer'], 'rows': [['yo', 'creí', 'leí'], ['tú', 'creíste', 'leíste'], ['él / ella / usted', 'creyó', 'leyó'], ['nosotros / nosotras', 'creímos', 'leímos'], ['ellos / ellas / ustedes', 'creyeron', 'leyeron']], 'footnote': '-car/-gar/-zar shift only in yo. Vowel-stem verbs (leer, construir) shift i→y in él/ellos.'},
         'drill_config': {
             'answers': {
                 'creer': {
@@ -9926,7 +9926,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_SPELLING_INTRO,
-        'rule_chart': PRET_SPELLING_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Spelling Changes (7)', 'headers': ['Pronoun', 'caer', 'oír'], 'rows': [['yo', 'caí', 'oí'], ['tú', 'caíste', 'oíste'], ['él / ella / usted', 'cayó', 'oyó'], ['nosotros / nosotras', 'caímos', 'oímos'], ['ellos / ellas / ustedes', 'cayeron', 'oyeron']], 'footnote': '-car/-gar/-zar shift only in yo. Vowel-stem verbs (leer, construir) shift i→y in él/ellos.'},
         'drill_config': {
             'answers': {
                 'caer': {
@@ -10043,7 +10043,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_SPELLING_INTRO,
-        'rule_chart': PRET_SPELLING_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Spelling Changes (8)', 'headers': ['Pronoun', 'construir', 'fluir'], 'rows': [['yo', 'construí', 'fluí'], ['tú', 'construiste', 'fluiste'], ['él / ella / usted', 'construyó', 'fluyó'], ['nosotros / nosotras', 'construimos', 'fluimos'], ['ellos / ellas / ustedes', 'construyeron', 'fluyeron']], 'footnote': '-car/-gar/-zar shift only in yo. Vowel-stem verbs (leer, construir) shift i→y in él/ellos.'},
         'drill_config': {
             'answers': {
                 'construir': {
@@ -10232,7 +10232,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_STRONG_INTRO,
-        'rule_chart': PRET_STRONG_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Strong-Stem (1)', 'headers': ['Pronoun', 'estar', 'tener'], 'rows': [['yo', 'estuve', 'tuve'], ['tú', 'estuviste', 'tuviste'], ['él / ella / usted', 'estuvo', 'tuvo'], ['nosotros / nosotras', 'estuvimos', 'tuvimos'], ['ellos / ellas / ustedes', 'estuvieron', 'tuvieron']], 'footnote': 'Plain -e in yo and -o in él (no accents) is the giveaway. Same endings across all strong preterites.'},
         'drill_config': {
             'answers': {
                 'estar': {
@@ -10349,7 +10349,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_STRONG_INTRO,
-        'rule_chart': PRET_STRONG_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Strong-Stem (2)', 'headers': ['Pronoun', 'poder', 'poner'], 'rows': [['yo', 'pude', 'puse'], ['tú', 'pudiste', 'pusiste'], ['él / ella / usted', 'pudo', 'puso'], ['nosotros / nosotras', 'pudimos', 'pusimos'], ['ellos / ellas / ustedes', 'pudieron', 'pusieron']], 'footnote': 'Plain -e in yo and -o in él (no accents) is the giveaway. Same endings across all strong preterites.'},
         'drill_config': {
             'answers': {
                 'poder': {
@@ -10537,7 +10537,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_STRONG_INTRO,
-        'rule_chart': PRET_STRONG_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Strong-Stem (4)', 'headers': ['Pronoun', 'saber', 'querer'], 'rows': [['yo', 'supe', 'quise'], ['tú', 'supiste', 'quisiste'], ['él / ella / usted', 'supo', 'quiso'], ['nosotros / nosotras', 'supimos', 'quisimos'], ['ellos / ellas / ustedes', 'supieron', 'quisieron']], 'footnote': 'Plain -e in yo and -o in él (no accents) is the giveaway. Same endings across all strong preterites.'},
         'drill_config': {
             'answers': {
                 'saber': {
@@ -10654,7 +10654,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_STRONG_INTRO,
-        'rule_chart': PRET_STRONG_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Strong-Stem (5)', 'headers': ['Pronoun', 'andar', 'venir'], 'rows': [['yo', 'anduve', 'vine'], ['tú', 'anduviste', 'viniste'], ['él / ella / usted', 'anduvo', 'vino'], ['nosotros / nosotras', 'anduvimos', 'vinimos'], ['ellos / ellas / ustedes', 'anduvieron', 'vinieron']], 'footnote': 'Plain -e in yo and -o in él (no accents) is the giveaway. Same endings across all strong preterites.'},
         'drill_config': {
             'answers': {
                 'andar': {
@@ -10842,7 +10842,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_STRONG_INTRO,
-        'rule_chart': PRET_STRONG_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Strong-Stem (7)', 'headers': ['Pronoun', 'haber', 'caber'], 'rows': [['yo', 'hube', 'cupe'], ['tú', 'hubiste', 'cupiste'], ['él / ella / usted', 'hubo', 'cupo'], ['nosotros / nosotras', 'hubimos', 'cupimos'], ['ellos / ellas / ustedes', 'hubieron', 'cupieron']], 'footnote': 'Plain -e in yo and -o in él (no accents) is the giveaway. Same endings across all strong preterites.'},
         'drill_config': {
             'answers': {
                 'haber': {
@@ -10959,7 +10959,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'preterite',
         'intro_chart': PRET_STRONG_INTRO,
-        'rule_chart': PRET_STRONG_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Preterite Strong-Stem (8)', 'headers': ['Pronoun', 'mantener', 'obtener'], 'rows': [['yo', 'mantuve', 'obtuve'], ['tú', 'mantuviste', 'obtuviste'], ['él / ella / usted', 'mantuvo', 'obtuvo'], ['nosotros / nosotras', 'mantuvimos', 'obtuvimos'], ['ellos / ellas / ustedes', 'mantuvieron', 'obtuvieron']], 'footnote': 'Plain -e in yo and -o in él (no accents) is the giveaway. Same endings across all strong preterites.'},
         'drill_config': {
             'answers': {
                 'mantener': {
@@ -12271,7 +12271,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
         'intro_chart': SUBJ_PRES_INTRO,
-        'rule_chart': SUBJ_PRES_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Present Subjunctive (2)', 'headers': ['Pronoun', 'vivir', 'estudiar'], 'rows': [['yo', 'viva', 'estudie'], ['tú', 'vivas', 'estudies'], ['él / ella / usted', 'viva', 'estudie'], ['nosotros / nosotras', 'vivamos', 'estudiemos'], ['ellos / ellas / ustedes', 'vivan', 'estudien']], 'footnote': 'Opposite vowel: -ar → -e, -er/-ir → -a. yo and él identical. Six irregulars: D-I-S-H-E-S.'},
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -12459,7 +12459,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
         'intro_chart': SUBJ_PRES_INTRO,
-        'rule_chart': SUBJ_PRES_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Present Subjunctive (4)', 'headers': ['Pronoun', 'ser', 'ir'], 'rows': [['yo', 'sea', 'vaya'], ['tú', 'seas', 'vayas'], ['él / ella / usted', 'sea', 'vaya'], ['nosotros / nosotras', 'seamos', 'vayamos'], ['ellos / ellas / ustedes', 'sean', 'vayan']], 'footnote': 'Opposite vowel: -ar → -e, -er/-ir → -a. yo and él identical. Six irregulars: D-I-S-H-E-S.'},
         'drill_config': {
             'answers': {
                 'ser': {
@@ -12576,7 +12576,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
         'intro_chart': SUBJ_PRES_INTRO,
-        'rule_chart': SUBJ_PRES_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Present Subjunctive (5)', 'headers': ['Pronoun', 'estar', 'dar'], 'rows': [['yo', 'esté', 'dé'], ['tú', 'estés', 'des'], ['él / ella / usted', 'esté', 'dé'], ['nosotros / nosotras', 'estemos', 'demos'], ['ellos / ellas / ustedes', 'estén', 'den']], 'footnote': 'Opposite vowel: -ar → -e, -er/-ir → -a. yo and él identical. Six irregulars: D-I-S-H-E-S.'},
         'drill_config': {
             'answers': {
                 'estar': {
@@ -12764,7 +12764,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'present_subjunctive',
         'intro_chart': SUBJ_PRES_INTRO,
-        'rule_chart': SUBJ_PRES_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Present Subjunctive (7)', 'headers': ['Pronoun', 'saber', 'haber'], 'rows': [['yo', 'sepa', 'haya'], ['tú', 'sepas', 'hayas'], ['él / ella / usted', 'sepa', 'haya'], ['nosotros / nosotras', 'sepamos', 'hayamos'], ['ellos / ellas / ustedes', 'sepan', 'hayan']], 'footnote': 'Opposite vowel: -ar → -e, -er/-ir → -a. yo and él identical. Six irregulars: D-I-S-H-E-S.'},
         'drill_config': {
             'answers': {
                 'saber': {
@@ -13067,7 +13067,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
         'intro_chart': SUBJ_IMPF_INTRO,
-        'rule_chart': SUBJ_IMPF_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Imperfect Subjunctive (2)', 'headers': ['Pronoun', 'vivir', 'estudiar'], 'rows': [['yo', 'viviera', 'estudiara'], ['tú', 'vivieras', 'estudiaras'], ['él / ella / usted', 'viviera', 'estudiara'], ['nosotros / nosotras', 'viviéramos', 'estudiáramos'], ['ellos / ellas / ustedes', 'vivieran', 'estudiaran']], 'footnote': 'Built from the ellos preterite stem. Inherits every preterite irregularity. nosotros always carries an accent.'},
         'drill_config': {
             'answers': {
                 'vivir': {
@@ -13255,7 +13255,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
         'intro_chart': SUBJ_IMPF_INTRO,
-        'rule_chart': SUBJ_IMPF_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Imperfect Subjunctive (4)', 'headers': ['Pronoun', 'ser', 'tener'], 'rows': [['yo', 'fuera', 'tuviera'], ['tú', 'fueras', 'tuvieras'], ['él / ella / usted', 'fuera', 'tuviera'], ['nosotros / nosotras', 'fuéramos', 'tuviéramos'], ['ellos / ellas / ustedes', 'fueran', 'tuvieran']], 'footnote': 'Built from the ellos preterite stem. Inherits every preterite irregularity. nosotros always carries an accent.'},
         'drill_config': {
             'answers': {
                 'ser': {
@@ -13372,7 +13372,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
         'intro_chart': SUBJ_IMPF_INTRO,
-        'rule_chart': SUBJ_IMPF_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Imperfect Subjunctive (5)', 'headers': ['Pronoun', 'hacer', 'querer'], 'rows': [['yo', 'hiciera', 'quisiera'], ['tú', 'hicieras', 'quisieras'], ['él / ella / usted', 'hiciera', 'quisiera'], ['nosotros / nosotras', 'hiciéramos', 'quisiéramos'], ['ellos / ellas / ustedes', 'hicieran', 'quisieran']], 'footnote': 'Built from the ellos preterite stem. Inherits every preterite irregularity. nosotros always carries an accent.'},
         'drill_config': {
             'answers': {
                 'hacer': {
@@ -13560,7 +13560,7 @@ GRAMMAR_SITUATIONS = {
         'drill_type': 'conjugation',
         'tense': 'imperfect_subjunctive',
         'intro_chart': SUBJ_IMPF_INTRO,
-        'rule_chart': SUBJ_IMPF_RULE,
+        "rule_chart": {'kind': 'table', 'title': 'Imperfect Subjunctive (7)', 'headers': ['Pronoun', 'decir', 'poder'], 'rows': [['yo', 'dijera', 'pudiera'], ['tú', 'dijeras', 'pudieras'], ['él / ella / usted', 'dijera', 'pudiera'], ['nosotros / nosotras', 'dijéramos', 'pudiéramos'], ['ellos / ellas / ustedes', 'dijeran', 'pudieran']], 'footnote': 'Built from the ellos preterite stem. Inherits every preterite irregularity. nosotros always carries an accent.'},
         'drill_config': {
             'answers': {
                 'decir': {
@@ -17114,6 +17114,49 @@ def get_situations_for_gl(gl: float) -> list[str]:
     return _GL_TO_SITUATIONS.get(gl, [])
 
 
+def find_any_grammar_form(word_spanish: str) -> str | None:
+    """Pick a deployable conjugated form for a verb from any grammar lesson.
+
+    Used as a fallback for the daily Grenade so a verb learned outside a
+    grammar lesson (e.g. through a vocab encounter) still surfaces as a
+    conjugation rather than the bare infinitive. Walks every conjugation
+    lesson's `drill_config.answers`, prefers varied pronouns
+    (ella/ellas/nosotras/usted/ustedes) before falling back to any pronoun,
+    and strips the `|` rendering pipe.
+
+    Returns None when no grammar lesson conjugates this lemma — caller should
+    fall back to the lemma.
+    """
+    import random as _random
+    # Prefer simple single-word conjugations over periphrases
+    # (modal/ir-a-inf lessons store values like "va a vivir" or "tengo que comer";
+    # those are deployable but a bare conjugation deploys cleaner).
+    simple: list[dict[str, str]] = []
+    compound: list[dict[str, str]] = []
+    for cfg in GRAMMAR_SITUATIONS.values():
+        if cfg.get("lesson_type") != "conjugation":
+            continue
+        answers = (cfg.get("drill_config") or {}).get("answers") or {}
+        forms = answers.get(word_spanish)
+        if not forms:
+            continue
+        if any(" " in (v or "") for v in forms.values()):
+            compound.append(forms)
+        else:
+            simple.append(forms)
+    pool = simple or compound
+    if not pool:
+        return None
+    forms_for_verb = _random.choice(pool)
+    preferred = ["ella", "ellas", "nosotras", "usted", "ustedes", "tú", "yo"]
+    candidates = [p for p in preferred if forms_for_verb.get(p)]
+    if not candidates:
+        candidates = list(forms_for_verb.keys())
+    chosen = _random.choice(candidates)
+    form = forms_for_verb.get(chosen)
+    return form.replace("|", "") if form else None
+
+
 # ── Chat target forms (English-conjugation chips for grammar chat) ──────────
 
 # Subject pronouns mapped to their English subject form. We use a simple
@@ -17257,6 +17300,66 @@ def get_chat_target_forms(chat_situation_id: str) -> list[dict]:
             "spanish": spanish, "english": en,
         })
     return out
+
+
+def _verbs_in_chart(chart: dict | None) -> set[str]:
+    """Extract verb lemmas demonstrated by a chart.
+
+    Looks at table headers (skipping the leading "Pronoun" column) and
+    mini_table card titles. Strips the "ir a + " prefix so periphrasis
+    headers still resolve to the bare verb name.
+    """
+    if not chart:
+        return set()
+    verbs: set[str] = set()
+    if chart.get("kind") == "table":
+        for h in chart.get("headers", [])[1:]:
+            verbs.add(h)
+            if h.startswith("ir a + "):
+                verbs.add(h[7:])
+            if h.startswith("ir + a + "):
+                verbs.add(h[9:])
+    for card in chart.get("cards", []) or []:
+        if card.get("kind") == "mini_table":
+            title = (card.get("title") or "").split(" (", 1)[0].strip()
+            if title:
+                verbs.add(title)
+                if title.startswith("ir a + "):
+                    verbs.add(title[7:])
+    return verbs
+
+
+def _validate_chart_drill_coverage() -> list[str]:
+    """Return human-readable violations; empty list when everything matches.
+
+    A violation = a conjugation lesson whose `word_workload` contains a verb
+    not modeled in either its `intro_chart` or `rule_chart`. Skips lessons
+    where `lesson_type != "conjugation"` (Demonstratives, Possessives, etc.)
+    and chat-only lessons (`drill_type == "skip"`).
+    """
+    violations: list[str] = []
+    for sid, cfg in GRAMMAR_SITUATIONS.items():
+        if cfg.get("lesson_type") != "conjugation":
+            continue
+        if cfg.get("drill_type") == "skip":
+            continue
+        drilled = set(cfg.get("word_workload") or [])
+        if not drilled:
+            continue
+        modeled = _verbs_in_chart(cfg.get("intro_chart")) | _verbs_in_chart(cfg.get("rule_chart"))
+        missing = sorted(drilled - modeled)
+        if missing:
+            violations.append(f"{sid}: drills {sorted(drilled)}, chart misses {missing}")
+    return violations
+
+
+_chart_drill_violations = _validate_chart_drill_coverage()
+if _chart_drill_violations:
+    raise RuntimeError(
+        "grammar_situations.py: chart/drill mismatch — every drilled verb in a "
+        "conjugation lesson must appear in its rule_chart or intro_chart.\n  "
+        + "\n  ".join(_chart_drill_violations)
+    )
 
 
 def get_next_gate(current_gl: float, vocab_level: int) -> dict | None:

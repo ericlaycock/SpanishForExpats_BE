@@ -47,6 +47,29 @@ def _to_out(grenade: Grenade) -> GrenadeOut:
     )
 
 
+def _resolve_target_form(user_word: UserWord, word: Word) -> str:
+    """Return the form the grenade should deploy.
+
+    Priority:
+      1. last_seen_form if set AND distinct from the lemma (a learned
+         conjugation drilled in a grammar lesson).
+      2. For verbs: any conjugation pulled from grammar lesson data — keeps
+         the grenade deployable even when the verb was first learned in a
+         non-grammar situation that left last_seen_form null.
+      3. The lemma as a last resort.
+    """
+    seen = (user_word.last_seen_form or "").strip()
+    lemma = (word.spanish or "").strip()
+    if seen and seen != lemma:
+        return seen
+    if word.word_type == "verb":
+        from app.data.grammar_situations import find_any_grammar_form
+        conjugated = find_any_grammar_form(lemma)
+        if conjugated:
+            return conjugated
+    return lemma
+
+
 def get_or_pick_today(db: Session, user_id: uuid.UUID) -> Optional[Grenade]:
     """Return today's grenade, picking a fresh one if none exists.
 
@@ -85,7 +108,7 @@ def get_or_pick_today(db: Session, user_id: uuid.UUID) -> Optional[Grenade]:
     pool = verbs if verbs else todays
     user_word, word = random.choice(pool)
 
-    target_form = (user_word.last_seen_form or word.spanish).strip()
+    target_form = _resolve_target_form(user_word, word)
     grenade = Grenade(
         id=uuid.uuid4(),
         user_id=user_id,
