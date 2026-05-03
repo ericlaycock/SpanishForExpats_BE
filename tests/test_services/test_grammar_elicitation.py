@@ -183,3 +183,43 @@ class TestVocabElicitationHints:
             id="hf_2014", spanish="quedarte", english="to stay (reflexive)",
         )
         assert _vocab_elicitation_hint(chip) is not None
+
+    def test_masc_singular_article_emits_hint(self):
+        """`the (masc.)` and `a/an (masc.)` get masc.-singular hint."""
+        for spanish, english in (("el", "the (masc.)"), ("un", "a/an (masc.)")):
+            chip = ChipTarget(id="x", spanish=spanish, english=english)
+            out = format_target_steering([chip], [])
+            assert "Elicit with:" in out, f"missing hint for {english!r}"
+            assert "masc." in out or "masculine" in out.lower()
+            assert "singular" in out.lower()
+
+    def test_fem_singular_article_emits_hint(self):
+        for spanish, english in (("la", "the (fem.)"), ("una", "a/an (fem.)")):
+            chip = ChipTarget(id="x", spanish=spanish, english=english)
+            out = format_target_steering([chip], [])
+            assert "Elicit with:" in out, f"missing hint for {english!r}"
+            assert "fem." in out
+            assert "singular" in out.lower()
+
+    def test_masc_plural_article_emits_hint(self):
+        chip = ChipTarget(id="x", spanish="los", english="the (masc. pl.)")
+        out = format_target_steering([chip], [])
+        assert "Elicit with:" in out
+        assert "masc." in out
+        assert "plural" in out.lower()
+
+    def test_fem_plural_article_emits_hint(self):
+        chip = ChipTarget(id="x", spanish="las", english="the (fem. pl.)")
+        out = format_target_steering([chip], [])
+        assert "Elicit with:" in out
+        assert "fem." in out
+        assert "plural" in out.lower()
+
+    def test_plural_pattern_does_not_collide_with_singular(self):
+        """Pattern order must not let `(masc.)` match a `(masc. pl.)`
+        chip. Confirms the singular hint is absent from a plural chip."""
+        chip = ChipTarget(id="x", spanish="los", english="the (masc. pl.)")
+        out = format_target_steering([chip], [])
+        # The plural-only example should appear; the singular-only one shouldn't.
+        assert "pasajeros" in out or "asientos" in out
+        assert "el problema" not in out

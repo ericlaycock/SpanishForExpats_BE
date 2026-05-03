@@ -106,6 +106,40 @@ VOCAB_ELICITATION_HINTS: tuple[tuple[str, str], ...] = (
         "'¿A qué lugar se dirige?' → 'al…'). "
         "Do NOT say `al` yourself.",
     ),
+    # Order: more-specific plural patterns before bare gender patterns,
+    # so a chip labelled `the (masc. pl.)` matches the plural rule first.
+    (
+        "(masc. pl.)",
+        "ask a content question whose natural answer is a noun phrase "
+        "starting with the masc.-plural article + noun "
+        "(e.g. '¿Dónde están los pasajeros?' → 'los pasajeros están…'; "
+        "'¿Cuántos asientos hay?' → 'hay unos asientos libres'). "
+        "The answer must include a masc. plural noun.",
+    ),
+    (
+        "(fem. pl.)",
+        "ask a content question whose natural answer is a noun phrase "
+        "starting with the fem.-plural article + noun "
+        "(e.g. '¿A qué horas salen los vuelos?' → 'a las 8…'; "
+        "'¿Cuáles son las puertas disponibles?' → 'las puertas son…'). "
+        "The answer must include a fem. plural noun.",
+    ),
+    (
+        "(masc.)",
+        "ask a content question whose natural answer is a noun phrase "
+        "starting with the masc.-singular article + noun "
+        "(e.g. '¿Cuál es el problema?' → 'el problema es…'; "
+        "'¿Tiene equipaje?' → 'tengo un maletín'). "
+        "The answer must include a masc. singular noun.",
+    ),
+    (
+        "(fem.)",
+        "ask a content question whose natural answer is a noun phrase "
+        "starting with the fem.-singular article + noun "
+        "(e.g. '¿Cuál es la fecha?' → 'la fecha es…'; "
+        "'¿Tiene reserva?' → 'tengo una reserva'). "
+        "The answer must include a fem. singular noun.",
+    ),
 )
 
 

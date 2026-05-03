@@ -119,6 +119,38 @@ class TestEncounterWords:
         assert not duplicates, f"Duplicate word IDs: {duplicates}"
 
 
+class TestNoDuplicateEnglishLabelsPerEncounter:
+    """Encounters with two chips that share an English label render as
+    visually identical chips on the FE — the learner can't tell which
+    one is ticked. Audited and disambiguated in PR #32-followup; this
+    test locks the audit in.
+
+    If you're adding a near-synonym pair on purpose (e.g. retraso /
+    demora), disambiguate the labels at seed time — `delay (alt.)`,
+    `menu (à la carte)`, `garnish`, etc. — rather than reusing the
+    canonical English form.
+    """
+
+    def test_no_duplicate_english_within_encounter(self):
+        for category, sub_list in _SUB_SITUATIONS.items():
+            for sub in sub_list:
+                words = sub["words"]
+                # Encounters are groups of 3 consecutive (sp, en, ca, sv) tuples
+                for i in range(0, len(words), 3):
+                    chunk = words[i:i + 3]
+                    english = [t[1] for t in chunk]
+                    duplicates = [
+                        en for en, count in Counter(english).items()
+                        if count > 1
+                    ]
+                    enc_num = i // 3 + 1
+                    assert not duplicates, (
+                        f"{category}/{sub['title']} encounter {enc_num}: "
+                        f"duplicate English label(s) {duplicates}. "
+                        "Disambiguate one (e.g. add `(alt.)`)."
+                    )
+
+
 class TestNoDuplicateSpanishWords:
     def test_no_duplicate_spanish_within_sub_situation(self):
         for category, sub_list in _SUB_SITUATIONS.items():
