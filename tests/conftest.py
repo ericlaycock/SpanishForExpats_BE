@@ -20,10 +20,22 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_database():
-    """Create all tables once per test session, drop after."""
+    """Create all tables once per test session, drop after.
+
+    Teardown uses `DROP SCHEMA public CASCADE` rather than
+    `Base.metadata.drop_all` because some tables (e.g. `pron_daily_usage`)
+    are managed by Alembic and never registered on `Base.metadata`. Without
+    cascade, dropping `users` fails with `DependentObjectsStillExist` when
+    one of those alembic-only tables holds an FK to it.
+    """
+    from sqlalchemy import text
+
     Base.metadata.create_all(bind=engine)
     yield
-    Base.metadata.drop_all(bind=engine)
+    with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE"))
+        conn.execute(text("CREATE SCHEMA public"))
+        conn.commit()
 
 
 @pytest.fixture

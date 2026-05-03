@@ -55,10 +55,15 @@ def _seed_vocab_situation(db):
 def _seed_grammar_situation(db):
     """Use an existing grammar situation id from grammar_situations.py so
     `get_grammar_config` resolves and returns drill_targets.
+
+    The original `grammar_regular_present_1` lesson was split into
+    `_ar_1`/`_er_1`/`_ir_1` variants (one per conjugation class) when the
+    Regular Present curriculum expanded. We pick the AR variant because it
+    drills `hablar` — the verb the test downstream asserts against.
     """
     sit = Situation(
-        id="grammar_regular_present_1",
-        title="Regular Present (1/3)",
+        id="grammar_regular_present_ar_1",
+        title="Regular Present AR (1/2)",
         animation_type="grammar",
         encounter_number=300,
         order_index=1300,
@@ -68,8 +73,7 @@ def _seed_grammar_situation(db):
     db.add(sit)
     db.add_all([
         Word(id="grammar_hablar", spanish="hablar", english="to speak", word_category="grammar"),
-        Word(id="grammar_beber", spanish="beber", english="to drink", word_category="grammar"),
-        Word(id="grammar_vivir", spanish="vivir", english="to live", word_category="grammar"),
+        Word(id="grammar_escuchar", spanish="escuchar", english="to listen", word_category="grammar"),
     ])
     db.flush()
     return sit
@@ -183,8 +187,8 @@ def test_sentence_hint_grammar_emits_conjugation_candidates(
     user_id = _get_auth_user_id(headers)
     _seed_grammar_situation(db)
     conv = _make_voice_conv(
-        db, user_id, "grammar_regular_present_1",
-        target_word_ids=["grammar_hablar", "grammar_beber", "grammar_vivir"],
+        db, user_id, "grammar_regular_present_ar_1",
+        target_word_ids=["grammar_hablar", "grammar_escuchar"],
     )
     db.commit()
 

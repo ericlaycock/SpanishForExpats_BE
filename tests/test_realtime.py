@@ -17,7 +17,7 @@ import uuid
 
 import pytest
 
-from app.models import Conversation, Situation, Subscription, UserSituation
+from app.models import Conversation, Situation, UserSituation
 from app.services.realtime_session_service import (
     _reset_rate_limit_state_for_tests,
 )
@@ -269,9 +269,8 @@ def test_create_session_paywall_blocks_exhausted_free_user(
     _seed_banking_situation(db)
     conv = _make_voice_conversation(db, user_id)
 
-    # Give the user an inactive subscription (default) and N completed
-    # non-grammar encounters to trip the gate.
-    db.add(Subscription(user_id=user_id, active=False))
+    # `create_user` already inserts a default inactive Subscription on register,
+    # so we only need to seed N completed non-grammar encounters to trip the gate.
     for i in range(FREE_ENCOUNTERS_LIMIT):
         sit = Situation(
             id=f"bank_paywall_{i}",
