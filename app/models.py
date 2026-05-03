@@ -209,6 +209,14 @@ class Conversation(Base):
     completed_chip_ids = Column(
         JSONB, default=list, nullable=False, server_default="'[]'::jsonb",
     )
+    # Counts assistant turns flagged by `validate_assistant_reply` for either
+    # leaking a pending chip's exact form OR closing the floor without a
+    # question. Telemetry-only today — incremented in `/voice-turn/respond`
+    # and `/realtime-turn` so we can quantify how often the LLM ignores the
+    # turn-closing / no-leak rules in the v3 prompt. Migration 028.
+    avatar_dead_end_turns = Column(
+        Integer, default=0, nullable=False, server_default="0",
+    )
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)
