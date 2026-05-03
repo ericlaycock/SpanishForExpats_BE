@@ -228,7 +228,8 @@ class TestBuildSystemPrompt:
         assert "Speak in Spanish" in prompt
         assert "LEARNER LEVEL" in prompt
         assert "hablo" in prompt
-        # Anti-stuck rule is suppressed when no_progress_turns < 2.
+        # Anti-stuck rule is suppressed when no_progress_turns == 0;
+        # the dedicated rendering tests live in test_anti_stuck_rule.py.
         assert "ANTI-STUCK" not in prompt
 
 

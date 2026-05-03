@@ -51,7 +51,7 @@ _SUB_SITUATIONS = {
                 ("embarque", "boarding", "embarcament", "ombordstigning"), ("hora de embarque", "boarding time", "hora d'embarcament", "ombordstigningstid"), ("hora de salida", "departure time", "hora de sortida", "avgångstid"),  # Encounter 12
                 ("puerta", "gate", "porta", "dörr"), ("número de puerta", "gate number", "número de porta", "gate-nummer"), ("puerta de embarque", "boarding gate", "porta d’embarcament", "gate"),  # Encounter 13
                 ("zona de embarque", "boarding area", "zona d'embarcament", "incheckningsområde"), ("preembarque", "preboarding", "preembarqui", "förboarding"), ("prioridad", "priority", "prioritat", "prioritet"),  # Encounter 14
-                ("a tiempo", "on time", "a temps", "i tid"), ("retraso", "delay", "retard", "försening"), ("demora", "delay", "retard", "försening"),  # Encounter 15
+                ("a tiempo", "on time", "a temps", "i tid"), ("retraso", "delay", "retard", "försening"), ("demora", "delay (alt.)", "retard", "försening"),  # Encounter 15
                 ("cambio de puerta", "gate change", "canvi de porta", "gatebyte"), ("¿cuál es la puerta?", "what is the gate?", "quina és la porta?", "vilken är gaten?"), ("aparece en las pantallas", "it appears on the screens", "apareix a les pantalles", "det visas på skärmarna"),  # Encounter 16
                 ("aparece en la app", "it appears in the app", "apareix a l'app", "det visas i appen"), ("no está asignada", "it is not assigned", "no està assignada", "den är inte tilldelad"), ("asiento", "seat", "seient", "säte"),  # Encounter 17
                 ("número de asiento", "seat number", "número de seient", "platsnummer"), ("fila", "row", "cua", "rad"), ("ventana", "window", "finestra", "fönster"),  # Encounter 18
@@ -100,7 +100,7 @@ _SUB_SITUATIONS = {
                 ("cuenta", "account", "compte", "konto"), ("cuenta bancaria", "bank account", "compte bancari", "bankkonto"), ("saldo", "balance", "saldo", "saldo"),  # Encounter 2
                 ("saldo disponible", "available balance", "saldo disponible", "tillgängligt saldo"), ("saldo actual", "current balance", "saldo actual", "aktuellt saldo"), ("tarjeta", "card", "targeta", "kort"),  # Encounter 3
                 ("tarjeta de débito", "debit card", "targeta de dèbit", "betalkort"), ("tarjeta de crédito", "credit card", "targeta de crèdit", "kreditkort"), ("tarjeta bloqueada", "blocked card", "targeta bloquejada", "blockerat kort"),  # Encounter 4
-                ("tarjeta nueva", "new card", "targeta nova", "nytt kort"), ("PIN", "PIN", "PIN", "PIN"), ("clave", "PIN", "clau", ""),  # Encounter 5
+                ("tarjeta nueva", "new card", "targeta nova", "nytt kort"), ("PIN", "PIN", "PIN", "PIN"), ("clave", "PIN/code", "clau", ""),  # Encounter 5
                 ("contraseña", "password", "contrasenya", "lösenord"), ("número de cuenta", "account number", "número de compte", "kontonummer"), ("número incorrecto", "wrong number", "número incorrecte", "fel nummer"),  # Encounter 6
                 ("transferencia", "transfer", "transferència", "överföring"), ("transferencia enviada", "sent transfer", "transferència enviada", "skickad överföring"), ("transferencia recibida", "received transfer", "transferència rebuda", "mottagen överföring"),  # Encounter 7
                 ("no llegó", "it did not arrive", "no va arribar", "det kom inte"), ("llegó tarde", "it arrived late", "va arribar tard", "den kom för sent"), ("comprobante", "receipt", "justificant", "kvitto"),  # Encounter 8
@@ -111,7 +111,7 @@ _SUB_SITUATIONS = {
                 ("activan la tarjeta", "they activate the card", "activen la targeta", "de aktiverar kortet"), ("emiten la tarjeta", "they issue the card", "emeten la targeta", "de utfärdar kortet"), ("funciona ahora", "it works now", "funciona ara", "det fungerar nu"),  # Encounter 13
                 ("no funciona", "it does not work", "no funciona", "det fungerar inte"), ("rechazada", "declined", "rebutjada", "avvisad"), ("pago rechazado", "declined payment", "pagament rebutjat", "avvisad betalning"),  # Encounter 14
                 ("hago el pago", "I make the payment", "faig el pagament", "jag gör betalningen"), ("pago aprobado", "approved payment", "pagament aprovat", "godkänd betalning"), ("pago pendiente", "pending payment", "pagament pendent", "obetalad betalning"),  # Encounter 15
-                ("monto", "amount", "import", "belopp"), ("monto total", "total amount", "import total", "totalt belopp"), ("cantidad", "amount", "quantitat", "mängd"),  # Encounter 16
+                ("monto", "amount", "import", "belopp"), ("monto total", "total amount", "import total", "totalt belopp"), ("cantidad", "quantity", "quantitat", "mängd"),  # Encounter 16
                 ("deposito dinero", "I deposit money", "diposito diners", "jag sätter in pengar"), ("retiro", "withdrawal", "retirada", "uttag"), ("retiro dinero", "I withdraw money", "retiro diners", "jag tar ut pengar"),  # Encounter 17
                 ("efectivo", "cash", "efectiu", "kontanter"), ("con tarjeta", "with a card", "amb targeta", "med kort"), ("cajero automático", "ATM", "caixer automàtic", "bankomat"),  # Encounter 18
                 ("retiro en el cajero", "I withdraw at the ATM", "retiro a l'caixer", "jag tar ut pengar i bankomaten"), ("saldo insuficiente", "insufficient funds", "saldo insuficient", "otillräckligt saldo"), ("no hay fondos", "there are no funds", "no hi ha fons", "det finns inga medel"),  # Encounter 19
@@ -221,7 +221,7 @@ _SUB_SITUATIONS = {
                 ("total", "total", "total", "totalt"), ("pago", "payment", "pagament", "betalning"), ("anticipo", "deposit", "avançament", "förskottsbetalning"),  # Encounter 5
                 ("pago final", "final payment", "pagament final", "slutbetalning"), ("material", "material", "material", "material"), ("materiales", "materials", "materials", "material"),  # Encounter 6
                 ("proveedor", "supplier", "proveïdor", "leverantör"), ("disponibilidad", "availability", "disponibilitat", "tillgänglighet"), ("no está disponible", "it is not available", "no està disponible", "det är inte tillgängligt"),  # Encounter 7
-                ("retraso", "delay", "retard", "försening"), ("atraso", "delay", "retard", "försening"), ("va atrasado", "it is running late", "va amb retard", "den är försenad"),  # Encounter 8
+                ("retraso", "delay", "retard", "försening"), ("atraso", "delay (alt.)", "retard", "försening"), ("va atrasado", "it is running late", "va amb retard", "den är försenad"),  # Encounter 8
                 ("a tiempo", "on time", "a temps", "i tid"), ("horario", "schedule", "horari", "öppettider"), ("cumplen el horario", "they keep the schedule", "compleixen l’horari", "de håller schemat"),  # Encounter 9
                 ("tiempo estimado", "estimated time", "temps estimat", "beräknad tid"), ("terminan hoy", "they finish today", "acaben avui", "de slutar idag"), ("empiezan hoy", "they start today", "comencen avui", "de börjar idag"),  # Encounter 10
                 ("siguen trabajando", "they keep working", "segueixen treballant", "de fortsätter arbeta"), ("trabajo detenido", "stopped work", "feina aturada", "stoppat arbete"), ("revisan esto", "they check this", "revisen això", "de kontrollerar detta"),  # Encounter 11
@@ -450,13 +450,13 @@ _SUB_SITUATIONS = {
             "goal": "Order food, interact with the server, and pay for your meal",
             "word_prefix": "rest",
             "words": [
-                ("menú", "menu", "menú", "meny"), ("carta", "menu", "carta", ""), ("mesero", "waiter", "cambrer", "servitör"),  # Encounter 1
+                ("menú", "menu", "menú", "meny"), ("carta", "menu (à la carte)", "carta", ""), ("mesero", "waiter", "cambrer", "servitör"),  # Encounter 1
                 ("mesa", "table", "taula", "bord"), ("reserva", "reservation", "reserva", "bokning"), ("¿tienen reserva?", "do you have a reservation?", "tenen reserva?", "har ni en bokning?"),  # Encounter 2
                 ("mesa para dos", "table for two", "taula per a dos", "bord för två"), ("pido", "I order", "demano", "jag beställer"), ("¿qué desea?", "what would you like?", "què desitja?", "vad önskar du?"),  # Encounter 3
                 ("¿qué van a pedir?", "what are you going to order?", "què demanareu?", "vad ska ni beställa?"), ("tomo la orden", "I take the order", "prenc la comanda", "jag tar beställningen"), ("aquí está el menú", "here is the menu", "aquí teniu el menú", "här är menyn"),  # Encounter 4
                 ("recomendación", "recommendation", "recomanació", "rekommendation"), ("¿qué recomienda?", "what do you recommend?", "què recomana?", "vad rekommenderar du?"), ("plato", "dish", "plat", "rätt"),  # Encounter 5
                 ("entrada", "appetizer", "entrada", "ingång"), ("plato principal", "main dish", "plat principal", "huvudrätt"), ("postre", "dessert", "postres", "efterrätt"),  # Encounter 6
-                ("acompañamiento", "side dish", "acompanyament", "tillbehör"), ("guarnición", "side dish", "guarnició", "sidorätt"), ("porción", "portion", "porció", "portion"),  # Encounter 7
+                ("acompañamiento", "side dish", "acompanyament", "tillbehör"), ("guarnición", "garnish", "guarnició", "sidorätt"), ("porción", "portion", "porció", "portion"),  # Encounter 7
                 ("ingrediente", "ingredient", "ingredient", "ingrediens"), ("salsa", "sauce", "salsa", "sås"), ("arroz", "rice", "arròs", "ris"),  # Encounter 8
                 ("pollo", "chicken", "pollastre", "kyckling"), ("carne", "meat", "carn", "kött"), ("pescado", "fish", "peix", "fisk"),  # Encounter 9
                 ("verduras", "vegetables", "verdures", "grönsaker"), ("ensalada", "salad", "amanida", "sallad"), ("vegetariano", "vegetarian", "vegetarià", "vegetarian"),  # Encounter 10

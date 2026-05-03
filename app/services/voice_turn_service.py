@@ -45,7 +45,11 @@ def is_advanced_mode(language_mode: str) -> bool:
     )
 
 
-_STUCK_THRESHOLD_NUDGE = 2
+# Threshold for the tactics menu. Fires after a single consecutive
+# no-progress turn so a native-English learner gets explicit scaffolding
+# early rather than after 2 unhelpful turns. The translate-tactic
+# (last-resort English parenthetical) still requires 3 stuck turns.
+_STUCK_THRESHOLD_NUDGE = 1
 _STUCK_THRESHOLD_TRANSLATE = 3
 
 
@@ -57,27 +61,45 @@ def _render_goal_block(goal: Optional[str]) -> str:
 
 def _render_anti_stuck_rule(consecutive_no_progress_turns: int) -> str:
     """Inject a stronger scaffolding directive once the learner has skipped
-    the target multiple turns in a row.
+    the target one or more turns in a row.
 
     Below the nudge threshold the section is empty so the prompt isn't
-    polluted on the first turn of every conversation. Above the
-    translate threshold we authorise the AI to gloss the target form in
-    English parentheses — a last resort that keeps the lesson moving.
+    polluted on the very first turn. At the nudge level we surface a
+    menu of alternative elicitation tactics (synonym / define / contrast
+    / fill-in-blank / embedded yes/no) so the LLM has options instead
+    of repeating its instinct verbatim. Above the translate threshold
+    we authorise English glossing of the form as a last resort.
+
+    Why a menu: from the avatar-dynamics screenshots we saw the LLM
+    looping on the same elicitation pattern ("¿Cuál es el vuelo?")
+    when the student didn't progress, exhausting the learner. A menu
+    forces tactic rotation.
     """
     n = consecutive_no_progress_turns or 0
     if n < _STUCK_THRESHOLD_NUDGE:
         return ""
     if n < _STUCK_THRESHOLD_TRANSLATE:
         return (
-            f"ANTI-STUCK: the student has skipped the target {n} turns in a row. "
-            "Drop one level of indirectness — ask a fill-in-style question or a "
-            "yes/no with the target form embedded ('¿Tú cantas o no cantas?')."
+            f"ANTI-STUCK: the student skipped the target {n} turn(s) in a row. "
+            "Switch tactic this turn — pick ONE you haven't used in the last "
+            "2 turns:\n"
+            "- Synonym: use a near-synonym, ask the student to rephrase "
+            "('Yo diría que va demorado — ¿tú cómo lo describirías?').\n"
+            "- Define: describe the meaning, ask the student to name it "
+            "('Cuando un vuelo no sale a tiempo, ¿cómo le decimos?').\n"
+            "- Contrast: state your own side, ask the student's "
+            "('Mi vuelo está a tiempo — ¿y el suyo?').\n"
+            "- Fill-in-blank: leave a blank, ask the student to complete "
+            "('Su vuelo va con un ___ de dos horas, ¿correcto?').\n"
+            "- Embedded yes/no (last resort): include the form in a yes/no "
+            "so the student echoes it ('¿Su vuelo está retrasado?'); only "
+            "if the others already failed."
         )
     return (
-        f"ANTI-STUCK: the student has skipped the target {n} turns in a row. "
-        "Drop indirectness completely — translate the target form into English "
-        "in parentheses inside your question, e.g. '¿Tú cantas (do you sing) "
-        "en la ducha?'."
+        f"ANTI-STUCK: the student skipped the target {n} turns in a row. "
+        "Drop indirectness completely — translate the target form into "
+        "English in parentheses inside your question, e.g. '¿Tú cantas "
+        "(do you sing) en la ducha?'."
     )
 
 
