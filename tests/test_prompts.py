@@ -83,6 +83,35 @@ class TestPromptsLoad:
             f"{agent_id} dropped the must-end-with-? requirement"
         )
 
+    def test_conversation_template_has_student_asks_rule(self):
+        """conversation_agent must instruct the LLM not to ask
+        `[STUDENT ASKS]`-tagged chips itself.
+
+        Without this rule the avatar would happily ask 'does it leave
+        tomorrow?' (the chip itself), leaving the student with a yes/no
+        opening and zero progress on that chip.
+        """
+        content = load_prompt("conversation_agent")
+        assert "STUDENT-ASKS CHIPS" in content, (
+            "conversation_agent dropped the STUDENT-ASKS CHIPS section"
+        )
+        assert "[STUDENT ASKS]" in content, (
+            "conversation_agent dropped the [STUDENT ASKS] tag reference"
+        )
+
+    def test_conversation_template_has_question_type_rule(self):
+        """conversation_agent must steer the LLM away from yes/no
+        questions when multiple chips are pending — yes/no answers
+        ('sí'/'no') don't exercise any chip.
+        """
+        content = load_prompt("conversation_agent")
+        assert "QUESTION-TYPE RULE" in content, (
+            "conversation_agent dropped the QUESTION-TYPE RULE section"
+        )
+        assert "yes/no" in content.lower(), (
+            "conversation_agent should mention yes/no avoidance"
+        )
+
 
 class TestSituationRoles:
     def test_all_main_situations_defined(self):

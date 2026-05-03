@@ -70,6 +70,26 @@ def _frame_for_chip(chip: ChipTarget) -> str:
     return template.format(bare_lemma=bare_lemma, pronoun=pronoun)
 
 
+def is_student_asks_chip(chip: ChipTarget) -> bool:
+    """Heuristic: chips whose English label is a question (ends with `?`)
+    are ones the STUDENT must ask the avatar, not answer.
+
+    Examples from real lessons:
+      "does it leave tomorrow?" → student asks the avatar
+      "how far does it go?"     → student asks the avatar
+      "departure"               → student answers / mentions
+      "the (masc.)"             → student uses in their reply
+
+    The avatar's job for student-asks chips is opposite to its usual
+    job: instead of asking a question whose answer is the chip, it
+    must create a setup that *invites* the student to ask. Without
+    this signal the LLM tends to ask the question itself, which both
+    leaks the form and leaves the student with nothing to say.
+    """
+    label = (chip.english or "").rstrip()
+    return label.endswith("?")
+
+
 def format_target_steering(
     chips: List[ChipTarget],
     completed_chip_ids: List[str],
@@ -82,6 +102,10 @@ def format_target_steering(
     string when there are no pending chips — the caller should omit the
     section entirely in that case.
 
+    Question-shaped chips (English label ends with `?`) are tagged with
+    `[STUDENT ASKS]` so the LLM knows to set up an opening rather than
+    ask the question itself. See `is_student_asks_chip` for context.
+
     The block intentionally does NOT include already-completed chips —
     surfacing them invites the model to repeat words the learner has
     already mastered in this conversation.
@@ -93,13 +117,14 @@ def format_target_steering(
 
     lines: List[str] = []
     for idx, chip in enumerate(pending, start=1):
+        tag = " [STUDENT ASKS]" if is_student_asks_chip(chip) else ""
         if chip.is_grammar:
             frame = _frame_for_chip(chip)
             lines.append(
-                f"{idx}. {chip.spanish} ({chip.english} — verb "
+                f"{idx}.{tag} {chip.spanish} ({chip.english} — verb "
                 f"'{chip.verb}' in {chip.pronoun}). "
                 f"Elicit with: {frame}"
             )
         else:
-            lines.append(f"{idx}. {chip.spanish} ({chip.english})")
+            lines.append(f"{idx}.{tag} {chip.spanish} ({chip.english})")
     return "\n".join(lines)
