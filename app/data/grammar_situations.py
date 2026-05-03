@@ -749,9 +749,28 @@ POR_PARA_INTRO = {
         {
             "kind": "comparison",
             "title": "Which one when",
-            "left": {"heading": "para → forward / purpose", "items": ["Recipient: para mi madre", "Deadline: para el lunes", "Destination: salgo para Lima", "Purpose: estudio para aprender", "Opinion: para mí, está bien"]},
-            "right": {"heading": "por → cause / motion through", "items": ["Reason: gracias por la ayuda", "Duration: por dos horas", "Route: caminamos por el parque", "Exchange: pagué $10 por el libro", "On behalf of: lo hago por ti"]},
-            "footnote": "Mnemonic: PARA → Purpose, Audience, Recipient, Arrival. POR → reason, route, time spent, swap.",
+            "left": {
+                "heading": "para → forward / in order to",
+                "items": [
+                    "Recipient: para mi madre (for my mother)",
+                    "Deadline: para el lunes (for Monday)",
+                    "Destination: salgo para Lima (I'm leaving for Lima)",
+                    "In order to: estudio para aprender (I study in order to learn)",
+                    "Opinion: para mí, está bien (for me, it's fine)",
+                ],
+            },
+            "right": {
+                "heading": "por → cause / motion / by",
+                "items": [
+                    "Reason: gracias por la ayuda (thanks for the help)",
+                    "Duration: por dos horas (for two hours)",
+                    "Route: caminamos por el parque (we walked through the park)",
+                    "Exchange: pagué $10 por el libro (I paid $10 for the book)",
+                    "On behalf of: lo hago por ti (I'm doing it for you / on your behalf)",
+                    "By (agent): este libro fue escrito por mí (this book was written by me)",
+                ],
+            },
+            "footnote": "Big clue: if you can swap \"for\" for \"in order to,\" use **para**. If you can swap it for \"by\" or \"because of,\" use **por**.",
         },
     ],
 }
@@ -1011,6 +1030,11 @@ SABER_CONOCER_INTRO = {
             "left": {"heading": "saber → information / skills", "items": ["sé la respuesta (I know the answer)", "sé hablar francés (I know how to speak French)", "no sé qué hora es (I don't know what time it is)"]},
             "right": {"heading": "conocer → familiarity", "items": ["conozco a María (I know María)", "conozco Madrid (I've been to Madrid)", "no conozco esta canción (I don't know this song — never heard it)"]},
             "footnote": "Both have irregular yo: sé and conozco. Otherwise they conjugate normally.",
+        },
+        {
+            "kind": "text",
+            "title": "Quick test: would \"I'm familiar with X\" sound weird?",
+            "body": "If swapping \"I know\" for **\"I'm familiar with\"** sounds **fine**, use **conocer**. If it sounds **weird**, use **saber**.\n\n*\"I know this wine\"* → \"I'm familiar with this wine\" — sounds fine → **conozco este vino**.\n\n*\"I know a lot about wine\"* → \"I'm familiar with a lot about wine\" — sounds weird → **sé mucho sobre el vino**.\n\n*\"I know Russian politics\"* → \"I'm familiar with Russian politics\" — sounds fine → **conozco la política rusa**.\n\n**Exception:** With **people**, use *conocer* only if you've actually met them. With **countries / cities**, use *conocer* only if you've been there.",
         },
         {
             "kind": "mini_table",
@@ -1311,53 +1335,251 @@ IR_A_INF_RULE = {
 # --- GL 10 / 10.3 / 10.6: Gustar (used by gustar_1, _2, _3) ---
 GUSTAR_INTRO = {
     "kind": "cards",
-    "title": "gustar — Spanish doesn't \"like\" the way English does",
+    "title": "gustar — \"to be pleasing\"",
     "cards": [
         {
             "kind": "text",
-            "title": "It's literally \"X is pleasing TO me\"",
-            "body": "**Me gusta el café** doesn't translate as \"I like the coffee.\" It translates as \"the coffee is pleasing to me.\" The thing you like is the *subject*; you (the liker) are an indirect object. This flips the whole sentence.",
+            "title": "Flip the sentence around",
+            "body": "Forget \"to like\" for a moment. **gustar** literally means **\"to be pleasing\"**.\n\nSo the Spanish thought is **the chocolate is pleasing to me** — not \"I like the chocolate.\" The *thing* does the action; *you* are the one it acts on.",
         },
         {
             "kind": "text",
-            "title": "Two forms: gusta vs. gustan",
-            "body": "Because the *thing* is the subject, the verb agrees with the thing. **Singular thing → gusta**: *me gusta el libro*. **Plural thing → gustan**: *me gustan los libros*. The pronoun (me/te/le/nos/les) stays the same.",
+            "title": "Try it in Spanish word-for-word",
+            "body": "**el chocolate gusta a mí**\n→ \"the chocolate is pleasing to me\"\n\nThe word *gusta* means **is pleasing**. The phrase *a mí* means **to me**.",
         },
         {
-            "kind": "mini_table",
-            "title": "gustar (to be pleasing — singular and plural forms)",
-            "rows": [
-                ["me + singular thing", "me gust|a"],
-                ["te + singular thing", "te gust|a"],
-                ["le + singular thing", "le gust|a"],
-                ["nos + singular thing", "nos gust|a"],
-                ["les + singular thing", "les gust|a"],
-            ],
-            "footnote": "Singular thing → gusta. Pronoun changes; verb stays in 3rd-person singular.",
+            "kind": "comparison",
+            "title": "Quick check: what does \"el chocolate gusta a mí\" mean?",
+            "left": {
+                "heading": "✓ This one",
+                "items": ["the chocolate is pleasing to me"],
+            },
+            "right": {
+                "heading": "✗ Not this",
+                "items": ["I am pleasing to the chocolate"],
+            },
+            "footnote": "*A mí* = to me (the receiver). The chocolate is doing the pleasing — chocolate first, me second.",
         },
         {
-            "kind": "mini_table",
-            "title": "gustar — plural thing (gustan)",
-            "rows": [
-                ["me + plural things", "me gust|an"],
-                ["te + plural things", "te gust|an"],
-                ["le + plural things", "le gust|an"],
-                ["nos + plural things", "nos gust|an"],
-                ["les + plural things", "les gust|an"],
-            ],
-            "footnote": "Plural thing → gustan. The verb agrees with the THING, not the liker.",
+            "kind": "comparison",
+            "title": "Another one: \"el café gusta a mí\"",
+            "left": {
+                "heading": "✓ This one",
+                "items": ["the coffee is pleasing to me"],
+            },
+            "right": {
+                "heading": "✗ Not this",
+                "items": ["I am pleasing to the coffee"],
+            },
+            "footnote": "Same shape — the noun is doing the pleasing, *a mí* is the receiver.",
+        },
+        {
+            "kind": "comparison",
+            "title": "One more: \"el libro gusta a mí\"",
+            "left": {
+                "heading": "✓ This one",
+                "items": ["the book is pleasing to me"],
+            },
+            "right": {
+                "heading": "✗ Not this",
+                "items": ["I am pleasing to the book"],
+            },
+        },
+        {
+            "kind": "text",
+            "title": "Shortcut: \"a mí\" → \"me\" (before the verb)",
+            "body": "Spanish lets you replace *a mí* with the short form **me**, and slide it in front of the verb.\n\n**el chocolate me gusta** — same meaning, smoother to say.",
+        },
+        {
+            "kind": "text",
+            "title": "Re-order: noun goes to the end",
+            "body": "Spanish also lets you put the noun at the end. The meaning doesn't change, only the order:\n\n**me gusta el chocolate**\n\nLined up word-for-word:\n*me* → to me\n*gusta* → is pleasing\n*el chocolate* → the chocolate\n\nThis is the form you'll hear and say most.",
+        },
+        {
+            "kind": "text",
+            "title": "Now: \"to you\" — te",
+            "body": "**te gusta el chocolate** = the chocolate is pleasing to you (informal).\n\n*te* → to you\n*gusta* → is pleasing\n*el chocolate* → the chocolate",
+        },
+        {
+            "kind": "text",
+            "title": "\"to him / to her / to you (formal)\" all share one form: le",
+            "body": "**le gusta el chocolate** = the chocolate is pleasing to **him** (or **her**, or **you (fml)**, depending on context).\n\n*le* → to him / to her / to you (fml)\n*gusta* → is pleasing\n*el chocolate* → the chocolate",
+        },
+        {
+            "kind": "text",
+            "title": "\"le\" can also mean \"to it\"",
+            "body": "**le gusta el agua** = the water is pleasing **to it** (a dog, a cat, anything).\n\nContext tells you whether *le* refers to him, her, you (fml), or it. The form doesn't change.",
+        },
+        {
+            "kind": "text",
+            "title": "\"to us\" — nos",
+            "body": "**nos gusta el chocolate** = the chocolate is pleasing to us.\n\n*nos* → to us\n*gusta* → is pleasing\n*el chocolate* → the chocolate",
+        },
+        {
+            "kind": "text",
+            "title": "\"to them / to you all\" — les",
+            "body": "**les gusta el chocolate** = the chocolate is pleasing **to them** (or **to you all**).\n\n*les* → to them / to you all\n*gusta* → is pleasing\n*el chocolate* → the chocolate",
+        },
+        {
+            "kind": "comparison",
+            "title": "All five short forms",
+            "left": {
+                "heading": "Singular receivers",
+                "items": [
+                    "me  →  to me",
+                    "te  →  to you",
+                    "le  →  to him / her / you (fml) / it",
+                ],
+            },
+            "right": {
+                "heading": "Plural receivers",
+                "items": [
+                    "nos  →  to us",
+                    "les  →  to them / you all",
+                ],
+            },
+            "footnote": "Same five short forms you'll meet again later. For gustar, they always come right before the verb.",
+        },
+        {
+            "kind": "text",
+            "title": "How to translate it back to natural English",
+            "body": "We don't normally say \"to me is pleasing the chocolate\" in English — we say **\"I like chocolate.\"**\n\nFor now, think it the other way around (*to me is pleasing*) until the form becomes habit. Once it sticks, you can flip back to \"I like\" mentally.",
         },
     ],
-    "recall": {
-        "verb": "gustar",
-        "answers": {
-            "yo": "me gust|a",
-            "tú": "te gust|a",
-            "él": "le gust|a",
-            "nosotros": "nos gust|a",
-            "ellos": "les gust|a",
+    "recall": [
+        {
+            "verb": "gustar",
+            "answers": {
+                "yo": "me gust|a",
+                "tú": "te gust|a",
+                "él": "le gust|a",
+                "nosotros": "nos gust|a",
+                "ellos": "les gust|a",
+            },
         },
-    },
+    ],
+}
+
+GUSTAR_PLURAL_INTRO = {
+    "kind": "cards",
+    "title": "gustar — when the thing is plural",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "One thing → gusta. Many things → gustan.",
+            "body": "In Part 1 you saw **me gusta el chocolate** — *the chocolate* is one thing, so the verb ends in *-a*: **gusta**.\n\nIf you swap in *more than one* thing, the verb adds an *-n* and becomes **gustan**.",
+        },
+        {
+            "kind": "text",
+            "title": "Side by side",
+            "body": "**me gusta el chocolate** = the chocolate (one thing) is pleasing to me.\n\n**me gustan los chocolates** = the chocolates (many things) are pleasing to me.\n\nThe pronoun *me* doesn't change. Only the verb switches between *gusta* and *gustan*, depending on whether the thing is one or many.",
+        },
+        {
+            "kind": "comparison",
+            "title": "Quick check: which one fits?",
+            "left": {
+                "heading": "me ___ los libros (the books)",
+                "items": ["**gustan** ✓ (the books = many things)"],
+            },
+            "right": {
+                "heading": "me ___ el libro (the book)",
+                "items": ["**gusta** ✓ (the book = one thing)"],
+            },
+            "footnote": "Look at the *thing* — is it singular or plural? That picks the verb.",
+        },
+        {
+            "kind": "text",
+            "title": "Same five pronouns, all paired with gustan",
+            "body": "Pronoun stays the same; only the verb flips to **gustan** when the thing is plural.\n\n*me gustan los gatos* = I like cats\n*te gustan los libros* = you like books\n*le gustan las flores* = he/she/you-fml likes flowers\n*nos gustan las películas* = we like movies\n*les gustan los perros* = they / you all like dogs",
+        },
+        {
+            "kind": "comparison",
+            "title": "Watch the slot — singular vs plural",
+            "left": {
+                "heading": "Singular thing → gusta",
+                "items": [
+                    "me gusta el café",
+                    "te gusta la música",
+                    "le gusta el libro",
+                ],
+            },
+            "right": {
+                "heading": "Plural thing → gustan",
+                "items": [
+                    "me gustan los cafés",
+                    "te gustan las canciones",
+                    "le gustan los libros",
+                ],
+            },
+            "footnote": "The verb agrees with the THING — never with the person.",
+        },
+    ],
+    "recall": [
+        {
+            "verb": "gustar",
+            "answers": {
+                "yo": "me gust|an",
+                "tú": "te gust|an",
+                "él": "le gust|an",
+                "nosotros": "nos gust|an",
+                "ellos": "les gust|an",
+            },
+        },
+    ],
+}
+
+GUSTAR_EMPHATIC_INTRO = {
+    "kind": "cards",
+    "title": "gustar — adding emphasis (a mí, a ti, a él…)",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "What if you want to say \"*I* like it\" with stress?",
+            "body": "**me gusta el café** is the everyday way to say it. But sometimes you want to **emphasize who** — \"*I* like coffee (and you don't)\" or \"as for me, I like it.\"\n\nSpanish has a longer form for that: tack **a mí** (or *a ti*, *a él*…) on the front.",
+        },
+        {
+            "kind": "text",
+            "title": "The pattern",
+            "body": "**A mí me gusta el café** = *as for me*, I like coffee.\n\nThe shorter form (*me gusta el café*) is still there — you just *add* **a mí** in front for emphasis. Same meaning, more weight on \"me\".",
+        },
+        {
+            "kind": "comparison",
+            "title": "All the emphatic forms",
+            "left": {
+                "heading": "Singular",
+                "items": [
+                    "**a mí** me gusta…",
+                    "**a ti** te gusta…",
+                    "**a él / a ella / a usted** le gusta…",
+                ],
+            },
+            "right": {
+                "heading": "Plural",
+                "items": [
+                    "**a nosotros / a nosotras** nos gusta…",
+                    "**a ellos / a ellas / a ustedes** les gusta…",
+                ],
+            },
+            "footnote": "The short pronoun (me / te / le / nos / les) stays in. The emphatic *a mí* / *a ti* / etc. is an extra layer.",
+        },
+        {
+            "kind": "text",
+            "title": "When to use it",
+            "body": "**Contrast**: *A mí me gusta el té, pero a ella le gusta el café.* (I like tea, but she likes coffee.)\n\n**Clarification of \"le\"**: since *le* could be him, her, or you-fml, *a él / a ella / a usted* clarifies which one you mean.\n\n**Politeness**: *A usted le gusta el vino, ¿no?* — directly addressing one person.",
+        },
+    ],
+    "recall": [
+        {
+            "verb": "gustar",
+            "answers": {
+                "yo": "a mí me gust|a",
+                "tú": "a ti te gust|a",
+                "él": "a él le gust|a",
+                "nosotros": "a nosotros nos gust|a",
+                "ellos": "a ellos les gust|a",
+            },
+        },
+    ],
 }
 
 GUSTAR_RULE = {
@@ -5331,9 +5553,10 @@ GRAMMAR_SITUATIONS = {
             "targets": [{"word": "por"}, {"word": "para"}],
         },
     },
-    # --- GL 4.2: chat companion of `grammar_por_para` ---
+    # --- GL 4.2: 4 chat companions in different situations, each requiring por
+    # and para several times so the user gets reps in varied contexts. ---
     "grammar_por_para_chat": {
-        "title": "Por vs. Para — Chat",
+        "title": "Por vs. Para — Chat (café)",
         "grammar_level": 4.2,
         "lesson_number": 1.1,
         "lesson_type": "rule",
@@ -5343,7 +5566,46 @@ GRAMMAR_SITUATIONS = {
         "tense": "present",
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
-        "phase_2_config": {'description': 'Por vs. Para: different uses of each preposition', 'targets': [{'word': 'por'}, {'word': 'para'}]},
+        "phase_2_config": {'description': 'Por vs. Para — café scene: ordering, paying, asking on behalf of someone', 'targets': [{'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}]},
+    },
+    "grammar_por_para_chat_2": {
+        "title": "Por vs. Para — Chat (work)",
+        "grammar_level": 4.2,
+        "lesson_number": 1.2,
+        "lesson_type": "rule",
+        "word_workload": ["por", "para"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Por vs. Para — workplace scene: deadlines, working on/for projects, working through a problem', 'targets': [{'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}]},
+    },
+    "grammar_por_para_chat_3": {
+        "title": "Por vs. Para — Chat (travel)",
+        "grammar_level": 4.2,
+        "lesson_number": 1.3,
+        "lesson_type": "rule",
+        "word_workload": ["por", "para"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Por vs. Para — travel scene: destinations, going through cities, paying for tickets', 'targets': [{'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}]},
+    },
+    "grammar_por_para_chat_4": {
+        "title": "Por vs. Para — Chat (gift shop)",
+        "grammar_level": 4.2,
+        "lesson_number": 1.4,
+        "lesson_type": "rule",
+        "word_workload": ["por", "para"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "present",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Por vs. Para — gift shop scene: gifts for people, prices paid, deadlines (mother\'s day)', 'targets': [{'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}, {'word': 'por'}, {'word': 'para'}]},
     },
     # --- GL 4.3: Demonstratives ---
     "grammar_demonstratives": {
@@ -5419,17 +5681,30 @@ GRAMMAR_SITUATIONS = {
     },
     # --- GL 4.4: chat companion of `grammar_possessive_pronouns` ---
     "grammar_possessive_pronouns_chat": {
-        "title": "Possessive Pronouns — Chat",
+        "title": "Possessive Pronouns — Chat (mine / yours)",
         "grammar_level": 4.4,
         "lesson_number": 1.1,
         "lesson_type": "rule",
-        "word_workload": ["el mío", "el tuyo", "el suyo", "el nuestro"],
+        "word_workload": ["el mío", "el tuyo"],
         "video_embed_id": None,
         "drill_type": "skip",
         "tense": "possessive_pronouns",
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
-        "phase_2_config": {'description': 'Possessive pronouns: mío/mía, tuyo/tuya, suyo/suya, nuestro/nuestra', 'targets': [{'word': 'mío'}, {'word': 'mía'}, {'word': 'tuyo'}, {'word': 'tuya'}, {'word': 'suyo'}, {'word': 'suya'}, {'word': 'nuestro'}, {'word': 'nuestra'}]},
+        "phase_2_config": {'description': 'Possessive pronouns: mío/mía/míos/mías + tuyo/tuya/tuyos/tuyas', 'targets': [{'word': 'mío'}, {'word': 'mía'}, {'word': 'míos'}, {'word': 'mías'}, {'word': 'tuyo'}, {'word': 'tuya'}, {'word': 'tuyos'}, {'word': 'tuyas'}]},
+    },
+    "grammar_possessive_pronouns_chat_2": {
+        "title": "Possessive Pronouns — Chat (his/hers/yours-fml/theirs / ours)",
+        "grammar_level": 4.4,
+        "lesson_number": 1.2,
+        "lesson_type": "rule",
+        "word_workload": ["el suyo", "el nuestro"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "possessive_pronouns",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {'description': 'Possessive pronouns: suyo/suya/suyos/suyas + nuestro/nuestra/nuestros/nuestras', 'targets': [{'word': 'suyo'}, {'word': 'suya'}, {'word': 'suyos'}, {'word': 'suyas'}, {'word': 'nuestro'}, {'word': 'nuestra'}, {'word': 'nuestros'}, {'word': 'nuestras'}]},
     },
     # --- GL 5.5: Saber vs. Conocer ---
     "grammar_saber_conocer": {
@@ -5569,7 +5844,7 @@ GRAMMAR_SITUATIONS = {
     },
     # --- GL 10: chat companion of `grammar_gustar_1` ---
     "grammar_gustar_1_chat": {
-        "title": "Gustar Part 1 — Chat",
+        "title": "Gustar Part 1 — Chat (food / drinks)",
         "grammar_level": 10,
         "lesson_number": 1.1,
         "lesson_type": "rule",
@@ -5580,7 +5855,30 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
         "phase_2_config": {
-            "description": "5 pronoun+gusta+singular noun combos",
+            "description": "Food/drink scene: ask + answer about preferences with all 5 short pronouns + singular nouns (me/te/le/nos/les + gusta)",
+            "targets": [
+                {"phrase": "me gusta"},
+                {"phrase": "te gusta"},
+                {"phrase": "le gusta"},
+                {"phrase": "nos gusta"},
+                {"phrase": "les gusta"},
+            ],
+            "pattern": "pronoun_gusta_singular",
+        },
+    },
+    "grammar_gustar_1_chat_2": {
+        "title": "Gustar Part 1 — Chat (activities)",
+        "grammar_level": 10,
+        "lesson_number": 1.2,
+        "lesson_type": "rule",
+        "word_workload": ["gusta"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gustar",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {
+            "description": "Free-time scene (sports, music, movies): same 5 short pronouns + gusta with singular activity nouns",
             "targets": [
                 {"phrase": "me gusta"},
                 {"phrase": "te gusta"},
@@ -5598,7 +5896,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "WjOxPPu1uQo",
         "drill_type": "gustar",
         "tense": "gustar",
-        "intro_chart": GUSTAR_INTRO,
+        "intro_chart": GUSTAR_PLURAL_INTRO,
         "drill_config": {
         "items": [
                 {
@@ -5686,7 +5984,7 @@ GRAMMAR_SITUATIONS = {
     },
     # --- GL 10.3: chat companion of `grammar_gustar_2` ---
     "grammar_gustar_2_chat": {
-        "title": "Gustar Part 2 — Chat",
+        "title": "Gustar Part 2 — Chat (food / drinks, plural)",
         "grammar_level": 10.3,
         "lesson_number": 1.1,
         "lesson_type": "rule",
@@ -5697,7 +5995,30 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
         "phase_2_config": {
-            "description": "5 pronoun+gustan+plural noun combos",
+            "description": "Food/drink scene: ask about plural nouns (los tacos, las galletas) — every short pronoun + gustan",
+            "targets": [
+                {"phrase": "me gustan"},
+                {"phrase": "te gustan"},
+                {"phrase": "le gustan"},
+                {"phrase": "nos gustan"},
+                {"phrase": "les gustan"},
+            ],
+            "pattern": "pronoun_gustan_plural",
+        },
+    },
+    "grammar_gustar_2_chat_2": {
+        "title": "Gustar Part 2 — Chat (people / animals, plural)",
+        "grammar_level": 10.3,
+        "lesson_number": 1.2,
+        "lesson_type": "rule",
+        "word_workload": ["gustan"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gustar",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {
+            "description": "People/animals scene: ask about groups (los niños, las flores, los gatos) — same 5 short pronouns + gustan",
             "targets": [
                 {"phrase": "me gustan"},
                 {"phrase": "te gustan"},
@@ -5715,7 +6036,7 @@ GRAMMAR_SITUATIONS = {
         "video_embed_id": "lIAdqI5fpun",
         "drill_type": "gustar_prefix",
         "tense": "gustar",
-        "intro_chart": GUSTAR_INTRO,
+        "intro_chart": GUSTAR_EMPHATIC_INTRO,
         "drill_config": {
         "items": [
                 {
@@ -5803,7 +6124,7 @@ GRAMMAR_SITUATIONS = {
     },
     # --- GL 10.6: chat companion of `grammar_gustar_3` ---
     "grammar_gustar_3_chat": {
-        "title": "Gustar Part 3 — Chat",
+        "title": "Gustar Part 3 — Chat (contrasting opinions)",
         "grammar_level": 10.6,
         "lesson_number": 1.1,
         "lesson_type": "rule",
@@ -5814,7 +6135,7 @@ GRAMMAR_SITUATIONS = {
         "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
         "drill_sentences": [],
         "phase_2_config": {
-            "description": "1 emphatic 'a + pronoun' combo per pronoun type (10 total)",
+            "description": "Contrast scene: \"I like X, but he likes Y\" — emphatic 'a + pronoun' across all 10 pronoun forms",
             "targets": [
                 {"phrase": "a mí me gusta"},
                 {"phrase": "a ti te gusta"},
@@ -5826,6 +6147,32 @@ GRAMMAR_SITUATIONS = {
                 {"phrase": "a ellos les gusta"},
                 {"phrase": "a ellas les gusta"},
                 {"phrase": "a ustedes les gusta"},
+            ],
+            "pattern": "a_prefix",
+        },
+    },
+    "grammar_gustar_3_chat_2": {
+        "title": "Gustar Part 3 — Chat (clarifying \"le\" / \"les\")",
+        "grammar_level": 10.6,
+        "lesson_number": 1.2,
+        "lesson_type": "rule",
+        "word_workload": ["gusta", "gustan"],
+        "video_embed_id": None,
+        "drill_type": "skip",
+        "tense": "gustar",
+        "phases": {"0a": False, "0b": False, "1a": False, "1b": False, "1c": False, "2": True, "3": False},
+        "drill_sentences": [],
+        "phase_2_config": {
+            "description": "Clarification scene: practice using a él / a ella / a usted / a ellos / a ellas / a ustedes to disambiguate the bare le and les forms",
+            "targets": [
+                {"phrase": "a él le gusta"},
+                {"phrase": "a ella le gusta"},
+                {"phrase": "a usted le gusta"},
+                {"phrase": "a ellos les gusta"},
+                {"phrase": "a ellas les gusta"},
+                {"phrase": "a ustedes les gusta"},
+                {"phrase": "a él le gustan"},
+                {"phrase": "a ellos les gustan"},
             ],
             "pattern": "a_prefix",
         },
@@ -13581,83 +13928,81 @@ GRAMMAR_SITUATIONS = {
     },
 
 
-    "grammar_spelling_changes_construir_conseguir_1": {
-        "title": "Spelling Changes — construir + conseguir (1/2)",
+    "grammar_spelling_changes_construir": {
+        "title": "Spelling Changes — construir ",
         "grammar_level": 5,
         "lesson_number": 3,
         "lesson_type": "conjugation",
-        "word_workload": ["construir", "conseguir"],
+        "word_workload": ["construir"],
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
         "intro_chart": SPELLING_CHANGES_CONSTRUIR_CONSEGUIR_INTRO,
         "drill_config": {
             "answers": {
-                "construir": {"yo": "constr|uyo", "tú": "constr|uyes", "él": "constr|uye", "ella": "constr|uye", "usted": "constr|uye", "nosotros": "constr|uimos", "nosotras": "constr|uimos", "ellos": "constr|uyen", "ellas": "constr|uyen", "ustedes": "constr|uyen"},
-                "conseguir": {"yo": "consig|o", "tú": "consig|ues", "él": "consig|ue", "ella": "consig|ue", "usted": "consig|ue", "nosotros": "conseg|uimos", "nosotras": "conseg|uimos", "ellos": "consig|uen", "ellas": "consig|uen", "ustedes": "consig|uen"},
+                "construir": {'yo': 'constr|uyo', 'tú': 'constr|uyes', 'él': 'constr|uye', 'ella': 'constr|uye', 'usted': 'constr|uye', 'nosotros': 'constr|uimos', 'nosotras': 'constr|uimos', 'ellos': 'constr|uyen', 'ellas': 'constr|uyen', 'ustedes': 'constr|uyen'},
             },
         },
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I build a new house.", "es": "Yo construyo una casa nueva.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "new": "nueva", "casa": "house", "nueva": "new"}},
-            {"en": "You build tall buildings.", "es": "Tú construyes edificios altos.", "noun_id": None, "type": "auditory", "glosses": {"buildings": "edificios", "tall": "altos", "edificios": "buildings", "altos": "tall"}},
-            {"en": "She builds a big school.", "es": "Ella construye una escuela grande.", "noun_id": None, "type": "written", "glosses": {"school": "escuela", "big": "grande", "escuela": "school", "grande": "big"}},
-            {"en": "We (f) build strong bridges.", "es": "Nosotras construimos puentes fuertes.", "noun_id": None, "type": "auditory", "glosses": {"bridges": "puentes", "strong": "fuertes", "puentes": "bridges", "fuertes": "strong"}},
-            {"en": "You all build new roads.", "es": "Ustedes construyen carreteras nuevas.", "noun_id": None, "type": "written", "glosses": {"roads": "carreteras", "new": "nuevas", "carreteras": "roads", "nuevas": "new"}},
-            {"en": "I get good results.", "es": "Yo consigo buenos resultados.", "noun_id": None, "type": "written", "glosses": {"results": "resultados", "good": "buenos", "resultados": "results", "buenos": "good"}},
-            {"en": "You get fresh water.", "es": "Tú consigues agua fresca.", "noun_id": None, "type": "auditory", "glosses": {"water": "agua", "fresh": "fresca", "agua": "water", "fresca": "fresh"}},
-            {"en": "She gets important information.", "es": "Ella consigue información importante.", "noun_id": None, "type": "written", "glosses": {"information": "información", "important": "importante", "información": "information", "importante": "important"}},
-            {"en": "We (f) get clean food.", "es": "Nosotras conseguimos comida limpia.", "noun_id": None, "type": "auditory", "glosses": {"food": "comida", "clean": "limpia", "comida": "food", "limpia": "clean"}},
-            {"en": "You all get fast cars.", "es": "Ustedes consiguen coches rápidos.", "noun_id": None, "type": "written", "glosses": {"cars": "coches", "fast": "rápidos", "coches": "cars", "rápidos": "fast"}},
+            {"en": 'I build a new house.', "es": 'Yo construyo una casa nueva.', "noun_id": None, "type": 'written', "glosses": {'house': 'casa', 'new': 'nueva', 'casa': 'house', 'nueva': 'new'}},
+            {"en": 'You build tall buildings.', "es": 'Tú construyes edificios altos.', "noun_id": None, "type": 'auditory', "glosses": {'buildings': 'edificios', 'tall': 'altos', 'edificios': 'buildings', 'altos': 'tall'}},
+            {"en": 'She builds a big school.', "es": 'Ella construye una escuela grande.', "noun_id": None, "type": 'written', "glosses": {'school': 'escuela', 'big': 'grande', 'escuela': 'school', 'grande': 'big'}},
+            {"en": 'We (f) build strong bridges.', "es": 'Nosotras construimos puentes fuertes.', "noun_id": None, "type": 'auditory', "glosses": {'bridges': 'puentes', 'strong': 'fuertes', 'puentes': 'bridges', 'fuertes': 'strong'}},
+            {"en": 'You all build new roads.', "es": 'Ustedes construyen carreteras nuevas.', "noun_id": None, "type": 'written', "glosses": {'roads': 'carreteras', 'new': 'nuevas', 'carreteras': 'roads', 'nuevas': 'new'}},
+            {"en": 'You build a new house.', "es": 'Tú construyes una casa nueva.', "noun_id": None, "type": 'written', "glosses": {'house': 'casa', 'new': 'nueva', 'casa': 'house', 'nueva': 'new'}},
+            {"en": 'I build a small bridge.', "es": 'Yo construyo un puente pequeño.', "noun_id": None, "type": 'auditory', "glosses": {'bridge': 'puente', 'small': 'pequeño', 'puente': 'bridge', 'pequeño': 'small'}},
+            {"en": 'He builds a tall tower.', "es": 'Él construye una torre alta.', "noun_id": None, "type": 'written', "glosses": {'tower': 'torre', 'tall': 'alta', 'torre': 'tower', 'alta': 'tall'}},
+            {"en": 'We build a big school.', "es": 'Nosotros construimos una escuela grande.', "noun_id": None, "type": 'auditory', "glosses": {'school': 'escuela', 'big': 'grande', 'escuela': 'school', 'grande': 'big'}},
+            {"en": 'They (f) build strong walls.', "es": 'Ellas construyen muros fuertes.', "noun_id": None, "type": 'written', "glosses": {'walls': 'muros', 'strong': 'fuertes', 'muros': 'walls', 'fuertes': 'strong'}},
         ],
-        "drill_targets": [{"verb": "construir", "pronoun": "yo"}, {"verb": "construir", "pronoun": "tú"}, {"verb": "construir", "pronoun": "ella"}, {"verb": "construir", "pronoun": "nosotras"}, {"verb": "construir", "pronoun": "ustedes"}, {"verb": "conseguir", "pronoun": "yo"}, {"verb": "conseguir", "pronoun": "tú"}, {"verb": "conseguir", "pronoun": "ella"}, {"verb": "conseguir", "pronoun": "nosotras"}, {"verb": "conseguir", "pronoun": "ustedes"}],
+        "drill_targets": [{'verb': 'construir', 'pronoun': 'yo'}, {'verb': 'construir', 'pronoun': 'tú'}, {'verb': 'construir', 'pronoun': 'ella'}, {'verb': 'construir', 'pronoun': 'nosotras'}, {'verb': 'construir', 'pronoun': 'ustedes'}],
         "phase_2_config": {
-            "description": "Spelling Changes construir + conseguir (1/2): construir, conseguir",
-            "targets": [{"verb": "construir", "pronoun": "yo"}, {"verb": "construir", "pronoun": "tú"}, {"verb": "construir", "pronoun": "ella"}, {"verb": "construir", "pronoun": "nosotras"}, {"verb": "construir", "pronoun": "ustedes"}, {"verb": "conseguir", "pronoun": "yo"}, {"verb": "conseguir", "pronoun": "tú"}, {"verb": "conseguir", "pronoun": "ella"}, {"verb": "conseguir", "pronoun": "nosotras"}, {"verb": "conseguir", "pronoun": "ustedes"}],
+            "description": "Spelling Changes construir: construir",
+            "targets": [{'verb': 'construir', 'pronoun': 'yo'}, {'verb': 'construir', 'pronoun': 'tú'}, {'verb': 'construir', 'pronoun': 'ella'}, {'verb': 'construir', 'pronoun': 'nosotras'}, {'verb': 'construir', 'pronoun': 'ustedes'}],
         },
         "opener_en": "What are you building?",
         "opener_es": "¿Qué construyes?",
     },
-
-    "grammar_spelling_changes_construir_conseguir_2": {
-        "title": "Spelling Changes — construir + conseguir (2/2)",
+    "grammar_spelling_changes_conseguir": {
+        "title": "Spelling Changes — conseguir ",
         "grammar_level": 5,
         "lesson_number": 4,
         "lesson_type": "conjugation",
-        "word_workload": ["construir", "conseguir"],
+        "word_workload": ["conseguir"],
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
         "intro_chart": SPELLING_CHANGES_CONSTRUIR_CONSEGUIR_INTRO,
         "drill_config": {
             "answers": {
-                "construir": {"yo": "constr|uyo", "tú": "constr|uyes", "él": "constr|uye", "ella": "constr|uye", "usted": "constr|uye", "nosotros": "constr|uimos", "nosotras": "constr|uimos", "ellos": "constr|uyen", "ellas": "constr|uyen", "ustedes": "constr|uyen"},
-                "conseguir": {"yo": "consig|o", "tú": "consig|ues", "él": "consig|ue", "ella": "consig|ue", "usted": "consig|ue", "nosotros": "conseg|uimos", "nosotras": "conseg|uimos", "ellos": "consig|uen", "ellas": "consig|uen", "ustedes": "consig|uen"},
+                "conseguir": {'yo': 'consig|o', 'tú': 'consig|ues', 'él': 'consig|ue', 'ella': 'consig|ue', 'usted': 'consig|ue', 'nosotros': 'conseg|uimos', 'nosotras': 'conseg|uimos', 'ellos': 'consig|uen', 'ellas': 'consig|uen', 'ustedes': 'consig|uen'},
             },
         },
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You build a new house.", "es": "Tú construyes una casa nueva.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "new": "nueva", "casa": "house", "nueva": "new"}},
-            {"en": "I build a small bridge.", "es": "Yo construyo un puente pequeño.", "noun_id": None, "type": "auditory", "glosses": {"bridge": "puente", "small": "pequeño", "puente": "bridge", "pequeño": "small"}},
-            {"en": "He builds a tall tower.", "es": "Él construye una torre alta.", "noun_id": None, "type": "written", "glosses": {"tower": "torre", "tall": "alta", "torre": "tower", "alta": "tall"}},
-            {"en": "We build a big school.", "es": "Nosotros construimos una escuela grande.", "noun_id": None, "type": "auditory", "glosses": {"school": "escuela", "big": "grande", "escuela": "school", "grande": "big"}},
-            {"en": "They (f) build strong walls.", "es": "Ellas construyen muros fuertes.", "noun_id": None, "type": "written", "glosses": {"walls": "muros", "strong": "fuertes", "muros": "walls", "fuertes": "strong"}},
-            {"en": "You get fresh fruits.", "es": "Tú consigues frutas frescas.", "noun_id": None, "type": "written", "glosses": {"fruits": "frutas", "fresh": "frescas", "frutas": "fruits", "frescas": "fresh"}},
-            {"en": "I get good grades.", "es": "Yo consigo buenas notas.", "noun_id": None, "type": "auditory", "glosses": {"grades": "notas", "good": "buenas", "notas": "grades", "buenas": "good"}},
-            {"en": "He gets a new job.", "es": "Él consigue un trabajo nuevo.", "noun_id": None, "type": "written", "glosses": {"job": "trabajo", "new": "nuevo", "trabajo": "job", "nuevo": "new"}},
-            {"en": "We (m) get tickets early.", "es": "Nosotros conseguimos entradas temprano.", "noun_id": None, "type": "auditory", "glosses": {"tickets": "entradas", "early": "temprano", "entradas": "tickets", "temprano": "early"}},
-            {"en": "They (f) get cold water.", "es": "Ellas consiguen agua fría.", "noun_id": None, "type": "written", "glosses": {"water": "agua", "cold": "fría", "agua": "water", "fría": "cold"}},
+            {"en": 'I get good results.', "es": 'Yo consigo buenos resultados.', "noun_id": None, "type": 'written', "glosses": {'results': 'resultados', 'good': 'buenos', 'resultados': 'results', 'buenos': 'good'}},
+            {"en": 'You get fresh water.', "es": 'Tú consigues agua fresca.', "noun_id": None, "type": 'auditory', "glosses": {'water': 'agua', 'fresh': 'fresca', 'agua': 'water', 'fresca': 'fresh'}},
+            {"en": 'She gets important information.', "es": 'Ella consigue información importante.', "noun_id": None, "type": 'written', "glosses": {'information': 'información', 'important': 'importante', 'información': 'information', 'importante': 'important'}},
+            {"en": 'We (f) get clean food.', "es": 'Nosotras conseguimos comida limpia.', "noun_id": None, "type": 'auditory', "glosses": {'food': 'comida', 'clean': 'limpia', 'comida': 'food', 'limpia': 'clean'}},
+            {"en": 'You all get fast cars.', "es": 'Ustedes consiguen coches rápidos.', "noun_id": None, "type": 'written', "glosses": {'cars': 'coches', 'fast': 'rápidos', 'coches': 'cars', 'rápidos': 'fast'}},
+            {"en": 'You get fresh fruits.', "es": 'Tú consigues frutas frescas.', "noun_id": None, "type": 'written', "glosses": {'fruits': 'frutas', 'fresh': 'frescas', 'frutas': 'fruits', 'frescas': 'fresh'}},
+            {"en": 'I get good grades.', "es": 'Yo consigo buenas notas.', "noun_id": None, "type": 'auditory', "glosses": {'grades': 'notas', 'good': 'buenas', 'notas': 'grades', 'buenas': 'good'}},
+            {"en": 'He gets a new job.', "es": 'Él consigue un trabajo nuevo.', "noun_id": None, "type": 'written', "glosses": {'job': 'trabajo', 'new': 'nuevo', 'trabajo': 'job', 'nuevo': 'new'}},
+            {"en": 'We (m) get tickets early.', "es": 'Nosotros conseguimos entradas temprano.', "noun_id": None, "type": 'auditory', "glosses": {'tickets': 'entradas', 'early': 'temprano', 'entradas': 'tickets', 'temprano': 'early'}},
+            {"en": 'They (f) get cold water.', "es": 'Ellas consiguen agua fría.', "noun_id": None, "type": 'written', "glosses": {'water': 'agua', 'cold': 'fría', 'agua': 'water', 'fría': 'cold'}},
         ],
-        "drill_targets": [{"verb": "construir", "pronoun": "tú"}, {"verb": "construir", "pronoun": "yo"}, {"verb": "construir", "pronoun": "él"}, {"verb": "construir", "pronoun": "nosotros"}, {"verb": "construir", "pronoun": "ellas"}, {"verb": "conseguir", "pronoun": "tú"}, {"verb": "conseguir", "pronoun": "yo"}, {"verb": "conseguir", "pronoun": "él"}, {"verb": "conseguir", "pronoun": "nosotros"}, {"verb": "conseguir", "pronoun": "ellas"}],
+        "drill_targets": [{'verb': 'conseguir', 'pronoun': 'yo'}, {'verb': 'conseguir', 'pronoun': 'tú'}, {'verb': 'conseguir', 'pronoun': 'ella'}, {'verb': 'conseguir', 'pronoun': 'nosotras'}, {'verb': 'conseguir', 'pronoun': 'ustedes'}],
         "phase_2_config": {
-            "description": "Spelling Changes construir + conseguir (2/2): construir, conseguir",
-            "targets": [{"verb": "construir", "pronoun": "tú"}, {"verb": "construir", "pronoun": "yo"}, {"verb": "construir", "pronoun": "él"}, {"verb": "construir", "pronoun": "nosotros"}, {"verb": "construir", "pronoun": "ellas"}, {"verb": "conseguir", "pronoun": "tú"}, {"verb": "conseguir", "pronoun": "yo"}, {"verb": "conseguir", "pronoun": "él"}, {"verb": "conseguir", "pronoun": "nosotros"}, {"verb": "conseguir", "pronoun": "ellas"}],
+            "description": "Spelling Changes conseguir: conseguir",
+            "targets": [{'verb': 'conseguir', 'pronoun': 'yo'}, {'verb': 'conseguir', 'pronoun': 'tú'}, {'verb': 'conseguir', 'pronoun': 'ella'}, {'verb': 'conseguir', 'pronoun': 'nosotras'}, {'verb': 'conseguir', 'pronoun': 'ustedes'}],
         },
         "opener_en": "Do you get good prices?",
         "opener_es": "¿Consigues buenos precios?",
     },
+
 
     "grammar_spelling_changes_recoger_dirigir_1": {
         "title": "Spelling Changes — recoger + dirigir (1/2)",
@@ -13709,83 +14054,81 @@ GRAMMAR_SITUATIONS = {
     },
 
 
-    "grammar_spelling_changes_convencer_continuar_1": {
-        "title": "Spelling Changes — convencer + continuar (1/2)",
+    "grammar_spelling_changes_convencer": {
+        "title": "Spelling Changes — convencer ",
         "grammar_level": 5,
         "lesson_number": 7,
         "lesson_type": "conjugation",
-        "word_workload": ["convencer", "continuar"],
+        "word_workload": ["convencer"],
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
         "intro_chart": SPELLING_CHANGES_CONVENCER_CONTINUAR_INTRO,
         "drill_config": {
             "answers": {
-                "convencer": {"yo": "conven|zo", "tú": "convenc|es", "él": "convenc|e", "ella": "convenc|e", "usted": "convenc|e", "nosotros": "convenc|emos", "nosotras": "convenc|emos", "ellos": "convenc|en", "ellas": "convenc|en", "ustedes": "convenc|en"},
-                "continuar": {"yo": "contin|úo", "tú": "contin|úas", "él": "contin|úa", "ella": "contin|úa", "usted": "contin|úa", "nosotros": "contin|uamos", "nosotras": "contin|uamos", "ellos": "contin|úan", "ellas": "contin|úan", "ustedes": "contin|úan"},
+                "convencer": {'yo': 'conven|zo', 'tú': 'convenc|es', 'él': 'convenc|e', 'ella': 'convenc|e', 'usted': 'convenc|e', 'nosotros': 'convenc|emos', 'nosotras': 'convenc|emos', 'ellos': 'convenc|en', 'ellas': 'convenc|en', 'ustedes': 'convenc|en'},
             },
         },
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "I convince my friends.", "es": "Yo convenzo a mis amigos.", "noun_id": None, "type": "written", "glosses": {"friends": "amigos", "amigos": "friends"}},
-            {"en": "You convince your mother.", "es": "Tú convences a tu madre.", "noun_id": None, "type": "auditory", "glosses": {"mother": "madre", "madre": "mother"}},
-            {"en": "She convinces the teacher.", "es": "Ella convence al profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
-            {"en": "We (f) convince the clients.", "es": "Nosotras convencemos a las clientas.", "noun_id": None, "type": "auditory", "glosses": {"clients": "clientas", "clientas": "clients"}},
-            {"en": "You all convince the students.", "es": "Ustedes convencen a los estudiantes.", "noun_id": None, "type": "written", "glosses": {"students": "estudiantes", "estudiantes": "students"}},
-            {"en": "I continue the project.", "es": "Yo continúo el proyecto.", "noun_id": None, "type": "written", "glosses": {"project": "proyecto", "proyecto": "project"}},
-            {"en": "You continue your studies.", "es": "Tú continúas tus estudios.", "noun_id": None, "type": "auditory", "glosses": {"studies": "estudios", "estudios": "studies"}},
-            {"en": "She continues the story.", "es": "Ella continúa la historia.", "noun_id": None, "type": "written", "glosses": {"story": "historia", "historia": "story"}},
-            {"en": "We (f) continue the conversation.", "es": "Nosotras continuamos la conversación.", "noun_id": None, "type": "auditory", "glosses": {"conversation": "conversación", "conversación": "conversation"}},
-            {"en": "You all continue the work.", "es": "Ustedes continúan el trabajo.", "noun_id": None, "type": "written", "glosses": {"work": "trabajo", "trabajo": "work"}},
+            {"en": 'I convince my friends.', "es": 'Yo convenzo a mis amigos.', "noun_id": None, "type": 'written', "glosses": {'friends': 'amigos', 'amigos': 'friends'}},
+            {"en": 'You convince your mother.', "es": 'Tú convences a tu madre.', "noun_id": None, "type": 'auditory', "glosses": {'mother': 'madre', 'madre': 'mother'}},
+            {"en": 'She convinces the teacher.', "es": 'Ella convence al profesor.', "noun_id": None, "type": 'written', "glosses": {'teacher': 'profesor', 'profesor': 'teacher'}},
+            {"en": 'We (f) convince the clients.', "es": 'Nosotras convencemos a las clientas.', "noun_id": None, "type": 'auditory', "glosses": {'clients': 'clientas', 'clientas': 'clients'}},
+            {"en": 'You all convince the students.', "es": 'Ustedes convencen a los estudiantes.', "noun_id": None, "type": 'written', "glosses": {'students': 'estudiantes', 'estudiantes': 'students'}},
+            {"en": 'You convince the teacher.', "es": 'Tú convences al profesor.', "noun_id": None, "type": 'written', "glosses": {'teacher': 'profesor', 'profesor': 'teacher'}},
+            {"en": 'I convince my friends.', "es": 'Yo convenzo a mis amigos.', "noun_id": None, "type": 'auditory', "glosses": {'friends': 'amigos', 'amigos': 'friends'}},
+            {"en": 'He convinces the client.', "es": 'Él convence al cliente.', "noun_id": None, "type": 'written', "glosses": {'client': 'cliente', 'cliente': 'client'}},
+            {"en": 'We convince the team.', "es": 'Nosotros convencemos al equipo.', "noun_id": None, "type": 'auditory', "glosses": {'team': 'equipo', 'equipo': 'team'}},
+            {"en": 'They (f) convince the neighbors.', "es": 'Ellas convencen a las vecinas.', "noun_id": None, "type": 'written', "glosses": {'neighbors': 'vecinas', 'vecinas': 'neighbors'}},
         ],
-        "drill_targets": [{"verb": "convencer", "pronoun": "yo"}, {"verb": "convencer", "pronoun": "tú"}, {"verb": "convencer", "pronoun": "ella"}, {"verb": "convencer", "pronoun": "nosotras"}, {"verb": "convencer", "pronoun": "ustedes"}, {"verb": "continuar", "pronoun": "yo"}, {"verb": "continuar", "pronoun": "tú"}, {"verb": "continuar", "pronoun": "ella"}, {"verb": "continuar", "pronoun": "nosotras"}, {"verb": "continuar", "pronoun": "ustedes"}],
+        "drill_targets": [{'verb': 'convencer', 'pronoun': 'yo'}, {'verb': 'convencer', 'pronoun': 'tú'}, {'verb': 'convencer', 'pronoun': 'ella'}, {'verb': 'convencer', 'pronoun': 'nosotras'}, {'verb': 'convencer', 'pronoun': 'ustedes'}],
         "phase_2_config": {
-            "description": "Spelling Changes convencer + continuar (1/2): convencer, continuar",
-            "targets": [{"verb": "convencer", "pronoun": "yo"}, {"verb": "convencer", "pronoun": "tú"}, {"verb": "convencer", "pronoun": "ella"}, {"verb": "convencer", "pronoun": "nosotras"}, {"verb": "convencer", "pronoun": "ustedes"}, {"verb": "continuar", "pronoun": "yo"}, {"verb": "continuar", "pronoun": "tú"}, {"verb": "continuar", "pronoun": "ella"}, {"verb": "continuar", "pronoun": "nosotras"}, {"verb": "continuar", "pronoun": "ustedes"}],
+            "description": "Spelling Changes convencer: convencer",
+            "targets": [{'verb': 'convencer', 'pronoun': 'yo'}, {'verb': 'convencer', 'pronoun': 'tú'}, {'verb': 'convencer', 'pronoun': 'ella'}, {'verb': 'convencer', 'pronoun': 'nosotras'}, {'verb': 'convencer', 'pronoun': 'ustedes'}],
         },
-        "opener_en": "Can you convince him?",
-        "opener_es": "¿Puedes convencerlo?",
+        "opener_en": "Do you convince your friends?",
+        "opener_es": "¿Convences a tus amigos?",
     },
-
-    "grammar_spelling_changes_convencer_continuar_2": {
-        "title": "Spelling Changes — convencer + continuar (2/2)",
+    "grammar_spelling_changes_continuar": {
+        "title": "Spelling Changes — continuar ",
         "grammar_level": 5,
         "lesson_number": 8,
         "lesson_type": "conjugation",
-        "word_workload": ["convencer", "continuar"],
+        "word_workload": ["continuar"],
         "video_embed_id": "ZxefHnILbqs",
         "drill_type": "conjugation",
         "tense": "present",
         "intro_chart": SPELLING_CHANGES_CONVENCER_CONTINUAR_INTRO,
         "drill_config": {
             "answers": {
-                "convencer": {"yo": "conven|zo", "tú": "convenc|es", "él": "convenc|e", "ella": "convenc|e", "usted": "convenc|e", "nosotros": "convenc|emos", "nosotras": "convenc|emos", "ellos": "convenc|en", "ellas": "convenc|en", "ustedes": "convenc|en"},
-                "continuar": {"yo": "contin|úo", "tú": "contin|úas", "él": "contin|úa", "ella": "contin|úa", "usted": "contin|úa", "nosotros": "contin|uamos", "nosotras": "contin|uamos", "ellos": "contin|úan", "ellas": "contin|úan", "ustedes": "contin|úan"},
+                "continuar": {'yo': 'contin|úo', 'tú': 'contin|úas', 'él': 'contin|úa', 'ella': 'contin|úa', 'usted': 'contin|úa', 'nosotros': 'contin|uamos', 'nosotras': 'contin|uamos', 'ellos': 'contin|úan', 'ellas': 'contin|úan', 'ustedes': 'contin|úan'},
             },
         },
         "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
         "phase_1c_config": {"total_items": 5, "mode": "random_pronoun_verb"},
         "drill_sentences": [
-            {"en": "You convince the teacher.", "es": "Tú convences al profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
-            {"en": "I convince my friends.", "es": "Yo convenzo a mis amigos.", "noun_id": None, "type": "auditory", "glosses": {"friends": "amigos", "amigos": "friends"}},
-            {"en": "He convinces the client.", "es": "Él convence al cliente.", "noun_id": None, "type": "written", "glosses": {"client": "cliente", "cliente": "client"}},
-            {"en": "We convince the team.", "es": "Nosotros convencemos al equipo.", "noun_id": None, "type": "auditory", "glosses": {"team": "equipo", "equipo": "team"}},
-            {"en": "They (f) convince the neighbors.", "es": "Ellas convencen a las vecinas.", "noun_id": None, "type": "written", "glosses": {"neighbors": "vecinas", "vecinas": "neighbors"}},
-            {"en": "You continue the story.", "es": "Tú continúas la historia.", "noun_id": None, "type": "written", "glosses": {"story": "historia", "historia": "story"}},
-            {"en": "I continue the work.", "es": "Yo continúo el trabajo.", "noun_id": None, "type": "auditory", "glosses": {"work": "trabajo", "trabajo": "work"}},
-            {"en": "He continues the journey.", "es": "Él continúa el viaje.", "noun_id": None, "type": "written", "glosses": {"journey": "viaje", "viaje": "journey"}},
-            {"en": "We continue the lesson.", "es": "Nosotros continuamos la lección.", "noun_id": None, "type": "auditory", "glosses": {"lesson": "lección", "lección": "lesson"}},
-            {"en": "They (f) continue the game.", "es": "Ellas continúan el juego.", "noun_id": None, "type": "written", "glosses": {"game": "juego", "juego": "game"}},
+            {"en": 'I continue the project.', "es": 'Yo continúo el proyecto.', "noun_id": None, "type": 'written', "glosses": {'project': 'proyecto', 'proyecto': 'project'}},
+            {"en": 'You continue your studies.', "es": 'Tú continúas tus estudios.', "noun_id": None, "type": 'auditory', "glosses": {'studies': 'estudios', 'estudios': 'studies'}},
+            {"en": 'She continues the story.', "es": 'Ella continúa la historia.', "noun_id": None, "type": 'written', "glosses": {'story': 'historia', 'historia': 'story'}},
+            {"en": 'We (f) continue the conversation.', "es": 'Nosotras continuamos la conversación.', "noun_id": None, "type": 'auditory', "glosses": {'conversation': 'conversación', 'conversación': 'conversation'}},
+            {"en": 'You all continue the work.', "es": 'Ustedes continúan el trabajo.', "noun_id": None, "type": 'written', "glosses": {'work': 'trabajo', 'trabajo': 'work'}},
+            {"en": 'You continue the story.', "es": 'Tú continúas la historia.', "noun_id": None, "type": 'written', "glosses": {'story': 'historia', 'historia': 'story'}},
+            {"en": 'I continue the work.', "es": 'Yo continúo el trabajo.', "noun_id": None, "type": 'auditory', "glosses": {'work': 'trabajo', 'trabajo': 'work'}},
+            {"en": 'He continues the journey.', "es": 'Él continúa el viaje.', "noun_id": None, "type": 'written', "glosses": {'journey': 'viaje', 'viaje': 'journey'}},
+            {"en": 'We continue the lesson.', "es": 'Nosotros continuamos la lección.', "noun_id": None, "type": 'auditory', "glosses": {'lesson': 'lección', 'lección': 'lesson'}},
+            {"en": 'They (f) continue the game.', "es": 'Ellas continúan el juego.', "noun_id": None, "type": 'written', "glosses": {'game': 'juego', 'juego': 'game'}},
         ],
-        "drill_targets": [{"verb": "convencer", "pronoun": "tú"}, {"verb": "convencer", "pronoun": "yo"}, {"verb": "convencer", "pronoun": "él"}, {"verb": "convencer", "pronoun": "nosotros"}, {"verb": "convencer", "pronoun": "ellas"}, {"verb": "continuar", "pronoun": "tú"}, {"verb": "continuar", "pronoun": "yo"}, {"verb": "continuar", "pronoun": "él"}, {"verb": "continuar", "pronoun": "nosotros"}, {"verb": "continuar", "pronoun": "ellas"}],
+        "drill_targets": [{'verb': 'continuar', 'pronoun': 'yo'}, {'verb': 'continuar', 'pronoun': 'tú'}, {'verb': 'continuar', 'pronoun': 'ella'}, {'verb': 'continuar', 'pronoun': 'nosotras'}, {'verb': 'continuar', 'pronoun': 'ustedes'}],
         "phase_2_config": {
-            "description": "Spelling Changes convencer + continuar (2/2): convencer, continuar",
-            "targets": [{"verb": "convencer", "pronoun": "tú"}, {"verb": "convencer", "pronoun": "yo"}, {"verb": "convencer", "pronoun": "él"}, {"verb": "convencer", "pronoun": "nosotros"}, {"verb": "convencer", "pronoun": "ellas"}, {"verb": "continuar", "pronoun": "tú"}, {"verb": "continuar", "pronoun": "yo"}, {"verb": "continuar", "pronoun": "él"}, {"verb": "continuar", "pronoun": "nosotros"}, {"verb": "continuar", "pronoun": "ellas"}],
+            "description": "Spelling Changes continuar: continuar",
+            "targets": [{'verb': 'continuar', 'pronoun': 'yo'}, {'verb': 'continuar', 'pronoun': 'tú'}, {'verb': 'continuar', 'pronoun': 'ella'}, {'verb': 'continuar', 'pronoun': 'nosotras'}, {'verb': 'continuar', 'pronoun': 'ustedes'}],
         },
-        "opener_en": "Do you continue with the plan?",
-        "opener_es": "¿Continúas con el plan?",
+        "opener_en": "Do you continue studying?",
+        "opener_es": "¿Continúas estudiando?",
     },
+
 
     "grammar_spelling_changes_conocer_producir_chat": {
         "title": "Spelling Changes — conocer + producir Chat",

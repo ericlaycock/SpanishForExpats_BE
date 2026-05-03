@@ -65,6 +65,12 @@ DEAD_SIDS = [
     # GL 4.1 ser_estar drops (folded into GL 4)
     "grammar_ser_estar_rules",
     "grammar_ser_estar_rules_chat",
+    # construir/conseguir + convencer/continuar split into separate single-verb
+    # lessons; the old combined _1/_2 sids are gone.
+    "grammar_spelling_changes_construir_conseguir_1",
+    "grammar_spelling_changes_construir_conseguir_2",
+    "grammar_spelling_changes_convencer_continuar_1",
+    "grammar_spelling_changes_convencer_continuar_2",
 ]
 
 
