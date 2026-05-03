@@ -330,16 +330,16 @@ def test_gated_above_threshold():
 
 
 def test_not_gated_after_completing_grammar():
-    """GL=1, VL=10 → not gated (next is GL 2 at VL 15, 10 < 15)."""
-    assert get_next_gate(1, 10) is None
+    """GL=1.5, VL=10 → not gated (next is GL 2 at VL 15, 10 < 15)."""
+    assert get_next_gate(1.5, 10) is None
 
 
 def test_gated_on_next_level():
-    """GL=1, VL=15 → gated on GL 2 (Grammatical Gender)."""
-    gate = get_next_gate(1, 15)
+    """GL=1, VL=10 → gated on GL 1.5 (Possessive Adjectives, also at VL=10)."""
+    gate = get_next_gate(1, 10)
     assert gate is not None
-    assert gate["grammar_level"] == 2
-    assert gate["title"] == "Grammatical Gender"
+    assert gate["grammar_level"] == 1.5
+    assert gate["title"] == "Possessive Adjectives"
 
 
 def test_coming_soon_gate():
@@ -399,7 +399,7 @@ def test_gated_on_preterite_after_coming_soon_cleared():
     assert gate["grammar_level"] == 17
     assert gate["title"] == "Preterite Regular"
     assert gate["has_content"] is True
-    assert gate["situation_id"] == "grammar_preterite_regular_1"
+    assert gate["situation_id"] == "grammar_preterite_regular_hablar_encontrar_1"
 
 
 def test_not_gated_between_thresholds():
@@ -415,11 +415,16 @@ def test_gated_at_exact_boundary():
 
 
 def test_gl_at_float_boundary():
-    """GL=4 (not 4.5), VL=240 → gated on GL 4.5 (Irregular Present II)."""
+    """GL=4, VL=240 → gated on the next sub-level above 4 (GL 4.1, Ser vs. Estar).
+
+    `get_next_gate` returns the first GL above current_gl whose VL threshold
+    has been reached, regardless of whether content has shipped yet — callers
+    decide how to handle `has_content=False` placeholders.
+    """
     gate = get_next_gate(4, 240)
     assert gate is not None
-    assert gate["grammar_level"] == 4.5
-    assert gate["title"] == "Irregular Present II"
+    assert gate["grammar_level"] == 4.1
+    assert gate["title"] == "Ser vs. Estar"
 
 
 # ===========================================================================
@@ -446,11 +451,17 @@ def test_all_grammar_situations_have_valid_gl():
 
 
 def test_vl_thresholds_are_monotonically_increasing():
-    """VL thresholds increase as GL increases."""
+    """VL thresholds are non-decreasing as GL increases.
+
+    Sub-levels (1.5, 4.1–4.4, 5.5, 13.5, 17.1–17.5) often share the parent
+    level's VL threshold by design — they unlock together rather than
+    introducing a stricter vocab gate. The invariant is that thresholds
+    never go *down* as GL increases.
+    """
     prev_vl = -1
     for gl in GL_SORTED:
         vl = GL_VL_THRESHOLDS[gl]
-        assert vl > prev_vl, f"VL threshold not increasing: GL {gl} has VL {vl}, prev was {prev_vl}"
+        assert vl >= prev_vl, f"VL threshold decreased: GL {gl} has VL {vl}, prev was {prev_vl}"
         prev_vl = vl
 
 
@@ -522,8 +533,10 @@ def test_quiz_g101_assigns_gl_3(db):
 
     completed = _auto_complete_grammar(db, user.id, target_gl)
     db.flush()  # autoflush=False in test sessions
-    # GL 1 (1 sit) + GL 2 (1 sit) + GL 3 (3 lessons) = 5 situations
-    assert completed == 5
+    # All situations at GL <= 3, sourced from GRAMMAR_SITUATIONS so the
+    # assertion tracks curriculum growth instead of a hard-coded count.
+    expected = sum(1 for cfg in GRAMMAR_SITUATIONS.values() if cfg["grammar_level"] <= 3)
+    assert completed == expected
     assert get_grammar_level(db, user.id) == 3
 
 
@@ -601,10 +614,10 @@ def test_full_gating_flow_beginner(db):
     assert gate["grammar_level"] == 1
     assert gate["title"] == "Pronouns"
 
-    # Complete Pronouns
-    _complete_grammar(db, user, 1)
+    # Complete Pronouns and Possessive Adjectives (GL 1 and 1.5 both gate at VL=10)
+    _complete_grammar(db, user, 1.5)
     gl = get_grammar_level(db, user.id)
-    assert gl == 1
+    assert gl == 1.5
 
     # No longer gated (next GL 2 needs VL 15, we only have 10)
     assert get_next_gate(gl, vl) is None

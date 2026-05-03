@@ -149,6 +149,9 @@ def _grammar_pending_items(
         conjugated = (answers.get(verb) or {}).get(pronoun)
         if not conjugated:
             continue
+        # `|` is a stem/ending separator used only for UI rendering of drill
+        # answers; the LLM and any downstream consumer must see the plain form.
+        conjugated = conjugated.replace("|", "")
         items.append(
             PendingItem(
                 kind="grammar",
