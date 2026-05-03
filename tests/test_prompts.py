@@ -1,4 +1,4 @@
-"""Prompt integrity tests for the v2 template prompt system.
+"""Prompt integrity tests for the v3 template prompt system.
 
 Pure Python tests (no DB needed) that validate prompt templates,
 role data, and system prompt generation.
@@ -7,6 +7,7 @@ Run with: python3.11 -m pytest tests/test_prompts.py --noconftest -v
 
 import pytest
 
+from app.services.learner_context import ChipTarget, LearnerContext
 from app.services.llm_gateway import load_prompt
 from app.services.voice_turn_service import (
     get_conversation_system_prompt,
@@ -23,16 +24,16 @@ from app.data.situation_roles import (
 from app.data.grammar_situations import GRAMMAR_SITUATIONS
 
 
-# ── v2 template prompt IDs ──────────────────────────────────────────────────
+# ── v3 template prompt IDs ──────────────────────────────────────────────────
 
-V2_PROMPTS = [
+V3_PROMPTS = [
     "conversation_agent",
     "grammar_agent",
 ]
 
 
 class TestPromptsLoad:
-    @pytest.mark.parametrize("agent_id", V2_PROMPTS)
+    @pytest.mark.parametrize("agent_id", V3_PROMPTS)
     def test_all_prompts_load(self, agent_id):
         """Every prompt template in prompts.json loads successfully."""
         content = load_prompt(agent_id)
@@ -40,21 +41,26 @@ class TestPromptsLoad:
         assert len(content) > 0
 
     def test_conversation_template_has_placeholders(self):
-        """Conversation template contains required placeholders."""
+        """Conversation template contains the v3 placeholder set."""
         content = load_prompt("conversation_agent")
-        assert "{ai_role}" in content
-        assert "{language}" in content
+        for key in (
+            "{ai_role}", "{user_role}", "{situation_description}",
+            "{language}", "{level_rule}", "{target_steering}",
+            "{anti_stuck_rule}", "{goal_block}",
+        ):
+            assert key in content, f"conversation_agent missing {key}"
 
     def test_grammar_template_loads(self):
-        """Grammar template loads and contains key instructions."""
+        """Grammar template loads and exposes the v3 sections."""
         content = load_prompt("grammar_agent")
-        assert "grammar practice" in content.lower()
-        assert "assistant messages" in content.lower()
+        assert "grammar practice partner" in content.lower()
         assert "{language}" in content
+        assert "{level_rule}" in content
+        assert "{target_steering}" in content
 
     def test_templates_speak_in_language(self):
         """Templates use {language} placeholder (always target language, no English mode)."""
-        for agent_id in V2_PROMPTS:
+        for agent_id in V3_PROMPTS:
             content = load_prompt(agent_id)
             assert "{language}" in content, f"{agent_id} missing {{language}}"
             assert "Speak only in English" not in content, f"{agent_id} should not enforce English"
@@ -135,12 +141,28 @@ class TestBuildSystemPrompt:
         prompt = build_system_prompt("banking", "bank_1", "swedish_text", alt_language="swedish")
         assert "Speak in Swedish" in prompt
 
-    def test_grammar_prompt_is_concise(self):
-        """Grammar system prompt is short — targeting is via injected assistant messages."""
-        prompt = build_system_prompt("grammar", "grammar_regular_present_ar_1", "spanish_text", alt_language=None)
-        assert "grammar practice" in prompt.lower()
+    def test_grammar_prompt_targets_in_band(self):
+        """v3 grammar prompt embeds level rule + target steering directly."""
+        ctx = LearnerContext(
+            spanish_level="b",
+            target_chips=[
+                ChipTarget(
+                    id="conj_hablar_yo", spanish="hablo", english="I speak",
+                    verb="hablar", pronoun="yo",
+                ),
+            ],
+            completed_chip_ids=[],
+        )
+        prompt = build_system_prompt(
+            "grammar", "grammar_regular_present_ar_1", "spanish_text",
+            alt_language=None, learner_ctx=ctx,
+        )
+        assert "grammar practice partner" in prompt.lower()
         assert "Speak in Spanish" in prompt
-        assert "assistant messages" in prompt.lower()
+        assert "LEARNER LEVEL" in prompt
+        assert "hablo" in prompt
+        # Anti-stuck rule is suppressed when no_progress_turns < 2.
+        assert "ANTI-STUCK" not in prompt
 
 
 class TestGetConversationSystemPrompt:

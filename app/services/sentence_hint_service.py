@@ -36,6 +36,7 @@ from app.services.alt_language_service import (
     get_target_language_name,
 )
 from app.services.conversation_service import get_missing_word_ids
+from app.services.learner_level import level_rules_for_hint
 from app.services.llm_gateway import ConversationContext, generate_conversation
 from app.services.openai_media_gateway import synthesize_speech as gateway_synthesize_speech
 from app.services.word_detection import get_words_by_ids
@@ -162,39 +163,6 @@ def _grammar_pending_items(
     return items
 
 
-def _level_rules(spanish_level: Optional[str]) -> str:
-    """Length/complexity rule for the prompt, keyed on q0_spanish_level.
-
-    A 14-word hint is unspeakable for an absolute beginner, so we tighten
-    word budget and forbid subordinates as the level drops. Null/unknown
-    falls back to 'c' (intermediate) — safe middle ground for legacy
-    users who never went through V2 onboarding.
-    """
-    level = (spanish_level or "c").lower()
-    if level == "a":
-        return (
-            "- LEARNER LEVEL: absolute beginner. The sentence MUST be 5–7 words "
-            "and use EXACTLY ONE pending item. No subordinate clauses, no "
-            "compound sentences, no embedded questions. Keep it as simple as "
-            "physically possible to say out loud."
-        )
-    if level == "b":
-        return (
-            "- LEARNER LEVEL: novice. The sentence MUST be 7–9 words and use 1 "
-            "pending item (a second only if it fits naturally). No complex "
-            "subordinates."
-        )
-    if level == "d":
-        return (
-            "- LEARNER LEVEL: advanced. Sentence may be up to ~14 words and "
-            "use 1 or 2 pending items with natural complexity."
-        )
-    return (
-        "- LEARNER LEVEL: intermediate. The sentence MUST be 9–12 words and "
-        "use 1 or 2 pending items. Simple subordinates allowed."
-    )
-
-
 def build_hint_messages(
     pending_items: List[PendingItem],
     recent_messages: Optional[List[Dict[str, str]]],
@@ -214,7 +182,7 @@ def build_hint_messages(
     history_block = _format_history_for_prompt(recent_messages or [])
 
     title = situation_title or "this conversation"
-    level_rule = _level_rules(spanish_level)
+    level_rule = level_rules_for_hint(spanish_level)
 
     # The learner is stuck in a real roleplay and needs help unblocking
     # the conversation. The prompt deliberately fights the model's
@@ -243,7 +211,17 @@ def build_hint_messages(
         "    GOOD: \"Aquí tiene mi pasaporte, ¿lo ve bien?\"\n"
         "- pending: mesa, reservar\n"
         "    BAD:  \"Quiero una mesa.\"\n"
-        "    GOOD: \"Tengo una reserva a las ocho, ¿la mesa está lista?\"\n\n"
+        "    GOOD: \"Tengo una reserva a las ocho, ¿la mesa está lista?\"\n"
+        # Grammar examples — the learner's chips are conjugated forms (cantas,
+        # escucho, vivimos), not infinitives. The model's default move is to
+        # reach for the infinitive ('Quiero cantar') which defeats the chip;
+        # these few-shots ground it on producing the exact conjugation.\n"
+        "- pending: cantas, escucho, hablan\n"
+        "    BAD:  \"Quiero cantar en el coche.\"   (infinitive — chip stays grey)\n"
+        "    GOOD: \"Yo escucho rock en la mañana. ¿Tú cantas algo?\"\n"
+        "- pending: vivimos, comen\n"
+        "    BAD:  \"Vivir aquí es bueno y comer también.\"   (infinitives, no chips)\n"
+        "    GOOD: \"Mi familia y yo vivimos cerca. ¿Tus amigos comen aquí?\"\n\n"
         "Rules:\n"
         "- ONE sentence, first person — the LEARNER is the speaker.\n"
         f"{level_rule}\n"

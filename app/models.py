@@ -188,6 +188,27 @@ class Conversation(Base):
     # Per-conversation counter for "Need help?" sentence hints. Capped by
     # sentence_hint_service to prevent farming. Migration 026.
     sentence_hints_used = Column(Integer, default=0, nullable=False, server_default="0")
+    # Counts user turns since the last new target was detected. Reset to 0 on
+    # any turn that adds a fresh id to `used_spoken_word_ids`; incremented
+    # otherwise. Drives the v3 system prompt's anti-stuck rule and the FE's
+    # "Need help?" nudge toast.
+    consecutive_no_progress_turns = Column(
+        Integer, default=0, nullable=False, server_default="0",
+    )
+    # Snapshot of the FE's per-(verb, pronoun) chip list for grammar chat
+    # lessons (`*_chat` situations). Populated at conversation creation from
+    # `get_chat_target_forms`; used by `check_chat_chip_completion` so the
+    # backend gates completion on the same chips the FE shows. NULL for
+    # vocab encounters and non-chat grammar — those keep the legacy
+    # infinitive-level completion path.
+    chat_target_forms_json = Column(JSONB, nullable=True)
+    # Cumulative set of chip ids ticked across all turns. Updated by
+    # `voice_turn_service.persist_turn` (ANY voice turn — legacy or realtime),
+    # so the FE can render green checks straight from the API response and the
+    # `/realtime-turn` flow stays history-free.
+    completed_chip_ids = Column(
+        JSONB, default=list, nullable=False, server_default="'[]'::jsonb",
+    )
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)
