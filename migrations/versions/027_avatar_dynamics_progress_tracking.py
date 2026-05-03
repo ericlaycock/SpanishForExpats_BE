@@ -1,6 +1,6 @@
 """Track per-conversation stuck state and chip targets for grammar chats.
 
-Revision ID: 027_avatar_dynamics_progress_tracking
+Revision ID: 027_avatar_dynamics
 Revises: 026_sentence_hints
 Create Date: 2026-05-02
 
@@ -24,7 +24,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB
 
 
-revision = "027_avatar_dynamics_progress_tracking"
+revision = "027_avatar_dynamics"
 down_revision = "026_sentence_hints"
 branch_labels = None
 depends_on = None
