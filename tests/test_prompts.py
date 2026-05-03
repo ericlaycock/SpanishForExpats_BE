@@ -99,6 +99,26 @@ class TestPromptsLoad:
             "conversation_agent dropped the [STUDENT ASKS] tag reference"
         )
 
+    def test_conversation_template_has_role_fidelity_rule(self):
+        """conversation_agent must instruct the LLM never to ask the
+        student about info its own role would have at hand.
+
+        Without this rule the avatar (e.g. a gate agent) sometimes
+        asks the student "where is gate 123?" — info the agent should
+        be providing, not requesting. The screenshot of that exact
+        bug is in the avatar-dynamics thread; this test locks in the
+        fix.
+        """
+        content = load_prompt("conversation_agent")
+        assert "ROLE-FIDELITY RULE" in content, (
+            "conversation_agent dropped the ROLE-FIDELITY RULE section"
+        )
+        # The rule must reference the role placeholder so the avatar
+        # personalises its reasoning to the actual scene.
+        assert "{ai_role}" in content, (
+            "conversation_agent must keep the {ai_role} placeholder"
+        )
+
     def test_conversation_template_has_question_type_rule(self):
         """conversation_agent must steer the LLM away from yes/no
         questions when multiple chips are pending — yes/no answers

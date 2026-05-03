@@ -6,6 +6,7 @@ from app.services.grammar_elicitation import (
     PRONOUN_ELICITATION_FRAMES,
     format_target_steering,
     is_student_asks_chip,
+    _vocab_elicitation_hint,
 )
 from app.services.learner_context import ChipTarget
 
@@ -125,3 +126,60 @@ class TestStudentAsksAnnotation:
         )
         out = format_target_steering([chip], [])
         assert "[STUDENT ASKS]" not in out
+
+
+class TestVocabElicitationHints:
+    """Hints for grammatical-artifact vocab chips (reflexives, contractions).
+
+    These chips come from the previous grammar lesson and the encounter
+    is designed to immediately practice them. Without an elicitation
+    hint the LLM defaults to asking generic questions (`¿cuál es su
+    nombre?`) whose answers don't exercise the chip — see the airport
+    screenshots in the avatar-dynamics thread.
+    """
+
+    def test_reflexive_pronoun_chip_emits_hint(self):
+        chip = ChipTarget(id="hf_27", spanish="se", english="oneself (reflexive)")
+        out = format_target_steering([chip], [])
+        assert "Elicit with:" in out
+        assert "reflexive" in out.lower()
+        # Hint must NOT cause the LLM to leak the form itself.
+        assert "Do NOT use the form yourself" in out
+
+    def test_del_chip_emits_hint(self):
+        chip = ChipTarget(id="hf_28", spanish="del", english="of the (de + el)")
+        out = format_target_steering([chip], [])
+        assert "Elicit with:" in out
+        # hint references the contracted form
+        assert "del" in out
+        assert "masculine" in out.lower()
+
+    def test_al_chip_emits_hint(self):
+        chip = ChipTarget(id="hf_37", spanish="al", english="to the (a + el)")
+        out = format_target_steering([chip], [])
+        assert "Elicit with:" in out
+        # 'al' appears in "natural" too — assert the hint mentions
+        # contraction context rather than just the bare letters.
+        assert "masculine" in out.lower()
+
+    def test_plain_lexical_chip_has_no_hint(self):
+        """Concrete nouns/verbs are self-elicitable — no hint needed."""
+        for spanish, english in (
+            ("botella", "bottle"),
+            ("puerta", "gate"),
+            ("pasaporte", "passport"),
+        ):
+            chip = ChipTarget(id="x", spanish=spanish, english=english)
+            assert _vocab_elicitation_hint(chip) is None, (
+                f"plain chip {english!r} should not get a hint"
+            )
+
+    def test_reflexive_infinitive_form_also_matches(self):
+        """`(reflexive)` substring catches both pronouns AND infinitive
+        forms like `quedarte`, so they all get the same elicitation
+        guidance — sufficient because the underlying mechanic (set up
+        a reflexive verb context) is identical."""
+        chip = ChipTarget(
+            id="hf_2014", spanish="quedarte", english="to stay (reflexive)",
+        )
+        assert _vocab_elicitation_hint(chip) is not None

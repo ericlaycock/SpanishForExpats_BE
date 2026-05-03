@@ -70,6 +70,62 @@ def _frame_for_chip(chip: ChipTarget) -> str:
     return template.format(bare_lemma=bare_lemma, pronoun=pronoun)
 
 
+# Vocab chips whose `english` label matches one of these patterns are
+# grammatical artifacts (reflexive pronouns, contractions) rather than
+# concrete lexical items. The avatar can't ask "what's the word for X?"
+# to elicit them — it has to set up a question whose ANSWER naturally
+# requires the form. Each entry maps a label substring to a hint the
+# LLM can adapt.
+#
+# Why this matters: chips like `se`, `del`, `al` come from the previous
+# grammar lesson and the encounter is supposed to immediately practice
+# them. Without elicitation hints the LLM defaults to "¿cuál es su
+# nombre?"-type questions whose answers don't exercise the chip — see
+# the airport screenshots in the avatar-dynamics thread.
+VOCAB_ELICITATION_HINTS: tuple[tuple[str, str], ...] = (
+    (
+        "(reflexive)",
+        "ask a question whose natural answer uses a reflexive verb "
+        "form so the student must say `me`/`te`/`se`/`nos` "
+        "(e.g. '¿cómo se llama?', '¿a qué hora se levanta?', "
+        "'¿quiere registrarse?'). Do NOT use the form yourself.",
+    ),
+    (
+        "(de + el)",
+        "ask a question whose answer requires `de` before a masculine "
+        "noun so it contracts to `del` "
+        "(e.g. '¿De qué país viene?' → 'vengo del…'; "
+        "'¿De dónde sale el vuelo?' → 'sale del…'). "
+        "Do NOT say `del` yourself.",
+    ),
+    (
+        "(a + el)",
+        "ask a question whose answer requires `a` before a masculine "
+        "noun so it contracts to `al` "
+        "(e.g. '¿Adónde va?' → 'voy al…'; "
+        "'¿A qué lugar se dirige?' → 'al…'). "
+        "Do NOT say `al` yourself.",
+    ),
+)
+
+
+def _vocab_elicitation_hint(chip: ChipTarget) -> str | None:
+    """Return an elicitation hint for grammatical-artifact vocab chips.
+
+    Matches by substring on the `english` label so seed authors don't
+    need to add metadata — `oneself (reflexive)`, `of the (de + el)`,
+    and `to the (a + el)` are already the canonical glosses in
+    `app/data/hf_words.py`. Returns `None` for ordinary lexical chips
+    (`bottle`, `gate`, `passport`) — those are self-elicitable and the
+    LLM can craft a natural question without help.
+    """
+    label = (chip.english or "").lower()
+    for needle, hint in VOCAB_ELICITATION_HINTS:
+        if needle in label:
+            return hint
+    return None
+
+
 def is_student_asks_chip(chip: ChipTarget) -> bool:
     """Heuristic: chips whose English label is a question (ends with `?`)
     are ones the STUDENT must ask the avatar, not answer.
@@ -126,5 +182,12 @@ def format_target_steering(
                 f"Elicit with: {frame}"
             )
         else:
-            lines.append(f"{idx}.{tag} {chip.spanish} ({chip.english})")
+            hint = _vocab_elicitation_hint(chip)
+            if hint:
+                lines.append(
+                    f"{idx}.{tag} {chip.spanish} ({chip.english}). "
+                    f"Elicit with: {hint}"
+                )
+            else:
+                lines.append(f"{idx}.{tag} {chip.spanish} ({chip.english})")
     return "\n".join(lines)
