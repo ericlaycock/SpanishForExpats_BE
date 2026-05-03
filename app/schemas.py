@@ -516,6 +516,17 @@ class FreeflowUserRow(BaseModel):
     m6: MilestoneInfo
     m7: MilestoneInfo
     m8: MilestoneInfo
+    m9: MilestoneInfo
+    m10: MilestoneInfo
+    m11: MilestoneInfo
+    m12: MilestoneInfo
+    m13: MilestoneInfo
+    m14: MilestoneInfo
+    m15: MilestoneInfo
+    m16: MilestoneInfo
+    m17: MilestoneInfo
+    m18: MilestoneInfo
+    m19: MilestoneInfo
     current_milestone: int
     # Onboarding V2 profile fields
     name: Optional[str] = None

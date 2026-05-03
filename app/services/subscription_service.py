@@ -1,7 +1,22 @@
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
-from app.models import User, Subscription, UserSituation, Situation
+from sqlalchemy.exc import IntegrityError
+from app.models import User, Subscription, UserSituation, Situation, UserMilestoneEvent
 
 FREE_ENCOUNTERS_LIMIT = 7
+
+
+def _record_paywall_hit(db: Session, user_id: str, situation_id: str) -> None:
+    try:
+        db.add(UserMilestoneEvent(
+            user_id=user_id,
+            milestone_key='paywall_hit',
+            situation_id=situation_id,
+            occurred_at=datetime.now(timezone.utc),
+        ))
+        db.commit()
+    except IntegrityError:
+        db.rollback()  # uq_user_milestone_situation already satisfied — no-op
 
 
 def _count_completed_encounters(db: Session, user_id: str) -> int:
@@ -60,6 +75,7 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
 
     # Pronounce-only users get no app access
     if subscription and subscription.tier == "pronounce":
+        _record_paywall_hit(db, user_id, situation_id)
         return False, "PAYWALL"
 
     # If subscription is active (app or app_pronounce), allow access
@@ -71,6 +87,7 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
     
     # If user completed 25+ encounters without active subscription, block
     if completed_encounters >= FREE_ENCOUNTERS_LIMIT:
+        _record_paywall_hit(db, user_id, situation_id)
         return False, "PAYWALL"
     
     # User hasn't completed 25 yet, allow access

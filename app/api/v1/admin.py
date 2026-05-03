@@ -120,11 +120,29 @@ def get_freeflow(
                    ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY started_at ASC) AS rn
             FROM user_situations
         ),
-        user_m7 AS (
-            SELECT user_id, started_at AS m7_ts FROM ranked_situations WHERE rn = 2
+        user_lesson_ts AS (
+            SELECT user_id,
+                MAX(CASE WHEN rn = 2 THEN started_at   END) AS m7_ts,
+                MAX(CASE WHEN rn = 2 THEN completed_at END) AS m8_ts,
+                MAX(CASE WHEN rn = 3 THEN started_at   END) AS m9_ts,
+                MAX(CASE WHEN rn = 3 THEN completed_at END) AS m10_ts,
+                MAX(CASE WHEN rn = 4 THEN started_at   END) AS m11_ts,
+                MAX(CASE WHEN rn = 4 THEN completed_at END) AS m12_ts,
+                MAX(CASE WHEN rn = 5 THEN started_at   END) AS m13_ts,
+                MAX(CASE WHEN rn = 5 THEN completed_at END) AS m14_ts,
+                MAX(CASE WHEN rn = 6 THEN started_at   END) AS m15_ts,
+                MAX(CASE WHEN rn = 6 THEN completed_at END) AS m16_ts,
+                MAX(CASE WHEN rn = 7 THEN started_at   END) AS m17_ts,
+                MAX(CASE WHEN rn = 7 THEN completed_at END) AS m18_ts
+            FROM ranked_situations
+            WHERE rn BETWEEN 2 AND 7
+            GROUP BY user_id
         ),
-        user_m8 AS (
-            SELECT user_id, completed_at AS m8_ts FROM ranked_situations WHERE rn = 2
+        user_m19 AS (
+            SELECT user_id, MIN(occurred_at) AS m19_ts
+            FROM user_milestone_events
+            WHERE milestone_key = 'paywall_hit'
+            GROUP BY user_id
         ),
         user_pathway AS (
             SELECT user_id,
@@ -156,8 +174,19 @@ def get_freeflow(
             m4.m4_ts,
             m5.m5_ts,
             m6.m6_ts,
-            m7.m7_ts,
-            m8.m8_ts,
+            ult.m7_ts,
+            ult.m8_ts,
+            ult.m9_ts,
+            ult.m10_ts,
+            ult.m11_ts,
+            ult.m12_ts,
+            ult.m13_ts,
+            ult.m14_ts,
+            ult.m15_ts,
+            ult.m16_ts,
+            ult.m17_ts,
+            ult.m18_ts,
+            m19.m19_ts,
             COALESCE(pw.v_path, pw.g_path) AS pathway
         FROM users u
         LEFT JOIN subscriptions s ON s.user_id = u.id
@@ -166,8 +195,8 @@ def get_freeflow(
         LEFT JOIN user_m4 m4 ON m4.user_id = u.id
         LEFT JOIN user_m5 m5 ON m5.user_id = u.id
         LEFT JOIN user_m6 m6 ON m6.user_id = u.id
-        LEFT JOIN user_m7 m7 ON m7.user_id = u.id
-        LEFT JOIN user_m8 m8 ON m8.user_id = u.id
+        LEFT JOIN user_lesson_ts ult ON ult.user_id = u.id
+        LEFT JOIN user_m19 m19 ON m19.user_id = u.id
         LEFT JOIN user_pathway pw ON pw.user_id = u.id
         WHERE u.is_admin = false
         ORDER BY u.created_at DESC
@@ -186,7 +215,11 @@ def get_freeflow(
 
     users = []
     for r in rows:
-        timestamps = [r.m0_ts, r.m1_ts, r.m2_ts, r.m3_ts, r.m4_ts, r.m5_ts, r.m6_ts, r.m7_ts, r.m8_ts]
+        timestamps = [
+            r.m0_ts, r.m1_ts, r.m2_ts, r.m3_ts, r.m4_ts, r.m5_ts, r.m6_ts, r.m7_ts, r.m8_ts,
+            r.m9_ts, r.m10_ts, r.m11_ts, r.m12_ts, r.m13_ts, r.m14_ts, r.m15_ts, r.m16_ts,
+            r.m17_ts, r.m18_ts, r.m19_ts,
+        ]
         current_milestone = 0
         for i, ts in enumerate(timestamps):
             if ts is not None:
@@ -210,6 +243,17 @@ def get_freeflow(
             m6=_mi(r.m6_ts, r.m5_ts),
             m7=_mi(r.m7_ts, r.m6_ts),
             m8=_mi(r.m8_ts, r.m7_ts),
+            m9=_mi(r.m9_ts, r.m8_ts),
+            m10=_mi(r.m10_ts, r.m9_ts),
+            m11=_mi(r.m11_ts, r.m10_ts),
+            m12=_mi(r.m12_ts, r.m11_ts),
+            m13=_mi(r.m13_ts, r.m12_ts),
+            m14=_mi(r.m14_ts, r.m13_ts),
+            m15=_mi(r.m15_ts, r.m14_ts),
+            m16=_mi(r.m16_ts, r.m15_ts),
+            m17=_mi(r.m17_ts, r.m16_ts),
+            m18=_mi(r.m18_ts, r.m17_ts),
+            m19=_mi(r.m19_ts, r.m18_ts),
             current_milestone=current_milestone,
             name=r.name,
             q0_spanish_level=r.q0_spanish_level,
