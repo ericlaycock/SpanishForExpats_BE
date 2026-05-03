@@ -497,4 +497,199 @@ CHAT_OPENERS: dict[str, dict[str, str]] = {
         "opener_es": "¿Has probado el plato del día? Lo hemos preparado especialmente esta semana.",
         "opener_en": "Have you tried today's special? We've prepared it specially this week.",
     },
+
+    # ── GL 4.2 Por/Para — chat sub-variants ──
+    "grammar_por_para_chat_2": {
+        "scene": "groceries",
+        "opener_es": "Estos plátanos son para tu desayuno, ¿no? Los cobro por kilo o por bolsa.",
+        "opener_en": "These bananas are for your breakfast, right? I charge by the kilo or by the bag.",
+    },
+    "grammar_por_para_chat_3": {
+        "scene": "contractor",
+        "opener_es": "Esto lo construimos para tu cocina nueva. ¿Pagas por adelantado o por etapas?",
+        "opener_en": "We're building this for your new kitchen. Are you paying up front or in stages?",
+    },
+    "grammar_por_para_chat_4": {
+        "scene": "restaurant",
+        "opener_es": "Gracias por venir tan temprano. ¿Para cuántas personas es la mesa?",
+        "opener_en": "Thanks for coming so early. The table's for how many?",
+    },
+
+    # ── GL 4.4 Possessive Pronouns — chat sub-variant ──
+    "grammar_possessive_pronouns_chat_2": {
+        "scene": "small_talk",
+        "opener_es": "Esa bicicleta en el patio, ¿es la tuya o la suya?",
+        "opener_en": "That bike in the yard — is it yours or theirs?",
+    },
+
+    # ── GL 10 Gustar — chat sub-variants ──
+    "grammar_gustar_1_chat_2": {
+        "scene": "restaurant",
+        "opener_es": "Le traigo el menú. ¿Le gusta el pescado o prefiere la carne?",
+        "opener_en": "Here's the menu. Do you like fish, or do you prefer meat?",
+    },
+    "grammar_gustar_2_chat_2": {
+        "scene": "clothing",
+        "opener_es": "Acabamos de recibir estos. ¿Le gustan los colores claros o los oscuros?",
+        "opener_en": "We just got these in. Do you like the lighter colors or the darker ones?",
+    },
+    "grammar_gustar_3_chat_2": {
+        "scene": "groceries",
+        "opener_es": "Hoy tenemos fresas, y a mi señora le gustan mucho. ¿A usted le gusta la fruta dulce?",
+        "opener_en": "We've got strawberries today and my wife loves them. Do you like sweet fruit?",
+    },
+
+    # ── GL 11 Modal + Infinitive — chat ──
+    "grammar_modal_chat_1": {
+        "scene": "small_talk",
+        "opener_es": "¿Qué tienes que hacer hoy? Yo debo pasar al banco antes de las cinco.",
+        "opener_en": "What do you have to do today? I need to swing by the bank before five.",
+    },
+
+    # ── GL 12 Imperfect — numbered chat lessons ──
+    "grammar_imperfect_3": {
+        "scene": "small_talk",
+        "opener_es": "¿Qué hacías de niño? Yo escuchaba la radio todas las tardes.",
+        "opener_en": "What did you used to do as a kid? I listened to the radio every afternoon.",
+    },
+    "grammar_imperfect_6": {
+        "scene": "small_talk",
+        "opener_es": "Cuéntame cómo eran las cosas antes. ¿Ibas mucho al centro?",
+        "opener_en": "Tell me how things used to be. Did you go downtown a lot?",
+    },
+
+    # ── GL 13 Reflexive Present — numbered chat lessons ──
+    "grammar_reflexive_3": {
+        "scene": "small_talk",
+        "opener_es": "Cuéntame sobre tu rutina de la mañana. ¿A qué hora te levantas?",
+        "opener_en": "Tell me about your morning routine. What time do you get up?",
+    },
+    "grammar_reflexive_6": {
+        "scene": "clothing",
+        "opener_es": "¿Cómo te preparas en la mañana? ¿Te vistes antes o después de desayunar?",
+        "opener_en": "How do you get ready in the morning? Do you get dressed before or after breakfast?",
+    },
+
+    # ── GL 14 Future — numbered chat lessons ──
+    "grammar_future_3": {
+        "scene": "small_talk",
+        "opener_es": "¿Qué harás mañana? Yo estudiaré un poco y luego saldré con mis amigos.",
+        "opener_en": "What will you do tomorrow? I'll study a bit and then go out with friends.",
+    },
+    "grammar_future_6": {
+        "scene": "restaurant",
+        "opener_es": "Cuéntame tus planes para el fin de semana. ¿Vendrá tu familia?",
+        "opener_en": "Tell me your plans for the weekend. Will your family be coming?",
+    },
+    "grammar_future_9": {
+        "scene": "banking",
+        "opener_es": "¿Qué traerá el próximo año? ¿Sabrá usted ya cuánto querrá ahorrar?",
+        "opener_en": "What will the next year bring? Do you know yet how much you'll want to save?",
+    },
+
+    # ── GL 15 Conditional — numbered chat lessons ──
+    "grammar_conditional_3": {
+        "scene": "banking",
+        "opener_es": "¿Qué haría con un millón de dólares? Yo invertiría una buena parte.",
+        "opener_en": "What would you do with a million dollars? I'd invest a good portion.",
+    },
+    "grammar_conditional_6": {
+        "scene": "small_talk",
+        "opener_es": "¿Dónde vivirías si pudieras elegir? Yo tendría una casa cerca del mar.",
+        "opener_en": "Where would you live if you could choose? I'd have a house near the sea.",
+    },
+
+    # ── GL 17.2 Preterite Spelling Changes ──
+    "grammar_pret_spelling_3": {
+        "scene": "groceries",
+        "opener_es": "¿Qué compraste ayer? Yo busqué tomates pero no toqué la fruta de la otra cesta.",
+        "opener_en": "What did you buy yesterday? I looked for tomatoes but didn't touch the fruit in the other basket.",
+    },
+    "grammar_pret_spelling_6": {
+        "scene": "restaurant",
+        "opener_es": "¿Almorzó por aquí esta semana? Empezamos un menú nuevo el lunes.",
+        "opener_en": "Did you have lunch here this week? We started a new menu on Monday.",
+    },
+    "grammar_pret_spelling_9": {
+        "scene": "contractor",
+        "opener_es": "¿Oyó lo de la pared? Se cayó el martes — construí un soporte nuevo, pero el agua no fluyó bien.",
+        "opener_en": "Did you hear about the wall? It fell on Tuesday — I built a new support, but the water didn't flow right.",
+    },
+
+    # ── GL 17.3 Preterite Strong ──
+    "grammar_pret_strong_3": {
+        "scene": "police",
+        "opener_es": "¿Dónde estuvo usted anoche entre las nueve y las diez? Tuvimos un reporte por aquí.",
+        "opener_en": "Where were you last night between nine and ten? We had a report in this area.",
+    },
+    "grammar_pret_strong_6": {
+        "scene": "small_talk",
+        "opener_es": "¿Qué tuviste que hacer la semana pasada? Yo no quise salir mucho.",
+        "opener_en": "What did you have to do last week? I didn't really want to go out much.",
+    },
+    "grammar_pret_strong_9": {
+        "scene": "mechanic",
+        "opener_es": "Cuéntame de una vez que no pudiste arreglar algo. A mí no me cupo el motor en el primer intento.",
+        "opener_en": "Tell me about a time you couldn't fix something. I couldn't get the engine to fit on the first try.",
+    },
+
+    # ── GL 17.4 Preterite -ducir ──
+    "grammar_pret_ducir_3": {
+        "scene": "mechanic",
+        "opener_es": "¿Condujo bien el coche ayer? Yo traduje el manual, pero no introduje la pieza correcta.",
+        "opener_en": "Did the car drive okay yesterday? I translated the manual, but I didn't put in the right part.",
+    },
+
+    # ── GL 17.5 Preterite e→i ──
+    "grammar_pret_e_to_i_3": {
+        "scene": "restaurant",
+        "opener_es": "¿Qué pidió usted la última vez? Le serví el especial, pero alguien repitió el postre.",
+        "opener_en": "What did you order last time? I served you the special, but somebody had the dessert twice.",
+    },
+
+    # ── GL 19 Object Pronouns — numbered chat lessons ──
+    "grammar_obj_chat_1": {
+        "scene": "small_talk",
+        "opener_es": "Hablemos de quién hace qué por quién. ¿Quién te ayuda a ti en la casa?",
+        "opener_en": "Let's talk about who does what for whom. Who helps you out at home?",
+    },
+    "grammar_obj_chat_2": {
+        "scene": "clothing",
+        "opener_es": "Cuéntame de regalos que has dado este año. ¿Se los envolviste tú mismo?",
+        "opener_en": "Tell me about gifts you've given this year. Did you wrap them yourself?",
+    },
+
+    # ── GL 20 Subjunctive Present — numbered chat lessons ──
+    "grammar_subj_pres_3": {
+        "scene": "small_talk",
+        "opener_es": "¿Qué esperas que pase esta semana? Ojalá no llueva el sábado.",
+        "opener_en": "What do you hope happens this week? Hopefully it doesn't rain on Saturday.",
+    },
+    "grammar_subj_pres_6": {
+        "scene": "contractor",
+        "opener_es": "¿Qué quieres que hagan los muchachos primero? Espero que estén aquí temprano.",
+        "opener_en": "What do you want the guys to do first? I hope they're here early.",
+    },
+    "grammar_subj_pres_8": {
+        "scene": "internet",
+        "opener_es": "¿Qué necesita que sepan los técnicos antes de venir? Es importante que haya espacio cerca del módem.",
+        "opener_en": "What do you need the technicians to know before they come? It's important that there's space near the modem.",
+    },
+
+    # ── GL 20 Subjunctive Imperfect — numbered chat lessons ──
+    "grammar_subj_impf_3": {
+        "scene": "small_talk",
+        "opener_es": "Si tuvieras más tiempo, ¿qué harías? Yo viajaría a un país nuevo.",
+        "opener_en": "If you had more time, what would you do? I'd travel to a new country.",
+    },
+    "grammar_subj_impf_6": {
+        "scene": "mechanic",
+        "opener_es": "¿Y si tuvieras un trabajo diferente? A veces pienso que sería más fácil si hiciera otra cosa.",
+        "opener_en": "What if you had a different job? Sometimes I think it'd be easier if I did something else.",
+    },
+    "grammar_subj_impf_8": {
+        "scene": "small_talk",
+        "opener_es": "Cuéntame qué quisieras haber dicho. Yo siempre pienso en lo que pude haber dicho mejor.",
+        "opener_en": "Tell me what you wished you had said. I always think about what I could've said better.",
+    },
 }

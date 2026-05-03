@@ -89,6 +89,7 @@ GRAMMAR_WORD_TRANSLATIONS = {
     "vestir": "to dress",
     "elegir": "to choose",
     "estudiar": "to study",    # Added by build_grammar_lessons.py
+    "saber": "to know",
     'lavarse': 'to wash oneself',
     'llamarse': 'to be called',
     'levantarse': 'to get up',
@@ -16404,8 +16405,8 @@ _PRONOUN_EN_SUBJECT: dict[str, str] = {
     "ustedes": "you all",
 }
 
-# Hand-curated English conjugations for verbs that don't follow the
-# default add-s rule. Keyed by EN lemma (sans "to ").
+# Hand-curated English present-tense conjugations for verbs that don't
+# follow the default add-s rule. Keyed by EN lemma (sans "to ").
 _EN_CONJ_OVERRIDES: dict[str, dict[str, str]] = {
     "be": {"yo": "I am", "tú": "you are", "él": "he is", "ella": "she is",
            "usted": "you are", "nosotros": "we (m) are", "nosotras": "we (f) are",
@@ -16421,35 +16422,141 @@ _EN_CONJ_OVERRIDES: dict[str, dict[str, str]] = {
            "ellos": "they (m) go", "ellas": "they (f) go", "ustedes": "you all go"},
 }
 
+# Irregular simple past + past participle for the verbs in
+# GRAMMAR_WORD_TRANSLATIONS that don't take regular `-ed`. Compound bases
+# ("get up", "wake up", "sit down", etc.) are handled by splitting off the
+# trailing particle and conjugating the head verb.
+_EN_IRREGULAR_PAST: dict[str, str] = {
+    "have": "had", "do": "did", "go": "went", "see": "saw",
+    "eat": "ate", "drink": "drank", "come": "came", "give": "gave",
+    "put": "put", "say": "said", "tell": "told", "bring": "brought",
+    "find": "found", "think": "thought", "drive": "drove", "write": "wrote",
+    "read": "read", "sleep": "slept", "leave": "left", "feel": "felt",
+    "get": "got", "hear": "heard", "know": "knew", "fall": "fell",
+    "speak": "spoke", "begin": "began", "choose": "chose", "sing": "sang",
+    "understand": "understood", "fit": "fit", "pay": "paid",
+    "build": "built", "make": "made", "lose": "lost",
+    # CVC-doubled regulars that the +ed rule would mangle ("prefered").
+    "prefer": "preferred", "chat": "chatted",
+    # "be" is per-person (was / were); handled in _english_simple_past.
+    # "be able" maps to "could" (handled directly).
+}
 
-def _conjugate_english_present(lemma_en: str, pronoun: str) -> str:
-    """Render an English present-tense conjugation for a chat checklist chip.
+_EN_IRREGULAR_PARTICIPLE: dict[str, str] = {
+    "be": "been", "have": "had", "do": "done", "go": "gone", "see": "seen",
+    "eat": "eaten", "drink": "drunk", "come": "come", "give": "given",
+    "put": "put", "say": "said", "tell": "told", "bring": "brought",
+    "find": "found", "think": "thought", "drive": "driven", "write": "written",
+    "read": "read", "sleep": "slept", "leave": "left", "feel": "felt",
+    "get": "gotten", "hear": "heard", "know": "known", "fall": "fallen",
+    "speak": "spoken", "begin": "begun", "choose": "chosen", "sing": "sung",
+    "understand": "understood", "fit": "fit", "pay": "paid",
+    "build": "built", "make": "made", "lose": "lost",
+    "prefer": "preferred", "chat": "chatted",
+    "be able": "been able",
+}
 
-    Strips a leading "to " from the lemma, applies a tiny set of irregulars,
-    else falls back to a regular add-s rule for 3rd person singular.
-    """
+# Gerunds that don't follow simple "+ing" or "drop e + ing" rules.
+_EN_IRREGULAR_GERUND: dict[str, str] = {
+    "be": "being", "see": "seeing", "die": "dying",
+    "lie": "lying", "tie": "tying",
+    # Single-syllable C-V-C verbs that double the final consonant before -ing
+    "sit": "sitting", "get": "getting", "put": "putting", "run": "running",
+    "begin": "beginning", "swim": "swimming", "fit": "fitting",
+    "prefer": "preferring", "chat": "chatting",
+}
+
+
+def _strip_lemma(lemma_en: str) -> str:
+    """Normalize an English lemma into a bare verb base."""
     base = lemma_en.lower().strip()
     if base.startswith("to "):
         base = base[3:]
-    base = base.split("/")[0].strip()  # "to drink/take" → "drink"
-    base = base.split(" or ")[0].strip()  # "drink or take" → "drink"
-    base = base.split("(")[0].strip()  # "drink (water)" → "drink"
+    base = base.split("/")[0].strip()
+    base = base.split(" or ")[0].strip()
+    base = base.split("(")[0].strip()
+    # Drop trailing "oneself" — chips render as "I wash" instead of
+    # "I wash oneself" (subject-matched reflexive pronouns would be more
+    # natural but the chip is a short label, not a sentence).
+    if base.endswith(" oneself"):
+        base = base[: -len(" oneself")].strip()
+    return base
 
+
+def _split_compound(base: str) -> tuple[str, str]:
+    """Split a compound English verb into (head, rest).
+
+    Returns ('', '') when the base is a single word so callers can take
+    the simple path without juggling Optional types.
+    """
+    head, _, rest = base.partition(" ")
+    return (head, rest) if rest else ("", "")
+
+
+def _english_gerund(base: str) -> str:
+    """Return the present-participle/gerund of a regular or compound verb."""
+    if base in _EN_IRREGULAR_GERUND:
+        return _EN_IRREGULAR_GERUND[base]
+    head, rest = _split_compound(base)
+    if head:
+        # "look for" → "looking for"; "get up" → "getting up"
+        return f"{_english_gerund(head)} {rest}"
+    if base.endswith("ie"):
+        return f"{base[:-2]}ying"  # "lie" → "lying"
+    if base.endswith("e") and not base.endswith("ee"):
+        return f"{base[:-1]}ing"  # "drive" → "driving"
+    return f"{base}ing"
+
+
+def _english_simple_past(base: str, pronoun: str) -> str:
+    """Return the simple-past form of a regular or compound verb.
+
+    Per-person variation only matters for "be" (was / were); every other
+    verb has a single past form.
+    """
+    if base == "be":
+        return "was" if pronoun in ("yo", "él", "ella", "usted") else "were"
+    if base == "be able":
+        return "could"
+    if base in _EN_IRREGULAR_PAST:
+        return _EN_IRREGULAR_PAST[base]
+    head, rest = _split_compound(base)
+    if head:
+        return f"{_english_simple_past(head, pronoun)} {rest}"
+    # Regular -ed rules
+    if base.endswith("e"):
+        return f"{base}d"  # "die" → "died"
+    if base.endswith("y") and len(base) > 1 and base[-2] not in "aeiou":
+        return f"{base[:-1]}ied"  # "try" → "tried"
+    return f"{base}ed"
+
+
+def _english_past_participle(base: str) -> str:
+    """Return the past-participle form (used for perfect / pluperfect)."""
+    if base in _EN_IRREGULAR_PARTICIPLE:
+        return _EN_IRREGULAR_PARTICIPLE[base]
+    head, rest = _split_compound(base)
+    if head:
+        return f"{_english_past_participle(head)} {rest}"
+    # Regular `-ed` (same as simple past for regular verbs)
+    if base.endswith("e"):
+        return f"{base}d"
+    if base.endswith("y") and len(base) > 1 and base[-2] not in "aeiou":
+        return f"{base[:-1]}ied"
+    return f"{base}ed"
+
+
+def _english_present(base: str, pronoun: str) -> str:
+    """Render English present tense (the original behavior)."""
     overrides = _EN_CONJ_OVERRIDES.get(base)
     if overrides and pronoun in overrides:
         return overrides[pronoun]
-
-    # Compound verbs ("be able", "have to", "go out", etc.) — conjugate the
-    # head verb via the overrides and append the rest. Without this, "to be
-    # worth" came out as "I be worth", "he be worths".
-    head, _, rest = base.partition(" ")
-    head_overrides = _EN_CONJ_OVERRIDES.get(head)
+    head, rest = _split_compound(base)
+    head_overrides = _EN_CONJ_OVERRIDES.get(head) if head else None
     if rest and head_overrides and pronoun in head_overrides:
         return f"{head_overrides[pronoun]} {rest}"
 
     subj = _PRONOUN_EN_SUBJECT.get(pronoun, "you")
-    # Spanish 3sg includes usted, but English "you" never takes the -s
-    # form ("you die", not "you dies"). Only flex for él / ella.
     is_3sg = pronoun in ("él", "ella")
     if is_3sg:
         if base.endswith(("s", "x", "z", "ch", "sh")):
@@ -16463,6 +16570,73 @@ def _conjugate_english_present(lemma_en: str, pronoun: str) -> str:
     return f"{subj} {verb}"
 
 
+# Tenses that should render as plain present-tense English. Spanish has
+# productive subjunctive moods that English lacks, so we collapse them to
+# present rather than inventing awkward "may speak" / "might speak"
+# constructions on every chip.
+_PRESENT_LIKE_TENSES = {
+    "present", "present_subjunctive", "imperfect_subjunctive_present_like",
+    "reflexive_present", "gustar", "object_pronouns",
+    "possessive_pronouns", "ser_estar", "por_para", None, "",
+}
+
+
+def _english_verb_form(lemma_en: str, pronoun: str, tense: str | None) -> str:
+    """Render an English chip label in the lesson's tense.
+
+    Only the tenses that actually appear in the curriculum are special-cased.
+    Everything else falls through to present tense, matching the prior
+    behavior so this change is additive.
+    """
+    base = _strip_lemma(lemma_en)
+    subj = _PRONOUN_EN_SUBJECT.get(pronoun, "you")
+    is_3sg = pronoun in ("él", "ella")
+
+    if tense == "future":
+        return f"{subj} will {base}"
+    if tense == "conditional":
+        return f"{subj} would {base}"
+    if tense == "imperfect":
+        return f"{subj} used to {base}"
+    if tense == "imperfect_subjunctive":
+        # English doesn't mark subjunctive on most verbs; the simple past
+        # is the closest natural rendering ("if I spoke", "if I had").
+        return f"{subj} {_english_simple_past(base, pronoun)}"
+    if tense == "preterite":
+        return f"{subj} {_english_simple_past(base, pronoun)}"
+    if tense == "present_perfect":
+        aux = "has" if is_3sg else "have"
+        return f"{subj} {aux} {_english_past_participle(base)}"
+    if tense == "pluperfect":
+        return f"{subj} had {_english_past_participle(base)}"
+    if tense in ("gerund", "present_progressive"):
+        if pronoun == "yo":
+            aux = "am"
+        elif is_3sg:
+            aux = "is"
+        else:
+            aux = "are"
+        if base == "be":
+            # "estoy siendo" → "I am being"; rendered through the gerund
+            # path so we don't double-aux the verb.
+            return f"{subj} {aux} being"
+        return f"{subj} {aux} {_english_gerund(base)}"
+    if tense == "modal_inf":
+        aux = "has to" if is_3sg else "have to"
+        return f"{subj} {aux} {base}"
+    return _english_present(base, pronoun)
+
+
+def _conjugate_english_present(lemma_en: str, pronoun: str) -> str:
+    """Back-compat shim — present-tense rendering only.
+
+    Retained because callers outside `get_chat_target_forms` may still rely
+    on this name; new code should call `_english_verb_form` with an
+    explicit `tense`.
+    """
+    return _english_verb_form(lemma_en, pronoun, "present")
+
+
 def get_chat_target_forms(chat_situation_id: str) -> list[dict]:
     """Sample 8 conjugated forms from the 2 preceding drill lessons of a
     grammar chat lesson's sub-block. Used by the conversation API to populate
@@ -16473,20 +16647,27 @@ def get_chat_target_forms(chat_situation_id: str) -> list[dict]:
         {"verb": "hablar", "pronoun": "tú",
          "spanish": "hablas", "english": "you speak"}
 
-    Returns [] if the chat isn't found, isn't a `_chat`-suffixed lesson, or
-    the preceding drills aren't recoverable (caller falls back to the default
-    word list in that case).
+    Returns [] if the lesson isn't a chat (drill_type != 'skip') or the
+    preceding drills aren't recoverable (caller falls back to the default
+    word list in that case). The English label is rendered in the chat
+    lesson's own `tense` so future-tense Spanish chips don't display
+    present-tense English ("hablarás" → "you will speak", not "you speak").
     """
     import random as _random
 
     chat = GRAMMAR_SITUATIONS.get(chat_situation_id)
-    if not chat or not chat_situation_id.endswith("_chat"):
+    # Match by drill_type rather than the literal `_chat` suffix — newer
+    # chat lessons use sids like `grammar_subj_pres_3` or
+    # `grammar_obj_chat_1` that the suffix check would skip.
+    if not chat or chat.get("drill_type") != "skip":
         return []
 
     gl = chat.get("grammar_level")
     chat_lesson_num = chat.get("lesson_number")
     if gl is None or chat_lesson_num is None:
         return []
+
+    chat_tense = chat.get("tense")
 
     # The two preceding drill lessons are the two with lesson_number < chat
     # at the same GL, picked closest first.
@@ -16528,12 +16709,22 @@ def get_chat_target_forms(chat_situation_id: str) -> list[dict]:
     if not candidates:
         return []
 
-    # Look up English lemma per verb from GRAMMAR_WORD_TRANSLATIONS.
+    # Look up English lemma per verb from GRAMMAR_WORD_TRANSLATIONS and
+    # render in the chat's tense.
     sampled = _random.sample(candidates, k=min(8, len(candidates)))
     out = []
     for verb, pronoun, spanish in sampled:
         en_lemma = GRAMMAR_WORD_TRANSLATIONS.get(verb, verb)
-        en = _conjugate_english_present(en_lemma, pronoun)
+        # The perfect-tenses GL collapses present-perfect and pluperfect
+        # into one tense label (`perfect`). Disambiguate per-form from the
+        # Spanish auxiliary so chips render the matching English compound
+        # (`hemos hablado` → "we have spoken"; `habíamos hablado` → "we
+        # had spoken").
+        form_tense = chat_tense
+        if chat_tense == "perfect":
+            first = spanish.strip().split(" ", 1)[0].lower()
+            form_tense = "pluperfect" if first.startswith("habí") else "present_perfect"
+        en = _english_verb_form(en_lemma, pronoun, form_tense)
         out.append({
             "verb": verb, "pronoun": pronoun,
             "spanish": spanish, "english": en,
