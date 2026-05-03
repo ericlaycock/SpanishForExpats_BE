@@ -1,3 +1,4 @@
+import re
 from typing import List, Optional, Tuple
 from uuid import UUID
 
@@ -12,8 +13,9 @@ from app.data.situation_roles import (
 )
 from app.services.alt_language_service import get_target_language_name
 from app.services.grammar_elicitation import format_target_steering
-from app.services.learner_context import LearnerContext
+from app.services.learner_context import ChipTarget, LearnerContext
 from app.services.learner_level import level_rules_for_conversation
+from app.services.word_detection import normalize_text
 
 
 # Hard limit on persisted turns per voice conversation. Mirrors the FE's
@@ -77,6 +79,121 @@ def _render_anti_stuck_rule(consecutive_no_progress_turns: int) -> str:
         "in parentheses inside your question, e.g. '¿Tú cantas (do you sing) "
         "en la ducha?'."
     )
+
+
+# Spanish function words that are too common to flag as "leaks" even when
+# they appear as a target chip. The v3 prompt's "do not produce the target
+# form" rule is meaningful for content words (verbs, nouns, named phrases)
+# — for articles, pronouns, prepositions, and conjunctions the avatar will
+# use them constantly in normal speech and flagging would be noise.
+_FUNCTION_WORD_STOPLIST = frozenset({
+    # articles
+    "el", "la", "los", "las", "un", "una", "unos", "unas",
+    # prepositions
+    "a", "de", "en", "con", "por", "para", "sin", "sobre", "entre",
+    "hasta", "desde",
+    # conjunctions / connectors
+    "y", "e", "o", "u", "que", "si", "no",
+    # pronouns / possessives
+    "yo", "tu", "el", "ella", "mi", "ti", "su", "se", "le", "lo", "me",
+    "te", "nos",
+})
+
+
+def _chip_should_be_leak_checked(chip: ChipTarget) -> bool:
+    """Decide whether to enforce the no-leak rule for a given chip.
+
+    Multi-word chips and grammar chips (verb conjugations) are always
+    checked. Single-word vocab chips are checked only when they are not
+    in the function-word stoplist — the stoplist is a small set of
+    high-frequency function words (articles, prepositions, common
+    pronouns/conjunctions) that the avatar cannot reasonably avoid in
+    natural speech.
+    """
+    spanish_norm = normalize_text(chip.spanish or "")
+    if not spanish_norm:
+        return False
+    if " " in spanish_norm:
+        return True
+    if chip.is_grammar:
+        return True
+    return spanish_norm not in _FUNCTION_WORD_STOPLIST
+
+
+def find_leaked_chips(
+    assistant_text: str, pending_chips: List[ChipTarget],
+) -> List[str]:
+    """Return ids of pending chips whose exact Spanish form leaks into the
+    assistant's reply.
+
+    A leak removes the student's chance to earn the chip — the v3 prompt
+    forbids it explicitly. Detection mirrors `detect_words_in_text`:
+    accent-insensitive, case-insensitive, word-boundary match for single
+    words and substring match for multi-word phrases. Function-word
+    chips are skipped (see `_chip_should_be_leak_checked`).
+    """
+    if not assistant_text or not pending_chips:
+        return []
+    normalized_text = normalize_text(assistant_text)
+    leaked: List[str] = []
+    for chip in pending_chips:
+        if not _chip_should_be_leak_checked(chip):
+            continue
+        normalized_chip = normalize_text(chip.spanish or "")
+        if not normalized_chip:
+            continue
+        if " " in normalized_chip:
+            if normalized_chip in normalized_text:
+                leaked.append(chip.id)
+        else:
+            pattern = r"\b" + re.escape(normalized_chip) + r"\b"
+            if re.search(pattern, normalized_text):
+                leaked.append(chip.id)
+    return leaked
+
+
+def is_dead_end_turn(assistant_text: str) -> bool:
+    """Return True when the avatar's reply closes the floor instead of
+    handing it back to the student.
+
+    The v3 prompt's TURN-CLOSING RULE requires every reply to end with a
+    question mark. Empty replies are not flagged — the upstream caller
+    handles "no text" cases. We strip trailing whitespace and inspect
+    the final character; both ASCII `?` and full-width `？` are
+    accepted.
+    """
+    if not assistant_text:
+        return False
+    stripped = assistant_text.rstrip()
+    if not stripped:
+        return False
+    return stripped[-1] not in ("?", "？")
+
+
+def validate_assistant_reply(
+    assistant_text: str, pending_chips: List[ChipTarget],
+) -> Tuple[bool, List[str], List[str]]:
+    """Run both v3-prompt-rule checks against an assistant reply.
+
+    Returns a tuple `(flagged, leaked_chip_ids, reasons)`:
+
+    - `flagged` is True if either the leak check or the dead-end check
+      tripped — callers use it to bump `avatar_dead_end_turns` and to
+      surface a flag in the API response.
+    - `leaked_chip_ids` is the list of pending chip ids whose Spanish
+      form appeared in the reply (empty when no leak).
+    - `reasons` is a short, human-readable list (one entry per failing
+      check) intended for logs and telemetry. Stable strings — safe to
+      grep for or alert on.
+    """
+    leaked = find_leaked_chips(assistant_text, pending_chips)
+    dead_end = is_dead_end_turn(assistant_text)
+    reasons: List[str] = []
+    if leaked:
+        reasons.append(f"chip_leak:{','.join(leaked)}")
+    if dead_end:
+        reasons.append("no_question_mark")
+    return (bool(reasons), leaked, reasons)
 
 
 def _render_target_steering(learner_ctx: Optional[LearnerContext]) -> str:
