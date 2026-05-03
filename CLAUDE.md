@@ -48,6 +48,8 @@ The hierarchy distinguishes **what currently runs** from **what should run**.
 
 When you change code that affects business logic, update the relevant `docs/<topic>.md` in the same PR. When the user makes a new product/architecture call, capture it in `docs/decisions/<topic>.md` immediately so future agents inherit the intent. Auto-loaded `CLAUDE.md` files are indexes, not encyclopedias — depth lives in `docs/`.
 
+**Significant FE changes require Playwright + screenshot verification before they are reported as done.** "Done" means: pushed to qa, QA preview redeployed, and a Playwright run captured the change rendering correctly from the user's perspective. Until those screenshots exist, assume the change is broken — even if the code compiles, tests pass, and the commit is on origin/qa. Backend data + FE render are two separate systems; a BE field that the FE conditionally hides is invisible to the user, and only an actual screenshot proves otherwise. This rule exists because of the chart/drill mismatch fix where the BE was correct but a `hideRuleChart={Boolean(introChart)}` flag silently suppressed the user-visible payload — and the regression went out unnoticed until a screenshot run caught it. Significant = anything touching what the user sees, hears, or interacts with on a screen the user actually visits. Trivial copy tweaks, dev-only logging, and admin-only surfaces are exempt.
+
 ## Git Workflow
 
 - Always commit to `qa`, never `main` directly.
