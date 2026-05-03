@@ -2,7 +2,7 @@
 
 Revision ID: 029_merge_028s
 Revises: 028_avatar_dead_end, 028_drop_merged_lessons
-Create Date: 2026-05-02
+Create Date: 2026-05-03
 
 Two parallel branches forked from `026_sentence_hints`:
 
