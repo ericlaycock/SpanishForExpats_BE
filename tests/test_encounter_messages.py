@@ -30,6 +30,15 @@ from app.services.encounter_messages_generated import ENCOUNTER_MESSAGES
 # lands. Order doesn't matter.
 AUDITED_TOPIC_PREFIXES: frozenset[str] = frozenset({
     "air",
+    "bank",
+    "cloth",
+    "contr",
+    "groc",
+    "inet",
+    "mech",
+    "pol",
+    "rest",
+    "talk",
 })
 
 # Topics intentionally excluded from the question-mark requirement.
