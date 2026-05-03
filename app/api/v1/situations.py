@@ -441,7 +441,11 @@ async def get_situation(
             )
 
     # Select and sort words
-    encounter_word_ids, high_freq_word_ids = select_words_for_situation(db, current_user.id, situation_id)
+    encounter_word_ids, high_freq_word_ids = select_words_for_situation(
+        db, current_user.id, situation_id,
+        vocab_level=get_vocab_level(db, current_user.id),
+        spanish_level=current_user.q0_spanish_level,
+    )
     target_word_ids = encounter_word_ids + high_freq_word_ids
     words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
@@ -508,7 +512,11 @@ async def start_situation(
         words = get_words_by_ids(db, target_word_ids)
     else:
         # Create new conversation with word selection
-        encounter_word_ids, high_freq_word_ids = select_words_for_situation(db, current_user.id, situation_id)
+        encounter_word_ids, high_freq_word_ids = select_words_for_situation(
+        db, current_user.id, situation_id,
+        vocab_level=get_vocab_level(db, current_user.id),
+        spanish_level=current_user.q0_spanish_level,
+    )
         target_word_ids = encounter_word_ids + high_freq_word_ids
         words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
 
@@ -651,7 +659,11 @@ async def admin_skip_encounter(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation not found")
 
     # 1. Select words (reuses existing logic)
-    encounter_word_ids, hf_word_ids = select_words_for_situation(db, current_user.id, situation_id)
+    encounter_word_ids, hf_word_ids = select_words_for_situation(
+        db, current_user.id, situation_id,
+        vocab_level=get_vocab_level(db, current_user.id),
+        spanish_level=current_user.q0_spanish_level,
+    )
     target_word_ids = encounter_word_ids + hf_word_ids
     words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
 

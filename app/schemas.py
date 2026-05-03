@@ -357,6 +357,15 @@ class RealtimeTurnResponse(BaseModel):
     # "N turns left" warning. Pinned to 0 once past the threshold; the hard
     # limit at 30 is what actually flips `conversation_complete`.
     turns_remaining: int
+    # Cumulative chip ids ticked across all turns in this conversation.
+    # Empty for vocab encounters and non-chat grammar lessons (those
+    # surface progress through `detected_word_ids` instead). FE consumes
+    # this directly so chip ticks survive a page refresh and don't drift
+    # from the BE's view.
+    completed_chip_ids: List[str] = Field(default_factory=list)
+    # Turns since the learner last produced a new target. Drives the FE's
+    # "Need help?" nudge toast at >= 2.
+    consecutive_no_progress_turns: int = 0
 
 
 # Grammar config schemas

@@ -11,6 +11,9 @@ from app.data.situation_roles import (
     GRAMMAR_SCENE_MAP,
 )
 from app.services.alt_language_service import get_target_language_name
+from app.services.grammar_elicitation import format_target_steering
+from app.services.learner_context import LearnerContext
+from app.services.learner_level import level_rules_for_conversation
 
 
 # Hard limit on persisted turns per voice conversation. Mirrors the FE's
@@ -40,40 +43,102 @@ def is_advanced_mode(language_mode: str) -> bool:
     )
 
 
+_STUCK_THRESHOLD_NUDGE = 2
+_STUCK_THRESHOLD_TRANSLATE = 3
+
+
+def _render_goal_block(goal: Optional[str]) -> str:
+    if not goal:
+        return ""
+    return f"Your job is to make the student arrive at this outcome: {goal}\n\n"
+
+
+def _render_anti_stuck_rule(consecutive_no_progress_turns: int) -> str:
+    """Inject a stronger scaffolding directive once the learner has skipped
+    the target multiple turns in a row.
+
+    Below the nudge threshold the section is empty so the prompt isn't
+    polluted on the first turn of every conversation. Above the
+    translate threshold we authorise the AI to gloss the target form in
+    English parentheses — a last resort that keeps the lesson moving.
+    """
+    n = consecutive_no_progress_turns or 0
+    if n < _STUCK_THRESHOLD_NUDGE:
+        return ""
+    if n < _STUCK_THRESHOLD_TRANSLATE:
+        return (
+            f"ANTI-STUCK: the student has skipped the target {n} turns in a row. "
+            "Drop one level of indirectness — ask a fill-in-style question or a "
+            "yes/no with the target form embedded ('¿Tú cantas o no cantas?')."
+        )
+    return (
+        f"ANTI-STUCK: the student has skipped the target {n} turns in a row. "
+        "Drop indirectness completely — translate the target form into English "
+        "in parentheses inside your question, e.g. '¿Tú cantas (do you sing) "
+        "en la ducha?'."
+    )
+
+
+def _render_target_steering(learner_ctx: Optional[LearnerContext]) -> str:
+    if not learner_ctx:
+        return "(no pending items — keep the conversation flowing naturally)"
+    block = format_target_steering(
+        learner_ctx.target_chips, learner_ctx.completed_chip_ids,
+    )
+    return block or "(all items complete — wrap up the conversation gracefully)"
+
+
 def build_system_prompt(
     animation_type: str,
     situation_id: str,
     language_mode: str = "spanish_text",
     alt_language: Optional[str] = None,
+    learner_ctx: Optional[LearnerContext] = None,
 ) -> str:
     """Build the system prompt for conversation or grammar agents.
 
     Uses role data from situation_roles.py and templates from prompts.json.
     Always uses target-language prompts (no beginner English mode).
+
+    `learner_ctx` carries level / goal / chip targeting / stuck counter
+    into the v3 templates. Optional for backwards compatibility — when
+    omitted, the level rule defaults to intermediate, the goal/anti-stuck
+    sections collapse to empty strings, and target steering shows a
+    placeholder line. Every production call-site should populate it.
     """
     from app.services.llm_gateway import load_prompt
 
     language = get_target_language_name(alt_language)
     roles = get_roles_for_situation(animation_type, situation_id)
 
-    # Check if this is a grammar situation
     grammar_struct = get_grammar_structure(situation_id)
     grammar_config = get_grammar_config(situation_id)
 
+    spanish_level = learner_ctx.spanish_level if learner_ctx else None
+    goal = learner_ctx.goal if learner_ctx else None
+    no_progress_turns = (
+        learner_ctx.consecutive_no_progress_turns if learner_ctx else 0
+    )
+
+    common_kwargs = {
+        "language": language,
+        "goal_block": _render_goal_block(goal),
+        "level_rule": level_rules_for_conversation(spanish_level),
+        "target_steering": _render_target_steering(learner_ctx),
+        "anti_stuck_rule": _render_anti_stuck_rule(no_progress_turns),
+    }
+
     if grammar_struct or grammar_config:
-        template = load_prompt("grammar_agent", "v2")
-        try:
-            return template.format(language=language)
-        except KeyError:
-            return template
-    else:
-        template = load_prompt("conversation_agent", "v2")
-        return template.format(
-            ai_role=roles["ai_role"],
-            user_role=roles["user_role"],
-            situation_description=roles["situation_description"],
-            language=language,
-        )
+        template = load_prompt("grammar_agent", "v3")
+        return template.format(**common_kwargs)
+
+    template = load_prompt("conversation_agent", "v3")
+    return template.format(
+        ai_role=roles["ai_role"],
+        user_role=roles["user_role"],
+        situation_description=roles["situation_description"],
+        **common_kwargs,
+    )
 
 
 def build_transcription_prompt(situation_title: str, words: List[Word], alt_language: Optional[str] = None) -> str:
@@ -94,14 +159,22 @@ def build_transcription_prompt(situation_title: str, words: List[Word], alt_lang
 
 # ── Legacy functions (kept for backward compatibility during transition) ──────
 
-def build_grammar_system_prompt(situation_id: str, language_mode: str = "spanish_text", alt_language: Optional[str] = None) -> Optional[str]:
+def build_grammar_system_prompt(
+    situation_id: str,
+    language_mode: str = "spanish_text",
+    alt_language: Optional[str] = None,
+    learner_ctx: Optional[LearnerContext] = None,
+) -> Optional[str]:
     """Build a system prompt for grammar conversation phases (2/3)."""
     config = get_grammar_config(situation_id)
     if not config:
         return None
     if alt_language and language_mode in ("spanish_text", "spanish_audio"):
         language_mode = language_mode.replace("spanish_", f"{alt_language}_")
-    return build_system_prompt("grammar", situation_id, language_mode, alt_language)
+    return build_system_prompt(
+        "grammar", situation_id, language_mode, alt_language,
+        learner_ctx=learner_ctx,
+    )
 
 
 def build_grammar_user_prompt(
@@ -127,9 +200,13 @@ def get_conversation_system_prompt(
     alt_language: Optional[str] = None,
     animation_type: str = "",
     situation_id: str = "",
+    learner_ctx: Optional[LearnerContext] = None,
 ) -> str:
     """Build the conversation system prompt with role context."""
-    return build_system_prompt(animation_type, situation_id, language_mode, alt_language)
+    return build_system_prompt(
+        animation_type, situation_id, language_mode, alt_language,
+        learner_ctx=learner_ctx,
+    )
 
 
 def build_conversation_prompt(
@@ -242,10 +319,39 @@ def persist_turn(
     detected_word_ids = detect_words(db, conversation, user_transcript, alt_language)
 
     was_empty = len(conversation.used_spoken_word_ids or []) == 0
-    current_used = set(conversation.used_spoken_word_ids or [])
+    used_before = set(conversation.used_spoken_word_ids or [])
+    current_used = set(used_before)
     current_used.update(detected_word_ids)
     conversation.used_spoken_word_ids = list(current_used)
     conversation.turn_count = (conversation.turn_count or 0) + 1
+
+    # Chip-level progress for grammar chats. Scan THIS turn's transcript for
+    # any chip's exact Spanish form and union into completed_chip_ids — the
+    # column is the source of truth so /realtime-turn doesn't need history.
+    new_chip_ids: set[str] = set()
+    if conversation.chat_target_forms_json:
+        from app.services.conversation_service import check_chat_chip_completion
+
+        _, ticked_this_turn = check_chat_chip_completion(
+            conversation, [user_transcript or ""],
+        )
+        chips_before = set(conversation.completed_chip_ids or [])
+        new_chip_ids = set(ticked_this_turn) - chips_before
+        if new_chip_ids:
+            conversation.completed_chip_ids = list(chips_before | new_chip_ids)
+
+    # Stuck counter: any turn that adds a brand-new id to used_spoken_word_ids
+    # OR a brand-new chip is "progress" and resets the counter. Otherwise we
+    # tick up so the v3 system prompt's anti-stuck rule can kick in once the
+    # learner has been missing the target a few turns in a row.
+    new_word_ids = set(detected_word_ids) - used_before
+    progress = bool(new_word_ids or new_chip_ids)
+    if progress:
+        conversation.consecutive_no_progress_turns = 0
+    else:
+        conversation.consecutive_no_progress_turns = (
+            conversation.consecutive_no_progress_turns or 0
+        ) + 1
 
     if detected_word_ids:
         update_user_word_stats(db, str(user_id), detected_word_ids, "voice")

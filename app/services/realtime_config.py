@@ -28,6 +28,7 @@ from sqlalchemy.orm import Session
 from app.data.grammar_situations import get_grammar_config
 from app.models import Conversation, Situation
 from app.services.alt_language_service import get_target_language_name
+from app.services.learner_context import LearnerContext
 from app.services.voice_turn_service import (
     build_grammar_system_prompt,
     get_conversation_system_prompt,
@@ -84,6 +85,7 @@ def _resolve_system_prompt(
     alt_language: Optional[str],
     vocab_level: int,
     grammar_level: float,
+    learner_ctx: Optional[LearnerContext] = None,
 ) -> str:
     """Build the system prompt the model should carry for the whole session.
 
@@ -91,6 +93,11 @@ def _resolve_system_prompt(
     existing message history: pick grammar template if the situation is a
     grammar drill, otherwise the conversation template. Alt-language mode
     swaps the language_mode suffix so prompts render in Catalan/Swedish.
+
+    `learner_ctx` is forwarded into the v3 templates. Optional so the
+    legacy session-mint path keeps working until callers populate it,
+    but production should pass a populated context — without it, the
+    target-steering block degrades to a placeholder line.
     """
     language_mode = get_language_mode(
         situation.encounter_number, vocab_level, grammar_level
@@ -103,12 +110,14 @@ def _resolve_system_prompt(
             conversation.situation_id,
             language_mode=language_mode,
             alt_language=alt_language,
+            learner_ctx=learner_ctx,
         )
     return get_conversation_system_prompt(
         language_mode=language_mode,
         alt_language=alt_language,
         animation_type=situation.animation_type,
         situation_id=conversation.situation_id,
+        learner_ctx=learner_ctx,
     )
 
 
@@ -120,6 +129,7 @@ def build_session_config(
     alt_language: Optional[str] = None,
     vocab_level: int = 0,
     grammar_level: float = 0.0,
+    learner_ctx: Optional[LearnerContext] = None,
     mode: Literal["ephemeral", "server_ws"] = "ephemeral",
 ) -> dict:
     """Assemble the Realtime session configuration for a conversation.
@@ -166,7 +176,8 @@ def build_session_config(
         situation_id=situation.id,
     )
     system_prompt = _resolve_system_prompt(
-        conversation, situation, alt_language, vocab_level, grammar_level
+        conversation, situation, alt_language, vocab_level, grammar_level,
+        learner_ctx=learner_ctx,
     )
 
     base = {

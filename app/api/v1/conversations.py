@@ -26,13 +26,16 @@ from app.services.openai_media_gateway import transcribe_audio as gateway_transc
 from fastapi import Request
 from app.services.word_detection import detect_words_in_text, get_words_by_ids
 from app.services.conversation_service import (
+    check_chat_chip_completion,
     check_conversation_complete,
     update_user_word_stats,
     get_missing_word_ids
 )
 from app.services.encounter_messages import get_initial_message_for_encounter
 from app.api.v1.situations import get_vocab_level, get_grammar_level
+from app.services.learner_context import ChipTarget, LearnerContext
 from app.services.voice_turn_service import (
+    EXCHANGE_HARD_LIMIT,
     build_transcription_prompt,
     build_conversation_prompt,
     build_grammar_system_prompt,
@@ -43,383 +46,89 @@ from app.services.voice_turn_service import (
     check_completion,
     persist_turn,
 )
-from app.data.grammar_situations import get_grammar_config
+from app.data.grammar_situations import get_chat_target_forms, get_grammar_config
 from app.services.alt_language_service import apply_alt_language, get_target_language_name
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
 
 
-def _build_grammar_hint(pronoun: str, verb: str, verb_english: str) -> str:
-    """Build a natural English hint question for a specific pronoun+verb target.
+def _enriched_chat_target_forms(situation_id: str) -> list[dict]:
+    """Return `get_chat_target_forms` items with a stable BE chip id.
 
-    Uses verb-specific overrides for irregular/awkward English, and a template
-    fallback for regular verbs where 'Does your sister [verb]?' sounds natural.
+    The backend stores these on `Conversation.chat_target_forms_json`
+    so completion can be checked server-side. The id convention matches
+    what the FE synthesizes in `ImmersiveVoiceScene.applyDetectedWords`
+    (`form:{spanish}:{pronoun}`) so chip ticks stay consistent across
+    the API boundary.
     """
-    # ── Verb-specific overrides (irregular English or verbs needing context) ──
-    _VERB_QUESTIONS = {
-        "ser": {
-            "yo": "Are you from here?",
-            "tú": "I'm from Mexico. Where am I from?",
-            "él": "Is your brother tall?",
-            "ella": "Is your sister a student?",
-            "usted": "Is your boss strict?",
-            "nosotros": "Are you and your friends from here?",
-            "nosotras": "Are you and your sisters happy here?",
-            "ellos": "Are your friends from this city?",
-            "ellas": "Are your female friends students?",
-            "ustedes": "Are you all from the same place?",
-        },
-        "estar": {
-            "yo": "How are you feeling right now?",
-            "tú": "I feel great today. How am I doing?",
-            "él": "Is your brother feeling okay?",
-            "ella": "Is your sister at home right now?",
-            "usted": "Is your boss in the office today?",
-            "nosotros": "Are you and your friends happy here?",
-            "nosotras": "Are you and your sisters feeling well?",
-            "ellos": "Are your friends at the party?",
-            "ellas": "Are your female friends here today?",
-            "ustedes": "Are you all ready to go?",
-        },
-        "ir": {
-            "yo": "Where do you go on weekends?",
-            "tú": "I go to the park every day. Where do I go?",
-            "él": "Does your brother go to school?",
-            "ella": "Does your sister go to work?",
-            "usted": "Does your boss go on vacation?",
-            "nosotros": "Do you and your friends go out together?",
-            "nosotras": "Do you and your sisters go shopping?",
-            "ellos": "Do your friends go to the beach?",
-            "ellas": "Do your female friends go dancing?",
-            "ustedes": "Do you all go to the same restaurant?",
-        },
-        "tener": {
-            "yo": "Do you have any pets?",
-            "tú": "I have a big family. What do I have?",
-            "él": "Does your brother have a car?",
-            "ella": "Does your sister have children?",
-            "usted": "Does your boss have a lot of meetings?",
-            "nosotros": "Do you and your friends have plans tonight?",
-            "nosotras": "Do you and your sisters have similar taste?",
-            "ellos": "Do your friends have jobs?",
-            "ellas": "Do your female friends have kids?",
-            "ustedes": "Do you all have the same schedule?",
-        },
-        "dar": {
-            "yo": "Do you give gifts on birthdays?",
-            "tú": "I give advice to my friends. What do I give?",
-            "él": "Does your brother give you help?",
-            "ella": "Does your sister give good advice?",
-            "usted": "Does your boss give feedback?",
-            "nosotros": "Do you and your friends give presents?",
-            "nosotras": "Do you and your sisters give each other gifts?",
-            "ellos": "Do your friends give you rides?",
-            "ellas": "Do your female friends give parties?",
-            "ustedes": "Do you all give tips at restaurants?",
-        },
-        "venir": {
-            "yo": "Do you come here often?",
-            "tú": "I come here every week. How often do I come?",
-            "él": "Does your brother come to visit?",
-            "ella": "Does your sister come to this area?",
-            "usted": "Does your boss come to the office early?",
-            "nosotros": "Do you and your friends come here together?",
-            "nosotras": "Do you and your sisters come to this park?",
-            "ellos": "Do your friends come to your house?",
-            "ellas": "Do your female friends come to the party?",
-            "ustedes": "Do you all come from the same town?",
-        },
-        "hacer": {
-            "yo": "What do you do on weekends?",
-            "tú": "I make breakfast every day. What do I make?",
-            "él": "What does your brother do for work?",
-            "ella": "What does your sister do after school?",
-            "usted": "What does your boss do at meetings?",
-            "nosotros": "What do you and your friends do for fun?",
-            "nosotras": "What do you and your sisters do together?",
-            "ellos": "What do your friends do on Friday nights?",
-            "ellas": "What do your female friends do on weekends?",
-            "ustedes": "What do you all do after class?",
-        },
-        "poder": {
-            "yo": "Can you swim?",
-            "tú": "I can cook really well. What can I do?",
-            "él": "Can your brother drive?",
-            "ella": "Can your sister play guitar?",
-            "usted": "Can your boss speak English?",
-            "nosotros": "Can you and your friends come tomorrow?",
-            "nosotras": "Can you and your sisters help?",
-            "ellos": "Can your friends play soccer?",
-            "ellas": "Can your female friends join us?",
-            "ustedes": "Can you all come to dinner?",
-        },
-        "querer": {
-            "yo": "What do you want for dinner?",
-            "tú": "I want pizza tonight. What do I want?",
-            "él": "Does your brother want to come?",
-            "ella": "Does your sister want coffee?",
-            "usted": "Does your boss want the report today?",
-            "nosotros": "Do you and your friends want to go out?",
-            "nosotras": "Do you and your sisters want dessert?",
-            "ellos": "Do your friends want to play?",
-            "ellas": "Do your female friends want to join?",
-            "ustedes": "Do you all want to go to the beach?",
-        },
-        "decir": {
-            "yo": "What do you say when you greet someone?",
-            "tú": "I always say 'good morning'. What do I say?",
-            "él": "What does your brother say about it?",
-            "ella": "What does your sister say?",
-            "usted": "What does your boss say about the project?",
-            "nosotros": "What do you and your friends say?",
-            "nosotras": "What do you and your sisters say about it?",
-            "ellos": "What do your friends say?",
-            "ellas": "What do your female friends say?",
-            "ustedes": "What do you all say when that happens?",
-        },
-        "salir": {
-            "yo": "Do you go out on weekends?",
-            "tú": "I go out every Friday. When do I go out?",
-            "él": "Does your brother go out at night?",
-            "ella": "Does your sister go out with friends?",
-            "usted": "Does your boss leave the office early?",
-            "nosotros": "Do you and your friends go out together?",
-            "nosotras": "Do you and your sisters go out dancing?",
-            "ellos": "Do your friends go out on Saturday?",
-            "ellas": "Do your female friends go out often?",
-            "ustedes": "Do you all go out together?",
-        },
-        "conocer": {
-            "yo": "Do you know this neighborhood well?",
-            "tú": "I know a great restaurant. Do you know what I know?",
-            "él": "Does your brother know the area?",
-            "ella": "Does your sister know my friend?",
-            "usted": "Does your boss know about this?",
-            "nosotros": "Do you and your friends know the city?",
-            "nosotras": "Do you and your sisters know the neighbors?",
-            "ellos": "Do your friends know the beach?",
-            "ellas": "Do your female friends know the park?",
-            "ustedes": "Do you all know each other well?",
-        },
-        "pedir": {
-            "yo": "What do you order at restaurants?",
-            "tú": "I always order coffee. What do I order?",
-            "él": "What does your brother order?",
-            "ella": "What does your sister order for lunch?",
-            "usted": "What does your boss request?",
-            "nosotros": "What do you and your friends order?",
-            "nosotras": "What do you and your sisters order?",
-            "ellos": "What do your friends order at the cafe?",
-            "ellas": "What do your female friends ask for?",
-            "ustedes": "What do you all order when you go out?",
-        },
-        "seguir": {
-            "yo": "Do you follow any sports teams?",
-            "tú": "I follow soccer. What do I follow?",
-            "él": "Does your brother follow the news?",
-            "ella": "Does your sister follow fashion?",
-            "usted": "Does your boss keep going with the plan?",
-            "nosotros": "Do you and your friends keep studying?",
-            "nosotras": "Do you and your sisters keep practicing?",
-            "ellos": "Do your friends keep playing?",
-            "ellas": "Do your female friends keep exercising?",
-            "ustedes": "Do you all keep going to class?",
-        },
-        "conseguir": {
-            "yo": "Do you get good grades?",
-            "tú": "I always get a good seat. What do I get?",
-            "él": "Does your brother get tickets easily?",
-            "ella": "Does your sister get good deals?",
-            "usted": "Does your boss get results?",
-            "nosotros": "Do you and your friends get together often?",
-            "nosotras": "Do you and your sisters get what you need?",
-            "ellos": "Do your friends get good jobs?",
-            "ellas": "Do your female friends get discounts?",
-            "ustedes": "Do you all manage to get there on time?",
-        },
-        "morir": {
-            "yo": "Are you dying of hunger right now?",
-            "tú": "I'm dying of thirst. What am I dying of?",
-            "él": "Is your brother dying to see the movie?",
-            "ella": "Is your sister dying to go on vacation?",
-            "usted": "Is your boss dying to finish the project?",
-            "nosotros": "Are you and your friends dying of laughter?",
-            "nosotras": "Are you and your sisters dying to try it?",
-            "ellos": "Are your friends dying to go to the concert?",
-            "ellas": "Are your female friends dying to see it?",
-            "ustedes": "Are you all dying of boredom?",
-        },
-        "abrir": {
-            "yo": "Do you open the windows in the morning?",
-            "tú": "I open my shop at nine. When do I open it?",
-            "él": "Does your brother open the door for people?",
-            "ella": "Does your sister open her gifts right away?",
-            "usted": "Does your boss open the meeting?",
-            "nosotros": "Do you and your friends open a bottle of wine?",
-            "nosotras": "Do you and your sisters open presents together?",
-            "ellos": "Do your friends open their books in class?",
-            "ellas": "Do your female friends open the store early?",
-            "ustedes": "Do you all open your laptops in class?",
-        },
-        "cerrar": {
-            "yo": "Do you close the windows at night?",
-            "tú": "I close the store at nine. When do I close it?",
-            "él": "Does your brother close the door?",
-            "ella": "Does your sister close her eyes to sleep?",
-            "usted": "Does your boss close the office early?",
-            "nosotros": "Do you and your friends close the restaurant?",
-            "nosotras": "Do you and your sisters close up the house?",
-            "ellos": "Do your friends close the gate?",
-            "ellas": "Do your female friends close the shop?",
-            "ustedes": "Do you all close everything before leaving?",
-        },
-        "caer": {
-            "yo": "Do you fall asleep easily?",
-            "tú": "I fall asleep late. When do I fall asleep?",
-            "él": "Does your brother fall often when playing?",
-            "ella": "Does your sister drop things a lot?",
-            "usted": "Does your boss drop by unexpectedly?",
-            "nosotros": "Do you and your friends fall behind in class?",
-            "nosotras": "Do you and your sisters fall asleep watching movies?",
-            "ellos": "Do your friends trip and fall sometimes?",
-            "ellas": "Do your female friends drop their phones?",
-            "ustedes": "Do you all fall asleep during long movies?",
-        },
-        "valer": {
-            "yo": "How much is your phone worth?",
-            "tú": "My watch is worth a lot. How much is it worth?",
-            "él": "Is your brother's car worth a lot?",
-            "ella": "Is your sister's painting worth something?",
-            "usted": "Is your boss's advice worth following?",
-            "nosotros": "Is your group's effort worth it?",
-            "nosotras": "Is your sisters' collection worth something?",
-            "ellos": "Are your friends' tickets worth the price?",
-            "ellas": "Are your female friends' crafts worth selling?",
-            "ustedes": "Is your team's work worth the time?",
-        },
-        "oír": {
-            "yo": "Do you hear the music?",
-            "tú": "I hear birds every morning. What do I hear?",
-            "él": "Does your brother hear the neighbors?",
-            "ella": "Does your sister hear the alarm?",
-            "usted": "Does your boss hear the complaints?",
-            "nosotros": "Do you and your friends hear the noise?",
-            "nosotras": "Do you and your sisters hear the dog barking?",
-            "ellos": "Do your friends hear the thunder?",
-            "ellas": "Do your female friends hear the music?",
-            "ustedes": "Do you all hear that sound?",
-        },
-        "poner": {
-            "yo": "Where do you put your keys?",
-            "tú": "I put my bag on the table. Where do I put it?",
-            "él": "Does your brother put sugar in his coffee?",
-            "ella": "Does your sister put music on?",
-            "usted": "Does your boss put pressure on you?",
-            "nosotros": "Do you and your friends set the table?",
-            "nosotras": "Do you and your sisters put decorations up?",
-            "ellos": "Do your friends put effort into studying?",
-            "ellas": "Do your female friends put on makeup?",
-            "ustedes": "Do you all set up the chairs?",
-        },
-        "traer": {
-            "yo": "Do you bring lunch to work?",
-            "tú": "I bring dessert to parties. What do I bring?",
-            "él": "Does your brother bring his guitar?",
-            "ella": "Does your sister bring food to share?",
-            "usted": "Does your boss bring coffee to meetings?",
-            "nosotros": "Do you and your friends bring snacks?",
-            "nosotras": "Do you and your sisters bring presents?",
-            "ellos": "Do your friends bring drinks?",
-            "ellas": "Do your female friends bring their kids?",
-            "ustedes": "Do you all bring something to the party?",
-        },
-        "producir": {
-            "yo": "Do you produce any content online?",
-            "tú": "I produce videos. What do I produce?",
-            "él": "Does your brother produce music?",
-            "ella": "Does your sister produce art?",
-            "usted": "Does your boss produce reports?",
-            "nosotros": "Do you and your friends produce a podcast?",
-            "nosotras": "Do you and your sisters make crafts?",
-            "ellos": "Do your friends produce content?",
-            "ellas": "Do your female friends make things to sell?",
-            "ustedes": "Do you all produce something together?",
-        },
-        "construir": {
-            "yo": "Do you build things at home?",
-            "tú": "I build furniture. What do I build?",
-            "él": "Does your brother build model planes?",
-            "ella": "Does your sister build websites?",
-            "usted": "Does your boss build the team?",
-            "nosotros": "Do you and your friends build projects?",
-            "nosotras": "Do you and your sisters build things together?",
-            "ellos": "Do your friends build houses?",
-            "ellas": "Do your female friends build community?",
-            "ustedes": "Do you all build something together?",
-        },
-        "recoger": {
-            "yo": "Do you pick up your kids from school?",
-            "tú": "I pick up the mail. What do I pick up?",
-            "él": "Does your brother pick up after himself?",
-            "ella": "Does your sister pick up her room?",
-            "usted": "Does your boss pick up the phone?",
-            "nosotros": "Do you and your friends clean up after?",
-            "nosotras": "Do you and your sisters tidy up together?",
-            "ellos": "Do your friends pick up trash at the park?",
-            "ellas": "Do your female friends pick up supplies?",
-            "ustedes": "Do you all pick up after the party?",
-        },
-        "dirigir": {
-            "yo": "Do you manage a team at work?",
-            "tú": "I direct the school play. What do I direct?",
-            "él": "Does your brother run a business?",
-            "ella": "Does your sister manage the project?",
-            "usted": "Does your boss lead the department?",
-            "nosotros": "Do you and your friends run the club?",
-            "nosotras": "Do you and your sisters lead the group?",
-            "ellos": "Do your friends manage the event?",
-            "ellas": "Do your female friends run the organization?",
-            "ustedes": "Do you all manage it together?",
-        },
-        "convencer": {
-            "yo": "Do you convince people easily?",
-            "tú": "I convince my friends to try new food. What do I do?",
-            "él": "Does your brother convince you to go out?",
-            "ella": "Does your sister convince you to exercise?",
-            "usted": "Does your boss convince clients easily?",
-            "nosotros": "Do you and your friends persuade each other?",
-            "nosotras": "Do you and your sisters convince your parents?",
-            "ellos": "Do your friends convince you to stay up late?",
-            "ellas": "Do your female friends convince you to shop?",
-            "ustedes": "Do you all convince the teacher to cancel homework?",
-        },
-    }
+    forms = get_chat_target_forms(situation_id)
+    enriched: list[dict] = []
+    for f in forms:
+        spanish = f.get("spanish") or ""
+        pronoun = f.get("pronoun") or ""
+        enriched.append({
+            **f,
+            "id": f.get("id") or f"form:{spanish}:{pronoun}",
+        })
+    return enriched
 
-    # Check for verb-specific override
-    if verb in _VERB_QUESTIONS and pronoun in _VERB_QUESTIONS[verb]:
-        return _VERB_QUESTIONS[verb][pronoun]
 
-    # ── Template fallback for regular verbs ──
-    action = verb_english[3:] if verb_english.startswith("to ") else verb_english
-    # Clean up parentheticals and slashes
-    if "(" in action:
-        action = action[:action.index("(")].strip()
-    if "/" in action:
-        action = action.split("/")[0].strip()
+def _make_learner_context(
+    user: User,
+    situation: Situation,
+    conversation: Conversation,
+    *,
+    vocab_level: int,
+    grammar_level: float,
+    completed_chip_ids: list[str] | None = None,
+    target_word_objects: list[Word] | None = None,
+) -> LearnerContext:
+    """Assemble a LearnerContext for prompt building.
 
-    _FRAMES = {
-        "yo": f"Do you {action}?",
-        "tú": f"I {action} every day. What do I {action}?",
-        "él": f"Does your brother {action}?",
-        "ella": f"Does your sister {action}?",
-        "usted": f"Does your boss {action}?",
-        "nosotros": f"Do you and your friends {action}?",
-        "nosotras": f"Do you and your sisters {action}?",
-        "ellos": f"Do your friends {action}?",
-        "ellas": f"Do your female friends {action}?",
-        "ustedes": f"Do you all {action}?",
-    }
-    return _FRAMES.get(pronoun, f"Do you {action}?")
+    For grammar chat lessons (`*_chat`) we read chips off
+    `conversation.chat_target_forms_json` (snapshotted at creation).
+    For vocab encounters we project `target_word_ids` into chips so the
+    target-steering block has something to render either way.
+
+    `completed_chip_ids` defaults to `used_spoken_word_ids` for vocab
+    encounters and `[]` for grammar chats. Callers that already ran
+    `check_chat_chip_completion` should pass the returned list to keep
+    the prompt's "what's done" view consistent with chip-tick state.
+    """
+    chips: list[ChipTarget] = []
+    chat_forms = conversation.chat_target_forms_json or []
+
+    if chat_forms:
+        for form in chat_forms:
+            chips.append(ChipTarget(
+                id=form.get("id") or f"form:{form.get('spanish', '')}:{form.get('pronoun', '')}",
+                spanish=form.get("spanish") or "",
+                english=form.get("english") or "",
+                verb=form.get("verb"),
+                pronoun=form.get("pronoun"),
+            ))
+        if completed_chip_ids is None:
+            completed_chip_ids = []
+    else:
+        words = target_word_objects or []
+        for word in words:
+            chips.append(ChipTarget(
+                id=word.id,
+                spanish=word.spanish,
+                english=word.english,
+            ))
+        if completed_chip_ids is None:
+            completed_chip_ids = list(conversation.used_spoken_word_ids or [])
+
+    return LearnerContext(
+        spanish_level=user.q0_spanish_level,
+        vocab_level=vocab_level,
+        grammar_level=grammar_level,
+        goal=situation.goal,
+        target_chips=chips,
+        completed_chip_ids=completed_chip_ids,
+        consecutive_no_progress_turns=conversation.consecutive_no_progress_turns or 0,
+    )
 
 
 # Cache for initial message TTS audio URLs — avoids re-synthesizing the same audio
@@ -551,11 +260,19 @@ async def create_conversation(
             Conversation.status == "active"
         ).order_by(Conversation.created_at.desc()).with_for_update().first()
 
+        # Snapshot the FE's chip list onto the conversation for grammar chat
+        # lessons. `_enriched_chat_target_forms` returns [] for vocab/non-chat
+        # situations — we leave `chat_target_forms_json` NULL there so the
+        # legacy infinitive-completion path keeps running unchanged.
+        chat_forms_for_db = _enriched_chat_target_forms(situation.id)
+
         if voice_conv:
             # Reset spoken words so backend + frontend start from same empty state.
             # Without this, reused conversations carry stale used_spoken_word_ids
             # which causes completion to fire before all word chips show checkmarks.
             voice_conv.used_spoken_word_ids = []
+            voice_conv.consecutive_no_progress_turns = 0
+            voice_conv.chat_target_forms_json = chat_forms_for_db or None
             db.commit()
 
         if not voice_conv:
@@ -565,12 +282,13 @@ async def create_conversation(
                 mode="voice",
                 target_word_ids=target_word_ids,
                 used_typed_word_ids=[],
-                used_spoken_word_ids=[]
+                used_spoken_word_ids=[],
+                chat_target_forms_json=chat_forms_for_db or None,
             )
             db.add(voice_conv)
             db.commit()
             db.refresh(voice_conv)
-        
+
         vocab_level = get_vocab_level(db, current_user.id)
         grammar_level = get_grammar_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
@@ -587,14 +305,19 @@ async def create_conversation(
         from app.config import settings as _cfg
         initial_audio_url = f"{_cfg.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg.r2_public_url else None
 
+        learner_ctx = _make_learner_context(
+            current_user, situation, voice_conv,
+            vocab_level=vocab_level, grammar_level=grammar_level,
+            target_word_objects=final_words,
+        )
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
             alt_language=current_user.alt_language,
+            learner_ctx=learner_ctx,
         )
-        from app.data.grammar_situations import get_chat_target_forms
         from app.schemas import ChatTargetForm
         chat_target_forms = [
-            ChatTargetForm(**f) for f in get_chat_target_forms(situation.id)
+            ChatTargetForm(**f) for f in chat_forms_for_db
         ]
         scene = situation.animation_type
         if situation.animation_type == "grammar":
@@ -614,23 +337,30 @@ async def create_conversation(
     else:
         # No existing conversation - this shouldn't happen if startSituation was called first
         # But create one anyway as fallback
-        encounter_word_ids, high_freq_word_ids = select_words_for_situation(db, current_user.id, request.situation_id)
+        encounter_word_ids, high_freq_word_ids = select_words_for_situation(
+            db, current_user.id, request.situation_id,
+            vocab_level=get_vocab_level(db, current_user.id),
+            spanish_level=current_user.q0_spanish_level,
+        )
         target_word_ids = encounter_word_ids + high_freq_word_ids
         all_words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
         final_words = sort_words_encounter_first(all_words, request.situation_id, db, target_word_ids)
-        
+
+        chat_forms_for_db = _enriched_chat_target_forms(situation.id)
+
         conversation = Conversation(
             user_id=current_user.id,
             situation_id=request.situation_id,
             mode=request.mode,
             target_word_ids=target_word_ids,
             used_typed_word_ids=[],
-            used_spoken_word_ids=[]
+            used_spoken_word_ids=[],
+            chat_target_forms_json=chat_forms_for_db or None,
         )
         db.add(conversation)
         db.commit()
         db.refresh(conversation)
-        
+
         vocab_level = get_vocab_level(db, current_user.id)
         grammar_level = get_grammar_level(db, current_user.id)
         language_mode = get_language_mode(situation.encounter_number, vocab_level, grammar_level)
@@ -645,14 +375,19 @@ async def create_conversation(
         from app.config import settings as _cfg2
         initial_audio_url = f"{_cfg2.r2_public_url}/initial_msg_{situation.id}.mp3" if _cfg2.r2_public_url else None
 
+        learner_ctx = _make_learner_context(
+            current_user, situation, conversation,
+            vocab_level=vocab_level, grammar_level=grammar_level,
+            target_word_objects=final_words,
+        )
         system_prompt = build_system_prompt(
             situation.animation_type, situation.id, language_mode,
             alt_language=current_user.alt_language,
+            learner_ctx=learner_ctx,
         )
-        from app.data.grammar_situations import get_chat_target_forms
         from app.schemas import ChatTargetForm
         chat_target_forms = [
-            ChatTargetForm(**f) for f in get_chat_target_forms(situation.id)
+            ChatTargetForm(**f) for f in chat_forms_for_db
         ]
         scene = situation.animation_type
         if situation.animation_type == "grammar":
@@ -960,100 +695,59 @@ async def voice_turn_respond(
     if alt_language and language_mode in ("spanish_text", "spanish_audio"):
         language_mode = language_mode.replace("spanish_", f"{alt_language}_")
 
-    # Word guidance — steer AI toward unused target words
-    missing_ids = get_missing_word_ids(conversation, "voice")
-    word_guidance_system = ""
+    # `persist_turn` from step 1 (`POST /voice-turn`) already updated the
+    # cumulative chip set on the conversation row, so we just read it here.
+    # Refresh first so we see what step 1 wrote in this same request cycle.
+    db.refresh(conversation)
+    completed_chip_ids = list(conversation.completed_chip_ids or [])
+    chips_total = len(conversation.chat_target_forms_json or [])
+    chip_complete = chips_total > 0 and len(completed_chip_ids) >= chips_total
 
-    # For grammar situations with drill_targets, build specific verb+pronoun guidance
-    grammar_cfg = get_grammar_config(conversation.situation_id)
-    drill_targets = grammar_cfg.get("drill_targets", []) if grammar_cfg else []
-    grammar_inject_message = None  # assistant "thinking" message for grammar targeting
-    if drill_targets and grammar_cfg.get("drill_config", {}).get("answers"):
-        answers = grammar_cfg["drill_config"]["answers"]
-        # Find which conjugated forms the user has already said
-        import re as _re
-        def _extract_words(text: str) -> set:
-            return set(_re.sub(r'[.,!?¿¡]', '', text.lower()).split())
-        transcript_words = set()
-        if body.messages_json:
-            try:
-                for msg in json_module.loads(body.messages_json):
-                    if msg.get("role") == "user":
-                        transcript_words.update(_extract_words(msg["content"]))
-            except (json_module.JSONDecodeError, TypeError):
-                pass
-        transcript_words.update(_extract_words(user_transcript))
+    # The v3 prompt is level-aware, target-anchored, and reads chip state
+    # straight off the conversation. No more side-band injection of
+    # English "thinking" messages — targeting lives entirely in the
+    # system prompt now.
+    learner_ctx = _make_learner_context(
+        current_user, situation, conversation,
+        vocab_level=vocab_level, grammar_level=grammar_level,
+        completed_chip_ids=completed_chip_ids if conversation.chat_target_forms_json else None,
+        target_word_objects=words,
+    )
 
-        # Find first remaining target
-        next_target = None
-        for t in drill_targets:
-            verb, pronoun = t["verb"], t["pronoun"]
-            conjugated = answers.get(verb, {}).get(pronoun, "")
-            if conjugated and conjugated.lower() not in transcript_words:
-                next_target = {"verb": verb, "pronoun": pronoun, "conjugated": conjugated}
-                break
-
-        if next_target:
-            from app.data.grammar_situations import GRAMMAR_WORD_TRANSLATIONS
-            v, p, c = next_target["verb"], next_target["pronoun"], next_target["conjugated"]
-            eng = GRAMMAR_WORD_TRANSLATIONS.get(v, v)
-            # Build a pronoun-appropriate hint question
-            hint = _build_grammar_hint(p, v, eng)
-            grammar_inject_message = (
-                f"Next I need to get the student to say '{c}' ({p} + {v}). "
-                f"I'll ask exactly: \"{hint}\""
-            )
-    elif missing_ids:
-        missing_words = get_words_by_ids(db, missing_ids)
-        lang = get_target_language_name(alt_language)
-        missing_pairs = [f"{w.spanish} ({w.english})" for w in missing_words]
-        word_guidance_system = (
-            f"\n\nThe student still needs to say these {lang} words: {', '.join(missing_pairs)}. "
-            f"Steer the conversation toward topics where they'd naturally use them. "
-            f"Don't say the target {lang} words yourself."
-        )
-
-    # Build messages for Realtime API
-    # Always build the system prompt — frontend messages don't include it
     grammar_config_for_prompt = get_grammar_config(conversation.situation_id)
     if grammar_config_for_prompt:
-        system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, alt_language=alt_language)
+        system_prompt = build_grammar_system_prompt(
+            conversation.situation_id,
+            language_mode=language_mode,
+            alt_language=alt_language,
+            learner_ctx=learner_ctx,
+        )
     else:
         system_prompt = get_conversation_system_prompt(
             language_mode, alt_language=alt_language,
             animation_type=situation.animation_type if situation else "",
             situation_id=conversation.situation_id,
+            learner_ctx=learner_ctx,
         )
-
-    # Append word guidance to system prompt (non-grammar situations only)
-    if not grammar_inject_message:
-        system_prompt += word_guidance_system
 
     if frontend_messages:
         llm_messages = [{"role": "system", "content": system_prompt}]
         for msg in frontend_messages:
             if msg["role"] != "system":
                 llm_messages.append(msg)
-        if grammar_inject_message:
-            # Grammar: inject assistant "thinking" with the next target + hint
-            llm_messages.append({"role": "user", "content": user_transcript})
-            llm_messages.append({"role": "assistant", "content": grammar_inject_message})
-        else:
-            llm_messages.append({"role": "user", "content": user_transcript})
+        llm_messages.append({"role": "user", "content": user_transcript})
     else:
-        grammar_config = get_grammar_config(conversation.situation_id)
-        if grammar_config:
-            system_prompt = build_grammar_system_prompt(conversation.situation_id, language_mode=language_mode, alt_language=alt_language)
+        # Cold-start: no FE history. Pair the v3 system prompt with a
+        # minimal user-prompt that surfaces the latest transcript and the
+        # situation context. The legacy `build_grammar_user_prompt` /
+        # `build_conversation_prompt` helpers still do the heavy lifting
+        # for the non-history case so we don't duplicate that copy here.
+        if grammar_config_for_prompt:
             user_prompt = build_grammar_user_prompt(
                 situation.title, conversation.used_spoken_word_ids or [],
-                user_transcript, grammar_config,
+                user_transcript, grammar_config_for_prompt,
             )
         else:
-            system_prompt = get_conversation_system_prompt(
-                language_mode, alt_language=alt_language,
-                animation_type=situation.animation_type if situation else "",
-                situation_id=conversation.situation_id,
-            ) + word_guidance_system
             user_prompt = build_conversation_prompt(
                 situation.title, words, conversation.used_spoken_word_ids or [],
                 user_transcript, alt_language=alt_language,
@@ -1062,8 +756,6 @@ async def voice_turn_respond(
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
-        if grammar_inject_message:
-            llm_messages.append({"role": "assistant", "content": grammar_inject_message})
 
     # TTS voice config
     tts_voice, tts_instructions = get_tts_instructions(
@@ -1104,13 +796,26 @@ async def voice_turn_respond(
                     }) + "\n"
 
                 elif event["type"] == "done":
-                    # Refresh conversation from DB to ensure we have latest used_spoken_word_ids
+                    # Refresh conversation from DB to ensure we have latest
+                    # used_spoken_word_ids and the stuck counter persist_turn
+                    # just bumped.
                     db.refresh(conversation)
-                    conv_complete, _ = check_completion(conversation)
+                    # Grammar chats with a chip snapshot complete only when
+                    # every chip ticks; vocab/non-chat grammar fall back to
+                    # the legacy infinitive-coverage check.
+                    if conversation.chat_target_forms_json:
+                        conv_complete = chip_complete or (
+                            conversation.turn_count or 0
+                        ) >= EXCHANGE_HARD_LIMIT
+                    else:
+                        conv_complete, _ = check_completion(conversation)
                     logger.info(
                         f"[Voice Turn] Completion check: target={conversation.target_word_ids}, "
-                        f"spoken={conversation.used_spoken_word_ids}, turns={conversation.turn_count}, "
-                        f"complete={conv_complete}"
+                        f"spoken={conversation.used_spoken_word_ids}, "
+                        f"chips_done={len(completed_chip_ids)}/"
+                        f"{len(conversation.chat_target_forms_json or [])}, "
+                        f"no_progress={conversation.consecutive_no_progress_turns}, "
+                        f"turns={conversation.turn_count}, complete={conv_complete}"
                     )
                     if conv_complete:
                         conversation.status = "complete"
@@ -1123,6 +828,8 @@ async def voice_turn_respond(
                     yield json_module.dumps({
                         "type": "done",
                         "conversation_complete": conv_complete,
+                        "completed_chip_ids": completed_chip_ids,
+                        "consecutive_no_progress_turns": conversation.consecutive_no_progress_turns or 0,
                     }) + "\n"
 
         except Exception as e:
@@ -1185,7 +892,16 @@ async def realtime_turn(
         alt_language=current_user.alt_language,
     )
 
-    complete, turns_remaining = check_completion(conversation)
+    # Grammar chats with a chip snapshot complete only when every chip ticks;
+    # vocab/non-chat grammar fall back to the legacy infinitive-coverage check.
+    if conversation.chat_target_forms_json:
+        chips_total = len(conversation.chat_target_forms_json or [])
+        chips_done = len(conversation.completed_chip_ids or [])
+        chip_complete = chips_total > 0 and chips_done >= chips_total
+        _, turns_remaining = check_completion(conversation)
+        complete = chip_complete or (conversation.turn_count or 0) >= EXCHANGE_HARD_LIMIT
+    else:
+        complete, turns_remaining = check_completion(conversation)
     if complete and conversation.status != "complete":
         conversation.status = "complete"
         conversation.completed_at = datetime.now(timezone.utc)
@@ -1198,6 +914,8 @@ async def realtime_turn(
         missing_word_ids=missing_word_ids,
         conversation_complete=complete,
         turns_remaining=turns_remaining,
+        completed_chip_ids=list(conversation.completed_chip_ids or []),
+        consecutive_no_progress_turns=conversation.consecutive_no_progress_turns or 0,
     )
 
 

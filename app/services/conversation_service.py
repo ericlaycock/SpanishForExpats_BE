@@ -1,10 +1,28 @@
 import logging
+import re
+import unicodedata
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert
 from app.models import Conversation, UserWord, Word
-from typing import List
+from typing import Iterable, List, Tuple
 
 logger = logging.getLogger(__name__)
+
+
+def _normalize_for_match(text: str) -> str:
+    """Lowercase + strip punctuation + drop diacritics for chip matching.
+
+    Mirrors `app/services/word_detection.normalize_text` so chip detection
+    treats accents and casing the same way the per-verb infinitive
+    detection does. Kept private here because it has one consumer
+    (`check_chat_chip_completion`) and importing the public version
+    would create a circular import on this module.
+    """
+    text = text.lower()
+    text = re.sub(r"[^\w\s]", " ", text)
+    text = unicodedata.normalize("NFD", text)
+    text = "".join(c for c in text if unicodedata.category(c) != "Mn")
+    return text
 
 
 def check_conversation_complete(conversation: Conversation, mode: str) -> bool:
@@ -83,11 +101,68 @@ def get_missing_word_ids(conversation: Conversation, mode: str) -> List[str]:
         used_word_ids = set(conversation.used_typed_word_ids or [])
     else:  # voice
         used_word_ids = set(conversation.used_spoken_word_ids or [])
-    
+
     target_word_ids = set(conversation.target_word_ids or [])
     missing = target_word_ids - used_word_ids
-    
+
     return list(missing)
+
+
+def check_chat_chip_completion(
+    conversation: Conversation,
+    user_transcripts: Iterable[str],
+) -> Tuple[bool, List[str]]:
+    """Per-chip completion check for grammar `*_chat` lessons.
+
+    Vocab encounters and non-chat grammar lessons keep the legacy
+    `check_conversation_complete` path (`target_word_ids` ⊆
+    `used_spoken_word_ids`). Chat lessons need finer granularity: the FE
+    shows a sample of 8 (verb, pronoun) chips and the conversation
+    should not complete until each chip has actually been uttered. The
+    server-side snapshot of those chips lives in
+    `Conversation.chat_target_forms_json`; we scan the user's full
+    transcript log for each chip's exact `spanish` form (word-boundary,
+    accent-insensitive) and report which chip ids are now ticked.
+
+    Returns `(complete, completed_chip_ids)`. `complete` is True only
+    when every chip has been ticked. Returns `(False, [])` when the
+    conversation has no chip snapshot — caller should fall back to the
+    legacy completion check.
+    """
+    chips = conversation.chat_target_forms_json or []
+    if not chips:
+        return False, []
+
+    haystack = " ".join(_normalize_for_match(t or "") for t in user_transcripts)
+    if not haystack:
+        return False, []
+
+    completed: List[str] = []
+    for chip in chips:
+        spanish = chip.get("spanish") or ""
+        # Persistence stores the FE chip id alongside the form so the BE
+        # never has to synthesize one. Fall back to `form:{spanish}:{pronoun}`
+        # for older rows that pre-date the id field — same convention the
+        # FE uses in ImmersiveVoiceScene.applyDetectedWords.
+        chip_id = chip.get("id") or chip.get("chip_id")
+        if not chip_id and spanish:
+            pronoun = chip.get("pronoun") or ""
+            chip_id = f"form:{spanish}:{pronoun}"
+        if not spanish or not chip_id:
+            continue
+        normalized = _normalize_for_match(spanish)
+        if not normalized:
+            continue
+        if " " in normalized:
+            if normalized in haystack:
+                completed.append(chip_id)
+        else:
+            pattern = r"\b" + re.escape(normalized) + r"\b"
+            if re.search(pattern, haystack):
+                completed.append(chip_id)
+
+    complete = len(completed) == len(chips)
+    return complete, completed
 
 
 
