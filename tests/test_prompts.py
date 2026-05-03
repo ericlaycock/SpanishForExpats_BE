@@ -65,6 +65,24 @@ class TestPromptsLoad:
             assert "{language}" in content, f"{agent_id} missing {{language}}"
             assert "Speak only in English" not in content, f"{agent_id} should not enforce English"
 
+    @pytest.mark.parametrize("agent_id", V3_PROMPTS)
+    def test_templates_have_turn_closing_rule(self, agent_id):
+        """v3 prompts must include the explicit turn-closing rule.
+
+        Locks the rule in so a future copy edit doesn't silently strip
+        it — that's the only mechanism preventing the avatar from
+        producing dead-end statements (filler turns the user can't
+        respond to). See the dead-end screenshots in the avatar-dynamics
+        thread for context.
+        """
+        content = load_prompt(agent_id)
+        assert "TURN-CLOSING RULE" in content, (
+            f"{agent_id} dropped the TURN-CLOSING RULE section"
+        )
+        assert "must end with a question mark" in content.lower(), (
+            f"{agent_id} dropped the must-end-with-? requirement"
+        )
+
 
 class TestSituationRoles:
     def test_all_main_situations_defined(self):

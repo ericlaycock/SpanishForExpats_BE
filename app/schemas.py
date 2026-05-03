@@ -366,6 +366,12 @@ class RealtimeTurnResponse(BaseModel):
     # Turns since the learner last produced a new target. Drives the FE's
     # "Need help?" nudge toast at >= 2.
     consecutive_no_progress_turns: int = 0
+    # True when the assistant's reply this turn failed the v3 prompt's
+    # turn-closing rule (no question mark) or leaked a pending chip's
+    # exact Spanish form. FE may use this to show a soft nudge ("ask the
+    # avatar to repeat" / "say something to keep going"). Telemetry is
+    # captured server-side regardless via `avatar_dead_end_turns`.
+    avatar_dead_end: bool = False
 
 
 # Grammar config schemas

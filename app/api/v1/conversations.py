@@ -45,6 +45,7 @@ from app.services.voice_turn_service import (
     build_system_prompt,
     check_completion,
     persist_turn,
+    validate_assistant_reply,
 )
 from app.data.grammar_situations import get_chat_target_forms, get_grammar_config
 from app.services.alt_language_service import apply_alt_language, get_target_language_name
@@ -129,6 +130,53 @@ def _make_learner_context(
         completed_chip_ids=completed_chip_ids,
         consecutive_no_progress_turns=conversation.consecutive_no_progress_turns or 0,
     )
+
+
+def _pending_chips_for_validation(
+    db: Session, conversation: Conversation,
+) -> list[ChipTarget]:
+    """Build the pending-chip list `validate_assistant_reply` needs.
+
+    Cheaper than `_make_learner_context` because it skips Situation /
+    User / level lookups — the validator only needs each chip's Spanish
+    form and the (verb, pronoun) pair (to detect grammar chips). For
+    grammar chats we read straight off `chat_target_forms_json`; for
+    vocab encounters we project `target_word_ids` into chips. Either
+    way we filter by `completed_chip_ids` (chats) or `used_spoken_word_ids`
+    (vocab) so the leak check only fires on chips the student can still
+    earn.
+    """
+    chat_forms = conversation.chat_target_forms_json or []
+    if chat_forms:
+        completed = set(conversation.completed_chip_ids or [])
+        chips: list[ChipTarget] = []
+        for form in chat_forms:
+            chip_id = form.get("id") or (
+                f"form:{form.get('spanish', '')}:{form.get('pronoun', '')}"
+            )
+            if chip_id in completed:
+                continue
+            chips.append(ChipTarget(
+                id=chip_id,
+                spanish=form.get("spanish") or "",
+                english=form.get("english") or "",
+                verb=form.get("verb"),
+                pronoun=form.get("pronoun"),
+            ))
+        return chips
+
+    target_ids = conversation.target_word_ids or []
+    if not target_ids:
+        return []
+    used = set(conversation.used_spoken_word_ids or [])
+    pending_ids = [wid for wid in target_ids if wid not in used]
+    if not pending_ids:
+        return []
+    words = db.query(Word).filter(Word.id.in_(pending_ids)).all()
+    return [
+        ChipTarget(id=w.id, spanish=w.spanish, english=w.english)
+        for w in words
+    ]
 
 
 # Cache for initial message TTS audio URLs — avoids re-synthesizing the same audio
@@ -800,6 +848,24 @@ async def voice_turn_respond(
                     # used_spoken_word_ids and the stuck counter persist_turn
                     # just bumped.
                     db.refresh(conversation)
+                    # Run the v3-rule validator against the assistant text we
+                    # just streamed. Audio is already playing on the client so
+                    # we can't regenerate, but we capture the violation in
+                    # `avatar_dead_end_turns` and surface a flag in the `done`
+                    # payload for the FE to render a soft nudge.
+                    pending_chips_for_validation = learner_ctx.pending_chips()
+                    flagged, leaked_ids, dead_end_reasons = validate_assistant_reply(
+                        assistant_text, pending_chips_for_validation,
+                    )
+                    if flagged:
+                        conversation.avatar_dead_end_turns = (
+                            conversation.avatar_dead_end_turns or 0
+                        ) + 1
+                        logger.warning(
+                            f"[Voice Turn] Avatar dead-end detected: "
+                            f"reasons={dead_end_reasons}, "
+                            f"text={assistant_text!r}"
+                        )
                     # Grammar chats with a chip snapshot complete only when
                     # every chip ticks; vocab/non-chat grammar fall back to
                     # the legacy infinitive-coverage check.
@@ -815,6 +881,7 @@ async def voice_turn_respond(
                         f"chips_done={len(completed_chip_ids)}/"
                         f"{len(conversation.chat_target_forms_json or [])}, "
                         f"no_progress={conversation.consecutive_no_progress_turns}, "
+                        f"dead_ends={conversation.avatar_dead_end_turns}, "
                         f"turns={conversation.turn_count}, complete={conv_complete}"
                     )
                     if conv_complete:
@@ -830,6 +897,7 @@ async def voice_turn_respond(
                         "conversation_complete": conv_complete,
                         "completed_chip_ids": completed_chip_ids,
                         "consecutive_no_progress_turns": conversation.consecutive_no_progress_turns or 0,
+                        "avatar_dead_end": flagged,
                     }) + "\n"
 
         except Exception as e:
@@ -892,6 +960,23 @@ async def realtime_turn(
         alt_language=current_user.alt_language,
     )
 
+    # v3-rule validation against the assistant's reply. WebRTC audio has
+    # already played client-side so we can't regenerate, but we still
+    # tally violations for telemetry and surface a flag for the FE.
+    pending_chips = _pending_chips_for_validation(db, conversation)
+    avatar_flagged, _leaked, dead_end_reasons = validate_assistant_reply(
+        body.assistant_text or "", pending_chips,
+    )
+    if avatar_flagged:
+        conversation.avatar_dead_end_turns = (
+            conversation.avatar_dead_end_turns or 0
+        ) + 1
+        import logging as _logging
+        _logging.getLogger(__name__).warning(
+            f"[Realtime Turn] Avatar dead-end detected: "
+            f"reasons={dead_end_reasons}, text={body.assistant_text!r}"
+        )
+
     # Grammar chats with a chip snapshot complete only when every chip ticks;
     # vocab/non-chat grammar fall back to the legacy infinitive-coverage check.
     if conversation.chat_target_forms_json:
@@ -916,6 +1001,7 @@ async def realtime_turn(
         turns_remaining=turns_remaining,
         completed_chip_ids=list(conversation.completed_chip_ids or []),
         consecutive_no_progress_turns=conversation.consecutive_no_progress_turns or 0,
+        avatar_dead_end=avatar_flagged,
     )
 
 
