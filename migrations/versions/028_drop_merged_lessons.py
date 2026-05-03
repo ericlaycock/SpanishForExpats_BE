@@ -70,6 +70,15 @@ DEAD_SIDS = [
 
 def upgrade() -> None:
     sids_csv = ", ".join(f"'{s}'" for s in DEAD_SIDS)
+    # `user_milestone_events.conversation_id` FKs to conversations.id with no
+    # ON DELETE clause, so deleting a referenced conversation row aborts the
+    # transaction. Nullify the link first — see sibling migration 027 for
+    # context.
+    op.execute(
+        f"UPDATE user_milestone_events SET conversation_id = NULL "
+        f"WHERE conversation_id IN ("
+        f"SELECT id FROM conversations WHERE situation_id IN ({sids_csv}))"
+    )
     # NOT NULL situation_id → delete the row
     op.execute(f"DELETE FROM conversations WHERE situation_id IN ({sids_csv})")
     op.execute(f"DELETE FROM daily_encounter_logs WHERE situation_id IN ({sids_csv})")
