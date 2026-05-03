@@ -7,7 +7,7 @@ populating its drill_config, which would surface to users as
 """
 import pytest
 
-from app.data.grammar_situations import GRAMMAR_SITUATIONS, _validate_chart_drill_coverage
+from app.data.grammar_situations import GRAMMAR_SITUATIONS, _validate_intro_coverage
 
 
 DRILL_TYPES_REQUIRING_ANSWERS = {"conjugation", "ir_a_inf"}
@@ -99,13 +99,15 @@ def test_no_unexpected_drill_types():
     )
 
 
-def test_chart_models_every_drilled_verb():
-    """Every conjugation lesson must show every verb it drills in either its
-    rule_chart or intro_chart. The module-load validator already raises if
-    this is broken, but a test gives a friendlier failure message in CI.
+def test_intro_chart_models_every_drilled_verb():
+    """Every conjugation lesson's intro_chart must include both a mini_table
+    AND a recall entry for every verb it drills. The drill no longer shows a
+    chart, so the intro is the only place the conjugations are introduced.
+    The module-load validator already raises on import; this test gives CI a
+    friendlier failure message naming the lessons.
     """
-    violations = _validate_chart_drill_coverage()
+    violations = _validate_intro_coverage()
     assert not violations, (
-        "Chart/drill mismatch — fix data in grammar_situations.py:\n  "
+        "Intro/drill mismatch — fix intro_chart data in grammar_situations.py:\n  "
         + "\n  ".join(violations)
     )
