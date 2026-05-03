@@ -49,6 +49,7 @@ from app.services.voice_turn_service import (
 )
 from app.data.grammar_situations import get_chat_target_forms, get_grammar_config
 from app.services.alt_language_service import apply_alt_language, get_target_language_name
+from app.services.closing_message_service import pick_closing_message
 from app.utils.audio import generate_audio_filename, get_audio_path, get_audio_url, upload_to_r2
 router = APIRouter()
 
@@ -804,6 +805,46 @@ async def voice_turn_respond(
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
+
+    # ── Closing-turn bypass ──────────────────────────────────────────
+    # When the student's transcript already ticked the LAST chip (or
+    # achieved full vocab coverage in legacy non-chat encounters), the
+    # encounter is functionally over but the v3 prompt's TURN-CLOSING
+    # RULE still forces a `?` on the avatar's reply, so the student
+    # gets one more question with nothing useful to answer. The bypass
+    # swaps `llm_messages` for a "TTS engine, read this verbatim"
+    # prompt + a canned closing line picked from
+    # `app/data/closing_messages.py`. The Realtime API still streams
+    # text + audio in the avatar's voice, so the FE flow is unchanged.
+    if conversation.chat_target_forms_json:
+        would_be_complete = chip_complete
+    else:
+        would_be_complete, _ = check_completion(conversation)
+    if would_be_complete:
+        closing_text = pick_closing_message(
+            situation.animation_type if situation else "",
+            alt_language=alt_language,
+            seed_key=conversation.situation_id,
+        )
+        llm_messages = [
+            {
+                "role": "system",
+                "content": (
+                    "You are a TTS engine. Read aloud EXACTLY the user's "
+                    "message, word-for-word, with natural prosody. Do not "
+                    "greet, acknowledge, paraphrase, expand, summarize, "
+                    "translate, or add ANY words before or after. If you "
+                    "add 'Claro', 'Okay', '¡Hola!', or any other "
+                    "acknowledgment you have failed."
+                ),
+            },
+            {"role": "user", "content": closing_text},
+        ]
+        logger.info(
+            f"[Voice Turn] Closing bypass: anim="
+            f"{situation.animation_type if situation else ''}, "
+            f"text={closing_text!r}"
+        )
 
     # TTS voice config
     tts_voice, tts_instructions = get_tts_instructions(
