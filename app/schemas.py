@@ -312,16 +312,11 @@ class VoiceTurnResponse(BaseModel):
 # and uses `audio_url` for the Listen affordance. `used_item_ids` is
 # what the LLM claims it used — vocab `word_*` ids and/or grammar
 # `conj_<verb>_<pronoun>` chip ids — surfaced for telemetry only.
-# `prompt_prefix` is the framing label the FE renders before `spanish`
-# (e.g., "Try saying: «...»") so the bubble reads as a suggestion to
-# the learner, not as a turn from the avatar.
 class SentenceHintResponse(BaseModel):
-    spanish: str
+    # English-only suggestion with the target keyword in markdown bold.
+    # No Spanish, no audio — the FE renders this directly into the chip.
     english_gloss: str
-    audio_url: Optional[str] = None
-    used_item_ids: List[str]
     hints_remaining: int
-    prompt_prefix: str = "Try saying"
 
 
 # Realtime (WebRTC) session schemas

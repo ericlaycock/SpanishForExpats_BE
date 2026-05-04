@@ -1079,7 +1079,6 @@ async def sentence_hint(
         compute_pending_items,
         generate_sentence_hint,
         persist_hint_audit,
-        synthesize_hint_audio,
     )
     from app.core.logger import log_event
 
@@ -1135,36 +1134,12 @@ async def sentence_hint(
         except (json_module.JSONDecodeError, TypeError):
             recent_messages = None
 
-    situation = (
-        db.query(Situation)
-        .filter(Situation.id == conversation.situation_id)
-        .first()
-    )
-
-    spanish, english_gloss, used_item_ids, llm_request_id = await generate_sentence_hint(
+    english_text, llm_request_id = await generate_sentence_hint(
         db,
         user_id=str(current_user.id),
         request_id=request_id,
         pending_items=pending_items,
         recent_messages=recent_messages,
-        situation_title=situation.title if situation else None,
-        alt_language=alt_language,
-        spanish_level=current_user.q0_spanish_level,
-    )
-
-    tts_voice, tts_instructions = get_tts_instructions(
-        situation.animation_type if situation else "",
-        alt_language=alt_language,
-        situation_id=situation.id if situation else None,
-    )
-
-    audio_url, tts_request_id = await synthesize_hint_audio(
-        db,
-        text=spanish,
-        voice=tts_voice,
-        instructions=tts_instructions,
-        request_id=request_id,
-        user_id=str(current_user.id),
     )
 
     # Increment + audit + commit. The cap check above already locked the
@@ -1175,13 +1150,9 @@ async def sentence_hint(
         db,
         conversation=conversation,
         user_id=current_user.id,
-        spanish=spanish,
-        english_gloss=english_gloss,
-        audio_url=audio_url,
-        used_item_ids=used_item_ids,
+        english_gloss=english_text,
         pending_count=len(pending_items),
         llm_request_id=llm_request_id,
-        tts_request_id=tts_request_id,
     )
     db.commit()
 
@@ -1195,9 +1166,7 @@ async def sentence_hint(
             "conversation_id": str(conversation.id),
             "situation_id": conversation.situation_id,
             "pending_count": len(pending_items),
-            "used_item_ids": used_item_ids,
             "hints_used": conversation.sentence_hints_used,
-            "audio_uploaded": audio_url is not None,
         },
     )
 
@@ -1205,9 +1174,6 @@ async def sentence_hint(
         0, SENTENCE_HINT_CAP_PER_CONVERSATION - conversation.sentence_hints_used
     )
     return SentenceHintResponse(
-        spanish=spanish,
-        english_gloss=english_gloss,
-        audio_url=audio_url,
-        used_item_ids=used_item_ids,
+        english_gloss=english_text,
         hints_remaining=hints_remaining,
     )
