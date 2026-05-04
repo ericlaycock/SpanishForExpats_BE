@@ -777,6 +777,14 @@ async def admin_complete_for_user(
     if not target_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
+    # Validate the situation_id exists — otherwise the insert below hits a
+    # ForeignKeyViolation that surfaces as an opaque 500.
+    if not db.query(Situation.id).filter(Situation.id == request.situation_id).first():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Situation not found: {request.situation_id}",
+        )
+
     from datetime import datetime
     now = datetime.utcnow()
     user_situation = db.query(UserSituation).filter(

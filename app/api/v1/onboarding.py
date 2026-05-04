@@ -116,16 +116,38 @@ def _seed_hf_words(db: Session, user_id, count: int) -> int:
 
 
 def _auto_complete_grammar(db: Session, user_id, target_gl: float, skip_gls: set[float] | None = None) -> int:
-    """Auto-complete grammar situations whose grammar_level <= target_gl, skipping any in skip_gls."""
+    """Auto-complete grammar situations whose grammar_level <= target_gl, skipping any in skip_gls.
+
+    Skips static GRAMMAR_SITUATIONS keys not present in the situations table —
+    inserting a UserSituation for an unseeded id raises a FK violation that
+    crashes the entire onboarding request (see Jono signup, May 2026). The
+    surviving rows still let onboarding finish; the missing situations should
+    be reseeded out-of-band via scripts/seed_missing_grammar_situations.py.
+    """
     skip_gls = skip_gls or set()
     now = datetime.now(timezone.utc)
     completed = 0
 
-    for sid in get_all_grammar_situation_ids():
-        cfg = GRAMMAR_SITUATIONS[sid]
-        if cfg["grammar_level"] > target_gl:
-            continue
-        if cfg["grammar_level"] in skip_gls:
+    candidate_ids = [
+        sid for sid in get_all_grammar_situation_ids()
+        if GRAMMAR_SITUATIONS[sid]["grammar_level"] <= target_gl
+        and GRAMMAR_SITUATIONS[sid]["grammar_level"] not in skip_gls
+    ]
+    if not candidate_ids:
+        return 0
+
+    seeded_ids = {
+        row[0] for row in db.query(Situation.id).filter(Situation.id.in_(candidate_ids)).all()
+    }
+    missing = [sid for sid in candidate_ids if sid not in seeded_ids]
+    if missing:
+        logger.warning(
+            "Onboarding skipping unseeded grammar situations (run seed_missing_grammar_situations.py): %s",
+            missing,
+        )
+
+    for sid in candidate_ids:
+        if sid not in seeded_ids:
             continue
 
         existing = db.query(UserSituation).filter(
