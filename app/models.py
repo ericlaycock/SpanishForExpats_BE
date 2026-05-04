@@ -374,3 +374,30 @@ class SentenceHint(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
 
+class AnonymousFunnelEvent(Base):
+    """One row per (session_id, event_key) — anonymous wizard funnel.
+
+    Pre-signup tracking. The post-signup counterpart is `user_milestone_events`.
+    Migration 030 introduces this table; the unique constraint provides
+    idempotency so re-firing the same step is a no-op.
+
+    Note: the JSONB column is `event_metadata`, not `metadata`. Declarative
+    Base reserves the `metadata` attribute for table-collection introspection,
+    so a column literally named `metadata` raises at class-definition time.
+    """
+    __tablename__ = "anonymous_funnel_events"
+    __table_args__ = (
+        UniqueConstraint("session_id", "event_key", name="uq_funnel_session_event"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    session_id = Column(String(64), nullable=False, index=True)
+    event_key = Column(String(64), nullable=False, index=True)
+    occurred_at = Column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    event_metadata = Column(
+        JSONB, nullable=False, server_default="{}", default=dict
+    )
+
+

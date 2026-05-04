@@ -63,8 +63,8 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
     """
     Check if user can access an encounter.
     Returns (allowed, error_message)
-    Business rule: Free users get 25 free encounters total.
-    If subscription.active = false AND user completed >= 25 encounters, return PAYWALL.
+    Business rule: Free users get FREE_ENCOUNTERS_LIMIT (=7) free encounters total.
+    If subscription.active = false AND user completed >= FREE_ENCOUNTERS_LIMIT, return PAYWALL.
     """
     situation = db.query(Situation).filter(Situation.id == situation_id).first()
     if not situation:
@@ -85,11 +85,11 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
     # If no active subscription, check total completed encounters (excluding grammar auto-completes)
     completed_encounters = _count_completed_encounters(db, user_id)
     
-    # If user completed 25+ encounters without active subscription, block
+    # If user hit the free limit without active subscription, block
     if completed_encounters >= FREE_ENCOUNTERS_LIMIT:
         _record_paywall_hit(db, user_id, situation_id)
         return False, "PAYWALL"
     
-    # User hasn't completed 25 yet, allow access
+    # User hasn't hit the free limit yet, allow access
     return True, None
 

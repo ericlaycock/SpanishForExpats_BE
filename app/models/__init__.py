@@ -28,6 +28,7 @@ UserReport = models_legacy.UserReport
 UserMilestoneEvent = models_legacy.UserMilestoneEvent
 Grenade = models_legacy.Grenade
 SentenceHint = models_legacy.SentenceHint
+AnonymousFunnelEvent = models_legacy.AnonymousFunnelEvent
 REPORT_CATEGORIES = models_legacy.REPORT_CATEGORIES
 REPORT_STATUSES = models_legacy.REPORT_STATUSES
 # Base is imported from database, not from models.py
@@ -54,6 +55,7 @@ __all__ = [
     "UserMilestoneEvent",
     "Grenade",
     "SentenceHint",
+    "AnonymousFunnelEvent",
     "REPORT_CATEGORIES",
     "REPORT_STATUSES",
     "LLMRequest",
