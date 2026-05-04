@@ -618,3 +618,43 @@ class UserReportResponse(BaseModel):
         from_attributes = True
 
 
+# ---------------------------------------------------------------------------
+# Webpageflow (anonymous pre-signup funnel)
+# ---------------------------------------------------------------------------
+
+# Whitelist of accepted event keys. Defined here so both the public track
+# endpoint and the admin aggregator share a single source of truth.
+WEBPAGEFLOW_EVENT_KEYS = (
+    "landing_view",
+    "build_plan_click",
+    "q0_answered",
+    "q1_answered",
+    "q1_1_answered",
+    "q2_answered",
+    "q3_answered",
+    "q4_answered",
+    "q5_answered",
+    "q6_answered",
+    "quiz_started",
+    "quiz_completed",
+    "results_viewed",
+    "signup_form_viewed",
+    "signup_submitted",
+)
+
+
+class FunnelTrackRequest(BaseModel):
+    session_id: str = Field(..., min_length=1, max_length=64)
+    event_key: str = Field(..., min_length=1, max_length=64)
+
+
+class WebpageflowStep(BaseModel):
+    event_key: str
+    label: str
+    count: int
+
+
+class WebpageflowResponse(BaseModel):
+    steps: List[WebpageflowStep]
+
+
