@@ -27,6 +27,7 @@ from app.services.word_selection_service import (
 )
 from app.data.grammar_situations import (
     get_grammar_config, get_all_grammar_situation_ids, GRAMMAR_SITUATIONS,
+    derive_intro_chart,
     get_next_gate, GL_VL_THRESHOLDS, GL_TITLES, GL_SORTED,
 )
 from app.data.seed_bank import ANIMATION_NAMES
@@ -440,7 +441,11 @@ async def get_situation(
             )
 
     # Select and sort words
-    encounter_word_ids, high_freq_word_ids = select_words_for_situation(db, current_user.id, situation_id)
+    encounter_word_ids, high_freq_word_ids = select_words_for_situation(
+        db, current_user.id, situation_id,
+        vocab_level=get_vocab_level(db, current_user.id),
+        spanish_level=current_user.q0_spanish_level,
+    )
     target_word_ids = encounter_word_ids + high_freq_word_ids
     words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
     final_words = sort_words_encounter_first(words, situation_id, db, target_word_ids)
@@ -507,7 +512,11 @@ async def start_situation(
         words = get_words_by_ids(db, target_word_ids)
     else:
         # Create new conversation with word selection
-        encounter_word_ids, high_freq_word_ids = select_words_for_situation(db, current_user.id, situation_id)
+        encounter_word_ids, high_freq_word_ids = select_words_for_situation(
+        db, current_user.id, situation_id,
+        vocab_level=get_vocab_level(db, current_user.id),
+        spanish_level=current_user.q0_spanish_level,
+    )
         target_word_ids = encounter_word_ids + high_freq_word_ids
         words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
 
@@ -650,7 +659,11 @@ async def admin_skip_encounter(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Situation not found")
 
     # 1. Select words (reuses existing logic)
-    encounter_word_ids, hf_word_ids = select_words_for_situation(db, current_user.id, situation_id)
+    encounter_word_ids, hf_word_ids = select_words_for_situation(
+        db, current_user.id, situation_id,
+        vocab_level=get_vocab_level(db, current_user.id),
+        spanish_level=current_user.q0_spanish_level,
+    )
     target_word_ids = encounter_word_ids + hf_word_ids
     words = db.query(Word).filter(Word.id.in_(target_word_ids)).all()
 
@@ -888,6 +901,9 @@ async def get_grammar_config_endpoint(
         drill_targets=config.get("drill_targets"),
         phase_1c_config=config.get("phase_1c_config"),
         phase_2_config=config.get("phase_2_config"),
+        lesson_type=config.get("lesson_type"),
+        drill_sentences=config.get("drill_sentences"),
+        intro_chart=derive_intro_chart(config),
     )
 
 

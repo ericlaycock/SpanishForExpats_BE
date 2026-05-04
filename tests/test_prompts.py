@@ -1,4 +1,4 @@
-"""Prompt integrity tests for the v2 template prompt system.
+"""Prompt integrity tests for the v3 template prompt system.
 
 Pure Python tests (no DB needed) that validate prompt templates,
 role data, and system prompt generation.
@@ -7,6 +7,7 @@ Run with: python3.11 -m pytest tests/test_prompts.py --noconftest -v
 
 import pytest
 
+from app.services.learner_context import ChipTarget, LearnerContext
 from app.services.llm_gateway import load_prompt
 from app.services.voice_turn_service import (
     get_conversation_system_prompt,
@@ -23,16 +24,16 @@ from app.data.situation_roles import (
 from app.data.grammar_situations import GRAMMAR_SITUATIONS
 
 
-# ── v2 template prompt IDs ──────────────────────────────────────────────────
+# ── v3 template prompt IDs ──────────────────────────────────────────────────
 
-V2_PROMPTS = [
+V3_PROMPTS = [
     "conversation_agent",
     "grammar_agent",
 ]
 
 
 class TestPromptsLoad:
-    @pytest.mark.parametrize("agent_id", V2_PROMPTS)
+    @pytest.mark.parametrize("agent_id", V3_PROMPTS)
     def test_all_prompts_load(self, agent_id):
         """Every prompt template in prompts.json loads successfully."""
         content = load_prompt(agent_id)
@@ -40,24 +41,96 @@ class TestPromptsLoad:
         assert len(content) > 0
 
     def test_conversation_template_has_placeholders(self):
-        """Conversation template contains required placeholders."""
+        """Conversation template contains the v3 placeholder set."""
         content = load_prompt("conversation_agent")
-        assert "{ai_role}" in content
-        assert "{language}" in content
+        for key in (
+            "{ai_role}", "{user_role}", "{situation_description}",
+            "{language}", "{level_rule}", "{target_steering}",
+            "{anti_stuck_rule}", "{goal_block}",
+        ):
+            assert key in content, f"conversation_agent missing {key}"
 
     def test_grammar_template_loads(self):
-        """Grammar template loads and contains key instructions."""
+        """Grammar template loads and exposes the v3 sections."""
         content = load_prompt("grammar_agent")
-        assert "grammar practice" in content.lower()
-        assert "assistant messages" in content.lower()
+        assert "grammar practice partner" in content.lower()
         assert "{language}" in content
+        assert "{level_rule}" in content
+        assert "{target_steering}" in content
 
     def test_templates_speak_in_language(self):
         """Templates use {language} placeholder (always target language, no English mode)."""
-        for agent_id in V2_PROMPTS:
+        for agent_id in V3_PROMPTS:
             content = load_prompt(agent_id)
             assert "{language}" in content, f"{agent_id} missing {{language}}"
             assert "Speak only in English" not in content, f"{agent_id} should not enforce English"
+
+    @pytest.mark.parametrize("agent_id", V3_PROMPTS)
+    def test_templates_have_turn_closing_rule(self, agent_id):
+        """v3 prompts must include the explicit turn-closing rule.
+
+        Locks the rule in so a future copy edit doesn't silently strip
+        it — that's the only mechanism preventing the avatar from
+        producing dead-end statements (filler turns the user can't
+        respond to). See the dead-end screenshots in the avatar-dynamics
+        thread for context.
+        """
+        content = load_prompt(agent_id)
+        assert "TURN-CLOSING RULE" in content, (
+            f"{agent_id} dropped the TURN-CLOSING RULE section"
+        )
+        assert "must end with a question mark" in content.lower(), (
+            f"{agent_id} dropped the must-end-with-? requirement"
+        )
+
+    def test_conversation_template_has_student_asks_rule(self):
+        """conversation_agent must instruct the LLM not to ask
+        `[STUDENT ASKS]`-tagged chips itself.
+
+        Without this rule the avatar would happily ask 'does it leave
+        tomorrow?' (the chip itself), leaving the student with a yes/no
+        opening and zero progress on that chip.
+        """
+        content = load_prompt("conversation_agent")
+        assert "STUDENT-ASKS CHIPS" in content, (
+            "conversation_agent dropped the STUDENT-ASKS CHIPS section"
+        )
+        assert "[STUDENT ASKS]" in content, (
+            "conversation_agent dropped the [STUDENT ASKS] tag reference"
+        )
+
+    def test_conversation_template_has_role_fidelity_rule(self):
+        """conversation_agent must instruct the LLM never to ask the
+        student about info its own role would have at hand.
+
+        Without this rule the avatar (e.g. a gate agent) sometimes
+        asks the student "where is gate 123?" — info the agent should
+        be providing, not requesting. The screenshot of that exact
+        bug is in the avatar-dynamics thread; this test locks in the
+        fix.
+        """
+        content = load_prompt("conversation_agent")
+        assert "ROLE-FIDELITY RULE" in content, (
+            "conversation_agent dropped the ROLE-FIDELITY RULE section"
+        )
+        # The rule must reference the role placeholder so the avatar
+        # personalises its reasoning to the actual scene.
+        assert "{ai_role}" in content, (
+            "conversation_agent must keep the {ai_role} placeholder"
+        )
+
+    def test_conversation_template_has_question_type_rule(self):
+        """conversation_agent must steer the LLM away from yes/no
+        questions when multiple chips are pending — yes/no answers
+        ('sí'/'no') don't exercise any chip.
+        """
+        content = load_prompt("conversation_agent")
+        assert "QUESTION-TYPE RULE" in content, (
+            "conversation_agent dropped the QUESTION-TYPE RULE section"
+        )
+        assert "yes/no" in content.lower(), (
+            "conversation_agent should mention yes/no avoidance"
+        )
 
 
 class TestSituationRoles:
@@ -81,18 +154,30 @@ class TestSituationRoles:
             assert scene in SITUATION_ROLES, f"{grammar_id} maps to unknown scene '{scene}'"
 
     def test_legacy_grammar_situations_have_structures(self):
-        """Grammar situations without drill_targets have GRAMMAR_STRUCTURES entries."""
+        """Grammar situations without drill_targets have GRAMMAR_STRUCTURES entries.
+
+        Walks shorter and shorter prefix matches so a sub-block ID like
+        `grammar_pronouns_plural` falls back to `grammar_pronouns_plural` →
+        `grammar_pronouns_plural` (no match) → `grammar_pronouns` (match).
+        """
         for grammar_id in GRAMMAR_SCENE_MAP:
             cfg = GRAMMAR_SITUATIONS.get(grammar_id, {})
             has_drill_targets = bool(cfg.get("drill_targets"))
-            if not has_drill_targets:
-                struct = GRAMMAR_STRUCTURES.get(grammar_id)
-                if struct is None:
-                    base_name = "_".join(grammar_id.rsplit("_", 1)[:-1]) if grammar_id[-1].isdigit() else grammar_id
-                    struct = GRAMMAR_STRUCTURES.get(base_name)
-                assert struct is not None, f"{grammar_id} has no drill_targets and no GRAMMAR_STRUCTURES entry"
-                assert "grammar_structure" in struct
-                assert "examples" in struct
+            if has_drill_targets:
+                continue
+            struct = GRAMMAR_STRUCTURES.get(grammar_id)
+            if struct is None:
+                # Try progressively shorter prefixes by stripping trailing
+                # `_<token>` suffixes one at a time.
+                parts = grammar_id.split("_")
+                for i in range(len(parts) - 1, 0, -1):
+                    candidate = "_".join(parts[:i])
+                    struct = GRAMMAR_STRUCTURES.get(candidate)
+                    if struct is not None:
+                        break
+            assert struct is not None, f"{grammar_id} has no drill_targets and no GRAMMAR_STRUCTURES entry"
+            assert "grammar_structure" in struct
+            assert "examples" in struct
 
     def test_get_roles_for_main_situation(self):
         """get_roles_for_situation returns correct roles for main situations."""
@@ -123,12 +208,29 @@ class TestBuildSystemPrompt:
         prompt = build_system_prompt("banking", "bank_1", "swedish_text", alt_language="swedish")
         assert "Speak in Swedish" in prompt
 
-    def test_grammar_prompt_is_concise(self):
-        """Grammar system prompt is short — targeting is via injected assistant messages."""
-        prompt = build_system_prompt("grammar", "grammar_regular_present_1", "spanish_text", alt_language=None)
-        assert "grammar practice" in prompt.lower()
+    def test_grammar_prompt_targets_in_band(self):
+        """v3 grammar prompt embeds level rule + target steering directly."""
+        ctx = LearnerContext(
+            spanish_level="b",
+            target_chips=[
+                ChipTarget(
+                    id="conj_hablar_yo", spanish="hablo", english="I speak",
+                    verb="hablar", pronoun="yo",
+                ),
+            ],
+            completed_chip_ids=[],
+        )
+        prompt = build_system_prompt(
+            "grammar", "grammar_regular_present_ar_1", "spanish_text",
+            alt_language=None, learner_ctx=ctx,
+        )
+        assert "grammar practice partner" in prompt.lower()
         assert "Speak in Spanish" in prompt
-        assert "assistant messages" in prompt.lower()
+        assert "LEARNER LEVEL" in prompt
+        assert "hablo" in prompt
+        # Anti-stuck rule is suppressed when no_progress_turns == 0;
+        # the dedicated rendering tests live in test_anti_stuck_rule.py.
+        assert "ANTI-STUCK" not in prompt
 
 
 class TestGetConversationSystemPrompt:

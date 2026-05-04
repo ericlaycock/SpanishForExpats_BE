@@ -1,7 +1,22 @@
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
-from app.models import User, Subscription, UserSituation, Situation
+from sqlalchemy.exc import IntegrityError
+from app.models import User, Subscription, UserSituation, Situation, UserMilestoneEvent
 
-FREE_ENCOUNTERS_LIMIT = 25
+FREE_ENCOUNTERS_LIMIT = 7
+
+
+def _record_paywall_hit(db: Session, user_id: str, situation_id: str) -> None:
+    try:
+        db.add(UserMilestoneEvent(
+            user_id=user_id,
+            milestone_key='paywall_hit',
+            situation_id=situation_id,
+            occurred_at=datetime.now(timezone.utc),
+        ))
+        db.commit()
+    except IntegrityError:
+        db.rollback()  # uq_user_milestone_situation already satisfied — no-op
 
 
 def _count_completed_encounters(db: Session, user_id: str) -> int:
@@ -35,7 +50,12 @@ def get_subscription_status(db: Session, user_id: str) -> dict:
         "active": subscription.active,
         "free_situations_limit": FREE_ENCOUNTERS_LIMIT,
         "free_situations_completed": completed_encounters,
-        "free_situations_remaining": free_encounters_remaining
+        "free_situations_remaining": free_encounters_remaining,
+        "plan": subscription.plan,
+        "billing_cycle": subscription.billing_cycle,
+        "cancel_at_period_end": subscription.cancel_at_period_end,
+        "current_period_end": subscription.current_period_end,
+        "canceled_at": subscription.canceled_at,
     }
 
 
@@ -52,16 +72,22 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
     
     # Check subscription
     subscription = db.query(Subscription).filter(Subscription.user_id == user_id).first()
-    
-    # If subscription is active, allow access
+
+    # Pronounce-only users get no app access
+    if subscription and subscription.tier == "pronounce":
+        _record_paywall_hit(db, user_id, situation_id)
+        return False, "PAYWALL"
+
+    # If subscription is active (app or app_pronounce), allow access
     if subscription and subscription.active:
         return True, None
-    
+
     # If no active subscription, check total completed encounters (excluding grammar auto-completes)
     completed_encounters = _count_completed_encounters(db, user_id)
     
     # If user completed 25+ encounters without active subscription, block
     if completed_encounters >= FREE_ENCOUNTERS_LIMIT:
+        _record_paywall_hit(db, user_id, situation_id)
         return False, "PAYWALL"
     
     # User hasn't completed 25 yet, allow access

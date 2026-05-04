@@ -8,11 +8,14 @@ from app.schemas import (
     AltLanguageRequest,
     LoginRequest,
     LoginResponse,
+    MarkExplainerSeenRequest,
     RegisterRequest,
     ResetPasswordResponse,
     ResetProgressResponse,
+    SeenExplainersResponse,
     UserProfileResponse,
 )
+from sqlalchemy.orm.attributes import flag_modified
 
 router = APIRouter()
 
@@ -27,15 +30,32 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
         email = credentials.email.strip().lower()
         logger.info(f"Registration attempt for email: {email}")
 
-        # Validate invite token
+        # Validate invite token and determine plan
         from app.config import settings
-        valid_tokens = {t.strip().lower() for t in settings.whitelist_tokens.split(",") if t.strip()}
-        if valid_tokens and credentials.invite_token.strip().lower() not in valid_tokens:
+
+        # Build combined token→plan map from comma-separated env var lists
+        token_plan_map: dict[str, str] = {}
+        for t in settings.whitelist_tokens.split(","):
+            t = t.strip().lower()
+            if t:
+                token_plan_map[t] = "app"
+        for t in settings.pronounce_tokens.split(","):
+            t = t.strip().lower()
+            if t:
+                token_plan_map[t] = "pronounce"
+        for t in settings.app_pronounce_tokens.split(","):
+            t = t.strip().lower()
+            if t:
+                token_plan_map[t] = "app_pronounce"
+
+        invite = (credentials.invite_token or "").strip().lower()
+        if invite and token_plan_map and invite not in token_plan_map:
             logger.warning(f"Registration failed: invalid invite token for {email}")
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Invalid invite token"
             )
+        plan = token_plan_map.get(invite, "free") if invite else "free"
 
         # Validate passwords match
         if credentials.password != credentials.confirm_password:
@@ -44,7 +64,7 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Passwords do not match"
             )
-        
+
         # Validate password length
         if len(credentials.password) < 8:
             logger.warning(f"Registration failed: password too short for {email}")
@@ -52,15 +72,25 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Password must be at least 8 characters"
             )
-        
-        # Create user
+
+        # Create user and set subscription plan
         user = create_user(db, email, credentials.password)
-        logger.info(f"User created successfully: {user.id} ({user.email})")
-        
-        # Generate token
-        access_token = create_access_token(data={"sub": str(user.id)})
+        if credentials.name:
+            user.name = credentials.name.strip()
+            db.flush()
+        logger.info(f"User created successfully: {user.id} ({user.email}), plan={plan}")
+
+        from app.models import Subscription
+        sub = db.query(Subscription).filter(Subscription.user_id == user.id).first()
+        if sub:
+            sub.tier = plan if plan != "free" else None
+            sub.active = plan in ("app", "app_pronounce")
+            db.commit()
+
+        # Generate token with plan claim
+        access_token = create_access_token(data={"sub": str(user.id), "plan": plan})
         logger.info(f"Registration successful for user: {user.id}")
-        return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email)
+        return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email, plan=plan)
     except HTTPException:
         # Re-raise HTTP exceptions (validation errors)
         raise
@@ -89,20 +119,27 @@ async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
         )
     
     logger.info(f"Login successful for user: {user.id}")
-    access_token = create_access_token(data={"sub": str(user.id)})
-    return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email)
+    from app.models import Subscription
+    sub = db.query(Subscription).filter(Subscription.user_id == user.id).first()
+    plan = (sub.tier if sub and sub.tier else "free")
+    access_token = create_access_token(data={"sub": str(user.id), "plan": plan})
+    return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email, plan=plan)
 
 
 @router.post("/refresh", response_model=LoginResponse)
-async def refresh_token(current_user: User = Depends(get_current_user)):
+async def refresh_token(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """Return a fresh JWT token for an already-authenticated user"""
-    access_token = create_access_token(data={"sub": str(current_user.id)})
+    from app.models import Subscription
+    sub = db.query(Subscription).filter(Subscription.user_id == current_user.id).first()
+    plan = (sub.tier if sub and sub.tier else "free")
+    access_token = create_access_token(data={"sub": str(current_user.id), "plan": plan})
     return LoginResponse(
         access_token=access_token,
         user_id=current_user.id,
         is_admin=current_user.is_admin,
         alt_language=current_user.alt_language,
         email=current_user.email,
+        plan=plan,
     )
 
 
@@ -115,6 +152,37 @@ async def get_me(current_user: User = Depends(get_current_user)):
         is_admin=current_user.is_admin,
         alt_language=current_user.alt_language,
     )
+
+
+@router.get("/explainers", response_model=SeenExplainersResponse)
+async def get_seen_explainers(current_user: User = Depends(get_current_user)):
+    """Return the list of first-time explainers the user has dismissed."""
+    flags = current_user.seen_explainers or {}
+    keys = [k for k, v in flags.items() if v]
+    return SeenExplainersResponse(keys=keys)
+
+
+@router.post("/explainers/seen", response_model=SeenExplainersResponse)
+async def mark_explainer_seen(
+    request: MarkExplainerSeenRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Idempotently record that the user has dismissed a first-time explainer.
+
+    Whitelisting happens via the `ExplainerKey` literal on the request schema,
+    so this endpoint can't be used to scribble arbitrary keys into the JSONB
+    column.
+    """
+    flags = dict(current_user.seen_explainers or {})
+    flags[request.key] = True
+    current_user.seen_explainers = flags
+    # JSONB columns need an explicit modification flag — assigning a new
+    # dict references the attribute but SQLAlchemy can't always detect the
+    # mutation otherwise.
+    flag_modified(current_user, "seen_explainers")
+    db.commit()
+    return SeenExplainersResponse(keys=[k for k, v in flags.items() if v])
 
 
 @router.patch("/alt-language")

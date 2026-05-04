@@ -19,10 +19,18 @@ if __name__ == "__main__":
         print("Running seed script (RUN_SEED=true)...")
         subprocess.run([sys.executable, "scripts/seed_qa.py"], check=True)
 
+    # Start wav2vec2 sidecar in background — model loads once, stays warm.
+    # FastAPI /phones proxies to it at localhost:8001.
+    sidecar_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "phones_sidecar.py")
+    if os.path.exists(sidecar_path):
+        subprocess.Popen([sys.executable, sidecar_path])
+        print("🎙️  phones_sidecar.py started (loading model in background on port 8001)")
+    else:
+        print("⚠️  phones_sidecar.py not found — /phones endpoint will be unavailable")
+
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",
         port=port
     )
-

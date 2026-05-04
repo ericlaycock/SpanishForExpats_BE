@@ -73,18 +73,42 @@ async def generate_and_upload(situation_id: str, title: str, animation_type: str
     if not force and r2_file_exists(filename):
         return "skip"
 
-    message = get_initial_message_for_encounter(situation_id, title)
+    messages_by_lang = get_initial_message_for_encounter(situation_id, title)
+    # Pregenerated audio is Spanish-only (matches default voice flow); fall
+    # back to English when a Spanish version isn't available so we don't
+    # silently skip otherwise valid encounters.
+    message = messages_by_lang.get("es") or messages_by_lang.get("en")
     if not message:
         return "no_message"
 
-    voice, tts_instructions = VOICE_CONFIG.get(animation_type, ("alloy", _ACCENT))
+    # Grammar lessons all carry animation_type='grammar'; resolve the actual
+    # scene per-lesson so the audio matches the visual character (e.g.
+    # small_talk → female `shimmer`, restaurant → male `ash`, …).
+    voice_key = animation_type
+    if animation_type == "grammar":
+        from app.data.situation_roles import GRAMMAR_SCENE_MAP
+        mapped = GRAMMAR_SCENE_MAP.get(situation_id)
+        if mapped:
+            voice_key = mapped
+    voice, tts_instructions = VOICE_CONFIG.get(voice_key, ("alloy", _ACCENT))
 
-    # Build the same system prompt the realtime conversation uses
-    system_prompt = build_system_prompt(animation_type, situation_id, language_mode="english")
+    # Use a stripped-down system prompt that ONLY asks the model to read out
+    # the message verbatim. The full conversation system prompt makes the
+    # Realtime model behave conversationally — it tends to prepend "Claro.",
+    # "Okay.", "Sí." or rephrase the opener slightly. For pregenerate we want
+    # a pure TTS read of the exact bytes.
+    system_prompt = (
+        "You are a TTS engine. Read aloud EXACTLY the user's message in "
+        "Spanish, word-for-word, with natural prosody. Do not greet, "
+        "acknowledge, paraphrase, expand, summarize, translate, or add ANY "
+        "words before or after. If you add 'Claro', 'Okay', 'Sí', 'Bueno', "
+        "'¡Hola!', or any acknowledgment, you have failed. Output only the "
+        "user message, nothing else."
+    )
 
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": f"Say exactly this to greet me (do not add anything else): {message}"},
+        {"role": "user", "content": message},
     ]
 
     try:

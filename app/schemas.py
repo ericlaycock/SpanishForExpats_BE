@@ -36,7 +36,8 @@ class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
     confirm_password: str
-    invite_token: str = ""
+    invite_token: Optional[str] = None
+    name: Optional[str] = None
 
 
 class LoginResponse(BaseModel):
@@ -45,6 +46,7 @@ class LoginResponse(BaseModel):
     is_admin: bool = False
     alt_language: Optional[str] = None
     email: str
+    plan: str = "free"
 
 
 class UserProfileResponse(BaseModel):
@@ -68,6 +70,66 @@ class SubscriptionStatusResponse(BaseModel):
     free_situations_limit: int = 5
     free_situations_completed: int
     free_situations_remaining: int
+    plan: Optional[str] = None           # "pro" | "fluency" | None
+    billing_cycle: Optional[str] = None  # "monthly" | "6month" | None
+    # Lifecycle. `cancel_at_period_end` flips true after the user clicks
+    # Cancel; `active` stays true until the period actually ends. Both fields
+    # are sourced from the Stripe webhook + the in-app cancel/reactivate flow.
+    cancel_at_period_end: bool = False
+    current_period_end: Optional[datetime] = None
+    canceled_at: Optional[datetime] = None
+
+
+CancelReason = Literal[
+    "too_expensive", "not_using", "found_alternative", "achieved_goal", "other"
+]
+
+
+class CancelSubscriptionRequest(BaseModel):
+    reason: Optional[CancelReason] = None
+    note: Optional[str] = Field(default=None, max_length=200)
+
+
+class InvoiceItem(BaseModel):
+    id: str
+    amount_paid: int  # cents
+    currency: str
+    status: Optional[str] = None  # 'paid' | 'open' | 'void' | …
+    hosted_invoice_url: Optional[str] = None
+    invoice_pdf: Optional[str] = None
+    created: datetime
+
+
+class InvoiceListResponse(BaseModel):
+    invoices: List[InvoiceItem]
+
+
+# First-time explainer flags
+ExplainerKey = Literal[
+    "vocab_word_cards",
+    "verb_lesson",
+    "vocab_voice_chat",
+    "verb_voice_chat",
+    "grenade_panel",
+    "dashboard_tour",
+]
+
+
+class MarkExplainerSeenRequest(BaseModel):
+    key: ExplainerKey
+
+
+class SeenExplainersResponse(BaseModel):
+    keys: List[ExplainerKey]
+
+
+class CheckoutRequest(BaseModel):
+    plan: str           # "pro" | "fluency"
+    billing_cycle: str  # "monthly" | "6month"
+
+
+class CheckoutResponse(BaseModel):
+    checkout_url: str
 
 
 # Situation schemas
@@ -76,6 +138,7 @@ class WordSchema(BaseModel):
     spanish: str
     english: str
     notes: Optional[str] = None
+    word_type: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -146,6 +209,7 @@ class UserWordSchema(BaseModel):
     # the union so UserWord rows pointing at those verbs don't blow up serialization.
     word_category: Optional[Literal["high_frequency", "encounter", "grammar"]] = None
     frequency_rank: Optional[int] = None
+    word_type: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -195,10 +259,30 @@ class CreateConversationRequest(BaseModel):
     mode: str  # 'text' or 'voice'
 
 
+class ChatTargetForm(BaseModel):
+    verb: str           # lemma (e.g. "hablar")
+    pronoun: str        # Spanish subject pronoun (e.g. "tú")
+    spanish: str        # conjugated form to detect (e.g. "hablas")
+    english: str        # display label (e.g. "you speak")
+
+
 class CreateConversationResponse(BaseModel):
     conversation_id: UUID
     words: List[WordSchema]  # Return the words used in this conversation
-    initial_message: str  # Custom initial message for this encounter
+    # Grammar chat lessons surface 8 sampled drilled conjugations as the
+    # "Use these words to progress" chips. Empty for non-grammar-chat
+    # conversations; FE falls back to `words` rendering when empty.
+    chat_target_forms: List[ChatTargetForm] = []
+    # Resolved character scene (e.g. "small_talk", "restaurant", "core").
+    # For grammar lessons this is the mapped scene from GRAMMAR_SCENE_MAP so
+    # the FE picks the correct character — without it every grammar lesson
+    # falls back to "core" (the rainforest). For non-grammar lessons this is
+    # the situation's animation_type.
+    scene: str = "core"
+    # Initial message keyed by ISO-style language code (es/en/ca/sv).
+    # The target-language entry is what the avatar will speak; the FE keeps
+    # the English entry for tooltips / "what does this mean?" surfaces.
+    initial_message: Dict[str, str]
     initial_audio_url: Optional[str] = None  # TTS audio for the initial message
     language_mode: str = "english"  # "english", "spanish_text", or "spanish_audio"
     vocab_level: int = 0
@@ -223,6 +307,73 @@ class VoiceTurnResponse(BaseModel):
     conversation_complete: bool
 
 
+# "Need help?" hint generated on demand from /voice-chat. The avatar
+# renders `spanish` in its bubble, `english_gloss` as the translation,
+# and uses `audio_url` for the Listen affordance. `used_item_ids` is
+# what the LLM claims it used — vocab `word_*` ids and/or grammar
+# `conj_<verb>_<pronoun>` chip ids — surfaced for telemetry only.
+# `prompt_prefix` is the framing label the FE renders before `spanish`
+# (e.g., "Try saying: «...»") so the bubble reads as a suggestion to
+# the learner, not as a turn from the avatar.
+class SentenceHintResponse(BaseModel):
+    spanish: str
+    english_gloss: str
+    audio_url: Optional[str] = None
+    used_item_ids: List[str]
+    hints_remaining: int
+    prompt_prefix: str = "Try saying"
+
+
+# Realtime (WebRTC) session schemas
+# Minted by POST /v1/realtime/sessions — the browser trades this client_secret
+# for a direct OpenAI Realtime WebRTC connection. Backend never relays audio.
+class RealtimeSessionCreate(BaseModel):
+    conversation_id: UUID
+
+
+class RealtimeSessionResponse(BaseModel):
+    client_secret: str
+    # Unix timestamp (seconds) — the ephemeral token is rejected by OpenAI
+    # after this point. Typically ~60s from mint. FE uses it to know when to
+    # re-mint rather than trusting a connection it can no longer refresh.
+    expires_at: int
+    model: str
+    voice: str
+
+
+# Post-turn ingestion for the realtime flow. FE calls this after each
+# completed WebRTC turn so the backend can run word detection, update
+# mastery counters, persist state, and enforce the exchange hard limit.
+class RealtimeTurnRequest(BaseModel):
+    user_transcript: str
+    assistant_text: str
+
+
+class RealtimeTurnResponse(BaseModel):
+    detected_word_ids: List[str]
+    missing_word_ids: List[str]
+    conversation_complete: bool
+    # Counts down from EXCHANGE_WARNING_THRESHOLD (25) — FE uses this for the
+    # "N turns left" warning. Pinned to 0 once past the threshold; the hard
+    # limit at 30 is what actually flips `conversation_complete`.
+    turns_remaining: int
+    # Cumulative chip ids ticked across all turns in this conversation.
+    # Empty for vocab encounters and non-chat grammar lessons (those
+    # surface progress through `detected_word_ids` instead). FE consumes
+    # this directly so chip ticks survive a page refresh and don't drift
+    # from the BE's view.
+    completed_chip_ids: List[str] = Field(default_factory=list)
+    # Turns since the learner last produced a new target. Drives the FE's
+    # "Need help?" nudge toast at >= 2.
+    consecutive_no_progress_turns: int = 0
+    # True when the assistant's reply this turn failed the v3 prompt's
+    # turn-closing rule (no question mark) or leaked a pending chip's
+    # exact Spanish form. FE may use this to show a soft nudge ("ask the
+    # avatar to repeat" / "say something to keep going"). Telemetry is
+    # captured server-side regardless via `avatar_dead_end_turns`.
+    avatar_dead_end: bool = False
+
+
 # Grammar config schemas
 # drill_config / phase_*_config shapes differ per drill_type (article_matching,
 # conjugation, skip, …). Keep them as free-form dicts but typed as
@@ -238,6 +389,12 @@ class GrammarConfigResponse(BaseModel):
     drill_targets: Optional[List[Dict[str, Any]]] = Field(default=None, json_schema_extra=_freeform_object_list_schema)
     phase_1c_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
     phase_2_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
+    lesson_type: Optional[str] = None       # "conjugation" | "rule"
+    drill_sentences: Optional[List[Dict[str, Any]]] = Field(default=None, json_schema_extra=_freeform_object_list_schema)
+    # Pre-drill chart that renders as the 'intro' phase with animated reveal +
+    # recall quiz. The drill itself no longer shows any chart at the top —
+    # active recall happens through the drill prompts alone.
+    intro_chart: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
 
 
 # Grammar gate / completion schemas
@@ -320,13 +477,111 @@ class PendingRefreshesResponse(BaseModel):
 class StartRefreshResponse(BaseModel):
     conversation_id: UUID
     words: List[WordSchema]
-    initial_message: str
+    initial_message: Dict[str, str]
     language_mode: str = "english"
     conversation_type: str = "refresh"
 
 class CompleteRefreshResponse(BaseModel):
     words_refreshed: int
     new_mastery_level: int
+
+
+# Milestone schemas
+class MilestoneEventRequest(BaseModel):
+    milestone_key: str
+    situation_id: Optional[str] = None
+    conversation_id: Optional[str] = None
+
+
+class MilestoneInfo(BaseModel):
+    timestamp: Optional[datetime] = None
+    delta_seconds: Optional[int] = None  # wall-clock seconds since previous milestone
+
+
+class FreeflowUserRow(BaseModel):
+    user_id: str
+    email: str
+    subscription_active: bool
+    pathway: Optional[str] = None  # 'V' | 'G'
+    dialect: Optional[str] = None
+    grammar_score: Optional[str] = None
+    vocab_score: Optional[str] = None
+    selected_animation_types: Optional[List[str]] = None
+    m0: MilestoneInfo
+    m1: MilestoneInfo
+    m2: MilestoneInfo
+    m3: MilestoneInfo
+    m4: MilestoneInfo
+    m5: MilestoneInfo
+    m6: MilestoneInfo
+    m7: MilestoneInfo
+    m8: MilestoneInfo
+    m9: MilestoneInfo
+    m10: MilestoneInfo
+    m11: MilestoneInfo
+    m12: MilestoneInfo
+    m13: MilestoneInfo
+    m14: MilestoneInfo
+    m15: MilestoneInfo
+    m16: MilestoneInfo
+    m17: MilestoneInfo
+    m18: MilestoneInfo
+    m19: MilestoneInfo
+    current_milestone: int
+    # Onboarding V2 profile fields
+    name: Optional[str] = None
+    q0_spanish_level: Optional[str] = None
+    q1_situation: Optional[str] = None
+    q1_1_time_in_latam: Optional[str] = None
+    q2_country: Optional[str] = None
+    q3_tools: Optional[List[str]] = None
+    q4_proximity: Optional[str] = None
+    q6_conversations: Optional[str] = None
+
+
+class FreeflowResponse(BaseModel):
+    users: List[FreeflowUserRow]
+
+
+# Grenade schemas
+GrenadeAudience = Literal["friend", "merchant"]
+GrenadeStripCellState = Literal["used", "missed", "none", "pending"]
+
+
+class GrenadeOut(BaseModel):
+    """A single grenade (today's, or yesterday's awaiting recall)."""
+    id: UUID
+    target_form: str
+    pos: Optional[str] = None
+    audience: Optional[GrenadeAudience] = None
+    question_es: Optional[str] = None
+    question_en: Optional[str] = None
+    assigned_date: str  # ISO date (YYYY-MM-DD)
+    used: Optional[bool] = None
+
+
+class GrenadeStripCell(BaseModel):
+    date: str  # ISO date
+    state: GrenadeStripCellState  # 'used' | 'missed' | 'none' (no grenade) | 'pending' (today)
+
+
+class GrenadeTodayResponse(BaseModel):
+    # Today's grenade — None when the user has no newly-learned word today yet.
+    today: Optional[GrenadeOut] = None
+    # Most recent prior grenade with `used IS NULL`. Shown as "Did you use
+    # yesterday's grenade?" — survives multi-day app gaps (no expiry).
+    pending_recall: Optional[GrenadeOut] = None
+    # 14-day strip ending today (oldest → newest).
+    strip: List[GrenadeStripCell]
+
+
+class GrenadeGenerateRequest(BaseModel):
+    audience: GrenadeAudience = "friend"
+
+
+class GrenadeRecallRequest(BaseModel):
+    grenade_id: UUID
+    used: bool
 
 
 # Error schemas

@@ -1,6 +1,7 @@
 """LLM Gateway for chat completions with logging and replay"""
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
+import asyncio
 import json
 import time
 import uuid
@@ -43,6 +44,7 @@ class ConversationContext:
     return_json: bool = False
     learning_phase: Optional[str] = None
     messages: Optional[List[Dict[str, str]]] = None  # Full message history (overrides system_prompt + user_prompt)
+    model: Optional[str] = None  # Override default MODEL per-call (e.g. "gpt-4.1" for non-reasoning generation)
 
 
 def load_prompt(agent_id: str, prompt_version: str = "v2") -> str:
@@ -90,13 +92,16 @@ async def generate_conversation(
         else:
             user_id_uuid = context.user_id
     
+    model = context.model or MODEL
+    is_reasoning_model = model.startswith("gpt-5")
+
     # Insert initial record (success=false)
     llm_record = LLMRequest(
         id=llm_request_id,
         request_id=context.request_id,
         user_id=user_id_uuid,
         provider=PROVIDER,
-        model=MODEL,
+        model=model,
         prompt_version=context.prompt_version,
         agent_id=context.agent_id,
         messages_json=messages,
@@ -111,7 +116,7 @@ async def generate_conversation(
     # Log start event
     extra_llm_start = {
         "provider": PROVIDER,
-        "model": MODEL,
+        "model": model,
         "agent_id": context.agent_id,
         "prompt_version": context.prompt_version,
     }
@@ -130,10 +135,11 @@ async def generate_conversation(
         # Call OpenAI Responses API (supports reasoning for gpt-5.4-mini)
         client = get_client()
         api_params = {
-            "model": MODEL,
+            "model": model,
             "input": messages,
-            "reasoning": {"effort": "low"},
         }
+        if is_reasoning_model:
+            api_params["reasoning"] = {"effort": "low"}
 
         if context.return_json:
             api_params["text"] = {"format": {"type": "json_object"}}
@@ -142,7 +148,13 @@ async def generate_conversation(
         if context.max_tokens is not None:
             api_params["max_output_tokens"] = context.max_tokens
 
-        response = client.responses.create(**api_params)
+        # `client.responses.create` is the sync OpenAI SDK call; it does a
+        # blocking HTTP request to the Responses API. Inside an async
+        # handler that pins the event loop for 1–4s and starves every
+        # other concurrent request on the worker (voice-turn, hints,
+        # everything). Offload to a thread so other requests can
+        # interleave; the SDK is thread-safe.
+        response = await asyncio.to_thread(client.responses.create, **api_params)
 
         # Extract response — output_text excludes reasoning tokens
         import re
@@ -183,7 +195,7 @@ async def generate_conversation(
         # Log success event
         extra_llm_success = {
             "provider": PROVIDER,
-            "model": MODEL,
+            "model": model,
             "agent_id": context.agent_id,
             "latency_ms": latency_ms,
             "tokens_in": tokens_in,
@@ -210,6 +222,7 @@ async def generate_conversation(
             "tokens_out": tokens_out,
             "latency_ms": latency_ms,
             "estimated_cost": estimated_cost,
+            "llm_request_id": str(llm_record.id),
         }
         
     except Exception as e:
@@ -230,7 +243,7 @@ async def generate_conversation(
         # Log failure event
         extra_llm_failure = {
             "provider": PROVIDER,
-            "model": MODEL,
+            "model": model,
             "agent_id": context.agent_id,
             "latency_ms": latency_ms,
             "error_code": error_code,

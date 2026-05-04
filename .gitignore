@@ -12,6 +12,7 @@ ENV/
 *.sqlite
 *.sqlite3
 /tmp/audio/
+scripts/_drill_glosses_progress.json
 *.log
 .pytest_cache/
 .coverage

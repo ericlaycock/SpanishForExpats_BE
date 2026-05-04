@@ -50,6 +50,7 @@ def _seed_vl_gl_test_users(db, password_hash):
         ("grammar-ahead@test.com",     "15", 400,  9,    "Not gated (next GL 10 needs VL 510)"),
         ("stuck-coming-soon@test.com", "16", 1000, 10.6, "Gated on GL 11 (Coming Soon) despite high VL"),
         ("advanced@test.com",          "17", 1000, 20,   "Never gated — GL 20 is max"),
+        ("vl500-gl0@test.com",         "18", 500,  0,    "High VL, no grammar — gated on first GL"),
     ]
 
     now = datetime.now(timezone.utc)
@@ -180,6 +181,12 @@ def seed():
         db.execute(text("DELETE FROM user_words WHERE word_id LIKE 'grammar_%'"))
         db.execute(text("DELETE FROM situation_words WHERE situation_id LIKE 'grammar_%'"))
         db.execute(text("DELETE FROM situation_words WHERE word_id LIKE 'grammar_%'"))
+        # Grenades hold a FK on words.id — clear any that reference grammar
+        # words so the subsequent words-table wipe doesn't trip on
+        # ForeignKeyViolation. This was breaking QA deploys whenever a
+        # previously-seeded grammar word (e.g. `grammar_sus`) had been used
+        # to create a grenade row before being dropped from the seed.
+        db.execute(text("DELETE FROM grenades WHERE word_id LIKE 'grammar_%'"))
         db.execute(text("DELETE FROM words WHERE word_category = 'grammar'"))
 
         grammar_word_set = set()

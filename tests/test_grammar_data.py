@@ -7,7 +7,7 @@ populating its drill_config, which would surface to users as
 """
 import pytest
 
-from app.data.grammar_situations import GRAMMAR_SITUATIONS
+from app.data.grammar_situations import GRAMMAR_SITUATIONS, _validate_intro_coverage
 
 
 DRILL_TYPES_REQUIRING_ANSWERS = {"conjugation", "ir_a_inf"}
@@ -30,14 +30,16 @@ def test_conjugation_drill_has_populated_answers(sid):
     answers = drill_config.get("answers")
     assert answers, f"{sid}: drill_config.answers missing or empty"
 
+    # Imperatives don't have a 'yo' form — you don't command yourself.
+    required_pronouns = ("tú", "nosotros") if cfg.get("tense") == "imperative" else ("yo", "tú", "nosotros")
+
     for verb in cfg.get("word_workload", []):
         assert verb in answers, f"{sid}: missing answers for verb '{verb}'"
         forms = answers[verb]
         assert isinstance(forms, dict) and forms, (
             f"{sid}: empty or non-dict answers for verb '{verb}'"
         )
-        # At minimum, expect the core pronouns used by drills
-        for pronoun in ("yo", "tú", "nosotros"):
+        for pronoun in required_pronouns:
             assert pronoun in forms, (
                 f"{sid}: missing {pronoun!r} form for verb {verb!r}"
             )
@@ -87,11 +89,25 @@ def test_no_unexpected_drill_types():
     """
     known = {
         "skip", "conjugation", "article_matching",
-        "ir_a_inf", "gustar", "gustar_prefix",
+        "ir_a_inf", "gustar", "gustar_prefix", "rule",
     }
     actual = {cfg.get("drill_type") for cfg in GRAMMAR_SITUATIONS.values()}
     unknown = actual - known
     assert not unknown, (
         f"Unknown drill_types present: {unknown}. "
         f"Add a renderer in DrillPhase.tsx and update this test."
+    )
+
+
+def test_intro_chart_models_every_drilled_verb():
+    """Every conjugation lesson's intro_chart must include both a mini_table
+    AND a recall entry for every verb it drills. The drill no longer shows a
+    chart, so the intro is the only place the conjugations are introduced.
+    The module-load validator already raises on import; this test gives CI a
+    friendlier failure message naming the lessons.
+    """
+    violations = _validate_intro_coverage()
+    assert not violations, (
+        "Intro/drill mismatch — fix intro_chart data in grammar_situations.py:\n  "
+        + "\n  ".join(violations)
     )
