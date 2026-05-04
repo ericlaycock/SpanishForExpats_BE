@@ -585,13 +585,21 @@ async def complete_situation(
         )
     
     from datetime import datetime
-    user_situation.completed_at = datetime.utcnow()
+    completion_ts = datetime.utcnow()
+    user_situation.completed_at = completion_ts
 
     # Gather word IDs — try conversation first (any mode), fall back to situation_words
     conv = db.query(Conversation).filter(
         Conversation.user_id == current_user.id,
         Conversation.situation_id == situation_id,
     ).order_by(Conversation.created_at.desc()).first()
+
+    # Finalize the active conversation alongside the situation. The freeflow
+    # admin funnel keys M6 Chat off conversations.completed_at, so without
+    # this stamp lesson chats look unfinished even on natural completions.
+    if conv and conv.completed_at is None:
+        conv.completed_at = completion_ts
+        conv.status = "complete"
 
     word_ids = conv.target_word_ids if conv and conv.target_word_ids else []
 

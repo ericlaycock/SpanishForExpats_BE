@@ -501,6 +501,7 @@ class MilestoneInfo(BaseModel):
 class FreeflowUserRow(BaseModel):
     user_id: str
     email: str
+    is_admin: bool = False
     subscription_active: bool
     pathway: Optional[str] = None  # 'V' | 'G'
     dialect: Optional[str] = None

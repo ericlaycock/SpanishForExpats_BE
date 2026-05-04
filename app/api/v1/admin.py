@@ -1,10 +1,12 @@
 """Admin endpoints — user management and plan assignment."""
 import logging
+from datetime import datetime, timezone
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from app.auth import get_current_user
+from app.auth import get_current_user, get_password_hash, create_access_token
 from app.database import get_db
 from app.models import User, Subscription
 from app.schemas import FreeflowResponse, FreeflowUserRow, MilestoneInfo
@@ -154,6 +156,7 @@ def get_freeflow(
         SELECT
             u.id AS user_id,
             u.email,
+            u.is_admin,
             u.created_at AS m0_ts,
             u.onboarding_completed_at AS m1_ts,
             u.dialect,
@@ -198,7 +201,6 @@ def get_freeflow(
         LEFT JOIN user_lesson_ts ult ON ult.user_id = u.id
         LEFT JOIN user_m19 m19 ON m19.user_id = u.id
         LEFT JOIN user_pathway pw ON pw.user_id = u.id
-        WHERE u.is_admin = false
         ORDER BY u.created_at DESC
     """)).fetchall()
 
@@ -228,6 +230,7 @@ def get_freeflow(
         users.append(FreeflowUserRow(
             user_id=str(r.user_id),
             email=r.email,
+            is_admin=bool(r.is_admin),
             subscription_active=bool(r.subscription_active),
             pathway=r.pathway,
             dialect=r.dialect,
@@ -266,3 +269,85 @@ def get_freeflow(
         ))
 
     return FreeflowResponse(users=users)
+
+
+class SeedTestUserRequest(BaseModel):
+    email: EmailStr
+    password: str
+    is_admin: bool = False
+    plan: str = "free"
+
+
+class SeedTestUserResponse(BaseModel):
+    user_id: str
+    email: str
+    is_admin: bool
+    access_token: str
+
+
+@router.post("/users/seed-test", response_model=SeedTestUserResponse)
+def seed_test_user(
+    body: SeedTestUserRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Provision a fully-onboarded test user without driving the onboarding portal.
+    Skips the country picker and quiz steps that are tedious or inaccessible
+    via Playwright. The created user lands directly on the dashboard.
+    """
+    _require_admin(current_user)
+
+    if body.plan not in VALID_PLANS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid plan. Must be one of: {', '.join(sorted(VALID_PLANS))}",
+        )
+
+    if db.query(User).filter(User.email == body.email).first():
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    now = datetime.now(timezone.utc)
+    user = User(
+        email=body.email,
+        password_hash=get_password_hash(body.password),
+        is_admin=body.is_admin,
+        onboarding_completed=True,
+        onboarding_completed_at=now,
+        # Realistic defaults so the dashboard and recommendation engine have
+        # something to chew on. Mirrors qa@test.com pattern in seed_qa.py.
+        name="Seeded Test User",
+        dialect="mexico",
+        selected_animation_types=["restaurant", "small_talk"],
+        q0_spanish_level="b",
+        q1_situation="c",
+        q1_1_time_in_latam="c",
+        q2_country="MX",
+        q3_tools=["duolingo"],
+        q4_proximity="high",
+        q6_conversations="few",
+        vocab_score="beginner",
+        grammar_score="beginner",
+    )
+    db.add(user)
+    db.flush()  # populate user.id before referencing it
+
+    sub = Subscription(
+        user_id=user.id,
+        tier=body.plan if body.plan != "free" else None,
+        active=body.plan in ("app", "app_pronounce"),
+    )
+    db.add(sub)
+    db.commit()
+    db.refresh(user)
+
+    token = create_access_token({"sub": str(user.id), "plan": body.plan})
+    logger.info(
+        "[Admin] %s seeded test user %s (is_admin=%s, plan=%s)",
+        current_user.email, user.email, user.is_admin, body.plan,
+    )
+    return SeedTestUserResponse(
+        user_id=str(user.id),
+        email=user.email,
+        is_admin=bool(user.is_admin),
+        access_token=token,
+    )
