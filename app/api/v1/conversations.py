@@ -1094,7 +1094,6 @@ async def sentence_hint(
     """Generate one short Spanish sentence the learner could say next."""
     import logging as _logging
     from app.services.sentence_hint_service import (
-        SENTENCE_HINT_CAP_PER_CONVERSATION,
         compute_pending_items,
         generate_sentence_hint,
         persist_hint_audit,
@@ -1131,11 +1130,7 @@ async def sentence_hint(
         )
 
     used = conversation.sentence_hints_used or 0
-    if used >= SENTENCE_HINT_CAP_PER_CONVERSATION:
-        raise HTTPException(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="HINT_RATE_LIMIT",
-        )
+    # No cap on hint requests — keep the counter for telemetry, never block.
 
     alt_language = current_user.alt_language
     pending_items = compute_pending_items(db, conversation, alt_language)
@@ -1189,10 +1184,9 @@ async def sentence_hint(
         },
     )
 
-    hints_remaining = max(
-        0, SENTENCE_HINT_CAP_PER_CONVERSATION - conversation.sentence_hints_used
-    )
+    # FE still expects a non-zero `hints_remaining`. Stuff a high sentinel
+    # so the disabled-rate-limit branch never fires.
     return SentenceHintResponse(
         english_gloss=english_text,
-        hints_remaining=hints_remaining,
+        hints_remaining=999,
     )
