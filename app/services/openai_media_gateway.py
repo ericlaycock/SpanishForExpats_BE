@@ -155,7 +155,26 @@ async def transcribe_audio(
             )
 
         transcript_text = transcript_response.text
-        
+
+        # Whisper / gpt-4o-mini-transcribe will sometimes echo the
+        # `prompt` parameter back as the "transcription" when given
+        # silent or sub-half-second audio (e.g. a fast mic on/off).
+        # Detect that and zero out the transcript so we never feed the
+        # system context back into the conversation as user speech.
+        if prompt and transcript_text:
+            stripped = transcript_text.strip()
+            prompt_head = prompt.strip()[:60]
+            if prompt_head and (stripped == prompt.strip() or stripped.startswith(prompt_head)):
+                log_event(
+                    level="warning",
+                    event="stt_prompt_echo_suppressed",
+                    message="STT echoed the prompt verbatim — discarding as silence",
+                    request_id=request_id or "unknown",
+                    user_id=str(user_id) if user_id else None,
+                    extra={"audio_bytes": len(audio_bytes)},
+                )
+                transcript_text = ""
+
         # Calculate latency
         latency_ms = int((time.time() - start_time) * 1000)
         

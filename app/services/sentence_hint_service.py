@@ -71,24 +71,66 @@ def compute_pending_items(
 ) -> List[PendingItem]:
     """Build the candidate item list for the hint prompt.
 
+    Grammar chat path (preferred): read `chat_target_forms_json` — the
+    actual chips the FE renders, with conjugated English labels like
+    "I eat" / "she drinks". Filter out chips already in
+    `completed_chip_ids`.
+
+    Grammar drill fallback: for each drill_target whose verb is still
+    missing, emit one candidate per `(verb, pronoun)` with the conjugated
+    form pulled from `drill_config.answers`. Used when a grammar lesson
+    hits this codepath without `chat_target_forms_json` populated.
+
     Vocab path: take `missing_word_ids`, hydrate via `get_words_by_ids`,
     apply alt-language swap so `spanish` reflects what the chip actually
     shows (catalan/swedish swaps).
-
-    Grammar path: for each drill_target whose verb is still missing, emit
-    one candidate per `(verb, pronoun)` with the conjugated form pulled
-    from `drill_config.answers`.
     """
-    from app.data.grammar_situations import (
-        GRAMMAR_WORD_TRANSLATIONS,
-        get_grammar_config,
-    )
+    from app.data.grammar_situations import get_grammar_config
+
+    chat_forms = conversation.chat_target_forms_json or []
+    if chat_forms:
+        return _chat_pending_items(conversation, chat_forms)
 
     grammar_cfg = get_grammar_config(conversation.situation_id)
     if grammar_cfg and grammar_cfg.get("drill_targets"):
         return _grammar_pending_items(conversation, grammar_cfg)
 
     return _vocab_pending_items(db, conversation, alt_language)
+
+
+def _chat_pending_items(
+    conversation: Conversation,
+    chat_forms: List[Dict[str, Any]],
+) -> List[PendingItem]:
+    """Build candidate items from `conversation.chat_target_forms_json`.
+
+    These are the exact chips the FE displays on a grammar chat — sampled
+    by `get_chat_target_forms` from the lesson's two preceding drills,
+    with English labels like "I eat" / "they (m) drink" (i.e. conjugated,
+    not infinitives). Filter out anything already in completed_chip_ids.
+    """
+    completed = set(conversation.completed_chip_ids or [])
+    items: List[PendingItem] = []
+    for form in chat_forms:
+        chip_id = form.get("id") or f"form:{form.get('spanish', '')}:{form.get('pronoun', '')}"
+        if chip_id in completed:
+            continue
+        spanish = (form.get("spanish") or "").strip()
+        english = (form.get("english") or "").strip()
+        if not spanish or not english:
+            continue
+        items.append(
+            PendingItem(
+                kind="grammar",
+                id=chip_id,
+                spanish=spanish,
+                english=english,
+                verb=form.get("verb"),
+                pronoun=form.get("pronoun"),
+                conjugated=spanish,
+            )
+        )
+    return items
 
 
 def _vocab_pending_items(
@@ -183,14 +225,23 @@ def build_hint_messages(
     return [{"role": "user", "content": prompt}]
 
 
+_GENDER_TAG_RE = __import__("re").compile(r"\s*\((?:m|f)\)\s*")
+
+
 def _format_words_for_prompt(items: List[PendingItem]) -> str:
-    """Comma-separated English words from the pending item list, deduped."""
+    """Comma-separated English words from the pending item list, deduped.
+
+    Strips gender disambiguators like "(m)" / "(f)" from chip labels so
+    the LLM sees clean phrases ("they drink" instead of "they (m) drink").
+    Same Spanish form (e.g. ellos beben + ellas beben → "beben") so the
+    learner's utterance ticks either chip.
+    """
     if not items:
         return "(none)"
     seen: set[str] = set()
     out: list[str] = []
     for it in items[:MAX_CANDIDATE_ITEMS]:
-        word = (it.english or "").strip()
+        word = _GENDER_TAG_RE.sub(" ", (it.english or "")).strip()
         if not word or word in seen:
             continue
         seen.add(word)
