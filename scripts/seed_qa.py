@@ -189,6 +189,15 @@ def seed():
         db.execute(text("DELETE FROM grenades WHERE word_id LIKE 'grammar_%'"))
         db.execute(text("DELETE FROM words WHERE word_category = 'grammar'"))
 
+        # Build the verb set first — top-level keys of any drill_config.answers
+        # are verbs; pronouns/adjectives in word_workload (nosotros, etc.) are
+        # not. word_type='verb' must be set so the Grenade picker and
+        # last_seen_form pipeline don't fall through to the lemma.
+        grammar_verb_set: set[str] = set()
+        for cfg in GRAMMAR_SITUATIONS.values():
+            answers = (cfg.get("drill_config") or {}).get("answers") or {}
+            grammar_verb_set.update(answers.keys())
+
         grammar_word_set = set()
         for sid, cfg in GRAMMAR_SITUATIONS.items():
             for word in cfg["word_workload"]:
@@ -196,12 +205,19 @@ def seed():
                     grammar_word_set.add(word)
                     word_id = f"grammar_{word}"
                     english = GRAMMAR_WORD_TRANSLATIONS.get(word, word)
-                    stmt = insert(Word).values(
-                        id=word_id, spanish=word, english=english,
-                        word_category="grammar"
-                    ).on_conflict_do_update(
+                    insert_values = {
+                        "id": word_id,
+                        "spanish": word,
+                        "english": english,
+                        "word_category": "grammar",
+                    }
+                    update_values = {"english": english, "spanish": word}
+                    if word in grammar_verb_set:
+                        insert_values["word_type"] = "verb"
+                        update_values["word_type"] = "verb"
+                    stmt = insert(Word).values(**insert_values).on_conflict_do_update(
                         index_elements=["id"],
-                        set_={"english": english, "spanish": word},
+                        set_=update_values,
                     )
                     db.execute(stmt)
 
