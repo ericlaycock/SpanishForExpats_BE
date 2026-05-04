@@ -25,13 +25,11 @@ from typing import Literal, Optional
 
 from sqlalchemy.orm import Session
 
-from app.data.grammar_situations import get_grammar_config
 from app.models import Conversation, Situation
 from app.services.alt_language_service import get_target_language_name
 from app.services.learner_context import LearnerContext
 from app.services.voice_turn_service import (
-    build_grammar_system_prompt,
-    get_conversation_system_prompt,
+    build_realtime_system_prompt,
     get_language_mode,
 )
 
@@ -46,6 +44,11 @@ _DEFAULT_TURN_DETECTION = {
     "type": "server_vad",
     "threshold": 0.5,
     "silence_duration_ms": 500,
+    # Don't auto-fire response.create when VAD endpoints. The FE waits for
+    # the Whisper transcript event, POSTs /realtime-turn for word detection
+    # + steering, injects the meta-thought via conversation.item.create, and
+    # then sends response.create itself. Keeps the BE in the steering loop.
+    "create_response": False,
 }
 
 # whisper-1 is what the existing `/voice-turn` STT path uses. Keeping the same
@@ -87,37 +90,21 @@ def _resolve_system_prompt(
     grammar_level: float,
     learner_ctx: Optional[LearnerContext] = None,
 ) -> str:
-    """Build the system prompt the model should carry for the whole session.
+    """Build the realtime session's system prompt.
 
-    Mirrors the logic used by `/voice-turn/respond` for a new turn without any
-    existing message history: pick grammar template if the situation is a
-    grammar drill, otherwise the conversation template. Alt-language mode
-    swaps the language_mode suffix so prompts render in Catalan/Swedish.
+    Uses the new short `realtime_agent` v1 template — role-only, no
+    target_steering / anti_stuck / level_rule / turn-closing rule. Those
+    move into the per-turn `conversation.item.create` (role=assistant)
+    meta-thought injection driven by `realtime_steering.pick_next_target`.
 
-    `learner_ctx` is forwarded into the v3 templates. Optional so the
-    legacy session-mint path keeps working until callers populate it,
-    but production should pass a populated context — without it, the
-    target-steering block degrades to a placeholder line.
+    `learner_ctx`, `vocab_level`, `grammar_level` are accepted for
+    signature compatibility with `build_session_config` callers but
+    aren't currently consumed by the realtime template.
     """
-    language_mode = get_language_mode(
-        situation.encounter_number, vocab_level, grammar_level
-    )
-    if alt_language and language_mode in ("spanish_text", "spanish_audio"):
-        language_mode = language_mode.replace("spanish_", f"{alt_language}_")
-
-    if get_grammar_config(conversation.situation_id):
-        return build_grammar_system_prompt(
-            conversation.situation_id,
-            language_mode=language_mode,
-            alt_language=alt_language,
-            learner_ctx=learner_ctx,
-        )
-    return get_conversation_system_prompt(
-        language_mode=language_mode,
+    return build_realtime_system_prompt(
+        situation.animation_type,
+        conversation.situation_id,
         alt_language=alt_language,
-        animation_type=situation.animation_type,
-        situation_id=conversation.situation_id,
-        learner_ctx=learner_ctx,
     )
 
 

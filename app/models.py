@@ -217,6 +217,15 @@ class Conversation(Base):
     avatar_dead_end_turns = Column(
         Integer, default=0, nullable=False, server_default="0",
     )
+    # Realtime steering state — id of the chip currently being elicited and
+    # how many user turns we've stuck with it. Picked by
+    # `realtime_steering.pick_next_target` after each /realtime-turn; reset
+    # to NULL/0 when the user lands the form. NULL means "no active steer"
+    # (first turn or just landed). See realtime_steering.py for the policy.
+    steering_target_id = Column(Text, nullable=True)
+    steering_target_age = Column(
+        Integer, default=0, nullable=False, server_default="0",
+    )
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)

@@ -280,6 +280,35 @@ def build_system_prompt(
     )
 
 
+def build_realtime_system_prompt(
+    animation_type: str,
+    situation_id: str,
+    alt_language: Optional[str] = None,
+) -> str:
+    """Short, role-only system prompt for the realtime steering experiment.
+
+    Does NOT include target_steering, anti_stuck, level_rule, or any of the
+    rule blocks from the v3 templates — those move into the per-turn
+    `conversation.item.create` (role=assistant) meta-thought injection
+    driven by `realtime_steering.pick_next_target` + `build_meta_thought`.
+
+    Loads `realtime_agent` v1 from prompts.json and renders it with the
+    same role lookup the v3 templates use (vocab → SITUATION_ROLES, grammar
+    → GRAMMAR_SCENE_MAP → SITUATION_ROLES).
+    """
+    from app.services.llm_gateway import load_prompt
+
+    language = get_target_language_name(alt_language)
+    roles = get_roles_for_situation(animation_type, situation_id)
+    template = load_prompt("realtime_agent", "v1")
+    return template.format(
+        ai_role=roles["ai_role"],
+        user_role=roles["user_role"],
+        situation_description=roles["situation_description"],
+        language=language,
+    )
+
+
 def build_transcription_prompt(situation_title: str, words: List[Word], alt_language: Optional[str] = None) -> str:
     """Build a context prompt for STT transcription (whisper-style format).
 

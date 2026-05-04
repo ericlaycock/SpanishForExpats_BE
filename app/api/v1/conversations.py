@@ -1032,6 +1032,23 @@ async def realtime_turn(
         conversation.status = "complete"
         conversation.completed_at = datetime.now(timezone.utc)
 
+    # Realtime steering: pick the chip the FE should ask the model to elicit
+    # next, with 2-turn stickiness. Skipped on completion — the FE plays the
+    # closer instead. If the user just landed the active steering target, we
+    # reset the stickiness state before picking so the next turn rolls fresh.
+    steering_text: Optional[str] = None
+    steering_target_id: Optional[str] = None
+    if not complete:
+        from app.services import realtime_steering
+        from app.services.alt_language_service import get_target_language_name
+
+        realtime_steering.reset_steering_if_landed(conversation)
+        target_id, target_form = realtime_steering.pick_next_target(db, conversation)
+        if target_id and target_form:
+            language = get_target_language_name(current_user.alt_language)
+            steering_text = realtime_steering.build_meta_thought(target_form, language)
+            steering_target_id = target_id
+
     db.commit()
     missing_word_ids = get_missing_word_ids(conversation, "voice")
 
@@ -1043,6 +1060,8 @@ async def realtime_turn(
         completed_chip_ids=list(conversation.completed_chip_ids or []),
         consecutive_no_progress_turns=conversation.consecutive_no_progress_turns or 0,
         avatar_dead_end=avatar_flagged,
+        steering_text=steering_text,
+        steering_target_id=steering_target_id,
     )
 
 

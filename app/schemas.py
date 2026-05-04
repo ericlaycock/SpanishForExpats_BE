@@ -367,6 +367,14 @@ class RealtimeTurnResponse(BaseModel):
     # avatar to repeat" / "say something to keep going"). Telemetry is
     # captured server-side regardless via `avatar_dead_end_turns`.
     avatar_dead_end: bool = False
+    # Per-turn steering for the realtime flow (Option C). When non-null,
+    # the FE injects this as a `conversation.item.create` (role=assistant)
+    # message before firing `response.create` — the model uses it as
+    # planning context for its next reply. Null when the conversation is
+    # complete or there are no pending chips. `steering_target_id` echoes
+    # the chip we asked for so the FE can highlight / debug.
+    steering_text: Optional[str] = None
+    steering_target_id: Optional[str] = None
 
 
 # Grammar config schemas
