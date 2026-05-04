@@ -16194,7 +16194,20 @@ GRAMMAR_SITUATIONS = {
 # at import time so consumers see one uniform shape.
 from app.data.grammar_drill_glosses import DRILL_GLOSSES as _DRILL_GLOSSES
 
+# For pronoun-target drills the *pronoun* is the answer, not the verb. So the
+# normal "noun-only" rule strips too much (e.g. "He is sociable" loses both
+# "is" and "sociable" leaving the learner unable to know what the prompt says
+# unless they already know "es" + "social"). Keep the hand-authored inline
+# glosses on these — they already exclude the pronoun and gloss everything
+# else.
+_KEEP_INLINE_GLOSSES_SIDS = {
+    'grammar_pronouns',
+    'grammar_pronouns_plural',
+}
+
 for _sid, _glosses_per_sent in _DRILL_GLOSSES.items():
+    if _sid in _KEEP_INLINE_GLOSSES_SIDS:
+        continue
     _cfg = GRAMMAR_SITUATIONS.get(_sid)
     if not _cfg:
         continue
@@ -16209,7 +16222,11 @@ for _sid, _glosses_per_sent in _DRILL_GLOSSES.items():
         # verbs/adjectives that revealed the drill answer.
         _sent['glosses'] = _g
 
-del _sid, _cfg, _sents, _i, _g, _sent, _glosses_per_sent, _DRILL_GLOSSES
+del _sid, _glosses_per_sent, _DRILL_GLOSSES, _KEEP_INLINE_GLOSSES_SIDS
+try:
+    del _cfg, _sents, _i, _g, _sent
+except NameError:
+    pass
 
 
 # ── Merge scene-anchored opener lines for every grammar `*_chat` lesson ──────
