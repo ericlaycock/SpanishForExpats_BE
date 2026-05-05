@@ -319,9 +319,18 @@ async def create_conversation(
             # Reset spoken words so backend + frontend start from same empty state.
             # Without this, reused conversations carry stale used_spoken_word_ids
             # which causes completion to fire before all word chips show checkmarks.
+            # Also clear `completed_chip_ids`: `chat_target_forms_json` gets
+            # re-sampled here (8 chips picked at random from the pool), so any
+            # ticks from a prior session reference a different chip sample and
+            # would falsely inflate this session's chips_done count.
             voice_conv.used_spoken_word_ids = []
+            voice_conv.completed_chip_ids = []
             voice_conv.consecutive_no_progress_turns = 0
             voice_conv.chat_target_forms_json = chat_forms_for_db or None
+            # Steering state was anchored to the prior sample; reset alongside
+            # the chip list so the new session rolls a fresh target.
+            voice_conv.steering_target_id = None
+            voice_conv.steering_target_age = 0
             db.commit()
 
         if not voice_conv:
@@ -749,8 +758,14 @@ async def voice_turn_respond(
     # Refresh first so we see what step 1 wrote in this same request cycle.
     db.refresh(conversation)
     completed_chip_ids = list(conversation.completed_chip_ids or [])
-    chips_total = len(conversation.chat_target_forms_json or [])
-    chip_complete = chips_total > 0 and len(completed_chip_ids) >= chips_total
+    target_chip_ids = {
+        f.get("id") for f in (conversation.chat_target_forms_json or []) if f.get("id")
+    }
+    chips_total = len(target_chip_ids)
+    # Only count ticks for chip ids that are actually in this session's chip
+    # sample. Without this filter, ticks from a prior session (different
+    # sample) inflate the count and the closer fires early.
+    chip_complete = chips_total > 0 and target_chip_ids.issubset(set(completed_chip_ids))
 
     # The v3 prompt is level-aware, target-anchored, and reads chip state
     # straight off the conversation. No more side-band injection of
@@ -1021,9 +1036,11 @@ async def realtime_turn(
     # Grammar chats with a chip snapshot complete only when every chip ticks;
     # vocab/non-chat grammar fall back to the legacy infinitive-coverage check.
     if conversation.chat_target_forms_json:
-        chips_total = len(conversation.chat_target_forms_json or [])
-        chips_done = len(conversation.completed_chip_ids or [])
-        chip_complete = chips_total > 0 and chips_done >= chips_total
+        target_chip_ids_rt = {
+            f.get("id") for f in conversation.chat_target_forms_json if f.get("id")
+        }
+        completed_set_rt = set(conversation.completed_chip_ids or [])
+        chip_complete = bool(target_chip_ids_rt) and target_chip_ids_rt.issubset(completed_set_rt)
         _, turns_remaining = check_completion(conversation)
         complete = chip_complete or (conversation.turn_count or 0) >= EXCHANGE_HARD_LIMIT
     else:
