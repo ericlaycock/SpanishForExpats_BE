@@ -39,7 +39,8 @@ async def transcribe_audio(
     request_id: str = None,
     user_id: Optional[str] = None,
     db: Session = None,
-    learning_phase: Optional[str] = None
+    learning_phase: Optional[str] = None,
+    conversation_id: Optional[str] = None,
 ) -> str:
     """
     Transcribe audio using OpenAI STT with full logging.
@@ -72,7 +73,16 @@ async def transcribe_audio(
             user_id_uuid = uuid.UUID(user_id)
         else:
             user_id_uuid = user_id
-    
+
+    # Same handling for conversation_id — tolerates None for callers
+    # outside any conversation (e.g. /check-pronunciation).
+    conversation_id_uuid = None
+    if conversation_id:
+        if isinstance(conversation_id, str):
+            conversation_id_uuid = uuid.UUID(conversation_id)
+        else:
+            conversation_id_uuid = conversation_id
+
     # Insert initial record (success=false)
     stt_record = None
     if db:
@@ -80,6 +90,7 @@ async def transcribe_audio(
             id=stt_request_id,
             request_id=request_id or "unknown",
             user_id=user_id_uuid,
+            conversation_id=conversation_id_uuid,
             provider=PROVIDER,
             model=STT_MODEL,
             audio_sha256=audio_sha256,
@@ -266,7 +277,8 @@ async def synthesize_speech(
     request_id: str = None,
     user_id: Optional[str] = None,
     db: Session = None,
-    learning_phase: Optional[str] = None
+    learning_phase: Optional[str] = None,
+    conversation_id: Optional[str] = None,
 ) -> str:
     """
     Synthesize speech using OpenAI TTS with full logging.
@@ -299,7 +311,16 @@ async def synthesize_speech(
             user_id_uuid = uuid.UUID(user_id)
         else:
             user_id_uuid = user_id
-    
+
+    # Same handling for conversation_id — tolerates None for callers
+    # outside any conversation (e.g. the standalone /v1/tts endpoint).
+    conversation_id_uuid = None
+    if conversation_id:
+        if isinstance(conversation_id, str):
+            conversation_id_uuid = uuid.UUID(conversation_id)
+        else:
+            conversation_id_uuid = conversation_id
+
     # Insert initial record (success=false)
     tts_record = None
     if db:
@@ -307,6 +328,7 @@ async def synthesize_speech(
             id=tts_request_id,
             request_id=request_id or "unknown",
             user_id=user_id_uuid,
+            conversation_id=conversation_id_uuid,
             provider=PROVIDER,
             model=TTS_MODEL,
             voice=voice,

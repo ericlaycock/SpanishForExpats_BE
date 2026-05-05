@@ -672,6 +672,7 @@ async def voice_turn_transcribe(
         prompt=transcription_prompt, language=None,
         request_id=request_id, user_id=str(current_user.id),
         db=db, learning_phase=learning_phase,
+        conversation_id=str(conversation.id),
     )
     stt_time = time.time() - stt_start
     logger.info(f"[Voice Turn] STT: {stt_time:.2f}s, transcript: '{user_transcript}'")
@@ -1180,6 +1181,7 @@ async def sentence_hint(
         request_id=request_id,
         pending_items=pending_items,
         recent_messages=recent_messages,
+        conversation_id=str(conversation.id),
     )
 
     # Increment + audit + commit. The cap check above already locked the

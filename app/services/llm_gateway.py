@@ -45,6 +45,12 @@ class ConversationContext:
     learning_phase: Optional[str] = None
     messages: Optional[List[Dict[str, str]]] = None  # Full message history (overrides system_prompt + user_prompt)
     model: Optional[str] = None  # Override default MODEL per-call (e.g. "gpt-4.1" for non-reasoning generation)
+    # Optional id of the Conversation this LLM call belongs to. Persisted
+    # on the LLMRequest row so the admin debug timeline can pull every
+    # request for a conversation with a direct equality filter instead
+    # of cross-referencing user_id + window. Leave None for calls that
+    # don't run inside a conversation (e.g. grenade generation).
+    conversation_id: Optional[str] = None
 
 
 def load_prompt(agent_id: str, prompt_version: str = "v2") -> str:
@@ -91,7 +97,16 @@ async def generate_conversation(
             user_id_uuid = uuid.UUID(context.user_id)
         else:
             user_id_uuid = context.user_id
-    
+
+    # Convert conversation_id to UUID if string. Tolerates None for
+    # call sites that aren't in a conversation (grenade, ad-hoc tools).
+    conversation_id_uuid = None
+    if context.conversation_id:
+        if isinstance(context.conversation_id, str):
+            conversation_id_uuid = uuid.UUID(context.conversation_id)
+        else:
+            conversation_id_uuid = context.conversation_id
+
     model = context.model or MODEL
     is_reasoning_model = model.startswith("gpt-5")
 
@@ -100,6 +115,7 @@ async def generate_conversation(
         id=llm_request_id,
         request_id=context.request_id,
         user_id=user_id_uuid,
+        conversation_id=conversation_id_uuid,
         provider=PROVIDER,
         model=model,
         prompt_version=context.prompt_version,

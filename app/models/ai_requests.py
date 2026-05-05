@@ -11,6 +11,17 @@ class LLMRequest(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     request_id = Column(String, nullable=False, index=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
+    # Optional FK to the conversation that triggered this call. Nullable
+    # because not every LLM call runs inside a conversation (e.g. grenade
+    # generation). Lets the admin debug timeline pull `WHERE
+    # conversation_id = ?` instead of cross-referencing user_id + window.
+    # Migration 032.
+    conversation_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("conversations.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
     provider = Column(String, nullable=False)
     model = Column(String, nullable=False)
     prompt_version = Column(String, nullable=True)
@@ -35,6 +46,13 @@ class STTRequest(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     request_id = Column(String, nullable=False, index=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
+    # See `LLMRequest.conversation_id` — same purpose. Migration 032.
+    conversation_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("conversations.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
     provider = Column(String, nullable=False)
     model = Column(String, nullable=False)
     audio_sha256 = Column(String, nullable=True)
@@ -57,6 +75,13 @@ class TTSRequest(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     request_id = Column(String, nullable=False, index=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
+    # See `LLMRequest.conversation_id` — same purpose. Migration 032.
+    conversation_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("conversations.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
     provider = Column(String, nullable=False)
     model = Column(String, nullable=False)
     voice = Column(String, nullable=True)

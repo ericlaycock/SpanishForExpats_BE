@@ -266,11 +266,16 @@ async def generate_sentence_hint(
     request_id: str,
     pending_items: List[PendingItem],
     recent_messages: Optional[List[Dict[str, str]]],
+    conversation_id: Optional[str] = None,
 ) -> Tuple[str, Optional[str]]:
     """Call the LLM to produce a single English hint sentence with the
     target keyword wrapped in markdown bold. Returns (english_text,
     llm_request_id). On any LLM failure, falls back to the first
     pending item's English so the user always gets something usable.
+
+    `conversation_id`, when supplied, is propagated onto the persisted
+    LLMRequest row so the admin debug timeline can fetch this hint's
+    LLM call directly by conversation.
     """
     messages = build_hint_messages(pending_items, recent_messages)
 
@@ -285,6 +290,7 @@ async def generate_sentence_hint(
         return_json=False,
         model="gpt-4.1-mini",
         max_tokens=120,
+        conversation_id=conversation_id,
     )
 
     english_text = ""
