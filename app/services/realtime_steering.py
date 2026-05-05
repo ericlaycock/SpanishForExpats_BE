@@ -130,59 +130,100 @@ _BREVITY_TAG = " Keep it 2 short sentences max in simple Spanish."
 _PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
     "yo": (
         "tú",
-        "Ask the user a relevant question with \"{form}\" in your question."
+        "Ask the user a relevant question with \"{form}\" (form of "
+        "\"{lemma}\") in your question. "
+        "Examples: if form were \"comes\" (form of \"comer\"): \"¿Qué "
+        "comes en el desayuno?\". If form were \"tienes\" (form of "
+        "\"tener\"): \"¿Cuántos hermanos tienes?\"."
         + _BREVITY_TAG,
     ),
     "tú": (
         "yo",
-        "Connecting with what the user just said, share how you "
-        "\"{form}\", and ask for the user's opinion." + _BREVITY_TAG,
+        "Connecting with what the user just said, share how you \"{form}\" "
+        "(form of \"{lemma}\"), and ask for the user's opinion. "
+        "Examples: if form were \"como\" (form of \"comer\"): \"Yo como "
+        "pan en el desayuno. ¿Y tú?\". If form were \"tengo\" (form of "
+        "\"tener\"): \"Yo tengo dos hermanos. ¿Y tú?\"."
+        + _BREVITY_TAG,
     ),
     "usted": (
         "yo",
-        "Connecting with what the user just said, share how you "
-        "\"{form}\", and ask for the user's opinion." + _BREVITY_TAG,
+        "Connecting with what the user just said, share how you \"{form}\" "
+        "(form of \"{lemma}\"), and ask for the user's opinion. "
+        "Examples: if form were \"como\" (form of \"comer\"): \"Yo como "
+        "pan en el desayuno. ¿Y usted?\". If form were \"tengo\" (form of "
+        "\"tener\"): \"Yo tengo dos hermanos. ¿Y usted?\"."
+        + _BREVITY_TAG,
     ),
     "nosotros": (
         "ustedes",
-        "Ask the user a relevant question using the verb \"{form}\" about "
-        "something they and a friend/family member do." + _BREVITY_TAG,
+        "Ask the user a relevant question using the verb \"{form}\" (form "
+        "of \"{lemma}\") about something they and a friend/family member do. "
+        "Examples: if form were \"comen\" (form of \"comer\"): \"¿Tú y tu "
+        "familia comen juntos?\". If form were \"tienen\" (form of "
+        "\"tener\"): \"¿Tú y tus amigos tienen mascotas?\"."
+        + _BREVITY_TAG,
     ),
     "nosotras": (
         "ustedes",
-        "Ask the user a relevant question using the verb \"{form}\" about "
-        "something they and a friend/family member do." + _BREVITY_TAG,
+        "Ask the user a relevant question using the verb \"{form}\" (form "
+        "of \"{lemma}\") about something they and a friend/family member do. "
+        "Examples: if form were \"comen\" (form of \"comer\"): \"¿Tú y tu "
+        "familia comen juntos?\". If form were \"tienen\" (form of "
+        "\"tener\"): \"¿Tú y tus amigos tienen mascotas?\"."
+        + _BREVITY_TAG,
     ),
     "ustedes": (
         "nosotros",
         "Connecting with what the user just said, share how you + a close "
-        "family member/friend \"{form}\" and ask for the user's opinion."
+        "family member/friend \"{form}\" (form of \"{lemma}\") and ask for "
+        "the user's opinion. "
+        "Examples: if form were \"comemos\" (form of \"comer\"): \"Mi "
+        "familia y yo comemos juntos los domingos. ¿Y ustedes?\". If form "
+        "were \"tenemos\" (form of \"tener\"): \"Mi amiga y yo tenemos un "
+        "gato. ¿Y ustedes?\"."
         + _BREVITY_TAG,
     ),
     # Third-person targets: model speaks ABOUT a third party using the
     # SAME pronoun, so the user mirrors back the same conjugation.
     "él": (
         "él",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a male person/thing doing \"{form}\"."
+        "Connecting with what the user just said, state an opinion (or "
+        "ask a question) about a male person/thing doing \"{form}\" (form "
+        "of \"{lemma}\"). "
+        "Examples: if form were \"come\" (form of \"comer\"): \"Mi hermano "
+        "come muchas frutas, es muy sano.\". If form were \"tiene\" (form "
+        "of \"tener\"): \"¿Tu primo tiene buena suerte?\"."
         + _BREVITY_TAG,
     ),
     "ella": (
         "ella",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a female person/thing doing \"{form}\"."
+        "Connecting with what the user just said, state an opinion (or "
+        "ask a question) about a female person/thing doing \"{form}\" "
+        "(form of \"{lemma}\"). "
+        "Examples: if form were \"come\" (form of \"comer\"): \"Mi hermana "
+        "come muchas verduras, es muy sana.\". If form were \"tiene\" "
+        "(form of \"tener\"): \"¿Tu prima tiene buena suerte?\"."
         + _BREVITY_TAG,
     ),
     "ellos": (
         "ellos",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a male person/thing doing \"{form}\"."
+        "Connecting with what the user just said, state an opinion (or "
+        "ask a question) about a male person/thing doing \"{form}\" (form "
+        "of \"{lemma}\"). "
+        "Examples: if form were \"comen\" (form of \"comer\"): \"Mis "
+        "hermanos comen mucho, son adolescentes.\". If form were \"tienen\" "
+        "(form of \"tener\"): \"¿Tus tíos tienen perro?\"."
         + _BREVITY_TAG,
     ),
     "ellas": (
         "ellas",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a female person/thing doing \"{form}\"."
+        "Connecting with what the user just said, state an opinion (or "
+        "ask a question) about a female person/thing doing \"{form}\" "
+        "(form of \"{lemma}\"). "
+        "Examples: if form were \"comen\" (form of \"comer\"): \"Mis "
+        "hermanas comen mucho, son adolescentes.\". If form were \"tienen\" "
+        "(form of \"tener\"): \"¿Tus tías tienen casa?\"."
         + _BREVITY_TAG,
     ),
 }
@@ -214,7 +255,7 @@ def build_response_instructions(target_form: Dict[str, Any]) -> Optional[str]:
     flipped_form = find_grammar_form(verb, flipped_pronoun)
     if not flipped_form:
         return None
-    return template.format(form=flipped_form)
+    return template.format(form=flipped_form, lemma=verb)
 
 
 def build_meta_thought(target_form: Dict[str, Any], language: str) -> str:
