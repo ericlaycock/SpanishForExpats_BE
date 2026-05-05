@@ -229,33 +229,90 @@ _PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
 }
 
 
+_VOCAB_GENERIC_FALLBACK = (
+    'Ask the user a question whose natural answer requires them to say '
+    '"{spanish}" ({english}). Do NOT say "{spanish}" yourself — only the '
+    'user says it. Examples: if the target were "café" (coffee), ask '
+    '"¿Qué bebes en la mañana?". If it were "número de vuelo" (flight '
+    'number), ask "¿Cómo identifico su reserva?".'
+    + _BREVITY_TAG
+)
+
+
+def _build_vocab_response_instructions(
+    target_form: Dict[str, Any],
+) -> Optional[str]:
+    """Per-turn instructions for vocab chips (no pronoun/verb metadata).
+
+    Two paths:
+      1. The chip's English label matches a `VOCAB_ELICITATION_HINTS`
+         pattern (reflexives, contractions, gendered articles). Reuse the
+         hint string — it already encodes the elicitation strategy used
+         by the legacy `/voice-turn` flow's static target_steering block.
+      2. Plain lexical chip (`gate`, `gate number`, `passport`). Fall
+         back to a generic "ask a question whose natural answer requires
+         the form" template.
+
+    Returns None when the target form has no Spanish content; callers
+    should fire `response.create` with no override in that case.
+    """
+    from app.services.grammar_elicitation import _vocab_elicitation_hint
+    from app.services.learner_context import ChipTarget
+
+    spanish = (target_form.get("spanish") or "").strip()
+    english = (target_form.get("english") or "").strip()
+    if not spanish:
+        return None
+
+    chip = ChipTarget(
+        id=str(target_form.get("id") or ""),
+        spanish=spanish,
+        english=english,
+    )
+    hint = _vocab_elicitation_hint(chip)
+    if hint:
+        return hint + _BREVITY_TAG
+
+    return _VOCAB_GENERIC_FALLBACK.format(spanish=spanish, english=english)
+
+
 def build_response_instructions(target_form: Dict[str, Any]) -> Optional[str]:
     """Per-turn response.instructions override for the realtime steering.
 
-    Maps the chip's pronoun to a flipped pronoun + template, looks up the
-    flipped conjugation via grammar_situations.find_grammar_form, and
-    returns the rendered instruction. Returns None when:
-      - target lacks pronoun/verb metadata (vocab encounter, no override)
-      - the pronoun isn't in our flip map
-      - find_grammar_form can't resolve the flipped (verb, pronoun) pair
+    Two regimes:
 
-    Caller should fall through to firing response.create with no
-    instructions in those cases.
+    Grammar chips (target has both `pronoun` and `verb`): map the
+    pronoun to a flipped pronoun + template, look up the flipped
+    conjugation via `grammar_situations.find_grammar_form`, and return
+    the rendered instruction. Returns None when the pronoun isn't in
+    our flip map or the conjugation lookup fails.
+
+    Vocab chips (no pronoun/verb): hand off to
+    `_build_vocab_response_instructions`, which reuses
+    `VOCAB_ELICITATION_HINTS` for grammatical-artifact chips
+    (reflexives, contractions, gendered articles) and falls back to a
+    generic "set up a question whose answer requires X" template for
+    plain lexical chips. Returns None only when the target has no
+    Spanish content.
+
+    Callers fall through to firing `response.create` with no
+    instructions in any None case.
     """
     from app.data.grammar_situations import find_grammar_form
 
     pronoun = target_form.get("pronoun")
     verb = target_form.get("verb")
-    if not pronoun or not verb:
-        return None
-    rule = _PRONOUN_INSTRUCTIONS.get(pronoun)
-    if not rule:
-        return None
-    flipped_pronoun, template = rule
-    flipped_form = find_grammar_form(verb, flipped_pronoun)
-    if not flipped_form:
-        return None
-    return template.format(form=flipped_form, lemma=verb)
+    if pronoun and verb:
+        rule = _PRONOUN_INSTRUCTIONS.get(pronoun)
+        if not rule:
+            return None
+        flipped_pronoun, template = rule
+        flipped_form = find_grammar_form(verb, flipped_pronoun)
+        if not flipped_form:
+            return None
+        return template.format(form=flipped_form, lemma=verb)
+
+    return _build_vocab_response_instructions(target_form)
 
 
 def build_meta_thought(target_form: Dict[str, Any], language: str) -> str:
