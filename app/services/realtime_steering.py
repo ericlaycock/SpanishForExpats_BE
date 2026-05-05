@@ -85,7 +85,7 @@ def pick_next_target(
     db: Session,
     conversation: Conversation,
     *,
-    max_age_turns: int = 2,
+    max_age_turns: int = 1,
 ) -> Tuple[Optional[str], Optional[Dict[str, Any]]]:
     """Pick the chip we want the model to elicit next.
 
@@ -96,7 +96,9 @@ def pick_next_target(
     Stickiness: if the existing `steering_target_id` is still pending and
     we've held it fewer than `max_age_turns` user turns, reuse it
     (incrementing age). Otherwise pick a fresh random pending form and
-    set age=1.
+    set age=1. Default `max_age_turns=1` — every user turn rolls a fresh
+    target unless the previous turn's pick is still pending and we want
+    a single retry.
     """
     pending = _pending_forms(db, conversation)
     if not pending:
