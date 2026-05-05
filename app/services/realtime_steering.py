@@ -128,55 +128,54 @@ def pick_next_target(
 _PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
     "yo": (
         "tú",
-        "Ask the user a relevant question using \"{form}\" in your question.",
+        "Ask the user a relevant question with \"{form}\" in your question.",
     ),
     "tú": (
         "yo",
         "Connecting with what the user just said, share how you do "
-        "\"{form}\" and ask for the user's opinion.",
+        "\"{form}\", and ask for the user's opinion.",
     ),
     "usted": (
         "yo",
         "Connecting with what the user just said, share how you do "
-        "\"{form}\" and ask for the user's opinion.",
+        "\"{form}\", and ask for the user's opinion.",
     ),
     "nosotros": (
         "ustedes",
-        "Ask the user a relevant question using \"{form}\" about something "
-        "they and a friend or family member do.",
+        "Ask the user a relevant question using the verb \"{form}\" about "
+        "something they and a friend/family member do.",
     ),
     "nosotras": (
         "ustedes",
-        "Ask the user a relevant question using \"{form}\" about something "
-        "they and a friend or family member do.",
+        "Ask the user a relevant question using the verb \"{form}\" about "
+        "something they and a friend/family member do.",
     ),
     "ustedes": (
         "nosotros",
-        "Connecting with what the user just said, share how you and a "
-        "close family member or friend do \"{form}\" and ask for the "
-        "user's opinion.",
+        "Connecting with what the user just said, share how you + a close "
+        "family member/friend do \"{form}\" and ask for the user's opinion.",
     ),
     # Third-person targets: model speaks ABOUT a third party using the
     # SAME pronoun, so the user mirrors back the same conjugation.
     "él": (
         "él",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a male person/thing doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a male person/thing doing \"{form}\".",
     ),
     "ella": (
         "ella",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a female person/thing doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a female person/thing doing \"{form}\".",
     ),
     "ellos": (
         "ellos",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a group of male people/things doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a male person/thing doing \"{form}\".",
     ),
     "ellas": (
         "ellas",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a group of female people/things doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a female person/thing doing \"{form}\".",
     ),
 }
 
