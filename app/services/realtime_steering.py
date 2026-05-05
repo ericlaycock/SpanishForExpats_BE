@@ -119,6 +119,95 @@ def pick_next_target(
     return pick["id"], pick
 
 
+# Pronoun → (instruction-pronoun, template) map for the per-turn
+# response.instructions override. The model uses the *flipped* pronoun's
+# form so the user is forced into producing the chip's form to respond.
+# {form} substitutes the conjugated verb in the flipped pronoun.
+_PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
+    "yo": (
+        "tú",
+        "Ask the user a relevant question using \"{form}\" in your question.",
+    ),
+    "tú": (
+        "yo",
+        "Connecting with what the user just said, share how you do "
+        "\"{form}\" and ask for the user's opinion.",
+    ),
+    "usted": (
+        "yo",
+        "Connecting with what the user just said, share how you do "
+        "\"{form}\" and ask for the user's opinion.",
+    ),
+    "nosotros": (
+        "ustedes",
+        "Ask the user a relevant question using \"{form}\" about something "
+        "they and a friend or family member do.",
+    ),
+    "nosotras": (
+        "ustedes",
+        "Ask the user a relevant question using \"{form}\" about something "
+        "they and a friend or family member do.",
+    ),
+    "ustedes": (
+        "nosotros",
+        "Connecting with what the user just said, share how you and a "
+        "close family member or friend do \"{form}\" and ask for the "
+        "user's opinion.",
+    ),
+    # Third-person targets: model speaks ABOUT a third party using the
+    # SAME pronoun, so the user mirrors back the same conjugation.
+    "él": (
+        "él",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a male person/thing doing \"{form}\".",
+    ),
+    "ella": (
+        "ella",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a female person/thing doing \"{form}\".",
+    ),
+    "ellos": (
+        "ellos",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a group of male people/things doing \"{form}\".",
+    ),
+    "ellas": (
+        "ellas",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a group of female people/things doing \"{form}\".",
+    ),
+}
+
+
+def build_response_instructions(target_form: Dict[str, Any]) -> Optional[str]:
+    """Per-turn response.instructions override for the realtime steering.
+
+    Maps the chip's pronoun to a flipped pronoun + template, looks up the
+    flipped conjugation via grammar_situations.find_grammar_form, and
+    returns the rendered instruction. Returns None when:
+      - target lacks pronoun/verb metadata (vocab encounter, no override)
+      - the pronoun isn't in our flip map
+      - find_grammar_form can't resolve the flipped (verb, pronoun) pair
+
+    Caller should fall through to firing response.create with no
+    instructions in those cases.
+    """
+    from app.data.grammar_situations import find_grammar_form
+
+    pronoun = target_form.get("pronoun")
+    verb = target_form.get("verb")
+    if not pronoun or not verb:
+        return None
+    rule = _PRONOUN_INSTRUCTIONS.get(pronoun)
+    if not rule:
+        return None
+    flipped_pronoun, template = rule
+    flipped_form = find_grammar_form(verb, flipped_pronoun)
+    if not flipped_form:
+        return None
+    return template.format(form=flipped_form)
+
+
 def build_meta_thought(target_form: Dict[str, Any], language: str) -> str:
     """The assistant-role meta-thought we inject before `response.create`.
 

@@ -16400,6 +16400,32 @@ def find_any_grammar_form(word_spanish: str) -> str | None:
     return form.replace("|", "") if form else None
 
 
+def find_grammar_form(verb: str, pronoun: str) -> str | None:
+    """Look up a specific (verb, pronoun) form across all conjugation lessons.
+
+    Sibling of `find_any_grammar_form` — that picks a random pronoun for
+    grenade variety; this one needs an exact pronoun for the realtime
+    steering response.instructions builder. Walks every conjugation
+    lesson's `drill_config.answers[verb][pronoun]` and returns the first
+    match with the rendering pipe stripped.
+
+    Returns None when no conjugation lesson covers this (verb, pronoun)
+    pair — caller should skip the response.instructions override.
+    """
+    if not verb or not pronoun:
+        return None
+    for cfg in GRAMMAR_SITUATIONS.values():
+        if cfg.get("lesson_type") != "conjugation":
+            continue
+        forms = (cfg.get("drill_config") or {}).get("answers", {}).get(verb)
+        if not forms:
+            continue
+        form = forms.get(pronoun)
+        if form:
+            return form.replace("|", "")
+    return None
+
+
 # ── Chat target forms (English-conjugation chips for grammar chat) ──────────
 
 # Subject pronouns mapped to their English subject form. We use a simple

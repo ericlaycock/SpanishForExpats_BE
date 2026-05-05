@@ -367,14 +367,20 @@ class RealtimeTurnResponse(BaseModel):
     # avatar to repeat" / "say something to keep going"). Telemetry is
     # captured server-side regardless via `avatar_dead_end_turns`.
     avatar_dead_end: bool = False
-    # Per-turn steering for the realtime flow (Option C). When non-null,
-    # the FE injects this as a `conversation.item.create` (role=assistant)
-    # message before firing `response.create` — the model uses it as
-    # planning context for its next reply. Null when the conversation is
-    # complete or there are no pending chips. `steering_target_id` echoes
-    # the chip we asked for so the FE can highlight / debug.
+    # Per-turn steering for the realtime flow.
+    # `response_instructions`: short rule the FE attaches to its next
+    # `response.create` as the response-level instructions override.
+    # Built from the active steering chip's pronoun + the flipped
+    # conjugation form. Null on completion, on no-pending-chips, or for
+    # vocab encounters (where we have no pronoun metadata).
+    # `steering_target_id` echoes the chip we asked for so the FE can
+    # highlight / debug.
+    # `steering_text` is deprecated — used to carry a meta-thought we
+    # injected via `conversation.item.create`. BE now always returns
+    # null; FE doesn't read it. Remove next cleanup.
     steering_text: Optional[str] = None
     steering_target_id: Optional[str] = None
+    response_instructions: Optional[str] = None
 
 
 # Grammar config schemas
