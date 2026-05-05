@@ -135,12 +135,12 @@ _PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
     ),
     "tú": (
         "yo",
-        "Connecting with what the user just said, share how you do "
+        "Connecting with what the user just said, share how you "
         "\"{form}\", and ask for the user's opinion." + _BREVITY_TAG,
     ),
     "usted": (
         "yo",
-        "Connecting with what the user just said, share how you do "
+        "Connecting with what the user just said, share how you "
         "\"{form}\", and ask for the user's opinion." + _BREVITY_TAG,
     ),
     "nosotros": (
@@ -156,7 +156,7 @@ _PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
     "ustedes": (
         "nosotros",
         "Connecting with what the user just said, share how you + a close "
-        "family member/friend do \"{form}\" and ask for the user's opinion."
+        "family member/friend \"{form}\" and ask for the user's opinion."
         + _BREVITY_TAG,
     ),
     # Third-person targets: model speaks ABOUT a third party using the
