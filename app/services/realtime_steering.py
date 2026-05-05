@@ -159,23 +159,27 @@ _PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
     # SAME pronoun, so the user mirrors back the same conjugation.
     "él": (
         "él",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a male person/thing doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a real male person (e.g. parent, sibling, "
+        "friend, neighbor) doing \"{form}\".",
     ),
     "ella": (
         "ella",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a female person/thing doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a real female person (e.g. parent, sibling, "
+        "friend, neighbor) doing \"{form}\".",
     ),
     "ellos": (
         "ellos",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a male person/thing doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a real group of male people (e.g. family, "
+        "friends, classmates) doing \"{form}\".",
     ),
     "ellas": (
         "ellas",
-        "Connecting with what the user just said, state an opinion (or ask "
-        "a question) about a female person/thing doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion or ask "
+        "a question about a real group of female people (e.g. family, "
+        "friends, classmates) doing \"{form}\".",
     ),
 }
 
