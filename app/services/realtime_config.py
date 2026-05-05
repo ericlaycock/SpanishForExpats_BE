@@ -97,10 +97,24 @@ def _resolve_system_prompt(
     signature compatibility with `build_session_config` callers but
     aren't currently consumed by the realtime template.
     """
+    # Lesson-context: pass English glosses of pending vocab chips into
+    # the role prompt. Grammar chips are skipped — those have their own
+    # per-turn steering via `_PRONOUN_INSTRUCTIONS`.
+    lesson_concepts = (
+        [
+            chip.english.strip()
+            for chip in (learner_ctx.target_chips or [])
+            if chip.english and not chip.is_grammar
+        ]
+        if learner_ctx
+        else []
+    )
+
     return build_realtime_system_prompt(
         situation.animation_type,
         conversation.situation_id,
         alt_language=alt_language,
+        lesson_concepts=lesson_concepts,
     )
 
 

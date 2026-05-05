@@ -4,8 +4,11 @@ After the TTS/R2 strip the contract is:
     request:  { messages_json?: stringified [{role, content}] }
     response: { english_gloss: str, hints_remaining: int }
 
-Covers happy path + cap (5/conv) + the two 409 cases. Upstream LLM call
-is monkeypatched. No TTS, no R2.
+Covers happy path + cap-removed sentinel + the two 409 cases. The
+per-conversation cap was removed in commit e4e0f19; the BE now returns
+a fixed `hints_remaining=999` sentinel so the FE keeps rendering its
+counter without a special case. Upstream LLM call is monkeypatched. No
+TTS, no R2.
 """
 import uuid
 
@@ -83,13 +86,20 @@ def test_sentence_hint_happy_path(client, db, auth_user, monkeypatch):
     )
     assert r.status_code == 200, r.text
     body = r.json()
+    # `hints_remaining` is a fixed sentinel post-cap-removal (e4e0f19) —
+    # the FE counter keeps rendering, but there is no per-conversation
+    # ceiling enforced server-side.
     assert body == {
         "english_gloss": "Could you open an **account** for me?",
-        "hints_remaining": 4,
+        "hints_remaining": 999,
     }
 
 
-def test_sentence_hint_cap_blocks_sixth(client, db, auth_user, monkeypatch):
+def test_sentence_hint_no_per_conversation_cap(client, db, auth_user, monkeypatch):
+    """The per-conversation hint cap was removed in commit e4e0f19. Pin
+    that callers can keep requesting hints without hitting a 429 — the
+    sentinel `hints_remaining` stays positive across many calls.
+    """
     _, headers = auth_user
     sit = _seed_vocab_situation(db)
     conv = _make_voice_conv(
@@ -102,21 +112,15 @@ def test_sentence_hint_cap_blocks_sixth(client, db, auth_user, monkeypatch):
 
     _stub_llm(monkeypatch)
 
-    for _ in range(5):
+    # Six calls — would have tripped the old 5-cap; should all succeed now.
+    for _ in range(6):
         r = client.post(
             f"/v1/conversations/{conv.id}/sentence-hint",
             headers=headers,
             json={},
         )
         assert r.status_code == 200, r.text
-
-    r = client.post(
-        f"/v1/conversations/{conv.id}/sentence-hint",
-        headers=headers,
-        json={},
-    )
-    assert r.status_code == 429
-    assert r.json()["detail"] == "HINT_RATE_LIMIT"
+        assert r.json()["hints_remaining"] > 0
 
 
 def test_sentence_hint_409_when_all_words_detected(client, db, auth_user, monkeypatch):

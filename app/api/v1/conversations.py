@@ -780,10 +780,21 @@ async def voice_turn_respond(
         target_word_objects=words,
     )
 
+    # Lesson-context: pass English glosses of pending vocab chips into
+    # the role prompt so the avatar steers toward natural opportunities
+    # to elicit them. Grammar chips (with verb+pronoun) are filtered out
+    # — those have working steering via `_PRONOUN_INSTRUCTIONS`.
+    lesson_concepts = [
+        chip.english.strip()
+        for chip in (learner_ctx.target_chips or [])
+        if chip.english and not chip.is_grammar
+    ] if learner_ctx else []
+
     system_prompt = build_realtime_system_prompt(
         situation.animation_type if situation else "",
         conversation.situation_id,
         alt_language=alt_language,
+        lesson_concepts=lesson_concepts,
     )
 
     # Build messages: [system, ...history, user]. We always include the
