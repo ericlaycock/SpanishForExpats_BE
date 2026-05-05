@@ -122,18 +122,22 @@ def pick_next_target(
 def build_meta_thought(target_form: Dict[str, Any], language: str) -> str:
     """The assistant-role meta-thought we inject before `response.create`.
 
-    The model treats this as a turn it just thought through, then
-    generates the actual reply on the next `response.create`. The two
-    examples lock the elicit-without-saying-the-form pattern.
+    Heavier on examples of person-flipping (1st ↔ 2nd, plural ↔ singular)
+    so the model learns the elicitation pattern: never produce the target
+    form yourself, instead say a related form in a different person to
+    bait the user into saying theirs.
     """
     spanish = (target_form.get("spanish") or "").strip()
-    english = (target_form.get("english") or "").strip()
     return (
-        f'The user must say "{spanish}" ({english}) next. I will ask them a '
-        f"question in {language} that elicits it without me saying the form "
-        f'myself. For example, if they needed to say "ustedes abren", I might '
-        f'say "Es posible que nosotros abramos una botella de vino esta '
-        f'noche." If they needed to say "gato", I might say "¿Tienes '
-        f'mascotas?" I never say their target word myself. I will come up '
+        f'The user must say "{spanish}" next. I will ask them a question in '
+        f"{language} that elicits it without me saying the form myself. For "
+        f'example, if they needed to say "ustedes abren", I might say "Es '
+        f'cierto que nosotros abremos una botella de vino esta noche." If '
+        f'they needed to say "gato", I might say "¿Tienes mascotas?". If '
+        f'they need to say "yo escribo", I might say "escribes a menudo?" '
+        f'If they need to say "You write", I would say "Sabes, me gusta '
+        f'escribir." -> this invites them to ask me a follow-up question. I '
+        f"never say their target word myself - I FLIP between 1st/2nd "
+        f"person plural to get them to say the right person. I will come up "
         f"with my response to them now."
     )
