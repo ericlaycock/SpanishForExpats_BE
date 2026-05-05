@@ -125,61 +125,65 @@ def pick_next_target(
 # response.instructions override. The model uses the *flipped* pronoun's
 # form so the user is forced into producing the chip's form to respond.
 # {form} substitutes the conjugated verb in the flipped pronoun.
+_BREVITY_TAG = " Keep it 2 short sentences max in simple Spanish."
+
 _PRONOUN_INSTRUCTIONS: Dict[str, tuple[str, str]] = {
     "yo": (
         "tú",
-        "Ask the user a relevant question with \"{form}\" in your question.",
+        "Ask the user a relevant question with \"{form}\" in your question."
+        + _BREVITY_TAG,
     ),
     "tú": (
         "yo",
         "Connecting with what the user just said, share how you do "
-        "\"{form}\", and ask for the user's opinion.",
+        "\"{form}\", and ask for the user's opinion." + _BREVITY_TAG,
     ),
     "usted": (
         "yo",
         "Connecting with what the user just said, share how you do "
-        "\"{form}\", and ask for the user's opinion.",
+        "\"{form}\", and ask for the user's opinion." + _BREVITY_TAG,
     ),
     "nosotros": (
         "ustedes",
         "Ask the user a relevant question using the verb \"{form}\" about "
-        "something they and a friend/family member do.",
+        "something they and a friend/family member do." + _BREVITY_TAG,
     ),
     "nosotras": (
         "ustedes",
         "Ask the user a relevant question using the verb \"{form}\" about "
-        "something they and a friend/family member do.",
+        "something they and a friend/family member do." + _BREVITY_TAG,
     ),
     "ustedes": (
         "nosotros",
         "Connecting with what the user just said, share how you + a close "
-        "family member/friend do \"{form}\" and ask for the user's opinion.",
+        "family member/friend do \"{form}\" and ask for the user's opinion."
+        + _BREVITY_TAG,
     ),
     # Third-person targets: model speaks ABOUT a third party using the
     # SAME pronoun, so the user mirrors back the same conjugation.
     "él": (
         "él",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a real male person (e.g. parent, sibling, "
-        "friend, neighbor) doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a male person/thing doing \"{form}\"."
+        + _BREVITY_TAG,
     ),
     "ella": (
         "ella",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a real female person (e.g. parent, sibling, "
-        "friend, neighbor) doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a female person/thing doing \"{form}\"."
+        + _BREVITY_TAG,
     ),
     "ellos": (
         "ellos",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a real group of male people (e.g. family, "
-        "friends, classmates) doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a male person/thing doing \"{form}\"."
+        + _BREVITY_TAG,
     ),
     "ellas": (
         "ellas",
-        "Connecting with what the user just said, state an opinion or ask "
-        "a question about a real group of female people (e.g. family, "
-        "friends, classmates) doing \"{form}\".",
+        "Connecting with what the user just said, state an opinion (or ask "
+        "a question) about a female person/thing doing \"{form}\"."
+        + _BREVITY_TAG,
     ),
 }
 
