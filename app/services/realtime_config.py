@@ -36,20 +36,16 @@ from app.services.voice_turn_service import (
 
 REALTIME_MODEL = "gpt-realtime-mini"
 
-# Server VAD params match the FE-expected endpointing behavior. Bumping the
-# threshold makes the model wait longer for silence before closing a turn;
-# lowering it makes barge-in more aggressive. 0.5 / 500ms is OpenAI's default
-# and what the FE's useRealtimeSession hook assumes.
-_DEFAULT_TURN_DETECTION = {
-    "type": "server_vad",
-    "threshold": 0.5,
-    "silence_duration_ms": 500,
-    # Don't auto-fire response.create when VAD endpoints. The FE waits for
-    # the Whisper transcript event, POSTs /realtime-turn for word detection
-    # + steering, injects the meta-thought via conversation.item.create, and
-    # then sends response.create itself. Keeps the BE in the steering loop.
-    "create_response": False,
-}
+# turn_detection is intentionally None so OpenAI never auto-endpoints
+# the user's audio buffer. The FE controls the cycle explicitly:
+# replaceTrack(mic) → speak → replaceTrack(null) →
+# input_audio_buffer.commit → transcript event → /realtime-turn →
+# response.create with steering instructions.
+#
+# Cost upside: we only stream audio over the wire while the user is
+# actually pressing record. Always-on VAD bills audio input tokens for
+# silence too. With true push-to-talk, idle gaps cost nothing.
+_DEFAULT_TURN_DETECTION = None
 
 # whisper-1 is what the existing `/voice-turn` STT path uses. Keeping the same
 # model means per-turn transcripts from the realtime flow agree with what the
@@ -174,15 +170,17 @@ def build_session_config(
     }
 
     if mode == "ephemeral":
-        # The browser connects directly to OpenAI over WebRTC. We need VAD
-        # and Whisper transcription turned on so OpenAI handles endpointing
-        # and gives us per-turn text to forward to `/realtime-turn` for word
-        # detection + persistence.
+        # The browser connects directly to OpenAI over WebRTC. We disable
+        # server VAD entirely (turn_detection: null) and run a true
+        # push-to-talk: the FE only streams audio while the user holds
+        # the mic, then sends `input_audio_buffer.commit` +
+        # `response.create` itself. Whisper transcription still runs on
+        # each committed chunk so /realtime-turn gets a transcript.
         return {
             "model": REALTIME_MODEL,
             **base,
             "input_audio_transcription": dict(_DEFAULT_INPUT_TRANSCRIPTION),
-            "turn_detection": dict(_DEFAULT_TURN_DETECTION),
+            "turn_detection": _DEFAULT_TURN_DETECTION,
         }
 
     # server_ws: we have the full message list already and want one streamed
