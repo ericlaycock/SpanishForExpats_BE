@@ -8,8 +8,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.auth import get_current_user, get_password_hash, create_access_token
 from app.database import get_db
-from app.models import User, Subscription
+from datetime import timedelta
+from app.models import User, Subscription, Cohort, CohortRegistration
 from app.schemas import (
+    AdminCohortListResponse,
+    AdminCohortRegistrant,
+    AdminCohortRow,
+    CohortSession,
     FreeflowResponse,
     FreeflowUserRow,
     MilestoneInfo,
@@ -403,3 +408,58 @@ def get_webpageflow(
         WebpageflowStep(event_key=key, label=label, count=counts.get(key, 0))
         for key, label in WEBPAGEFLOW_STEPS
     ])
+
+
+@router.get("/cohorts", response_model=AdminCohortListResponse)
+def admin_list_cohorts(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Return every cohort with its registrant list. Used by the admin
+    Cohorts tab to monitor sign-ups."""
+    _require_admin(current_user)
+
+    cohorts = (
+        db.query(Cohort)
+        .order_by(Cohort.session_1_start.asc(), Cohort.id.asc())
+        .all()
+    )
+
+    rows: list[AdminCohortRow] = []
+    for cohort in cohorts:
+        regs = (
+            db.query(CohortRegistration)
+            .filter(CohortRegistration.cohort_id == cohort.id)
+            .order_by(CohortRegistration.created_at.asc())
+            .all()
+        )
+        duration = timedelta(minutes=cohort.duration_minutes)
+        sessions = [
+            CohortSession(index=i + 1, start_utc=start, end_utc=start + duration)
+            for i, start in enumerate(
+                (cohort.session_1_start, cohort.session_2_start, cohort.session_3_start)
+            )
+        ]
+        rows.append(
+            AdminCohortRow(
+                id=cohort.id,
+                slug=cohort.slug,
+                name=cohort.name,
+                visibility=cohort.visibility,
+                timezone=cohort.timezone,
+                capacity=cohort.capacity,
+                duration_minutes=cohort.duration_minutes,
+                spots_filled=len(regs),
+                sessions=sessions,
+                registrants=[
+                    AdminCohortRegistrant(
+                        name=r.name,
+                        email=r.email,
+                        registered_at=r.created_at,
+                    )
+                    for r in regs
+                ],
+            )
+        )
+
+    return AdminCohortListResponse(cohorts=rows)

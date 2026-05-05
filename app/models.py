@@ -383,6 +383,62 @@ class SentenceHint(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
 
+class Cohort(Base):
+    """A scheduled 3-day live cohort the user can register for at the end
+    of the marketing webflow. Times are timezone-aware (stored as UTC); UI
+    and email render in `timezone` plus the user's local zone.
+    """
+    __tablename__ = "cohorts"
+    __table_args__ = (
+        CheckConstraint(
+            "visibility IN ('public', 'business_owner')",
+            name="ck_cohorts_visibility",
+        ),
+    )
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    slug = Column(String(64), unique=True, nullable=False)
+    name = Column(String(64), nullable=False)
+    visibility = Column(String(32), nullable=False, server_default="public")
+    capacity = Column(Integer, nullable=False, server_default="8")
+    timezone = Column(String(64), nullable=False, server_default="America/Los_Angeles")
+    session_1_start = Column(DateTime(timezone=True), nullable=False)
+    session_2_start = Column(DateTime(timezone=True), nullable=False)
+    session_3_start = Column(DateTime(timezone=True), nullable=False)
+    duration_minutes = Column(Integer, nullable=False, server_default="60")
+    is_active = Column(Boolean, nullable=False, server_default="true")
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    registrations = relationship("CohortRegistration", back_populates="cohort")
+
+
+class CohortRegistration(Base):
+    """A single user's registration for a cohort. Created atomically with
+    the User row at the end of the webflow. `confirmation_token` gates the
+    public .ics download URL, so it must be unguessable.
+    """
+    __tablename__ = "cohort_registrations"
+    __table_args__ = (
+        UniqueConstraint("cohort_id", "user_id", name="uq_cohort_user"),
+    )
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    cohort_id = Column(Integer, ForeignKey("cohorts.id"), nullable=False, index=True)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=False, index=True)
+    confirmation_token = Column(String(64), unique=True, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    cohort = relationship("Cohort", back_populates="registrations")
+    user = relationship("User")
+
+
 class AnonymousFunnelEvent(Base):
     """One row per (session_id, event_key) — anonymous wizard funnel.
 

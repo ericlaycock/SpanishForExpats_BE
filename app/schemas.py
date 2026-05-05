@@ -667,3 +667,69 @@ class WebpageflowResponse(BaseModel):
     steps: List[WebpageflowStep]
 
 
+# Cohort registration schemas
+CohortVisibility = Literal["public", "business_owner"]
+
+
+class CohortSession(BaseModel):
+    index: int  # 1, 2, or 3
+    start_utc: datetime
+    end_utc: datetime
+
+
+class CohortPublic(BaseModel):
+    id: int
+    slug: str
+    name: str
+    visibility: CohortVisibility
+    timezone: str
+    duration_minutes: int
+    capacity: int
+    spots_left: int
+    sessions: List[CohortSession]
+
+
+class CohortListResponse(BaseModel):
+    cohorts: List[CohortPublic]
+
+
+class CohortRegisterRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=120)
+    email: EmailStr
+    password: str = Field(..., min_length=8)
+    confirm_password: str
+
+
+class CohortRegisterResponse(BaseModel):
+    access_token: str
+    user_id: UUID
+    is_admin: bool
+    email: str
+    plan: str
+    registration_token: str
+    cohort: CohortPublic
+
+
+class AdminCohortRegistrant(BaseModel):
+    name: str
+    email: str
+    registered_at: datetime
+
+
+class AdminCohortRow(BaseModel):
+    id: int
+    slug: str
+    name: str
+    visibility: CohortVisibility
+    timezone: str
+    capacity: int
+    duration_minutes: int
+    spots_filled: int
+    sessions: List[CohortSession]
+    registrants: List[AdminCohortRegistrant]
+
+
+class AdminCohortListResponse(BaseModel):
+    cohorts: List[AdminCohortRow]
+
+

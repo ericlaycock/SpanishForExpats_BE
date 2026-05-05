@@ -50,6 +50,9 @@ Feature flag for the WebRTC-based realtime voice chat (BE issue #10 / FE issue #
 | `R2_SECRET_ACCESS_KEY` | optional | R2 secret. |
 | `R2_ENDPOINT_URL` | optional | R2 endpoint. |
 | `R2_PUBLIC_URL` | optional | Public base URL for R2-hosted audio. |
+| `SMTP_EMAIL` | optional | Gmail address used as the FROM for outbound mail (password reset, cohort confirmation). Without it, sends are skipped. |
+| `SMTP_APP_PASSWORD` | optional | Gmail app-specific password for `SMTP_EMAIL`. |
+| `COHORT_ZOOM_URL` | optional | Single shared Zoom meeting URL embedded in cohort confirmation emails and `.ics` files. If unset, the email/.ics will say the link is TBD. |
 
 ## Notes
 
