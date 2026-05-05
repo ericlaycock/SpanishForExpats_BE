@@ -767,10 +767,11 @@ async def voice_turn_respond(
     # sample) inflate the count and the closer fires early.
     chip_complete = chips_total > 0 and target_chip_ids.issubset(set(completed_chip_ids))
 
-    # The v3 prompt is level-aware, target-anchored, and reads chip state
-    # straight off the conversation. No more side-band injection of
-    # English "thinking" messages — targeting lives entirely in the
-    # system prompt now.
+    # `learner_ctx` is still used by `validate_assistant_reply` below
+    # (chip-leak detection on the assistant's reply). The v3 long
+    # template is no longer fed into the LLM — we now use the short
+    # role-only `realtime_agent` v1 prompt + a per-turn `system` rule
+    # built from `pick_next_target` + `build_response_instructions`.
     learner_ctx = _make_learner_context(
         current_user, situation, conversation,
         vocab_level=vocab_level, grammar_level=grammar_level,
@@ -778,48 +779,43 @@ async def voice_turn_respond(
         target_word_objects=words,
     )
 
-    grammar_config_for_prompt = get_grammar_config(conversation.situation_id)
-    if grammar_config_for_prompt:
-        system_prompt = build_grammar_system_prompt(
-            conversation.situation_id,
-            language_mode=language_mode,
-            alt_language=alt_language,
-            learner_ctx=learner_ctx,
-        )
-    else:
-        system_prompt = get_conversation_system_prompt(
-            language_mode, alt_language=alt_language,
-            animation_type=situation.animation_type if situation else "",
-            situation_id=conversation.situation_id,
-            learner_ctx=learner_ctx,
-        )
+    system_prompt = build_realtime_system_prompt(
+        situation.animation_type if situation else "",
+        conversation.situation_id,
+        alt_language=alt_language,
+    )
 
+    # Build messages: [system, ...history, user]. We always include the
+    # user transcript, even when frontend_messages is empty (cold-start).
+    llm_messages: list[dict] = [{"role": "system", "content": system_prompt}]
     if frontend_messages:
-        llm_messages = [{"role": "system", "content": system_prompt}]
         for msg in frontend_messages:
-            if msg["role"] != "system":
+            if msg.get("role") != "system" and msg.get("content"):
                 llm_messages.append(msg)
-        llm_messages.append({"role": "user", "content": user_transcript})
-    else:
-        # Cold-start: no FE history. Pair the v3 system prompt with a
-        # minimal user-prompt that surfaces the latest transcript and the
-        # situation context. The legacy `build_grammar_user_prompt` /
-        # `build_conversation_prompt` helpers still do the heavy lifting
-        # for the non-history case so we don't duplicate that copy here.
-        if grammar_config_for_prompt:
-            user_prompt = build_grammar_user_prompt(
-                situation.title, conversation.used_spoken_word_ids or [],
-                user_transcript, grammar_config_for_prompt,
-            )
-        else:
-            user_prompt = build_conversation_prompt(
-                situation.title, words, conversation.used_spoken_word_ids or [],
-                user_transcript, alt_language=alt_language,
-            )
-        llm_messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ]
+    llm_messages.append({"role": "user", "content": user_transcript})
+
+    # Per-turn steering: pick the chip we want the model to elicit next
+    # (with 1-turn stickiness) and append the `response_instructions`
+    # template as a final `system` message. This is the chat-completions
+    # equivalent of OpenAI Realtime's `response.instructions` override —
+    # a one-shot rule the model follows for just this reply.
+    from app.services import realtime_steering
+
+    realtime_steering.reset_steering_if_landed(conversation)
+    target_id, target_form = (None, None)
+    response_instructions: Optional[str] = None
+    if not chip_complete:
+        target_id, target_form = realtime_steering.pick_next_target(db, conversation)
+        if target_id and target_form:
+            response_instructions = realtime_steering.build_response_instructions(target_form)
+    db.commit()
+
+    if response_instructions:
+        llm_messages.append({"role": "system", "content": response_instructions})
+        logger.info(
+            f"[Voice Turn] response_instructions for target={target_id}: "
+            f"{response_instructions!r}"
+        )
 
     # ── Closing-turn bypass ──────────────────────────────────────────
     # When the student's transcript already ticked the LAST chip (or
