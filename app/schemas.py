@@ -312,16 +312,11 @@ class VoiceTurnResponse(BaseModel):
 # and uses `audio_url` for the Listen affordance. `used_item_ids` is
 # what the LLM claims it used — vocab `word_*` ids and/or grammar
 # `conj_<verb>_<pronoun>` chip ids — surfaced for telemetry only.
-# `prompt_prefix` is the framing label the FE renders before `spanish`
-# (e.g., "Try saying: «...»") so the bubble reads as a suggestion to
-# the learner, not as a turn from the avatar.
 class SentenceHintResponse(BaseModel):
-    spanish: str
+    # English-only suggestion with the target keyword in markdown bold.
+    # No Spanish, no audio — the FE renders this directly into the chip.
     english_gloss: str
-    audio_url: Optional[str] = None
-    used_item_ids: List[str]
     hints_remaining: int
-    prompt_prefix: str = "Try saying"
 
 
 # Realtime (WebRTC) session schemas
@@ -372,6 +367,20 @@ class RealtimeTurnResponse(BaseModel):
     # avatar to repeat" / "say something to keep going"). Telemetry is
     # captured server-side regardless via `avatar_dead_end_turns`.
     avatar_dead_end: bool = False
+    # Per-turn steering for the realtime flow.
+    # `response_instructions`: short rule the FE attaches to its next
+    # `response.create` as the response-level instructions override.
+    # Built from the active steering chip's pronoun + the flipped
+    # conjugation form. Null on completion, on no-pending-chips, or for
+    # vocab encounters (where we have no pronoun metadata).
+    # `steering_target_id` echoes the chip we asked for so the FE can
+    # highlight / debug.
+    # `steering_text` is deprecated — used to carry a meta-thought we
+    # injected via `conversation.item.create`. BE now always returns
+    # null; FE doesn't read it. Remove next cleanup.
+    steering_text: Optional[str] = None
+    steering_target_id: Optional[str] = None
+    response_instructions: Optional[str] = None
 
 
 # Grammar config schemas
@@ -656,5 +665,78 @@ class WebpageflowStep(BaseModel):
 
 class WebpageflowResponse(BaseModel):
     steps: List[WebpageflowStep]
+
+
+# Cohort registration schemas
+CohortVisibility = Literal["public", "business_owner"]
+
+
+class CohortSession(BaseModel):
+    index: int  # 1, 2, or 3
+    start_utc: datetime
+    end_utc: datetime
+
+
+class CohortPublic(BaseModel):
+    id: int
+    slug: str
+    name: str
+    visibility: CohortVisibility
+    timezone: str
+    duration_minutes: int
+    capacity: int
+    spots_left: int
+    sessions: List[CohortSession]
+
+
+class CohortListResponse(BaseModel):
+    cohorts: List[CohortPublic]
+
+
+class CohortRegisterRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=120)
+    email: EmailStr
+
+
+class CohortRegisterResponse(BaseModel):
+    registration_token: str
+    email: str
+    cohort: CohortPublic
+
+
+class CohortClaimAccountRequest(BaseModel):
+    password: str = Field(..., min_length=8)
+    confirm_password: str
+
+
+class CohortClaimAccountResponse(BaseModel):
+    access_token: str
+    user_id: UUID
+    is_admin: bool
+    email: str
+    plan: str
+
+
+class AdminCohortRegistrant(BaseModel):
+    name: str
+    email: str
+    registered_at: datetime
+
+
+class AdminCohortRow(BaseModel):
+    id: int
+    slug: str
+    name: str
+    visibility: CohortVisibility
+    timezone: str
+    capacity: int
+    duration_minutes: int
+    spots_filled: int
+    sessions: List[CohortSession]
+    registrants: List[AdminCohortRegistrant]
+
+
+class AdminCohortListResponse(BaseModel):
+    cohorts: List[AdminCohortRow]
 
 

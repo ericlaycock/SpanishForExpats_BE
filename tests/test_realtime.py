@@ -195,11 +195,10 @@ def test_create_session_happy_path(client, db, auth_user, fake_httpx):
     posted = fake_httpx.last_call["json"]
     assert posted["model"] == "gpt-realtime-mini"
     assert posted["voice"] == "shimmer"  # banking situation
-    assert posted["turn_detection"] == {
-        "type": "server_vad",
-        "threshold": 0.5,
-        "silence_duration_ms": 500,
-    }
+    # turn_detection is None (push-to-talk) per commit 64eb21c — the FE
+    # commits the audio buffer + fires response.create itself instead of
+    # relying on server VAD endpointing.
+    assert posted["turn_detection"] is None
     assert posted["input_audio_transcription"] == {"model": "whisper-1"}
     assert fake_httpx.last_call["url"] == (
         "https://api.openai.com/v1/realtime/sessions"

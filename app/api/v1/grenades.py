@@ -54,14 +54,24 @@ async def generate(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Craft (or recraft for a different audience) the question for a grenade."""
+    """Craft (or recraft for a different audience) the question for a grenade.
+
+    If the supplied `grenade_id` no longer exists (FE state is stale —
+    e.g. QA seed wiped the grammar grenade between page load and click)
+    we fall back to picking today's grenade so the user can still craft
+    rather than dead-ending on a 404.
+    """
     grenade = (
         db.query(Grenade)
         .filter(Grenade.id == grenade_id, Grenade.user_id == current_user.id)
         .first()
     )
     if grenade is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Grenade not found")
+        grenade = grenade_service.get_or_pick_today(db, current_user.id)
+        if grenade is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Grenade not found",
+            )
 
     request_id = get_request_id_from_request(request) or str(grenade_id)
     grenade = await grenade_service.generate_question(

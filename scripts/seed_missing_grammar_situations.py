@@ -32,6 +32,15 @@ from app.data.grammar_situations import (
 )
 from app.models import Situation, SituationWord, Word
 
+
+def _grammar_verbs() -> set[str]:
+    """Verbs are exactly the top-level keys of any lesson's drill_config.answers."""
+    verbs: set[str] = set()
+    for cfg in GRAMMAR_SITUATIONS.values():
+        answers = (cfg.get("drill_config") or {}).get("answers") or {}
+        verbs.update(answers.keys())
+    return verbs
+
 DRY_RUN = "--dry-run" in sys.argv
 ORDER_OFFSET = 1000  # mirrors migrate_grammar_prod.py
 
@@ -63,7 +72,11 @@ def main() -> int:
 
         # Insert grammar Word rows for any words referenced by missing
         # situations that aren't already in the words table. on_conflict_do_nothing
-        # leaves any pre-existing translations alone.
+        # leaves any pre-existing translations alone. word_type='verb' is
+        # set only for actual verbs (top-level keys of drill_config.answers
+        # across lessons) so the grenade + last_seen_form paths can detect
+        # them; pronouns / adjectives in word_workload stay NULL.
+        verb_set = _grammar_verbs()
         words_inserted = 0
         seen_words: set[str] = set()
         for sid in missing_ids:
@@ -73,12 +86,15 @@ def main() -> int:
                 seen_words.add(word)
                 word_id = f"grammar_{word}"
                 english = GRAMMAR_WORD_TRANSLATIONS.get(word, word)
-                stmt = insert(Word).values(
-                    id=word_id,
-                    spanish=word,
-                    english=english,
-                    word_category="grammar",
-                ).on_conflict_do_nothing(index_elements=["id"])
+                values = {
+                    "id": word_id,
+                    "spanish": word,
+                    "english": english,
+                    "word_category": "grammar",
+                }
+                if word in verb_set:
+                    values["word_type"] = "verb"
+                stmt = insert(Word).values(**values).on_conflict_do_nothing(index_elements=["id"])
                 result = db.execute(stmt)
                 if result.rowcount:
                     words_inserted += 1

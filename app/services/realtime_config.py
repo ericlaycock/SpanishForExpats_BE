@@ -25,28 +25,27 @@ from typing import Literal, Optional
 
 from sqlalchemy.orm import Session
 
-from app.data.grammar_situations import get_grammar_config
 from app.models import Conversation, Situation
 from app.services.alt_language_service import get_target_language_name
 from app.services.learner_context import LearnerContext
 from app.services.voice_turn_service import (
-    build_grammar_system_prompt,
-    get_conversation_system_prompt,
+    build_realtime_system_prompt,
     get_language_mode,
 )
 
 
 REALTIME_MODEL = "gpt-realtime-mini"
 
-# Server VAD params match the FE-expected endpointing behavior. Bumping the
-# threshold makes the model wait longer for silence before closing a turn;
-# lowering it makes barge-in more aggressive. 0.5 / 500ms is OpenAI's default
-# and what the FE's useRealtimeSession hook assumes.
-_DEFAULT_TURN_DETECTION = {
-    "type": "server_vad",
-    "threshold": 0.5,
-    "silence_duration_ms": 500,
-}
+# turn_detection is intentionally None so OpenAI never auto-endpoints
+# the user's audio buffer. The FE controls the cycle explicitly:
+# replaceTrack(mic) → speak → replaceTrack(null) →
+# input_audio_buffer.commit → transcript event → /realtime-turn →
+# response.create with steering instructions.
+#
+# Cost upside: we only stream audio over the wire while the user is
+# actually pressing record. Always-on VAD bills audio input tokens for
+# silence too. With true push-to-talk, idle gaps cost nothing.
+_DEFAULT_TURN_DETECTION = None
 
 # whisper-1 is what the existing `/voice-turn` STT path uses. Keeping the same
 # model means per-turn transcripts from the realtime flow agree with what the
@@ -87,37 +86,35 @@ def _resolve_system_prompt(
     grammar_level: float,
     learner_ctx: Optional[LearnerContext] = None,
 ) -> str:
-    """Build the system prompt the model should carry for the whole session.
+    """Build the realtime session's system prompt.
 
-    Mirrors the logic used by `/voice-turn/respond` for a new turn without any
-    existing message history: pick grammar template if the situation is a
-    grammar drill, otherwise the conversation template. Alt-language mode
-    swaps the language_mode suffix so prompts render in Catalan/Swedish.
+    Uses the new short `realtime_agent` v1 template — role-only, no
+    target_steering / anti_stuck / level_rule / turn-closing rule. Those
+    move into the per-turn `conversation.item.create` (role=assistant)
+    meta-thought injection driven by `realtime_steering.pick_next_target`.
 
-    `learner_ctx` is forwarded into the v3 templates. Optional so the
-    legacy session-mint path keeps working until callers populate it,
-    but production should pass a populated context — without it, the
-    target-steering block degrades to a placeholder line.
+    `learner_ctx`, `vocab_level`, `grammar_level` are accepted for
+    signature compatibility with `build_session_config` callers but
+    aren't currently consumed by the realtime template.
     """
-    language_mode = get_language_mode(
-        situation.encounter_number, vocab_level, grammar_level
+    # Lesson-context: pass English glosses of pending vocab chips into
+    # the role prompt. Grammar chips are skipped — those have their own
+    # per-turn steering via `_PRONOUN_INSTRUCTIONS`.
+    lesson_concepts = (
+        [
+            chip.english.strip()
+            for chip in (learner_ctx.target_chips or [])
+            if chip.english and not chip.is_grammar
+        ]
+        if learner_ctx
+        else []
     )
-    if alt_language and language_mode in ("spanish_text", "spanish_audio"):
-        language_mode = language_mode.replace("spanish_", f"{alt_language}_")
 
-    if get_grammar_config(conversation.situation_id):
-        return build_grammar_system_prompt(
-            conversation.situation_id,
-            language_mode=language_mode,
-            alt_language=alt_language,
-            learner_ctx=learner_ctx,
-        )
-    return get_conversation_system_prompt(
-        language_mode=language_mode,
+    return build_realtime_system_prompt(
+        situation.animation_type,
+        conversation.situation_id,
         alt_language=alt_language,
-        animation_type=situation.animation_type,
-        situation_id=conversation.situation_id,
-        learner_ctx=learner_ctx,
+        lesson_concepts=lesson_concepts,
     )
 
 
@@ -187,15 +184,17 @@ def build_session_config(
     }
 
     if mode == "ephemeral":
-        # The browser connects directly to OpenAI over WebRTC. We need VAD
-        # and Whisper transcription turned on so OpenAI handles endpointing
-        # and gives us per-turn text to forward to `/realtime-turn` for word
-        # detection + persistence.
+        # The browser connects directly to OpenAI over WebRTC. We disable
+        # server VAD entirely (turn_detection: null) and run a true
+        # push-to-talk: the FE only streams audio while the user holds
+        # the mic, then sends `input_audio_buffer.commit` +
+        # `response.create` itself. Whisper transcription still runs on
+        # each committed chunk so /realtime-turn gets a transcript.
         return {
             "model": REALTIME_MODEL,
             **base,
             "input_audio_transcription": dict(_DEFAULT_INPUT_TRANSCRIPTION),
-            "turn_detection": dict(_DEFAULT_TURN_DETECTION),
+            "turn_detection": _DEFAULT_TURN_DETECTION,
         }
 
     # server_ws: we have the full message list already and want one streamed

@@ -40,7 +40,7 @@ except Exception as e:
     # If logging fails, at least print to stdout
     print(f"⚠️  Failed to emit boot event: {e}", file=sys.stderr)
 
-from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports, admin, milestones, realtime, grenades, funnel
+from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports, admin, milestones, realtime, grenades, funnel, cohorts
 from app.database import engine
 from app.models import Base
 
@@ -312,6 +312,8 @@ app.include_router(grenades.router, prefix="/v1/grenades", tags=["grenades"])
 logger.info("  ✅ /v1/grenades (GET /today, POST /{id}/generate, POST /recall)")
 app.include_router(funnel.router, prefix="/v1/funnel", tags=["funnel"])
 logger.info("  ✅ /v1/funnel (POST /track - anonymous wizard funnel events)")
+app.include_router(cohorts.router, prefix="/v1/cohorts", tags=["cohorts"])
+logger.info("  ✅ /v1/cohorts (GET /, POST /{id}/register, GET /registrations/{token}/calendar.ics)")
 logger.info("✅ All routes registered")
 
 

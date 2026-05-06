@@ -142,22 +142,11 @@ def seed():
             )
             db.execute(stmt)
 
-        # --- Delete orphaned situations from old seed formats ---
-        current_situation_ids = {s["id"] for s in SITUATIONS}
-        current_situation_ids.update(GRAMMAR_SITUATIONS.keys())
-        # Use a temp table to avoid huge NOT IN param lists
-        db.execute(text("CREATE TEMP TABLE IF NOT EXISTS _valid_sids (id TEXT PRIMARY KEY)"))
-        db.execute(text("DELETE FROM _valid_sids"))
-        for sid in current_situation_ids:
-            db.execute(text("INSERT INTO _valid_sids (id) VALUES (:sid) ON CONFLICT DO NOTHING"), {"sid": sid})
-        # Clear all FK references to orphaned situations (in correct order)
-        db.execute(text("DELETE FROM situation_words WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
-        db.execute(text("DELETE FROM conversations WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
-        db.execute(text("DELETE FROM user_situations WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
-        db.execute(text("DELETE FROM daily_encounter_logs WHERE situation_id NOT IN (SELECT id FROM _valid_sids)"))
-        db.execute(text("UPDATE user_words SET source_situation_id = NULL WHERE source_situation_id NOT IN (SELECT id FROM _valid_sids)"))
-        db.execute(text("DELETE FROM situations WHERE id NOT IN (SELECT id FROM _valid_sids)"))
-        db.execute(text("DROP TABLE IF EXISTS _valid_sids"))
+        # No orphan-cleanup pass: previously-seeded situations that are no
+        # longer in the canonical list stay as orphans (harmless — no current
+        # lesson references them). The earlier pass also wiped per-user state
+        # (conversations / user_situations / daily_encounter_logs) on every
+        # boot, which clobbered learners' progress.
 
         # --- Situations (upsert to fix stale data) ---
         for s in SITUATIONS:
@@ -175,19 +164,20 @@ def seed():
             )
             db.execute(stmt)
 
-        # --- Grammar situations + words ---
-        # Clean slate for grammar: delete referencing rows first (FK order), then words
-        # This ensures orphan records from old seeds with different accent handling are removed
-        db.execute(text("DELETE FROM user_words WHERE word_id LIKE 'grammar_%'"))
-        db.execute(text("DELETE FROM situation_words WHERE situation_id LIKE 'grammar_%'"))
-        db.execute(text("DELETE FROM situation_words WHERE word_id LIKE 'grammar_%'"))
-        # Grenades hold a FK on words.id — clear any that reference grammar
-        # words so the subsequent words-table wipe doesn't trip on
-        # ForeignKeyViolation. This was breaking QA deploys whenever a
-        # previously-seeded grammar word (e.g. `grammar_sus`) had been used
-        # to create a grenade row before being dropped from the seed.
-        db.execute(text("DELETE FROM grenades WHERE word_id LIKE 'grammar_%'"))
-        db.execute(text("DELETE FROM words WHERE word_category = 'grammar'"))
+        # --- Grammar situations + words (idempotent upsert; no destructive
+        # prelude). Old grammar Word rows whose ids no longer appear in any
+        # GRAMMAR_SITUATIONS["word_workload"] survive as orphans — they
+        # don't break anything, and any user_word/grenade row referencing
+        # them keeps rendering correctly across redeploys. ---
+
+        # Build the verb set first — top-level keys of any drill_config.answers
+        # are verbs; pronouns/adjectives in word_workload (nosotros, etc.) are
+        # not. word_type='verb' must be set so the Grenade picker and
+        # last_seen_form pipeline don't fall through to the lemma.
+        grammar_verb_set: set[str] = set()
+        for cfg in GRAMMAR_SITUATIONS.values():
+            answers = (cfg.get("drill_config") or {}).get("answers") or {}
+            grammar_verb_set.update(answers.keys())
 
         grammar_word_set = set()
         for sid, cfg in GRAMMAR_SITUATIONS.items():
@@ -196,12 +186,19 @@ def seed():
                     grammar_word_set.add(word)
                     word_id = f"grammar_{word}"
                     english = GRAMMAR_WORD_TRANSLATIONS.get(word, word)
-                    stmt = insert(Word).values(
-                        id=word_id, spanish=word, english=english,
-                        word_category="grammar"
-                    ).on_conflict_do_update(
+                    insert_values = {
+                        "id": word_id,
+                        "spanish": word,
+                        "english": english,
+                        "word_category": "grammar",
+                    }
+                    update_values = {"english": english, "spanish": word}
+                    if word in grammar_verb_set:
+                        insert_values["word_type"] = "verb"
+                        update_values["word_type"] = "verb"
+                    stmt = insert(Word).values(**insert_values).on_conflict_do_update(
                         index_elements=["id"],
-                        set_={"english": english, "spanish": word},
+                        set_=update_values,
                     )
                     db.execute(stmt)
 

@@ -103,9 +103,11 @@ def test_resolve_voice_unknown_animation_type_falls_back():
 
 
 def test_ephemeral_config_carries_model_vad_and_whisper(db):
-    """Ephemeral config (browser → OpenAI WebRTC) must include the model name,
-    server VAD turn detection, and whisper transcription. Without these the
-    browser session can't endpoint user speech or hand transcripts back to us."""
+    """Ephemeral config (browser → OpenAI WebRTC) must include the model
+    name, push-to-talk turn detection (null), and whisper transcription.
+    Without whisper the browser session can't hand transcripts back to us;
+    turn_detection=null since commit 64eb21c so the FE drives endpointing
+    itself via input_audio_buffer.commit + response.create."""
     user = _make_user(db)
     situation = _make_situation(db, "bank_open_test", "banking")
     conv = _make_conversation(db, user, situation)
@@ -115,11 +117,8 @@ def test_ephemeral_config_carries_model_vad_and_whisper(db):
     assert cfg["model"] == REALTIME_MODEL
     assert cfg["modalities"] == ["text", "audio"]
     assert cfg["voice"] == "shimmer"
-    assert cfg["turn_detection"] == {
-        "type": "server_vad",
-        "threshold": 0.5,
-        "silence_duration_ms": 500,
-    }
+    # Push-to-talk: server VAD is disabled.
+    assert cfg["turn_detection"] is None
     assert cfg["input_audio_transcription"] == {"model": "whisper-1"}
     assert isinstance(cfg["instructions"], str) and cfg["instructions"]
     # Ephemeral never sets output_audio_format — that's only meaningful when

@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     smtp_email: Optional[str] = None
     smtp_app_password: Optional[str] = None
 
+    # Single shared Zoom URL used for every cohort session (3-day live cohorts).
+    cohort_zoom_url: Optional[str] = None
+
     # Azure Speech (pronunciation trainer)
     speech_key: Optional[str] = None
     speech_region: Optional[str] = None

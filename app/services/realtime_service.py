@@ -81,14 +81,20 @@ async def stream_realtime(
     t0 = time.time()
     full_text = ""
 
-    # Extract system prompt from messages
-    system_content = ""
+    # Extract system prompts from messages. Multiple system messages
+    # (session prompt + per-turn response_instructions) must be CONCATENATED,
+    # not overwritten — otherwise the trailing per-turn instruction silently
+    # drops the persistent simplicity / role rules.
+    system_parts: list[str] = []
     conversation_items = []
     for msg in messages:
         if msg["role"] == "system":
-            system_content = msg["content"]
+            content = msg.get("content")
+            if content:
+                system_parts.append(content)
         else:
             conversation_items.append(msg)
+    system_content = "\n\n".join(system_parts)
 
     session_payload = build_ws_session_update(
         voice=voice,

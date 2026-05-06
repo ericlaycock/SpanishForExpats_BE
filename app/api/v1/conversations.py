@@ -40,6 +40,7 @@ from app.services.voice_turn_service import (
     build_conversation_prompt,
     build_grammar_system_prompt,
     build_grammar_user_prompt,
+    build_realtime_system_prompt,
     get_language_mode,
     get_conversation_system_prompt,
     build_system_prompt,
@@ -319,9 +320,18 @@ async def create_conversation(
             # Reset spoken words so backend + frontend start from same empty state.
             # Without this, reused conversations carry stale used_spoken_word_ids
             # which causes completion to fire before all word chips show checkmarks.
+            # Also clear `completed_chip_ids`: `chat_target_forms_json` gets
+            # re-sampled here (8 chips picked at random from the pool), so any
+            # ticks from a prior session reference a different chip sample and
+            # would falsely inflate this session's chips_done count.
             voice_conv.used_spoken_word_ids = []
+            voice_conv.completed_chip_ids = []
             voice_conv.consecutive_no_progress_turns = 0
             voice_conv.chat_target_forms_json = chat_forms_for_db or None
+            # Steering state was anchored to the prior sample; reset alongside
+            # the chip list so the new session rolls a fresh target.
+            voice_conv.steering_target_id = None
+            voice_conv.steering_target_age = 0
             db.commit()
 
         if not voice_conv:
@@ -749,13 +759,20 @@ async def voice_turn_respond(
     # Refresh first so we see what step 1 wrote in this same request cycle.
     db.refresh(conversation)
     completed_chip_ids = list(conversation.completed_chip_ids or [])
-    chips_total = len(conversation.chat_target_forms_json or [])
-    chip_complete = chips_total > 0 and len(completed_chip_ids) >= chips_total
+    target_chip_ids = {
+        f.get("id") for f in (conversation.chat_target_forms_json or []) if f.get("id")
+    }
+    chips_total = len(target_chip_ids)
+    # Only count ticks for chip ids that are actually in this session's chip
+    # sample. Without this filter, ticks from a prior session (different
+    # sample) inflate the count and the closer fires early.
+    chip_complete = chips_total > 0 and target_chip_ids.issubset(set(completed_chip_ids))
 
-    # The v3 prompt is level-aware, target-anchored, and reads chip state
-    # straight off the conversation. No more side-band injection of
-    # English "thinking" messages — targeting lives entirely in the
-    # system prompt now.
+    # `learner_ctx` is still used by `validate_assistant_reply` below
+    # (chip-leak detection on the assistant's reply). The v3 long
+    # template is no longer fed into the LLM — we now use the short
+    # role-only `realtime_agent` v1 prompt + a per-turn `system` rule
+    # built from `pick_next_target` + `build_response_instructions`.
     learner_ctx = _make_learner_context(
         current_user, situation, conversation,
         vocab_level=vocab_level, grammar_level=grammar_level,
@@ -763,48 +780,54 @@ async def voice_turn_respond(
         target_word_objects=words,
     )
 
-    grammar_config_for_prompt = get_grammar_config(conversation.situation_id)
-    if grammar_config_for_prompt:
-        system_prompt = build_grammar_system_prompt(
-            conversation.situation_id,
-            language_mode=language_mode,
-            alt_language=alt_language,
-            learner_ctx=learner_ctx,
-        )
-    else:
-        system_prompt = get_conversation_system_prompt(
-            language_mode, alt_language=alt_language,
-            animation_type=situation.animation_type if situation else "",
-            situation_id=conversation.situation_id,
-            learner_ctx=learner_ctx,
-        )
+    # Lesson-context: pass English glosses of pending vocab chips into
+    # the role prompt so the avatar steers toward natural opportunities
+    # to elicit them. Grammar chips (with verb+pronoun) are filtered out
+    # — those have working steering via `_PRONOUN_INSTRUCTIONS`.
+    lesson_concepts = [
+        chip.english.strip()
+        for chip in (learner_ctx.target_chips or [])
+        if chip.english and not chip.is_grammar
+    ] if learner_ctx else []
 
+    system_prompt = build_realtime_system_prompt(
+        situation.animation_type if situation else "",
+        conversation.situation_id,
+        alt_language=alt_language,
+        lesson_concepts=lesson_concepts,
+    )
+
+    # Build messages: [system, ...history, user]. We always include the
+    # user transcript, even when frontend_messages is empty (cold-start).
+    llm_messages: list[dict] = [{"role": "system", "content": system_prompt}]
     if frontend_messages:
-        llm_messages = [{"role": "system", "content": system_prompt}]
         for msg in frontend_messages:
-            if msg["role"] != "system":
+            if msg.get("role") != "system" and msg.get("content"):
                 llm_messages.append(msg)
-        llm_messages.append({"role": "user", "content": user_transcript})
-    else:
-        # Cold-start: no FE history. Pair the v3 system prompt with a
-        # minimal user-prompt that surfaces the latest transcript and the
-        # situation context. The legacy `build_grammar_user_prompt` /
-        # `build_conversation_prompt` helpers still do the heavy lifting
-        # for the non-history case so we don't duplicate that copy here.
-        if grammar_config_for_prompt:
-            user_prompt = build_grammar_user_prompt(
-                situation.title, conversation.used_spoken_word_ids or [],
-                user_transcript, grammar_config_for_prompt,
-            )
-        else:
-            user_prompt = build_conversation_prompt(
-                situation.title, words, conversation.used_spoken_word_ids or [],
-                user_transcript, alt_language=alt_language,
-            )
-        llm_messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ]
+    llm_messages.append({"role": "user", "content": user_transcript})
+
+    # Per-turn steering: pick the chip we want the model to elicit next
+    # (with 1-turn stickiness) and append the `response_instructions`
+    # template as a final `system` message. This is the chat-completions
+    # equivalent of OpenAI Realtime's `response.instructions` override —
+    # a one-shot rule the model follows for just this reply.
+    from app.services import realtime_steering
+
+    realtime_steering.reset_steering_if_landed(conversation)
+    target_id, target_form = (None, None)
+    response_instructions: Optional[str] = None
+    if not chip_complete:
+        target_id, target_form = realtime_steering.pick_next_target(db, conversation)
+        if target_id and target_form:
+            response_instructions = realtime_steering.build_response_instructions(target_form)
+    db.commit()
+
+    if response_instructions:
+        llm_messages.append({"role": "system", "content": response_instructions})
+        logger.info(
+            f"[Voice Turn] response_instructions for target={target_id}: "
+            f"{response_instructions!r}"
+        )
 
     # ── Closing-turn bypass ──────────────────────────────────────────
     # When the student's transcript already ticked the LAST chip (or
@@ -1021,9 +1044,11 @@ async def realtime_turn(
     # Grammar chats with a chip snapshot complete only when every chip ticks;
     # vocab/non-chat grammar fall back to the legacy infinitive-coverage check.
     if conversation.chat_target_forms_json:
-        chips_total = len(conversation.chat_target_forms_json or [])
-        chips_done = len(conversation.completed_chip_ids or [])
-        chip_complete = chips_total > 0 and chips_done >= chips_total
+        target_chip_ids_rt = {
+            f.get("id") for f in conversation.chat_target_forms_json if f.get("id")
+        }
+        completed_set_rt = set(conversation.completed_chip_ids or [])
+        chip_complete = bool(target_chip_ids_rt) and target_chip_ids_rt.issubset(completed_set_rt)
         _, turns_remaining = check_completion(conversation)
         complete = chip_complete or (conversation.turn_count or 0) >= EXCHANGE_HARD_LIMIT
     else:
@@ -1031,6 +1056,21 @@ async def realtime_turn(
     if complete and conversation.status != "complete":
         conversation.status = "complete"
         conversation.completed_at = datetime.now(timezone.utc)
+
+    # Realtime steering: pick the chip the FE should ask the model to elicit
+    # next, with 2-turn stickiness. Skipped on completion — the FE plays the
+    # closer instead. If the user just landed the active steering target, we
+    # reset the stickiness state before picking so the next turn rolls fresh.
+    response_instructions: Optional[str] = None
+    steering_target_id: Optional[str] = None
+    if not complete:
+        from app.services import realtime_steering
+
+        realtime_steering.reset_steering_if_landed(conversation)
+        target_id, target_form = realtime_steering.pick_next_target(db, conversation)
+        if target_id and target_form:
+            response_instructions = realtime_steering.build_response_instructions(target_form)
+            steering_target_id = target_id
 
     db.commit()
     missing_word_ids = get_missing_word_ids(conversation, "voice")
@@ -1043,6 +1083,11 @@ async def realtime_turn(
         completed_chip_ids=list(conversation.completed_chip_ids or []),
         consecutive_no_progress_turns=conversation.consecutive_no_progress_turns or 0,
         avatar_dead_end=avatar_flagged,
+        # `steering_text` is deprecated by `response_instructions`; kept as
+        # an explicit None so the FE upgrade can land independently.
+        steering_text=None,
+        steering_target_id=steering_target_id,
+        response_instructions=response_instructions,
     )
 
 
@@ -1075,11 +1120,9 @@ async def sentence_hint(
     """Generate one short Spanish sentence the learner could say next."""
     import logging as _logging
     from app.services.sentence_hint_service import (
-        SENTENCE_HINT_CAP_PER_CONVERSATION,
         compute_pending_items,
         generate_sentence_hint,
         persist_hint_audit,
-        synthesize_hint_audio,
     )
     from app.core.logger import log_event
 
@@ -1113,11 +1156,7 @@ async def sentence_hint(
         )
 
     used = conversation.sentence_hints_used or 0
-    if used >= SENTENCE_HINT_CAP_PER_CONVERSATION:
-        raise HTTPException(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="HINT_RATE_LIMIT",
-        )
+    # No cap on hint requests — keep the counter for telemetry, never block.
 
     alt_language = current_user.alt_language
     pending_items = compute_pending_items(db, conversation, alt_language)
@@ -1135,36 +1174,12 @@ async def sentence_hint(
         except (json_module.JSONDecodeError, TypeError):
             recent_messages = None
 
-    situation = (
-        db.query(Situation)
-        .filter(Situation.id == conversation.situation_id)
-        .first()
-    )
-
-    spanish, english_gloss, used_item_ids, llm_request_id = await generate_sentence_hint(
+    english_text, llm_request_id = await generate_sentence_hint(
         db,
         user_id=str(current_user.id),
         request_id=request_id,
         pending_items=pending_items,
         recent_messages=recent_messages,
-        situation_title=situation.title if situation else None,
-        alt_language=alt_language,
-        spanish_level=current_user.q0_spanish_level,
-    )
-
-    tts_voice, tts_instructions = get_tts_instructions(
-        situation.animation_type if situation else "",
-        alt_language=alt_language,
-        situation_id=situation.id if situation else None,
-    )
-
-    audio_url, tts_request_id = await synthesize_hint_audio(
-        db,
-        text=spanish,
-        voice=tts_voice,
-        instructions=tts_instructions,
-        request_id=request_id,
-        user_id=str(current_user.id),
     )
 
     # Increment + audit + commit. The cap check above already locked the
@@ -1175,13 +1190,9 @@ async def sentence_hint(
         db,
         conversation=conversation,
         user_id=current_user.id,
-        spanish=spanish,
-        english_gloss=english_gloss,
-        audio_url=audio_url,
-        used_item_ids=used_item_ids,
+        english_gloss=english_text,
         pending_count=len(pending_items),
         llm_request_id=llm_request_id,
-        tts_request_id=tts_request_id,
     )
     db.commit()
 
@@ -1195,19 +1206,13 @@ async def sentence_hint(
             "conversation_id": str(conversation.id),
             "situation_id": conversation.situation_id,
             "pending_count": len(pending_items),
-            "used_item_ids": used_item_ids,
             "hints_used": conversation.sentence_hints_used,
-            "audio_uploaded": audio_url is not None,
         },
     )
 
-    hints_remaining = max(
-        0, SENTENCE_HINT_CAP_PER_CONVERSATION - conversation.sentence_hints_used
-    )
+    # FE still expects a non-zero `hints_remaining`. Stuff a high sentinel
+    # so the disabled-rate-limit branch never fires.
     return SentenceHintResponse(
-        spanish=spanish,
-        english_gloss=english_gloss,
-        audio_url=audio_url,
-        used_item_ids=used_item_ids,
-        hints_remaining=hints_remaining,
+        english_gloss=english_text,
+        hints_remaining=999,
     )

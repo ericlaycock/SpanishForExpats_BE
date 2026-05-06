@@ -5831,7 +5831,7 @@ GRAMMAR_SITUATIONS = {
             {"en": "She likes the book", "es": "Le gusta el libro", "noun_id": "libro", "type": "written", "glosses": {"book": "libro", "libro": "book"}},
             {"en": "He likes the water", "es": "Le gusta el agua", "noun_id": "agua", "type": "auditory", "glosses": {"water": "agua", "agua": "water"}},
             {"en": "You (formal) like the food", "es": "Le gusta la comida", "noun_id": "comida", "type": "written", "glosses": {"food": "comida", "comida": "food"}},
-            {"en": "We like the plan", "es": "Nos gusta el plan", "noun_id": None, "type": "auditory", "glosses": {"plan": "plan"}},
+            {"en": "We (m/mf) like the plan", "es": "Nos gusta el plan", "noun_id": None, "type": "auditory", "glosses": {"plan": "plan"}},
             {"en": "They like the park", "es": "Les gusta el parque", "noun_id": "parque", "type": "written", "glosses": {"park": "parque", "parque": "park"}},
             {"en": "I like the dog", "es": "Me gusta el perro", "noun_id": "perro", "type": "auditory", "glosses": {}},
             {"en": "You like the city", "es": "Te gusta la ciudad", "noun_id": "ciudad", "type": "written", "glosses": {"city": "ciudad", "ciudad": "city"}},
@@ -5970,7 +5970,7 @@ GRAMMAR_SITUATIONS = {
             {"en": "You like the books", "es": "Te gustan los libros", "noun_id": "libro", "type": "auditory", "glosses": {"books": "libros", "libros": "books"}},
             {"en": "She likes the dogs", "es": "Le gustan los perros", "noun_id": "perro", "type": "written", "glosses": {"dogs": "perros", "perros": "dogs"}},
             {"en": "He likes the cars", "es": "Le gustan los carros", "noun_id": "carro", "type": "auditory", "glosses": {"cars": "carros", "carros": "cars"}},
-            {"en": "We like the movies", "es": "Nos gustan las películas", "noun_id": None, "type": "written", "glosses": {"movies": "películas", "películas": "movies"}},
+            {"en": "We (m/mf) like the movies", "es": "Nos gustan las películas", "noun_id": None, "type": "written", "glosses": {"movies": "películas", "películas": "movies"}},
             {"en": "They like the parks", "es": "Les gustan los parques", "noun_id": "parque", "type": "auditory", "glosses": {"parks": "parques", "parques": "parks"}},
             {"en": "You all like the beaches", "es": "Les gustan las playas", "noun_id": "playa", "type": "written", "glosses": {"beaches": "playas", "playas": "beaches"}},
             {"en": "I like the cities", "es": "Me gustan las ciudades", "noun_id": "ciudad", "type": "auditory", "glosses": {"cities": "ciudades", "ciudades": "cities"}},
@@ -9174,7 +9174,7 @@ GRAMMAR_SITUATIONS = {
         },
         'drill_sentences': [
             {"en": "I was reading when she arrived", "es": "Yo leía cuando ella llegó", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "We used to play every day", "es": "Jugábamos todos los días", "noun_id": None, "type": "auditory", "glosses": {"day": "día", "days": "días", "día": "day", "días": "days"}},
+            {"en": "We (m/mf) used to play every day", "es": "Jugábamos todos los días", "noun_id": None, "type": "auditory", "glosses": {"day": "día", "days": "días", "día": "day", "días": "days"}},
             {"en": "He ate the bread", "es": "Él comió el pan", "noun_id": "pan", "type": "written", "glosses": {"bread": "pan", "pan": "bread"}},
             {"en": "She was eating when I called", "es": "Ella comía cuando yo llamé", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "It was raining all morning", "es": "Llovía toda la mañana", "noun_id": None, "type": "written", "glosses": {"morning": "mañana", "mañana": "morning"}},
@@ -11668,12 +11668,12 @@ GRAMMAR_SITUATIONS = {
         'drill_sentences': [
             {"en": "I see it", "es": "Lo veo", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "She buys them", "es": "Las compra", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "We eat it", "es": "Lo comemos", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "We (m/mf) eat it", "es": "Lo comemos", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "They bring her", "es": "La traen", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "You hear them", "es": "Los oyes", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "I read it", "es": "La leo", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "He drinks it", "es": "Lo bebe", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "We see them", "es": "Los vemos", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "We (m/mf) see them", "es": "Los vemos", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "She wants it", "es": "Lo quiere", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "I take her", "es": "La llevo", "noun_id": None, "type": "auditory", "glosses": {}}
         ],
@@ -11736,14 +11736,14 @@ GRAMMAR_SITUATIONS = {
         'drill_sentences': [
             {"en": "I give him the book", "es": "Le doy el libro", "noun_id": "libro", "type": "written", "glosses": {"book": "libro", "libro": "book"}},
             {"en": "She tells them the truth", "es": "Les dice la verdad", "noun_id": "verdad", "type": "auditory", "glosses": {"truth": "verdad", "verdad": "truth"}},
-            {"en": "We bring her the food", "es": "Le traemos la comida", "noun_id": "comida", "type": "written", "glosses": {"food": "comida", "comida": "food"}},
+            {"en": "We (m/mf) bring her the food", "es": "Le traemos la comida", "noun_id": "comida", "type": "written", "glosses": {"food": "comida", "comida": "food"}},
             {"en": "They send him the letter", "es": "Le mandan la carta", "noun_id": "carta", "type": "auditory", "glosses": {"letter": "carta", "carta": "letter"}},
             {"en": "I write him a message", "es": "Le escribo un mensaje", "noun_id": "mensaje", "type": "written", "glosses": {"message": "mensaje", "mensaje": "message"}},
-            {"en": "We pay them the money", "es": "Les pagamos el dinero", "noun_id": "dinero", "type": "auditory", "glosses": {"money": "dinero", "dinero": "money"}},
+            {"en": "We (m/mf) pay them the money", "es": "Les pagamos el dinero", "noun_id": "dinero", "type": "auditory", "glosses": {"money": "dinero", "dinero": "money"}},
             {"en": "You give them the gift", "es": "Les das el regalo", "noun_id": "regalo", "type": "written", "glosses": {"gift": "regalo", "regalo": "gift"}},
             {"en": "She buys him the shirt", "es": "Le compra la camisa", "noun_id": "camisa", "type": "auditory", "glosses": {"shirt": "camisa", "camisa": "shirt"}},
             {"en": "I show him the photo", "es": "Le muestro la foto", "noun_id": "foto", "type": "written", "glosses": {}},
-            {"en": "We tell them everything", "es": "Les decimos todo", "noun_id": None, "type": "auditory", "glosses": {}}
+            {"en": "We (m/mf) tell them everything", "es": "Les decimos todo", "noun_id": None, "type": "auditory", "glosses": {}}
         ],
         'phase_2_config': {
             'description': 'Indirect Object Pronouns',
@@ -11853,11 +11853,11 @@ GRAMMAR_SITUATIONS = {
             {"en": "She gives it to me", "es": "Me lo da", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "I give it to you", "es": "Te lo doy", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "She gives it to him", "es": "Se lo da", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "We bring it to her", "es": "Se lo traemos", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "We (m/mf) bring it to her", "es": "Se lo traemos", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "I tell it to you", "es": "Te lo digo", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "He sends it to me", "es": "Me lo manda", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "She writes it to me", "es": "Me la escribe", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "We bring it to you", "es": "Te la traemos", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "We (m/mf) bring it to you", "es": "Te la traemos", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "They give it to him", "es": "Se la dan", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "I show it to her", "es": "Se la muestro", "noun_id": None, "type": "auditory", "glosses": {}}
         ],
@@ -11926,10 +11926,10 @@ GRAMMAR_SITUATIONS = {
             {"en": "They bring them to us", "es": "Nos los traen", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "She tells them to us", "es": "Nos los dice", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "He gives them to them", "es": "Se los da", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "We send them to her", "es": "Se las mandamos", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "We (m/mf) send them to her", "es": "Se las mandamos", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "They show them to us", "es": "Nos las muestran", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "I write them to him", "es": "Se las escribo", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "We pay them to them", "es": "Se los pagamos", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "We (m/mf) pay them to them", "es": "Se los pagamos", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "You give them to us", "es": "Nos los das", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "She brings them to me", "es": "Me las trae", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "I send them to you", "es": "Te las mando", "noun_id": None, "type": "auditory", "glosses": {}}
@@ -15290,12 +15290,12 @@ GRAMMAR_SITUATIONS = {
             {"en": "You left the house early.", "es": "Tú saliste de la casa temprano.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "early": "temprano", "casa": "house", "temprano": "early"}},
             {"en": "I left the party at midnight.", "es": "Yo salí de la fiesta a medianoche.", "noun_id": None, "type": "auditory", "glosses": {"party": "fiesta", "midnight": "medianoche", "fiesta": "party", "medianoche": "midnight"}},
             {"en": "He left the restaurant quickly.", "es": "Él salió del restaurante rápidamente.", "noun_id": None, "type": "written", "glosses": {"restaurant": "restaurante", "quickly": "rápidamente", "restaurante": "restaurant", "rápidamente": "quickly"}},
-            {"en": "We left the park together.", "es": "Nosotros salimos del parque juntos.", "noun_id": None, "type": "auditory", "glosses": {"park": "parque", "together": "juntos", "parque": "park", "juntos": "together"}},
+            {"en": "We (m/mf) left the park together.", "es": "Nosotros salimos del parque juntos.", "noun_id": None, "type": "auditory", "glosses": {"park": "parque", "together": "juntos", "parque": "park", "juntos": "together"}},
             {"en": "They (f) left the school late.", "es": "Ellas salieron de la escuela tarde.", "noun_id": None, "type": "written", "glosses": {"school": "escuela", "late": "tarde", "escuela": "school", "tarde": "late"}},
             {"en": "You joined the group yesterday.", "es": "Tú uniste al grupo ayer.", "noun_id": None, "type": "written", "glosses": {"group": "grupo", "yesterday": "ayer", "grupo": "group", "ayer": "yesterday"}},
             {"en": "I joined the team last week.", "es": "Yo uní al equipo la semana pasada.", "noun_id": None, "type": "auditory", "glosses": {"team": "equipo", "week": "semana", "last": "pasada", "equipo": "team", "semana": "week", "pasada": "last"}},
             {"en": "He joined the class early.", "es": "Él unió la clase temprano.", "noun_id": None, "type": "written", "glosses": {"class": "clase", "early": "temprano", "clase": "class", "temprano": "early"}},
-            {"en": "We joined the clubs quickly.", "es": "Nosotros unimos los clubes rápidamente.", "noun_id": None, "type": "auditory", "glosses": {"clubs": "clubes", "quickly": "rápidamente", "clubes": "clubs", "rápidamente": "quickly"}},
+            {"en": "We (m/mf) joined the clubs quickly.", "es": "Nosotros unimos los clubes rápidamente.", "noun_id": None, "type": "auditory", "glosses": {"clubs": "clubes", "quickly": "rápidamente", "clubes": "clubs", "rápidamente": "quickly"}},
             {"en": "They (f) joined the teams yesterday.", "es": "Ellas unieron los equipos ayer.", "noun_id": None, "type": "written", "glosses": {"teams": "equipos", "yesterday": "ayer", "equipos": "teams", "ayer": "yesterday"}},
         ],
         "drill_targets": [{"verb": "salir", "pronoun": "tú"}, {"verb": "salir", "pronoun": "yo"}, {"verb": "salir", "pronoun": "él"}, {"verb": "salir", "pronoun": "nosotros"}, {"verb": "salir", "pronoun": "ellas"}, {"verb": "unir", "pronoun": "tú"}, {"verb": "unir", "pronoun": "yo"}, {"verb": "unir", "pronoun": "él"}, {"verb": "unir", "pronoun": "nosotros"}, {"verb": "unir", "pronoun": "ellas"}],
@@ -15412,12 +15412,12 @@ GRAMMAR_SITUATIONS = {
             {"en": "You were the teacher.", "es": "Tú fuiste el profesor.", "noun_id": None, "type": "written", "glosses": {"teacher": "profesor", "profesor": "teacher"}},
             {"en": "I was happy yesterday.", "es": "Yo fui feliz ayer.", "noun_id": None, "type": "auditory", "glosses": {"happy": "feliz", "feliz": "happy", "yesterday": "ayer", "ayer": "yesterday"}},
             {"en": "He was very tall.", "es": "Él fue muy alto.", "noun_id": None, "type": "written", "glosses": {"tall": "alto", "alto": "tall", "very": "muy", "muy": "very"}},
-            {"en": "We were at the park.", "es": "Nosotros fuimos en el parque.", "noun_id": None, "type": "auditory", "glosses": {"park": "parque", "parque": "park"}},
+            {"en": "We (m/mf) were at the park.", "es": "Nosotros fuimos en el parque.", "noun_id": None, "type": "auditory", "glosses": {"park": "parque", "parque": "park"}},
             {"en": "They (f) were friends.", "es": "Ellas fueron amigas.", "noun_id": None, "type": "written", "glosses": {"friends": "amigas", "amigas": "friends"}},
             {"en": "You went to the market.", "es": "Tú fuiste al mercado.", "noun_id": None, "type": "written", "glosses": {"market": "mercado", "mercado": "market"}},
             {"en": "I went to the beach.", "es": "Yo fui a la playa.", "noun_id": None, "type": "auditory", "glosses": {"beach": "playa", "playa": "beach"}},
             {"en": "He went home early.", "es": "Él fue a casa temprano.", "noun_id": None, "type": "written", "glosses": {"home": "casa", "casa": "home", "early": "temprano", "temprano": "early"}},
-            {"en": "We went by car.", "es": "Nosotros fuimos en coche.", "noun_id": None, "type": "auditory", "glosses": {"car": "coche", "coche": "car"}},
+            {"en": "We (m/mf) went by car.", "es": "Nosotros fuimos en coche.", "noun_id": None, "type": "auditory", "glosses": {"car": "coche", "coche": "car"}},
             {"en": "They (f) went to school.", "es": "Ellas fueron a la escuela.", "noun_id": None, "type": "written", "glosses": {"school": "escuela", "escuela": "school"}},
         ],
         "drill_targets": [{"verb": "ser", "pronoun": "tú"}, {"verb": "ser", "pronoun": "yo"}, {"verb": "ser", "pronoun": "él"}, {"verb": "ser", "pronoun": "nosotros"}, {"verb": "ser", "pronoun": "ellas"}, {"verb": "ir", "pronoun": "tú"}, {"verb": "ir", "pronoun": "yo"}, {"verb": "ir", "pronoun": "él"}, {"verb": "ir", "pronoun": "nosotros"}, {"verb": "ir", "pronoun": "ellas"}],
@@ -15490,12 +15490,12 @@ GRAMMAR_SITUATIONS = {
             {"en": "You gave her a red book.", "es": "Tú le diste un libro rojo.", "noun_id": None, "type": "written", "glosses": {"book": "libro", "red": "rojo", "libro": "book", "rojo": "red"}},
             {"en": "I gave my mother flowers.", "es": "Yo di flores a mi madre.", "noun_id": None, "type": "auditory", "glosses": {"flowers": "flores", "mother": "madre", "flores": "flowers", "madre": "mother"}},
             {"en": "He gave the teacher a pen.", "es": "Él dio un bolígrafo al profesor.", "noun_id": None, "type": "written", "glosses": {"pen": "bolígrafo", "teacher": "profesor", "bolígrafo": "pen", "profesor": "teacher"}},
-            {"en": "We gave gifts yesterday.", "es": "Nosotros dimos regalos ayer.", "noun_id": None, "type": "auditory", "glosses": {"gifts": "regalos", "yesterday": "ayer", "regalos": "gifts", "ayer": "yesterday"}},
+            {"en": "We (m/mf) gave gifts yesterday.", "es": "Nosotros dimos regalos ayer.", "noun_id": None, "type": "auditory", "glosses": {"gifts": "regalos", "yesterday": "ayer", "regalos": "gifts", "ayer": "yesterday"}},
             {"en": "They (f) gave us good news.", "es": "Ellas nos dieron buenas noticias.", "noun_id": None, "type": "written", "glosses": {"news": "noticias", "good": "buenas", "noticias": "news", "buenas": "good"}},
             {"en": "You saw the big dog.", "es": "Tú viste el perro grande.", "noun_id": None, "type": "written", "glosses": {"dog": "perro", "big": "grande", "perro": "dog", "grande": "big"}},
             {"en": "I saw a movie last night.", "es": "Yo vi una película anoche.", "noun_id": None, "type": "auditory", "glosses": {"movie": "película", "last night": "anoche", "película": "movie", "anoche": "last night"}},
             {"en": "He saw the blue car.", "es": "Él vio el coche azul.", "noun_id": None, "type": "written", "glosses": {"car": "coche", "blue": "azul", "coche": "car", "azul": "blue"}},
-            {"en": "We saw many stars today.", "es": "Nosotros vimos muchas estrellas hoy.", "noun_id": None, "type": "auditory", "glosses": {"stars": "estrellas", "many": "muchas", "today": "hoy", "estrellas": "stars", "muchas": "many", "hoy": "today"}},
+            {"en": "We (m/mf) saw many stars today.", "es": "Nosotros vimos muchas estrellas hoy.", "noun_id": None, "type": "auditory", "glosses": {"stars": "estrellas", "many": "muchas", "today": "hoy", "estrellas": "stars", "muchas": "many", "hoy": "today"}},
             {"en": "They (f) saw a small house.", "es": "Ellas vieron una casa pequeña.", "noun_id": None, "type": "written", "glosses": {"house": "casa", "small": "pequeña", "casa": "house", "pequeña": "small"}},
         ],
         "drill_targets": [{"verb": "dar", "pronoun": "tú"}, {"verb": "dar", "pronoun": "yo"}, {"verb": "dar", "pronoun": "él"}, {"verb": "dar", "pronoun": "nosotros"}, {"verb": "dar", "pronoun": "ellas"}, {"verb": "ver", "pronoun": "tú"}, {"verb": "ver", "pronoun": "yo"}, {"verb": "ver", "pronoun": "él"}, {"verb": "ver", "pronoun": "nosotros"}, {"verb": "ver", "pronoun": "ellas"}],
@@ -15568,12 +15568,12 @@ GRAMMAR_SITUATIONS = {
             {"en": "You made a cake.", "es": "Tú hiciste un pastel.", "noun_id": None, "type": "written", "glosses": {"cake": "pastel", "pastel": "cake"}},
             {"en": "I made dinner last night.", "es": "Yo hice la cena anoche.", "noun_id": None, "type": "auditory", "glosses": {"dinner": "cena", "cena": "dinner", "last night": "anoche", "anoche": "last night"}},
             {"en": "He made a big mistake.", "es": "Él hizo un gran error.", "noun_id": None, "type": "written", "glosses": {"big": "gran", "gran": "big", "mistake": "error", "error": "mistake"}},
-            {"en": "We made plans yesterday.", "es": "Nosotros hicimos planes ayer.", "noun_id": None, "type": "auditory", "glosses": {"plans": "planes", "planes": "plans", "yesterday": "ayer", "ayer": "yesterday"}},
+            {"en": "We (m/mf) made plans yesterday.", "es": "Nosotros hicimos planes ayer.", "noun_id": None, "type": "auditory", "glosses": {"plans": "planes", "planes": "plans", "yesterday": "ayer", "ayer": "yesterday"}},
             {"en": "They (f) made a new dress.", "es": "Ellas hicieron un vestido nuevo.", "noun_id": None, "type": "written", "glosses": {"dress": "vestido", "vestido": "dress", "new": "nuevo", "nuevo": "new"}},
             {"en": "You said the truth.", "es": "Tú dijiste la verdad.", "noun_id": None, "type": "written", "glosses": {"truth": "verdad", "verdad": "truth"}},
             {"en": "I said nothing.", "es": "Yo dije nada.", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "He said a funny joke.", "es": "Él dijo un chiste gracioso.", "noun_id": None, "type": "written", "glosses": {"joke": "chiste", "chiste": "joke", "funny": "gracioso", "gracioso": "funny"}},
-            {"en": "We said goodbye.", "es": "Nosotros dijimos adiós.", "noun_id": None, "type": "auditory", "glosses": {"goodbye": "adiós", "adiós": "goodbye"}},
+            {"en": "We (m/mf) said goodbye.", "es": "Nosotros dijimos adiós.", "noun_id": None, "type": "auditory", "glosses": {"goodbye": "adiós", "adiós": "goodbye"}},
             {"en": "They (f) said many things.", "es": "Ellas dijeron muchas cosas.", "noun_id": None, "type": "written", "glosses": {"many": "muchas", "muchas": "many", "things": "cosas", "cosas": "things"}},
         ],
         "drill_targets": [{"verb": "hacer", "pronoun": "tú"}, {"verb": "hacer", "pronoun": "yo"}, {"verb": "hacer", "pronoun": "él"}, {"verb": "hacer", "pronoun": "nosotros"}, {"verb": "hacer", "pronoun": "ellas"}, {"verb": "decir", "pronoun": "tú"}, {"verb": "decir", "pronoun": "yo"}, {"verb": "decir", "pronoun": "él"}, {"verb": "decir", "pronoun": "nosotros"}, {"verb": "decir", "pronoun": "ellas"}],
@@ -15646,12 +15646,12 @@ GRAMMAR_SITUATIONS = {
             {"en": "You brought the books.", "es": "Tú trajiste los libros.", "noun_id": None, "type": "written", "glosses": {"books": "libros", "libros": "books"}},
             {"en": "I brought a gift.", "es": "Yo traje un regalo.", "noun_id": None, "type": "auditory", "glosses": {"gift": "regalo", "regalo": "gift"}},
             {"en": "He brought water.", "es": "Él trajo agua.", "noun_id": None, "type": "written", "glosses": {"water": "agua", "agua": "water"}},
-            {"en": "We brought food.", "es": "Nosotros trajimos comida.", "noun_id": None, "type": "auditory", "glosses": {"food": "comida", "comida": "food"}},
+            {"en": "We (m/mf) brought food.", "es": "Nosotros trajimos comida.", "noun_id": None, "type": "auditory", "glosses": {"food": "comida", "comida": "food"}},
             {"en": "They (f) brought flowers.", "es": "Ellas trajeron flores.", "noun_id": None, "type": "written", "glosses": {"flowers": "flores", "flores": "flowers"}},
             {"en": "You slept well.", "es": "Tú dormiste bien.", "noun_id": None, "type": "written", "glosses": {"well": "bien", "bien": "well"}},
             {"en": "I slept early.", "es": "Yo dormí temprano.", "noun_id": None, "type": "auditory", "glosses": {"early": "temprano", "temprano": "early"}},
             {"en": "He slept a lot.", "es": "Él durmió mucho.", "noun_id": None, "type": "written", "glosses": {"a lot": "mucho", "mucho": "a lot"}},
-            {"en": "We slept late.", "es": "Nosotros dormimos tarde.", "noun_id": None, "type": "auditory", "glosses": {"late": "tarde", "tarde": "late"}},
+            {"en": "We (m/mf) slept late.", "es": "Nosotros dormimos tarde.", "noun_id": None, "type": "auditory", "glosses": {"late": "tarde", "tarde": "late"}},
             {"en": "They (f) slept quietly.", "es": "Ellas durmieron tranquilamente.", "noun_id": None, "type": "written", "glosses": {"quietly": "tranquilamente", "tranquilamente": "quietly"}},
         ],
         "drill_targets": [{"verb": "traer", "pronoun": "tú"}, {"verb": "traer", "pronoun": "yo"}, {"verb": "traer", "pronoun": "él"}, {"verb": "traer", "pronoun": "nosotros"}, {"verb": "traer", "pronoun": "ellas"}, {"verb": "dormir", "pronoun": "tú"}, {"verb": "dormir", "pronoun": "yo"}, {"verb": "dormir", "pronoun": "él"}, {"verb": "dormir", "pronoun": "nosotros"}, {"verb": "dormir", "pronoun": "ellas"}],
@@ -16398,6 +16398,32 @@ def find_any_grammar_form(word_spanish: str) -> str | None:
     chosen = _random.choice(candidates)
     form = forms_for_verb.get(chosen)
     return form.replace("|", "") if form else None
+
+
+def find_grammar_form(verb: str, pronoun: str) -> str | None:
+    """Look up a specific (verb, pronoun) form across all conjugation lessons.
+
+    Sibling of `find_any_grammar_form` — that picks a random pronoun for
+    grenade variety; this one needs an exact pronoun for the realtime
+    steering response.instructions builder. Walks every conjugation
+    lesson's `drill_config.answers[verb][pronoun]` and returns the first
+    match with the rendering pipe stripped.
+
+    Returns None when no conjugation lesson covers this (verb, pronoun)
+    pair — caller should skip the response.instructions override.
+    """
+    if not verb or not pronoun:
+        return None
+    for cfg in GRAMMAR_SITUATIONS.values():
+        if cfg.get("lesson_type") != "conjugation":
+            continue
+        forms = (cfg.get("drill_config") or {}).get("answers", {}).get(verb)
+        if not forms:
+            continue
+        form = forms.get(pronoun)
+        if form:
+            return form.replace("|", "")
+    return None
 
 
 # ── Chat target forms (English-conjugation chips for grammar chat) ──────────

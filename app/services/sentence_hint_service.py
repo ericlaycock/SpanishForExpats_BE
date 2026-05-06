@@ -1,10 +1,11 @@
 """Sentence-hint generation for the /voice-chat "Need help?" button.
 
-The FE asks the BE for a single short Spanish sentence the learner could
+The FE asks the BE for a single short English sentence the learner could
 say next, using 1 or 2 items they haven't completed yet (vocab words for
 non-grammar encounters, conjugation chips for grammar encounters). The
 result is rendered in the avatar's speech bubble; the FE owns the
-display.
+display. Output is English-only by contract — the bolded keyword is the
+English gloss of a Spanish chip, never the Spanish form itself.
 
 Per-conversation cap (5 hints) lives on the conversation row
 (`sentence_hints_used`); this module is concerned with assembling the
@@ -22,25 +23,18 @@ items for an already-mastered verb.
 """
 from __future__ import annotations
 
-import asyncio
-import json
 import logging
+import re
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
 from sqlalchemy.orm import Session
 
 from app.models import Conversation, SentenceHint
-from app.services.alt_language_service import (
-    apply_alt_language,
-    get_target_language_name,
-)
+from app.services.alt_language_service import apply_alt_language
 from app.services.conversation_service import get_missing_word_ids
-from app.services.learner_level import level_rules_for_hint
 from app.services.llm_gateway import ConversationContext, generate_conversation
-from app.services.openai_media_gateway import synthesize_speech as gateway_synthesize_speech
 from app.services.word_detection import get_words_by_ids
-from app.utils.audio import generate_audio_filename, get_audio_path, upload_to_r2
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +46,11 @@ SENTENCE_HINT_CAP_PER_CONVERSATION = 5
 # prompt small and the LLM focused. The cap is generous enough to cover
 # every realistic vocab + grammar encounter.
 MAX_CANDIDATE_ITEMS = 12
+
+# Spanish-only diacritics and punctuation that must never appear in a
+# hint sent to the FE. The hint is the user-visible English scaffold;
+# any of these signals the LLM drifted into Spanish despite the prompt.
+_SPANISH_LEAK_RE = re.compile(r"[ñÑáéíóúÁÉÍÓÚ¿¡]")
 
 
 @dataclass
@@ -79,24 +78,66 @@ def compute_pending_items(
 ) -> List[PendingItem]:
     """Build the candidate item list for the hint prompt.
 
+    Grammar chat path (preferred): read `chat_target_forms_json` — the
+    actual chips the FE renders, with conjugated English labels like
+    "I eat" / "she drinks". Filter out chips already in
+    `completed_chip_ids`.
+
+    Grammar drill fallback: for each drill_target whose verb is still
+    missing, emit one candidate per `(verb, pronoun)` with the conjugated
+    form pulled from `drill_config.answers`. Used when a grammar lesson
+    hits this codepath without `chat_target_forms_json` populated.
+
     Vocab path: take `missing_word_ids`, hydrate via `get_words_by_ids`,
     apply alt-language swap so `spanish` reflects what the chip actually
     shows (catalan/swedish swaps).
-
-    Grammar path: for each drill_target whose verb is still missing, emit
-    one candidate per `(verb, pronoun)` with the conjugated form pulled
-    from `drill_config.answers`.
     """
-    from app.data.grammar_situations import (
-        GRAMMAR_WORD_TRANSLATIONS,
-        get_grammar_config,
-    )
+    from app.data.grammar_situations import get_grammar_config
+
+    chat_forms = conversation.chat_target_forms_json or []
+    if chat_forms:
+        return _chat_pending_items(conversation, chat_forms)
 
     grammar_cfg = get_grammar_config(conversation.situation_id)
     if grammar_cfg and grammar_cfg.get("drill_targets"):
         return _grammar_pending_items(conversation, grammar_cfg)
 
     return _vocab_pending_items(db, conversation, alt_language)
+
+
+def _chat_pending_items(
+    conversation: Conversation,
+    chat_forms: List[Dict[str, Any]],
+) -> List[PendingItem]:
+    """Build candidate items from `conversation.chat_target_forms_json`.
+
+    These are the exact chips the FE displays on a grammar chat — sampled
+    by `get_chat_target_forms` from the lesson's two preceding drills,
+    with English labels like "I eat" / "they (m) drink" (i.e. conjugated,
+    not infinitives). Filter out anything already in completed_chip_ids.
+    """
+    completed = set(conversation.completed_chip_ids or [])
+    items: List[PendingItem] = []
+    for form in chat_forms:
+        chip_id = form.get("id") or f"form:{form.get('spanish', '')}:{form.get('pronoun', '')}"
+        if chip_id in completed:
+            continue
+        spanish = (form.get("spanish") or "").strip()
+        english = (form.get("english") or "").strip()
+        if not spanish or not english:
+            continue
+        items.append(
+            PendingItem(
+                kind="grammar",
+                id=chip_id,
+                spanish=spanish,
+                english=english,
+                verb=form.get("verb"),
+                pronoun=form.get("pronoun"),
+                conjugated=spanish,
+            )
+        )
+    return items
 
 
 def _vocab_pending_items(
@@ -152,12 +193,20 @@ def _grammar_pending_items(
         # `|` is a stem/ending separator used only for UI rendering of drill
         # answers; the LLM and any downstream consumer must see the plain form.
         conjugated = conjugated.replace("|", "")
+        english = GRAMMAR_WORD_TRANSLATIONS.get(verb)
+        if not english:
+            # Skip rather than leak the Spanish infinitive into the prompt
+            # and the user-visible fallback string.
+            logger.warning(
+                f"[SentenceHint] No English gloss for grammar verb '{verb}'; skipping chip"
+            )
+            continue
         items.append(
             PendingItem(
                 kind="grammar",
                 id=f"conj_{verb}_{pronoun}",
                 spanish=conjugated,
-                english=GRAMMAR_WORD_TRANSLATIONS.get(verb, verb),
+                english=english,
                 verb=verb,
                 pronoun=pronoun,
                 conjugated=conjugated,
@@ -166,105 +215,67 @@ def _grammar_pending_items(
     return items
 
 
+SENTENCE_HINT_SYSTEM_PROMPT = (
+    "You write English-only learner scaffolds for a Spanish-learning app. "
+    "Output a single short English sentence or question. Never include any "
+    "Spanish words, Spanish phrases, Spanish punctuation (¿ ¡), or accented "
+    "Latin characters (á é í ó ú ñ). The bolded keyword must be the exact "
+    "English phrase provided to you, not its Spanish equivalent."
+)
+
+
 def build_hint_messages(
     pending_items: List[PendingItem],
     recent_messages: Optional[List[Dict[str, str]]],
-    situation_title: Optional[str],
-    alt_language: Optional[str],
-    spanish_level: Optional[str] = None,
 ) -> List[Dict[str, str]]:
     """Build the LLM messages for hint generation.
 
-    Returns a `messages` list ready for `ConversationContext`. Includes a
-    system prompt with formatting rules and a user prompt with the
-    pending items + the last 4 turns of conversation context.
+    Returns a system message that pins the English-only contract and a user
+    message: the recent turns + the list of remaining English words the
+    learner still needs. The model returns a plain English sentence with the
+    chosen keyword wrapped in markdown bold.
     """
-    target_language = get_target_language_name(alt_language)
-    items_block = _format_items_for_prompt(pending_items)
-
     history_block = _format_history_for_prompt(recent_messages or [])
+    words_block = _format_words_for_prompt(pending_items)
 
-    title = situation_title or "this conversation"
-    level_rule = level_rules_for_hint(spanish_level)
-
-    # The learner is stuck in a real roleplay and needs help unblocking
-    # the conversation. The prompt deliberately fights the model's
-    # default "Quiero/Necesito el <word>" stitching by anchoring every
-    # suggestion in a concrete real-world need, with explicit bad/good
-    # contrast so the few-shot grounding actually transfers. Without
-    # these examples GPT happily produces flat vocab-quiz sentences.
-    system = (
-        f"You are a {target_language} tutor helping a learner who is STUCK "
-        "mid-conversation in a live roleplay. They need a natural sentence they "
-        "can say RIGHT NOW that moves the scene forward AND uses 1 or 2 of "
-        "the pending items.\n\n"
-        "The sentence must feel like something a real traveler / customer / "
-        "patient / student would actually say in this exact situation. Anchor "
-        "it in a concrete real-world need (a problem, a request, a question) "
-        "that motivates the words.\n\n"
-        "AVOID flat vocab-quiz formulas like \"Quiero el X\" / \"Necesito el X\" "
-        "/ \"Tengo el X\". Those are correct but feel mechanical and don't "
-        "actually help the learner converse.\n\n"
-        "Examples:\n"
-        "- pending: número, vuelo, perdón, ayuda\n"
-        "    BAD:  \"Quiero el número de vuelo, por favor.\"\n"
-        "    GOOD: \"Perdón, perdí mi número de vuelo. ¿Me podría ayudar?\"\n"
-        "- pending: pasaporte, mostrar\n"
-        "    BAD:  \"Le muestro mi pasaporte.\"\n"
-        "    GOOD: \"Aquí tiene mi pasaporte, ¿lo ve bien?\"\n"
-        "- pending: mesa, reservar\n"
-        "    BAD:  \"Quiero una mesa.\"\n"
-        "    GOOD: \"Tengo una reserva a las ocho, ¿la mesa está lista?\"\n"
-        # Grammar examples — the learner's chips are conjugated forms (cantas,
-        # escucho, vivimos), not infinitives. The model's default move is to
-        # reach for the infinitive ('Quiero cantar') which defeats the chip;
-        # these few-shots ground it on producing the exact conjugation.\n"
-        "- pending: cantas, escucho, hablan\n"
-        "    BAD:  \"Quiero cantar en el coche.\"   (infinitive — chip stays grey)\n"
-        "    GOOD: \"Yo escucho rock en la mañana. ¿Tú cantas algo?\"\n"
-        "- pending: vivimos, comen\n"
-        "    BAD:  \"Vivir aquí es bueno y comer también.\"   (infinitives, no chips)\n"
-        "    GOOD: \"Mi familia y yo vivimos cerca. ¿Tus amigos comen aquí?\"\n\n"
-        "Rules:\n"
-        "- ONE sentence, first person — the LEARNER is the speaker.\n"
-        f"{level_rule}\n"
-        "- Match the register of the last assistant turn (formal \"usted\" vs "
-        "informal \"tú\").\n"
-        "- For grammar items, use the EXACT conjugated form from the item list. "
-        "Never substitute another tense, person, or verb.\n"
-        "- The English gloss should be a faithful, natural translation — not "
-        "stiff or word-for-word.\n"
-        "- No greeting, no narration, no \"You could say…\" framing.\n\n"
-        "Return ONLY valid JSON with this exact shape:\n"
-        '{"spanish": "<the sentence>", "english_gloss": "<English translation>", '
-        '"used_item_ids": ["<id from pending items>"]}'
-    )
-
-    user = (
-        f"Scenario: {title}\n\n"
-        f"Pending items the learner still needs to use:\n{items_block}\n\n"
-        f"Recent turns:\n{history_block}\n\n"
-        "Suggest the learner's next sentence."
+    prompt = (
+        "Write a very simple, very short English sentence or question that "
+        "would be a natural next utterance for the learner, given this "
+        f"recent exchange:\n\n{history_block}\n\n"
+        f"It must contain one of these English keywords verbatim: {words_block}. "
+        "Wrap the chosen keyword in **markdown bold**. Reply in English only "
+        "— do not include any Spanish words, even if the recent exchange is "
+        "in Spanish."
     )
 
     return [
-        {"role": "system", "content": system},
-        {"role": "user", "content": user},
+        {"role": "system", "content": SENTENCE_HINT_SYSTEM_PROMPT},
+        {"role": "user", "content": prompt},
     ]
 
 
-def _format_items_for_prompt(items: List[PendingItem]) -> str:
+_GENDER_TAG_RE = __import__("re").compile(r"\s*\((?:m|f)\)\s*")
+
+
+def _format_words_for_prompt(items: List[PendingItem]) -> str:
+    """Comma-separated English words from the pending item list, deduped.
+
+    Strips gender disambiguators like "(m)" / "(f)" from chip labels so
+    the LLM sees clean phrases ("they drink" instead of "they (m) drink").
+    Same Spanish form (e.g. ellos beben + ellas beben → "beben") so the
+    learner's utterance ticks either chip.
+    """
     if not items:
         return "(none)"
-    lines = []
+    seen: set[str] = set()
+    out: list[str] = []
     for it in items[:MAX_CANDIDATE_ITEMS]:
-        if it.kind == "grammar":
-            lines.append(
-                f"- {it.id}: \"{it.conjugated}\"  ({it.pronoun} + {it.verb} = \"{it.english}\")"
-            )
-        else:
-            lines.append(f"- {it.id}: \"{it.spanish}\"  ({it.english})")
-    return "\n".join(lines)
+        word = _GENDER_TAG_RE.sub(" ", (it.english or "")).strip()
+        if not word or word in seen:
+            continue
+        seen.add(word)
+        out.append(word)
+    return ", ".join(out) if out else "(none)"
 
 
 def _format_history_for_prompt(messages: List[Dict[str, str]]) -> str:
@@ -284,23 +295,13 @@ async def generate_sentence_hint(
     request_id: str,
     pending_items: List[PendingItem],
     recent_messages: Optional[List[Dict[str, str]]],
-    situation_title: Optional[str],
-    alt_language: Optional[str],
-    spanish_level: Optional[str] = None,
-) -> Tuple[str, str, List[str], Optional[str]]:
-    """Call the LLM to produce a hint sentence. Returns (spanish,
-    english_gloss, used_item_ids, llm_request_id).
-
-    The `llm_request_id` is the `id` of the persisted `LLMRequest` row
-    so the caller can attach it to the `sentence_hints` audit row.
-    Falls back to a defensive item-pair-only sentence if the LLM
-    returns malformed JSON; the upstream handler raises if items are
-    empty so we never ship "(none)" to the user.
+) -> Tuple[str, Optional[str]]:
+    """Call the LLM to produce a single English hint sentence with the
+    target keyword wrapped in markdown bold. Returns (english_text,
+    llm_request_id). On any LLM failure, falls back to the first
+    pending item's English so the user always gets something usable.
     """
-    messages = build_hint_messages(
-        pending_items, recent_messages, situation_title, alt_language,
-        spanish_level=spanish_level,
-    )
+    messages = build_hint_messages(pending_items, recent_messages)
 
     context = ConversationContext(
         request_id=request_id,
@@ -308,141 +309,42 @@ async def generate_sentence_hint(
         system_prompt="",  # overridden by `messages` below
         user_prompt="",
         agent_id="sentence_hint",
-        prompt_version="v2",
+        prompt_version="v3",
         messages=messages,
-        return_json=True,
-        # Non-reasoning model — a single first-person sentence with a
-        # gloss is well within gpt-4.1-mini's range, and we save the
-        # 1.5–3s of reasoning tokens that gpt-5.4-mini was burning on
-        # every hint. Few-shots in the system prompt do the steering.
+        return_json=False,
         model="gpt-4.1-mini",
-        # 150 fits the JSON payload (sentence + gloss + ids) with
-        # margin; 300 was a holdover from the reasoning-model era when
-        # truncation mid-JSON was a real risk.
-        max_tokens=150,
+        max_tokens=120,
     )
 
-    # Some Responses API edge cases (empty output_text, malformed
-    # JSON) used to surface here under the reasoning model. The
-    # try/except stays as defense-in-depth so a misfire still falls
-    # back to a first-pending-item suggestion instead of 500'ing the
-    # user out of the encounter.
-    content: Any = None
+    english_text = ""
     llm_request_id: Optional[str] = None
     try:
         result = await generate_conversation(context, db)
         if isinstance(result, dict):
             content = result.get("content")
             llm_request_id = result.get("llm_request_id")
-    except json.JSONDecodeError as e:
-        logger.warning(f"[SentenceHint] LLM returned unparseable JSON: {e}")
+            if isinstance(content, str):
+                english_text = content.strip()
     except Exception as e:
         logger.warning(f"[SentenceHint] LLM call failed: {type(e).__name__}: {e}")
 
-    spanish, english_gloss, used_item_ids = _parse_hint_payload(content, pending_items)
-    return spanish, english_gloss, used_item_ids, llm_request_id
-
-
-def _parse_hint_payload(
-    content: Any,
-    pending_items: List[PendingItem],
-) -> Tuple[str, str, List[str]]:
-    """Coerce the LLM payload into (spanish, english_gloss, used_item_ids).
-
-    The Responses API returns dict directly when `return_json=True`. If
-    the model misbehaves and returns a string, we try one JSON parse
-    pass; otherwise we fall back to the first pending item (so the user
-    always gets something usable instead of a 500).
-    """
-    payload: Dict[str, Any] = {}
-    if isinstance(content, dict):
-        payload = content
-    elif isinstance(content, str):
-        try:
-            payload = json.loads(content)
-        except (json.JSONDecodeError, TypeError):
-            payload = {}
-
-    spanish = (payload.get("spanish") or "").strip()
-    english_gloss = (payload.get("english_gloss") or "").strip()
-    used_raw = payload.get("used_item_ids") or []
-    if not isinstance(used_raw, list):
-        used_raw = []
-
-    valid_ids = {it.id for it in pending_items}
-    used_item_ids = [str(i) for i in used_raw if str(i) in valid_ids]
-
-    if not spanish or not english_gloss:
-        # Fall back to the first pending item so we never ship empty
-        # text to the FE. Keeps the UI honest if the model misfires.
-        if pending_items:
-            it = pending_items[0]
-            spanish = it.spanish if not spanish else spanish
-            english_gloss = it.english if not english_gloss else english_gloss
-            if not used_item_ids:
-                used_item_ids = [it.id]
-
-    return spanish, english_gloss, used_item_ids
-
-
-async def synthesize_hint_audio(
-    db: Session,
-    *,
-    text: str,
-    voice: str,
-    instructions: Optional[str],
-    request_id: str,
-    user_id: str,
-) -> Tuple[Optional[str], Optional[str]]:
-    """TTS the hint sentence and upload to R2. Returns (audio_url,
-    tts_request_id). Either may be None if TTS or upload fails — the
-    endpoint must handle that gracefully (FE shows text only).
-    """
-    filename = f"hint_{generate_audio_filename()}"
-    output_path = str(get_audio_path(filename))
-
-    try:
-        # `gateway_synthesize_speech` writes the file and inserts a
-        # `tts_requests` row. We pull the row id back via the latest
-        # successful insert in the session — gateway doesn't return it
-        # today and threading through would cascade to every caller.
-        await gateway_synthesize_speech(
-            text=text,
-            output_path=output_path,
-            voice=voice,
-            instructions=instructions,
-            request_id=request_id,
-            user_id=user_id,
-            db=db,
-            learning_phase="hint",
+    if english_text and _SPANISH_LEAK_RE.search(english_text):
+        # Hard guard: the LLM drifted into Spanish despite the system prompt.
+        # Drop the response and fall through to the deterministic fallback so
+        # the user never sees Spanish in a hint bubble.
+        logger.warning(
+            f"[SentenceHint] LLM returned Spanish characters; discarding: {english_text!r}"
         )
-    except Exception as e:
-        logger.error(f"[SentenceHint] TTS failed: {e}")
-        return None, None
+        english_text = ""
 
-    # boto3 is synchronous — running it directly here would block the
-    # event loop for the upload's ~200–500ms. Push it to a thread so the
-    # hint endpoint stops being a bottleneck for concurrent requests.
-    audio_url = await asyncio.to_thread(upload_to_r2, output_path, filename)
-    tts_request_id = _latest_tts_request_id(db, request_id)
-    return audio_url, tts_request_id
+    if not english_text and pending_items:
+        # Defensive fallback so we never ship empty text to the FE. The
+        # english gloss is guaranteed to be English by the candidate
+        # builders (vocab path uses Word.english, grammar path skips chips
+        # without a translation entry).
+        english_text = f"Try saying something using **{pending_items[0].english}**."
 
-
-def _latest_tts_request_id(db: Session, request_id: str) -> Optional[str]:
-    """Look up the TTSRequest row this gateway call just persisted.
-
-    Matched by `request_id` (the per-call correlation id) ordered by
-    `created_at DESC`. Returns the UUID as a string for the audit row.
-    """
-    from app.models import TTSRequest
-
-    row = (
-        db.query(TTSRequest)
-        .filter(TTSRequest.request_id == request_id)
-        .order_by(TTSRequest.created_at.desc())
-        .first()
-    )
-    return str(row.id) if row else None
+    return english_text, llm_request_id
 
 
 def persist_hint_audit(
@@ -450,26 +352,27 @@ def persist_hint_audit(
     *,
     conversation: Conversation,
     user_id: str,
-    spanish: str,
     english_gloss: str,
-    audio_url: Optional[str],
-    used_item_ids: List[str],
     pending_count: int,
     llm_request_id: Optional[str],
-    tts_request_id: Optional[str],
 ) -> SentenceHint:
-    """Insert the audit row. Caller is responsible for the commit."""
+    """Insert the audit row. Caller is responsible for the commit.
+
+    `audio_url`, `tts_request_id`, `spanish`, `used_item_ids` columns on
+    SentenceHint stay in the schema for historical rows but new rows
+    leave them empty (no TTS in the current pipeline).
+    """
     row = SentenceHint(
         conversation_id=conversation.id,
         user_id=user_id,
         situation_id=conversation.situation_id,
-        spanish=spanish,
+        spanish="",
         english_gloss=english_gloss,
-        audio_url=audio_url,
-        used_item_ids=used_item_ids,
+        audio_url=None,
+        used_item_ids=[],
         pending_count=pending_count,
         llm_request_id=llm_request_id,
-        tts_request_id=tts_request_id,
+        tts_request_id=None,
     )
     db.add(row)
     db.flush()

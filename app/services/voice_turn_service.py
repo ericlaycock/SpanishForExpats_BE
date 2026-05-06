@@ -280,6 +280,76 @@ def build_system_prompt(
     )
 
 
+def _render_lesson_block(concepts: Optional[List[str]]) -> str:
+    """Render the lesson-context line dropped into the realtime prompt.
+
+    `concepts` is a list of English glosses for the words/phrases the
+    student is practicing in this encounter (e.g. ['boarding', 'gate',
+    'departure time']). When non-empty, returns a leading-space block
+    that names the concepts and asks the avatar to create natural
+    opportunities for the student to produce them.
+
+    Why English-only: the user (learner) is the one who must produce
+    the target language. Putting Spanish forms in the prompt risks
+    parroting and prevents the student from earning the chip. The
+    English glosses are the semantic anchor; the model translates
+    intent into its conversation language by itself.
+
+    Returns empty string when `concepts` is None or empty — keeps the
+    prompt clean for grammar chats and other call paths that don't
+    have a vocab lesson to highlight.
+    """
+    if not concepts:
+        return ""
+    cleaned = [c.strip() for c in concepts if c and c.strip()]
+    if not cleaned:
+        return ""
+    joined = ", ".join(cleaned)
+    return (
+        f" The student is practicing how to talk about these concepts: "
+        f"{joined}. Steer the conversation so they have natural "
+        f"opportunities to bring them up — do not tell them what to say "
+        f"and do not produce the target-language form yourself."
+    )
+
+
+def build_realtime_system_prompt(
+    animation_type: str,
+    situation_id: str,
+    alt_language: Optional[str] = None,
+    lesson_concepts: Optional[List[str]] = None,
+) -> str:
+    """Short, role-only system prompt for the realtime steering experiment.
+
+    Does NOT include target_steering, anti_stuck, level_rule, or any of the
+    rule blocks from the v3 templates — those move into the per-turn
+    `conversation.item.create` (role=assistant) meta-thought injection
+    driven by `realtime_steering.pick_next_target` + `build_meta_thought`.
+
+    Loads `realtime_agent` v1 from prompts.json and renders it with the
+    same role lookup the v3 templates use (vocab → SITUATION_ROLES, grammar
+    → GRAMMAR_SCENE_MAP → SITUATION_ROLES).
+
+    `lesson_concepts` is the list of English glosses for the vocab the
+    student is practicing in this encounter. When provided, a one-line
+    block is injected after `situation_description` telling the avatar
+    what concepts to steer toward. Pass an empty list (or None) for
+    grammar chats and other paths where vocab steering doesn't apply.
+    """
+    from app.services.llm_gateway import load_prompt
+
+    language = get_target_language_name(alt_language)
+    roles = get_roles_for_situation(animation_type, situation_id)
+    template = load_prompt("realtime_agent", "v1")
+    return template.format(
+        ai_role=roles["ai_role"],
+        user_role=roles["user_role"],
+        situation_description=roles["situation_description"],
+        language=language,
+        lesson_block=_render_lesson_block(lesson_concepts),
+    )
+
+
 def build_transcription_prompt(situation_title: str, words: List[Word], alt_language: Optional[str] = None) -> str:
     """Build a context prompt for STT transcription (whisper-style format).
 
