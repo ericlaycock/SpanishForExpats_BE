@@ -28,7 +28,7 @@ from sqlalchemy.orm import Session
 from app.auth import create_access_token, create_user
 from app.config import settings
 from app.database import get_db
-from app.models import Cohort, CohortRegistration, Subscription
+from app.models import Cohort, CohortRegistration, CohortWaitlist, Subscription
 from app.schemas import (
     CohortClaimAccountRequest,
     CohortClaimAccountResponse,
@@ -37,6 +37,8 @@ from app.schemas import (
     CohortRegisterRequest,
     CohortRegisterResponse,
     CohortSession,
+    CohortWaitlistRequest,
+    CohortWaitlistResponse,
 )
 from app.services.email_service import send_cohort_confirmation
 from app.services.ics import IcsEvent, build_calendar
@@ -255,6 +257,30 @@ def claim_account(
         email=user.email,
         plan=plan,
     )
+
+
+@router.post("/waitlist", response_model=CohortWaitlistResponse)
+def join_waitlist(
+    request: CohortWaitlistRequest,
+    db: Session = Depends(get_db),
+):
+    """Capture an email for the "all cohorts full" picker state. Idempotent
+    on email — repeat submits return already_on_list=True without error.
+    """
+    email = request.email.strip().lower()
+    name = request.name.strip() if request.name else None
+
+    existing = (
+        db.query(CohortWaitlist)
+        .filter(CohortWaitlist.email == email)
+        .first()
+    )
+    if existing:
+        return CohortWaitlistResponse(email=email, already_on_list=True)
+
+    db.add(CohortWaitlist(email=email, name=name))
+    db.commit()
+    return CohortWaitlistResponse(email=email, already_on_list=False)
 
 
 @router.get("/registrations/{token}/calendar.ics")

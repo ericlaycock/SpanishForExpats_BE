@@ -740,3 +740,13 @@ class AdminCohortListResponse(BaseModel):
     cohorts: List[AdminCohortRow]
 
 
+class CohortWaitlistRequest(BaseModel):
+    name: Optional[str] = Field(None, max_length=120)
+    email: EmailStr
+
+
+class CohortWaitlistResponse(BaseModel):
+    email: str
+    already_on_list: bool
+
+

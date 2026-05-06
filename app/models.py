@@ -439,6 +439,19 @@ class CohortRegistration(Base):
     user = relationship("User")
 
 
+class CohortWaitlist(Base):
+    """Email collection for the picker's "all visible cohorts are full"
+    state. Not tied to any particular cohort — interested users opt in to
+    "next available", and we drain this list manually when we add windows.
+    """
+    __tablename__ = "cohort_waitlist"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(120), nullable=True)
+    email = Column(String, nullable=False, unique=True, index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+
 class AnonymousFunnelEvent(Base):
     """One row per (session_id, event_key) — anonymous wizard funnel.
 
