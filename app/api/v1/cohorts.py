@@ -1,8 +1,18 @@
 """Cohort registration — replaces the standalone signup at the end of the
-marketing webflow. A single POST creates the User account and the
-CohortRegistration in one transaction, mirrors the post-signup token
-shape so the FE can log the user in immediately, and queues a
-confirmation email + .ics attachment.
+marketing webflow.
+
+Flow:
+  1. POST /v1/cohorts/{id}/register {name, email}
+       Creates a CohortRegistration with user_id=NULL. Sends the .ics +
+       sessions email immediately so the user has it even if they bounce
+       before claiming an account. Returns a registration_token.
+  2. POST /v1/cohorts/registrations/{token}/claim {password, confirm_password}
+       Creates the User account, links it to the existing registration,
+       returns a normal LoginResponse-shaped payload so the FE can call
+       /v1/onboarding/save-selections and login() the same way it always has.
+
+The .ics download URL is token-gated and works as soon as step 1 completes —
+no auth required.
 """
 from __future__ import annotations
 
@@ -20,6 +30,8 @@ from app.config import settings
 from app.database import get_db
 from app.models import Cohort, CohortRegistration, Subscription
 from app.schemas import (
+    CohortClaimAccountRequest,
+    CohortClaimAccountResponse,
     CohortListResponse,
     CohortPublic,
     CohortRegisterRequest,
@@ -86,12 +98,7 @@ def list_cohorts(
     include_business: bool = Query(False),
     db: Session = Depends(get_db),
 ):
-    """List active cohorts visible to the marketing flow.
-
-    Public cohorts are always returned. The business-owner cohorts are
-    revealed only when the user toggles the "Are you a business owner?"
-    disclosure in the FE.
-    """
+    """List active cohorts visible to the marketing flow."""
     visibilities = ["public"]
     if include_business:
         visibilities.append("business_owner")
@@ -120,23 +127,12 @@ def register_for_cohort(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
-    """Atomically create the user account + cohort registration.
-
-    Mirrors the response shape of /v1/auth/register so the FE can call
-    `login(access_token, is_admin, email)` exactly as it did before, and
-    then proceed to call /v1/onboarding/save-selections to persist the
-    quiz state with the new auth token.
+    """Create a passwordless CohortRegistration. Sends the confirmation
+    email + .ics immediately. The User account is created later via /claim.
     """
-    if request.password != request.confirm_password:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Passwords do not match",
-        )
-
     email = request.email.strip().lower()
     name = request.name.strip()
 
-    # Lock the cohort row so capacity checks aren't racy under concurrent registrations.
     cohort = (
         db.query(Cohort)
         .filter(Cohort.id == cohort_id, Cohort.is_active.is_(True))
@@ -157,18 +153,24 @@ def register_for_cohort(
             detail="This cohort is full",
         )
 
-    # create_user handles the duplicate-email check (raises 400 if email exists).
-    user = create_user(db, email, request.password)
-    user.name = name
-    db.flush()
-
-    sub = db.query(Subscription).filter(Subscription.user_id == user.id).first()
-    plan = (sub.tier if sub and sub.tier else "free")
+    existing = (
+        db.query(CohortRegistration)
+        .filter(
+            CohortRegistration.cohort_id == cohort.id,
+            CohortRegistration.email == email,
+        )
+        .first()
+    )
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="This email is already registered for this cohort",
+        )
 
     confirmation_token = secrets.token_urlsafe(32)
     registration = CohortRegistration(
         cohort_id=cohort.id,
-        user_id=user.id,
+        user_id=None,
         name=name,
         email=email,
         confirmation_token=confirmation_token,
@@ -177,7 +179,6 @@ def register_for_cohort(
     db.commit()
     db.refresh(cohort)
 
-    # Send the confirmation email out-of-band so the response doesn't block on SMTP.
     session_starts: Sequence = (
         cohort.session_1_start,
         cohort.session_2_start,
@@ -194,24 +195,71 @@ def register_for_cohort(
         ics_payload=ics_payload,
     )
 
-    access_token = create_access_token(data={"sub": str(user.id), "plan": plan})
     return CohortRegisterResponse(
+        registration_token=confirmation_token,
+        email=email,
+        cohort=_to_public(cohort, reg_count + 1),
+    )
+
+
+@router.post(
+    "/registrations/{token}/claim",
+    response_model=CohortClaimAccountResponse,
+)
+def claim_account(
+    token: str,
+    request: CohortClaimAccountRequest,
+    db: Session = Depends(get_db),
+):
+    """Activate app access for a previously-registered cohort attendee.
+
+    Looks up the CohortRegistration by token, creates the User account
+    with the provided password, links the registration row to the new
+    user, and returns a JWT so the FE can log the user in.
+    """
+    if request.password != request.confirm_password:
+        raise HTTPException(status_code=400, detail="Passwords do not match")
+
+    registration = (
+        db.query(CohortRegistration)
+        .filter(CohortRegistration.confirmation_token == token)
+        .first()
+    )
+    if not registration:
+        raise HTTPException(status_code=404, detail="Registration not found")
+
+    if registration.user_id is not None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="An account already exists for this registration",
+        )
+
+    # create_user raises 400 if email already exists. That's possible if the
+    # same email registered for the cohort and ALSO holds a separate account
+    # — surface the conflict cleanly so the FE can prompt them to log in.
+    user = create_user(db, registration.email, request.password)
+    user.name = registration.name
+    db.flush()
+
+    registration.user_id = user.id
+    db.commit()
+
+    sub = db.query(Subscription).filter(Subscription.user_id == user.id).first()
+    plan = (sub.tier if sub and sub.tier else "free")
+
+    access_token = create_access_token(data={"sub": str(user.id), "plan": plan})
+    return CohortClaimAccountResponse(
         access_token=access_token,
         user_id=user.id,
         is_admin=user.is_admin,
         email=user.email,
         plan=plan,
-        registration_token=confirmation_token,
-        cohort=_to_public(cohort, reg_count + 1),
     )
 
 
 @router.get("/registrations/{token}/calendar.ics")
 def download_calendar(token: str, db: Session = Depends(get_db)):
-    """Token-gated public download of the registrant's .ics file.
-
-    No JWT required — the unguessable token in the URL is the credential.
-    """
+    """Token-gated public download of the registrant's .ics file."""
     registration = (
         db.query(CohortRegistration)
         .filter(CohortRegistration.confirmation_token == token)

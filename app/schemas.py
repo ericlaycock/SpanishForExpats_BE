@@ -696,18 +696,25 @@ class CohortListResponse(BaseModel):
 class CohortRegisterRequest(BaseModel):
     name: str = Field(..., min_length=1, max_length=120)
     email: EmailStr
+
+
+class CohortRegisterResponse(BaseModel):
+    registration_token: str
+    email: str
+    cohort: CohortPublic
+
+
+class CohortClaimAccountRequest(BaseModel):
     password: str = Field(..., min_length=8)
     confirm_password: str
 
 
-class CohortRegisterResponse(BaseModel):
+class CohortClaimAccountResponse(BaseModel):
     access_token: str
     user_id: UUID
     is_admin: bool
     email: str
     plan: str
-    registration_token: str
-    cohort: CohortPublic
 
 
 class AdminCohortRegistrant(BaseModel):

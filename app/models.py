@@ -419,7 +419,7 @@ class CohortRegistration(Base):
     """
     __tablename__ = "cohort_registrations"
     __table_args__ = (
-        UniqueConstraint("cohort_id", "user_id", name="uq_cohort_user"),
+        UniqueConstraint("cohort_id", "email", name="uq_cohort_email"),
     )
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -427,7 +427,7 @@ class CohortRegistration(Base):
     user_id = Column(
         UUID(as_uuid=True),
         ForeignKey("users.id", ondelete="CASCADE"),
-        nullable=False,
+        nullable=True,
         index=True,
     )
     name = Column(String, nullable=False)
