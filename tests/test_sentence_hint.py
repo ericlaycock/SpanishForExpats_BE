@@ -169,6 +169,57 @@ def test_sentence_hint_409_when_conversation_complete(client, db, auth_user, mon
     assert r.json()["detail"] == "NO_PENDING_ITEMS"
 
 
+def test_sentence_hint_discards_spanish_llm_response(client, db, auth_user, monkeypatch):
+    """If the LLM ignores the English-only contract and returns Spanish
+    characters, the BE must discard it and emit the deterministic English
+    fallback instead — the hint bubble is never allowed to show Spanish.
+    """
+    _, headers = auth_user
+    sit = _seed_vocab_situation(db)
+    conv = _make_voice_conv(
+        db,
+        user_id=_jwt_user_id(headers),
+        situation_id=sit.id,
+        target_word_ids=["word_cuenta", "word_depositar"],
+    )
+    db.commit()
+
+    _stub_llm(monkeypatch, content="¿Puedes abrir una **cuenta**?")
+
+    r = client.post(
+        f"/v1/conversations/{conv.id}/sentence-hint",
+        headers=headers,
+        json={},
+    )
+    assert r.status_code == 200, r.text
+    body = r.json()
+    gloss = body["english_gloss"]
+    # The FE-facing text must be the English fallback, not the Spanish LLM
+    # output. Pin both: it starts with the deterministic phrase, and it
+    # contains zero Spanish-only characters.
+    assert gloss.startswith("Try saying something using **")
+    assert not any(ch in gloss for ch in "ñÑáéíóúÁÉÍÓÚ¿¡")
+
+
+def test_sentence_hint_messages_pin_english_only_contract():
+    """build_hint_messages must emit a system role that forbids Spanish
+    output. This is the contract the post-LLM guard is the safety net
+    for — if this regresses, the LLM is far more likely to drift.
+    """
+    from app.services.sentence_hint_service import (
+        PendingItem,
+        SENTENCE_HINT_SYSTEM_PROMPT,
+        build_hint_messages,
+    )
+
+    items = [PendingItem(kind="vocab", id="word_cuenta", spanish="cuenta", english="account")]
+    messages = build_hint_messages(items, recent_messages=None)
+
+    assert messages[0]["role"] == "system"
+    assert messages[0]["content"] == SENTENCE_HINT_SYSTEM_PROMPT
+    assert "English only" in messages[1]["content"]
+
+
 def _jwt_user_id(headers):
     """Decode the Bearer JWT to get the user UUID. We need this on the BE
     side because the conversation row needs the same user_id the JWT is

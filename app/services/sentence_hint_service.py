@@ -1,10 +1,11 @@
 """Sentence-hint generation for the /voice-chat "Need help?" button.
 
-The FE asks the BE for a single short Spanish sentence the learner could
+The FE asks the BE for a single short English sentence the learner could
 say next, using 1 or 2 items they haven't completed yet (vocab words for
 non-grammar encounters, conjugation chips for grammar encounters). The
 result is rendered in the avatar's speech bubble; the FE owns the
-display.
+display. Output is English-only by contract — the bolded keyword is the
+English gloss of a Spanish chip, never the Spanish form itself.
 
 Per-conversation cap (5 hints) lives on the conversation row
 (`sentence_hints_used`); this module is concerned with assembling the
@@ -23,6 +24,7 @@ items for an already-mastered verb.
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -44,6 +46,11 @@ SENTENCE_HINT_CAP_PER_CONVERSATION = 5
 # prompt small and the LLM focused. The cap is generous enough to cover
 # every realistic vocab + grammar encounter.
 MAX_CANDIDATE_ITEMS = 12
+
+# Spanish-only diacritics and punctuation that must never appear in a
+# hint sent to the FE. The hint is the user-visible English scaffold;
+# any of these signals the LLM drifted into Spanish despite the prompt.
+_SPANISH_LEAK_RE = re.compile(r"[ñÑáéíóúÁÉÍÓÚ¿¡]")
 
 
 @dataclass
@@ -186,12 +193,20 @@ def _grammar_pending_items(
         # `|` is a stem/ending separator used only for UI rendering of drill
         # answers; the LLM and any downstream consumer must see the plain form.
         conjugated = conjugated.replace("|", "")
+        english = GRAMMAR_WORD_TRANSLATIONS.get(verb)
+        if not english:
+            # Skip rather than leak the Spanish infinitive into the prompt
+            # and the user-visible fallback string.
+            logger.warning(
+                f"[SentenceHint] No English gloss for grammar verb '{verb}'; skipping chip"
+            )
+            continue
         items.append(
             PendingItem(
                 kind="grammar",
                 id=f"conj_{verb}_{pronoun}",
                 spanish=conjugated,
-                english=GRAMMAR_WORD_TRANSLATIONS.get(verb, verb),
+                english=english,
                 verb=verb,
                 pronoun=pronoun,
                 conjugated=conjugated,
@@ -200,29 +215,43 @@ def _grammar_pending_items(
     return items
 
 
+SENTENCE_HINT_SYSTEM_PROMPT = (
+    "You write English-only learner scaffolds for a Spanish-learning app. "
+    "Output a single short English sentence or question. Never include any "
+    "Spanish words, Spanish phrases, Spanish punctuation (¿ ¡), or accented "
+    "Latin characters (á é í ó ú ñ). The bolded keyword must be the exact "
+    "English phrase provided to you, not its Spanish equivalent."
+)
+
+
 def build_hint_messages(
     pending_items: List[PendingItem],
     recent_messages: Optional[List[Dict[str, str]]],
 ) -> List[Dict[str, str]]:
     """Build the LLM messages for hint generation.
 
-    Returns a single user message: the recent turns + the list of remaining
-    English words the learner still needs. The model returns a plain English
-    sentence (no JSON, no Spanish, no audio) with the chosen keyword wrapped
-    in markdown bold.
+    Returns a system message that pins the English-only contract and a user
+    message: the recent turns + the list of remaining English words the
+    learner still needs. The model returns a plain English sentence with the
+    chosen keyword wrapped in markdown bold.
     """
     history_block = _format_history_for_prompt(recent_messages or [])
     words_block = _format_words_for_prompt(pending_items)
 
     prompt = (
-        "Write a very simple, very short English sentence/question that is a "
-        f"natural continuation to:\n\n{history_block}\n\n"
-        f"Your sentence/question must contain one of these words: {words_block}. "
-        "The sentence/question you provide should have the keyword/phrase in "
-        "**markdown bold format**."
+        "Write a very simple, very short English sentence or question that "
+        "would be a natural next utterance for the learner, given this "
+        f"recent exchange:\n\n{history_block}\n\n"
+        f"It must contain one of these English keywords verbatim: {words_block}. "
+        "Wrap the chosen keyword in **markdown bold**. Reply in English only "
+        "— do not include any Spanish words, even if the recent exchange is "
+        "in Spanish."
     )
 
-    return [{"role": "user", "content": prompt}]
+    return [
+        {"role": "system", "content": SENTENCE_HINT_SYSTEM_PROMPT},
+        {"role": "user", "content": prompt},
+    ]
 
 
 _GENDER_TAG_RE = __import__("re").compile(r"\s*\((?:m|f)\)\s*")
@@ -299,8 +328,20 @@ async def generate_sentence_hint(
     except Exception as e:
         logger.warning(f"[SentenceHint] LLM call failed: {type(e).__name__}: {e}")
 
+    if english_text and _SPANISH_LEAK_RE.search(english_text):
+        # Hard guard: the LLM drifted into Spanish despite the system prompt.
+        # Drop the response and fall through to the deterministic fallback so
+        # the user never sees Spanish in a hint bubble.
+        logger.warning(
+            f"[SentenceHint] LLM returned Spanish characters; discarding: {english_text!r}"
+        )
+        english_text = ""
+
     if not english_text and pending_items:
-        # Defensive fallback so we never ship empty text to the FE.
+        # Defensive fallback so we never ship empty text to the FE. The
+        # english gloss is guaranteed to be English by the candidate
+        # builders (vocab path uses Word.english, grammar path skips chips
+        # without a translation entry).
         english_text = f"Try saying something using **{pending_items[0].english}**."
 
     return english_text, llm_request_id
