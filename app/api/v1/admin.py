@@ -218,7 +218,10 @@ def get_freeflow(
     def _delta(ts, prev_ts):
         if ts is None or prev_ts is None:
             return None
-        return int((ts - prev_ts).total_seconds())
+        # Keep sub-1s precision — int() used to truncate 0.999s → 0, which made
+        # most consecutive milestones render as "+0s" since real users hit
+        # M3→M4 in 200–800 ms.
+        return (ts - prev_ts).total_seconds()
 
     def _mi(ts, prev_ts):
         return MilestoneInfo(
@@ -387,6 +390,9 @@ WEBPAGEFLOW_STEPS = [
     ("results_viewed",     "Results overview viewed"),
     ("signup_form_viewed", "Signup form viewed"),
     ("signup_submitted",   "Signup submitted (= M0 Joined)"),
+    ("cohort_intro_viewed", "Cohort intro viewed"),
+    ("cohort_registered",   "Cohort session selected"),
+    ("cohort_confirmed",    "Cohort confirmation viewed"),
 ]
 
 
