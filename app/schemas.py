@@ -504,7 +504,7 @@ class MilestoneEventRequest(BaseModel):
 
 class MilestoneInfo(BaseModel):
     timestamp: Optional[datetime] = None
-    delta_seconds: Optional[int] = None  # wall-clock seconds since previous milestone
+    delta_seconds: Optional[float] = None  # wall-clock seconds since previous milestone (sub-1s preserved)
 
 
 class FreeflowUserRow(BaseModel):
@@ -649,6 +649,9 @@ WEBPAGEFLOW_EVENT_KEYS = (
     "results_viewed",
     "signup_form_viewed",
     "signup_submitted",
+    "cohort_intro_viewed",
+    "cohort_registered",
+    "cohort_confirmed",
 )
 
 
