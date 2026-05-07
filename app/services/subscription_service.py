@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from app.models import User, Subscription, UserSituation, Situation, UserMilestoneEvent
 
-FREE_ENCOUNTERS_LIMIT = 7
+FREE_ENCOUNTERS_LIMIT = 30
 
 
 def _record_paywall_hit(db: Session, user_id: str, situation_id: str) -> None:
@@ -63,7 +63,7 @@ def check_paywall(db: Session, user_id: str, situation_id: str) -> tuple[bool, s
     """
     Check if user can access an encounter.
     Returns (allowed, error_message)
-    Business rule: Free users get FREE_ENCOUNTERS_LIMIT (=7) free encounters total.
+    Business rule: Free users get FREE_ENCOUNTERS_LIMIT (=30) free encounters total.
     If subscription.active = false AND user completed >= FREE_ENCOUNTERS_LIMIT, return PAYWALL.
     """
     situation = db.query(Situation).filter(Situation.id == situation_id).first()
