@@ -78,6 +78,13 @@ class SubscriptionStatusResponse(BaseModel):
     cancel_at_period_end: bool = False
     current_period_end: Optional[datetime] = None
     canceled_at: Optional[datetime] = None
+    # True once the user has redeemed the beta code post-login. Combined with
+    # `active` to gate app access on the FE.
+    beta_redeemed: bool = False
+
+
+class RedeemBetaCodeRequest(BaseModel):
+    code: str
 
 
 CancelReason = Literal[

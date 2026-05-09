@@ -68,6 +68,10 @@ class Subscription(Base):
     canceled_at = Column(DateTime(timezone=True), nullable=True)
     cancel_reason = Column(Text, nullable=True)
 
+    # Beta access — set when the user redeems the beta code post-login.
+    # Independent of Stripe `active`; either being truthy grants app access.
+    beta_redeemed_at = Column(DateTime(timezone=True), nullable=True)
+
     # Relationships
     user = relationship("User", back_populates="subscription")
 
