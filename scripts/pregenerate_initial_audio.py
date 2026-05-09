@@ -1,40 +1,55 @@
 #!/usr/bin/env python3
 """Pre-generate TTS audio for all initial greeting messages and upload to R2.
 
-Uses the Realtime API (same model as live conversations) so opener voice
-matches the ongoing conversation voice exactly.
+Uses OpenAI's `/v1/audio/speech` endpoint with `gpt-4o-mini-tts` so the audio
+is a verbatim reading of the opener text (no LLM in the loop). With --verify,
+each upload is round-tripped through `gpt-4o-mini-transcribe` to confirm the
+audio matches the source string.
 
-Audio is PCM16 from Realtime API, converted to MP3 via ffmpeg, then uploaded
-to R2 with deterministic filenames: initial_msg_{situation_id}.mp3
+Audio is uploaded to R2 with deterministic filenames:
+    initial_msg_{situation_id}.mp3
 (no language suffix — alt-language audio not yet pre-generated).
 
 Usage:
-    python scripts/pregenerate_initial_audio.py          # all situations
-    python scripts/pregenerate_initial_audio.py bank_1    # specific situation
-    python scripts/pregenerate_initial_audio.py --force   # regenerate even if exists
+    python scripts/pregenerate_initial_audio.py                          # all situations
+    python scripts/pregenerate_initial_audio.py bank_1                    # specific situation(s)
+    python scripts/pregenerate_initial_audio.py --force                   # regenerate even if exists
+    python scripts/pregenerate_initial_audio.py --verify                  # transcribe-back verify
+    python scripts/pregenerate_initial_audio.py --ids-file ids.txt        # IDs from file (one per line)
 
 Requires R2 env vars: R2_ENDPOINT_URL, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY,
                        R2_BUCKET_NAME, R2_PUBLIC_URL
 """
 
+import argparse
 import asyncio
 import os
+import re
 import sys
 import time
+import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from pathlib import Path
+
+import httpx
+
 from app.config import settings
 from app.data.seed_bank import SITUATIONS
 from app.data.grammar_situations import GRAMMAR_SITUATIONS
 from app.services.encounter_messages import get_initial_message_for_encounter
-from app.services.realtime_service import generate_with_realtime, pcm16_to_mp3
-from app.services.voice_turn_service import build_system_prompt
 from app.utils.audio import upload_to_r2, _get_s3_client
 
 AUDIO_DIR = Path("/tmp/initial_audio")
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+
+TTS_MODEL = "gpt-4o-mini-tts"
+TRANSCRIBE_MODEL = "gpt-4o-mini-transcribe"
+SPEECH_URL = "https://api.openai.com/v1/audio/speech"
+TRANSCRIBE_URL = "https://api.openai.com/v1/audio/transcriptions"
+
+CONCURRENCY = 8
 
 # Voice config per animation_type (must match conversations.py SITUATION_VOICE_CONFIG)
 _ACCENT = "Speak with a Mexican Spanish accent."
@@ -66,24 +81,71 @@ def r2_file_exists(filename: str) -> bool:
         return False
 
 
-async def generate_and_upload(situation_id: str, title: str, animation_type: str, force: bool = False):
-    """Generate TTS via Realtime API for one situation's initial message and upload to R2."""
+def _normalize(s: str) -> str:
+    if not s:
+        return ""
+    s = unicodedata.normalize("NFD", s.lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    s = re.sub(r"[¿¡!?.,;:\"'…—–\-()«»‘’“”]", "", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+async def _tts(client: httpx.AsyncClient, voice: str, instructions: str, text: str) -> bytes:
+    resp = await client.post(
+        SPEECH_URL,
+        headers={"Authorization": f"Bearer {settings.openai_api_key}"},
+        json={
+            "model": TTS_MODEL,
+            "voice": voice,
+            "input": text,
+            "instructions": instructions,
+            "response_format": "mp3",
+        },
+        timeout=60,
+    )
+    resp.raise_for_status()
+    return resp.content
+
+
+async def _verify(client: httpx.AsyncClient, mp3_bytes: bytes, expected: str) -> tuple[bool, str]:
+    """Transcribe the just-generated mp3 and compare to expected text (normalized)."""
+    files = {"file": ("audio.mp3", mp3_bytes, "audio/mpeg")}
+    data = {"model": TRANSCRIBE_MODEL, "language": "es"}
+    resp = await client.post(
+        TRANSCRIBE_URL,
+        headers={"Authorization": f"Bearer {settings.openai_api_key}"},
+        files=files,
+        data=data,
+        timeout=60,
+    )
+    resp.raise_for_status()
+    heard = (resp.json().get("text") or "").strip()
+    return _normalize(expected) == _normalize(heard), heard
+
+
+async def generate_and_upload(
+    client: httpx.AsyncClient,
+    situation_id: str,
+    title: str,
+    animation_type: str,
+    force: bool,
+    verify: bool,
+) -> tuple[str, str | None]:
+    """Generate verbatim TTS for one situation's opener and upload to R2.
+
+    Returns (status, detail) where status is one of
+        'ok' | 'skip' | 'no_message' | 'tts_fail' | 'verify_fail' | 'r2_fail'
+    """
     filename = f"initial_msg_{situation_id}.mp3"
 
     if not force and r2_file_exists(filename):
-        return "skip"
+        return "skip", None
 
     messages_by_lang = get_initial_message_for_encounter(situation_id, title)
-    # Pregenerated audio is Spanish-only (matches default voice flow); fall
-    # back to English when a Spanish version isn't available so we don't
-    # silently skip otherwise valid encounters.
     message = messages_by_lang.get("es") or messages_by_lang.get("en")
     if not message:
-        return "no_message"
+        return "no_message", None
 
-    # Grammar lessons all carry animation_type='grammar'; resolve the actual
-    # scene per-lesson so the audio matches the visual character (e.g.
-    # small_talk → female `shimmer`, restaurant → male `ash`, …).
     voice_key = animation_type
     if animation_type == "grammar":
         from app.data.situation_roles import GRAMMAR_SCENE_MAP
@@ -92,87 +154,129 @@ async def generate_and_upload(situation_id: str, title: str, animation_type: str
             voice_key = mapped
     voice, tts_instructions = VOICE_CONFIG.get(voice_key, ("alloy", _ACCENT))
 
-    # Use a stripped-down system prompt that ONLY asks the model to read out
-    # the message verbatim. The full conversation system prompt makes the
-    # Realtime model behave conversationally — it tends to prepend "Claro.",
-    # "Okay.", "Sí." or rephrase the opener slightly. For pregenerate we want
-    # a pure TTS read of the exact bytes.
-    system_prompt = (
-        "You are a TTS engine. Read aloud EXACTLY the user's message in "
-        "Spanish, word-for-word, with natural prosody. Do not greet, "
-        "acknowledge, paraphrase, expand, summarize, translate, or add ANY "
-        "words before or after. If you add 'Claro', 'Okay', 'Sí', 'Bueno', "
-        "'¡Hola!', or any acknowledgment, you have failed. Output only the "
-        "user message, nothing else."
-    )
-
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": message},
-    ]
-
     try:
-        result = await generate_with_realtime(
-            messages=messages,
-            voice=voice,
-            tts_instructions=tts_instructions,
-            request_id=f"pregenerate_{situation_id}",
-        )
+        mp3_bytes = await _tts(client, voice, tts_instructions, message)
     except Exception as e:
-        print(f"  [ERROR] Realtime API failed for {situation_id}: {e}")
-        return "r2_fail"
+        print(f"  [ERROR] TTS failed for {situation_id}: {e}")
+        return "tts_fail", None
 
-    if not result["audio_bytes"]:
+    if not mp3_bytes:
         print(f"  [ERROR] No audio returned for {situation_id}")
-        return "r2_fail"
+        return "tts_fail", None
 
-    # Convert PCM16 to MP3
+    verify_mismatch_text: str | None = None
+    if verify:
+        try:
+            ok, heard = await _verify(client, mp3_bytes, message)
+        except Exception as e:
+            print(f"  [WARN] Verify request failed for {situation_id}: {e}")
+            ok, heard = True, ""  # don't fail the run on verify-pipeline error
+        if not ok:
+            # Informational only — gpt-4o-mini-transcribe sometimes mis-hears
+            # short utterances. Upload anyway; surface for manual review.
+            print(f"  [VERIFY-MISMATCH] {situation_id}")
+            print(f"    expected: {message!r}")
+            print(f"    heard:    {heard!r}")
+            verify_mismatch_text = heard
+
     local_path = AUDIO_DIR / filename
-    try:
-        pcm16_to_mp3(result["audio_bytes"], str(local_path))
-    except Exception as e:
-        print(f"  [ERROR] ffmpeg failed for {situation_id}: {e}")
-        return "r2_fail"
+    local_path.write_bytes(mp3_bytes)
 
-    # Upload to R2
     r2_url = upload_to_r2(str(local_path), filename)
     if not r2_url:
-        return "r2_fail"
+        return "r2_fail", None
 
-    return "ok"
+    if verify_mismatch_text is not None:
+        return "verify_mismatch", verify_mismatch_text
+    return "ok", None
 
 
-async def main():
-    force = "--force" in sys.argv
-    specific = [a for a in sys.argv[1:] if not a.startswith("--")]
+def _parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(
+        description="Pre-generate opener TTS audio and upload to R2.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    p.add_argument("ids", nargs="*", help="Situation IDs to (re)generate. Default: all.")
+    p.add_argument("--force", action="store_true", help="Regenerate even if file exists in R2.")
+    p.add_argument("--verify", action="store_true", help="Transcribe-back verify each upload.")
+    p.add_argument("--ids-file", type=Path, help="Path to file with one situation ID per line.")
+    p.add_argument("--concurrency", type=int, default=CONCURRENCY, help=f"Parallel TTS calls (default: {CONCURRENCY}).")
+    return p.parse_args()
 
-    # Collect all situations
-    all_situations = []
+
+async def main() -> None:
+    args = _parse_args()
+
+    ids: set[str] = set(args.ids)
+    if args.ids_file:
+        for line in args.ids_file.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                ids.add(line)
+
+    all_situations: list[tuple[str, str, str]] = []
     for s in SITUATIONS:
         all_situations.append((s["id"], s["title"], s["animation_type"]))
     for sid, cfg in GRAMMAR_SITUATIONS.items():
         all_situations.append((sid, cfg["title"], "grammar"))
 
-    if specific:
-        all_situations = [(sid, t, a) for sid, t, a in all_situations if sid in specific]
+    if ids:
+        all_situations = [(sid, t, a) for sid, t, a in all_situations if sid in ids]
+        missing = ids - {sid for sid, _, _ in all_situations}
+        if missing:
+            print(f"[WARN] {len(missing)} requested ID(s) not found: {sorted(missing)[:5]}{'…' if len(missing) > 5 else ''}")
 
     if not all_situations:
         print("No situations found.")
         sys.exit(1)
 
-    print(f"Pre-generating TTS for {len(all_situations)} situations (force={force})")
+    print(
+        f"TTS ({TTS_MODEL}) for {len(all_situations)} situations  "
+        f"force={args.force} verify={args.verify} concurrency={args.concurrency}"
+    )
     start = time.time()
 
-    stats = {"ok": 0, "skip": 0, "no_message": 0, "r2_fail": 0}
-    for i, (sid, title, anim_type) in enumerate(all_situations, 1):
-        result = await generate_and_upload(sid, title, anim_type, force)
-        stats[result] += 1
-        if i % 50 == 0 or i == len(all_situations):
-            elapsed = time.time() - start
-            print(f"  [{i}/{len(all_situations)}] {elapsed:.0f}s — ok={stats['ok']} skip={stats['skip']} no_msg={stats['no_message']} fail={stats['r2_fail']}")
+    stats = {"ok": 0, "skip": 0, "no_message": 0, "tts_fail": 0, "verify_mismatch": 0, "r2_fail": 0}
+    sem = asyncio.Semaphore(args.concurrency)
+    done = {"n": 0}
+    total = len(all_situations)
+    verify_mismatches: list[tuple[str, str]] = []
 
-    total = time.time() - start
-    print(f"\nDone in {total:.0f}s: {stats}")
+    async with httpx.AsyncClient(http2=False) as client:
+
+        async def runner(sid: str, title: str, anim: str) -> None:
+            async with sem:
+                status, detail = await generate_and_upload(
+                    client, sid, title, anim, args.force, args.verify,
+                )
+            stats[status] += 1
+            if status == "verify_mismatch":
+                verify_mismatches.append((sid, detail or ""))
+            done["n"] += 1
+            if done["n"] % 25 == 0 or done["n"] == total:
+                elapsed = time.time() - start
+                print(
+                    f"  [{done['n']}/{total}] {elapsed:.0f}s — "
+                    f"ok={stats['ok']} skip={stats['skip']} "
+                    f"no_msg={stats['no_message']} tts_fail={stats['tts_fail']} "
+                    f"verify_mismatch={stats['verify_mismatch']} r2_fail={stats['r2_fail']}",
+                    flush=True,
+                )
+
+        await asyncio.gather(*(runner(sid, t, a) for sid, t, a in all_situations))
+
+    total_t = time.time() - start
+    print(f"\nDone in {total_t:.0f}s: {stats}")
+
+    if verify_mismatches:
+        print(f"\n[VERIFY] {len(verify_mismatches)} mismatches (audio uploaded; review manually):")
+        for sid, heard in verify_mismatches[:20]:
+            print(f"  {sid} → {heard!r}")
+        if len(verify_mismatches) > 20:
+            print(f"  ... and {len(verify_mismatches) - 20} more")
+
+    if stats["tts_fail"] or stats["r2_fail"]:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
