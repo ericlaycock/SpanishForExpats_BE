@@ -907,6 +907,16 @@ async def get_grammar_config_endpoint(
 
     drill_config = config.get("drill_config")
 
+    # Inject a stable id per drill sentence so the FE can track which
+    # sentences a user has already passed across drill restarts. Author
+    # order is stable per situation; shuffling happens in the FE.
+    raw_sentences = config.get("drill_sentences")
+    drill_sentences = (
+        [{**s, "id": s.get("id") or f"s{i}"} for i, s in enumerate(raw_sentences)]
+        if raw_sentences
+        else None
+    )
+
     return GrammarConfigResponse(
         situation_type=situation.situation_type,
         video_embed_id=config["video_embed_id"],
@@ -918,7 +928,7 @@ async def get_grammar_config_endpoint(
         phase_1c_config=config.get("phase_1c_config"),
         phase_2_config=config.get("phase_2_config"),
         lesson_type=config.get("lesson_type"),
-        drill_sentences=config.get("drill_sentences"),
+        drill_sentences=drill_sentences,
         intro_chart=derive_intro_chart(config),
     )
 
