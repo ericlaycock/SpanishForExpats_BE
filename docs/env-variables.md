@@ -53,6 +53,7 @@ Feature flag for the WebRTC-based realtime voice chat (BE issue #10 / FE issue #
 | `SMTP_EMAIL` | optional | Gmail address used as the FROM for outbound mail (password reset, cohort confirmation). Without it, sends are skipped. |
 | `SMTP_APP_PASSWORD` | optional | Gmail app-specific password for `SMTP_EMAIL`. |
 | `COHORT_ZOOM_URL` | optional | Single shared Zoom meeting URL embedded in cohort confirmation emails and `.ics` files. If unset, the email/.ics will say the link is TBD. |
+| `CALENDLY_WEBHOOK_SIGNING_KEY` | optional | HMAC signing key for `POST /v1/calendly/webhook`. Provided by Calendly when you create the webhook subscription via API. **Use separate keys for QA and production** — each is bound to a single subscription. If unset, the webhook accepts unsigned events (dev only — never enable in production). |
 
 ## Notes
 

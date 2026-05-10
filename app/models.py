@@ -483,3 +483,28 @@ class AnonymousFunnelEvent(Base):
     )
 
 
+class BookedCall(Base):
+    """One row per Calendly invitee booking against the founder's call URL.
+
+    Source of truth: the Calendly webhook (`POST /v1/calendly/webhook`).
+    Idempotency key: `invitee_uuid` (Calendly invitee UUID). Reschedules in
+    Calendly fire `invitee.canceled` then `invitee.created` for the same
+    invitee — we soft-flag `canceled_at` rather than deleting, and clear
+    it again if the same invitee re-books.
+
+    `user_id` is nullable because the booking happens before account
+    creation; it is backfilled by a lookup-on-register in `auth.py` based
+    on lowercased email match.
+    """
+    __tablename__ = "booked_calls"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    invitee_uuid = Column(String(64), unique=True, nullable=False, index=True)
+    invitee_email = Column(String, nullable=False, index=True)
+    calendly_event_uri = Column(String, nullable=True)
+    scheduled_at = Column(DateTime(timezone=True), nullable=False)
+    invitee_timezone = Column(String, nullable=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True, index=True)
+    funnel_session_id = Column(String(64), nullable=True, index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    canceled_at = Column(DateTime(timezone=True), nullable=True)

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth import authenticate_user, create_access_token, create_user, get_current_user
-from app.models import User, UserWord, UserSituation, Conversation
+from app.models import User, UserWord, UserSituation, Conversation, BookedCall
 from app.schemas import (
     AltLanguageRequest,
     LoginRequest,
@@ -57,8 +57,10 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
             )
         plan = token_plan_map.get(invite, "free") if invite else "free"
 
-        # Validate passwords match
-        if credentials.password != credentials.confirm_password:
+        # Validate passwords match. `confirm_password` is optional on the
+        # schema (new clients omit it); only validate equality when the
+        # field is actually sent.
+        if credentials.confirm_password is not None and credentials.password != credentials.confirm_password:
             logger.warning(f"Registration failed: passwords do not match for {email}")
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -86,6 +88,21 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
             sub.tier = plan if plan != "free" else None
             sub.active = plan in ("app", "app_pronounce")
             db.commit()
+
+        # Backfill any pre-account Calendly bookings for this email. The
+        # Calendly webhook arrives before signup, so the BookedCall row
+        # exists with `user_id=NULL`; match by lowercased email and stamp
+        # the user_id now that we have one.
+        try:
+            db.query(BookedCall).filter(
+                BookedCall.invitee_email == email,
+                BookedCall.user_id.is_(None),
+            ).update({"user_id": user.id}, synchronize_session=False)
+            db.commit()
+        except Exception as e:
+            # Backfill is best-effort — never block registration on it.
+            logger.warning(f"BookedCall backfill skipped for {email}: {e}")
+            db.rollback()
 
         # Generate token with plan claim
         access_token = create_access_token(data={"sub": str(user.id), "plan": plan})

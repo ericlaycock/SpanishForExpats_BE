@@ -375,24 +375,10 @@ def seed_test_user(
 # this list as the canonical step ordering. Update in lockstep with the
 # whitelist in app/schemas.py::WEBPAGEFLOW_EVENT_KEYS.
 WEBPAGEFLOW_STEPS = [
-    ("landing_view",       "Landing page visit"),
-    ("build_plan_click",   "Clicked 'Build me my plan'"),
-    ("q0_answered",        "Q0 — Spanish level"),
-    ("q1_answered",        "Q1 — Situation"),
-    ("q1_1_answered",      "Q1.1 — Time in LATAM (conditional)"),
-    ("q2_answered",        "Q2 — Country"),
-    ("q3_answered",        "Q3 — Tools (Continue)"),
-    ("q4_answered",        "Q4 — Proximity"),
-    ("q5_answered",        "Q5 — Situations (Continue)"),
-    ("q6_answered",        "Q6 — Conversations"),
-    ("quiz_started",       "Quiz started"),
-    ("quiz_completed",     "Quiz completed"),
-    ("results_viewed",     "Results overview viewed"),
-    ("signup_form_viewed", "Signup form viewed"),
-    ("signup_submitted",   "Signup submitted (= M0 Joined)"),
-    ("cohort_intro_viewed", "Cohort intro viewed"),
-    ("cohort_registered",   "Cohort session selected"),
-    ("cohort_confirmed",    "Cohort confirmation viewed"),
+    ("landing_view",            "Website visit"),
+    ("questionnaire_completed", "Completed basic questionnaire"),
+    ("quiz_completed",          "Completed diagnostic"),
+    ("book_call_booked",        "Booked call"),
 ]
 
 

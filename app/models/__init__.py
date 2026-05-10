@@ -29,6 +29,7 @@ UserMilestoneEvent = models_legacy.UserMilestoneEvent
 Grenade = models_legacy.Grenade
 SentenceHint = models_legacy.SentenceHint
 AnonymousFunnelEvent = models_legacy.AnonymousFunnelEvent
+BookedCall = models_legacy.BookedCall
 Cohort = models_legacy.Cohort
 CohortRegistration = models_legacy.CohortRegistration
 CohortWaitlist = models_legacy.CohortWaitlist
@@ -59,6 +60,7 @@ __all__ = [
     "Grenade",
     "SentenceHint",
     "AnonymousFunnelEvent",
+    "BookedCall",
     "Cohort",
     "CohortRegistration",
     "CohortWaitlist",

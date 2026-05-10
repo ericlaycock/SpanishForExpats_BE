@@ -35,7 +35,10 @@ class LoginRequest(BaseModel):
 class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
-    confirm_password: str
+    # Optional for backwards compatibility — old clients still send it and
+    # get the equality check; new clients (`CallBookedScreen`) omit it and
+    # the check is skipped.
+    confirm_password: Optional[str] = None
     invite_token: Optional[str] = None
     name: Optional[str] = None
 
@@ -651,9 +654,17 @@ WEBPAGEFLOW_EVENT_KEYS = (
     "q4_answered",
     "q5_answered",
     "q6_answered",
+    "questionnaire_completed",
     "quiz_started",
     "quiz_completed",
     "results_viewed",
+    "estimate_viewed",
+    "book_call_screen_viewed",
+    "book_call_email_submitted",
+    "book_call_widget_loaded",
+    "book_call_booked",
+    "book_call_skipped",
+    "call_booked_screen_viewed",
     "signup_form_viewed",
     "signup_submitted",
     "cohort_intro_viewed",
