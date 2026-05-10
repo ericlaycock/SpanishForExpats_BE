@@ -14,12 +14,15 @@ from app.schemas import (
     CancelSubscriptionRequest,
     InvoiceItem,
     InvoiceListResponse,
+    RedeemBetaCodeRequest,
 )
 from app.config import settings
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+BETA_CODE = "N1066"
 
 _PRICE_MAP = {
     ("pro", "monthly"): lambda: settings.stripe_price_pro_monthly,
@@ -37,6 +40,28 @@ async def get_subscription_status_endpoint(
     """Get subscription status and free encounter count."""
     status_info = get_subscription_status(db, str(current_user.id))
     return SubscriptionStatusResponse(**status_info)
+
+
+@router.post("/redeem-beta-code", response_model=SubscriptionStatusResponse)
+async def redeem_beta_code(
+    body: RedeemBetaCodeRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Redeem the beta access code. Idempotent — re-submitting a valid code
+    leaves the original `beta_redeemed_at` timestamp untouched."""
+    if body.code.strip().upper() != BETA_CODE:
+        raise HTTPException(status_code=400, detail="Invalid beta code")
+
+    sub = db.query(Subscription).filter(Subscription.user_id == current_user.id).first()
+    if not sub:
+        sub = Subscription(user_id=current_user.id, active=False)
+        db.add(sub)
+    if sub.beta_redeemed_at is None:
+        sub.beta_redeemed_at = datetime.now(timezone.utc)
+    db.commit()
+
+    return SubscriptionStatusResponse(**get_subscription_status(db, str(current_user.id)))
 
 
 @router.post("/checkout", response_model=CheckoutResponse)

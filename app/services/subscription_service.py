@@ -56,6 +56,7 @@ def get_subscription_status(db: Session, user_id: str) -> dict:
         "cancel_at_period_end": subscription.cancel_at_period_end,
         "current_period_end": subscription.current_period_end,
         "canceled_at": subscription.canceled_at,
+        "beta_redeemed": subscription.beta_redeemed_at is not None,
     }
 
 
