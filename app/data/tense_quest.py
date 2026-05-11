@@ -279,9 +279,7 @@ def _norm_es(s: str) -> str:
 
 
 def _conjugated_forms(config: dict) -> set[str]:
-    """Every conjugated form (pipe-stripped) in the drill's answer table — used to
-    locate the verb in a practice sentence so the 'show translation' scaffold can
-    blank it out."""
+    """Every conjugated form (pipe-stripped) in the drill's answer table."""
     answers = (config.get("drill_config") or {}).get("answers") or {}
     out: set[str] = set()
     for forms in answers.values():
@@ -291,29 +289,88 @@ def _conjugated_forms(config: dict) -> set[str]:
     return out
 
 
-def _blanked_es(config: dict, es: str) -> Optional[str]:
-    """`es` with the (1–3 word) span that is a conjugated form of one of the
-    drill's verbs replaced by `____`. Returns None when no such span is found —
-    the FE then shows no scaffold for that sentence."""
+# Normalised form → set of pronouns it could spell out (e.g. "habla" → {"él",
+# "ella", "usted"}, "jugabamos" → {"nosotros", "nosotras"}).
+def _form_pronouns(config: dict) -> dict[str, set[str]]:
+    answers = (config.get("drill_config") or {}).get("answers") or {}
+    out: dict[str, set[str]] = {}
+    for forms in answers.values():
+        for pron, f in (forms or {}).items():
+            if not f:
+                continue
+            out.setdefault(_norm_es(_strip_pipe(f)), set()).add(pron)
+    return out
+
+
+_SUBJECT_PRONS = {"yo", "tu", "el", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes"}
+_PRON_LABEL = {
+    "yo": "Yo", "tú": "Tú", "él": "Él", "ella": "Ella", "usted": "Usted",
+    "nosotros": "Nosotros", "nosotras": "Nosotras",
+    "ellos": "Ellos", "ellas": "Ellas", "ustedes": "Ustedes",
+}
+
+
+def _implied_subject(en: str, prons: set[str]) -> Optional[str]:
+    """Pick the most plausible Spanish subject from a candidate set, biased by
+    cues in the English prompt ('We (m)' → nosotros, 'She' → ella, etc.). For
+    forms that map to a single pronoun, just use it."""
+    if len(prons) == 1:
+        return next(iter(prons))
+    e = (en or "").lower()
+    # English-side cues
+    cues: list[tuple[str, str]] = [
+        ("we (m", "nosotros"), ("we (f", "nosotras"), ("we ", "nosotros"),
+        ("they (m", "ellos"), ("they (f", "ellas"), ("they ", "ellos"),
+        ("you all", "ustedes"), ("you (formal", "usted"),
+        ("she ", "ella"), ("he ", "él"),
+        ("you ", "tú"), ("i ", "yo"),
+    ]
+    for needle, pron in cues:
+        if needle in e and pron in prons:
+            return pron
+    # canonical fallback
+    for p in PRONOUN_ORDER:
+        if p in prons:
+            return p
+    return None
+
+
+def _blanked_es(config: dict, es: str, en: str = "") -> Optional[str]:
+    """`es` with the (1–3 word) verb span replaced by `____` — the
+    'show translation' scaffold. When `es` doesn't already start with a
+    subject pronoun, prepend the implied one (so e.g. "Jugábamos todos los
+    días" becomes "Nosotros ____ todos los días", surfacing who's doing the
+    action). Returns None only when no verb form can be located in `es`."""
     if not es:
         return None
-    forms = _conjugated_forms(config)
-    if not forms:
+    form_prons = _form_pronouns(config)
+    if not form_prons:
         return None
-    forms_norm = {_norm_es(f) for f in forms}
     tokens = es.split(" ")
     n = len(tokens)
-    max_w = max((len(f.split(" ")) for f in forms), default=1)
+    max_w = max((len(f.split(" ")) for f in form_prons.keys()), default=1)
     for w in range(min(max_w, n), 0, -1):
         for i in range(0, n - w + 1):
             window = tokens[i:i + w]
             bare = " ".join(t.strip(_PUNCT) for t in window)
-            if _norm_es(bare) in forms_norm and bare.strip():
-                head, tail = window[0], window[-1]
-                lead = head[: len(head) - len(head.lstrip(_PUNCT))]
-                trail = tail[len(tail.rstrip(_PUNCT)):]
-                tokens[i:i + w] = [f"{lead}____{trail}"]
-                return " ".join(tokens)
+            normed = _norm_es(bare)
+            if normed not in form_prons or not bare.strip():
+                continue
+            head, tail = window[0], window[-1]
+            lead = head[: len(head) - len(head.lstrip(_PUNCT))]
+            trail = tail[len(tail.rstrip(_PUNCT)):]
+            tokens[i:i + w] = [f"{lead}____{trail}"]
+            out = " ".join(tokens)
+            # If `es` has no leading subject pronoun, prepend the implied one
+            # for clarity. Only do this when the matched span starts the
+            # sentence (otherwise the sentence already opens with something else
+            # — a connector, a possessive, etc. — that we shouldn't displace).
+            first_bare = _norm_es((es.split(" ", 1)[0] if es else "").strip(_PUNCT))
+            if i == 0 and first_bare not in _SUBJECT_PRONS:
+                pron = _implied_subject(en, form_prons[normed])
+                if pron:
+                    out = f"{_PRON_LABEL.get(pron, pron.capitalize())} {out}"
+            return out
     return None
 
 
@@ -440,11 +497,12 @@ def _quest_sentences(config: dict) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     for i, s in enumerate(_drill_sentences(config)):
         es = s.get("es") or ""
+        en = s.get("en") or ""
         out.append({
             "id": s["id"],
-            "en": s.get("en") or "",
+            "en": en,
             "es": es,
-            "blank_es": _blanked_es(config, es),
+            "blank_es": _blanked_es(config, es, en),
             "glosses": s.get("glosses") or {},
             "response_mode": "type" if i % 2 == 0 else "speak",
         })
@@ -537,15 +595,16 @@ def get_drill_payload(drill_id: str) -> Optional[dict[str, Any]]:
 def _sentence_card(config: dict, group_id: str, group_title: str, drill_id: str,
                    idx: int, s: dict, tense_label: str) -> dict[str, Any]:
     es = s.get("es") or ""
+    en = s.get("en") or ""
     return {
         "card_key": f"{drill_id}:{s['id']}",
         "drill_id": drill_id,
         "sentence_id": s["id"],
         "tense_group_id": group_id,
         "tense_group_title": group_title,
-        "en": s.get("en") or "",
+        "en": en,
         "es": es,
-        "blank_es": _blanked_es(config, es),
+        "blank_es": _blanked_es(config, es, en),
         "glosses": s.get("glosses") or {},
         "response_mode": "type" if idx % 2 == 0 else "speak",
         "tense_label": tense_label,
