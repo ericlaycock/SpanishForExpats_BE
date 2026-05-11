@@ -225,6 +225,12 @@ def _build_charts(config: dict) -> list[dict[str, Any]]:
     return [_verb_chart(v, answers[v]) for v in order[:3]]
 
 
+# Lesson-author meta cards we don't want in the game's rule view (e.g. the
+# "Why these two together" note on the why-these-verbs-are-bundled grouping).
+def _skip_rule_card(title: str) -> bool:
+    return title.strip().lower().startswith("why these")
+
+
 def _build_rule_cards(config: dict) -> list[dict[str, Any]]:
     """Plain-text teaching cards. Pull the `text`/`rule_pack` cards out of the
     lesson's intro_chart; fall back to a one-liner if there are none."""
@@ -236,7 +242,10 @@ def _build_rule_cards(config: dict) -> list[dict[str, Any]]:
             for c in chart.get("cards") or []:
                 ck = c.get("kind")
                 if ck == "text":
-                    cards.append({"kind": "text", "title": c.get("title") or "", "body": c.get("body") or "", "footnote": None})
+                    title = c.get("title") or ""
+                    if _skip_rule_card(title):
+                        continue
+                    cards.append({"kind": "text", "title": title, "body": c.get("body") or "", "footnote": None})
                 elif ck == "rule_pack":
                     lines: list[str] = []
                     for sec in c.get("sections") or []:
