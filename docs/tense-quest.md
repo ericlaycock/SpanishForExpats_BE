@@ -43,13 +43,24 @@ conjugation across every verb-tense topic in the curriculum:
 `app/data/tense_quest.py` derives everything from
 `app.data.grammar_situations.GRAMMAR_SITUATIONS`:
 
-- A **tense group** = a grammar level (GL) that has ≥1 playable conjugation
-  drill. The set + display titles/blurbs/families are in `_TENSE_GROUP_DEFS`.
-  Currently ~23 groups across families: Present, Near Future & Modals, The Past,
-  Future & Conditional, and Commands·-ing·Subjunctive. Non-verb GLs (pronouns,
-  gender, por/para, object pronouns, gustar-only, virtual GLs) are excluded.
-- A **drill** = one grammar *situation* in that GL whose `drill_type` is
-  `conjugation` or `ir_a_inf` and which has ≥4 `drill_sentences`.
+- A **tense group** = a grammar level (GL) that has ≥1 playable drill. The set +
+  display titles/blurbs/families are in `_TENSE_GROUP_DEFS` (~26 tiles across
+  Present, Near Future & Modals, The Past, Future & Conditional, and
+  Commands·-ing·Subjunctive). Non-verb GLs (pronouns, gender, por/para, object
+  pronouns, gustar-only) are excluded. A GL can feed several tiles via an `only`
+  drill-id substring filter (e.g. GL 20 splits into "Present Subjunctive" /
+  "Imperfect Subjunctive").
+- A **drill** = one grammar *situation* in that GL. Conjugation drills
+  (`drill_type` `conjugation`/`ir_a_inf`, ≥4 `drill_sentences`) get the full
+  rules → verb-chart warmup → sentences flow; a `rule`-type drill with an
+  intro_chart (e.g. Preterite vs. Imperfect) becomes a rules-then-sentences
+  quest with no conjugation warmup.
+- **Hand-authored extras** (`_EXTRA_SITUATIONS`, accessed via `_situation()`):
+  a couple of tenses the curriculum has no lesson for yet — currently the
+  "Perfect — Irregular Participles" module (synthetic `grammar_level` 18.6).
+  Shaped exactly like a `GRAMMAR_SITUATIONS` conjugation lesson; replace with a
+  real lesson when one lands. Forms in extras and reference charts are pipe-
+  encoded so the changing part renders red.
 - **Verb charts** are built straight from the drill's `drill_config.answers`
   (5-row pronoun grouping). **Rule cards** are the `text`/`rule_pack` cards from
   the lesson's `intro_chart` (with a generic fallback). **Conjugation targets**
