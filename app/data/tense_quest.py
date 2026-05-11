@@ -104,6 +104,8 @@ _TENSE_GROUP_DEFS: list[dict[str, Any]] = [
      "title": "Preterite — -ducir Verbs", "blurb": "traducir · conducir · producir → -duje, -dujo, -dujeron."},
     {"gl": 17.5, "id": "preterite_e_i", "family": "past",
      "title": "Preterite — e→i Tricky Ones", "blurb": "more third-person e→i flips in the preterite."},
+    {"gl": 16, "id": "preterite_vs_imperfect", "family": "past",
+     "title": "Preterite vs. Imperfect", "blurb": "which past? the snapshot (preterite) or the backdrop (imperfect)."},
     {"gl": 18.5, "id": "perfect_tenses", "family": "past",
      "title": "Perfect Tenses", "blurb": "he hablado · había comido. haber + past participle."},
     {"gl": 14, "id": "future_simple", "family": "future_cond",
@@ -136,14 +138,19 @@ def _is_playable_drill(situation_id: str) -> bool:
     config = GRAMMAR_SITUATIONS.get(situation_id)
     if not config:
         return False
-    if config.get("drill_type") not in _PLAYABLE_DRILL_TYPES:
-        return False
-    answers = (config.get("drill_config") or {}).get("answers") or {}
-    if not answers:
-        return False
     if len(_drill_sentences(config)) < _MIN_SENTENCES:
         return False
-    return True
+    drill_type = config.get("drill_type")
+    answers = (config.get("drill_config") or {}).get("answers") or {}
+    if drill_type in _PLAYABLE_DRILL_TYPES and answers:
+        return True
+    # `rule`-type drills (e.g. Preterite vs. Imperfect) have no conjugation
+    # table — the quest is rules + sentences, no warmup. They only become a
+    # Tense-Quest module via `_TENSE_GROUP_DEFS`, so this can't pull in the
+    # non-verb rule lessons (pronouns/gender/por-para/object-pronouns).
+    if drill_type == "rule" and config.get("intro_chart"):
+        return True
+    return False
 
 
 def _playable_drill_ids(gl: float) -> list[str]:

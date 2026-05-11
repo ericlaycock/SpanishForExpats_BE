@@ -25,26 +25,30 @@ def test_tense_groups_well_formed():
 
 def test_every_drill_has_a_playable_payload():
     saw_blank_es = False
+    saw_conjugation_drill = False
     for g in tq.list_tense_groups():
         for did in g["drill_ids"]:
             p = tq.get_drill_payload(did)
             assert p is not None, f"{did} should be playable"
             assert p["tense_group_id"] == g["id"]
-            assert p["charts"], f"{did} should expose at least one verb chart"
-            assert p["conjugation_targets"], f"{did} should have conjugation targets"
+            assert p["rule_cards"], f"{did} should expose at least one rule card"
             assert len(p["sentences"]) >= 4
+            # conjugation drills have charts + targets; rule-type quests (e.g.
+            # Preterite vs. Imperfect) are rules + sentences only.
+            if p["conjugation_targets"]:
+                saw_conjugation_drill = True
+                assert p["charts"], f"{did} should expose at least one verb chart"
+                for t in p["conjugation_targets"]:
+                    assert t["answer"], "target must carry an expected answer"
             modes = [s["response_mode"] for s in p["sentences"]]
             assert set(modes) <= {"type", "speak"}
-            # alternation
             assert all(modes[i] != modes[i + 1] for i in range(len(modes) - 1))
-            for t in p["conjugation_targets"]:
-                assert t["answer"], "target must carry an expected answer"
             for s in p["sentences"]:
                 assert "blank_es" in s  # may be None, but the key must exist
                 if s["blank_es"]:
                     saw_blank_es = True
                     assert "____" in s["blank_es"]
-    assert saw_blank_es, "the show-translation scaffold should resolve for most sentences"
+    assert saw_conjugation_drill and saw_blank_es
 
 
 def test_review_cards_are_sentences_and_round_trip():
