@@ -128,6 +128,21 @@ For **conjugation lessons** the runtime flow is:
 
 The frontend phase type is defined as: `type Phase = 'video' | 'drill' | 'learn' | 'written-test' | 'spoken-test'`. Phases 1a-1c are kept for backwards compatibility; conjugation lessons today rely on the 0b drill phase only.
 
+#### Blank-fill drill rendering
+
+For the early grammar units the sentence drill renders as **fill-in-the-blank** instead of "English prompt → type the Spanish": the Spanish sentence shows with the drilled word replaced by a blank slot, the full English translation sits directly below it, and a short instruction sits on top ("Complete the sentence using the correct pronoun" / "…possessive adjective" / "…article" / "…verb form"). The learner reproduces the *whole* Spanish sentence (typed or spoken). This is purely a `DrillPhase.tsx` (`SentenceDrill`) rendering decision keyed off `tense` + `lesson_type` — no backend data change. The blanked token is always at a fixed position in the authored sentences:
+
+| `tense` | `lesson_type` | Units | Blanked token |
+|---------|---------------|-------|---------------|
+| `pronouns` | `rule` | GL 1 Pronouns (singular + plural) | token 0 (the subject pronoun) |
+| `possessive` | `rule` | GL 1.5 Possessive Adjectives | token 0 (the possessive adjective) |
+| `gender` | `rule` | GL 2 Grammatical Gender (definite + indefinite) | token 0 (the article) |
+| `present` | `conjugation` | GL 3 Regular Present (-AR/-ER/-IR), GL 4 Irregular Present (ser+estar, ir+dar, tener+venir) | token 1 (the conjugated verb) |
+
+Every other drill (e.g. `demonstratives`, `por_para`, gustar, legacy `article_matching`/`conjugation`) keeps the original rendering. Grading for the determiner cases (`pronouns`/`possessive`/`gender`) is an **exact** normalized match — the usual "leading subject pronoun is optional" leniency would let the learner skip the very word being drilled, and `el`/`tu` collide with `él`/`tú` after normalization. Verb-conjugation drills keep the lenient match.
+
+When the learner misses three times on one sentence (or taps "I don't know" three times across the drill), the answer is revealed in place and the screen **waits for a "Try this lesson again" button** rather than flashing the answer and bouncing. Likewise a single "I don't know" reveals the answer and waits for a "Continue" tap — no auto-advance timer.
+
 ### Grammar chat lesson invariants
 
 Every grammar chat lesson (`drill_type: "skip"`, `phases.2: True`) MUST satisfy these rules. Many of these regressed in the past — they're load-bearing UX requirements, not stylistic preferences.
