@@ -17,6 +17,7 @@ speak/type sentences.
 """
 from __future__ import annotations
 
+import unicodedata
 from typing import Any, Optional
 
 from app.data.grammar_situations import (
@@ -125,7 +126,10 @@ _GL_TO_ID: dict[float, str] = {d["gl"]: d["id"] for d in _TENSE_GROUP_DEFS}
 # ── drill discovery ─────────────────────────────────────────────────────────
 
 def _drill_sentences(config: dict) -> list[dict]:
-    return [s for s in (config.get("drill_sentences") or []) if s.get("es")]
+    """The lesson's practice sentences, each given a stable id (`s{index}` over
+    the es-non-empty list) so review cards can key off it across restarts."""
+    raw = [s for s in (config.get("drill_sentences") or []) if s.get("es")]
+    return [{**s, "id": s.get("id") or f"s{i}"} for i, s in enumerate(raw)]
 
 
 def _is_playable_drill(situation_id: str) -> bool:
@@ -150,6 +154,56 @@ def _playable_drill_ids(gl: float) -> list[str]:
 
 def _strip_pipe(form: str) -> str:
     return (form or "").replace("|", "")
+
+
+# ── translation scaffold ("show translation" toggle) ────────────────────────
+
+_PUNCT = ".,!?;:¿¡\"'()«»…—–-"
+
+
+def _norm_es(s: str) -> str:
+    s = unicodedata.normalize("NFD", (s or "").lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    return s.replace("ñ", "n").strip()
+
+
+def _conjugated_forms(config: dict) -> set[str]:
+    """Every conjugated form (pipe-stripped) in the drill's answer table — used to
+    locate the verb in a practice sentence so the 'show translation' scaffold can
+    blank it out."""
+    answers = (config.get("drill_config") or {}).get("answers") or {}
+    out: set[str] = set()
+    for forms in answers.values():
+        for f in (forms or {}).values():
+            if f:
+                out.add(_strip_pipe(f))
+    return out
+
+
+def _blanked_es(config: dict, es: str) -> Optional[str]:
+    """`es` with the (1–3 word) span that is a conjugated form of one of the
+    drill's verbs replaced by `____`. Returns None when no such span is found —
+    the FE then shows no scaffold for that sentence."""
+    if not es:
+        return None
+    forms = _conjugated_forms(config)
+    if not forms:
+        return None
+    forms_norm = {_norm_es(f) for f in forms}
+    tokens = es.split(" ")
+    n = len(tokens)
+    max_w = max((len(f.split(" ")) for f in forms), default=1)
+    for w in range(min(max_w, n), 0, -1):
+        for i in range(0, n - w + 1):
+            window = tokens[i:i + w]
+            bare = " ".join(t.strip(_PUNCT) for t in window)
+            if _norm_es(bare) in forms_norm and bare.strip():
+                head, tail = window[0], window[-1]
+                lead = head[: len(head) - len(head.lstrip(_PUNCT))]
+                trail = tail[len(tail.rstrip(_PUNCT)):]
+                tokens[i:i + w] = [f"{lead}____{trail}"]
+                return " ".join(tokens)
+    return None
 
 
 def _verb_chart(verb: str, answers_for_verb: dict[str, str]) -> dict[str, Any]:
@@ -239,14 +293,17 @@ def _conjugation_targets(config: dict) -> list[dict[str, Any]]:
 
 def _quest_sentences(config: dict) -> list[dict[str, Any]]:
     """The 10 generalisation sentences. Response mode alternates type/speak by
-    index (index 0 → type so the player eases in)."""
-    sents = _drill_sentences(config)
+    index (index 0 → type so the player eases in). `blank_es` is the Spanish
+    sentence with the conjugated verb replaced by `____` — the "show translation"
+    scaffold (null when the verb span can't be located)."""
     out: list[dict[str, Any]] = []
-    for i, s in enumerate(sents):
+    for i, s in enumerate(_drill_sentences(config)):
+        es = s.get("es") or ""
         out.append({
-            "id": s.get("id") or f"s{i}",
+            "id": s["id"],
             "en": s.get("en") or "",
-            "es": s.get("es") or "",
+            "es": es,
+            "blank_es": _blanked_es(config, es),
             "glosses": s.get("glosses") or {},
             "response_mode": "type" if i % 2 == 0 else "speak",
         })
@@ -325,81 +382,63 @@ def get_drill_payload(drill_id: str) -> Optional[dict[str, Any]]:
     }
 
 
+def _sentence_card(config: dict, group_id: str, group_title: str, drill_id: str,
+                   idx: int, s: dict, tense_label: str) -> dict[str, Any]:
+    es = s.get("es") or ""
+    return {
+        "card_key": f"{drill_id}:{s['id']}",
+        "drill_id": drill_id,
+        "sentence_id": s["id"],
+        "tense_group_id": group_id,
+        "tense_group_title": group_title,
+        "en": s.get("en") or "",
+        "es": es,
+        "blank_es": _blanked_es(config, es),
+        "glosses": s.get("glosses") or {},
+        "response_mode": "type" if idx % 2 == 0 else "speak",
+        "tense_label": tense_label,
+    }
+
+
 def review_cards_for_drill(drill_id: str) -> list[dict[str, Any]]:
-    """The conjugation cards a completed drill contributes to the SRS deck.
-    One card per (group, verb, pronoun) appearing in the drill's warmup
-    targets (deduped). card_key = '{group_id}:{verb}:{pronoun}'."""
+    """The cards a completed drill contributes to the SRS review deck — one per
+    practice sentence (NOT the warmup conjugations). card_key = '{drill_id}:{sentence_id}'."""
     config = GRAMMAR_SITUATIONS.get(drill_id)
     if not config:
         return []
     group_id = _GL_TO_ID.get(config.get("grammar_level"))
     if not group_id:
         return []
-    tense_label = (config.get("tense") or "present").replace("_", " ")
-    seen: set[str] = set()
-    cards: list[dict[str, Any]] = []
-    for t in _conjugation_targets(config):
-        verb, pron, answer = t["verb"], t["pronoun"], t["answer"]
-        key = f"{group_id}:{verb}:{pron}"
-        if key in seen:
-            continue
-        seen.add(key)
-        cards.append({
-            "card_key": key,
-            "tense_group_id": group_id,
-            "verb": verb,
-            "pronoun": pron,
-            "pronoun_en": PRONOUN_EN.get(pron, pron),
-            "answer": answer,
-            "tense_label": tense_label,
-        })
-    return cards
-
-
-def lookup_card_answer(card_key: str) -> Optional[dict[str, Any]]:
-    """Resolve a card_key back to its display data + expected answer, by walking
-    the group's drills. Returns None for an unknown key."""
-    try:
-        group_id, verb, pron = card_key.split(":", 2)
-    except ValueError:
-        return None
     group = get_tense_group(group_id)
-    if not group:
+    group_title = group["title"] if group else ""
+    tense_label = (config.get("tense") or "present").replace("_", " ")
+    return [
+        _sentence_card(config, group_id, group_title, drill_id, i, s, tense_label)
+        for i, s in enumerate(_drill_sentences(config))
+    ]
+
+
+def lookup_sentence(card_key: str) -> Optional[dict[str, Any]]:
+    """Resolve a sentence card_key ('{drill_id}:{sentence_id}') back to its
+    display data (en / es / blank_es / glosses / response_mode / tense + group).
+    Returns None if the key (or the underlying lesson) no longer resolves."""
+    parts = card_key.split(":", 1)
+    if len(parts) != 2:
         return None
-    for drill_id in group["drill_ids"]:
-        config = GRAMMAR_SITUATIONS.get(drill_id) or {}
-        form = ((config.get("drill_config") or {}).get("answers") or {}).get(verb, {}).get(pron)
-        if form:
-            return {
-                "card_key": card_key,
-                "tense_group_id": group_id,
-                "tense_group_title": group["title"],
-                "verb": verb,
-                "pronoun": pron,
-                "pronoun_en": PRONOUN_EN.get(pron, pron),
-                "answer": form,
-                "tense_label": (config.get("tense") or "present").replace("_", " "),
-            }
+    drill_id, sentence_id = parts
+    config = GRAMMAR_SITUATIONS.get(drill_id)
+    if not config:
+        return None
+    group_id = _GL_TO_ID.get(config.get("grammar_level"))
+    group = get_tense_group(group_id) if group_id else None
+    group_title = group["title"] if group else ""
+    tense_label = (config.get("tense") or "present").replace("_", " ")
+    for i, s in enumerate(_drill_sentences(config)):
+        if s["id"] == sentence_id:
+            return _sentence_card(config, group_id or "", group_title, drill_id, i, s, tense_label)
     return None
 
 
-def card_display(card_key: str, tense_group_title_fallback: str = "") -> dict[str, Any]:
-    """Best-effort display payload for a stored card row (used when assembling
-    the deck). Falls back to splitting the key if the answer can't be resolved
-    (e.g. underlying lesson changed)."""
-    resolved = lookup_card_answer(card_key)
-    if resolved:
-        return resolved
-    parts = card_key.split(":", 2)
-    verb = parts[1] if len(parts) > 1 else card_key
-    pron = parts[2] if len(parts) > 2 else ""
-    return {
-        "card_key": card_key,
-        "tense_group_id": parts[0] if parts else "",
-        "tense_group_title": tense_group_title_fallback,
-        "verb": verb,
-        "pronoun": pron,
-        "pronoun_en": PRONOUN_EN.get(pron, pron),
-        "answer": "",
-        "tense_label": "",
-    }
+# Back-compat alias for the router's deck assembler.
+def card_display(card_key: str) -> Optional[dict[str, Any]]:
+    return lookup_sentence(card_key)

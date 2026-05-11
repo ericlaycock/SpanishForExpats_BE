@@ -41,12 +41,14 @@ class TenseQuestDrillCompletion(Base):
 
 
 class TenseQuestCard(Base):
-    """A single conjugation card in a user's review deck.
+    """A single practice-sentence card in a user's review deck.
 
-    `card_key` == "{tense_group_id}:{verb}:{pronoun}". `box` is a 1..5 Leitner
-    box; `due_at` is when the card next wants reviewing; `deck_position` is the
+    `card_key` == "{drill_id}:{sentence_id}". `box` is a 1..5 Leitner box;
+    `due_at` is when the card next wants reviewing; `deck_position` is the
     flip-through order (randomised by the Shuffle button). A "lapse" (wrong, or
-    correct-but-slow) resets `box` to 1 and pulls `due_at` in close.
+    correct-but-slow) resets `box` to 1 and pulls `due_at` in close. The
+    sentence's English/Spanish text is resolved on read from the grammar data,
+    so only the keys are stored here.
     """
 
     __tablename__ = "tense_quest_cards"
@@ -60,8 +62,8 @@ class TenseQuestCard(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     card_key = Column(String, nullable=False)
     tense_group_id = Column(String, nullable=False)
-    verb = Column(String, nullable=False)
-    pronoun = Column(String, nullable=False)
+    drill_id = Column(String, nullable=False)
+    sentence_id = Column(String, nullable=False)
 
     box = Column(Integer, nullable=False, server_default="1", default=1)
     reps = Column(Integer, nullable=False, server_default="0", default=0)

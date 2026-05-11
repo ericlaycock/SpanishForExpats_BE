@@ -59,14 +59,18 @@ class Leaderboard(BaseModel):
 
 
 class ReviewCard(BaseModel):
+    """A practice-sentence review card. The FE matches what the player produces
+    against `es`; `blank_es` is the optional 'show translation' scaffold (Spanish
+    with the conjugated verb shown as `____`)."""
     card_key: str
     tense_group_id: str
     tense_group_title: str
-    verb: str
-    pronoun: str
-    pronoun_en: str
     tense_label: str
-    answer: str  # piped (stem|ending) — FE strips '|' for matching, shows it on reveal
+    en: str
+    es: str
+    blank_es: Optional[str] = None
+    glosses: dict[str, str] = Field(default_factory=dict)
+    response_mode: str  # 'type' | 'speak'
     box: int
     due: bool
     last_result: Optional[str] = None
@@ -130,6 +134,7 @@ class QuestSentence(BaseModel):
     id: str
     en: str
     es: str
+    blank_es: Optional[str] = None  # Spanish with the conjugated verb shown as `____`
     glosses: dict[str, str] = Field(default_factory=dict)
     response_mode: str  # 'type' | 'speak'
 
@@ -257,21 +262,26 @@ def _review_deck(db: Session, user_id, limit: int = REVIEW_DECK_LIMIT) -> Review
     ordered = order_cards(all_cards, now=now)
     due_count = sum(1 for c in all_cards if _is_due(c, now))
     out: list[ReviewCard] = []
-    for c in ordered[:limit]:
+    for c in ordered:
         disp = tq.card_display(c.card_key)
+        if not disp:  # underlying lesson changed / unknown key — drop it from the deck
+            continue
         out.append(ReviewCard(
             card_key=c.card_key,
-            tense_group_id=c.tense_group_id,
+            tense_group_id=c.tense_group_id or disp.get("tense_group_id") or "",
             tense_group_title=disp.get("tense_group_title") or "",
-            verb=c.verb or disp.get("verb") or "",
-            pronoun=c.pronoun or disp.get("pronoun") or "",
-            pronoun_en=disp.get("pronoun_en") or "",
             tense_label=disp.get("tense_label") or "",
-            answer=disp.get("answer") or "",
+            en=disp.get("en") or "",
+            es=disp.get("es") or "",
+            blank_es=disp.get("blank_es"),
+            glosses=disp.get("glosses") or {},
+            response_mode=disp.get("response_mode") or "type",
             box=c.box or 1,
             due=_is_due(c, now),
             last_result=c.last_result,
         ))
+        if len(out) >= limit:
+            break
     return ReviewDeck(cards=out, due_count=due_count, total_count=len(all_cards))
 
 
@@ -417,7 +427,7 @@ async def complete_drill(
     )
     was_new = bool(res.rowcount)
 
-    # Add this drill's conjugation cards to the deck (new cards only).
+    # Add this drill's practice sentences to the review deck (new cards only).
     deck_before = (
         db.query(func.count(TenseQuestCard.id))
         .filter(TenseQuestCard.user_id == current_user.id)
@@ -438,8 +448,8 @@ async def complete_drill(
                 "user_id": current_user.id,
                 "card_key": c["card_key"],
                 "tense_group_id": c["tense_group_id"],
-                "verb": c["verb"],
-                "pronoun": c["pronoun"],
+                "drill_id": c["drill_id"],
+                "sentence_id": c["sentence_id"],
                 "box": 1,
                 "reps": 0,
                 "lapses": 0,

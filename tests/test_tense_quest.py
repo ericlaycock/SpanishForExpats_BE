@@ -24,6 +24,7 @@ def test_tense_groups_well_formed():
 
 
 def test_every_drill_has_a_playable_payload():
+    saw_blank_es = False
     for g in tq.list_tense_groups():
         for did in g["drill_ids"]:
             p = tq.get_drill_payload(did)
@@ -38,27 +39,42 @@ def test_every_drill_has_a_playable_payload():
             assert all(modes[i] != modes[i + 1] for i in range(len(modes) - 1))
             for t in p["conjugation_targets"]:
                 assert t["answer"], "target must carry an expected answer"
+            for s in p["sentences"]:
+                assert "blank_es" in s  # may be None, but the key must exist
+                if s["blank_es"]:
+                    saw_blank_es = True
+                    assert "____" in s["blank_es"]
+    assert saw_blank_es, "the show-translation scaffold should resolve for most sentences"
 
 
-def test_review_cards_and_lookup_round_trip():
+def test_review_cards_are_sentences_and_round_trip():
     g = tq.list_tense_groups()[0]
     did = g["drill_ids"][0]
     cards = tq.review_cards_for_drill(did)
     assert cards
     keys = [c["card_key"] for c in cards]
     assert len(keys) == len(set(keys))
+    # one card per practice sentence
+    payload = tq.get_drill_payload(did)
+    assert len(cards) == len(payload["sentences"])
     for c in cards:
-        assert c["card_key"] == f"{c['tense_group_id']}:{c['verb']}:{c['pronoun']}"
-        resolved = tq.lookup_card_answer(c["card_key"])
+        assert c["card_key"] == f"{c['drill_id']}:{c['sentence_id']}"
+        assert c["es"] and c["en"]
+        assert c["response_mode"] in {"type", "speak"}
+        resolved = tq.lookup_sentence(c["card_key"])
         assert resolved is not None
-        assert resolved["answer"] == c["answer"]
+        assert resolved["es"] == c["es"]
+        assert resolved["response_mode"] == c["response_mode"]
+    # card_display is the deck assembler's resolver
+    assert tq.card_display(cards[0]["card_key"])["es"] == cards[0]["es"]
 
 
 def test_unknown_ids_return_none():
     assert tq.get_tense_group("nope") is None
     assert tq.get_drill_payload("grammar_does_not_exist") is None
-    assert tq.lookup_card_answer("bad:key:here") is None
-    assert tq.lookup_card_answer("malformed") is None
+    assert tq.lookup_sentence("grammar_does_not_exist:s0") is None
+    assert tq.lookup_sentence("malformed") is None
+    assert tq.card_display("nope:s0") is None
 
 
 # ── SRS transitions ─────────────────────────────────────────────────────────
@@ -152,6 +168,8 @@ def test_group_detail_and_drill_payload(client):
     assert payload["charts"]
     assert payload["conjugation_targets"]
     assert payload["sentences"]
+    s0 = payload["sentences"][0]
+    assert "blank_es" in s0 and "glosses" in s0 and s0["response_mode"] in {"type", "speak"}
 
 
 def test_unknown_group_and_drill_404(client):
@@ -199,7 +217,11 @@ def test_review_attempt_and_shuffle(client):
 
     deck = client.get("/v1/tensequest/review", headers=headers).json()
     assert deck["total_count"] >= 1
-    card_key = deck["cards"][0]["card_key"]
+    c0 = deck["cards"][0]
+    # cards are practice sentences now
+    assert c0["en"] and c0["es"] and "blank_es" in c0
+    assert c0["response_mode"] in {"type", "speak"}
+    card_key = c0["card_key"]
 
     # Slow-but-correct → silent lapse (box stays 1).
     resp = client.post("/v1/tensequest/review/attempt", headers=headers,
@@ -215,7 +237,7 @@ def test_review_attempt_and_shuffle(client):
 
     # Unknown card → 404.
     bad = client.post("/v1/tensequest/review/attempt", headers=headers,
-                      json={"card_key": "nope:none:yo", "correct": True, "response_ms": 1000})
+                      json={"card_key": "grammar_nope:s0", "correct": True, "response_ms": 1000})
     assert bad.status_code == 404
 
     # Shuffle returns the deck size.
