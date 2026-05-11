@@ -26,6 +26,7 @@
 | `docs/learning-flow.md` | Phase model, mastery SRS, VL/GL gating, language modes, free-tier + daily limits. |
 | `docs/grammar-curriculum.md` | Grammar group structure, lesson pattern, drill anatomy. (Phase 2 — not yet created.) |
 | `docs/voice-chat.md` | **UPDATE FREQUENTLY** STT/TTS/LLM pipeline, R2, animation, realtime flag. |
+| `docs/tense-quest.md` | Tense Quest mini-game (`/tensequest`): derived content, leaderboard, SRS review deck, API, tables. |
 | `docs/design-system.md` | Brand identity, palette (`#28968C`), typography, component guidelines. |
 | `docs/env-variables.md` | All FE + BE environment variables. |
 | `docs/testing.md` | CI, pytest, vitest, Playwright. |
@@ -106,6 +107,7 @@ Full details in `docs/architecture.md`.
 | `user_words.py` | `/v1/user/words` | get words, unknown words, typed-correct |
 | `onboarding.py` | `/v1/onboarding` | status, save-selections, available-categories |
 | `subscription.py` | `/v1/subscription` | status |
+| `tense_quest.py` | `/v1/tensequest` | overview, groups/{id}, drills/{id}, drills/{id}/complete, review (+attempt/shuffle), transcribe — see `docs/tense-quest.md` |
 
 ## Services (`app/services/`)
 
