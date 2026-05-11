@@ -43,6 +43,9 @@ class Settings(BaseSettings):
     # Stripe (payment)
     stripe_secret_key: Optional[str] = None
     stripe_webhook_secret: Optional[str] = None
+
+    # Calendly (founder onboarding-call webhook)
+    calendly_webhook_signing_key: Optional[str] = None
     stripe_price_pro_monthly: str = "price_STUB_pro_monthly"
     stripe_price_pro_6month: str = "price_STUB_pro_6month"
     stripe_price_fluency_monthly: str = "price_STUB_fluency_monthly"
