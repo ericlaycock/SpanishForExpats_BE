@@ -289,9 +289,45 @@ def _conjugated_forms(config: dict) -> set[str]:
     return out
 
 
+# For periphrastic tenses the curriculum's answer values include the action
+# infinitive (e.g. "tengo que hablar"), but pedagogically the tested form is
+# the *head* — the bit that conjugates — and the infinitive should stay visible
+# in the scaffold. These overrides give `_form_pronouns` a head-only view for
+# those tenses so the scaffold blanks "tengo que" out of "Yo tengo que estudiar
+# mucho", not "tengo que estudiar". (They also surface me toca / necesito,
+# which the underlying lesson doesn't drill but the module covers conceptually.)
+_TESTED_HEADS: dict[str, dict[str, set[str]]] = {
+    "modal_inf": {
+        "tengo que": {"yo"}, "tienes que": {"tú"},
+        "tiene que": {"él", "ella", "usted"},
+        "tenemos que": {"nosotros", "nosotras"},
+        "tienen que": {"ellos", "ellas", "ustedes"},
+        "me toca": {"yo"}, "te toca": {"tú"},
+        "le toca": {"él", "ella", "usted"},
+        "nos toca": {"nosotros", "nosotras"},
+        "les toca": {"ellos", "ellas", "ustedes"},
+        "necesito": {"yo"}, "necesitas": {"tú"},
+        "necesita": {"él", "ella", "usted"},
+        "necesitamos": {"nosotros", "nosotras"},
+        "necesitan": {"ellos", "ellas", "ustedes"},
+    },
+    "ir_a_infinitive": {
+        "voy a": {"yo"}, "vas a": {"tú"},
+        "va a": {"él", "ella", "usted"},
+        "vamos a": {"nosotros", "nosotras"},
+        "van a": {"ellos", "ellas", "ustedes"},
+    },
+}
+
+
 # Normalised form → set of pronouns it could spell out (e.g. "habla" → {"él",
-# "ella", "usted"}, "jugabamos" → {"nosotros", "nosotras"}).
+# "ella", "usted"}, "jugabamos" → {"nosotros", "nosotras"}). For periphrastic
+# tenses uses the head-only override above so the scaffold blanks just the
+# conjugated bit, not the trailing infinitive.
 def _form_pronouns(config: dict) -> dict[str, set[str]]:
+    override = _TESTED_HEADS.get(config.get("tense"))
+    if override is not None:
+        return override
     answers = (config.get("drill_config") or {}).get("answers") or {}
     out: dict[str, set[str]] = {}
     for forms in answers.values():
@@ -369,7 +405,13 @@ def _blanked_es(config: dict, es: str, en: str = "") -> Optional[str]:
             if i == 0 and first_bare not in _SUBJECT_PRONS:
                 pron = _implied_subject(en, form_prons[normed])
                 if pron:
-                    out = f"{_PRON_LABEL.get(pron, pron.capitalize())} {out}"
+                    label = _PRON_LABEL.get(pron, pron.capitalize())
+                    # Carry any opening punctuation (¿ / ¡) across the prepend so
+                    # we end up with "¿Tú ____ hablar?" not "Tú ¿____ hablar?".
+                    if out[:1] in "¿¡":
+                        out = f"{out[0]}{label} {out[1:]}"
+                    else:
+                        out = f"{label} {out}"
             return out
     return None
 
