@@ -334,7 +334,7 @@ async def group_detail(
     drills = [
         DrillSummary(
             drill_id=did,
-            title=(tq.GRAMMAR_SITUATIONS.get(did, {}).get("title") or did),
+            title=tq.drill_title(did),
             index=i + 1,
             completed=did in done,
         )

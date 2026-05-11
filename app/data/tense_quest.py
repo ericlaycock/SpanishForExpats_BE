@@ -108,6 +108,8 @@ _TENSE_GROUP_DEFS: list[dict[str, Any]] = [
      "title": "Preterite vs. Imperfect", "blurb": "which past? the snapshot (preterite) or the backdrop (imperfect)."},
     {"gl": 18.5, "id": "perfect_tenses", "family": "past",
      "title": "Perfect Tenses", "blurb": "he hablado · había comido. haber + past participle."},
+    {"gl": 18.6, "id": "irregular_participles", "family": "past",
+     "title": "Perfect — Irregular Participles", "blurb": "he abierto · ha escrito · han hecho — the participles that go their own way."},
     {"gl": 14, "id": "future_simple", "family": "future_cond",
      "title": "Future Simple", "blurb": "hablaré, comerás… one word for 'will'."},
     {"gl": 15, "id": "conditional", "family": "future_cond",
@@ -116,13 +118,114 @@ _TENSE_GROUP_DEFS: list[dict[str, Any]] = [
      "title": "Commands", "blurb": "¡habla! ¡come! ¡no hables! Telling people what to do."},
     {"gl": 18, "id": "gerund", "family": "moods",
      "title": "-ing (Gerund)", "blurb": "hablando · comiendo · viviendo. estar + gerund = right now."},
-    {"gl": 20, "id": "subjunctive", "family": "moods",
-     "title": "Subjunctive", "blurb": "the mood of doubt, wishes and 'maybe': que hables, que comas."},
+    # GL 20's lessons bundle present + imperfect subjunctive; split into two
+    # tiles by drill-id substring (`only`).
+    {"gl": 20, "id": "present_subjunctive", "family": "moods", "only": "subj_pres",
+     "title": "Present Subjunctive", "blurb": "the mood of wishes and 'maybe': espero que hables, quiero que comas."},
+    {"gl": 20, "id": "subjunctive", "family": "moods", "only": "subj_impf",
+     "title": "Imperfect Subjunctive", "blurb": "the past subjunctive: si hablara… ojalá comieran…"},
 ]
 
-# Stable id <-> GL maps.
 _ID_TO_DEF: dict[str, dict[str, Any]] = {d["id"]: d for d in _TENSE_GROUP_DEFS}
-_GL_TO_ID: dict[float, str] = {d["gl"]: d["id"] for d in _TENSE_GROUP_DEFS}
+
+
+# ── hand-authored Tense-Quest-only content ──────────────────────────────────
+# Irregular past participles aren't a curriculum lesson — author the module
+# here. The entry is shaped exactly like a `GRAMMAR_SITUATIONS` conjugation
+# lesson so every helper below works unchanged. Synthetic grammar_level 18.6
+# slots it just after the regular Perfect Tenses tile. Forms are pipe-encoded
+# so the changing part renders red. (Present subjunctive isn't here — the
+# curriculum's GL-20 lessons already cover it; it's just split off into its
+# own tile.)
+
+_HABER_PRESENT = {"yo": "he", "tú": "has", "él": "ha", "ella": "ha", "usted": "ha",
+                  "nosotros": "hemos", "nosotras": "hemos", "ellos": "han", "ellas": "han", "ustedes": "han"}
+
+
+def _perfect_answers(participle: str) -> dict[str, str]:
+    # "|he abierto" → ConjForm reddens "he" (the haber form), keeps the participle black.
+    return {p: f"|{h} {participle}" for p, h in _HABER_PRESENT.items()}
+
+
+def _g(en: str, es: str, glosses: dict[str, str] | None = None) -> dict[str, Any]:
+    return {"en": en, "es": es, "noun_id": None, "type": "written", "glosses": glosses or {}}
+
+
+_EXTRA_SITUATIONS: dict[str, dict[str, Any]] = {
+    "tq_irregular_participles": {
+        "title": "Perfect — Irregular Participles",
+        "grammar_level": 18.6,
+        "lesson_number": 1,
+        "lesson_type": "conjugation",
+        "tense": "perfect",
+        "drill_type": "conjugation",
+        "video_embed_id": None,
+        "word_workload": ["abrir", "escribir", "hacer", "decir", "ver", "poner", "volver", "romper"],
+        "phases": {"0a": True, "0b": True, "1a": False, "1b": False, "1c": False, "2": False, "3": False},
+        "intro_chart": {
+            "kind": "cards",
+            "title": "Perfect tense — irregular past participles",
+            "cards": [
+                {"kind": "text", "title": "Most participles are regular — a few aren't",
+                 "body": "The present perfect is **haber** (he, has, ha, hemos, han) + a past participle. Regular participles end in **-ado** / **-ido** (*hablado*, *comido*). But a handful of very common verbs have *irregular* participles you simply memorise."},
+                {"kind": "rule_pack", "title": "The ones you'll actually use",
+                 "sections": [{"heading": "infinitive → participle", "items": [
+                     "abrir → abierto", "escribir → escrito", "hacer → hecho", "decir → dicho",
+                     "ver → visto", "poner → puesto", "volver → vuelto", "romper → roto",
+                 ]}],
+                 "footnote": "Same idea for compounds: descubrir → descubierto, devolver → devuelto, deshacer → deshecho."},
+                {"kind": "text", "title": "Putting it together",
+                 "body": "Conjugate **haber** in the present, then bolt on the participle: *yo* **he** abierto, *tú* **has** escrito, *ella* **ha** hecho, *nosotros* **hemos** visto, *ellos* **han** puesto. The participle never changes — only *haber* does."},
+            ],
+        },
+        "drill_config": {"answers": {
+            "abrir": _perfect_answers("abierto"),
+            "escribir": _perfect_answers("escrito"),
+            "hacer": _perfect_answers("hecho"),
+            "decir": _perfect_answers("dicho"),
+            "ver": _perfect_answers("visto"),
+            "poner": _perfect_answers("puesto"),
+            "volver": _perfect_answers("vuelto"),
+            "romper": _perfect_answers("roto"),
+        }},
+        "drill_targets": [
+            {"verb": "abrir", "pronoun": "yo"}, {"verb": "escribir", "pronoun": "tú"},
+            {"verb": "hacer", "pronoun": "ella"}, {"verb": "ver", "pronoun": "nosotros"},
+            {"verb": "decir", "pronoun": "ellos"}, {"verb": "poner", "pronoun": "yo"},
+            {"verb": "volver", "pronoun": "tú"}, {"verb": "romper", "pronoun": "él"},
+            {"verb": "escribir", "pronoun": "nosotras"}, {"verb": "ver", "pronoun": "ustedes"},
+        ],
+        "drill_sentences": [
+            _g("I have opened the window", "He abierto la ventana", {"window": "ventana", "ventana": "window"}),
+            _g("You have written a letter", "Has escrito una carta", {"letter": "carta", "carta": "letter"}),
+            _g("She has done the work", "Ella ha hecho el trabajo", {"work": "trabajo", "trabajo": "work"}),
+            _g("We have seen the movie", "Hemos visto la película", {"movie": "película", "película": "movie"}),
+            _g("They have told the truth", "Han dicho la verdad", {"truth": "verdad", "verdad": "truth"}),
+            _g("I have put the book here", "He puesto el libro aquí", {"here": "aquí", "aquí": "here"}),
+            _g("You have come back home", "Has vuelto a casa", {}),
+            _g("He has broken the glass", "Él ha roto el vaso", {"glass": "vaso", "vaso": "glass"}),
+            _g("We have written the emails", "Hemos escrito los correos", {"emails": "correos", "correos": "emails"}),
+            _g("Have you seen María?", "¿Has visto a María?", {}),
+        ],
+        "opener_en": "Have you done your homework?",
+        "opener_es": "¿Has hecho la tarea?",
+    },
+}
+
+_EXTRA_GL_TO_SITUATIONS: dict[float, list[str]] = {}
+for _sid, _cfg in _EXTRA_SITUATIONS.items():
+    _EXTRA_GL_TO_SITUATIONS.setdefault(_cfg["grammar_level"], []).append(_sid)
+del _sid, _cfg
+
+
+def _situation(sid: str) -> Optional[dict[str, Any]]:
+    """Look up a drill config — hand-authored extras first, then the curriculum."""
+    return _EXTRA_SITUATIONS.get(sid) or GRAMMAR_SITUATIONS.get(sid)
+
+
+def drill_title(drill_id: str) -> str:
+    cfg = _situation(drill_id)
+    return (cfg.get("title") if cfg else None) or drill_id
 
 
 # ── drill discovery ─────────────────────────────────────────────────────────
@@ -135,7 +238,7 @@ def _drill_sentences(config: dict) -> list[dict]:
 
 
 def _is_playable_drill(situation_id: str) -> bool:
-    config = GRAMMAR_SITUATIONS.get(situation_id)
+    config = _situation(situation_id)
     if not config:
         return False
     if len(_drill_sentences(config)) < _MIN_SENTENCES:
@@ -154,7 +257,8 @@ def _is_playable_drill(situation_id: str) -> bool:
 
 
 def _playable_drill_ids(gl: float) -> list[str]:
-    return [sid for sid in get_situations_for_gl(gl) if _is_playable_drill(sid)]
+    sids = _EXTRA_GL_TO_SITUATIONS.get(gl) if gl in _EXTRA_GL_TO_SITUATIONS else get_situations_for_gl(gl)
+    return [sid for sid in (sids or []) if _is_playable_drill(sid)]
 
 
 # ── conjugation helpers ─────────────────────────────────────────────────────
@@ -221,6 +325,24 @@ def _verb_chart(verb: str, answers_for_verb: dict[str, str]) -> dict[str, Any]:
     return {"title": verb, "rows": rows, "footnote": None}
 
 
+# The "tengo que / me toca / necesito + inf" lesson only drills `tengo que`;
+# surface the other two patterns as reference charts so they're not missing.
+_MODAL_REFERENCE_CHARTS = [
+    {"title": "necesitar (to need to) + inf.", "rows": [
+        ["yo", "necesit|o hablar"], ["tú", "necesit|as hablar"],
+        ["él / ella / usted", "necesit|a hablar"],
+        ["nosotros / nosotras", "necesit|amos hablar"],
+        ["ellos / ellas / ustedes", "necesit|an hablar"],
+    ], "footnote": "Regular -ar. The second verb stays in the infinitive (necesito comer, necesitas estudiar…)."},
+    {"title": "tocar(le) — it's …'s turn to + inf.", "rows": [
+        ["it's my turn to…", "me toca hablar"], ["it's your turn to…", "te toca hablar"],
+        ["it's his/her turn to…", "le toca hablar"],
+        ["it's our turn to…", "nos toca hablar"],
+        ["it's their turn to…", "les toca hablar"],
+    ], "footnote": "Works like gustar: the verb stays 3rd-person (toca); the pronoun (me / te / le / nos / les) changes."},
+]
+
+
 def _build_charts(config: dict) -> list[dict[str, Any]]:
     """Verb charts for the warmup — always built straight from the drill's own
     conjugation table so we never depend on whether the lesson author supplied
@@ -229,7 +351,10 @@ def _build_charts(config: dict) -> list[dict[str, Any]]:
     # Preserve word_workload order when possible.
     order = [v for v in (config.get("word_workload") or []) if v in answers]
     order += [v for v in answers if v not in order]
-    return [_verb_chart(v, answers[v]) for v in order[:3]]
+    charts = [_verb_chart(v, answers[v]) for v in order[:3]]
+    if config.get("tense") == "modal_inf":
+        charts.extend({**c, "rows": [list(r) for r in c["rows"]]} for c in _MODAL_REFERENCE_CHARTS)
+    return charts
 
 
 # Lesson-author meta cards we don't want in the game's rule view (e.g. the
@@ -328,35 +453,16 @@ def _quest_sentences(config: dict) -> list[dict[str, Any]]:
 
 # ── public API ──────────────────────────────────────────────────────────────
 
-def list_tense_groups() -> list[dict[str, Any]]:
-    """All tense groups with their drill ids, in curriculum order. Each item:
-    {id, title, blurb, family, family_label, gl, drill_ids: [...], total_drills}.
-    Groups whose GL has no playable drill are dropped."""
-    out: list[dict[str, Any]] = []
-    for d in sorted(_TENSE_GROUP_DEFS, key=lambda x: x["gl"]):
-        drill_ids = _playable_drill_ids(d["gl"])
-        if not drill_ids:
-            continue
-        out.append({
-            "id": d["id"],
-            "title": d["title"],
-            "blurb": d["blurb"],
-            "family": d["family"],
-            "family_label": FAMILIES.get(d["family"], d["family"]),
-            "gl": d["gl"],
-            "drill_ids": drill_ids,
-            "total_drills": len(drill_ids),
-        })
-    return out
+def _group_drill_ids(d: dict[str, Any]) -> list[str]:
+    """Playable drills for a tense-group def: all playable drills at its GL,
+    optionally filtered to those whose id contains `only` (lets one GL split
+    into several tiles, e.g. present vs. imperfect subjunctive)."""
+    ids = _playable_drill_ids(d["gl"])
+    only = d.get("only")
+    return [did for did in ids if not only or only in did]
 
 
-def get_tense_group(group_id: str) -> Optional[dict[str, Any]]:
-    d = _ID_TO_DEF.get(group_id)
-    if not d:
-        return None
-    drill_ids = _playable_drill_ids(d["gl"])
-    if not drill_ids:
-        return None
+def _group_dict(d: dict[str, Any], drill_ids: list[str]) -> dict[str, Any]:
     return {
         "id": d["id"],
         "title": d["title"],
@@ -369,20 +475,50 @@ def get_tense_group(group_id: str) -> Optional[dict[str, Any]]:
     }
 
 
+def list_tense_groups() -> list[dict[str, Any]]:
+    """All tense groups with their drill ids, in curriculum order. Each item:
+    {id, title, blurb, family, family_label, gl, drill_ids: [...], total_drills}.
+    Groups with no playable drill are dropped."""
+    out: list[dict[str, Any]] = []
+    # stable order: gl, then a sub-key so the two GL-20 tiles are deterministic
+    for d in sorted(_TENSE_GROUP_DEFS, key=lambda x: (x["gl"], x.get("only", ""))):
+        drill_ids = _group_drill_ids(d)
+        if drill_ids:
+            out.append(_group_dict(d, drill_ids))
+    return out
+
+
+def get_tense_group(group_id: str) -> Optional[dict[str, Any]]:
+    d = _ID_TO_DEF.get(group_id)
+    if not d:
+        return None
+    drill_ids = _group_drill_ids(d)
+    if not drill_ids:
+        return None
+    return _group_dict(d, drill_ids)
+
+
 def tense_group_id_for_drill(drill_id: str) -> Optional[str]:
-    config = GRAMMAR_SITUATIONS.get(drill_id)
+    config = _situation(drill_id)
     if not config:
         return None
-    return _GL_TO_ID.get(config.get("grammar_level"))
+    gl = config.get("grammar_level")
+    for d in _TENSE_GROUP_DEFS:
+        if d["gl"] != gl:
+            continue
+        only = d.get("only")
+        if not only or only in drill_id:
+            return d["id"]
+    return None
 
 
 def get_drill_payload(drill_id: str) -> Optional[dict[str, Any]]:
     """Full quest payload for one drill: rule cards, verb charts, conjugation
     targets, and the 10 alternating sentences."""
-    config = GRAMMAR_SITUATIONS.get(drill_id)
+    config = _situation(drill_id)
     if not config or not _is_playable_drill(drill_id):
         return None
-    group_id = _GL_TO_ID.get(config.get("grammar_level"))
+    group_id = tense_group_id_for_drill(drill_id)
     if not group_id:
         return None
     return {
@@ -419,10 +555,10 @@ def _sentence_card(config: dict, group_id: str, group_title: str, drill_id: str,
 def review_cards_for_drill(drill_id: str) -> list[dict[str, Any]]:
     """The cards a completed drill contributes to the SRS review deck — one per
     practice sentence (NOT the warmup conjugations). card_key = '{drill_id}:{sentence_id}'."""
-    config = GRAMMAR_SITUATIONS.get(drill_id)
+    config = _situation(drill_id)
     if not config:
         return []
-    group_id = _GL_TO_ID.get(config.get("grammar_level"))
+    group_id = tense_group_id_for_drill(drill_id)
     if not group_id:
         return []
     group = get_tense_group(group_id)
@@ -442,10 +578,10 @@ def lookup_sentence(card_key: str) -> Optional[dict[str, Any]]:
     if len(parts) != 2:
         return None
     drill_id, sentence_id = parts
-    config = GRAMMAR_SITUATIONS.get(drill_id)
+    config = _situation(drill_id)
     if not config:
         return None
-    group_id = _GL_TO_ID.get(config.get("grammar_level"))
+    group_id = tense_group_id_for_drill(drill_id)
     group = get_tense_group(group_id) if group_id else None
     group_title = group["title"] if group else ""
     tense_label = (config.get("tense") or "present").replace("_", " ")
