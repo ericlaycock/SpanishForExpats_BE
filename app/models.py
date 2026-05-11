@@ -211,7 +211,7 @@ class Conversation(Base):
     # so the FE can render green checks straight from the API response and the
     # `/realtime-turn` flow stays history-free.
     completed_chip_ids = Column(
-        JSONB, default=list, nullable=False, server_default="'[]'::jsonb",
+        JSONB, default=list, nullable=False, server_default="[]",
     )
     # Counts assistant turns flagged by `validate_assistant_reply` for either
     # leaking a pending chip's exact form OR closing the floor without a

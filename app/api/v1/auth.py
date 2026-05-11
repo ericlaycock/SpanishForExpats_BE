@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth import authenticate_user, create_access_token, create_user, get_current_user
-from app.models import User, UserWord, UserSituation, Conversation, BookedCall
+from app.models import User, UserWord, UserSituation, Conversation, BookedCall, UserMilestoneEvent
 from app.schemas import (
     AltLanguageRequest,
     LoginRequest,
@@ -327,14 +327,19 @@ async def reset_progress(
 ):
     """Delete all learning progress for the current user (admin only).
 
-    Removes UserWord, UserSituation, and Conversation rows.
+    Removes UserWord, UserSituation, UserMilestoneEvent, and Conversation rows.
     Keeps account, subscription, and onboarding settings intact.
+
+    Milestone events must be deleted before conversations: their
+    `conversation_id` FK has no ON DELETE CASCADE, so leaving them would make
+    the conversation delete fail with a foreign-key violation.
     """
     if not current_user.is_admin:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin access required")
 
     deleted_words = db.query(UserWord).filter(UserWord.user_id == current_user.id).delete()
     deleted_situations = db.query(UserSituation).filter(UserSituation.user_id == current_user.id).delete()
+    db.query(UserMilestoneEvent).filter(UserMilestoneEvent.user_id == current_user.id).delete()
     deleted_conversations = db.query(Conversation).filter(Conversation.user_id == current_user.id).delete()
     db.commit()
 
