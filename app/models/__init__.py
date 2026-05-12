@@ -45,6 +45,13 @@ from app.models.ai_requests import (
     TTSRequest,
 )
 
+# Tense Quest game models
+from app.models.tense_quest import (
+    TenseQuestCard,
+    TenseQuestDiagnostic,
+    TenseQuestDrillCompletion,
+)
+
 __all__ = [
     "User",
     "Situation",
@@ -69,6 +76,9 @@ __all__ = [
     "LLMRequest",
     "STTRequest",
     "TTSRequest",
+    "TenseQuestCard",
+    "TenseQuestDiagnostic",
+    "TenseQuestDrillCompletion",
 ]
 
 # Also export Base if it exists
