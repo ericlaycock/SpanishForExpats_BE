@@ -26,7 +26,13 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.database import get_db
 from app.data import tense_quest as tq
-from app.models import TenseQuestCard, TenseQuestDiagnostic, TenseQuestDrillCompletion, User
+from app.models import (
+    TenseQuestCard,
+    TenseQuestDiagnostic,
+    TenseQuestDrillCompletion,
+    TenseQuestSentenceCompletion,
+    User,
+)
 
 router = APIRouter()
 
@@ -131,6 +137,7 @@ class DiagnosticQuiz(BaseModel):
 class DiagnosticResultItem(BaseModel):
     tense_group_id: str
     passed: bool  # all sampled conjugations correct
+    slow: bool = False  # at least one was answered slowly (>7s); only meaningful when passed
 
 
 class DiagnosticSubmitRequest(BaseModel):
@@ -215,6 +222,16 @@ class CompleteResponse(BaseModel):
     all_complete: bool
 
 
+class SentenceAttemptRequest(BaseModel):
+    sentence_id: str
+    correct: bool
+
+
+class SentenceAttemptResponse(BaseModel):
+    was_new: bool  # first time this sentence was credited (so the FE can pop a +1)
+    points: int  # the user's coin total after this attempt
+
+
 class ReviewAttemptRequest(BaseModel):
     card_key: str
     correct: bool
@@ -282,15 +299,25 @@ def _review_coins(db: Session, user_id) -> int:
     )
 
 
+def _sentence_coins(db: Session, user_id) -> int:
+    return int(
+        db.query(func.count(TenseQuestSentenceCompletion.id))
+        .filter(TenseQuestSentenceCompletion.user_id == user_id)
+        .scalar()
+        or 0
+    )
+
+
 def _user_points(db: Session, user_id) -> int:
-    """A user's coin total = drill completions (1 each) + coins from reviews."""
+    """A user's coin total = drill completions (1 each) + correct in-drill
+    sentences (1 each) + coins from reviews."""
     completions = (
         db.query(func.count(TenseQuestDrillCompletion.id))
         .filter(TenseQuestDrillCompletion.user_id == user_id)
         .scalar()
         or 0
     )
-    return int(completions) + _review_coins(db, user_id)
+    return int(completions) + _sentence_coins(db, user_id) + _review_coins(db, user_id)
 
 
 def _leaderboard(db: Session, current_user: User) -> Leaderboard:
@@ -306,14 +333,20 @@ def _leaderboard(db: Session, current_user: User) -> Leaderboard:
         .group_by(TenseQuestCard.user_id)
         .all()
     )
-    uids = set(comp) | set(rev)
+    # correct in-drill sentences per user (1 coin each)
+    sent = dict(
+        db.query(TenseQuestSentenceCompletion.user_id, func.count(TenseQuestSentenceCompletion.id))
+        .group_by(TenseQuestSentenceCompletion.user_id)
+        .all()
+    )
+    uids = set(comp) | set(rev) | set(sent)
     if uids:
         users = {u.id: u for u in db.query(User).filter(User.id.in_(uids)).all()}
     else:
         users = {}
     scored = []
     for uid in uids:
-        pts = int(comp.get(uid, 0)) + int(rev.get(uid, 0))
+        pts = int(comp.get(uid, 0)) + int(rev.get(uid, 0)) + int(sent.get(uid, 0))
         u = users.get(uid)
         created = getattr(u, "created_at", None)
         scored.append((pts, str(created or ""), uid, u))
@@ -395,13 +428,20 @@ def _group_summaries(db: Session, user_id) -> list[TenseGroupSummary]:
     diag = _diagnostic_map(db, user_id)
     out: list[TenseGroupSummary] = []
     for g in tq.list_tense_groups():
+        total = g["total_drills"]
+        result = diag.get(g["id"])
         completed = sum(1 for d in g["drill_ids"] if d in done)
+        # A tense the diagnostic marked "ok" (Known) reads as fully complete on
+        # the map — full fraction, counts in "tenses beaten", gets the crown.
+        # (`ok_slow` / `needs_work` keep real progress.)
+        if result == "ok":
+            completed = total
         out.append(TenseGroupSummary(
             id=g["id"], title=g["title"], blurb=g["blurb"],
             family=g["family"], family_label=g["family_label"],
-            total_drills=g["total_drills"], completed_drills=completed,
-            percent=_percent(completed, g["total_drills"]),
-            diagnostic=diag.get(g["id"]),
+            total_drills=total, completed_drills=completed,
+            percent=100 if result == "ok" else _percent(completed, total),
+            diagnostic=result,
         ))
     return out
 
@@ -481,7 +521,7 @@ async def submit_diagnostic(
     for item in body.results:
         if item.tense_group_id not in valid:
             continue
-        result = "ok" if item.passed else "needs_work"
+        result = "needs_work" if not item.passed else ("ok_slow" if item.slow else "ok")
         stmt = (
             insert(TenseQuestDiagnostic)
             .values(user_id=current_user.id, tense_group_id=item.tense_group_id, result=result)
@@ -661,6 +701,33 @@ async def complete_drill(
         next_drill_id=next_drill_id or (group["drill_ids"][0] if group and group["drill_ids"] else None),
         all_complete=all_complete,
     )
+
+
+@router.post("/drills/{drill_id}/sentence", response_model=SentenceAttemptResponse)
+async def complete_sentence(
+    drill_id: str,
+    body: SentenceAttemptRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Credit a correctly-answered sentence from the in-drill gauntlet: +1 coin,
+    idempotent per (user, drill, sentence). A wrong attempt is a no-op."""
+    payload = tq.get_drill_payload(drill_id)
+    if not payload:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Unknown or unplayable drill")
+    if body.sentence_id not in {s["id"] for s in payload["sentences"]}:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Unknown sentence for this drill")
+
+    was_new = False
+    if body.correct:
+        res = db.execute(
+            insert(TenseQuestSentenceCompletion)
+            .values(user_id=current_user.id, drill_id=drill_id, sentence_id=body.sentence_id)
+            .on_conflict_do_nothing(constraint="uq_tq_sentence_completion")
+        )
+        was_new = bool(res.rowcount)
+        db.commit()
+    return SentenceAttemptResponse(was_new=was_new, points=_user_points(db, current_user.id))
 
 
 @router.get("/review", response_model=ReviewDeck)

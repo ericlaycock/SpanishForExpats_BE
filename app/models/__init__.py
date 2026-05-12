@@ -50,6 +50,7 @@ from app.models.tense_quest import (
     TenseQuestCard,
     TenseQuestDiagnostic,
     TenseQuestDrillCompletion,
+    TenseQuestSentenceCompletion,
 )
 
 __all__ = [
@@ -79,6 +80,7 @@ __all__ = [
     "TenseQuestCard",
     "TenseQuestDiagnostic",
     "TenseQuestDrillCompletion",
+    "TenseQuestSentenceCompletion",
 ]
 
 # Also export Base if it exists

@@ -83,9 +83,11 @@ class TenseQuestCard(Base):
 
 
 class TenseQuestDiagnostic(Base):
-    """A user's placement-diagnostic result for one tense group: 'ok' (all 3
-    sampled conjugations right) or 'needs_work' (missed ≥1). Re-taking the
-    diagnostic overwrites the row. Independent of drill progress."""
+    """A user's placement-diagnostic result for one tense group:
+    'ok' (all sampled conjugations right *and* each answered in <7s),
+    'ok_slow' (all right but at least one was slow → "needs work, bit slow"),
+    or 'needs_work' (missed ≥1). Re-taking the diagnostic overwrites the row.
+    Independent of drill progress."""
 
     __tablename__ = "tense_quest_diagnostic"
     __table_args__ = (
@@ -96,5 +98,24 @@ class TenseQuestDiagnostic(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     tense_group_id = Column(String, nullable=False)
-    result = Column(String, nullable=False)  # 'ok' | 'needs_work'
+    result = Column(String, nullable=False)  # 'ok' | 'ok_slow' | 'needs_work'
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class TenseQuestSentenceCompletion(Base):
+    """One row per (user, drill, sentence) the user has answered correctly in
+    the in-drill sentence gauntlet. Worth +1 coin each (idempotent — replaying
+    a drill doesn't re-award). Count feeds the user's coin total / leaderboard
+    alongside drill completions and review-card coins."""
+
+    __tablename__ = "tense_quest_sentence_completions"
+    __table_args__ = (
+        UniqueConstraint("user_id", "drill_id", "sentence_id", name="uq_tq_sentence_completion"),
+        Index("ix_tq_sentence_completion_user", "user_id"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    drill_id = Column(String, nullable=False)
+    sentence_id = Column(String, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
