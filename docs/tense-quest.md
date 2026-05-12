@@ -28,14 +28,24 @@ conjugation across every verb-tense topic in the curriculum:
      point; the coin bar is visible on every Tense Quest screen) → the drill's
      **practice sentences** are added to the review deck → back to the main
      screen, tile fills further.
+- **Placement diagnostic** (`/tensequest/diagnostic`): on demand, 3 random
+  warmup conjugations per tense group (the 25 groups that have conjugations;
+  Preterite vs. Imperfect is skipped). Type the form only. A group **passes**
+  only if all 3 are right → tile gets a green "✓ KNOWN" banner; otherwise an
+  amber "⚠ NEEDS WORK" banner. Independent of drill progress; re-taking
+  overwrites. Stored per `(user, tense_group)` in `tense_quest_diagnostic`.
 - **Review Stack (SRS)**: each card is one **practice sentence** (`{drill_id}:{sentence_id}`),
   inheriting that sentence's `type`/`speak` mode and the same `blank_es`
-  scaffold under the "show translation" toggle. Reviewing is **timed
-  client-side**: `<5s` = "very good" (box +2), `<10s & correct` = pass (box +1),
-  `>10s` **or** wrong = a **lapse** — and the `>10s` lapse is *silent* (the UI
-  still shows "correct!" if the answer matched, but internally the card resets to
-  box 1 and resurfaces ~10 min later). **Shuffle** randomizes `deck_position`
-  (the flip-through order). Due cards always surface before non-due ones, so
+  scaffold under the "show translation" toggle. **No on-screen timer** — the
+  player answers, then the speed is judged silently: `<5s` & correct →
+  "¡Rápido! Fast!" + **2 coins** (box +2); `5–10s` & correct → "¡Bien! Good." +
+  **1 coin** (box +1); `>10s` but correct → small, non-offensive "slow — no
+  coins this time" + **0 coins** (box→1, silent lapse — UI doesn't call it a
+  fail); wrong → **0 coins** (box→1). Review coins accumulate per card
+  (`coins_earned`) and roll into the user's coin total + leaderboard (= drill
+  completions + review coins). A lapsed card resurfaces ~10 min later.
+  **Shuffle** randomizes `deck_position` (the flip-through order). Due cards
+  always surface before non-due ones, so
   recently-failed cards float up.
 
 ## Content derivation (no new content)
@@ -86,8 +96,13 @@ ids" rule); sentence ids are positional within a drill. `card_key` is
 | `POST /transcribe` | Thin Whisper STT proxy (multipart `audio` + `expected_text`) for the spoken-sentence phase (quest + review). |
 | `POST /drills/{drill_id}/complete` | Records completion (idempotent), mints a coin, seeds the drill's **practice sentences** into the deck. Returns updated progress/coins/deck size + `next_drill_id`. |
 | `GET /review` | The review deck — sentence cards, due-first, capped. Each: `card_key`, `tense_group_id/title`, `tense_label`, `en`, `es`, `blank_es`, `glosses`, `response_mode`, `box`, `due`. |
-| `POST /review/attempt` | `{card_key, correct, response_ms}` → applies the SRS transition. Returns `{result, box}`. |
+| `POST /review/attempt` | `{card_key, correct, response_ms}` → applies the SRS transition + awards coins. Returns `{result, box, coins_earned}`. |
 | `POST /review/shuffle` | Randomizes `deck_position` for all your cards. |
+| `GET /diagnostic` | The placement quiz: `{groups: [{tense_group_id, title, family, prompts: [≤3 {verb, pronoun, pronoun_en, answer}]}]}`. |
+| `POST /diagnostic` | `{results: [{tense_group_id, passed}]}` → upserts `tense_quest_diagnostic` ('ok' / 'needs_work'). |
+
+`/overview` carries, per group, `diagnostic` ('ok' | 'needs_work' | null) and a
+top-level `diagnostic_taken` flag.
 
 Grading is **deterministic and FE-side** (mirrors the grammar-drill matcher);
 the BE only records outcomes — the same split the rest of the app uses for
@@ -95,18 +110,22 @@ grammar drills. No LLM is involved anywhere in Tense Quest.
 
 ## Persistence
 
-Two tables (migrations `038_tense_quest`, `039_tq_sentence_cards`):
+Tables (migrations `038`–`041`):
 
-- `tense_quest_drill_completions` — one row per `(user, drill)`; row count == the
-  user's coin total (= leaderboard points).
+- `tense_quest_drill_completions` — one row per `(user, drill)`. Coin total =
+  this count **+** the review-coins sum below; the leaderboard ranks by that.
 - `tense_quest_cards` — the per-user SRS deck of **sentence cards**.
   `card_key = "{drill_id}:{sentence_id}"`, plus `tense_group_id`, `drill_id`,
   `sentence_id`, Leitner `box` 1..5, `due_at`, `deck_position` (Shuffle target),
-  `last_result`, `last_response_ms`, `reps`, `lapses`. The sentence's text is
-  resolved on read from the grammar data (`tq.lookup_sentence`), not stored.
+  `coins_earned` (accumulating: 2 per fast review, 1 per medium), `last_result`,
+  `last_response_ms`, `reps`, `lapses`. The sentence text is resolved on read
+  from the grammar data (`tq.lookup_sentence`), not stored.
+- `tense_quest_diagnostic` — one row per `(user, tense_group)`: `result` is
+  `'ok'` or `'needs_work'`. Re-taking the diagnostic overwrites it.
 
-SRS transitions live in `app/services/tense_quest_srs.py`
-(`FAST_MS=5000`, `SLOW_MS=10000`, `LAPSE_MINUTES=10`, `BOX_INTERVAL_HOURS`).
+SRS transitions + coin payout live in `app/services/tense_quest_srs.py`
+(`FAST_MS=5000`, `SLOW_MS=10000`, `LAPSE_MINUTES=10`, `BOX_INTERVAL_HOURS`,
+`COINS_FOR_RESULT`).
 
 ## Files
 
