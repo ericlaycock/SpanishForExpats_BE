@@ -69,6 +69,10 @@ class TenseQuestCard(Base):
     reps = Column(Integer, nullable=False, server_default="0", default=0)
     lapses = Column(Integer, nullable=False, server_default="0", default=0)
     deck_position = Column(Integer, nullable=False, server_default="0", default=0)
+    # Coins this card has earned across reviews (2 for a fast hit, 1 for a
+    # medium one, 0 for slow/wrong). The user's total coins = drill completions
+    # + the sum of this across their deck.
+    coins_earned = Column(Integer, nullable=False, server_default="0", default=0)
 
     due_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     last_result = Column(String, nullable=True)  # 'great' | 'good' | 'lapse'

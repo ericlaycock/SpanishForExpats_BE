@@ -174,8 +174,9 @@ class ReviewAttemptRequest(BaseModel):
 
 class ReviewAttemptResponse(BaseModel):
     card_key: str
-    result: str  # 'great' | 'good' | 'lapse'
+    result: str  # 'great' (fast+correct) | 'good' (medium+correct) | 'lapse' (slow or wrong)
     box: int
+    coins_earned: int  # 2 / 1 / 0
 
 
 class ShuffleResponse(BaseModel):
@@ -209,35 +210,68 @@ def _display_name(user: User) -> str:
     return (user.email or "player").split("@")[0]
 
 
+def _review_coins(db: Session, user_id) -> int:
+    return int(
+        db.query(func.coalesce(func.sum(TenseQuestCard.coins_earned), 0))
+        .filter(TenseQuestCard.user_id == user_id)
+        .scalar()
+        or 0
+    )
+
+
+def _user_points(db: Session, user_id) -> int:
+    """A user's coin total = drill completions (1 each) + coins from reviews."""
+    completions = (
+        db.query(func.count(TenseQuestDrillCompletion.id))
+        .filter(TenseQuestDrillCompletion.user_id == user_id)
+        .scalar()
+        or 0
+    )
+    return int(completions) + _review_coins(db, user_id)
+
+
 def _leaderboard(db: Session, current_user: User) -> Leaderboard:
-    rows = (
-        db.query(
-            User.id.label("uid"),
-            User.name.label("name"),
-            User.email.label("email"),
-            func.count(TenseQuestDrillCompletion.id).label("pts"),
-        )
-        .join(TenseQuestDrillCompletion, TenseQuestDrillCompletion.user_id == User.id)
-        .group_by(User.id, User.name, User.email)
-        .order_by(func.count(TenseQuestDrillCompletion.id).desc(), User.created_at.asc())
+    # completions per user
+    comp = dict(
+        db.query(TenseQuestDrillCompletion.user_id, func.count(TenseQuestDrillCompletion.id))
+        .group_by(TenseQuestDrillCompletion.user_id)
         .all()
     )
+    # review coins per user
+    rev = dict(
+        db.query(TenseQuestCard.user_id, func.coalesce(func.sum(TenseQuestCard.coins_earned), 0))
+        .group_by(TenseQuestCard.user_id)
+        .all()
+    )
+    uids = set(comp) | set(rev)
+    if uids:
+        users = {u.id: u for u in db.query(User).filter(User.id.in_(uids)).all()}
+    else:
+        users = {}
+    scored = []
+    for uid in uids:
+        pts = int(comp.get(uid, 0)) + int(rev.get(uid, 0))
+        u = users.get(uid)
+        created = getattr(u, "created_at", None)
+        scored.append((pts, str(created or ""), uid, u))
+    # highest points first; ties broken by who registered first
+    scored.sort(key=lambda x: (-x[0], x[1], str(x[2])))
     you_points = 0
-    you_rank = len(rows) + 1
+    you_rank = len(scored) + 1
     entries: list[LeaderboardEntry] = []
-    for i, r in enumerate(rows):
-        is_you = r.uid == current_user.id
+    for i, (pts, _created, uid, u) in enumerate(scored):
+        is_you = uid == current_user.id
         if is_you:
-            you_points = int(r.pts)
+            you_points = pts
             you_rank = i + 1
         if i < 10:
-            name = (r.name.strip() if r.name else (r.email or "player").split("@")[0])
-            entries.append(LeaderboardEntry(rank=i + 1, name=name, points=int(r.pts), is_you=is_you))
+            name = _display_name(u) if u else "player"
+            entries.append(LeaderboardEntry(rank=i + 1, name=name, points=pts, is_you=is_you))
     return Leaderboard(
         entries=entries,
         you_rank=you_rank,
         you_points=you_points,
-        total_players=len(rows),
+        total_players=len(scored),
     )
 
 
@@ -306,16 +340,9 @@ async def overview(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    groups = _group_summaries(db, current_user.id)
-    points = (
-        db.query(func.count(TenseQuestDrillCompletion.id))
-        .filter(TenseQuestDrillCompletion.user_id == current_user.id)
-        .scalar()
-        or 0
-    )
     return OverviewResponse(
-        points=int(points),
-        tense_groups=groups,
+        points=_user_points(db, current_user.id),
+        tense_groups=_group_summaries(db, current_user.id),
         leaderboard=_leaderboard(db, current_user),
         review=_review_deck(db, current_user.id),
     )
@@ -472,19 +499,13 @@ async def complete_drill(
     done = _completed_drill_ids(db, current_user.id)
     completed = sum(1 for d in (group["drill_ids"] if group else []) if d in done)
     total = group["total_drills"] if group else 0
-    points = (
-        db.query(func.count(TenseQuestDrillCompletion.id))
-        .filter(TenseQuestDrillCompletion.user_id == current_user.id)
-        .scalar()
-        or 0
-    )
     next_drill_id = next((d for d in (group["drill_ids"] if group else []) if d not in done), None)
     all_complete = total > 0 and completed >= total
     return CompleteResponse(
         drill_id=drill_id,
         tense_group_id=group_id,
         was_new=was_new,
-        points=int(points),
+        points=_user_points(db, current_user.id),
         completed_drills=completed,
         total_drills=total,
         percent=_percent(completed, total),
@@ -509,7 +530,7 @@ async def review_attempt(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    from app.services.tense_quest_srs import apply_review
+    from app.services.tense_quest_srs import apply_review, coins_for_result
 
     card = (
         db.query(TenseQuestCard)
@@ -519,8 +540,10 @@ async def review_attempt(
     if not card:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Card not in your deck")
     result = apply_review(card, correct=body.correct, response_ms=body.response_ms, now=_now())
+    coins = coins_for_result(result)
+    card.coins_earned = (card.coins_earned or 0) + coins
     db.commit()
-    return ReviewAttemptResponse(card_key=card.card_key, result=result, box=card.box or 1)
+    return ReviewAttemptResponse(card_key=card.card_key, result=result, box=card.box or 1, coins_earned=coins)
 
 
 @router.post("/review/shuffle", response_model=ShuffleResponse)

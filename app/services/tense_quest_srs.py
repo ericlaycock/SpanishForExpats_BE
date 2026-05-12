@@ -27,6 +27,14 @@ MAX_BOX = 5
 # Roughly: 4h, 1d, 3d, 1w, 16d.
 BOX_INTERVAL_HOURS = {1: 4, 2: 24, 3: 72, 4: 168, 5: 384}
 
+# Coins awarded per review outcome — fast & correct = 2, medium & correct = 1,
+# slow or wrong = 0.
+COINS_FOR_RESULT = {"great": 2, "good": 1, "lapse": 0}
+
+
+def coins_for_result(result: str) -> int:
+    return COINS_FOR_RESULT.get(result, 0)
+
 
 def _now(now: Optional[datetime]) -> datetime:
     return now or datetime.now(timezone.utc)

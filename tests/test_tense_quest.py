@@ -227,17 +227,34 @@ def test_review_attempt_and_shuffle(client):
     assert c0["response_mode"] in {"type", "speak"}
     card_key = c0["card_key"]
 
-    # Slow-but-correct → silent lapse (box stays 1).
+    coins_before = client.get("/v1/tensequest/overview", headers=headers).json()["points"]
+
+    # Slow-but-correct → silent lapse, 0 coins.
     resp = client.post("/v1/tensequest/review/attempt", headers=headers,
                        json={"card_key": card_key, "correct": True, "response_ms": 12000})
     assert resp.status_code == 200
-    assert resp.json()["result"] == "lapse"
+    assert resp.json()["result"] == "lapse" and resp.json()["coins_earned"] == 0
 
-    # Fast correct → great, box bumps.
+    # Wrong → lapse, 0 coins.
+    resp = client.post("/v1/tensequest/review/attempt", headers=headers,
+                       json={"card_key": card_key, "correct": False, "response_ms": 1500})
+    assert resp.json()["result"] == "lapse" and resp.json()["coins_earned"] == 0
+
+    # Medium correct → good, 1 coin.
+    resp = client.post("/v1/tensequest/review/attempt", headers=headers,
+                       json={"card_key": card_key, "correct": True, "response_ms": 7000})
+    assert resp.json()["result"] == "good" and resp.json()["coins_earned"] == 1
+
+    # Fast correct → great, box bumps, 2 coins.
     resp = client.post("/v1/tensequest/review/attempt", headers=headers,
                        json={"card_key": card_key, "correct": True, "response_ms": 1500})
-    assert resp.json()["result"] == "great"
+    assert resp.json()["result"] == "great" and resp.json()["coins_earned"] == 2
     assert resp.json()["box"] >= 2
+
+    # Coins accumulate into the overview/leaderboard total.
+    overview = client.get("/v1/tensequest/overview", headers=headers).json()
+    assert overview["points"] == coins_before + 3  # 0 + 0 + 1 + 2
+    assert overview["leaderboard"]["you_points"] == overview["points"]
 
     # Unknown card → 404.
     bad = client.post("/v1/tensequest/review/attempt", headers=headers,
