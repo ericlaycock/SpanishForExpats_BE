@@ -270,3 +270,48 @@ def test_review_attempt_and_shuffle(client):
 def test_endpoints_require_auth(client):
     assert client.get("/v1/tensequest/overview").status_code in (401, 403)
     assert client.post("/v1/tensequest/review/shuffle").status_code in (401, 403)
+
+
+def test_diagnostic_flow(client):
+    _, headers = register_user(client)
+
+    # overview starts un-diagnosed
+    ov = client.get("/v1/tensequest/overview", headers=headers).json()
+    assert ov["diagnostic_taken"] is False
+    assert all(g["diagnostic"] is None for g in ov["tense_groups"])
+
+    quiz = client.get("/v1/tensequest/diagnostic", headers=headers).json()
+    assert len(quiz["groups"]) >= 15
+    for g in quiz["groups"]:
+        assert 1 <= len(g["prompts"]) <= 3
+        for p in g["prompts"]:
+            assert p["verb"] and p["pronoun"] and p["answer"]
+
+    # pass the first group, fail the second; ignore the rest
+    g0, g1 = quiz["groups"][0]["tense_group_id"], quiz["groups"][1]["tense_group_id"]
+    resp = client.post("/v1/tensequest/diagnostic", headers=headers, json={
+        "results": [
+            {"tense_group_id": g0, "passed": True},
+            {"tense_group_id": g1, "passed": False},
+            {"tense_group_id": "not_a_group", "passed": True},  # ignored
+        ],
+    })
+    assert resp.status_code == 200 and resp.json()["ok"] is True
+
+    ov = client.get("/v1/tensequest/overview", headers=headers).json()
+    assert ov["diagnostic_taken"] is True
+    by_id = {g["id"]: g for g in ov["tense_groups"]}
+    assert by_id[g0]["diagnostic"] == "ok"
+    assert by_id[g1]["diagnostic"] == "needs_work"
+
+    # re-taking overwrites
+    client.post("/v1/tensequest/diagnostic", headers=headers, json={
+        "results": [{"tense_group_id": g0, "passed": False}],
+    })
+    ov = client.get("/v1/tensequest/overview", headers=headers).json()
+    assert {g["id"]: g["diagnostic"] for g in ov["tense_groups"]}[g0] == "needs_work"
+
+
+def test_diagnostic_requires_auth(client):
+    assert client.get("/v1/tensequest/diagnostic").status_code in (401, 403)
+    assert client.post("/v1/tensequest/diagnostic", json={"results": []}).status_code in (401, 403)

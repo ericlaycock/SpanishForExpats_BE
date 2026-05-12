@@ -48,6 +48,7 @@ from app.models.ai_requests import (
 # Tense Quest game models
 from app.models.tense_quest import (
     TenseQuestCard,
+    TenseQuestDiagnostic,
     TenseQuestDrillCompletion,
 )
 
@@ -76,6 +77,7 @@ __all__ = [
     "STTRequest",
     "TTSRequest",
     "TenseQuestCard",
+    "TenseQuestDiagnostic",
     "TenseQuestDrillCompletion",
 ]
 

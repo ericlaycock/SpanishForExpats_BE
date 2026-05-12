@@ -24,7 +24,7 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.database import get_db
 from app.data import tense_quest as tq
-from app.models import TenseQuestCard, TenseQuestDrillCompletion, User
+from app.models import TenseQuestCard, TenseQuestDiagnostic, TenseQuestDrillCompletion, User
 
 router = APIRouter()
 
@@ -42,6 +42,7 @@ class TenseGroupSummary(BaseModel):
     total_drills: int
     completed_drills: int
     percent: int  # 0..100, rounded
+    diagnostic: Optional[str] = None  # 'ok' | 'needs_work' | None (not assessed)
 
 
 class LeaderboardEntry(BaseModel):
@@ -87,6 +88,36 @@ class OverviewResponse(BaseModel):
     tense_groups: list[TenseGroupSummary]
     leaderboard: Leaderboard
     review: ReviewDeck
+    diagnostic_taken: bool
+
+
+# ── placement diagnostic ────────────────────────────────────────────────────
+
+class DiagnosticPrompt(BaseModel):
+    verb: str
+    pronoun: str
+    pronoun_en: str
+    answer: str  # piped
+
+
+class DiagnosticGroup(BaseModel):
+    tense_group_id: str
+    title: str
+    family: str
+    prompts: list[DiagnosticPrompt]
+
+
+class DiagnosticQuiz(BaseModel):
+    groups: list[DiagnosticGroup]
+
+
+class DiagnosticResultItem(BaseModel):
+    tense_group_id: str
+    passed: bool  # all sampled conjugations correct
+
+
+class DiagnosticSubmitRequest(BaseModel):
+    results: list[DiagnosticResultItem]
 
 
 class DrillSummary(BaseModel):
@@ -319,8 +350,18 @@ def _review_deck(db: Session, user_id, limit: int = REVIEW_DECK_LIMIT) -> Review
     return ReviewDeck(cards=out, due_count=due_count, total_count=len(all_cards))
 
 
+def _diagnostic_map(db: Session, user_id) -> dict[str, str]:
+    return {
+        r.tense_group_id: r.result
+        for r in db.query(TenseQuestDiagnostic.tense_group_id, TenseQuestDiagnostic.result)
+        .filter(TenseQuestDiagnostic.user_id == user_id)
+        .all()
+    }
+
+
 def _group_summaries(db: Session, user_id) -> list[TenseGroupSummary]:
     done = _completed_drill_ids(db, user_id)
+    diag = _diagnostic_map(db, user_id)
     out: list[TenseGroupSummary] = []
     for g in tq.list_tense_groups():
         completed = sum(1 for d in g["drill_ids"] if d in done)
@@ -329,6 +370,7 @@ def _group_summaries(db: Session, user_id) -> list[TenseGroupSummary]:
             family=g["family"], family_label=g["family_label"],
             total_drills=g["total_drills"], completed_drills=completed,
             percent=_percent(completed, g["total_drills"]),
+            diagnostic=diag.get(g["id"]),
         ))
     return out
 
@@ -340,12 +382,60 @@ async def overview(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    taken = (
+        db.query(TenseQuestDiagnostic.id)
+        .filter(TenseQuestDiagnostic.user_id == current_user.id)
+        .first()
+        is not None
+    )
     return OverviewResponse(
         points=_user_points(db, current_user.id),
         tense_groups=_group_summaries(db, current_user.id),
         leaderboard=_leaderboard(db, current_user),
         review=_review_deck(db, current_user.id),
+        diagnostic_taken=taken,
     )
+
+
+@router.get("/diagnostic", response_model=DiagnosticQuiz)
+async def get_diagnostic(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """3 random warmup conjugations per tense group (groups with no
+    conjugations are skipped). The FE grades each; a group passes only if all
+    of its prompts are right."""
+    return DiagnosticQuiz(groups=[
+        DiagnosticGroup(
+            tense_group_id=g["tense_group_id"], title=g["title"], family=g["family"],
+            prompts=[DiagnosticPrompt(**p) for p in g["prompts"]],
+        )
+        for g in tq.diagnostic_prompts()
+    ])
+
+
+@router.post("/diagnostic", response_model=dict)
+async def submit_diagnostic(
+    body: DiagnosticSubmitRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    valid = tq.diagnostic_group_ids()
+    for item in body.results:
+        if item.tense_group_id not in valid:
+            continue
+        result = "ok" if item.passed else "needs_work"
+        stmt = (
+            insert(TenseQuestDiagnostic)
+            .values(user_id=current_user.id, tense_group_id=item.tense_group_id, result=result)
+            .on_conflict_do_update(
+                constraint="uq_tq_diagnostic",
+                set_={"result": result, "updated_at": func.now()},
+            )
+        )
+        db.execute(stmt)
+    db.commit()
+    return {"ok": True}
 
 
 @router.get("/groups/{group_id}", response_model=TenseGroupDetail)

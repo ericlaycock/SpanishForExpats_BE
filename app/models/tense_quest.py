@@ -80,3 +80,21 @@ class TenseQuestCard(Base):
 
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class TenseQuestDiagnostic(Base):
+    """A user's placement-diagnostic result for one tense group: 'ok' (all 3
+    sampled conjugations right) or 'needs_work' (missed ≥1). Re-taking the
+    diagnostic overwrites the row. Independent of drill progress."""
+
+    __tablename__ = "tense_quest_diagnostic"
+    __table_args__ = (
+        UniqueConstraint("user_id", "tense_group_id", name="uq_tq_diagnostic"),
+        Index("ix_tq_diagnostic_user", "user_id"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    tense_group_id = Column(String, nullable=False)
+    result = Column(String, nullable=False)  # 'ok' | 'needs_work'
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)

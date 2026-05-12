@@ -17,6 +17,7 @@ speak/type sentences.
 """
 from __future__ import annotations
 
+import random
 import unicodedata
 from typing import Any, Optional
 
@@ -772,3 +773,49 @@ def lookup_sentence(card_key: str) -> Optional[dict[str, Any]]:
 # Back-compat alias for the router's deck assembler.
 def card_display(card_key: str) -> Optional[dict[str, Any]]:
     return lookup_sentence(card_key)
+
+
+# ── placement diagnostic ────────────────────────────────────────────────────
+
+def _group_conjugation_targets(group_id: str) -> list[dict[str, Any]]:
+    """All distinct (verb, pronoun) conjugation prompts across a tense group's
+    drills."""
+    group = get_tense_group(group_id)
+    if not group:
+        return []
+    seen: set[tuple[str, str]] = set()
+    out: list[dict[str, Any]] = []
+    for did in group["drill_ids"]:
+        cfg = _situation(did)
+        if not cfg:
+            continue
+        for t in _conjugation_targets(cfg):
+            key = (t["verb"], t["pronoun"])
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(t)
+    return out
+
+
+def diagnostic_prompts(per_group: int = 3) -> list[dict[str, Any]]:
+    """For each tense group with conjugation drills, `per_group` random warmup
+    conjugation prompts ({verb, pronoun, pronoun_en, answer}). Groups with no
+    conjugations (e.g. Preterite vs. Imperfect) are skipped."""
+    out: list[dict[str, Any]] = []
+    for g in list_tense_groups():
+        targets = _group_conjugation_targets(g["id"])
+        if not targets:
+            continue
+        picked = random.sample(targets, min(per_group, len(targets)))
+        out.append({
+            "tense_group_id": g["id"],
+            "title": g["title"],
+            "family": g["family"],
+            "prompts": picked,
+        })
+    return out
+
+
+def diagnostic_group_ids() -> set[str]:
+    return {g["id"] for g in list_tense_groups() if _group_conjugation_targets(g["id"])}
