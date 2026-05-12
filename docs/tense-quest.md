@@ -95,16 +95,24 @@ ids" rule); sentence ids are positional within a drill. `card_key` is
 | `GET /drills/{drill_id}` | Quest payload: rule cards, verb charts, conjugation targets, 10 alternating sentences (each with `en`/`es`/`blank_es`/`glosses`/`response_mode`). |
 | `POST /transcribe` | Thin Whisper STT proxy (multipart `audio` + `expected_text`) for the spoken-sentence phase (quest + review). |
 | `POST /drills/{drill_id}/complete` | Records completion (idempotent), mints a coin, seeds the drill's **practice sentences** into the deck. Returns updated progress/coins/deck size + `next_drill_id`. |
+| `POST /drills/{drill_id}/sentence` | `{sentence_id, correct}` → if `correct`, credits `(user, drill, sentence)` (idempotent) for **+1 coin**; wrong = no-op. Returns `{was_new, points}`. 404 on unknown drill/sentence. |
 | `GET /review` | The review deck — sentence cards, due-first, capped. Each: `card_key`, `tense_group_id/title`, `tense_label`, `en`, `es`, `blank_es`, `glosses`, `response_mode`, `box`, `due`. |
 | `POST /review/attempt` | `{card_key, correct, response_ms}` → applies the SRS transition + awards coins. Returns `{result, box, coins_earned}`. |
 | `POST /review/shuffle` | Randomizes `deck_position` for all your cards. |
 | `GET /diagnostic` | The placement quiz: `{groups: [{tense_group_id, title, family, prompts: [≤3 {verb, pronoun, pronoun_en, answer, english}]}]}`. `english` is a natural rendering of the conjugated form ("We eat") from `app/data/tense_quest_english.py` — `null` when the verb/tense isn't covered. (Same `english` field rides along on the in-drill `conjugation_targets`.) |
-| `POST /diagnostic` | `{results: [{tense_group_id, passed}]}` → upserts `tense_quest_diagnostic` ('ok' / 'needs_work'). |
+| `POST /diagnostic` | `{results: [{tense_group_id, passed, slow}]}` → upserts `tense_quest_diagnostic`. `result` = `needs_work` if `!passed`, else `ok_slow` if `slow` (a prompt took >7s), else `ok`. The FE times each prompt with a hidden 7s budget. |
 | `POST /username` | `{username}` → sets `users.tq_username` (3–20 chars `[A-Za-z0-9_]`, not all-`_`, not a reserved word; case-insensitively unique). 422 on a bad name, 409 if taken. Returns `{username}`. |
 
-`/overview` carries, per group, `diagnostic` ('ok' | 'needs_work' | null), a
+`/overview` carries, per group, `diagnostic` ('ok' | 'ok_slow' | 'needs_work' | null), a
 top-level `diagnostic_taken` flag, and `username` (the player's public name, or
-`null` until picked).
+`null` until picked). A group the diagnostic marked **`ok`** (Known) reports as
+fully complete on the map (`completed_drills == total_drills`, `percent == 100`)
+so it shows a full fraction, gets the 👑 crown, and counts toward "tenses
+beaten" — `ok_slow` and `needs_work` keep real drill progress. (The per-group
+detail page still shows raw drill progress regardless.)
+
+**Coin total** = drill completions (1 each) + correct in-drill sentences (1
+each) + review-card coins. All three feed the leaderboard.
 
 **Public identity:** the leaderboard only ever shows `tq_username` — never the
 email or the onboarding `name`. Players without one yet show as `Quester #<rank>`.
@@ -118,10 +126,13 @@ grammar drills. No LLM is involved anywhere in Tense Quest.
 ## Persistence
 
 `users.tq_username` (migration `042`) is the public quester name — nullable,
-case-insensitively unique via a functional index. Tables (migrations `038`–`041`):
+case-insensitively unique via a functional index. Tables (migrations `038`–`043`):
 
-- `tense_quest_drill_completions` — one row per `(user, drill)`. Coin total =
-  this count **+** the review-coins sum below; the leaderboard ranks by that.
+- `tense_quest_drill_completions` — one row per `(user, drill)`. Counts toward
+  the coin total / leaderboard.
+- `tense_quest_sentence_completions` (migration `043`) — one row per
+  `(user, drill, sentence)` answered correctly in the in-drill gauntlet; +1 coin
+  each, idempotent.
 - `tense_quest_cards` — the per-user SRS deck of **sentence cards**.
   `card_key = "{drill_id}:{sentence_id}"`, plus `tense_group_id`, `drill_id`,
   `sentence_id`, Leitner `box` 1..5, `due_at`, `deck_position` (Shuffle target),
@@ -129,7 +140,8 @@ case-insensitively unique via a functional index. Tables (migrations `038`–`04
   `last_response_ms`, `reps`, `lapses`. The sentence text is resolved on read
   from the grammar data (`tq.lookup_sentence`), not stored.
 - `tense_quest_diagnostic` — one row per `(user, tense_group)`: `result` is
-  `'ok'` or `'needs_work'`. Re-taking the diagnostic overwrites it.
+  `'ok'`, `'ok_slow'`, or `'needs_work'` (migration `043` widened the check).
+  Re-taking the diagnostic overwrites it.
 
 SRS transitions + coin payout live in `app/services/tense_quest_srs.py`
 (`FAST_MS=5000`, `SLOW_MS=10000`, `LAPSE_MINUTES=10`, `BOX_INTERVAL_HOURS`,

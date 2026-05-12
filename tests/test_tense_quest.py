@@ -316,6 +316,50 @@ def test_diagnostic_flow(client):
     ov = client.get("/v1/tensequest/overview", headers=headers).json()
     assert {g["id"]: g["diagnostic"] for g in ov["tense_groups"]}[g0] == "needs_work"
 
+    # correct-but-slow → "ok_slow" (not done); fast-and-correct → "ok" reads as
+    # fully complete on the map (full fraction, counts toward "tenses beaten").
+    client.post("/v1/tensequest/diagnostic", headers=headers, json={"results": [
+        {"tense_group_id": g0, "passed": True, "slow": True},
+        {"tense_group_id": g1, "passed": True, "slow": False},
+    ]})
+    ov = client.get("/v1/tensequest/overview", headers=headers).json()
+    by_id = {g["id"]: g for g in ov["tense_groups"]}
+    assert by_id[g0]["diagnostic"] == "ok_slow"
+    assert by_id[g0]["percent"] < 100  # "bit slow" is not "beaten"
+    g1row = by_id[g1]
+    assert g1row["diagnostic"] == "ok"
+    assert g1row["completed_drills"] == g1row["total_drills"] and g1row["percent"] == 100
+    assert sum(1 for g in ov["tense_groups"] if g["percent"] >= 100) >= 1
+
+
+def test_sentence_completion_awards_coin(client):
+    _, headers = register_user(client)
+    _, did = _first_group_and_drill()
+    payload = client.get(f"/v1/tensequest/drills/{did}", headers=headers).json()
+    assert len(payload["sentences"]) >= 2
+    sid, sid2 = payload["sentences"][0]["id"], payload["sentences"][1]["id"]
+    pts0 = client.get("/v1/tensequest/overview", headers=headers).json()["points"]
+
+    r = client.post(f"/v1/tensequest/drills/{did}/sentence", headers=headers, json={"sentence_id": sid, "correct": True})
+    assert r.status_code == 200 and r.json() == {"was_new": True, "points": pts0 + 1}
+    assert client.get("/v1/tensequest/overview", headers=headers).json()["points"] == pts0 + 1
+
+    # idempotent — replaying the same sentence doesn't re-award
+    r = client.post(f"/v1/tensequest/drills/{did}/sentence", headers=headers, json={"sentence_id": sid, "correct": True})
+    assert r.json() == {"was_new": False, "points": pts0 + 1}
+
+    # a wrong attempt is a no-op
+    r = client.post(f"/v1/tensequest/drills/{did}/sentence", headers=headers, json={"sentence_id": sid2, "correct": False})
+    assert r.json() == {"was_new": False, "points": pts0 + 1}
+
+    # unknown drill / sentence → 404
+    assert client.post("/v1/tensequest/drills/grammar_nope/sentence", headers=headers, json={"sentence_id": sid, "correct": True}).status_code == 404
+    assert client.post(f"/v1/tensequest/drills/{did}/sentence", headers=headers, json={"sentence_id": "nope", "correct": True}).status_code == 404
+
+
+def test_sentence_completion_requires_auth(client):
+    assert client.post("/v1/tensequest/drills/whatever/sentence", json={"sentence_id": "x", "correct": True}).status_code in (401, 403)
+
 
 def test_diagnostic_requires_auth(client):
     assert client.get("/v1/tensequest/diagnostic").status_code in (401, 403)
