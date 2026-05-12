@@ -315,3 +315,31 @@ def test_diagnostic_flow(client):
 def test_diagnostic_requires_auth(client):
     assert client.get("/v1/tensequest/diagnostic").status_code in (401, 403)
     assert client.post("/v1/tensequest/diagnostic", json={"results": []}).status_code in (401, 403)
+
+
+def test_username_set_validate_and_uniqueness(client):
+    _, h1 = register_user(client)
+
+    # starts unset; leaderboard never leaks an email/real name
+    assert client.get("/v1/tensequest/overview", headers=h1).json()["username"] is None
+
+    # malformed names are rejected
+    for bad in ["ab", "a" * 21, "has space", "bad-dash", "emoji😀", "___", "you"]:
+        r = client.post("/v1/tensequest/username", headers=h1, json={"username": bad})
+        assert r.status_code == 422, bad
+
+    # a good name sticks and surfaces in the overview
+    r = client.post("/v1/tensequest/username", headers=h1, json={"username": "  Sir_Conjugates  "})
+    assert r.status_code == 200 and r.json()["username"] == "Sir_Conjugates"
+    assert client.get("/v1/tensequest/overview", headers=h1).json()["username"] == "Sir_Conjugates"
+
+    # case-insensitively unique across users
+    _, h2 = register_user(client, email="rival@example.com")
+    assert client.post("/v1/tensequest/username", headers=h2, json={"username": "sir_conjugates"}).status_code == 409
+
+    # changing your own name to a casing variant of itself is fine
+    assert client.post("/v1/tensequest/username", headers=h1, json={"username": "SIR_CONJUGATES"}).status_code == 200
+
+
+def test_username_requires_auth(client):
+    assert client.post("/v1/tensequest/username", json={"username": "whoever"}).status_code in (401, 403)

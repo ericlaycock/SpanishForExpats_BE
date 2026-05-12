@@ -12,12 +12,14 @@ app uses for grammar drills.
 from __future__ import annotations
 
 import random
+import re
 from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
 from pydantic import BaseModel, Field
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
@@ -29,6 +31,11 @@ from app.models import TenseQuestCard, TenseQuestDiagnostic, TenseQuestDrillComp
 router = APIRouter()
 
 REVIEW_DECK_LIMIT = 40
+
+# Public quester name: 3–20 chars, letters/digits/underscore, not all underscores.
+USERNAME_RE = re.compile(r"^[A-Za-z0-9_]{3,20}$")
+USERNAME_RULES = "3–20 characters — letters, numbers and underscores only."
+RESERVED_USERNAMES = {"you", "player", "quester", "admin"}
 
 
 # ── response models ─────────────────────────────────────────────────────────
@@ -89,6 +96,15 @@ class OverviewResponse(BaseModel):
     leaderboard: Leaderboard
     review: ReviewDeck
     diagnostic_taken: bool
+    username: Optional[str] = None  # public quester name; None until the player picks one
+
+
+class UsernameRequest(BaseModel):
+    username: str
+
+
+class UsernameResponse(BaseModel):
+    username: str
 
 
 # ── placement diagnostic ────────────────────────────────────────────────────
@@ -235,10 +251,24 @@ def _percent(done: int, total: int) -> int:
     return round(done * 100 / total)
 
 
-def _display_name(user: User) -> str:
-    if getattr(user, "name", None):
-        return user.name.strip()
-    return (user.email or "player").split("@")[0]
+def _public_name(user: Optional[User], rank: int) -> str:
+    """Name shown on the leaderboard. Only the player-chosen `tq_username` is ever
+    exposed — never the email or the real onboarding `name`. Players without one
+    yet (or a missing user row) fall back to a neutral, non-identifying label."""
+    if user is not None and getattr(user, "tq_username", None):
+        return user.tq_username.strip()
+    return f"Quester #{rank}"
+
+
+def _normalize_username(raw: str) -> str:
+    """Validate a requested quester name and return it trimmed. Raises 422 on a
+    malformed or reserved name."""
+    name = (raw or "").strip()
+    if not USERNAME_RE.match(name) or set(name) == {"_"}:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=USERNAME_RULES)
+    if name.lower() in RESERVED_USERNAMES:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="That name is reserved — pick another.")
+    return name
 
 
 def _review_coins(db: Session, user_id) -> int:
@@ -296,8 +326,7 @@ def _leaderboard(db: Session, current_user: User) -> Leaderboard:
             you_points = pts
             you_rank = i + 1
         if i < 10:
-            name = _display_name(u) if u else "player"
-            entries.append(LeaderboardEntry(rank=i + 1, name=name, points=pts, is_you=is_you))
+            entries.append(LeaderboardEntry(rank=i + 1, name=_public_name(u, i + 1), points=pts, is_you=is_you))
     return Leaderboard(
         entries=entries,
         you_rank=you_rank,
@@ -394,7 +423,33 @@ async def overview(
         leaderboard=_leaderboard(db, current_user),
         review=_review_deck(db, current_user.id),
         diagnostic_taken=taken,
+        username=current_user.tq_username,
     )
+
+
+@router.post("/username", response_model=UsernameResponse)
+async def set_username(
+    body: UsernameRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Set (or change) the player's public quester name. Case-insensitively
+    unique; the FE forces players to pick one before reaching the map."""
+    name = _normalize_username(body.username)
+    clash = (
+        db.query(User.id)
+        .filter(func.lower(User.tq_username) == name.lower(), User.id != current_user.id)
+        .first()
+    )
+    if clash is not None:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="That name's taken — pick another.")
+    current_user.tq_username = name
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="That name's taken — pick another.")
+    return UsernameResponse(username=name)
 
 
 @router.get("/diagnostic", response_model=DiagnosticQuiz)

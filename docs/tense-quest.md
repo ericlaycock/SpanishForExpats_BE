@@ -100,9 +100,16 @@ ids" rule); sentence ids are positional within a drill. `card_key` is
 | `POST /review/shuffle` | Randomizes `deck_position` for all your cards. |
 | `GET /diagnostic` | The placement quiz: `{groups: [{tense_group_id, title, family, prompts: [≤3 {verb, pronoun, pronoun_en, answer}]}]}`. |
 | `POST /diagnostic` | `{results: [{tense_group_id, passed}]}` → upserts `tense_quest_diagnostic` ('ok' / 'needs_work'). |
+| `POST /username` | `{username}` → sets `users.tq_username` (3–20 chars `[A-Za-z0-9_]`, not all-`_`, not a reserved word; case-insensitively unique). 422 on a bad name, 409 if taken. Returns `{username}`. |
 
-`/overview` carries, per group, `diagnostic` ('ok' | 'needs_work' | null) and a
-top-level `diagnostic_taken` flag.
+`/overview` carries, per group, `diagnostic` ('ok' | 'needs_work' | null), a
+top-level `diagnostic_taken` flag, and `username` (the player's public name, or
+`null` until picked).
+
+**Public identity:** the leaderboard only ever shows `tq_username` — never the
+email or the onboarding `name`. Players without one yet show as `Quester #<rank>`.
+The FE forces a name pick (then the diagnostic) before the map is reachable
+(`/tensequest/username`).
 
 Grading is **deterministic and FE-side** (mirrors the grammar-drill matcher);
 the BE only records outcomes — the same split the rest of the app uses for
@@ -110,7 +117,8 @@ grammar drills. No LLM is involved anywhere in Tense Quest.
 
 ## Persistence
 
-Tables (migrations `038`–`041`):
+`users.tq_username` (migration `042`) is the public quester name — nullable,
+case-insensitively unique via a functional index. Tables (migrations `038`–`041`):
 
 - `tense_quest_drill_completions` — one row per `(user, drill)`. Coin total =
   this count **+** the review-coins sum below; the leaderboard ranks by that.

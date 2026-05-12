@@ -27,6 +27,11 @@ class User(Base):
     seen_explainers = Column(JSONB, nullable=False, server_default="{}", default=dict)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+    # Public display name on the Tense Quest leaderboard — never the email or the
+    # real onboarding `name`. Unique case-insensitively (see migration 042); the
+    # FE forces players to pick one before they reach the map.
+    tq_username = Column(String(20), nullable=True)
+
     # Onboarding V2 profile fields
     name = Column(String, nullable=True)
     q0_spanish_level = Column(String, nullable=True)   # a/b/c/d
