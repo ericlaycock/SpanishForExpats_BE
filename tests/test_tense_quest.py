@@ -282,10 +282,15 @@ def test_diagnostic_flow(client):
 
     quiz = client.get("/v1/tensequest/diagnostic", headers=headers).json()
     assert len(quiz["groups"]) >= 15
+    saw_english = False
     for g in quiz["groups"]:
         assert 1 <= len(g["prompts"]) <= 3
         for p in g["prompts"]:
             assert p["verb"] and p["pronoun"] and p["answer"]
+            assert "english" in p  # natural-English hint key always present (may be null)
+            if p["english"]:
+                saw_english = True
+    assert saw_english  # at least the present-tense groups should have one
 
     # pass the first group, fail the second; ignore the rest
     g0, g1 = quiz["groups"][0]["tense_group_id"], quiz["groups"][1]["tense_group_id"]
