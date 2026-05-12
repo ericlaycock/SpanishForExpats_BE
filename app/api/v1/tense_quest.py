@@ -114,6 +114,7 @@ class DiagnosticPrompt(BaseModel):
     pronoun: str
     pronoun_en: str
     answer: str  # piped
+    english: Optional[str] = None  # natural English of the conjugated form ("We eat")
 
 
 class DiagnosticGroup(BaseModel):
@@ -175,6 +176,7 @@ class ConjugationTarget(BaseModel):
     pronoun: str
     pronoun_en: str
     answer: str  # piped
+    english: Optional[str] = None  # natural English of the conjugated form ("We eat")
 
 
 class QuestSentence(BaseModel):

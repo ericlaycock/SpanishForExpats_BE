@@ -27,6 +27,7 @@ from app.data.grammar_situations import (
     get_situations_for_gl,
     derive_intro_chart,
 )
+from app.data.tense_quest_english import english_for
 
 # Drill types that Tense Quest can render as a conjugation warmup.
 _PLAYABLE_DRILL_TYPES = {"conjugation", "ir_a_inf"}
@@ -584,9 +585,22 @@ def _build_rule_cards(config: dict) -> list[dict[str, Any]]:
 
 
 def _conjugation_targets(config: dict) -> list[dict[str, Any]]:
-    """The warmup prompts: (verb, pronoun, answer). Use the lesson's authored
-    drill_targets when present; otherwise sample a varied set from the table."""
+    """The warmup prompts: (verb, pronoun, answer, english). Use the lesson's
+    authored drill_targets when present; otherwise sample a varied set from the
+    table. `english` is a natural rendering of the conjugated form ("We eat") —
+    None when the verb/tense isn't covered by the English helper."""
     answers = (config.get("drill_config") or {}).get("answers") or {}
+    tense = config.get("tense")
+
+    def _prompt(verb: str, pron: str, form: str) -> dict[str, Any]:
+        return {
+            "verb": verb,
+            "pronoun": pron,
+            "pronoun_en": PRONOUN_EN.get(pron, pron),
+            "answer": form,
+            "english": english_for(verb, pron, tense),
+        }
+
     targets = config.get("drill_targets") or []
     out: list[dict[str, Any]] = []
     if targets:
@@ -594,7 +608,7 @@ def _conjugation_targets(config: dict) -> list[dict[str, Any]]:
             verb, pron = t.get("verb"), t.get("pronoun")
             form = (answers.get(verb) or {}).get(pron)
             if verb and pron and form:
-                out.append({"verb": verb, "pronoun": pron, "pronoun_en": PRONOUN_EN.get(pron, pron), "answer": form})
+                out.append(_prompt(verb, pron, form))
     if not out:
         # Build ~8: prefer varied pronouns, two of the table's verbs.
         verbs = [v for v in (config.get("word_workload") or []) if v in answers] or list(answers)
@@ -603,7 +617,7 @@ def _conjugation_targets(config: dict) -> list[dict[str, Any]]:
             forms = answers.get(verb) or {}
             for pron in preferred:
                 if forms.get(pron):
-                    out.append({"verb": verb, "pronoun": pron, "pronoun_en": PRONOUN_EN.get(pron, pron), "answer": forms[pron]})
+                    out.append(_prompt(verb, pron, forms[pron]))
                 if len([o for o in out if o["verb"] == verb]) >= 5:
                     break
     return out

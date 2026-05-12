@@ -98,7 +98,7 @@ ids" rule); sentence ids are positional within a drill. `card_key` is
 | `GET /review` | The review deck — sentence cards, due-first, capped. Each: `card_key`, `tense_group_id/title`, `tense_label`, `en`, `es`, `blank_es`, `glosses`, `response_mode`, `box`, `due`. |
 | `POST /review/attempt` | `{card_key, correct, response_ms}` → applies the SRS transition + awards coins. Returns `{result, box, coins_earned}`. |
 | `POST /review/shuffle` | Randomizes `deck_position` for all your cards. |
-| `GET /diagnostic` | The placement quiz: `{groups: [{tense_group_id, title, family, prompts: [≤3 {verb, pronoun, pronoun_en, answer}]}]}`. |
+| `GET /diagnostic` | The placement quiz: `{groups: [{tense_group_id, title, family, prompts: [≤3 {verb, pronoun, pronoun_en, answer, english}]}]}`. `english` is a natural rendering of the conjugated form ("We eat") from `app/data/tense_quest_english.py` — `null` when the verb/tense isn't covered. (Same `english` field rides along on the in-drill `conjugation_targets`.) |
 | `POST /diagnostic` | `{results: [{tense_group_id, passed}]}` → upserts `tense_quest_diagnostic` ('ok' / 'needs_work'). |
 | `POST /username` | `{username}` → sets `users.tq_username` (3–20 chars `[A-Za-z0-9_]`, not all-`_`, not a reserved word; case-insensitively unique). 422 on a bad name, 409 if taken. Returns `{username}`. |
 
