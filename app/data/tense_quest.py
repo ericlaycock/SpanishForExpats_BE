@@ -320,14 +320,88 @@ _TESTED_HEADS: dict[str, dict[str, set[str]]] = {
 }
 
 
+# Preterite-vs-Imperfect is a rule lesson with no conjugation table; its
+# contrast sentences ("Yo leía cuando ella llegó") still want a scaffold, so we
+# match against a broad set of past-tense forms: every form across the
+# curriculum's preterite + imperfect lessons, plus a hand-generated supplement
+# for common verbs those contrast sentences use (leer, llegar, jugar, llover,
+# estar, ser, ir, ver, tener, hacer, decir, …). Built once at import.
+def _build_past_form_pronouns() -> dict[str, set[str]]:
+    YO3 = {"yo", "él", "ella", "usted"}      # imperfect 1-sing == 3-sing
+    TU, NOS, ELL = {"tú"}, {"nosotros", "nosotras"}, {"ellos", "ellas", "ustedes"}
+    YO, T3 = {"yo"}, {"él", "ella", "usted"}
+    out: dict[str, set[str]] = {}
+
+    def add(form: str, prons: set[str]) -> None:
+        if form:
+            out.setdefault(_norm_es(form), set()).update(prons)
+
+    def add_set(forms: tuple[tuple[str, set[str]], ...]) -> None:
+        for f, p in forms:
+            add(f, p)
+
+    # from the curriculum
+    for cfg in GRAMMAR_SITUATIONS.values():
+        if cfg.get("tense") not in ("preterite", "imperfect"):
+            continue
+        for forms in (cfg.get("drill_config") or {}).get("answers", {}).values():
+            for pron, f in (forms or {}).items():
+                if f:
+                    add(_strip_pipe(f), {pron})
+
+    # regular -ar (imperfect + preterite); -gar verbs need the -gué 1-sing
+    for v in ("hablar", "llamar", "trabajar", "estudiar", "caminar", "comprar", "cantar",
+              "escuchar", "cocinar", "visitar", "viajar", "mirar", "jugar", "llegar", "pagar"):
+        s = v[:-2]
+        add_set(((s + "aba", YO3), (s + "abas", TU), (s + "ábamos", NOS), (s + "aban", ELL)))
+        first = (s[:-1] + "gué") if v.endswith("gar") else (s + "é")
+        third = (s[:-1] + "gó") if v.endswith("gar") else (s + "ó")
+        add_set(((first, YO), (s + "aste", TU), (third, T3), (s + "amos", NOS), (s + "aron", ELL)))
+    # regular -er / -ir (imperfect + preterite)
+    for v in ("comer", "beber", "correr", "aprender", "vivir", "escribir", "abrir", "recibir", "salir", "subir"):
+        s = v[:-2]
+        add_set(((s + "ía", YO3), (s + "ías", TU), (s + "íamos", NOS), (s + "ían", ELL)))
+        add_set(((s + "í", YO), (s + "iste", TU), (s + "ió", T3), (s + "imos", NOS), (s + "ieron", ELL)))
+    # irregulars
+    add_set((("era", YO3), ("eras", TU), ("éramos", NOS), ("eran", ELL),
+             ("fui", YO), ("fuiste", TU), ("fue", T3), ("fuimos", NOS), ("fueron", ELL)))   # ser (+ ir preterite)
+    add_set((("iba", YO3), ("ibas", TU), ("íbamos", NOS), ("iban", ELL)))                    # ir imperfect
+    add_set((("veía", YO3), ("veías", TU), ("veíamos", NOS), ("veían", ELL),
+             ("vi", YO), ("viste", TU), ("vio", T3), ("vimos", NOS), ("vieron", ELL)))        # ver
+    add_set((("estaba", YO3), ("estabas", TU), ("estábamos", NOS), ("estaban", ELL),
+             ("estuve", YO), ("estuviste", TU), ("estuvo", T3), ("estuvimos", NOS), ("estuvieron", ELL)))  # estar
+    add_set((("tenía", YO3), ("tenías", TU), ("teníamos", NOS), ("tenían", ELL),
+             ("tuve", YO), ("tuviste", TU), ("tuvo", T3), ("tuvimos", NOS), ("tuvieron", ELL)))            # tener
+    add_set((("hacía", YO3), ("hacías", TU), ("hacíamos", NOS), ("hacían", ELL),
+             ("hice", YO), ("hiciste", TU), ("hizo", T3), ("hicimos", NOS), ("hicieron", ELL)))           # hacer
+    add_set((("decía", YO3), ("decías", TU), ("decíamos", NOS), ("decían", ELL),
+             ("dije", YO), ("dijiste", TU), ("dijo", T3), ("dijimos", NOS), ("dijeron", ELL)))            # decir
+    add_set((("daba", YO3), ("dabas", TU), ("dábamos", NOS), ("daban", ELL),
+             ("di", YO), ("diste", TU), ("dio", T3), ("dimos", NOS), ("dieron", ELL)))                    # dar
+    for st3 in ("pud", "quis", "pus", "sup", "vin", "estuv"):  # poder/querer/poner/saber/venir/estar
+        add_set(((st3 + "e", YO), (st3 + "iste", TU), (st3 + "o", T3), (st3 + "imos", NOS), (st3 + "ieron", ELL)))
+    add_set((("leía", YO3), ("leías", TU), ("leíamos", NOS), ("leían", ELL),
+             ("leí", YO), ("leíste", TU), ("leyó", T3), ("leímos", NOS), ("leyeron", ELL)))               # leer
+    add_set((("había", YO3), ("habías", TU), ("habíamos", NOS), ("habían", ELL), ("hubo", T3)))           # haber
+    add("llovía", T3)
+    add("llovió", T3)
+    return out
+
+
+_PAST_FORM_PRONOUNS = _build_past_form_pronouns()
+
+
 # Normalised form → set of pronouns it could spell out (e.g. "habla" → {"él",
 # "ella", "usted"}, "jugabamos" → {"nosotros", "nosotras"}). For periphrastic
-# tenses uses the head-only override above so the scaffold blanks just the
-# conjugated bit, not the trailing infinitive.
+# tenses uses the head-only override; for the Preterite-vs-Imperfect rule
+# lesson uses the union of all past-tense forms.
 def _form_pronouns(config: dict) -> dict[str, set[str]]:
-    override = _TESTED_HEADS.get(config.get("tense"))
+    tense = config.get("tense")
+    override = _TESTED_HEADS.get(tense)
     if override is not None:
         return override
+    if tense == "preterite_imperfect":
+        return _PAST_FORM_PRONOUNS
     answers = (config.get("drill_config") or {}).get("answers") or {}
     out: dict[str, set[str]] = {}
     for forms in answers.values():
@@ -352,7 +426,10 @@ def _implied_subject(en: str, prons: set[str]) -> Optional[str]:
     forms that map to a single pronoun, just use it."""
     if len(prons) == 1:
         return next(iter(prons))
-    e = (en or "").lower()
+    e = (en or "").lower().lstrip("¿¡ ")
+    # Impersonal / dummy "it" (raining, "it's important that…") — no subject.
+    if e.startswith("it ") or e.startswith("it's ") or e.startswith("it'") or e.startswith("its "):
+        return None
     # English-side cues
     cues: list[tuple[str, str]] = [
         ("we (m", "nosotros"), ("we (f", "nosotras"), ("we ", "nosotros"),
