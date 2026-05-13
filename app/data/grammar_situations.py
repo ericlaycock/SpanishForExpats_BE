@@ -135,7 +135,8 @@ GL_VL_THRESHOLDS: dict[float, int] = {
     6: 300, 7: 330, 8: 400, 9: 500, 10: 510, 10.3: 515,
     10.6: 520, 11: 550, 12: 600, 13: 700, 13.5: 700, 14: 750, 15: 800,
     16: 900, 17: 1000, 17.1: 1010, 17.2: 1020, 17.3: 1030,
-    17.4: 1050, 17.5: 1060, 18: 1300, 18.5: 1350, 19: 1400, 20: 1500,
+    17.4: 1050, 17.5: 1060, 18: 1300, 18.5: 1350, 19: 1400,
+    19.5: 1480, 20: 1500, 20.5: 1550,
 }
 
 # Titles for ALL grammar levels (including those without content yet).
@@ -155,7 +156,10 @@ GL_TITLES: dict[float, str] = {
     17.3: "Preterite Stem Changers", 17.4: "Preterite DUCIR",
     17.5: "Preterite e-to-i Irregular", 18: "Gerund",
     18.5: "Perfect Tenses",
-    19: "Direct + Indirect Object Pronouns", 20: "Subjunctive",
+    19: "Direct + Indirect Object Pronouns",
+    19.5: "Subjunctive Triggers",
+    20: "Present Subjunctive",
+    20.5: "Imperfect Subjunctive",
 }
 
 # Sorted list of all grammar levels for iteration.
@@ -4518,6 +4522,159 @@ PERFECT_TENSES_PLUPERFECT_INTRO = {
     ],
 }
 
+# --- GL 19.5: Subjunctive Triggers (introduced BEFORE Present Subjunctive) ---
+# Six cards covering WEIRDO — Wishes, Emotions, Impersonal expressions,
+# Recommendations, Doubt/Denial, Ojalá/open-future conjunctions. Each card
+# pairs the trigger with a subjunctive example on the left and a matched
+# indicative counter-example on the right so the choice principle stays
+# visual. This lesson teaches *when* to reach for the subjunctive; the
+# conjugation drilling happens in the GL 20 lessons that follow.
+SUBJUNCTIVE_TRIGGERS_INTRO = {
+    "kind": "cards",
+    "title": "Subjunctive Triggers — when to switch moods",
+    "cards": [
+        {
+            "kind": "text",
+            "title": "The subjunctive is triggered, not chosen",
+            "body": "The subjunctive isn't picked at random — it follows specific *trigger phrases* in the main clause. When you hear or write one of these triggers and a *que* follows, the verb after *que* flips to subjunctive. No trigger → stays indicative. Memorise the triggers and the conjugation takes care of itself.",
+        },
+        {
+            "kind": "text",
+            "title": "WEIRDO — the six families",
+            "body": "**W**ishes · **E**motions · **I**mpersonal expressions · **R**ecommendations · **D**oubt/Denial · **O**jalá and open-future conjunctions. The next six cards walk through each family with a subjunctive example and a matched indicative counter-example so you can feel the difference.",
+        },
+        {
+            "kind": "comparison",
+            "title": "W — Wishes / Want",
+            "left": {
+                "heading": "Subjunctive — wanting someone else to act",
+                "items": [
+                    "Quiero que vengas a la fiesta.",
+                    "Espera que llueva mañana.",
+                    "Necesitamos que llames al doctor.",
+                    "Triggers: querer que, esperar que, necesitar que, preferir que, desear que",
+                ],
+            },
+            "right": {
+                "heading": "Indicative — stating what you want",
+                "items": [
+                    "Quiero ir a la fiesta. (no *que*, no second subject → infinitive)",
+                    "Sé que vienes mañana. (knowing, not wishing)",
+                ],
+            },
+            "footnote": "The trigger needs a *que* AND a different subject. *Quiero comer* (same subject) → infinitive. *Quiero que comas* (different subject) → subjunctive.",
+        },
+        {
+            "kind": "comparison",
+            "title": "E — Emotion",
+            "left": {
+                "heading": "Subjunctive — reacting emotionally",
+                "items": [
+                    "Me alegra que estés aquí.",
+                    "Siento que no puedas venir.",
+                    "Tengo miedo de que llegue tarde.",
+                    "Triggers: me alegra que, siento que, tengo miedo de que, me molesta que, me sorprende que",
+                ],
+            },
+            "right": {
+                "heading": "Indicative — reporting a fact",
+                "items": [
+                    "Sé que estás aquí. (knowing, not feeling)",
+                    "Veo que llega tarde. (observing, not reacting)",
+                ],
+            },
+            "footnote": "Emotional verbs trigger subjunctive even when what follows is technically a fact. The emotion colours the clause.",
+        },
+        {
+            "kind": "comparison",
+            "title": "I — Impersonal expressions",
+            "left": {
+                "heading": "Subjunctive — value judgment with no specific subject",
+                "items": [
+                    "Es importante que descanses.",
+                    "Es necesario que llames hoy.",
+                    "Es raro que no conteste.",
+                    "Triggers: es importante / necesario / posible / mejor / raro / bueno / malo que",
+                ],
+            },
+            "right": {
+                "heading": "Indicative — impersonal *fact*, not judgment",
+                "items": [
+                    "Es cierto que viene mañana.",
+                    "Es verdad que sabe español.",
+                    "Es obvio que está cansado.",
+                ],
+            },
+            "footnote": "Impersonals that assert *truth* (es cierto, es verdad, es obvio, está claro) stay indicative. Everything else — value, possibility, necessity — triggers subjunctive.",
+        },
+        {
+            "kind": "comparison",
+            "title": "R — Recommendations / Requests",
+            "left": {
+                "heading": "Subjunctive — suggesting, asking, telling",
+                "items": [
+                    "Te sugiero que descanses.",
+                    "Le pido que me llame.",
+                    "El doctor recomienda que tomes agua.",
+                    "Triggers: sugerir que, pedir que, recomendar que, insistir en que, decir que (when an order)",
+                ],
+            },
+            "right": {
+                "heading": "Indicative — reporting what was said",
+                "items": [
+                    "Dice que viene mañana. (reporting, not ordering)",
+                    "Me cuenta que está bien.",
+                ],
+            },
+            "footnote": "*Decir que* is tricky: as a report → indicative, as a command → subjunctive. *Me dice que está aquí* (he says he's here) vs *Me dice que venga* (he tells me to come).",
+        },
+        {
+            "kind": "comparison",
+            "title": "D — Doubt / Denial",
+            "left": {
+                "heading": "Subjunctive — doubting or denying",
+                "items": [
+                    "Dudo que sea verdad.",
+                    "No creo que venga hoy.",
+                    "No es verdad que esté enfermo.",
+                    "Triggers: dudar que, no creer que, no pensar que, negar que, no es verdad que",
+                ],
+            },
+            "right": {
+                "heading": "Indicative — asserting belief / certainty",
+                "items": [
+                    "Creo que viene hoy. (affirmative → certainty → indicative)",
+                    "Pienso que tiene razón.",
+                    "Es verdad que está enfermo.",
+                ],
+            },
+            "footnote": "The flip is the negation: *creer que* → indicative, *no creer que* → subjunctive. Adding *no* moves you from certainty to doubt.",
+        },
+        {
+            "kind": "comparison",
+            "title": "O — Ojalá and open-future conjunctions",
+            "left": {
+                "heading": "Subjunctive — hopes and not-yet-real time",
+                "items": [
+                    "Ojalá venga mañana.",
+                    "Cuando llegues, llámame.",
+                    "Antes de que salgas, come algo.",
+                    "Trabajo para que mis hijos estudien.",
+                    "Triggers: ojalá, cuando (future), antes de que, para que, a menos que, en cuanto, hasta que (future)",
+                ],
+            },
+            "right": {
+                "heading": "Indicative — *cuando* with a habit / past",
+                "items": [
+                    "Cuando llego a casa, ceno. (habitual → indicative)",
+                    "Cuando llegué, ya era tarde. (past → indicative)",
+                ],
+            },
+            "footnote": "*Cuando* + future / not-yet event → subjunctive. *Cuando* + habit or past → indicative. The rule of thumb: if the event hasn't happened yet from the speaker's point of view, use subjunctive.",
+        },
+    ],
+}
+
 GRAMMAR_SITUATIONS = {
     "grammar_pronouns": {
         "title": "Pronouns (singular)",
@@ -6482,15 +6639,15 @@ GRAMMAR_SITUATIONS = {
         },
         'drill_sentences': [
             {"en": "I used to speak Spanish", "es": "Yo hablaba español", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "You used to listen to music", "es": "Tú escuchabas música", "noun_id": None, "type": "auditory", "glosses": {"music": "música", "música": "music"}},
+            {"en": "You were listening to music", "es": "Tú escuchabas música", "noun_id": None, "type": "auditory", "glosses": {"music": "música", "música": "music"}},
             {"en": "He used to speak English", "es": "Él hablaba inglés", "noun_id": None, "type": "written", "glosses": {"English": "inglés", "inglés": "English"}},
-            {"en": "She used to listen to the radio", "es": "Ella escuchaba la radio", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "She was listening to the radio", "es": "Ella escuchaba la radio", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "You used to speak well", "es": "Usted hablaba bien", "noun_id": None, "type": "written", "glosses": {"well": "bien", "bien": "well"}},
-            {"en": "We (m) used to listen to a song", "es": "Nosotros escuchábamos una canción", "noun_id": None, "type": "auditory", "glosses": {"song": "canción", "canción": "song"}},
+            {"en": "We (m) were listening to a song", "es": "Nosotros escuchábamos una canción", "noun_id": None, "type": "auditory", "glosses": {"song": "canción", "canción": "song"}},
             {"en": "We (f) used to speak fast", "es": "Nosotras hablábamos rápido", "noun_id": None, "type": "written", "glosses": {"fast": "rápido", "rápido": "fast"}},
-            {"en": "They (m) used to listen well", "es": "Ellos escuchaban bien", "noun_id": None, "type": "auditory", "glosses": {"well": "bien", "bien": "well"}},
+            {"en": "They (m) were listening carefully", "es": "Ellos escuchaban atentamente", "noun_id": None, "type": "auditory", "glosses": {"carefully": "atentamente", "atentamente": "carefully"}},
             {"en": "They (f) used to speak a lot", "es": "Ellas hablaban mucho", "noun_id": None, "type": "written", "glosses": {"a lot": "mucho", "mucho": "a lot"}},
-            {"en": "You all used to listen carefully", "es": "Ustedes escuchaban atentamente", "noun_id": None, "type": "auditory", "glosses": {}},
+            {"en": "You all were listening carefully", "es": "Ustedes escuchaban atentamente", "noun_id": None, "type": "auditory", "glosses": {"carefully": "atentamente", "atentamente": "carefully"}},
         ],
         'drill_targets': [
             {
@@ -6597,15 +6754,15 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {"en": "I used to eat food", "es": "Yo comía comida", "noun_id": None, "type": "written", "glosses": {"food": "comida", "comida": "food"}},
+            {"en": "I was eating food", "es": "Yo comía comida", "noun_id": None, "type": "written", "glosses": {"food": "comida", "comida": "food"}},
             {"en": "You used to live nearby", "es": "Tú vivías cerca", "noun_id": None, "type": "auditory", "glosses": {"nearby": "cerca", "cerca": "nearby"}},
-            {"en": "He used to eat fruit", "es": "Él comía fruta", "noun_id": None, "type": "written", "glosses": {"fruit": "fruta", "fruta": "fruit"}},
-            {"en": "She used to live together", "es": "Ella vivía juntos", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "You used to eat meat", "es": "Usted comía carne", "noun_id": None, "type": "written", "glosses": {"meat": "carne", "carne": "meat"}},
-            {"en": "We (m) used to live alone", "es": "Nosotros vivíamos solo", "noun_id": None, "type": "auditory", "glosses": {"alone": "solo", "solo": "alone"}},
-            {"en": "We (f) used to eat salad", "es": "Nosotras comíamos ensalada", "noun_id": None, "type": "written", "glosses": {"salad": "ensalada", "ensalada": "salad"}},
+            {"en": "He was eating fruit", "es": "Él comía fruta", "noun_id": None, "type": "written", "glosses": {"fruit": "fruta", "fruta": "fruit"}},
+            {"en": "She used to live alone", "es": "Ella vivía sola", "noun_id": None, "type": "auditory", "glosses": {"alone": "sola", "sola": "alone"}},
+            {"en": "You were eating meat", "es": "Usted comía carne", "noun_id": None, "type": "written", "glosses": {"meat": "carne", "carne": "meat"}},
+            {"en": "We (m) used to live alone", "es": "Nosotros vivíamos solos", "noun_id": None, "type": "auditory", "glosses": {"alone": "solos", "solos": "alone"}},
+            {"en": "We (f) were eating salad", "es": "Nosotras comíamos ensalada", "noun_id": None, "type": "written", "glosses": {"salad": "ensalada", "ensalada": "salad"}},
             {"en": "They (m) used to live in the city", "es": "Ellos vivían en la ciudad", "noun_id": "ciudad", "type": "auditory", "glosses": {"city": "ciudad", "ciudad": "city"}},
-            {"en": "They (f) used to eat bread", "es": "Ellas comían pan", "noun_id": None, "type": "written", "glosses": {"bread": "pan", "pan": "bread"}},
+            {"en": "They (f) were eating bread", "es": "Ellas comían pan", "noun_id": None, "type": "written", "glosses": {"bread": "pan", "pan": "bread"}},
             {"en": "You all used to live here", "es": "Ustedes vivían aquí", "noun_id": None, "type": "auditory", "glosses": {}},
         ],
         'drill_targets': [
@@ -6784,16 +6941,16 @@ GRAMMAR_SITUATIONS = {
             'mode': 'random_pronoun_verb'
         },
         'drill_sentences': [
-            {"en": "I used to go to the store", "es": "Yo iba a la tienda", "noun_id": "tienda", "type": "written", "glosses": {"store": "tienda", "tienda": "store"}},
+            {"en": "I was going to the store", "es": "Yo iba a la tienda", "noun_id": "tienda", "type": "written", "glosses": {"store": "tienda", "tienda": "store"}},
             {"en": "You used to be likeable", "es": "Tú eras simpático", "noun_id": None, "type": "auditory", "glosses": {"likeable": "simpático", "simpático": "likeable"}},
-            {"en": "He used to go to work", "es": "Él iba al trabajo", "noun_id": "trabajo", "type": "written", "glosses": {"work": "trabajo", "trabajo": "work"}},
-            {"en": "She used to be Colombian", "es": "Ella era colombiano", "noun_id": None, "type": "auditory", "glosses": {"Colombian": "colombiano", "colombiano": "Colombian"}},
+            {"en": "He was going to work", "es": "Él iba al trabajo", "noun_id": "trabajo", "type": "written", "glosses": {"work": "trabajo", "trabajo": "work"}},
+            {"en": "She used to be Colombian", "es": "Ella era colombiana", "noun_id": None, "type": "auditory", "glosses": {"Colombian": "colombiana", "colombiana": "Colombian"}},
             {"en": "You used to go to the market", "es": "Usted iba al mercado", "noun_id": "mercado", "type": "written", "glosses": {"market": "mercado", "mercado": "market"}},
-            {"en": "We (m) used to be tall", "es": "Nosotros éramos alto", "noun_id": None, "type": "auditory", "glosses": {"tall": "alto", "alto": "tall"}},
-            {"en": "We (f) used to go home", "es": "Nosotras íbamos a casa", "noun_id": "casa", "type": "written", "glosses": {"at home": "en casa", "en casa": "at home"}},
-            {"en": "They (m) used to be professional", "es": "Ellos eran profesional", "noun_id": None, "type": "auditory", "glosses": {"professional": "profesional", "profesional": "professional"}},
-            {"en": "They (f) used to go to the park", "es": "Ellas iban al parque", "noun_id": "parque", "type": "written", "glosses": {"park": "parque", "parque": "park"}},
-            {"en": "You all used to be important", "es": "Ustedes eran importante", "noun_id": None, "type": "auditory", "glosses": {"important": "importante", "importante": "important"}},
+            {"en": "We (m) used to be tall", "es": "Nosotros éramos altos", "noun_id": None, "type": "auditory", "glosses": {"tall": "altos", "altos": "tall"}},
+            {"en": "We (f) were going home", "es": "Nosotras íbamos a casa", "noun_id": "casa", "type": "written", "glosses": {"at home": "en casa", "en casa": "at home"}},
+            {"en": "They (m) used to be professionals", "es": "Ellos eran profesionales", "noun_id": None, "type": "auditory", "glosses": {"professionals": "profesionales", "profesionales": "professionals"}},
+            {"en": "They (f) were going to the park", "es": "Ellas iban al parque", "noun_id": "parque", "type": "written", "glosses": {"park": "parque", "parque": "park"}},
+            {"en": "You all used to be important", "es": "Ustedes eran importantes", "noun_id": None, "type": "auditory", "glosses": {"important": "importantes", "importantes": "important"}},
         ],
         'drill_targets': [
             {
@@ -6901,15 +7058,15 @@ GRAMMAR_SITUATIONS = {
         },
         'drill_sentences': [
             {"en": "I used to see the light", "es": "Yo veía la luz", "noun_id": "luz", "type": "written", "glosses": {"light": "luz", "luz": "light"}},
-            {"en": "You used to write fast", "es": "Tú escribías rápido", "noun_id": None, "type": "auditory", "glosses": {"fast": "rápido", "rápido": "fast"}},
-            {"en": "He used to see the movie", "es": "Él veía la película", "noun_id": None, "type": "written", "glosses": {"movie": "película", "película": "movie"}},
+            {"en": "You were writing fast", "es": "Tú escribías rápido", "noun_id": None, "type": "auditory", "glosses": {"fast": "rápido", "rápido": "fast"}},
+            {"en": "He was seeing the movie", "es": "Él veía la película", "noun_id": None, "type": "written", "glosses": {"movie": "película", "película": "movie"}},
             {"en": "She used to write a letter", "es": "Ella escribía una carta", "noun_id": "carta", "type": "auditory", "glosses": {"letter": "carta", "carta": "letter"}},
-            {"en": "You used to see the family", "es": "Usted veía a la familia", "noun_id": "familia", "type": "written", "glosses": {"family": "familia", "familia": "family"}},
-            {"en": "We (m) used to write a book", "es": "Nosotros escribíamos un libro", "noun_id": "libro", "type": "auditory", "glosses": {"book": "libro", "libro": "book"}},
+            {"en": "You were seeing the family", "es": "Usted veía a la familia", "noun_id": "familia", "type": "written", "glosses": {"family": "familia", "familia": "family"}},
+            {"en": "We (m) were writing a book", "es": "Nosotros escribíamos un libro", "noun_id": "libro", "type": "auditory", "glosses": {"book": "libro", "libro": "book"}},
             {"en": "We (f) used to see a photo", "es": "Nosotras veíamos una foto", "noun_id": None, "type": "written", "glosses": {"photo": "foto", "foto": "photo"}},
-            {"en": "They (m) used to write messages", "es": "Ellos escribían mensajes", "noun_id": None, "type": "auditory", "glosses": {"messages": "mensajes", "mensajes": "messages"}},
+            {"en": "They (m) were writing messages", "es": "Ellos escribían mensajes", "noun_id": None, "type": "auditory", "glosses": {"messages": "mensajes", "mensajes": "messages"}},
             {"en": "They (f) used to see well", "es": "Ellas veían bien", "noun_id": None, "type": "written", "glosses": {"well": "bien", "bien": "well"}},
-            {"en": "You all used to write names", "es": "Ustedes escribían nombres", "noun_id": "nombre", "type": "auditory", "glosses": {"names": "nombres", "nombres": "names"}},
+            {"en": "You all were writing names", "es": "Ustedes escribían nombres", "noun_id": "nombre", "type": "auditory", "glosses": {"names": "nombres", "nombres": "names"}},
         ],
         'drill_targets': [
             {
@@ -9167,7 +9324,10 @@ GRAMMAR_SITUATIONS = {
             'imperfect'
         ],
         'video_embed_id': None,
-        'drill_type': 'rule',
+        # Binary A/B decision drill: pick "preterite" or "imperfect" for the
+        # bolded verb. `choice` is the correct answer; `choice_verb_es` tells
+        # the FE which token in the Spanish sentence to highlight.
+        'drill_type': 'binary_choice',
         'tense': 'preterite_imperfect',
         'intro_chart': PRET_VS_IMPERFECT_INTRO,
         'phases': {
@@ -9179,17 +9339,23 @@ GRAMMAR_SITUATIONS = {
             '2': False,
             '3': False
         },
+        'binary_choice_config': {
+            'left':  {'value': 'preterite', 'label': 'Preterite'},
+            'right': {'value': 'imperfect', 'label': 'Imperfect'},
+        },
         'drill_sentences': [
-            {"en": "I was reading when she arrived", "es": "Yo leía cuando ella llegó", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "We (m/mf) used to play every day", "es": "Jugábamos todos los días", "noun_id": None, "type": "auditory", "glosses": {"day": "día", "days": "días", "día": "day", "días": "days"}},
-            {"en": "He ate the bread", "es": "Él comió el pan", "noun_id": "pan", "type": "written", "glosses": {"bread": "pan", "pan": "bread"}},
-            {"en": "She was eating when I called", "es": "Ella comía cuando yo llamé", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "It was raining all morning", "es": "Llovía toda la mañana", "noun_id": None, "type": "written", "glosses": {"morning": "mañana", "mañana": "morning"}},
-            {"en": "It rained yesterday", "es": "Llovió ayer", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "I was tired", "es": "Yo estaba cansado", "noun_id": None, "type": "written", "glosses": {"tired": "cansado", "cansado": "tired"}},
-            {"en": "I was tired for an hour", "es": "Estuve cansado por una hora", "noun_id": "hora", "type": "auditory", "glosses": {"hour": "hora", "tired": "cansado", "hora": "hour", "cansado": "tired"}},
-            {"en": "When I was a kid, I used to live in Mexico", "es": "Cuando era niño, vivía en México", "noun_id": None, "type": "written", "glosses": {"kid": "niño", "niño": "kid"}},
-            {"en": "She lived in Mexico for five years", "es": "Ella vivió en México por cinco años", "noun_id": None, "type": "auditory", "glosses": {"five": "cinco", "years": "años", "cinco": "five", "años": "years"}}
+            {"en": "I was reading when she arrived.", "es": "Yo leía cuando ella llegó.", "choice": "imperfect", "choice_verb_es": "leía", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "We used to play every day.", "es": "Jugábamos todos los días.", "choice": "imperfect", "choice_verb_es": "Jugábamos", "noun_id": None, "type": "written", "glosses": {"day": "día", "days": "días", "día": "day", "días": "days"}},
+            {"en": "He ate the bread.", "es": "Él comió el pan.", "choice": "preterite", "choice_verb_es": "comió", "noun_id": "pan", "type": "written", "glosses": {"bread": "pan", "pan": "bread"}},
+            {"en": "She was eating when I called.", "es": "Ella comía cuando yo llamé.", "choice": "imperfect", "choice_verb_es": "comía", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "It was raining all morning.", "es": "Llovía toda la mañana.", "choice": "imperfect", "choice_verb_es": "Llovía", "noun_id": None, "type": "written", "glosses": {"morning": "mañana", "mañana": "morning"}},
+            {"en": "It rained yesterday.", "es": "Llovió ayer.", "choice": "preterite", "choice_verb_es": "Llovió", "noun_id": None, "type": "written", "glosses": {"yesterday": "ayer", "ayer": "yesterday"}},
+            {"en": "I was tired (as a state, no time limit).", "es": "Yo estaba cansada.", "choice": "imperfect", "choice_verb_es": "estaba", "noun_id": None, "type": "written", "glosses": {"tired": "cansada", "cansada": "tired"}},
+            {"en": "I was tired for an hour (bounded).", "es": "Estuve cansado por una hora.", "choice": "preterite", "choice_verb_es": "Estuve", "noun_id": "hora", "type": "written", "glosses": {"hour": "hora", "tired": "cansado", "hora": "hour", "cansado": "tired"}},
+            {"en": "When I was a kid, I used to live in Mexico.", "es": "Cuando era niña, vivía en México.", "choice": "imperfect", "choice_verb_es": "vivía", "noun_id": None, "type": "written", "glosses": {"kid": "niña", "niña": "kid"}},
+            {"en": "She lived in Mexico for five years.", "es": "Ella vivió en México por cinco años.", "choice": "preterite", "choice_verb_es": "vivió", "noun_id": None, "type": "written", "glosses": {"five": "cinco", "years": "años", "cinco": "five", "años": "years"}},
+            {"en": "Every Sunday they would call their mom.", "es": "Cada domingo llamaban a su mamá.", "choice": "imperfect", "choice_verb_es": "llamaban", "noun_id": None, "type": "written", "glosses": {"Sunday": "domingo", "domingo": "Sunday", "mom": "mamá", "mamá": "mom"}},
+            {"en": "Last night the dog barked twice.", "es": "Anoche el perro ladró dos veces.", "choice": "preterite", "choice_verb_es": "ladró", "noun_id": "perro", "type": "written", "glosses": {"last night": "anoche", "anoche": "last night", "dog": "perro", "perro": "dog", "twice": "dos veces", "dos veces": "twice"}},
         ],
         'phase_2_config': {
             'description': 'Choosing between preterite (completed) and imperfect (ongoing/habitual)',
@@ -12037,6 +12203,80 @@ GRAMMAR_SITUATIONS = {
         'opener_en': "Tell me about gifts you've given recently.",
         'opener_es': 'Cuéntame de regalos que has dado recientemente.',
     },
+    # === GL 19.5 — Subjunctive Triggers (when to use subjunctive) ===
+    # This module precedes Present Subjunctive so learners build the
+    # *trigger-recognition* skill before they drill the conjugation. The
+    # drill is a binary A/B decision (subjunctive vs. indicative) — same
+    # shape as `grammar_pret_vs_imperfect`.
+    'grammar_subj_triggers': {
+        'title': 'Subjunctive Triggers',
+        'grammar_level': 19.5,
+        'lesson_number': 1,
+        'lesson_type': 'rule',
+        'word_workload': [
+            'subjunctive',
+            'indicative',
+        ],
+        'video_embed_id': None,
+        'drill_type': 'binary_choice',
+        'tense': 'subjunctive_indicative',
+        'intro_chart': SUBJUNCTIVE_TRIGGERS_INTRO,
+        'phases': {
+            '0a': False,
+            '0b': True,
+            '1a': False,
+            '1b': False,
+            '1c': False,
+            '2': False,
+            '3': False,
+        },
+        'binary_choice_config': {
+            'left':  {'value': 'subjunctive', 'label': 'Subjunctive'},
+            'right': {'value': 'indicative',  'label': 'Indicative'},
+        },
+        'drill_sentences': [
+            # --- Subjunctive triggers ---
+            # W — Wishes
+            {"en": "I want you to come to the party.", "es": "Quiero que vengas a la fiesta.", "choice": "subjunctive", "choice_verb_es": "vengas", "noun_id": "fiesta", "type": "written", "glosses": {"party": "fiesta", "fiesta": "party"}},
+            # W — different subject, female speaker
+            {"en": "She needs us (f) to call the doctor.", "es": "Necesita que nosotras llamemos al doctor.", "choice": "subjunctive", "choice_verb_es": "llamemos", "noun_id": "doctor", "type": "written", "glosses": {"doctor": "doctor", "doctor ": "doctor"}},
+            # E — Emotion
+            {"en": "I'm glad that you (formal) are here.", "es": "Me alegra que usted esté aquí.", "choice": "subjunctive", "choice_verb_es": "esté", "noun_id": None, "type": "written", "glosses": {"here": "aquí", "aquí": "here"}},
+            # I — Impersonal value judgment
+            {"en": "It's important that you (pl.) rest today.", "es": "Es importante que ustedes descansen hoy.", "choice": "subjunctive", "choice_verb_es": "descansen", "noun_id": None, "type": "written", "glosses": {"today": "hoy", "hoy": "today", "important": "importante", "importante": "important"}},
+            # R — Recommendation
+            {"en": "The doctor recommends that she drink more water.", "es": "El doctor recomienda que ella tome más agua.", "choice": "subjunctive", "choice_verb_es": "tome", "noun_id": "agua", "type": "written", "glosses": {"water": "agua", "agua": "water", "more": "más", "más": "more"}},
+            # D — Doubt
+            {"en": "I doubt that he's at home.", "es": "Dudo que esté en casa.", "choice": "subjunctive", "choice_verb_es": "esté", "noun_id": "casa", "type": "written", "glosses": {"home": "casa", "casa": "home"}},
+            # D — Negated belief
+            {"en": "I don't think they (f) speak English.", "es": "No creo que ellas hablen inglés.", "choice": "subjunctive", "choice_verb_es": "hablen", "noun_id": None, "type": "written", "glosses": {"English": "inglés", "inglés": "English"}},
+            # O — Open-future *cuando*
+            {"en": "Call me when you arrive.", "es": "Llámame cuando llegues.", "choice": "subjunctive", "choice_verb_es": "llegues", "noun_id": None, "type": "written", "glosses": {}},
+            # O — Ojalá
+            {"en": "I hope it rains tomorrow.", "es": "Ojalá llueva mañana.", "choice": "subjunctive", "choice_verb_es": "llueva", "noun_id": None, "type": "written", "glosses": {"tomorrow": "mañana", "mañana": "tomorrow"}},
+
+            # --- Indicative (trap cards — these look subjunctive-y but aren't) ---
+            # Affirmative *creer que*: certainty → indicative
+            {"en": "I believe he speaks Spanish well.", "es": "Creo que él habla español bien.", "choice": "indicative", "choice_verb_es": "habla", "noun_id": None, "type": "written", "glosses": {"Spanish": "español", "español": "Spanish", "well": "bien", "bien": "well"}},
+            # *Decir que* as report (not order)
+            {"en": "She says that he's coming tomorrow.", "es": "Dice que viene mañana.", "choice": "indicative", "choice_verb_es": "viene", "noun_id": None, "type": "written", "glosses": {"tomorrow": "mañana", "mañana": "tomorrow"}},
+            # Impersonal of *truth*
+            {"en": "It's true that we (f) live in Mexico.", "es": "Es verdad que nosotras vivimos en México.", "choice": "indicative", "choice_verb_es": "vivimos", "noun_id": None, "type": "written", "glosses": {"true": "verdad", "verdad": "true"}},
+            # *Saber* — knowing → indicative
+            {"en": "I know that you all are tired.", "es": "Sé que ustedes están cansados.", "choice": "indicative", "choice_verb_es": "están", "noun_id": None, "type": "written", "glosses": {"tired": "cansados", "cansados": "tired"}},
+            # Habitual *cuando*
+            {"en": "When I get home, I make dinner.", "es": "Cuando llego a casa, hago la cena.", "choice": "indicative", "choice_verb_es": "llego", "noun_id": "casa", "type": "written", "glosses": {"home": "casa", "casa": "home", "dinner": "cena", "cena": "dinner"}},
+        ],
+        'phase_2_config': {
+            'description': 'Choosing between subjunctive (triggered by WEIRDO) and indicative (no trigger / certainty / habit / past).',
+            'targets': [
+                {'word': 'subjunctive'},
+                {'word': 'indicative'},
+            ],
+        },
+        'opener_en': 'When do you have to switch into the subjunctive?',
+        'opener_es': '¿Cuándo tienes que cambiar al subjuntivo?',
+    },
     # === GL 20 — Subjunctive (present + imperfect) ===
     'grammar_subj_pres_1': {
         'title': 'Present Subjunctive (1)',
@@ -12831,7 +13071,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_1': {
         'title': 'Imperfect Subjunctive (1)',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 9,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -12947,7 +13187,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_2': {
         'title': 'Imperfect Subjunctive (2)',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 10,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -13063,7 +13303,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_3': {
         'title': 'Imperfect Subjunctive — Chat 1',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 11,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -13134,7 +13374,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_4': {
         'title': 'Imperfect Subjunctive (4)',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 12,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -13250,7 +13490,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_5': {
         'title': 'Imperfect Subjunctive (5)',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 13,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -13366,7 +13606,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_6': {
         'title': 'Imperfect Subjunctive — Chat 2',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 14,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -13437,7 +13677,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_7': {
         'title': 'Imperfect Subjunctive (7)',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 15,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -13553,7 +13793,7 @@ GRAMMAR_SITUATIONS = {
     },
     'grammar_subj_impf_8': {
         'title': 'Imperfect Subjunctive — Chat 3',
-        'grammar_level': 20,
+        'grammar_level': 20.5,
         'lesson_number': 16,
         'lesson_type': 'conjugation',
         'word_workload': [
@@ -16457,6 +16697,24 @@ _PRONOUN_EN_SUBJECT: dict[str, str] = {
     "ustedes": "you all",
 }
 
+# Subject + past-be ("I was" / "you were" / "we (m) were"). Used to render
+# the imperfect's progressive frame ("I was talking", "they were eating")
+# alongside its habitual frame ("I used to talk"). Pre-built rather than
+# constructed via _english_simple_past so the gender markers line up with
+# _PRONOUN_EN_SUBJECT verbatim.
+_PRONOUN_EN_SUBJECT_WAS: dict[str, str] = {
+    "yo": "I was",
+    "tú": "you were",
+    "él": "he was",
+    "ella": "she was",
+    "usted": "you were",
+    "nosotros": "we (m) were",
+    "nosotras": "we (f) were",
+    "ellos": "they (m) were",
+    "ellas": "they (f) were",
+    "ustedes": "you all were",
+}
+
 # Hand-curated English present-tense conjugations for verbs that don't
 # follow the default add-s rule. Keyed by EN lemma (sans "to ").
 _EN_CONJ_OVERRIDES: dict[str, dict[str, str]] = {
@@ -16649,7 +16907,22 @@ def _english_verb_form(lemma_en: str, pronoun: str, tense: str | None) -> str:
     if tense == "conditional":
         return f"{subj} would {base}"
     if tense == "imperfect":
-        return f"{subj} used to {base}"
+        # The imperfect covers both habitual ("used to X") and ongoing
+        # ("was/were X-ing") past — rendering every chip as "used to X"
+        # under-teaches the progressive sense. Pick one of the two frames
+        # via a stable hash over (lemma, pronoun) so the same cell renders
+        # identically across requests but the warmup chart as a whole shows
+        # a visible mix. hashlib (not hash()) for cross-process stability.
+        import hashlib as _hashlib
+        key = f"{base}|{pronoun}".encode("utf-8")
+        if int(_hashlib.md5(key).hexdigest(), 16) % 2 == 0:
+            return f"{subj} used to {base}"
+        subj_was = _PRONOUN_EN_SUBJECT_WAS.get(pronoun, "you were")
+        # "be" → "was/were being" is awkward; the habitual frame reads better
+        # for state verbs, so route them back through it.
+        if base in ("be", "have", "know", "live", "want", "need", "love", "like"):
+            return f"{subj} used to {base}"
+        return f"{subj_was} {_english_gerund(base)}"
     if tense == "imperfect_subjunctive":
         # English doesn't mark subjunctive on most verbs; the simple past
         # is the closest natural rendering ("if I spoke", "if I had").

@@ -20,7 +20,7 @@ QUIZ_SCORE_TO_GL: dict[str, float] = {
     "G1": 0,       # Can't conjugate present tense
     "G101": 3,     # Knows regular present tense
     "G701": 9,     # Knows through Ir A + Infinitive
-    "G2001": 20,   # Knows subjunctive-level grammar
+    "G2001": 20.5, # Knows subjunctive (present + imperfect) — top of curriculum
 }
 
 # Maps new onboarding V2 GL string labels to backend numeric GL.

@@ -410,6 +410,10 @@ class GrammarConfigResponse(BaseModel):
     phase_2_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
     lesson_type: Optional[str] = None       # "conjugation" | "rule"
     drill_sentences: Optional[List[Dict[str, Any]]] = Field(default=None, json_schema_extra=_freeform_object_list_schema)
+    # For drill_type == "binary_choice" — the two buttons rendered by the FE
+    # BinaryChoicePhase. Shape: {"left": {"value": str, "label": str},
+    # "right": {"value": str, "label": str}}.
+    binary_choice_config: Optional[Dict[str, Any]] = Field(default=None, json_schema_extra=_freeform_object_schema)
     # Pre-drill chart that renders as the 'intro' phase with animated reveal +
     # recall quiz. The drill itself no longer shows any chart at the top —
     # active recall happens through the drill prompts alone.

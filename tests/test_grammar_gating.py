@@ -366,8 +366,8 @@ def test_coming_soon_blocks_even_with_high_vl():
 
 
 def test_not_gated_at_max_gl():
-    """GL=20 → never gated regardless of VL."""
-    assert get_next_gate(20, 9999) is None
+    """GL=20.5 (the final grammar level) → never gated regardless of VL."""
+    assert get_next_gate(20.5, 9999) is None
 
 
 def test_grammar_ahead_of_vocab():
@@ -558,13 +558,13 @@ def test_quiz_g701_assigns_gl_9(db):
 
 
 def test_quiz_g2001_assigns_gl_20(db):
-    """Quiz score G2001 → GL 20, ALL existing grammar completed."""
+    """Quiz score G2001 → top GL (20.5), ALL existing grammar completed."""
     from app.api.v1.onboarding import QUIZ_SCORE_TO_GL, _auto_complete_grammar
     _ensure_grammar_situations_exist(db)
     user = _make_user(db)
 
     target_gl = QUIZ_SCORE_TO_GL["G2001"]
-    assert target_gl == 20
+    assert target_gl == 20.5
 
     completed = _auto_complete_grammar(db, user.id, target_gl)
     db.flush()
