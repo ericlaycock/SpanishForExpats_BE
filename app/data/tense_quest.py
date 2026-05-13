@@ -253,7 +253,10 @@ def _is_playable_drill(situation_id: str) -> bool:
     # table — the quest is rules + sentences, no warmup. They only become a
     # Tense-Quest module via `_TENSE_GROUP_DEFS`, so this can't pull in the
     # non-verb rule lessons (pronouns/gender/por-para/object-pronouns).
-    if drill_type == "rule" and config.get("intro_chart"):
+    # `binary_choice` is the A/B-decision shape of pret-vs-imperfect and the
+    # new subjunctive-triggers module — same payload as `rule` from
+    # tense-quest's perspective (rule cards + sentences, no warmup table).
+    if drill_type in ("rule", "binary_choice") and config.get("intro_chart"):
         return True
     return False
 

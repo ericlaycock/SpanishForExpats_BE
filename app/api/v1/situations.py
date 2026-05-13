@@ -929,6 +929,7 @@ async def get_grammar_config_endpoint(
         phase_2_config=config.get("phase_2_config"),
         lesson_type=config.get("lesson_type"),
         drill_sentences=drill_sentences,
+        binary_choice_config=config.get("binary_choice_config"),
         intro_chart=derive_intro_chart(config),
     )
 

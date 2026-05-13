@@ -90,6 +90,9 @@ def test_no_unexpected_drill_types():
     known = {
         "skip", "conjugation", "article_matching",
         "ir_a_inf", "gustar", "gustar_prefix", "rule",
+        # `binary_choice` is the A/B-decision drill rendered by
+        # BinaryChoicePhase.tsx (subjunctive vs. indicative, pret vs. imperfect).
+        "binary_choice",
     }
     actual = {cfg.get("drill_type") for cfg in GRAMMAR_SITUATIONS.values()}
     unknown = actual - known

@@ -366,6 +366,14 @@ GRAMMAR_STRUCTURES = {
             "She was crossing the street when the car hit her. Did you see what happened?",
         ],
     },
+    "grammar_subj_triggers": {
+        "grammar_structure": "subjunctive triggers (WEIRDO — wishes, emotions, impersonal expressions, recommendations, doubt/denial, ojalá/cuando-future) vs indicative (certainty, habit, past, simple report)",
+        "examples": [
+            "I want you to come early. Do you need me to bring anything?",
+            "It's important that we leave on time. Do you think the meeting will run long?",
+            "I doubt that he knows the answer — but I'm sure she does.",
+        ],
+    },
     "grammar_pret_spelling": {
         "grammar_structure": "preterite spelling-change yo forms (-gué, -qué, -cé) for -gar / -car / -zar verbs",
         "examples": [
