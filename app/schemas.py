@@ -446,6 +446,11 @@ class GrammarUnit(BaseModel):
     completed: bool
     total_lessons: int
     completed_lessons: int
+    # The lockable category this unit lives under (None = foundation).
+    # The FE groups units by this field on the dashboard and overlays a lock
+    # icon on the whole category bucket when its unlock state is false.
+    category: Optional[str] = None
+    category_locked: bool = False
 
 
 class GrammarCompletedResponse(BaseModel):

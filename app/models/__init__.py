@@ -33,6 +33,7 @@ BookedCall = models_legacy.BookedCall
 Cohort = models_legacy.Cohort
 CohortRegistration = models_legacy.CohortRegistration
 CohortWaitlist = models_legacy.CohortWaitlist
+UserCategoryProgress = models_legacy.UserCategoryProgress
 REPORT_CATEGORIES = models_legacy.REPORT_CATEGORIES
 REPORT_STATUSES = models_legacy.REPORT_STATUSES
 # Base is imported from database, not from models.py
@@ -72,6 +73,7 @@ __all__ = [
     "Cohort",
     "CohortRegistration",
     "CohortWaitlist",
+    "UserCategoryProgress",
     "REPORT_CATEGORIES",
     "REPORT_STATUSES",
     "LLMRequest",

@@ -348,12 +348,26 @@ async def get_completed_grammar(
         ).all()
     }
 
+    # Per-category unlock state. Missing rows = locked (new user). The map's
+    # `gl_to_category` returns None for foundation GLs which stay open.
+    from app.data.grammar_categories import gl_to_category
+    from app.models import UserCategoryProgress
+    cat_rows = (
+        db.query(UserCategoryProgress)
+        .filter(UserCategoryProgress.user_id == current_user.id)
+        .all()
+    )
+    unlocked_cats = {row.category for row in cat_rows if row.unlocked_at is not None}
+
     result: List[GrammarUnit] = []
     for gl in sorted(GL_VL_THRESHOLDS.keys()):
         from app.data.grammar_situations import get_situations_for_gl
         situations_at_gl = get_situations_for_gl(gl)
         total_lessons = len(situations_at_gl)
         completed_lessons = sum(1 for sid in situations_at_gl if sid in completed_situations)
+
+        category = gl_to_category(gl)
+        category_locked = category is not None and category not in unlocked_cats
 
         result.append(GrammarUnit(
             grammar_level=gl,
@@ -363,6 +377,8 @@ async def get_completed_grammar(
             completed=total_lessons > 0 and completed_lessons == total_lessons,
             total_lessons=total_lessons,
             completed_lessons=completed_lessons,
+            category=category,
+            category_locked=category_locked,
         ))
 
     return GrammarCompletedResponse(grammar_units=result)

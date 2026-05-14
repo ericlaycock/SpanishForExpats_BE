@@ -513,3 +513,37 @@ class BookedCall(Base):
     funnel_session_id = Column(String(64), nullable=True, index=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     canceled_at = Column(DateTime(timezone=True), nullable=True)
+
+
+class UserCategoryProgress(Base):
+    """Per-user grammar-category unlock state.
+
+    One row per `(user_id, category)`. `unlocked_at IS NULL` means the
+    category is locked (the diagnostic hasn't been completed yet). A
+    non-null `unlocked_at` means unlocked. `diagnostic_result` records
+    'ok' (passed all sample prompts) or 'needs_work' (unlocked anyway,
+    diagnostic showed gaps). New users are created with no rows; rows
+    appear when they tap a locked category and complete its diagnostic.
+    Existing users are grandfathered to fully-unlocked at migration time
+    (`migrations/versions/044_user_category_progress.py`).
+    """
+    __tablename__ = "user_category_progress"
+    __table_args__ = (
+        UniqueConstraint("user_id", "category", name="uq_user_category"),
+        CheckConstraint(
+            "category IN ('present','past','future','modals','subjunctive')",
+            name="ck_user_category_value",
+        ),
+        CheckConstraint(
+            "diagnostic_result IS NULL OR diagnostic_result IN ('ok','ok_slow','needs_work')",
+            name="ck_user_category_diag_result",
+        ),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    category = Column(String, nullable=False)
+    diagnostic_result = Column(String, nullable=True)
+    unlocked_at = Column(DateTime(timezone=True), nullable=True)
+    diagnostic_at = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
