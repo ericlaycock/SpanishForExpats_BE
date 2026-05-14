@@ -31,6 +31,14 @@ class User(Base):
     # real onboarding `name`. Unique case-insensitively (see migration 042); the
     # FE forces players to pick one before they reach the map.
     tq_username = Column(String(20), nullable=True)
+    # Currently-equipped Tense Quest avatar id (FK quest_avatars.id). NULL
+    # means "use the default sprite" — the FE renders HeroSprite when the
+    # column is null OR when the user owns nothing yet. Migration 045
+    # grandfathered every existing user with the free 'hero' avatar in their
+    # inventory, but did NOT set tq_avatar_id on existing rows; we keep that
+    # decision to let users opt in to the new selector rather than
+    # retroactively "equipping" something for them.
+    tq_avatar_id = Column(String, ForeignKey("quest_avatars.id"), nullable=True)
 
     # Onboarding V2 profile fields
     name = Column(String, nullable=True)
@@ -513,3 +521,87 @@ class BookedCall(Base):
     funnel_session_id = Column(String(64), nullable=True, index=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     canceled_at = Column(DateTime(timezone=True), nullable=True)
+
+
+class UserCategoryProgress(Base):
+    """Per-user grammar-category unlock state.
+
+    One row per `(user_id, category)`. `unlocked_at IS NULL` means the
+    category is locked (the diagnostic hasn't been completed yet). A
+    non-null `unlocked_at` means unlocked. `diagnostic_result` records
+    'ok' (passed all sample prompts) or 'needs_work' (unlocked anyway,
+    diagnostic showed gaps). New users are created with no rows; rows
+    appear when they tap a locked category and complete its diagnostic.
+    Existing users are grandfathered to fully-unlocked at migration time
+    (`migrations/versions/044_user_category_progress.py`).
+    """
+    __tablename__ = "user_category_progress"
+    __table_args__ = (
+        UniqueConstraint("user_id", "category", name="uq_user_category"),
+        CheckConstraint(
+            "category IN ('present','past','future','modals','subjunctive')",
+            name="ck_user_category_value",
+        ),
+        CheckConstraint(
+            "diagnostic_result IS NULL OR diagnostic_result IN ('ok','ok_slow','needs_work')",
+            name="ck_user_category_diag_result",
+        ),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    category = Column(String, nullable=False)
+    diagnostic_result = Column(String, nullable=True)
+    unlocked_at = Column(DateTime(timezone=True), nullable=True)
+    diagnostic_at = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+
+# ─── Quest Shop ─────────────────────────────────────────────────────────────
+
+
+class QuestAvatar(Base):
+    """Tense Quest avatar catalog. Pixel sprites are rendered FE-side from
+    SVG <rect> grids in components/tensequest/Sprites.tsx; `image_path` is a
+    sentinel id the FE maps to the right sprite renderer, not a public-asset
+    path. Catalog rows seeded by migration 045."""
+    __tablename__ = "quest_avatars"
+    __table_args__ = (
+        CheckConstraint("price_coins >= 0", name="ck_quest_avatars_price_nonneg"),
+    )
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    image_path = Column(String, nullable=False)
+    price_coins = Column(Integer, nullable=False)
+    is_default = Column(Boolean, nullable=False, server_default="false", default=False)
+    sort_order = Column(Integer, nullable=False, server_default="0", default=0)
+
+
+class UserQuestAvatar(Base):
+    """One row per (user, avatar) the user owns. Insertion comes from a
+    successful purchase; never deleted (you own it forever once bought).
+    Equipped avatar lives on `users.tq_avatar_id`."""
+    __tablename__ = "user_quest_avatars"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
+    avatar_id = Column(String, ForeignKey("quest_avatars.id"), primary_key=True)
+    acquired_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+
+class TenseQuestCoinSpend(Base):
+    """Audit row per coin-spending event. Subtracted only by
+    `_user_balance()` (shop affordability check); the leaderboard's
+    `_user_points()` continues to sum lifetime earned without subtracting
+    spends, so spending coins never affects rank. `reason` is a free-form
+    label like 'avatar:pixel-fox'."""
+    __tablename__ = "tense_quest_coin_spends"
+    __table_args__ = (
+        CheckConstraint("amount > 0", name="ck_tq_coin_spend_amount_positive"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    amount = Column(Integer, nullable=False)
+    reason = Column(String, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)

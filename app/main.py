@@ -279,6 +279,9 @@ app.include_router(subscription.router, prefix="/v1/subscription", tags=["subscr
 logger.info("  ✅ /v1/subscription")
 app.include_router(situations.router, prefix="/v1/situations", tags=["situations"])
 logger.info("  ✅ /v1/situations (GET /, GET /{id}, POST /{id}/start, POST /{id}/complete)")
+from app.api.v1 import categories
+app.include_router(categories.router, prefix="/v1/categories", tags=["categories"])
+logger.info("  ✅ /v1/categories (GET /status, POST /{category}/diagnostic)")
 app.include_router(user_words.router, prefix="/v1/user/words", tags=["user-words"])
 logger.info("  ✅ /v1/user/words")
 app.include_router(conversations.router, prefix="/v1/conversations", tags=["conversations"])
