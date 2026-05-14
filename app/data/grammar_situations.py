@@ -9344,18 +9344,18 @@ GRAMMAR_SITUATIONS = {
             'right': {'value': 'imperfect', 'label': 'Imperfect'},
         },
         'drill_sentences': [
-            {"en": "I was reading when she arrived.", "es": "Yo leía cuando ella llegó.", "choice": "imperfect", "choice_verb_es": "leía", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "We used to play every day.", "es": "Jugábamos todos los días.", "choice": "imperfect", "choice_verb_es": "Jugábamos", "noun_id": None, "type": "written", "glosses": {"day": "día", "days": "días", "día": "day", "días": "days"}},
-            {"en": "He ate the bread.", "es": "Él comió el pan.", "choice": "preterite", "choice_verb_es": "comió", "noun_id": "pan", "type": "written", "glosses": {"bread": "pan", "pan": "bread"}},
-            {"en": "She was eating when I called.", "es": "Ella comía cuando yo llamé.", "choice": "imperfect", "choice_verb_es": "comía", "noun_id": None, "type": "written", "glosses": {}},
-            {"en": "It was raining all morning.", "es": "Llovía toda la mañana.", "choice": "imperfect", "choice_verb_es": "Llovía", "noun_id": None, "type": "written", "glosses": {"morning": "mañana", "mañana": "morning"}},
-            {"en": "It rained yesterday.", "es": "Llovió ayer.", "choice": "preterite", "choice_verb_es": "Llovió", "noun_id": None, "type": "written", "glosses": {"yesterday": "ayer", "ayer": "yesterday"}},
-            {"en": "I was tired (as a state, no time limit).", "es": "Yo estaba cansada.", "choice": "imperfect", "choice_verb_es": "estaba", "noun_id": None, "type": "written", "glosses": {"tired": "cansada", "cansada": "tired"}},
-            {"en": "I was tired for an hour (bounded).", "es": "Estuve cansado por una hora.", "choice": "preterite", "choice_verb_es": "Estuve", "noun_id": "hora", "type": "written", "glosses": {"hour": "hora", "tired": "cansado", "hora": "hour", "cansado": "tired"}},
-            {"en": "When I was a kid, I used to live in Mexico.", "es": "Cuando era niña, vivía en México.", "choice": "imperfect", "choice_verb_es": "vivía", "noun_id": None, "type": "written", "glosses": {"kid": "niña", "niña": "kid"}},
-            {"en": "She lived in Mexico for five years.", "es": "Ella vivió en México por cinco años.", "choice": "preterite", "choice_verb_es": "vivió", "noun_id": None, "type": "written", "glosses": {"five": "cinco", "years": "años", "cinco": "five", "años": "years"}},
-            {"en": "Every Sunday they would call their mom.", "es": "Cada domingo llamaban a su mamá.", "choice": "imperfect", "choice_verb_es": "llamaban", "noun_id": None, "type": "written", "glosses": {"Sunday": "domingo", "domingo": "Sunday", "mom": "mamá", "mamá": "mom"}},
-            {"en": "Last night the dog barked twice.", "es": "Anoche el perro ladró dos veces.", "choice": "preterite", "choice_verb_es": "ladró", "noun_id": "perro", "type": "written", "glosses": {"last night": "anoche", "anoche": "last night", "dog": "perro", "perro": "dog", "twice": "dos veces", "dos veces": "twice"}},
+            {"en": "I was reading when she arrived.", "es": "Yo leía cuando ella llegó.", "choice": "imperfect", "choice_verb_es": "leía", "choice_distractor_es": "leí", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "We used to play every day.", "es": "Jugábamos todos los días.", "choice": "imperfect", "choice_verb_es": "Jugábamos", "choice_distractor_es": "Jugamos", "noun_id": None, "type": "written", "glosses": {"day": "día", "days": "días", "día": "day", "días": "days"}},
+            {"en": "He ate the bread.", "es": "Él comió el pan.", "choice": "preterite", "choice_verb_es": "comió", "choice_distractor_es": "comía", "noun_id": "pan", "type": "written", "glosses": {"bread": "pan", "pan": "bread"}},
+            {"en": "She was eating when I called.", "es": "Ella comía cuando yo llamé.", "choice": "imperfect", "choice_verb_es": "comía", "choice_distractor_es": "comió", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "It was raining all morning.", "es": "Llovía toda la mañana.", "choice": "imperfect", "choice_verb_es": "Llovía", "choice_distractor_es": "Llovió", "noun_id": None, "type": "written", "glosses": {"morning": "mañana", "mañana": "morning"}},
+            {"en": "It rained yesterday.", "es": "Llovió ayer.", "choice": "preterite", "choice_verb_es": "Llovió", "choice_distractor_es": "Llovía", "noun_id": None, "type": "written", "glosses": {"yesterday": "ayer", "ayer": "yesterday"}},
+            {"en": "I was tired (as a state, no time limit).", "es": "Yo estaba cansada.", "choice": "imperfect", "choice_verb_es": "estaba", "choice_distractor_es": "estuve", "noun_id": None, "type": "written", "glosses": {"tired": "cansada", "cansada": "tired"}},
+            {"en": "I was tired for an hour (bounded).", "es": "Estuve cansado por una hora.", "choice": "preterite", "choice_verb_es": "Estuve", "choice_distractor_es": "Estaba", "noun_id": "hora", "type": "written", "glosses": {"hour": "hora", "tired": "cansado", "hora": "hour", "cansado": "tired"}},
+            {"en": "When I was a kid, I used to live in Mexico.", "es": "Cuando era niña, vivía en México.", "choice": "imperfect", "choice_verb_es": "vivía", "choice_distractor_es": "viví", "noun_id": None, "type": "written", "glosses": {"kid": "niña", "niña": "kid"}},
+            {"en": "She lived in Mexico for five years.", "es": "Ella vivió en México por cinco años.", "choice": "preterite", "choice_verb_es": "vivió", "choice_distractor_es": "vivía", "noun_id": None, "type": "written", "glosses": {"five": "cinco", "years": "años", "cinco": "five", "años": "years"}},
+            {"en": "Every Sunday they would call their mom.", "es": "Cada domingo llamaban a su mamá.", "choice": "imperfect", "choice_verb_es": "llamaban", "choice_distractor_es": "llamaron", "noun_id": None, "type": "written", "glosses": {"Sunday": "domingo", "domingo": "Sunday", "mom": "mamá", "mamá": "mom"}},
+            {"en": "Last night the dog barked twice.", "es": "Anoche el perro ladró dos veces.", "choice": "preterite", "choice_verb_es": "ladró", "choice_distractor_es": "ladraba", "noun_id": "perro", "type": "written", "glosses": {"last night": "anoche", "anoche": "last night", "dog": "perro", "perro": "dog", "twice": "dos veces", "dos veces": "twice"}},
         ],
         'phase_2_config': {
             'description': 'Choosing between preterite (completed) and imperfect (ongoing/habitual)',
@@ -12237,35 +12237,35 @@ GRAMMAR_SITUATIONS = {
         'drill_sentences': [
             # --- Subjunctive triggers ---
             # W — Wishes
-            {"en": "I want you to come to the party.", "es": "Quiero que vengas a la fiesta.", "choice": "subjunctive", "choice_verb_es": "vengas", "noun_id": "fiesta", "type": "written", "glosses": {"party": "fiesta", "fiesta": "party"}},
+            {"en": "I want you to come to the party.", "es": "Quiero que vengas a la fiesta.", "choice": "subjunctive", "choice_verb_es": "vengas", "choice_distractor_es": "vienes", "noun_id": "fiesta", "type": "written", "glosses": {"party": "fiesta", "fiesta": "party"}},
             # W — different subject, female speaker
-            {"en": "She needs us (f) to call the doctor.", "es": "Necesita que nosotras llamemos al doctor.", "choice": "subjunctive", "choice_verb_es": "llamemos", "noun_id": "doctor", "type": "written", "glosses": {"doctor": "doctor", "doctor ": "doctor"}},
+            {"en": "She needs us (f) to call the doctor.", "es": "Necesita que nosotras llamemos al doctor.", "choice": "subjunctive", "choice_verb_es": "llamemos", "choice_distractor_es": "llamamos", "noun_id": "doctor", "type": "written", "glosses": {"doctor": "doctor", "doctor ": "doctor"}},
             # E — Emotion
-            {"en": "I'm glad that you (formal) are here.", "es": "Me alegra que usted esté aquí.", "choice": "subjunctive", "choice_verb_es": "esté", "noun_id": None, "type": "written", "glosses": {"here": "aquí", "aquí": "here"}},
+            {"en": "I'm glad that you (formal) are here.", "es": "Me alegra que usted esté aquí.", "choice": "subjunctive", "choice_verb_es": "esté", "choice_distractor_es": "está", "noun_id": None, "type": "written", "glosses": {"here": "aquí", "aquí": "here"}},
             # I — Impersonal value judgment
-            {"en": "It's important that you (pl.) rest today.", "es": "Es importante que ustedes descansen hoy.", "choice": "subjunctive", "choice_verb_es": "descansen", "noun_id": None, "type": "written", "glosses": {"today": "hoy", "hoy": "today", "important": "importante", "importante": "important"}},
+            {"en": "It's important that you (pl.) rest today.", "es": "Es importante que ustedes descansen hoy.", "choice": "subjunctive", "choice_verb_es": "descansen", "choice_distractor_es": "descansan", "noun_id": None, "type": "written", "glosses": {"today": "hoy", "hoy": "today", "important": "importante", "importante": "important"}},
             # R — Recommendation
-            {"en": "The doctor recommends that she drink more water.", "es": "El doctor recomienda que ella tome más agua.", "choice": "subjunctive", "choice_verb_es": "tome", "noun_id": "agua", "type": "written", "glosses": {"water": "agua", "agua": "water", "more": "más", "más": "more"}},
+            {"en": "The doctor recommends that she drink more water.", "es": "El doctor recomienda que ella tome más agua.", "choice": "subjunctive", "choice_verb_es": "tome", "choice_distractor_es": "toma", "noun_id": "agua", "type": "written", "glosses": {"water": "agua", "agua": "water", "more": "más", "más": "more"}},
             # D — Doubt
-            {"en": "I doubt that he's at home.", "es": "Dudo que esté en casa.", "choice": "subjunctive", "choice_verb_es": "esté", "noun_id": "casa", "type": "written", "glosses": {"home": "casa", "casa": "home"}},
+            {"en": "I doubt that he's at home.", "es": "Dudo que esté en casa.", "choice": "subjunctive", "choice_verb_es": "esté", "choice_distractor_es": "está", "noun_id": "casa", "type": "written", "glosses": {"home": "casa", "casa": "home"}},
             # D — Negated belief
-            {"en": "I don't think they (f) speak English.", "es": "No creo que ellas hablen inglés.", "choice": "subjunctive", "choice_verb_es": "hablen", "noun_id": None, "type": "written", "glosses": {"English": "inglés", "inglés": "English"}},
+            {"en": "I don't think they (f) speak English.", "es": "No creo que ellas hablen inglés.", "choice": "subjunctive", "choice_verb_es": "hablen", "choice_distractor_es": "hablan", "noun_id": None, "type": "written", "glosses": {"English": "inglés", "inglés": "English"}},
             # O — Open-future *cuando*
-            {"en": "Call me when you arrive.", "es": "Llámame cuando llegues.", "choice": "subjunctive", "choice_verb_es": "llegues", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "Call me when you arrive.", "es": "Llámame cuando llegues.", "choice": "subjunctive", "choice_verb_es": "llegues", "choice_distractor_es": "llegas", "noun_id": None, "type": "written", "glosses": {}},
             # O — Ojalá
-            {"en": "I hope it rains tomorrow.", "es": "Ojalá llueva mañana.", "choice": "subjunctive", "choice_verb_es": "llueva", "noun_id": None, "type": "written", "glosses": {"tomorrow": "mañana", "mañana": "tomorrow"}},
+            {"en": "I hope it rains tomorrow.", "es": "Ojalá llueva mañana.", "choice": "subjunctive", "choice_verb_es": "llueva", "choice_distractor_es": "llueve", "noun_id": None, "type": "written", "glosses": {"tomorrow": "mañana", "mañana": "tomorrow"}},
 
             # --- Indicative (trap cards — these look subjunctive-y but aren't) ---
             # Affirmative *creer que*: certainty → indicative
-            {"en": "I believe he speaks Spanish well.", "es": "Creo que él habla español bien.", "choice": "indicative", "choice_verb_es": "habla", "noun_id": None, "type": "written", "glosses": {"Spanish": "español", "español": "Spanish", "well": "bien", "bien": "well"}},
+            {"en": "I believe he speaks Spanish well.", "es": "Creo que él habla español bien.", "choice": "indicative", "choice_verb_es": "habla", "choice_distractor_es": "hable", "noun_id": None, "type": "written", "glosses": {"Spanish": "español", "español": "Spanish", "well": "bien", "bien": "well"}},
             # *Decir que* as report (not order)
-            {"en": "She says that he's coming tomorrow.", "es": "Dice que viene mañana.", "choice": "indicative", "choice_verb_es": "viene", "noun_id": None, "type": "written", "glosses": {"tomorrow": "mañana", "mañana": "tomorrow"}},
+            {"en": "She says that he's coming tomorrow.", "es": "Dice que viene mañana.", "choice": "indicative", "choice_verb_es": "viene", "choice_distractor_es": "venga", "noun_id": None, "type": "written", "glosses": {"tomorrow": "mañana", "mañana": "tomorrow"}},
             # Impersonal of *truth*
-            {"en": "It's true that we (f) live in Mexico.", "es": "Es verdad que nosotras vivimos en México.", "choice": "indicative", "choice_verb_es": "vivimos", "noun_id": None, "type": "written", "glosses": {"true": "verdad", "verdad": "true"}},
+            {"en": "It's true that we (f) live in Mexico.", "es": "Es verdad que nosotras vivimos en México.", "choice": "indicative", "choice_verb_es": "vivimos", "choice_distractor_es": "vivamos", "noun_id": None, "type": "written", "glosses": {"true": "verdad", "verdad": "true"}},
             # *Saber* — knowing → indicative
-            {"en": "I know that you all are tired.", "es": "Sé que ustedes están cansados.", "choice": "indicative", "choice_verb_es": "están", "noun_id": None, "type": "written", "glosses": {"tired": "cansados", "cansados": "tired"}},
+            {"en": "I know that you all are tired.", "es": "Sé que ustedes están cansados.", "choice": "indicative", "choice_verb_es": "están", "choice_distractor_es": "estén", "noun_id": None, "type": "written", "glosses": {"tired": "cansados", "cansados": "tired"}},
             # Habitual *cuando*
-            {"en": "When I get home, I make dinner.", "es": "Cuando llego a casa, hago la cena.", "choice": "indicative", "choice_verb_es": "llego", "noun_id": "casa", "type": "written", "glosses": {"home": "casa", "casa": "home", "dinner": "cena", "cena": "dinner"}},
+            {"en": "When I get home, I make dinner.", "es": "Cuando llego a casa, hago la cena.", "choice": "indicative", "choice_verb_es": "llego", "choice_distractor_es": "llegue", "noun_id": "casa", "type": "written", "glosses": {"home": "casa", "casa": "home", "dinner": "cena", "cena": "dinner"}},
         ],
         'phase_2_config': {
             'description': 'Choosing between subjunctive (triggered by WEIRDO) and indicative (no trigger / certainty / habit / past).',

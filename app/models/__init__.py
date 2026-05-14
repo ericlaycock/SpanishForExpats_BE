@@ -34,6 +34,9 @@ Cohort = models_legacy.Cohort
 CohortRegistration = models_legacy.CohortRegistration
 CohortWaitlist = models_legacy.CohortWaitlist
 UserCategoryProgress = models_legacy.UserCategoryProgress
+QuestAvatar = models_legacy.QuestAvatar
+UserQuestAvatar = models_legacy.UserQuestAvatar
+TenseQuestCoinSpend = models_legacy.TenseQuestCoinSpend
 REPORT_CATEGORIES = models_legacy.REPORT_CATEGORIES
 REPORT_STATUSES = models_legacy.REPORT_STATUSES
 # Base is imported from database, not from models.py
@@ -74,6 +77,9 @@ __all__ = [
     "CohortRegistration",
     "CohortWaitlist",
     "UserCategoryProgress",
+    "QuestAvatar",
+    "UserQuestAvatar",
+    "TenseQuestCoinSpend",
     "REPORT_CATEGORIES",
     "REPORT_STATUSES",
     "LLMRequest",

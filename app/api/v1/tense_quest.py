@@ -58,11 +58,22 @@ class TenseGroupSummary(BaseModel):
     diagnostic: Optional[str] = None  # 'ok' | 'needs_work' | None (not assessed)
 
 
+class AvatarInfo(BaseModel):
+    """The equipped Tense Quest avatar — surfaced on the leaderboard so each
+    rank shows its owner's pixel sprite, and on the overview so the top bar
+    can render the current player's avatar. `id` is the `quest_avatars.id`
+    sentinel the FE maps to a renderer (see Sprites.tsx)."""
+    id: str
+    name: str
+    image_path: str
+
+
 class LeaderboardEntry(BaseModel):
     rank: int
     name: str
     points: int
     is_you: bool
+    avatar: Optional[AvatarInfo] = None
 
 
 class Leaderboard(BaseModel):
@@ -70,6 +81,39 @@ class Leaderboard(BaseModel):
     you_rank: int
     you_points: int
     total_players: int
+
+
+class ShopAvatar(BaseModel):
+    id: str
+    name: str
+    image_path: str
+    price_coins: int
+    is_default: bool
+    sort_order: int
+    owned: bool
+    equipped: bool
+
+
+class ShopResponse(BaseModel):
+    avatars: list[ShopAvatar]
+    lifetime_earned: int  # = _user_points; leaderboard truth, unchanged by spends
+    current_balance: int  # = lifetime_earned − sum(spends); the spendable wallet
+
+
+class PurchaseResponse(BaseModel):
+    avatar_id: str
+    owned: bool
+    equipped: bool
+    current_balance: int
+
+
+class EquipRequest(BaseModel):
+    avatar_id: str
+
+
+class EquipResponse(BaseModel):
+    avatar_id: str
+    equipped: bool
 
 
 class ReviewCard(BaseModel):
@@ -193,6 +237,13 @@ class QuestSentence(BaseModel):
     blank_es: Optional[str] = None  # Spanish with the conjugated verb shown as `____`
     glosses: dict[str, str] = Field(default_factory=dict)
     response_mode: str  # 'type' | 'speak'
+    # The fields below are populated only for `drill_type=binary_choice`
+    # lessons (pret-vs-imperfect, subjunctive triggers). They let the FE
+    # render A/B buttons (the correct verb form vs the wrong-tense/mood
+    # distractor) instead of a typed input.
+    choice: Optional[str] = None              # 'preterite' / 'imperfect' / 'subjunctive' / 'indicative'
+    choice_verb_es: Optional[str] = None      # the verb form the learner picks
+    choice_distractor_es: Optional[str] = None  # the wrong form (the OTHER button)
 
 
 class DrillPayload(BaseModel):
@@ -202,6 +253,12 @@ class DrillPayload(BaseModel):
     title: str
     tense_label: str
     video_embed_id: Optional[str] = None
+    # 'conjugation' / 'rule' / 'binary_choice' — FE QuestRunner reads this
+    # to route between SentenceGauntlet and BinaryChoiceGauntlet.
+    drill_type: Optional[str] = None
+    # Display labels for the A/B buttons when drill_type=binary_choice.
+    # Shape: {"left": {"value": str, "label": str}, "right": {...}}.
+    binary_choice_config: Optional[dict] = None
     rule_cards: list[RuleCard]
     charts: list[VerbChart]
     conjugation_targets: list[ConjugationTarget]
@@ -309,8 +366,10 @@ def _sentence_coins(db: Session, user_id) -> int:
 
 
 def _user_points(db: Session, user_id) -> int:
-    """A user's coin total = drill completions (1 each) + correct in-drill
-    sentences (1 each) + coins from reviews."""
+    """A user's **lifetime earned** coin total = drill completions (1 each) +
+    correct in-drill sentences (1 each) + coins from reviews. This is what
+    the leaderboard reads, so it is intentionally **never** reduced by coin
+    spends — the leaderboard reflects effort over time, not wallet balance."""
     completions = (
         db.query(func.count(TenseQuestDrillCompletion.id))
         .filter(TenseQuestDrillCompletion.user_id == user_id)
@@ -318,6 +377,33 @@ def _user_points(db: Session, user_id) -> int:
         or 0
     )
     return int(completions) + _sentence_coins(db, user_id) + _review_coins(db, user_id)
+
+
+def _user_balance(db: Session, user_id) -> int:
+    """Spendable balance = lifetime earned − sum(positive spends). Used only
+    by the shop's affordability check and the wallet UI. The leaderboard's
+    `_user_points` does NOT subtract this; that's the whole point of the
+    split — buying an avatar can never demote your rank."""
+    from app.models import TenseQuestCoinSpend
+    earned = _user_points(db, user_id)
+    spent = (
+        db.query(func.coalesce(func.sum(TenseQuestCoinSpend.amount), 0))
+        .filter(TenseQuestCoinSpend.user_id == user_id)
+        .scalar()
+        or 0
+    )
+    return max(0, earned - int(spent))
+
+
+def _avatar_info_for(db: Session, user: User) -> Optional[AvatarInfo]:
+    """The user's equipped avatar (None → FE renders the default sprite)."""
+    from app.models import QuestAvatar
+    if not user or not user.tq_avatar_id:
+        return None
+    av = db.query(QuestAvatar).filter(QuestAvatar.id == user.tq_avatar_id).one_or_none()
+    if not av:
+        return None
+    return AvatarInfo(id=av.id, name=av.name, image_path=av.image_path)
 
 
 def _leaderboard(db: Session, current_user: User) -> Leaderboard:
@@ -361,7 +447,13 @@ def _leaderboard(db: Session, current_user: User) -> Leaderboard:
             you_points = pts
             you_rank = i + 1
         if i < 10:
-            entries.append(LeaderboardEntry(rank=i + 1, name=_public_name(u, i + 1), points=pts, is_you=is_you))
+            entries.append(LeaderboardEntry(
+                rank=i + 1,
+                name=_public_name(u, i + 1),
+                points=pts,
+                is_you=is_you,
+                avatar=_avatar_info_for(db, u) if u else None,
+            ))
     return Leaderboard(
         entries=entries,
         you_rank=you_rank,
@@ -583,6 +675,8 @@ async def drill_payload(
         title=payload["title"],
         tense_label=payload["tense_label"],
         video_embed_id=payload.get("video_embed_id"),
+        drill_type=payload.get("drill_type"),
+        binary_choice_config=payload.get("binary_choice_config"),
         rule_cards=[RuleCard(**c) for c in payload["rule_cards"]],
         charts=[VerbChart(**c) for c in payload["charts"]],
         conjugation_targets=[ConjugationTarget(**t) for t in payload["conjugation_targets"]],
@@ -772,3 +866,136 @@ async def review_shuffle(
         c.deck_position = p
     db.commit()
     return ShuffleResponse(shuffled=len(cards))
+
+
+# ─── Quest Shop ─────────────────────────────────────────────────────────────
+
+
+@router.get("/shop", response_model=ShopResponse)
+async def get_shop(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Avatar catalog + the user's lifetime/spendable coin split.
+
+    `lifetime_earned` is the leaderboard truth (never reduced by spends).
+    `current_balance` is what's actually available to spend in the shop.
+    Owned/equipped are flagged per avatar so the FE can render Buy vs Equip
+    vs "Equipped" states without extra round-trips.
+    """
+    from app.models import QuestAvatar, UserQuestAvatar
+    avatars_q = db.query(QuestAvatar).order_by(QuestAvatar.sort_order, QuestAvatar.id).all()
+    owned_ids = {
+        row.avatar_id
+        for row in db.query(UserQuestAvatar)
+        .filter(UserQuestAvatar.user_id == current_user.id)
+        .all()
+    }
+    equipped_id = current_user.tq_avatar_id
+    return ShopResponse(
+        avatars=[
+            ShopAvatar(
+                id=a.id,
+                name=a.name,
+                image_path=a.image_path,
+                price_coins=a.price_coins,
+                is_default=a.is_default,
+                sort_order=a.sort_order,
+                owned=(a.id in owned_ids) or a.is_default,
+                equipped=(a.id == equipped_id),
+            )
+            for a in avatars_q
+        ],
+        lifetime_earned=_user_points(db, current_user.id),
+        current_balance=_user_balance(db, current_user.id),
+    )
+
+
+@router.post("/shop/{avatar_id}/purchase", response_model=PurchaseResponse)
+async def purchase_avatar(
+    avatar_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Buy an avatar with coins. Idempotent on already-owned (returns the
+    current ownership/equipped state without re-charging). 402 on
+    insufficient balance, 404 on unknown avatar id. Inserts into
+    `user_quest_avatars` AND `tense_quest_coin_spends` in one transaction so
+    the audit row is never orphaned from the inventory grant."""
+    from app.models import QuestAvatar, UserQuestAvatar, TenseQuestCoinSpend
+
+    av = db.query(QuestAvatar).filter(QuestAvatar.id == avatar_id).one_or_none()
+    if not av:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Unknown avatar")
+
+    already_owned = (
+        db.query(UserQuestAvatar)
+        .filter(
+            UserQuestAvatar.user_id == current_user.id,
+            UserQuestAvatar.avatar_id == avatar_id,
+        )
+        .one_or_none()
+    )
+    equipped = current_user.tq_avatar_id == avatar_id
+    if already_owned or av.is_default:
+        # Idempotent — re-purchase is a no-op. Default avatars are owned by
+        # everyone implicitly so they always succeed without a charge.
+        return PurchaseResponse(
+            avatar_id=avatar_id,
+            owned=True,
+            equipped=equipped,
+            current_balance=_user_balance(db, current_user.id),
+        )
+
+    balance = _user_balance(db, current_user.id)
+    if balance < av.price_coins:
+        # 402 Payment Required — standard HTTP code for "you can't afford this".
+        raise HTTPException(
+            status_code=status.HTTP_402_PAYMENT_REQUIRED,
+            detail=f"Need {av.price_coins} coins; you have {balance}.",
+        )
+
+    db.add(UserQuestAvatar(user_id=current_user.id, avatar_id=avatar_id))
+    db.add(TenseQuestCoinSpend(
+        user_id=current_user.id,
+        amount=av.price_coins,
+        reason=f"avatar:{avatar_id}",
+    ))
+    db.commit()
+    return PurchaseResponse(
+        avatar_id=avatar_id,
+        owned=True,
+        equipped=False,
+        current_balance=_user_balance(db, current_user.id),
+    )
+
+
+@router.post("/avatar/equip", response_model=EquipResponse)
+async def equip_avatar(
+    body: EquipRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Set the user's equipped avatar. 403 if the user doesn't own it
+    (default avatars are owned implicitly so equipping them always works)."""
+    from app.models import QuestAvatar, UserQuestAvatar
+
+    av = db.query(QuestAvatar).filter(QuestAvatar.id == body.avatar_id).one_or_none()
+    if not av:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Unknown avatar")
+
+    if not av.is_default:
+        owns = (
+            db.query(UserQuestAvatar)
+            .filter(
+                UserQuestAvatar.user_id == current_user.id,
+                UserQuestAvatar.avatar_id == body.avatar_id,
+            )
+            .one_or_none()
+        )
+        if not owns:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You don't own that avatar")
+
+    current_user.tq_avatar_id = body.avatar_id
+    db.commit()
+    return EquipResponse(avatar_id=body.avatar_id, equipped=True)

@@ -42,7 +42,12 @@ def test_every_drill_has_a_playable_payload():
                     assert t["answer"], "target must carry an expected answer"
             modes = [s["response_mode"] for s in p["sentences"]]
             assert set(modes) <= {"type", "speak"}
-            assert all(modes[i] != modes[i + 1] for i in range(len(modes) - 1))
+            # Binary-choice drills (pret-vs-imperfect, subjunctive triggers)
+            # serve all-type sentences since the learner taps A/B buttons —
+            # there's no "speak" mode for a button choice. All other drills
+            # alternate type/speak so the player practises both modalities.
+            if p.get("drill_type") != "binary_choice":
+                assert all(modes[i] != modes[i + 1] for i in range(len(modes) - 1))
             for s in p["sentences"]:
                 assert "blank_es" in s  # may be None, but the key must exist
                 if s["blank_es"]:

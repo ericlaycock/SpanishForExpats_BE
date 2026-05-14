@@ -634,19 +634,31 @@ def _quest_sentences(config: dict) -> list[dict[str, Any]]:
     """The 10 generalisation sentences. Response mode alternates type/speak by
     index (index 0 → type so the player eases in). `blank_es` is the Spanish
     sentence with the conjugated verb replaced by `____` — the "show translation"
-    scaffold (null when the verb span can't be located)."""
+    scaffold (null when the verb span can't be located).
+
+    For `drill_type=binary_choice` lessons (pret-vs-imperfect, subjunctive
+    triggers), each sentence ALSO carries `choice` / `choice_verb_es` /
+    `choice_distractor_es` so the FE renders A/B buttons (the correct form vs
+    the wrong-tense/mood form) instead of a typed input. `response_mode` for
+    these is always `type` since the user is tapping a button, not speaking."""
+    is_binary = (config.get("drill_type") == "binary_choice")
     out: list[dict[str, Any]] = []
     for i, s in enumerate(_drill_sentences(config)):
         es = s.get("es") or ""
         en = s.get("en") or ""
-        out.append({
+        entry: dict[str, Any] = {
             "id": s["id"],
             "en": en,
             "es": es,
             "blank_es": _blanked_es(config, es, en),
             "glosses": s.get("glosses") or {},
-            "response_mode": "type" if i % 2 == 0 else "speak",
-        })
+            "response_mode": "type" if (is_binary or i % 2 == 0) else "speak",
+        }
+        if is_binary:
+            entry["choice"] = s.get("choice")
+            entry["choice_verb_es"] = s.get("choice_verb_es")
+            entry["choice_distractor_es"] = s.get("choice_distractor_es")
+        out.append(entry)
     return out
 
 
@@ -726,6 +738,11 @@ def get_drill_payload(drill_id: str) -> Optional[dict[str, Any]]:
         "title": config.get("title") or "",
         "tense_label": (config.get("tense") or "present").replace("_", " "),
         "video_embed_id": config.get("video_embed_id"),
+        # `drill_type` rides along so the FE QuestRunner can swap to the
+        # A/B BinaryChoiceGauntlet for `binary_choice` lessons instead of
+        # the typed SentenceGauntlet.
+        "drill_type": config.get("drill_type") or "conjugation",
+        "binary_choice_config": config.get("binary_choice_config"),
         "rule_cards": _build_rule_cards(config),
         "charts": _build_charts(config),
         "conjugation_targets": _conjugation_targets(config),
