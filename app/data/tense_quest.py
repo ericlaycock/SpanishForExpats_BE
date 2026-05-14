@@ -59,12 +59,16 @@ _CHART_ROWS: list[tuple[str, list[str]]] = [
 ]
 
 # Tense-group families — used by the FE to lay the quest map out in bands.
+# These five family ids match `app/data/grammar_categories.py:CATEGORIES`
+# verbatim so the per-family unlock state on `user_category_progress` keys
+# cleanly off them. Renaming a family is safe — no DB column depends on it
+# (the SRS deck keys on tense_group_id, not family).
 FAMILIES = {
     "present": "Present Tense",
-    "near_future": "Near Future & Modals",
     "past": "The Past",
-    "future_cond": "Future & Conditional",
-    "moods": "Commands · -ing · Subjunctive",
+    "future": "Future & Conditional",
+    "modals": "Modals & Commands",
+    "subjunctive": "Subjunctive",
 }
 
 # Per-GL Tense-Quest presentation. `gl` is the source grammar level. Anything
@@ -88,10 +92,14 @@ _TENSE_GROUP_DEFS: list[dict[str, Any]] = [
      "title": "Boot Verbs: e → i", "blurb": "pedir · servir · repetir · seguir. The e flips to i in the boot."},
     {"gl": 13, "id": "reflexive_present", "family": "present",
      "title": "Reflexive Verbs", "blurb": "levantarse · ducharse · acostarse. Verbs that loop back on you."},
-    {"gl": 9, "id": "ir_a_infinitive", "family": "near_future",
+    {"gl": 18, "id": "gerund", "family": "present",
+     "title": "-ing (Gerund)", "blurb": "hablando · comiendo · viviendo. estar + gerund = right now."},
+    {"gl": 9, "id": "ir_a_infinitive", "family": "modals",
      "title": "Going To (ir a + inf.)", "blurb": "voy a hablar, vas a comer… the everyday near future."},
-    {"gl": 11, "id": "modal_infinitives", "family": "near_future",
+    {"gl": 11, "id": "modal_infinitives", "family": "modals",
      "title": "Have To / It's My Turn", "blurb": "tengo que · me toca · necesito + infinitive."},
+    {"gl": 13.5, "id": "imperatives", "family": "modals",
+     "title": "Commands", "blurb": "¡habla! ¡come! ¡no hables! Telling people what to do."},
     {"gl": 12, "id": "imperfect", "family": "past",
      "title": "Imperfect", "blurb": "used to / was -ing. The background tense of the past."},
     {"gl": 17, "id": "preterite_regular", "family": "past",
@@ -112,19 +120,15 @@ _TENSE_GROUP_DEFS: list[dict[str, Any]] = [
      "title": "Perfect Tenses", "blurb": "he hablado · había comido. haber + past participle."},
     {"gl": 18.6, "id": "irregular_participles", "family": "past",
      "title": "Perfect — Irregular Participles", "blurb": "he abierto · ha escrito · han hecho — the participles that go their own way."},
-    {"gl": 14, "id": "future_simple", "family": "future_cond",
+    {"gl": 14, "id": "future_simple", "family": "future",
      "title": "Future Simple", "blurb": "hablaré, comerás… one word for 'will'."},
-    {"gl": 15, "id": "conditional", "family": "future_cond",
+    {"gl": 15, "id": "conditional", "family": "future",
      "title": "Conditional", "blurb": "would: hablaría, comerías. Polite and hypothetical."},
-    {"gl": 13.5, "id": "imperatives", "family": "moods",
-     "title": "Commands", "blurb": "¡habla! ¡come! ¡no hables! Telling people what to do."},
-    {"gl": 18, "id": "gerund", "family": "moods",
-     "title": "-ing (Gerund)", "blurb": "hablando · comiendo · viviendo. estar + gerund = right now."},
     # GL 20's lessons bundle present + imperfect subjunctive; split into two
     # tiles by drill-id substring (`only`).
-    {"gl": 20, "id": "present_subjunctive", "family": "moods", "only": "subj_pres",
+    {"gl": 20, "id": "present_subjunctive", "family": "subjunctive", "only": "subj_pres",
      "title": "Present Subjunctive", "blurb": "the mood of wishes and 'maybe': espero que hables, quiero que comas."},
-    {"gl": 20, "id": "subjunctive", "family": "moods", "only": "subj_impf",
+    {"gl": 20, "id": "subjunctive", "family": "subjunctive", "only": "subj_impf",
      "title": "Imperfect Subjunctive", "blurb": "the past subjunctive: si hablara… ojalá comieran…"},
 ]
 
