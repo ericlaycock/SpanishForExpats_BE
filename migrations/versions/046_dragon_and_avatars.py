@@ -81,19 +81,19 @@ def upgrade() -> None:
         INSERT INTO user_category_progress
           (id, user_id, category, diagnostic_result, unlocked_at, diagnostic_at, created_at)
         SELECT gen_random_uuid(),
-               user_id,
-               cat.category,
-               diagnostic_result,
-               unlocked_at,
-               diagnostic_at,
+               ucp.user_id,
+               cat.new_category,
+               ucp.diagnostic_result,
+               ucp.unlocked_at,
+               ucp.diagnostic_at,
                NOW()
-        FROM user_category_progress
+        FROM user_category_progress AS ucp
         CROSS JOIN (VALUES
           ('subjunctive_triggers'),
           ('present_subjunctive'),
           ('imperfect_subjunctive')
-        ) AS cat(category)
-        WHERE category = 'subjunctive'
+        ) AS cat(new_category)
+        WHERE ucp.category = 'subjunctive'
         ON CONFLICT (user_id, category) DO NOTHING
         """
     )
