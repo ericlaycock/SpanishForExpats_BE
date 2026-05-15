@@ -37,6 +37,7 @@ UserCategoryProgress = models_legacy.UserCategoryProgress
 QuestAvatar = models_legacy.QuestAvatar
 UserQuestAvatar = models_legacy.UserQuestAvatar
 TenseQuestCoinSpend = models_legacy.TenseQuestCoinSpend
+TenseQuestDragonKill = models_legacy.TenseQuestDragonKill
 REPORT_CATEGORIES = models_legacy.REPORT_CATEGORIES
 REPORT_STATUSES = models_legacy.REPORT_STATUSES
 # Base is imported from database, not from models.py
@@ -80,6 +81,7 @@ __all__ = [
     "QuestAvatar",
     "UserQuestAvatar",
     "TenseQuestCoinSpend",
+    "TenseQuestDragonKill",
     "REPORT_CATEGORIES",
     "REPORT_STATUSES",
     "LLMRequest",

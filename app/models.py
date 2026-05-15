@@ -605,3 +605,19 @@ class TenseQuestCoinSpend(Base):
     amount = Column(Integer, nullable=False)
     reason = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+
+class TenseQuestDragonKill(Base):
+    """One row per slain Pixel Dragon. +30 coins per row, contributing to
+    `_user_points` (lifetime earned, leaderboard truth) alongside drill
+    completions, sentence completions, and review-card coins. See
+    `migrations/versions/046_dragon_and_avatars.py`."""
+    __tablename__ = "tense_quest_dragon_kills"
+    __table_args__ = (
+        CheckConstraint("coins_awarded > 0", name="ck_tq_dragon_coins_positive"),
+    )
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    coins_awarded = Column(Integer, nullable=False)
+    killed_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
