@@ -64,14 +64,12 @@ _NEW_PAID_CATALOG = [
 def upgrade() -> None:
     # ── 1. Category split ────────────────────────────────────────────────────
 
-    # Postgres-only: drop the old CheckConstraint by name and add the new one.
+    # The old constraint allows 'subjunctive'; the new one doesn't. We must
+    # drop old → expand rows → delete old rows → add new, in that exact
+    # order. If we add the new constraint while any 'subjunctive' row still
+    # exists, ADD CONSTRAINT validates against existing data and aborts the
+    # migration with CheckViolation (the QA crash that surfaced this fix).
     op.drop_constraint("ck_user_category_value", "user_category_progress", type_="check")
-    op.create_check_constraint(
-        "ck_user_category_value",
-        "user_category_progress",
-        "category IN ('present','past','future','modals',"
-        "'subjunctive_triggers','present_subjunctive','imperfect_subjunctive')",
-    )
 
     # Expand every existing 'subjunctive' row into three. Preserves
     # unlocked_at / diagnostic_result / diagnostic_at on each child so
@@ -100,6 +98,13 @@ def upgrade() -> None:
         """
     )
     op.execute("DELETE FROM user_category_progress WHERE category = 'subjunctive'")
+
+    op.create_check_constraint(
+        "ck_user_category_value",
+        "user_category_progress",
+        "category IN ('present','past','future','modals',"
+        "'subjunctive_triggers','present_subjunctive','imperfect_subjunctive')",
+    )
 
     # ── 2. Avatar catalog swap ───────────────────────────────────────────────
 
