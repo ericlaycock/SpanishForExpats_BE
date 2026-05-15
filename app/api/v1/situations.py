@@ -522,6 +522,7 @@ async def start_situation(
         Conversation.mode == "text"
     ).order_by(Conversation.created_at.desc()).with_for_update().first()
     
+    is_new_conversation = False
     if conversation and conversation.target_word_ids:
         # Reuse existing conversation's words
         target_word_ids = conversation.target_word_ids
@@ -545,16 +546,17 @@ async def start_situation(
             used_spoken_word_ids=[]
         )
         db.add(conversation)
-    
+        is_new_conversation = True
+
     # Upsert user_words and increment seen_count for all words
     ensure_user_words(db, current_user.id, words)
-    
+
     # Create or update user_situation
     user_situation = db.query(UserSituation).filter(
         UserSituation.user_id == current_user.id,
         UserSituation.situation_id == situation_id
     ).first()
-    
+
     if not user_situation:
         user_situation = UserSituation(
             user_id=current_user.id,
@@ -562,8 +564,15 @@ async def start_situation(
         )
         db.add(user_situation)
 
-    # Record daily encounter usage
-    record_encounter(db, current_user.id, situation_id)
+    # Record daily encounter usage ONLY when starting a fresh conversation.
+    # Re-mounting the learn page for a situation already in progress hits this
+    # endpoint with an existing conversation; recording on every mount was
+    # double-counting against the 30/day limit and locking real users out
+    # after ~30 navigations (dragonfyre09 2026-05-14: 30 navigations to
+    # core_10/grammar_irregular_present_1 learn pages tripped the cap and
+    # the FE silent-429 bounce trapped her in a loop).
+    if is_new_conversation:
+        record_encounter(db, current_user.id, situation_id)
 
     db.commit()
     db.refresh(conversation)
