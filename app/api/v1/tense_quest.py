@@ -886,7 +886,17 @@ async def review_attempt(
     )
     if not card:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Card not in your deck")
-    result = apply_review(card, correct=body.correct, response_ms=body.response_ms, now=_now())
+    # Resolve response_mode so apply_review picks the right slow ceiling
+    # (typed 15s vs. spoken 10s). Same lookup the deck endpoint uses.
+    disp = tq.card_display(card.card_key) or {}
+    response_mode = disp.get("response_mode") or "type"
+    result = apply_review(
+        card,
+        correct=body.correct,
+        response_ms=body.response_ms,
+        response_mode=response_mode,
+        now=_now(),
+    )
     coins = coins_for_result(result)
     card.coins_earned = (card.coins_earned or 0) + coins
     db.commit()
