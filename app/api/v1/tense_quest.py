@@ -14,7 +14,7 @@ from __future__ import annotations
 import random
 import re
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Literal, Optional
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
 from pydantic import BaseModel, Field
@@ -114,6 +114,20 @@ class EquipRequest(BaseModel):
 class EquipResponse(BaseModel):
     avatar_id: str
     equipped: bool
+
+
+class DragonCompleteRequest(BaseModel):
+    # 'slay' = all 3 correct (mints 30 coins toward lifetime + leaderboard)
+    # 'draw' = 2 correct + 1 wrong (dragon flees, no coins)
+    # 'lose' = 2 wrong/timeout or user exited (dragon eats avatar, no coins)
+    outcome: Literal["slay", "draw", "lose"]
+
+
+class DragonCompleteResponse(BaseModel):
+    outcome: str
+    coins_awarded: int  # 30 on slay, 0 on draw/lose
+    lifetime_earned: int  # = _user_points after the optional insert
+    current_balance: int  # = _user_balance after the optional insert
 
 
 class ReviewCard(BaseModel):
@@ -366,17 +380,35 @@ def _sentence_coins(db: Session, user_id) -> int:
 
 
 def _user_points(db: Session, user_id) -> int:
-    """A user's **lifetime earned** coin total = drill completions (1 each) +
-    correct in-drill sentences (1 each) + coins from reviews. This is what
-    the leaderboard reads, so it is intentionally **never** reduced by coin
-    spends — the leaderboard reflects effort over time, not wallet balance."""
+    """A user's **lifetime earned** coin total — four sources, all positive:
+
+    - 1 coin per drill completion (`tense_quest_drill_completions`)
+    - 1 coin per correct in-drill sentence (`tense_quest_sentence_completions`)
+    - 0/1/2 coins per review-card outcome (`tense_quest_cards.coins_earned`)
+    - 30 coins per slain Pixel Dragon (`tense_quest_dragon_kills.coins_awarded`)
+
+    This is what the leaderboard reads, so it is intentionally **never**
+    reduced by coin spends — the leaderboard reflects effort over time, not
+    wallet balance. See `_user_balance` for the spendable wallet figure."""
+    from app.models import TenseQuestDragonKill
     completions = (
         db.query(func.count(TenseQuestDrillCompletion.id))
         .filter(TenseQuestDrillCompletion.user_id == user_id)
         .scalar()
         or 0
     )
-    return int(completions) + _sentence_coins(db, user_id) + _review_coins(db, user_id)
+    dragon = (
+        db.query(func.coalesce(func.sum(TenseQuestDragonKill.coins_awarded), 0))
+        .filter(TenseQuestDragonKill.user_id == user_id)
+        .scalar()
+        or 0
+    )
+    return (
+        int(completions)
+        + _sentence_coins(db, user_id)
+        + _review_coins(db, user_id)
+        + int(dragon)
+    )
 
 
 def _user_balance(db: Session, user_id) -> int:
@@ -407,6 +439,7 @@ def _avatar_info_for(db: Session, user: User) -> Optional[AvatarInfo]:
 
 
 def _leaderboard(db: Session, current_user: User) -> Leaderboard:
+    from app.models import TenseQuestDragonKill
     # completions per user
     comp = dict(
         db.query(TenseQuestDrillCompletion.user_id, func.count(TenseQuestDrillCompletion.id))
@@ -425,14 +458,20 @@ def _leaderboard(db: Session, current_user: User) -> Leaderboard:
         .group_by(TenseQuestSentenceCompletion.user_id)
         .all()
     )
-    uids = set(comp) | set(rev) | set(sent)
+    # dragon kills per user (30 coins each)
+    dragon = dict(
+        db.query(TenseQuestDragonKill.user_id, func.coalesce(func.sum(TenseQuestDragonKill.coins_awarded), 0))
+        .group_by(TenseQuestDragonKill.user_id)
+        .all()
+    )
+    uids = set(comp) | set(rev) | set(sent) | set(dragon)
     if uids:
         users = {u.id: u for u in db.query(User).filter(User.id.in_(uids)).all()}
     else:
         users = {}
     scored = []
     for uid in uids:
-        pts = int(comp.get(uid, 0)) + int(rev.get(uid, 0)) + int(sent.get(uid, 0))
+        pts = int(comp.get(uid, 0)) + int(rev.get(uid, 0)) + int(sent.get(uid, 0)) + int(dragon.get(uid, 0))
         u = users.get(uid)
         created = getattr(u, "created_at", None)
         scored.append((pts, str(created or ""), uid, u))
@@ -999,3 +1038,42 @@ async def equip_avatar(
     current_user.tq_avatar_id = body.avatar_id
     db.commit()
     return EquipResponse(avatar_id=body.avatar_id, equipped=True)
+
+
+# ─── Pixel Dragon event ─────────────────────────────────────────────────────
+
+
+@router.post("/dragon/complete", response_model=DragonCompleteResponse)
+async def dragon_complete(
+    body: DragonCompleteRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Record the outcome of a Pixel Dragon mini-event.
+
+    Only `outcome='slay'` writes to the DB — that mints +30 coins via a new
+    `tense_quest_dragon_kills` row, which feeds `_user_points` (lifetime
+    earned, leaderboard truth). `draw` and `lose` are no-ops (the user-set
+    rule was "no coin penalty"); we still return the current totals so the
+    FE can refresh its overview cache.
+
+    The 1/20 dice-roll throttle on the FE is the only abuse guard — a
+    malicious client could in theory hit this endpoint repeatedly, but the
+    worst case is +30 coins per call against their own account.
+    """
+    from app.models import TenseQuestDragonKill
+    if body.outcome == "slay":
+        kill = TenseQuestDragonKill(
+            user_id=current_user.id,
+            coins_awarded=30,
+        )
+        db.add(kill)
+        db.commit()
+    lifetime = _user_points(db, current_user.id)
+    balance = _user_balance(db, current_user.id)
+    return DragonCompleteResponse(
+        outcome=body.outcome,
+        coins_awarded=(30 if body.outcome == "slay" else 0),
+        lifetime_earned=lifetime,
+        current_balance=balance,
+    )
