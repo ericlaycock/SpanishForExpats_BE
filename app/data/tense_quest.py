@@ -249,6 +249,25 @@ def drill_title(drill_id: str) -> str:
     return (cfg.get("title") if cfg else None) or drill_id
 
 
+def drill_verbs(drill_id: str) -> list[str]:
+    """Verbs featured in a drill's conjugation table, in canonical order
+    (word_workload first, then any extras). Used as the human-readable label
+    for drills in the chapter sidebar — e.g. ['hablar', 'escuchar'] →
+    "hablar + escuchar" — because the lesson `title` field is internal
+    ("Regular Present — -AR (1/2)") and not useful to players.
+
+    Empty list for rules-only or binary-choice drills with no `answers` table;
+    the FE falls back to `title` in that case.
+    """
+    cfg = _situation(drill_id) or {}
+    answers = (cfg.get("drill_config") or {}).get("answers") or {}
+    if not answers:
+        return []
+    order = [v for v in (cfg.get("word_workload") or []) if v in answers]
+    order += [v for v in answers if v not in order]
+    return order
+
+
 # ── drill discovery ─────────────────────────────────────────────────────────
 
 def _drill_sentences(config: dict) -> list[dict]:

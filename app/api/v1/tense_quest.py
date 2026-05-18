@@ -207,6 +207,10 @@ class DrillSummary(BaseModel):
     title: str
     index: int  # 1-based position in the group
     completed: bool
+    # Verbs in this drill's conjugation table, in canonical order. The FE
+    # uses these to render player-readable chapter labels ("hablar +
+    # escuchar") in the group sidebar — `title` is internal-only.
+    verbs: list[str] = []
 
 
 class TenseGroupDetail(BaseModel):
@@ -682,6 +686,7 @@ async def group_detail(
             title=tq.drill_title(did),
             index=i + 1,
             completed=did in done,
+            verbs=tq.drill_verbs(did),
         )
         for i, did in enumerate(g["drill_ids"])
     ]
