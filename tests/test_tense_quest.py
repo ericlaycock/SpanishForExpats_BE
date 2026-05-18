@@ -4,7 +4,13 @@ from datetime import datetime, timedelta, timezone
 import pytest
 
 from app.data import tense_quest as tq
-from app.services.tense_quest_srs import apply_review, order_cards, FAST_MS, SLOW_MS
+from app.services.tense_quest_srs import (
+    apply_review,
+    order_cards,
+    FAST_MS,
+    SLOW_MS_TYPED,
+    SLOW_MS_SPOKEN,
+)
 from tests.conftest import register_user
 
 
@@ -108,10 +114,29 @@ def test_srs_wrong_is_a_lapse():
     assert c.due_at - now < timedelta(hours=1)  # comes back soon
 
 
-def test_srs_correct_but_slow_is_a_silent_lapse():
+def test_srs_correct_but_slow_typed_is_a_silent_lapse():
     c = _FakeCard(box=3)
-    assert apply_review(c, correct=True, response_ms=SLOW_MS + 1) == "lapse"
+    # Typed slow ceiling is 15s; >15s correct = lapse.
+    assert apply_review(c, correct=True, response_ms=SLOW_MS_TYPED + 1, response_mode="type") == "lapse"
     assert c.box == 1
+
+
+def test_srs_correct_but_slow_spoken_is_a_silent_lapse():
+    c = _FakeCard(box=3)
+    # Spoken slow ceiling stays at 10s; >10s correct = lapse.
+    assert apply_review(c, correct=True, response_ms=SLOW_MS_SPOKEN + 1, response_mode="speak") == "lapse"
+    assert c.box == 1
+
+
+def test_srs_typed_under_typed_ceiling_but_over_spoken_is_good():
+    # The asymmetry that motivated the split: 12s on a typed card is "good"
+    # (15s ceiling), but the same 12s on a spoken card is a lapse.
+    c_typed = _FakeCard(box=2)
+    assert apply_review(c_typed, correct=True, response_ms=12_000, response_mode="type") == "good"
+    assert c_typed.box == 3
+    c_spoken = _FakeCard(box=2)
+    assert apply_review(c_spoken, correct=True, response_ms=12_000, response_mode="speak") == "lapse"
+    assert c_spoken.box == 1
 
 
 def test_srs_fast_correct_double_bumps():
