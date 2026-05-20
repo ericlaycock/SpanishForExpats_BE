@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import random
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Literal, Optional
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
@@ -602,6 +602,60 @@ async def overview(
         diagnostic_taken=taken,
         username=current_user.tq_username,
     )
+
+
+# ── public recent-activity feed ────────────────────────────────────────────
+# Powers the FOMO-style "F.A. just practiced the Present Tense" toasts on the
+# unauthenticated marketing Try Free page. Anonymised to 2-letter initials +
+# family label + minutes_ago — no user_id, no full username, no timestamps,
+# no drill_id leave the BE. Window is the last 15 minutes; capped at 20 rows.
+
+class RecentActivityItem(BaseModel):
+    initials: str   # "F.A." — first+second letter of tq_username, uppercased
+    tense: str      # human-readable family label, e.g. "Present Tense"
+    minutes_ago: int  # 0..15
+
+
+class RecentActivityResponse(BaseModel):
+    items: list[RecentActivityItem]
+
+
+@router.get("/recent-activity", response_model=RecentActivityResponse)
+async def recent_activity(db: Session = Depends(get_db)):
+    """Public, unauthenticated. Returns the last 15 minutes of drill
+    completions anonymised for use as marketing social-proof toasts."""
+    cutoff = datetime.now(timezone.utc) - timedelta(minutes=15)
+    rows = (
+        db.query(
+            User.tq_username,
+            TenseQuestDrillCompletion.tense_group_id,
+            TenseQuestDrillCompletion.created_at,
+        )
+        .join(User, TenseQuestDrillCompletion.user_id == User.id)
+        .filter(TenseQuestDrillCompletion.created_at >= cutoff)
+        .filter(User.tq_username.isnot(None))
+        .filter(func.char_length(User.tq_username) >= 2)
+        .order_by(TenseQuestDrillCompletion.created_at.desc())
+        .limit(20)
+        .all()
+    )
+
+    now = datetime.now(timezone.utc)
+    items: list[RecentActivityItem] = []
+    for username, group_id, created_at in rows:
+        group = tq.get_tense_group(group_id)
+        if not group:
+            continue
+        family = group.get("family")
+        label = tq.FAMILIES.get(family) if family else None
+        if not label:
+            continue
+        # tq_username is guaranteed length >= 2 by the SQL filter.
+        initials = f"{username[0].upper()}.{username[1].upper()}."
+        minutes = max(0, min(15, int((now - created_at).total_seconds() // 60)))
+        items.append(RecentActivityItem(initials=initials, tense=label, minutes_ago=minutes))
+
+    return RecentActivityResponse(items=items)
 
 
 @router.post("/username", response_model=UsernameResponse)
