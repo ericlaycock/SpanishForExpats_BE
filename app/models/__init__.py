@@ -58,6 +58,12 @@ from app.models.tense_quest import (
     TenseQuestSentenceCompletion,
 )
 
+# Vocab learning + SRS models
+from app.models.vocab import (
+    VocabCard,
+    VocabChapterCompletion,
+)
+
 __all__ = [
     "User",
     "Situation",
@@ -91,6 +97,8 @@ __all__ = [
     "TenseQuestDiagnostic",
     "TenseQuestDrillCompletion",
     "TenseQuestSentenceCompletion",
+    "VocabCard",
+    "VocabChapterCompletion",
 ]
 
 # Also export Base if it exists

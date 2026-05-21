@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import random
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Literal, Optional
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
@@ -384,17 +384,18 @@ def _sentence_coins(db: Session, user_id) -> int:
 
 
 def _user_points(db: Session, user_id) -> int:
-    """A user's **lifetime earned** coin total — four sources, all positive:
+    """A user's **lifetime earned** coin total — five sources, all positive:
 
     - 1 coin per drill completion (`tense_quest_drill_completions`)
     - 1 coin per correct in-drill sentence (`tense_quest_sentence_completions`)
     - 0/1/2 coins per review-card outcome (`tense_quest_cards.coins_earned`)
     - 30 coins per slain Pixel Dragon (`tense_quest_dragon_kills.coins_awarded`)
+    - 1 coin per vocab word recalled correctly (`vocab_card.recall_coins_earned`)
 
     This is what the leaderboard reads, so it is intentionally **never**
     reduced by coin spends — the leaderboard reflects effort over time, not
     wallet balance. See `_user_balance` for the spendable wallet figure."""
-    from app.models import TenseQuestDragonKill
+    from app.models import TenseQuestDragonKill, VocabCard
     completions = (
         db.query(func.count(TenseQuestDrillCompletion.id))
         .filter(TenseQuestDrillCompletion.user_id == user_id)
@@ -407,11 +408,18 @@ def _user_points(db: Session, user_id) -> int:
         .scalar()
         or 0
     )
+    vocab_recall = (
+        db.query(func.coalesce(func.sum(VocabCard.recall_coins_earned), 0))
+        .filter(VocabCard.user_id == user_id)
+        .scalar()
+        or 0
+    )
     return (
         int(completions)
         + _sentence_coins(db, user_id)
         + _review_coins(db, user_id)
         + int(dragon)
+        + int(vocab_recall)
     )
 
 
@@ -602,6 +610,60 @@ async def overview(
         diagnostic_taken=taken,
         username=current_user.tq_username,
     )
+
+
+# ── public recent-activity feed ────────────────────────────────────────────
+# Powers the FOMO-style "F.A. just practiced the Present Tense" toasts on the
+# unauthenticated marketing Try Free page. Anonymised to 2-letter initials +
+# family label + minutes_ago — no user_id, no full username, no timestamps,
+# no drill_id leave the BE. Window is the last 15 minutes; capped at 20 rows.
+
+class RecentActivityItem(BaseModel):
+    initials: str   # "F.A." — first+second letter of tq_username, uppercased
+    tense: str      # human-readable family label, e.g. "Present Tense"
+    minutes_ago: int  # 0..15
+
+
+class RecentActivityResponse(BaseModel):
+    items: list[RecentActivityItem]
+
+
+@router.get("/recent-activity", response_model=RecentActivityResponse)
+async def recent_activity(db: Session = Depends(get_db)):
+    """Public, unauthenticated. Returns the last 15 minutes of drill
+    completions anonymised for use as marketing social-proof toasts."""
+    cutoff = datetime.now(timezone.utc) - timedelta(minutes=15)
+    rows = (
+        db.query(
+            User.tq_username,
+            TenseQuestDrillCompletion.tense_group_id,
+            TenseQuestDrillCompletion.created_at,
+        )
+        .join(User, TenseQuestDrillCompletion.user_id == User.id)
+        .filter(TenseQuestDrillCompletion.created_at >= cutoff)
+        .filter(User.tq_username.isnot(None))
+        .filter(func.char_length(User.tq_username) >= 2)
+        .order_by(TenseQuestDrillCompletion.created_at.desc())
+        .limit(20)
+        .all()
+    )
+
+    now = datetime.now(timezone.utc)
+    items: list[RecentActivityItem] = []
+    for username, group_id, created_at in rows:
+        group = tq.get_tense_group(group_id)
+        if not group:
+            continue
+        family = group.get("family")
+        label = tq.FAMILIES.get(family) if family else None
+        if not label:
+            continue
+        # tq_username is guaranteed length >= 2 by the SQL filter.
+        initials = f"{username[0].upper()}.{username[1].upper()}."
+        minutes = max(0, min(15, int((now - created_at).total_seconds() // 60)))
+        items.append(RecentActivityItem(initials=initials, tense=label, minutes_ago=minutes))
+
+    return RecentActivityResponse(items=items)
 
 
 @router.post("/username", response_model=UsernameResponse)

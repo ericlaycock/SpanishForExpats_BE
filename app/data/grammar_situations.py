@@ -7621,7 +7621,7 @@ GRAMMAR_SITUATIONS = {
         'video_embed_id': None,
         'drill_type': 'conjugation',
         'tense': 'reflexive_present',
-        "intro_chart": {'kind': 'cards', 'title': 'Reflexive verbs — when the action loops back to the doer', 'cards': [{'kind': 'text', 'title': 'The doer and the receiver are the same person', 'body': "Reflexive verbs describe actions you do *to yourself*: wash yourself, get yourself up, get yourself dressed. The infinitive ends in **-se** (lavarse, levantarse), and you replace -se with the right reflexive pronoun for whoever's doing it."}, {'kind': 'text', 'title': 'When the verb has a stem change, the stem still changes', 'body': "*acostarse* is o→ue: *me acuesto*, *te acuestas*… *vestirse* is e→i: *me visto*, *te vistes*… The reflexive pronoun doesn't suppress the stem-change rule."}, {'kind': 'mini_table', 'title': 'vestirse (to get dressed)', 'rows': [['yo', 'me visto'], ['tú', 'te vistes'], ['él / ella / usted', 'se viste'], ['nosotros / nosotras', 'nos vestemos'], ['ellos / ellas / ustedes', 'se visten']]}, {'kind': 'mini_table', 'title': 'sentarse (to sit down)', 'rows': [['yo', 'me siento'], ['tú', 'te sientas'], ['él / ella / usted', 'se sienta'], ['nosotros / nosotras', 'nos sentamos'], ['ellos / ellas / ustedes', 'se sientan']]}], 'recall': [{'verb': 'vestirse', 'answers': {'yo': 'me visto', 'tú': 'te vistes', 'él': 'se viste', 'nosotros': 'nos vestemos', 'ellos': 'se visten'}}, {'verb': 'sentarse', 'answers': {'yo': 'me siento', 'tú': 'te sientas', 'él': 'se sienta', 'nosotros': 'nos sentamos', 'ellos': 'se sientan'}}]},
+        "intro_chart": {'kind': 'cards', 'title': 'Reflexive verbs — when the action loops back to the doer', 'cards': [{'kind': 'text', 'title': 'The doer and the receiver are the same person', 'body': "Reflexive verbs describe actions you do *to yourself*: wash yourself, get yourself up, get yourself dressed. The infinitive ends in **-se** (lavarse, levantarse), and you replace -se with the right reflexive pronoun for whoever's doing it."}, {'kind': 'text', 'title': 'When the verb has a stem change, the stem still changes', 'body': "*acostarse* is o→ue: *me acuesto*, *te acuestas*… *vestirse* is e→i: *me visto*, *te vistes*… The reflexive pronoun doesn't suppress the stem-change rule."}, {'kind': 'mini_table', 'title': 'vestirse (to get dressed)', 'rows': [['yo', 'me visto'], ['tú', 'te vistes'], ['él / ella / usted', 'se viste'], ['nosotros / nosotras', 'nos vestimos'], ['ellos / ellas / ustedes', 'se visten']]}, {'kind': 'mini_table', 'title': 'sentarse (to sit down)', 'rows': [['yo', 'me siento'], ['tú', 'te sientas'], ['él / ella / usted', 'se sienta'], ['nosotros / nosotras', 'nos sentamos'], ['ellos / ellas / ustedes', 'se sientan']]}], 'recall': [{'verb': 'vestirse', 'answers': {'yo': 'me visto', 'tú': 'te vistes', 'él': 'se viste', 'nosotros': 'nos vestimos', 'ellos': 'se visten'}}, {'verb': 'sentarse', 'answers': {'yo': 'me siento', 'tú': 'te sientas', 'él': 'se sienta', 'nosotros': 'nos sentamos', 'ellos': 'se sientan'}}]},
         'drill_config': {
             'answers': {
                 'vestirse': {
@@ -7630,8 +7630,8 @@ GRAMMAR_SITUATIONS = {
                     'él': 'se viste',
                     'ella': 'se viste',
                     'usted': 'se viste',
-                    'nosotros': 'nos vestemos',
-                    'nosotras': 'nos vestemos',
+                    'nosotros': 'nos vestimos',
+                    'nosotras': 'nos vestimos',
                     'ellos': 'se visten',
                     'ellas': 'se visten',
                     'ustedes': 'se visten'
@@ -7670,7 +7670,7 @@ GRAMMAR_SITUATIONS = {
             {"en": "She sits down here", "es": "Ella se sienta aquí", "noun_id": None, "type": "auditory", "glosses": {}},
             {"en": "You get dressed well", "es": "Usted se viste bien", "noun_id": None, "type": "written", "glosses": {"well": "bien", "bien": "well"}},
             {"en": "We (m) sit down together", "es": "Nosotros nos sentamos juntos", "noun_id": None, "type": "auditory", "glosses": {}},
-            {"en": "We (f) get dressed early", "es": "Nosotras nos vestemos temprano", "noun_id": None, "type": "written", "glosses": {}},
+            {"en": "We (f) get dressed early", "es": "Nosotras nos vestimos temprano", "noun_id": None, "type": "written", "glosses": {}},
             {"en": "They (m) sit down on the chair", "es": "Ellos se sientan en la silla", "noun_id": None, "type": "auditory", "glosses": {"chair": "silla", "silla": "chair"}},
             {"en": "They (f) get dressed for work", "es": "Ellas se visten para el trabajo", "noun_id": "trabajo", "type": "written", "glosses": {"work": "trabajo", "trabajo": "work"}},
             {"en": "You all sit down nearby", "es": "Ustedes se sientan cerca", "noun_id": None, "type": "auditory", "glosses": {}},
