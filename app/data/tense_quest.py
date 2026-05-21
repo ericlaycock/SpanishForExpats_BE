@@ -536,12 +536,65 @@ def _blanked_es(config: dict, es: str, en: str = "") -> Optional[str]:
     return None
 
 
+_INFINITIVE_TRANSLATION_OVERRIDES: dict[str, str] = {
+    # Reflexives + a few common verbs whose canonical English form isn't in
+    # hf_words.py keyed off the bare infinitive. Extend as we trip over gaps.
+    "vestirse": "to get dressed",
+    "sentarse": "to sit down",
+    "levantarse": "to get up",
+    "acostarse": "to go to bed",
+    "lavarse": "to wash oneself",
+    "despertarse": "to wake up",
+    "ducharse": "to shower",
+    "irse": "to leave",
+    "quedarse": "to stay",
+    "ponerse": "to put on",
+    "quitarse": "to take off",
+    "llamarse": "to be called",
+    "sentirse": "to feel",
+    "despedirse": "to say goodbye",
+    "vestir": "to dress",
+    "sentar": "to seat",
+    "levantar": "to lift",
+    "acostar": "to put to bed",
+    "lavar": "to wash",
+}
+
+
+def _infinitive_translation(verb: str) -> Optional[str]:
+    """Best-effort Spanish-infinitive → English-infinitive lookup.
+    Prefers the overrides table (curated for reflexives + verbs whose
+    canonical entry in hf_words isn't the bare infinitive); falls back to
+    scanning hf_words for an entry whose `spanish` matches and whose
+    `english` begins with "to ". Returns None if no clean match — the
+    chart then just shows the bare infinitive without parens."""
+    if verb in _INFINITIVE_TRANSLATION_OVERRIDES:
+        return _INFINITIVE_TRANSLATION_OVERRIDES[verb]
+    # Strip a trailing -se for reflexive forms not in the overrides table.
+    candidates = [verb]
+    if verb.endswith("se") and len(verb) > 4:
+        candidates.append(verb[:-2])
+    try:
+        from app.data.hf_words import HIGH_FREQUENCY_WORDS  # local import — heavy module
+    except Exception:
+        return None
+    for cand in candidates:
+        for w in HIGH_FREQUENCY_WORDS:
+            if w.get("spanish") == cand:
+                en = (w.get("english") or "").strip()
+                if en.lower().startswith("to "):
+                    return en
+    return None
+
+
 def _verb_chart(verb: str, answers_for_verb: dict[str, str]) -> dict[str, Any]:
     rows = []
     for label, keys in _CHART_ROWS:
         form = next((answers_for_verb[k] for k in keys if answers_for_verb.get(k)), "—")
         rows.append([label, form])
-    return {"title": verb, "rows": rows, "footnote": None}
+    translation = _infinitive_translation(verb)
+    title = f"{verb} ({translation})" if translation else verb
+    return {"title": title, "rows": rows, "footnote": None}
 
 
 # The "tengo que / me toca / necesito + inf" lesson only drills `tengo que`;
