@@ -39,7 +39,7 @@ BOX_DAYS = [1, 2, 4, 8, 16]
 PROMOTE_THRESHOLD_MS = 15_000  # >15s → re-queue, not promote
 REQUEUE_MINUTES = 10  # how soon a re-queued module-deck card comes back
 
-CHAPTERS_PER_MODULE = 5
+CHAPTERS_PER_MODULE = 3  # 3 chapters × 5 words = 15-word module cap
 
 
 # ── response models ─────────────────────────────────────────────────────────
@@ -62,6 +62,8 @@ class ChapterCompleteResponse(BaseModel):
     chapter_index: int
     was_new: bool        # first time this chapter was completed
     cards_seeded: int    # number of vocab_card rows inserted on this call
+    coins_awarded: int   # 1 sun per newly seeded card == words recalled for first time
+    points: int          # user's new lifetime-earned coin total
 
 
 class ChapterCompletionInfo(BaseModel):
@@ -221,7 +223,10 @@ async def complete_chapter(
 
     # Seed module-status cards for any words not already in the user's deck
     # for this module. Cards already in the deck (whether 'module' or 'main')
-    # are skipped — replaying a chapter doesn't reset a promoted card.
+    # are skipped — replaying a chapter doesn't reset a promoted card. Each
+    # newly seeded card carries `recall_coins_earned=1` since reaching this
+    # endpoint means the word was correctly recalled in the chapter's Recall
+    # phase. The unique constraint makes the award idempotent.
     seeded = 0
     for w in body.words:
         es = (w.es or "").strip()
@@ -237,6 +242,7 @@ async def complete_chapter(
                 word_en=en,
                 status="module",
                 box=1,
+                recall_coins_earned=1,
             )
             .on_conflict_do_nothing(constraint="uq_vocab_card")
         )
@@ -245,11 +251,18 @@ async def complete_chapter(
             seeded += 1
 
     db.commit()
+
+    # Late import to avoid circular dependency with tense_quest module.
+    from app.api.v1.tense_quest import _user_points  # noqa: WPS433
+    points = _user_points(db, current_user.id)
+
     return ChapterCompleteResponse(
         module_id=module_id,
         chapter_index=chapter_idx,
         was_new=was_new,
         cards_seeded=seeded,
+        coins_awarded=seeded,
+        points=points,
     )
 
 

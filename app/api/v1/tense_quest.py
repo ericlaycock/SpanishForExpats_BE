@@ -384,17 +384,18 @@ def _sentence_coins(db: Session, user_id) -> int:
 
 
 def _user_points(db: Session, user_id) -> int:
-    """A user's **lifetime earned** coin total — four sources, all positive:
+    """A user's **lifetime earned** coin total — five sources, all positive:
 
     - 1 coin per drill completion (`tense_quest_drill_completions`)
     - 1 coin per correct in-drill sentence (`tense_quest_sentence_completions`)
     - 0/1/2 coins per review-card outcome (`tense_quest_cards.coins_earned`)
     - 30 coins per slain Pixel Dragon (`tense_quest_dragon_kills.coins_awarded`)
+    - 1 coin per vocab word recalled correctly (`vocab_card.recall_coins_earned`)
 
     This is what the leaderboard reads, so it is intentionally **never**
     reduced by coin spends — the leaderboard reflects effort over time, not
     wallet balance. See `_user_balance` for the spendable wallet figure."""
-    from app.models import TenseQuestDragonKill
+    from app.models import TenseQuestDragonKill, VocabCard
     completions = (
         db.query(func.count(TenseQuestDrillCompletion.id))
         .filter(TenseQuestDrillCompletion.user_id == user_id)
@@ -407,11 +408,18 @@ def _user_points(db: Session, user_id) -> int:
         .scalar()
         or 0
     )
+    vocab_recall = (
+        db.query(func.coalesce(func.sum(VocabCard.recall_coins_earned), 0))
+        .filter(VocabCard.user_id == user_id)
+        .scalar()
+        or 0
+    )
     return (
         int(completions)
         + _sentence_coins(db, user_id)
         + _review_coins(db, user_id)
         + int(dragon)
+        + int(vocab_recall)
     )
 
 

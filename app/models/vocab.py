@@ -77,6 +77,11 @@ class VocabCard(Base):
     word_en = Column(String, nullable=False)
     status = Column(String, nullable=False, server_default="module", default="module")
     box = Column(Integer, nullable=False, server_default="1", default=1)
+    # Coins earned by successfully recalling this word during the chapter's
+    # Recall phase. 1 per word, awarded once on the first chapter completion
+    # that creates the row (idempotent because the seed is ON CONFLICT DO
+    # NOTHING). Summed into the user's lifetime-earned coin total.
+    recall_coins_earned = Column(Integer, nullable=False, server_default="0", default=0)
     due_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     last_seen_at = Column(DateTime(timezone=True), nullable=True)
     last_response_ms = Column(Integer, nullable=True)
