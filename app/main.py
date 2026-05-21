@@ -40,7 +40,7 @@ except Exception as e:
     # If logging fails, at least print to stdout
     print(f"⚠️  Failed to emit boot event: {e}", file=sys.stderr)
 
-from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports, admin, milestones, realtime, grenades, funnel, cohorts, calendly, tense_quest
+from app.api.v1 import auth, subscription, situations, user_words, conversations, onboarding, logs, refreshes, translate, tts, reports, admin, milestones, realtime, grenades, funnel, cohorts, calendly, tense_quest, vocab
 from app.database import engine
 from app.models import Base
 
@@ -321,6 +321,8 @@ app.include_router(calendly.router, prefix="/v1/calendly", tags=["calendly"])
 logger.info("  ✅ /v1/calendly (POST /webhook, GET /booked-count)")
 app.include_router(tense_quest.router, prefix="/v1/tensequest", tags=["tensequest"])
 logger.info("  ✅ /v1/tensequest (GET /overview, GET /groups/{id}, GET /drills/{id}, POST /drills/{id}/complete, GET/POST /review*, POST /transcribe)")
+app.include_router(vocab.router, prefix="/v1/vocab", tags=["vocab"])
+logger.info("  ✅ /v1/vocab (GET /progress, POST /chapter/{module}/{idx}/complete, GET/POST /module/{id}/review*, GET/POST /review*)")
 logger.info("✅ All routes registered")
 
 
