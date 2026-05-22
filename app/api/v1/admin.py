@@ -2,7 +2,7 @@
 import logging
 from datetime import datetime, timezone
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 from sqlalchemy import text
@@ -375,10 +375,10 @@ def seed_test_user(
 # this list as the canonical step ordering. Update in lockstep with the
 # whitelist in app/schemas.py::WEBPAGEFLOW_EVENT_KEYS.
 WEBPAGEFLOW_STEPS = [
-    ("landing_view",            "Website visit"),
-    ("questionnaire_completed", "Completed basic questionnaire"),
-    ("quiz_completed",          "Completed diagnostic"),
-    ("book_call_booked",        "Booked call"),
+    ("landing_view",      "Landing visit (Hero)"),
+    ("build_plan_click",  "Hero → How it Works"),
+    ("how_it_works_cta",  "How it Works → Try Free"),
+    ("book_call_click",   "Book free trial (Calendly)"),
 ]
 
 
@@ -386,14 +386,41 @@ WEBPAGEFLOW_STEPS = [
 def get_webpageflow(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    source: Optional[str] = Query(
+        None,
+        description=(
+            "Filter funnel by utm_source captured in event_metadata. "
+            "Restricts each step's count to sessions that ever fired ANY "
+            "event with the matching source."
+        ),
+    ),
 ):
     _require_admin(current_user)
 
-    rows = db.execute(text("""
-        SELECT event_key, COUNT(DISTINCT session_id) AS n
-        FROM anonymous_funnel_events
-        GROUP BY event_key
-    """)).fetchall()
+    if source:
+        # Limit to sessions that have at least one event row tagged with
+        # the requested source. Using EXISTS instead of a join keeps the
+        # COUNT(DISTINCT) honest (no row multiplication).
+        rows = db.execute(
+            text("""
+                SELECT a.event_key, COUNT(DISTINCT a.session_id) AS n
+                FROM anonymous_funnel_events a
+                WHERE EXISTS (
+                    SELECT 1 FROM anonymous_funnel_events b
+                    WHERE b.session_id = a.session_id
+                      AND b.event_metadata ->> 'utm_source' = :source
+                )
+                GROUP BY a.event_key
+            """),
+            {"source": source},
+        ).fetchall()
+    else:
+        rows = db.execute(text("""
+            SELECT event_key, COUNT(DISTINCT session_id) AS n
+            FROM anonymous_funnel_events
+            GROUP BY event_key
+        """)).fetchall()
+
     counts = {r.event_key: int(r.n) for r in rows}
 
     return WebpageflowResponse(steps=[
