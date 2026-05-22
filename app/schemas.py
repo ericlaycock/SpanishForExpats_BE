@@ -655,6 +655,8 @@ class UserReportResponse(BaseModel):
 WEBPAGEFLOW_EVENT_KEYS = (
     "landing_view",
     "build_plan_click",
+    "how_it_works_cta",
+    "book_call_click",
     "q0_answered",
     "q1_answered",
     "q1_1_answered",
@@ -685,6 +687,10 @@ WEBPAGEFLOW_EVENT_KEYS = (
 class FunnelTrackRequest(BaseModel):
     session_id: str = Field(..., min_length=1, max_length=64)
     event_key: str = Field(..., min_length=1, max_length=64)
+    # First-touch attribution captured client-side from utm_* query params
+    # plus document.referrer. Stored verbatim into event_metadata JSONB so
+    # admin can slice the funnel by source without a schema migration.
+    attribution: Optional[Dict[str, str]] = None
 
 
 class WebpageflowStep(BaseModel):

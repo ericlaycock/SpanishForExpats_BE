@@ -26,9 +26,17 @@ async def track_event(body: FunnelTrackRequest, db: Session = Depends(get_db)):
             detail=f"Unknown event_key. Valid: {', '.join(WEBPAGEFLOW_EVENT_KEYS)}",
         )
 
+    # Attribution is JSONB. Storing on every event row means we can recover
+    # the source from any row for this session, not just the landing_view —
+    # robust if landing_view ever fails to fire (e.g. ad-blocker on first hit
+    # but not on the click).
+    values = {"session_id": body.session_id, "event_key": body.event_key}
+    if body.attribution:
+        values["event_metadata"] = body.attribution
+
     stmt = (
         insert(AnonymousFunnelEvent)
-        .values(session_id=body.session_id, event_key=body.event_key)
+        .values(**values)
         .on_conflict_do_nothing(constraint="uq_funnel_session_event")
     )
     db.execute(stmt)
