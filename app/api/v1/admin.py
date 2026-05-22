@@ -429,6 +429,22 @@ def get_webpageflow(
     ])
 
 
+@router.post("/webpageflow/reset")
+def reset_webpageflow(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Wipe every row from anonymous_funnel_events. Admin-only.
+
+    Used to clear the funnel chart after a tracking-schema change so the
+    history of broken/orphaned events doesn't keep inflating the numbers.
+    """
+    _require_admin(current_user)
+    result = db.execute(text("DELETE FROM anonymous_funnel_events"))
+    db.commit()
+    return {"status": "ok", "rows_deleted": int(result.rowcount or 0)}
+
+
 @router.get("/cohorts", response_model=AdminCohortListResponse)
 def admin_list_cohorts(
     current_user: User = Depends(get_current_user),
