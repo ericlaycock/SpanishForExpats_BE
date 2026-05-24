@@ -21,21 +21,13 @@ from app.models import MemorizeCompletion, User
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
-CONNECT_MODEL = "gpt-5-mini"
-
-CONNECT_SYSTEM_PROMPT = (
-    "You first decompose the given Spanish word into 3-5 similar sounding "
-    "English words or English words that overlap in sound, and then "
-    "(second) you consider each for any semantic links to the English "
-    "meaning. For example, if given \"llave\", you first decompose this "
-    "into \"llama\", \"wave\", \"Ave Maria\". For \"llama\", there is no "
-    "semantic path to \"key\". For \"wave\", you could say \"a musical "
-    "key is composed of sound waves, so llave->wave->key\". For \"Ave "
-    "Maria\", you could say \"Ave Maria is a song sung in the key of B "
-    "flat, so llave->Ave Maria->key, although it's a weaker connection\". "
-    "For verb conjugations, or any you fail to find, just return \"No "
-    "connections available.\". Do not return shitty connections."
-)
+# Stored prompt on OpenAI (Responses API). Model + system message live on
+# the stored prompt — change them there, not here. The stored prompt
+# template doesn't (currently) accept a user-supplied English meaning, so
+# the model infers it from the Spanish input alone; some divergence from
+# what the user typed in their English field is expected and acceptable.
+CONNECT_PROMPT_ID = "pmpt_6a1310672d7c8190ae7e361783490e4106beea0a84d4b3df"
+CONNECT_PROMPT_VERSION = "1"
 
 # Lazy OpenAI client.
 _client: OpenAI | None = None
@@ -69,14 +61,14 @@ def memorize_connect(
     start = time.time()
     try:
         client = _get_client()
-        completion = client.chat.completions.create(
-            model=CONNECT_MODEL,
-            messages=[
-                {"role": "system", "content": CONNECT_SYSTEM_PROMPT},
-                {"role": "user", "content": word},
-            ],
+        response = client.responses.create(
+            prompt={
+                "id": CONNECT_PROMPT_ID,
+                "version": CONNECT_PROMPT_VERSION,
+            },
+            input=word,
         )
-        content = (completion.choices[0].message.content or "").strip()
+        content = (getattr(response, "output_text", "") or "").strip()
     except Exception as exc:
         logger.error("memorize/connect openai call failed: %s", exc)
         raise HTTPException(status_code=502, detail="Unable to reach the model. Try again.") from exc
