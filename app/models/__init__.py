@@ -64,6 +64,9 @@ from app.models.vocab import (
     VocabChapterCompletion,
 )
 
+# Memorize utility models
+from app.models.memorize import MemorizeCompletion
+
 __all__ = [
     "User",
     "Situation",
@@ -99,6 +102,7 @@ __all__ = [
     "TenseQuestSentenceCompletion",
     "VocabCard",
     "VocabChapterCompletion",
+    "MemorizeCompletion",
 ]
 
 # Also export Base if it exists

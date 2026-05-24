@@ -323,6 +323,9 @@ app.include_router(tense_quest.router, prefix="/v1/tensequest", tags=["tenseques
 logger.info("  ✅ /v1/tensequest (GET /overview, GET /groups/{id}, GET /drills/{id}, POST /drills/{id}/complete, GET/POST /review*, POST /transcribe)")
 app.include_router(vocab.router, prefix="/v1/vocab", tags=["vocab"])
 logger.info("  ✅ /v1/vocab (GET /progress, POST /chapter/{module}/{idx}/complete, GET/POST /module/{id}/review*, GET/POST /review*)")
+from app.api.v1 import memorize
+app.include_router(memorize.router, prefix="/v1/memorize", tags=["memorize"])
+logger.info("  ✅ /v1/memorize (POST /connect - mnemonic decomposition via gpt-5-mini)")
 logger.info("✅ All routes registered")
 
 
