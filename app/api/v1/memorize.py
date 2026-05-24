@@ -7,6 +7,7 @@
 import logging
 import time
 import uuid
+from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException
 from openai import OpenAI
@@ -20,6 +21,24 @@ from app.models import MemorizeCompletion, User
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+TRANSLATE_MODEL = "gpt-4.1"
+
+TRANSLATE_SYSTEM_PROMPTS: dict[str, str] = {
+    "es_to_en": (
+        "Translate the given Spanish word or phrase to its most natural English "
+        "equivalent. For verb conjugations, conjugate the English verb to match "
+        "(e.g. 'habla' → 'he speaks', 'comimos' → 'we ate'). Respond with ONLY "
+        "the translation — no quotes, no commentary, no list of alternatives."
+    ),
+    "en_to_es": (
+        "Translate the given English word or phrase to its most natural Latin "
+        "American Spanish equivalent. For verb conjugations, conjugate the "
+        "Spanish verb to match (e.g. 'he speaks' → 'habla', 'we ate' → "
+        "'comimos'). Respond with ONLY the translation — no quotes, no "
+        "commentary, no list of alternatives."
+    ),
+}
 
 # Stored prompt on OpenAI (Responses API). Model + system message live on
 # the stored prompt — change them there, not here. The stored prompt
@@ -128,3 +147,54 @@ def memorize_complete(
     )
 
     return CompleteResponse(points=points, coins_earned=1)
+
+
+class TranslateRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=500)
+    direction: Literal["es_to_en", "en_to_es"]
+
+
+class TranslateResponse(BaseModel):
+    translated: str
+
+
+@router.post("/translate", response_model=TranslateResponse)
+def memorize_translate(
+    body: TranslateRequest,
+    current_user: User = Depends(get_current_user),  # noqa: ARG001 — auth gate only
+):
+    """Translate a Spanish word/phrase to English or vice versa via gpt-4.1."""
+    text = body.text.strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="text must not be empty")
+
+    system_prompt = TRANSLATE_SYSTEM_PROMPTS[body.direction]
+    start = time.time()
+    try:
+        client = _get_client()
+        completion = client.chat.completions.create(
+            model=TRANSLATE_MODEL,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": text},
+            ],
+            temperature=0.1,
+            max_tokens=300,
+        )
+        translated = (completion.choices[0].message.content or "").strip()
+        # Strip surrounding quotes that some models add despite the system prompt.
+        if (translated.startswith('"') and translated.endswith('"')) or (
+            translated.startswith("'") and translated.endswith("'")
+        ):
+            translated = translated[1:-1].strip()
+    except Exception as exc:
+        logger.error("memorize/translate openai call failed: %s", exc)
+        raise HTTPException(status_code=502, detail="Unable to reach the model. Try again.") from exc
+
+    elapsed_ms = int((time.time() - start) * 1000)
+    logger.info(
+        "memorize/translate ok direction=%s in=%r out=%r ms=%d",
+        body.direction, text, translated, elapsed_ms,
+    )
+
+    return TranslateResponse(translated=translated)
