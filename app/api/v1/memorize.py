@@ -1,19 +1,22 @@
 """Memorize utility endpoints.
 
-Currently exposes one endpoint, `/v1/memorize/connect`, which sends a
-Spanish word/phrase to gpt-5-mini and returns a short decomposition that
-helps the user build a mnemonic bridge to the meaning.
+- `POST /v1/memorize/connect` → gpt-5-mini mnemonic decomposition
+- `POST /v1/memorize/complete` → records a confirmed memorisation and
+  awards +1 sun (rolls into `_user_points()` for the header HUD).
 """
 import logging
 import time
+import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
 from openai import OpenAI
 from pydantic import BaseModel, Field
+from sqlalchemy.orm import Session
 
 from app.auth import get_current_user
 from app.config import settings
-from app.models import User
+from app.database import get_db
+from app.models import MemorizeCompletion, User
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -85,3 +88,51 @@ def memorize_connect(
         content = "No connections available."
 
     return ConnectResponse(response=content)
+
+
+class CompleteRequest(BaseModel):
+    spanish: str = Field(..., min_length=1, max_length=500)
+    english: str | None = Field(default=None, max_length=500)
+
+
+class CompleteResponse(BaseModel):
+    points: int  # user's new lifetime-earned sun total after this completion
+    coins_earned: int  # always 1 today; future-proofed in case the reward shape changes
+
+
+@router.post("/complete", response_model=CompleteResponse)
+def memorize_complete(
+    body: CompleteRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Record a confirmed memorisation, awarding +1 sun."""
+    spanish = body.spanish.strip()
+    if not spanish:
+        raise HTTPException(status_code=400, detail="spanish must not be empty")
+    english = (body.english or "").strip() or None
+
+    row = MemorizeCompletion(
+        id=uuid.uuid4(),
+        user_id=current_user.id,
+        spanish_phrase=spanish,
+        english_phrase=english,
+        coins_earned=1,
+    )
+    db.add(row)
+    db.commit()
+
+    # Read back the user's updated lifetime-earned total so the FE can
+    # show the new sun count immediately without a second round-trip.
+    from app.api.v1.tense_quest import _user_points
+    points = _user_points(db, current_user.id)
+
+    logger.info(
+        "memorize/complete user=%s spanish=%r english=%r new_points=%d",
+        current_user.id,
+        spanish,
+        english,
+        points,
+    )
+
+    return CompleteResponse(points=points, coins_earned=1)
