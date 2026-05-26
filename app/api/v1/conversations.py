@@ -510,6 +510,50 @@ async def check_pronunciation(
     return {"transcript": transcript, "is_correct": is_correct}
 
 
+@router.post("/check-pronunciation/anonymous")
+async def check_pronunciation_anonymous(
+    audio: UploadFile = File(...),
+    expected_word: str = Form(...),
+):
+    """Anonymous pronunciation check for the public /freetrial demo.
+
+    Mirrors /check-pronunciation (STT + normalized string match) but without
+    auth — the free trial has no logged-in user. Spanish only; no DB writes."""
+    import logging
+    import re
+    import unicodedata
+    logger = logging.getLogger(__name__)
+
+    audio_bytes = await audio.read()
+    logger.info(f"[PronCheck anon] expected='{expected_word}', audio={len(audio_bytes)} bytes")
+
+    transcript = await gateway_transcribe_audio(
+        audio_bytes=audio_bytes,
+        filename=audio.filename or "audio.mp3",
+        prompt=f"The user is saying a Spanish word or phrase: {expected_word}. Transcribe exactly what they say.",
+        language=None,
+        request_id="freetrial-anon",
+        user_id="anonymous",
+    )
+
+    def normalize(s: str) -> str:
+        s = s.lower().strip()
+        s = unicodedata.normalize('NFD', s)
+        s = re.sub(r'[̀-ͯ]', '', s)  # Remove accent marks
+        s = s.replace('ñ', 'n')
+        s = re.sub(r'[.,!?;:\'"¿¡]', '', s)
+        s = re.sub(r'\s+', ' ', s).strip()
+        return s
+
+    norm_transcript = normalize(transcript)
+    norm_expected = normalize(expected_word)
+    is_correct = norm_transcript == norm_expected
+
+    logger.info(f"[PronCheck anon] transcript='{transcript}' norm='{norm_transcript}' expected_norm='{norm_expected}' correct={is_correct}")
+
+    return {"transcript": transcript, "is_correct": is_correct}
+
+
 def _normalize_word_id(word_id: str) -> str:
     """Map synthetic frontend chip ids to their persisted base word_id.
 
