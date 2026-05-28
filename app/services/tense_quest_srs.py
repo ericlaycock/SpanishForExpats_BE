@@ -5,7 +5,9 @@ Simple Leitner-style schedule (boxes 1..5). Inputs from the FE per review:
 and `response_mode` (`'type'` or `'speak'`).
 
 Rules baked into `apply_review`:
-  * wrong  → lapse: box back to 1, surfaces again soon (~10 min).
+  * wrong  → lapse: box drops by LAPSE_DROP (floored at 1), surfaces again soon
+    (~10 min). A miss costs a couple of rungs of spacing, not all of it — a
+    mature box-7 card falls to box 5, not back to square one.
   * correct but slow → still a *lapse* — the player isn't shown this fail
     state (the FE shows the green "correct!"), but internally the card is
     treated as not-known so it keeps surfacing. The slow ceiling is
@@ -29,10 +31,14 @@ FAST_MS = 5_000
 SLOW_MS_TYPED = 15_000
 SLOW_MS_SPOKEN = 10_000
 LAPSE_MINUTES = 10
-MAX_BOX = 5
+MAX_BOX = 7
+# A lapse demotes by this many boxes (floored at 1) instead of resetting to 1,
+# so one slip doesn't wipe out a word's whole spacing history.
+LAPSE_DROP = 2
 
-# Roughly: 4h, 1d, 3d, 1w, 16d.
-BOX_INTERVAL_HOURS = {1: 4, 2: 24, 3: 72, 4: 168, 5: 384}
+# Roughly: 4h, 1d, 3d, 1w, 16d, 35d, 60d. Tops out at ~2 months for a word the
+# player nails every time.
+BOX_INTERVAL_HOURS = {1: 4, 2: 24, 3: 72, 4: 168, 5: 384, 6: 840, 7: 1440}
 
 # Coins awarded per review outcome — fast & correct = 2, medium & correct = 1,
 # slow or wrong = 0.
@@ -66,7 +72,7 @@ def apply_review(
     very_fast = response_ms is not None and response_ms <= FAST_MS
 
     if not correct or too_slow:
-        card.box = 1
+        card.box = max(1, (card.box or 1) - LAPSE_DROP)
         card.lapses = (card.lapses or 0) + 1
         result = "lapse"
     elif very_fast:

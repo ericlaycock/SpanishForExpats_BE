@@ -65,7 +65,7 @@ class VocabCard(Base):
     __table_args__ = (
         UniqueConstraint("user_id", "module_id", "word_es", name="uq_vocab_card"),
         CheckConstraint("status IN ('module','main')", name="ck_vocab_card_status"),
-        CheckConstraint("box >= 1 AND box <= 5", name="ck_vocab_card_box"),
+        CheckConstraint("box >= 1 AND box <= 6", name="ck_vocab_card_box"),
         Index("ix_vocab_card_user_status", "user_id", "status"),
         Index("ix_vocab_card_user_due", "user_id", "due_at"),
     )
