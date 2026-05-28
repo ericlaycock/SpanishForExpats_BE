@@ -10,6 +10,7 @@ from app.services.tense_quest_srs import (
     FAST_MS,
     SLOW_MS_TYPED,
     SLOW_MS_SPOKEN,
+    MAX_BOX,
 )
 from tests.conftest import register_user
 
@@ -109,7 +110,7 @@ def test_srs_wrong_is_a_lapse():
     c = _FakeCard(box=4)
     now = datetime.now(timezone.utc)
     assert apply_review(c, correct=False, response_ms=2000, now=now) == "lapse"
-    assert c.box == 1
+    assert c.box == 2  # demotes by 2 (4→2), not a full reset to box 1
     assert c.lapses == 1
     assert c.due_at - now < timedelta(hours=1)  # comes back soon
 
@@ -146,12 +147,12 @@ def test_srs_fast_correct_double_bumps():
 
 
 def test_srs_normal_correct_single_bumps_and_caps():
-    c = _FakeCard(box=4)
+    c = _FakeCard(box=MAX_BOX - 1)
     assert apply_review(c, correct=True, response_ms=8000) == "good"
-    assert c.box == 5
-    # cap at 5
+    assert c.box == MAX_BOX  # single bump up to the cap
+    # caps at MAX_BOX
     assert apply_review(c, correct=True, response_ms=8000) == "good"
-    assert c.box == 5
+    assert c.box == MAX_BOX
 
 
 def test_order_cards_puts_due_first():
@@ -259,9 +260,10 @@ def test_review_attempt_and_shuffle(client):
 
     coins_before = client.get("/v1/tensequest/overview", headers=headers).json()["points"]
 
-    # Slow-but-correct → silent lapse, 0 coins.
+    # Slow-but-correct → silent lapse, 0 coins. 16s clears both the typed (15s)
+    # and spoken (10s) ceilings, so this is a lapse regardless of the card's mode.
     resp = client.post("/v1/tensequest/review/attempt", headers=headers,
-                       json={"card_key": card_key, "correct": True, "response_ms": 12000})
+                       json={"card_key": card_key, "correct": True, "response_ms": 16000})
     assert resp.status_code == 200
     assert resp.json()["result"] == "lapse" and resp.json()["coins_earned"] == 0
 

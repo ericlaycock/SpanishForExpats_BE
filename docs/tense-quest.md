@@ -40,8 +40,9 @@ conjugation across every verb-tense topic in the curriculum:
   player answers, then the speed is judged silently: `<5s` & correct →
   "¡Rápido! Fast!" + **2 coins** (box +2); `5–10s` & correct → "¡Bien! Good." +
   **1 coin** (box +1); `>10s` but correct → small, non-offensive "slow — no
-  coins this time" + **0 coins** (box→1, silent lapse — UI doesn't call it a
-  fail); wrong → **0 coins** (box→1). Review coins accumulate per card
+  coins this time" + **0 coins** (box −2, floored at 1; silent lapse — UI
+  doesn't call it a fail); wrong → **0 coins** (box −2, floored at 1). A lapse
+  costs a couple of rungs of spacing, not all of it. Review coins accumulate per card
   (`coins_earned`) and roll into the user's coin total + leaderboard (= drill
   completions + review coins). A lapsed card resurfaces ~10 min later.
   **Shuffle** randomizes `deck_position` (the flip-through order). Due cards
@@ -135,7 +136,7 @@ case-insensitively unique via a functional index. Tables (migrations `038`–`04
   each, idempotent.
 - `tense_quest_cards` — the per-user SRS deck of **sentence cards**.
   `card_key = "{drill_id}:{sentence_id}"`, plus `tense_group_id`, `drill_id`,
-  `sentence_id`, Leitner `box` 1..5, `due_at`, `deck_position` (Shuffle target),
+  `sentence_id`, Leitner `box` 1..7, `due_at`, `deck_position` (Shuffle target),
   `coins_earned` (accumulating: 2 per fast review, 1 per medium), `last_result`,
   `last_response_ms`, `reps`, `lapses`. The sentence text is resolved on read
   from the grammar data (`tq.lookup_sentence`), not stored.

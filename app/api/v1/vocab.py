@@ -32,10 +32,14 @@ from app.models import User, VocabCard, VocabChapterCompletion
 router = APIRouter()
 
 
-# Leitner box → days until next due. Index by box-1 (boxes are 1..5).
-# Same shape as the verb SRS but tuned looser since vocab cards graduate
-# from a separate ladder. Same defaults the plan calls out.
-BOX_DAYS = [1, 2, 4, 8, 16]
+# Leitner box → days until next due. Index by box-1 (boxes are 1..MAX_BOX).
+# Same shape as the verb SRS but in days; tops out at ~2 months for a word the
+# learner nails every time.
+BOX_DAYS = [1, 3, 7, 16, 35, 60]
+MAX_BOX = len(BOX_DAYS)  # 6
+# A lapse on the main deck demotes by this many boxes (floored at 1) rather than
+# resetting to box 1, so one miss doesn't wipe out a word's spacing history.
+LAPSE_DROP = 2
 PROMOTE_THRESHOLD_MS = 15_000  # >15s → re-queue, not promote
 REQUEUE_MINUTES = 10  # how soon a re-queued module-deck card comes back
 
@@ -74,7 +78,7 @@ class ChapterCompletionInfo(BaseModel):
 class ModuleDeckInfo(BaseModel):
     module_id: str
     total: int       # total module-status cards in this module
-    due: int         # module-status cards due now (currently == total — module deck is "always due")
+    due: int         # module-status cards with due_at <= now (re-queued cards wait REQUEUE_MINUTES)
 
 
 class MainDeckInfo(BaseModel):
@@ -131,18 +135,21 @@ class MainReviewAttemptResult(BaseModel):
 
 def _module_decks_summary(db: Session, user_id) -> list[ModuleDeckInfo]:
     """Group module-status cards by module so the FE can show per-module deck
-    counts (e.g. for the sidebar review-CTA). Currently `due == total` because
-    the module deck doesn't space out — it's reviewed in one pass."""
+    counts (e.g. for the sidebar review-CTA). `due` counts only cards whose
+    due_at has passed — a re-queued card waits REQUEUE_MINUTES before it's due
+    again, so `due` can be < total."""
+    now = datetime.now(timezone.utc)
     rows = (
         db.query(
             VocabCard.module_id,
             func.count(VocabCard.id),
+            func.count(VocabCard.id).filter(VocabCard.due_at <= now),
         )
         .filter(VocabCard.user_id == user_id, VocabCard.status == "module")
         .group_by(VocabCard.module_id)
         .all()
     )
-    return [ModuleDeckInfo(module_id=mid, total=total, due=total) for (mid, total) in rows]
+    return [ModuleDeckInfo(module_id=mid, total=total, due=due) for (mid, total, due) in rows]
 
 
 def _main_deck_summary(db: Session, user_id) -> MainDeckInfo:
@@ -272,15 +279,20 @@ async def module_review_deck(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Module-only SRS deck: all status='module' cards for this module,
-    shuffled. The FE gates access by checking chapter_completions in the
-    progress payload first (no point reviewing if no chapters are done)."""
+    """Module-only SRS deck: status='module' cards for this module that are due
+    now (due_at <= now), shuffled. Freshly-seeded cards default due_at=now() so
+    they're due immediately after a chapter; a re-queued card waits
+    REQUEUE_MINUTES before it resurfaces. The FE gates access by checking
+    chapter_completions in the progress payload first (no point reviewing if no
+    chapters are done)."""
+    now = datetime.now(timezone.utc)
     cards = (
         db.query(VocabCard)
         .filter(
             VocabCard.user_id == current_user.id,
             VocabCard.module_id == module_id,
             VocabCard.status == "module",
+            VocabCard.due_at <= now,
         )
         .all()
     )
@@ -386,8 +398,9 @@ async def main_review_attempt(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Leitner ladder on the main vocab deck. Correct → box+1 (cap 5),
-    due += BOX_DAYS[box]; wrong/slow → box=1, due += 10 min."""
+    """Leitner ladder on the main vocab deck. Correct+fast → box+1 (cap MAX_BOX),
+    due += BOX_DAYS[box]; wrong/slow → box drops by LAPSE_DROP (floored at 1),
+    due += 10 min."""
     card = (
         db.query(VocabCard)
         .filter(
@@ -403,11 +416,11 @@ async def main_review_attempt(
     now = datetime.now(timezone.utc)
     fast = body.response_ms > 0 and body.response_ms <= PROMOTE_THRESHOLD_MS
     if body.correct and fast:
-        new_box = min(5, int(card.box) + 1)
+        new_box = min(MAX_BOX, int(card.box) + 1)
         card.box = new_box
         card.due_at = now + timedelta(days=BOX_DAYS[new_box - 1])
     else:
-        card.box = 1
+        card.box = max(1, int(card.box) - LAPSE_DROP)
         card.due_at = now + timedelta(minutes=REQUEUE_MINUTES)
     card.last_seen_at = now
     card.last_response_ms = body.response_ms

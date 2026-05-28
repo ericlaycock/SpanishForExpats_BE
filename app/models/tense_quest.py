@@ -43,10 +43,11 @@ class TenseQuestDrillCompletion(Base):
 class TenseQuestCard(Base):
     """A single practice-sentence card in a user's review deck.
 
-    `card_key` == "{drill_id}:{sentence_id}". `box` is a 1..5 Leitner box;
+    `card_key` == "{drill_id}:{sentence_id}". `box` is a 1..7 Leitner box;
     `due_at` is when the card next wants reviewing; `deck_position` is the
     flip-through order (randomised by the Shuffle button). A "lapse" (wrong, or
-    correct-but-slow) resets `box` to 1 and pulls `due_at` in close. The
+    correct-but-slow) demotes `box` by 2 (floored at 1) and pulls `due_at` in
+    close, so one slip costs a couple of rungs of spacing rather than all of it. The
     sentence's English/Spanish text is resolved on read from the grammar data,
     so only the keys are stored here.
     """
