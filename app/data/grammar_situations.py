@@ -153,7 +153,7 @@ GL_TITLES: dict[float, str] = {
     13: "Reflexive", 13.5: "Imperatives", 14: "Future Simple", 15: "Conditional",
     16: "Preterite vs Imperfect", 17: "Preterite Regular",
     17.1: "Preterite Highly Irregular", 17.2: "Preterite Weird Spelling Changes",
-    17.3: "Preterite Stem Changers", 17.4: "Preterite DUCIR",
+    17.3: "Preterite Strong Stems", 17.4: "Preterite DUCIR",
     17.5: "Preterite e-to-i Irregular", 18: "Gerund",
     18.5: "Perfect Tenses",
     19: "Direct + Indirect Object Pronouns",
