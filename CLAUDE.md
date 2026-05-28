@@ -27,6 +27,7 @@
 | `docs/grammar-curriculum.md` | Grammar group structure, lesson pattern, drill anatomy. (Phase 2 — not yet created.) |
 | `docs/voice-chat.md` | **UPDATE FREQUENTLY** STT/TTS/LLM pipeline, R2, animation, realtime flag. |
 | `docs/tense-quest.md` | Tense Quest mini-game (`/tensequest`): derived content, leaderboard, SRS review deck, API, tables. |
+| `docs/teachers-portal.md` | Teachers-only portal: `is_teacher` role, student roster, manual per-topic mastery overlay, `/v1/teachers` API. |
 | `docs/design-system.md` | Brand identity, palette (`#28968C`), typography, component guidelines. |
 | `docs/env-variables.md` | All FE + BE environment variables. |
 | `docs/testing.md` | CI, pytest, vitest, Playwright. |

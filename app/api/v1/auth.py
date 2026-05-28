@@ -107,7 +107,7 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
         # Generate token with plan claim
         access_token = create_access_token(data={"sub": str(user.id), "plan": plan})
         logger.info(f"Registration successful for user: {user.id}")
-        return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email, plan=plan)
+        return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, is_teacher=user.is_teacher, alt_language=user.alt_language, email=user.email, plan=plan)
     except HTTPException:
         # Re-raise HTTP exceptions (validation errors)
         raise
@@ -140,7 +140,7 @@ async def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     sub = db.query(Subscription).filter(Subscription.user_id == user.id).first()
     plan = (sub.tier if sub and sub.tier else "free")
     access_token = create_access_token(data={"sub": str(user.id), "plan": plan})
-    return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, alt_language=user.alt_language, email=user.email, plan=plan)
+    return LoginResponse(access_token=access_token, user_id=user.id, is_admin=user.is_admin, is_teacher=user.is_teacher, alt_language=user.alt_language, email=user.email, plan=plan)
 
 
 @router.post("/refresh", response_model=LoginResponse)

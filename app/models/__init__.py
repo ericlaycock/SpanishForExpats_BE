@@ -67,6 +67,12 @@ from app.models.vocab import (
 # Memorize utility models
 from app.models.memorize import MemorizeCompletion
 
+# Teachers portal models
+from app.models.teacher import (
+    TeacherStudent,
+    TeacherStudentTopicState,
+)
+
 __all__ = [
     "User",
     "Situation",
@@ -103,6 +109,8 @@ __all__ = [
     "VocabCard",
     "VocabChapterCompletion",
     "MemorizeCompletion",
+    "TeacherStudent",
+    "TeacherStudentTopicState",
 ]
 
 # Also export Base if it exists

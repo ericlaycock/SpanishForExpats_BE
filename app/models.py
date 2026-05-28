@@ -20,6 +20,9 @@ class User(Base):
     grammar_score = Column(String, nullable=True)  # Quiz grammar score
     vocab_score = Column(String, nullable=True)  # Quiz vocab score
     is_admin = Column(Boolean, default=False, nullable=False)
+    # Grants access to the teachers-only portal (/v1/teachers, FE /teachers).
+    # Same boolean-flag pattern as is_admin; admins are implicitly allowed too.
+    is_teacher = Column(Boolean, default=False, nullable=False, server_default="false")
     alt_language = Column(String, nullable=True)  # null=Spanish, 'catalan', 'swedish'
     # Server-side flags for first-time feature explainers (coachmarks).
     # Shape: {"vocab_word_cards": true, "verb_lesson": true, ...}. Lookup
