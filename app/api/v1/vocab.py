@@ -28,21 +28,16 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.database import get_db
 from app.models import User, VocabCard, VocabChapterCompletion
+from app.services import srs
 
 router = APIRouter()
 
 
-# Leitner box → days until next due. Index by box-1 (boxes are 1..MAX_BOX).
-# Same shape as the verb SRS but in days; tops out at ~2 months for a word the
-# learner nails every time.
-BOX_DAYS = [1, 3, 7, 16, 35, 60]
-MAX_BOX = len(BOX_DAYS)  # 6
-# A lapse on the main deck demotes by this many boxes (floored at 1) rather than
-# resetting to box 1, so one miss doesn't wipe out a word's spacing history.
-LAPSE_DROP = 2
-PROMOTE_THRESHOLD_MS = 15_000  # >15s → re-queue, not promote
-REQUEUE_MINUTES = 10  # how soon a re-queued module-deck card comes back
-
+# Both vocab decks ride the shared Leitner engine in `app/services/srs.py` — the
+# same ladder + transition rules the verb deck uses. A module card that's
+# answered correctly within the (typed) slow ceiling promotes to the main deck
+# at box 1; everything else re-queues ~10 min out. Main-deck cards then space out
+# along the shared ladder (box 1 = 4h … box 7 = 60d), demoting by 2 on a lapse.
 CHAPTERS_PER_MODULE = 3  # 3 chapters × 5 words = 15-word module cap
 
 
@@ -78,7 +73,7 @@ class ChapterCompletionInfo(BaseModel):
 class ModuleDeckInfo(BaseModel):
     module_id: str
     total: int       # total module-status cards in this module
-    due: int         # module-status cards with due_at <= now (re-queued cards wait REQUEUE_MINUTES)
+    due: int         # module-status cards with due_at <= now (re-queued cards wait ~10 min)
 
 
 class MainDeckInfo(BaseModel):
@@ -136,7 +131,7 @@ class MainReviewAttemptResult(BaseModel):
 def _module_decks_summary(db: Session, user_id) -> list[ModuleDeckInfo]:
     """Group module-status cards by module so the FE can show per-module deck
     counts (e.g. for the sidebar review-CTA). `due` counts only cards whose
-    due_at has passed — a re-queued card waits REQUEUE_MINUTES before it's due
+    due_at has passed — a re-queued card waits ~10 min before it's due
     again, so `due` can be < total."""
     now = datetime.now(timezone.utc)
     rows = (
@@ -282,7 +277,7 @@ async def module_review_deck(
     """Module-only SRS deck: status='module' cards for this module that are due
     now (due_at <= now), shuffled. Freshly-seeded cards default due_at=now() so
     they're due immediately after a chapter; a re-queued card waits
-    REQUEUE_MINUTES before it resurfaces. The FE gates access by checking
+    ~10 min before it resurfaces. The FE gates access by checking
     chapter_completions in the progress payload first (no point reviewing if no
     chapters are done)."""
     now = datetime.now(timezone.utc)
@@ -340,11 +335,13 @@ async def module_review_attempt(
         return ModuleReviewAttemptResult(card_id=str(card.id), promoted=False, requeued=False)
 
     now = datetime.now(timezone.utc)
-    fast = body.response_ms > 0 and body.response_ms <= PROMOTE_THRESHOLD_MS
-    if body.correct and fast:
+    # Promote when the answer clears the engine's grade bar (correct and within
+    # the typed slow ceiling — i.e. not a lapse). The new main-deck card enters
+    # the shared ladder at box 1 (first review ~4h out).
+    if srs.classify(body.correct, body.response_ms, "type") != "lapse":
         card.status = "main"
-        card.box = 1
-        card.due_at = now + timedelta(days=BOX_DAYS[0])
+        card.box = srs.MIN_BOX
+        card.due_at = now + srs.interval_for(srs.MIN_BOX)
         card.last_seen_at = now
         card.last_response_ms = body.response_ms
         db.commit()
@@ -353,7 +350,7 @@ async def module_review_attempt(
     # Re-queue: keep in module deck, bump last_seen and due forward a touch.
     card.last_seen_at = now
     card.last_response_ms = body.response_ms
-    card.due_at = now + timedelta(minutes=REQUEUE_MINUTES)
+    card.due_at = now + timedelta(minutes=srs.LAPSE_MINUTES)
     db.commit()
     return ModuleReviewAttemptResult(card_id=str(card.id), promoted=False, requeued=True)
 
@@ -398,9 +395,9 @@ async def main_review_attempt(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Leitner ladder on the main vocab deck. Correct+fast → box+1 (cap MAX_BOX),
-    due += BOX_DAYS[box]; wrong/slow → box drops by LAPSE_DROP (floored at 1),
-    due += 10 min."""
+    """Shared Leitner ladder on the main vocab deck (see `app/services/srs.py`).
+    Vocab is typed-only: very-fast correct → box +2, correct → box +1 (cap box
+    7), slow/wrong → box −2 (floored at 1) and a ~10 min re-queue."""
     card = (
         db.query(VocabCard)
         .filter(
@@ -414,16 +411,9 @@ async def main_review_attempt(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Card not found")
 
     now = datetime.now(timezone.utc)
-    fast = body.response_ms > 0 and body.response_ms <= PROMOTE_THRESHOLD_MS
-    if body.correct and fast:
-        new_box = min(MAX_BOX, int(card.box) + 1)
-        card.box = new_box
-        card.due_at = now + timedelta(days=BOX_DAYS[new_box - 1])
-    else:
-        card.box = max(1, int(card.box) - LAPSE_DROP)
-        card.due_at = now + timedelta(minutes=REQUEUE_MINUTES)
+    srs.apply_review(card, correct=body.correct, response_ms=body.response_ms,
+                     response_mode="type", now=now)
     card.last_seen_at = now
-    card.last_response_ms = body.response_ms
     db.commit()
     return MainReviewAttemptResult(
         card_id=str(card.id),

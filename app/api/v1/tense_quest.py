@@ -535,7 +535,7 @@ def _is_due(card: TenseQuestCard, now: datetime) -> bool:
 
 
 def _review_deck(db: Session, user_id, limit: int = REVIEW_DECK_LIMIT) -> ReviewDeck:
-    from app.services.tense_quest_srs import order_cards
+    from app.services.srs import order_cards
 
     now = _now()
     all_cards = db.query(TenseQuestCard).filter(TenseQuestCard.user_id == user_id).all()
@@ -952,7 +952,7 @@ async def review_attempt(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    from app.services.tense_quest_srs import apply_review, coins_for_result
+    from app.services.srs import apply_review, coins_for_result
 
     card = (
         db.query(TenseQuestCard)

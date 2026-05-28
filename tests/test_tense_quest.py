@@ -1,17 +1,10 @@
-"""Tense Quest — data module, SRS transitions, and API endpoint tests."""
+"""Tense Quest — data module and API endpoint tests. The shared SRS engine the
+review deck rides on is exercised in `tests/test_srs.py`."""
 from datetime import datetime, timedelta, timezone
 
 import pytest
 
 from app.data import tense_quest as tq
-from app.services.tense_quest_srs import (
-    apply_review,
-    order_cards,
-    FAST_MS,
-    SLOW_MS_TYPED,
-    SLOW_MS_SPOKEN,
-    MAX_BOX,
-)
 from tests.conftest import register_user
 
 
@@ -91,78 +84,6 @@ def test_unknown_ids_return_none():
     assert tq.lookup_sentence("grammar_does_not_exist:s0") is None
     assert tq.lookup_sentence("malformed") is None
     assert tq.card_display("nope:s0") is None
-
-
-# ── SRS transitions ─────────────────────────────────────────────────────────
-
-class _FakeCard:
-    def __init__(self, box=1, deck_position=0, due_at=None):
-        self.box = box
-        self.reps = 0
-        self.lapses = 0
-        self.last_result = None
-        self.last_response_ms = None
-        self.deck_position = deck_position
-        self.due_at = due_at
-
-
-def test_srs_wrong_is_a_lapse():
-    c = _FakeCard(box=4)
-    now = datetime.now(timezone.utc)
-    assert apply_review(c, correct=False, response_ms=2000, now=now) == "lapse"
-    assert c.box == 2  # demotes by 2 (4→2), not a full reset to box 1
-    assert c.lapses == 1
-    assert c.due_at - now < timedelta(hours=1)  # comes back soon
-
-
-def test_srs_correct_but_slow_typed_is_a_silent_lapse():
-    c = _FakeCard(box=3)
-    # Typed slow ceiling is 15s; >15s correct = lapse.
-    assert apply_review(c, correct=True, response_ms=SLOW_MS_TYPED + 1, response_mode="type") == "lapse"
-    assert c.box == 1
-
-
-def test_srs_correct_but_slow_spoken_is_a_silent_lapse():
-    c = _FakeCard(box=3)
-    # Spoken slow ceiling stays at 10s; >10s correct = lapse.
-    assert apply_review(c, correct=True, response_ms=SLOW_MS_SPOKEN + 1, response_mode="speak") == "lapse"
-    assert c.box == 1
-
-
-def test_srs_typed_under_typed_ceiling_but_over_spoken_is_good():
-    # The asymmetry that motivated the split: 12s on a typed card is "good"
-    # (15s ceiling), but the same 12s on a spoken card is a lapse.
-    c_typed = _FakeCard(box=2)
-    assert apply_review(c_typed, correct=True, response_ms=12_000, response_mode="type") == "good"
-    assert c_typed.box == 3
-    c_spoken = _FakeCard(box=2)
-    assert apply_review(c_spoken, correct=True, response_ms=12_000, response_mode="speak") == "lapse"
-    assert c_spoken.box == 1
-
-
-def test_srs_fast_correct_double_bumps():
-    c = _FakeCard(box=1)
-    assert apply_review(c, correct=True, response_ms=FAST_MS - 1) == "great"
-    assert c.box == 3
-
-
-def test_srs_normal_correct_single_bumps_and_caps():
-    c = _FakeCard(box=MAX_BOX - 1)
-    assert apply_review(c, correct=True, response_ms=8000) == "good"
-    assert c.box == MAX_BOX  # single bump up to the cap
-    # caps at MAX_BOX
-    assert apply_review(c, correct=True, response_ms=8000) == "good"
-    assert c.box == MAX_BOX
-
-
-def test_order_cards_puts_due_first():
-    now = datetime.now(timezone.utc)
-    overdue = _FakeCard(box=1, deck_position=9, due_at=now - timedelta(hours=2))
-    not_due = _FakeCard(box=5, deck_position=0, due_at=now + timedelta(days=3))
-    due_now = _FakeCard(box=2, deck_position=5, due_at=now - timedelta(seconds=1))
-    ordered = order_cards([not_due, overdue, due_now], now=now)
-    assert ordered[-1] is not_due  # the only non-due card sorts last
-    assert set(ordered[:2]) == {overdue, due_now}
 
 
 # ── API ─────────────────────────────────────────────────────────────────────
