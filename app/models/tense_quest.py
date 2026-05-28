@@ -2,7 +2,7 @@
 per-user SRS review deck of conjugation cards.
 
 See `app/data/tense_quest.py` for the (derived) content layer and
-`app/services/tense_quest_srs.py` for the spaced-repetition transitions.
+`app/services/srs.py` for the (shared) spaced-repetition transitions.
 """
 import uuid
 

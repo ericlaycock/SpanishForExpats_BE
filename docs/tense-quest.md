@@ -144,16 +144,19 @@ case-insensitively unique via a functional index. Tables (migrations `038`–`04
   `'ok'`, `'ok_slow'`, or `'needs_work'` (migration `043` widened the check).
   Re-taking the diagnostic overwrites it.
 
-SRS transitions + coin payout live in `app/services/tense_quest_srs.py`
-(`FAST_MS=5000`, `SLOW_MS=10000`, `LAPSE_MINUTES=10`, `BOX_INTERVAL_HOURS`,
-`COINS_FOR_RESULT`).
+SRS transitions + coin payout live in the **shared** engine
+`app/services/srs.py` — the same Leitner system the vocab deck rides
+(`FAST_MS=5000`, `SLOW_MS_TYPED=15000`/`SLOW_MS_SPOKEN=10000`, `LAPSE_MINUTES=10`,
+`LAPSE_DROP=2`, `BOX_INTERVAL_HOURS` for boxes 1..7, `COINS_FOR_RESULT`). A
+review grades to `great`/`good`/`lapse` (box +2 / +1 / −2-floored-at-1); see
+`tests/test_srs.py` for the engine contract.
 
 ## Files
 
 - BE: `app/data/tense_quest.py`, `app/models/tense_quest.py`,
-  `app/services/tense_quest_srs.py`, `app/api/v1/tense_quest.py`,
+  `app/services/srs.py` (shared SRS engine), `app/api/v1/tense_quest.py`,
   `migrations/versions/{038_tense_quest,039_tq_sentence_cards}.py`,
-  tests in `tests/test_tense_quest.py`.
+  tests in `tests/test_tense_quest.py` + `tests/test_srs.py`.
 - FE: `app/[locale]/tensequest/` (page + `[groupId]` runner + `layout.tsx` +
   `tensequest.css` scoped pixel theme), `components/tensequest/*` (incl.
   `AccentBar`, `CoinBar`, `StudyContent`), `lib/api/tensequest.ts`,
