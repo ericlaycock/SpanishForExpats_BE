@@ -326,6 +326,9 @@ logger.info("  ✅ /v1/vocab (GET /progress, POST /chapter/{module}/{idx}/comple
 from app.api.v1 import memorize
 app.include_router(memorize.router, prefix="/v1/memorize", tags=["memorize"])
 logger.info("  ✅ /v1/memorize (POST /connect - mnemonic decomposition via gpt-5-mini)")
+from app.api.v1 import teachers
+app.include_router(teachers.router, prefix="/v1/teachers", tags=["teachers"])
+logger.info("  ✅ /v1/teachers (GET /students, GET /students/{id}, PUT /students/{id}/state, GET /topics)")
 logger.info("✅ All routes registered")
 
 

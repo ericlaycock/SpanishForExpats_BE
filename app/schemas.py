@@ -47,6 +47,7 @@ class LoginResponse(BaseModel):
     access_token: str
     user_id: UUID
     is_admin: bool = False
+    is_teacher: bool = False
     alt_language: Optional[str] = None
     email: str
     plan: str = "free"
