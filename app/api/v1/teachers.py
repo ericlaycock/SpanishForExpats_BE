@@ -42,6 +42,13 @@ class RosterStudent(BaseModel):
     student_email: str
     student_name: Optional[str] = None
     has_account: bool  # whether the student is linked to a real app user
+    aprendido: int = 0    # topics the teacher marked "aprendido (uso fluido)"
+    aprendiendo: int = 0  # topics marked "aprendiendo"
+
+
+class AddStudentRequest(BaseModel):
+    email: str
+    name: Optional[str] = None
 
 
 class TopicState(BaseModel):
@@ -103,15 +110,85 @@ async def list_students(
         .order_by(TeacherStudent.student_name.asc().nullslast(), TeacherStudent.student_email.asc())
         .all()
     )
+    # One grouped pass for the per-student marked-topic counts (the rest are the
+    # implicit 'no_aprendido' default and aren't stored).
+    counts: dict[str, dict[str, int]] = {}
+    if rows:
+        rid_list = [r.id for r in rows]
+        for ts_id, state, n in (
+            db.query(
+                TeacherStudentTopicState.teacher_student_id,
+                TeacherStudentTopicState.state,
+                func.count(TeacherStudentTopicState.id),
+            )
+            .filter(TeacherStudentTopicState.teacher_student_id.in_(rid_list))
+            .group_by(TeacherStudentTopicState.teacher_student_id, TeacherStudentTopicState.state)
+            .all()
+        ):
+            counts.setdefault(str(ts_id), {})[state] = n
     return [
         RosterStudent(
             id=str(r.id),
             student_email=r.student_email,
             student_name=r.student_name,
             has_account=r.student_user_id is not None,
+            aprendido=counts.get(str(r.id), {}).get("aprendido", 0),
+            aprendiendo=counts.get(str(r.id), {}).get("aprendiendo", 0),
         )
         for r in rows
     ]
+
+
+@router.post("/students", response_model=RosterStudent, status_code=status.HTTP_201_CREATED)
+async def add_student(
+    body: AddStudentRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Add a student to the caller's roster by email. Links to a real app user
+    when one exists (else the row is account-less and auto-links if they sign
+    up under that email later)."""
+    _require_teacher(current_user)
+    email = (body.email or "").strip().lower()
+    if "@" not in email:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Enter a valid email")
+
+    if (
+        db.query(TeacherStudent.id)
+        .filter(TeacherStudent.teacher_id == current_user.id, TeacherStudent.student_email == email)
+        .first()
+    ):
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="That student is already on your roster")
+
+    user = db.query(User).filter(func.lower(User.email) == email).first()
+    name = (body.name or "").strip() or (user.name if user else None)
+    row = TeacherStudent(
+        teacher_id=current_user.id,
+        student_email=email,
+        student_name=name,
+        student_user_id=user.id if user else None,
+    )
+    db.add(row)
+    db.commit()
+    return RosterStudent(
+        id=str(row.id),
+        student_email=row.student_email,
+        student_name=row.student_name,
+        has_account=row.student_user_id is not None,
+    )
+
+
+@router.delete("/students/{roster_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def remove_student(
+    roster_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Remove a student from the caller's roster (cascade-deletes their overlay)."""
+    _require_teacher(current_user)
+    row = _roster_row(db, current_user.id, roster_id)
+    db.delete(row)
+    db.commit()
 
 
 @router.get("/students/{roster_id}", response_model=StudentDetail)
