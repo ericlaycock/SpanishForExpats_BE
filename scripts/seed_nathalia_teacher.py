@@ -24,17 +24,21 @@ from app.models import TeacherStudent, User
 
 TEACHER_EMAIL = "nathalia@spanishforexpats.com"
 
-# The assignment list: (login email, display name from the customer roster).
+# The assignment list: (login email, display name). These are the emails the
+# students actually log in with — resolved against the live user table. Two
+# differ from the Stripe billing email (noted inline) because the student
+# registered under a different address; we store the login email so the roster
+# links to the account they really use.
 STUDENTS = [
     ("tamra.mcchesney@yahoo.com", "Tamra McChesney Rist"),
-    ("tmlinnean60@gmail.com", "Treva Linnean"),
+    ("trevadiva626@yahoo.com", "Treva Linnean"),          # Stripe: tmlinnean60@gmail.com
     ("aaronwarkov@gmail.com", "Aaron Warkov"),
     ("cderocher07@gmail.com", "Christopher Derocher"),
-    ("rohmans4@gmail.com", "Shelley Rohman"),
+    ("rohmans4@gmail.com", "Shelley Rohman"),             # primary acct (rohmans@gmail.com is an abandoned dup)
     ("mileyflowers@gmail.com", "Miley C Flowers"),
     ("laraolsha@me.com", "Lara Olsha"),
-    ("hello@infinitefreedommastery.com", "Justin D Richards"),
-    ("ljarensen1@yahoo.com", "Lisa Joy Arensen"),
+    ("jdrinfl99@gmail.com", "Justin D Richards"),         # Stripe: hello@infinitefreedommastery.com
+    ("ljarensen1@yahoo.com", "Lisa Joy Arensen"),         # her Tense Quest acct; vocab/chat lives on ljarensen1@gmail.com
 ]
 
 
