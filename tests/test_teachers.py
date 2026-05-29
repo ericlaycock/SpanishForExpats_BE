@@ -205,6 +205,41 @@ def test_roster_includes_progress_counts(client, db):
     assert s["aprendido"] == 2 and s["aprendiendo"] == 1
 
 
+# ── admin oversight ─────────────────────────────────────────────────────────
+
+def _make_admin(client, db, email):
+    data, headers = register_user(client, email=email)
+    db.query(User).filter(User.id == uuid.UUID(data["user_id"])).update({"is_admin": True})
+    db.flush()
+    return uuid.UUID(data["user_id"]), headers
+
+
+def test_admin_sees_every_teachers_roster(client, db):
+    t1, _ = _make_teacher(client, db, "t1@example.com")
+    t2, _ = _make_teacher(client, db, "t2@example.com")
+    _add_student(db, t1, "a@example.com", "A")
+    _add_student(db, t2, "b@example.com", "B")
+    _, ah = _make_admin(client, db, "admin@example.com")
+
+    emails = {s["student_email"] for s in client.get("/v1/teachers/students", headers=ah).json()}
+    assert {"a@example.com", "b@example.com"} <= emails  # admin sees both teachers' students
+
+
+def test_admin_can_open_and_toggle_any_student(client, db):
+    t1, _ = _make_teacher(client, db, "t1@example.com")
+    rid = _add_student(db, t1, "a@example.com", "A")
+    _, ah = _make_admin(client, db, "admin@example.com")
+
+    assert client.get(f"/v1/teachers/students/{rid}", headers=ah).status_code == 200
+    r = client.put(f"/v1/teachers/students/{rid}/state", headers=ah, json={
+        "topic_type": "tense_group", "topic_id": "regular_present", "state": "aprendido",
+    })
+    assert r.status_code == 200
+    # and the teacher who owns the roster sees that same overlay
+    states = client.get(f"/v1/teachers/students/{rid}", headers=ah).json()["states"]
+    assert {"topic_type": "tense_group", "topic_id": "regular_present", "state": "aprendido"} in states
+
+
 # ── topics ────────────────────────────────────────────────────────────────────
 
 def test_topics_lists_tense_groups(client, db):
