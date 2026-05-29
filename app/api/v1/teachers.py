@@ -85,12 +85,13 @@ class TopicsResponse(BaseModel):
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 
-def _roster_row(db: Session, teacher_id, roster_id: str) -> TeacherStudent:
-    row = (
-        db.query(TeacherStudent)
-        .filter(TeacherStudent.id == roster_id, TeacherStudent.teacher_id == teacher_id)
-        .one_or_none()
-    )
+def _roster_row(db: Session, user: User, roster_id: str) -> TeacherStudent:
+    # A teacher can only reach their own roster rows; an admin can reach any
+    # (they oversee every teacher's roster).
+    q = db.query(TeacherStudent).filter(TeacherStudent.id == roster_id)
+    if not user.is_admin:
+        q = q.filter(TeacherStudent.teacher_id == user.id)
+    row = q.one_or_none()
     if row is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Student not found")
     return row
@@ -104,12 +105,13 @@ async def list_students(
     db: Session = Depends(get_db),
 ):
     _require_teacher(current_user)
-    rows = (
-        db.query(TeacherStudent)
-        .filter(TeacherStudent.teacher_id == current_user.id)
-        .order_by(TeacherStudent.student_name.asc().nullslast(), TeacherStudent.student_email.asc())
-        .all()
-    )
+    # Teachers see their own roster; admins see every teacher's students.
+    q = db.query(TeacherStudent)
+    if not current_user.is_admin:
+        q = q.filter(TeacherStudent.teacher_id == current_user.id)
+    rows = q.order_by(
+        TeacherStudent.student_name.asc().nullslast(), TeacherStudent.student_email.asc()
+    ).all()
     # One grouped pass for the per-student marked-topic counts (the rest are the
     # implicit 'no_aprendido' default and aren't stored).
     counts: dict[str, dict[str, int]] = {}
@@ -186,7 +188,7 @@ async def remove_student(
 ):
     """Remove a student from the caller's roster (cascade-deletes their overlay)."""
     _require_teacher(current_user)
-    row = _roster_row(db, current_user.id, roster_id)
+    row = _roster_row(db, current_user, roster_id)
     db.delete(row)
     db.commit()
 
@@ -198,7 +200,7 @@ async def get_student(
     db: Session = Depends(get_db),
 ):
     _require_teacher(current_user)
-    row = _roster_row(db, current_user.id, roster_id)
+    row = _roster_row(db, current_user, roster_id)
     states = (
         db.query(TeacherStudentTopicState)
         .filter(TeacherStudentTopicState.teacher_student_id == row.id)
@@ -226,7 +228,7 @@ async def set_topic_state(
     """Upsert one topic's state for a student. 'no_aprendido' is the implicit
     default, so setting it deletes the row to keep the table sparse."""
     _require_teacher(current_user)
-    row = _roster_row(db, current_user.id, roster_id)
+    row = _roster_row(db, current_user, roster_id)
 
     if body.state == "no_aprendido":
         db.query(TeacherStudentTopicState).filter(
