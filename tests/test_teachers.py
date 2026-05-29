@@ -138,6 +138,73 @@ def test_invalid_enums_are_rejected(client, db):
     assert bad_state.status_code == 422 and bad_type.status_code == 422
 
 
+# ── add / remove roster ───────────────────────────────────────────────────────
+
+def test_add_student_links_to_existing_account(client, db):
+    tid, headers = _make_teacher(client, db, "t@example.com")
+    register_user(client, email="alice@example.com")  # a real app user to link to
+
+    r = client.post("/v1/teachers/students", headers=headers,
+                    json={"email": "Alice@Example.com", "name": "Alice"})
+    assert r.status_code == 201
+    body = r.json()
+    assert body["student_email"] == "alice@example.com"  # normalised
+    assert body["has_account"] is True
+    # shows up in the roster
+    emails = [s["student_email"] for s in client.get("/v1/teachers/students", headers=headers).json()]
+    assert "alice@example.com" in emails
+
+
+def test_add_student_without_account_is_allowed(client, db):
+    _, headers = _make_teacher(client, db, "t@example.com")
+    r = client.post("/v1/teachers/students", headers=headers,
+                    json={"email": "ghost@nowhere.com", "name": "Ghost"})
+    assert r.status_code == 201
+    assert r.json()["has_account"] is False
+
+
+def test_add_duplicate_is_conflict(client, db):
+    _, headers = _make_teacher(client, db, "t@example.com")
+    client.post("/v1/teachers/students", headers=headers, json={"email": "dup@x.com"})
+    r2 = client.post("/v1/teachers/students", headers=headers, json={"email": "dup@x.com"})
+    assert r2.status_code == 409
+
+
+def test_add_invalid_email_rejected(client, db):
+    _, headers = _make_teacher(client, db, "t@example.com")
+    assert client.post("/v1/teachers/students", headers=headers, json={"email": "notanemail"}).status_code == 400
+
+
+def test_remove_student_cascades_state(client, db):
+    tid, headers = _make_teacher(client, db, "t@example.com")
+    rid = _add_student(db, tid, "s@example.com", "S")
+    client.put(f"/v1/teachers/students/{rid}/state", headers=headers, json={
+        "topic_type": "tense_group", "topic_id": "regular_present", "state": "aprendido",
+    })
+    assert db.query(TeacherStudentTopicState).count() == 1
+
+    assert client.delete(f"/v1/teachers/students/{rid}", headers=headers).status_code == 204
+    assert client.get(f"/v1/teachers/students/{rid}", headers=headers).status_code == 404
+    assert db.query(TeacherStudentTopicState).count() == 0  # FK cascade removed the overlay
+
+
+def test_cannot_remove_anothers_student(client, db):
+    _t1, h1 = _make_teacher(client, db, "t1@example.com")
+    t2, _ = _make_teacher(client, db, "t2@example.com")
+    rid2 = _add_student(db, t2, "s@example.com", "S")
+    assert client.delete(f"/v1/teachers/students/{rid2}", headers=h1).status_code == 404
+
+
+def test_roster_includes_progress_counts(client, db):
+    tid, headers = _make_teacher(client, db, "t@example.com")
+    rid = _add_student(db, tid, "s@example.com", "S")
+    for tid_, st in [("regular_present", "aprendido"), ("imperfect", "aprendido"), ("conditional", "aprendiendo")]:
+        client.put(f"/v1/teachers/students/{rid}/state", headers=headers,
+                   json={"topic_type": "tense_group", "topic_id": tid_, "state": st})
+    s = next(s for s in client.get("/v1/teachers/students", headers=headers).json() if s["id"] == rid)
+    assert s["aprendido"] == 2 and s["aprendiendo"] == 1
+
+
 # ── topics ────────────────────────────────────────────────────────────────────
 
 def test_topics_lists_tense_groups(client, db):
