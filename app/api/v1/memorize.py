@@ -9,7 +9,7 @@ import time
 import uuid
 from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from openai import OpenAI
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
@@ -158,12 +158,42 @@ class TranslateResponse(BaseModel):
     translated: str
 
 
+# Translate is public (the anonymous free trial calls it), so it carries a
+# simple in-memory per-IP rate limit to cap LLM cost/abuse. NOTE: in-memory →
+# resets on deploy and is per-process (not shared across instances); adequate as
+# a basic guard, not a hard quota.
+_TRANSLATE_RATE_LIMIT = 40        # max requests …
+_TRANSLATE_RATE_WINDOW = 3600.0   # … per IP per hour
+_translate_hits: dict[str, list[float]] = {}
+
+
+def _client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def _enforce_translate_rate_limit(request: Request) -> None:
+    ip = _client_ip(request)
+    now = time.time()
+    hits = [t for t in _translate_hits.get(ip, []) if now - t < _TRANSLATE_RATE_WINDOW]
+    if len(hits) >= _TRANSLATE_RATE_LIMIT:
+        raise HTTPException(
+            status_code=429,
+            detail="Too many translations right now. Please try again later.",
+        )
+    hits.append(now)
+    _translate_hits[ip] = hits
+
+
 @router.post("/translate", response_model=TranslateResponse)
-def memorize_translate(
-    body: TranslateRequest,
-    current_user: User = Depends(get_current_user),  # noqa: ARG001 — auth gate only
-):
-    """Translate a Spanish word/phrase to English or vice versa via gpt-4.1."""
+def memorize_translate(body: TranslateRequest, request: Request):
+    """Translate a Spanish word/phrase to English or vice versa via gpt-4.1.
+
+    Public (no auth) so the anonymous free trial can use it; rate-limited per IP.
+    """
+    _enforce_translate_rate_limit(request)
     text = body.text.strip()
     if not text:
         raise HTTPException(status_code=400, detail="text must not be empty")
