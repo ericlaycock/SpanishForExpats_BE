@@ -11,7 +11,6 @@ import re
 import secrets
 import uuid
 from datetime import datetime, timedelta, timezone
-from urllib.parse import quote
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -116,15 +115,21 @@ def dispatch_reminders(
     )
 
     sent = 0
+    seen_users: set = set()
     base = settings.frontend_url.rstrip("/")
+    # `due` is newest-first; send one reminder per user and supersede any older
+    # duplicates (e.g. a retried signup) so nobody gets two texts. The link
+    # carries ONLY the token — the answer (word_es) is fetched server-side via
+    # /recall-word so it never appears in the SMS.
     for r in due:
+        if r.user_id in seen_users:
+            r.sent_at = now  # supersede; don't send a duplicate
+            continue
+        seen_users.add(r.user_id)
         token = create_access_token(
             {"sub": str(r.user_id)}, expires_delta=timedelta(days=MAGIC_TOKEN_DAYS)
         )
-        link = (
-            f"{base}/freetrial/recall?token={token}"
-            f"&es={quote(r.word_es)}&en={quote(r.word_en)}"
-        )
+        link = f"{base}/freetrial/recall?token={token}"
         body = f'How do you say "{r.word_en}" in Spanish? {link}'
         if send_sms(r.phone_number, body):
             r.sent_at = now
@@ -132,6 +137,29 @@ def dispatch_reminders(
     db.commit()
     logger.info("freetrial/dispatch-reminders due=%d sent=%d", len(due), sent)
     return DispatchResponse(sent=sent)
+
+
+class RecallWordResponse(BaseModel):
+    es: str
+    en: str
+
+
+@router.get("/recall-word", response_model=RecallWordResponse)
+def recall_word(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Return the word for the user's most recent reminder. Lets the recall page
+    fetch the answer via the magic-link token instead of carrying it in the URL."""
+    reminder = (
+        db.query(TrialReminder)
+        .filter(TrialReminder.user_id == current_user.id)
+        .order_by(TrialReminder.created_at.desc())
+        .first()
+    )
+    if not reminder:
+        raise HTTPException(status_code=404, detail="No reminder found")
+    return RecallWordResponse(es=reminder.word_es, en=reminder.word_en)
 
 
 @router.post("/recall-complete")
