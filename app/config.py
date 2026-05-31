@@ -56,9 +56,9 @@ class Settings(BaseSettings):
     twilio_from_number: Optional[str] = None
     # Shared secret guarding the reminder-dispatch cron endpoint.
     cron_secret: Optional[str] = None
-    # Minutes after signup to schedule the next-day SMS. ⚠️ TESTING DEFAULT is
-    # 10 minutes — set TRIAL_REMINDER_DELAY_MINUTES=1440 (24h) for production.
-    trial_reminder_delay_minutes: int = 10
+    # Seconds after signup to schedule the next-day SMS. ⚠️ TESTING DEFAULT is
+    # 30s — set TRIAL_REMINDER_DELAY_SECONDS=86400 (24h) for production.
+    trial_reminder_delay_seconds: int = 30
     stripe_price_pro_monthly: str = "price_STUB_pro_monthly"
     stripe_price_pro_6month: str = "price_STUB_pro_6month"
     stripe_price_fluency_monthly: str = "price_STUB_fluency_monthly"

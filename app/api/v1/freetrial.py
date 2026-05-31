@@ -80,15 +80,15 @@ def freetrial_signup(body: SignupRequest, request: Request, db: Session = Depend
         word_en=body.word_en.strip(),
         channel="sms",
         scheduled_at=datetime.now(timezone.utc)
-        + timedelta(minutes=settings.trial_reminder_delay_minutes),
+        + timedelta(seconds=settings.trial_reminder_delay_seconds),
     )
     db.add(reminder)
     db.commit()
 
     token = create_access_token({"sub": str(user.id)})
     logger.info(
-        "freetrial/signup phone=%s user=%s word=%r delay_min=%d",
-        phone, user.id, body.word_es, settings.trial_reminder_delay_minutes,
+        "freetrial/signup phone=%s user=%s word=%r delay_s=%d",
+        phone, user.id, body.word_es, settings.trial_reminder_delay_seconds,
     )
     return SignupResponse(access_token=token)
 
