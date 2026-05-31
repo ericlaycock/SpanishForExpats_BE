@@ -17,7 +17,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from app.auth import create_access_token, get_password_hash
+from app.auth import create_access_token, get_current_user, get_password_hash
 from app.config import settings
 from app.database import get_db
 from app.models import Subscription, TrialReminder, User
@@ -79,13 +79,17 @@ def freetrial_signup(body: SignupRequest, request: Request, db: Session = Depend
         word_es=body.word_es.strip(),
         word_en=body.word_en.strip(),
         channel="sms",
-        scheduled_at=datetime.now(timezone.utc) + timedelta(days=1),
+        scheduled_at=datetime.now(timezone.utc)
+        + timedelta(minutes=settings.trial_reminder_delay_minutes),
     )
     db.add(reminder)
     db.commit()
 
     token = create_access_token({"sub": str(user.id)})
-    logger.info("freetrial/signup phone=%s user=%s word=%r", phone, user.id, body.word_es)
+    logger.info(
+        "freetrial/signup phone=%s user=%s word=%r delay_min=%d",
+        phone, user.id, body.word_es, settings.trial_reminder_delay_minutes,
+    )
     return SignupResponse(access_token=token)
 
 
@@ -128,3 +132,24 @@ def dispatch_reminders(
     db.commit()
     logger.info("freetrial/dispatch-reminders due=%d sent=%d", len(due), sent)
     return DispatchResponse(sent=sent)
+
+
+@router.post("/recall-complete")
+def recall_complete(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Stamp the user's most recent reminder as completed — the conversion
+    signal that they returned via the SMS and finished the recall/application."""
+    reminder = (
+        db.query(TrialReminder)
+        .filter(TrialReminder.user_id == current_user.id)
+        .order_by(TrialReminder.created_at.desc())
+        .first()
+    )
+    if reminder and reminder.completed_at is None:
+        reminder.completed_at = datetime.now(timezone.utc)
+        db.commit()
+    logger.info("freetrial/recall-complete user=%s word=%r", current_user.id,
+                reminder.word_es if reminder else None)
+    return {"ok": True}
