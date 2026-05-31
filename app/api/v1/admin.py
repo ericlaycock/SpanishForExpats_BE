@@ -379,6 +379,22 @@ WEBPAGEFLOW_STEPS = [
     ("build_plan_click",  "Hero → How it Works"),
     ("how_it_works_cta",  "How it Works → Try Free"),
     ("book_call_click",   "Book free trial (Calendly)"),
+    # Free-trial memorize → SMS follow-up funnel (drop-off readable top→bottom).
+    ("ft_start",            "Free trial: start"),
+    ("ft_memorize_start",   "Free trial: memorize utility"),
+    ("ft_cycle_1",          "Free trial: 1 cycle done"),
+    ("ft_cycle_2",          "Free trial: 2 cycles done"),
+    ("ft_cycle_3",          "Free trial: 3 cycles done"),
+    ("ft_cycle_4",          "Free trial: 4 cycles done"),
+    ("ft_cycle_5",          "Free trial: 5 cycles done"),
+    ("ft_cycle_6plus",      "Free trial: 6+ cycles done"),
+    ("ft_mastered",         "Free trial: mastered (100%)"),
+    ("ft_signup_submitted", "Free trial: phone signup"),
+    ("ft_recall_open",      "Free trial: opened SMS link"),
+    ("ft_recall_correct",   "Free trial: recalled correctly"),
+    ("ft_recall_wrong",     "Free trial: recall missed"),
+    ("ft_application_done", "Free trial: finished speaking"),
+    ("ft_cta_view",         "Free trial: reached CTA"),
 ]
 
 

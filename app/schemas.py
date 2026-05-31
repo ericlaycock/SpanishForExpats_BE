@@ -683,7 +683,14 @@ WEBPAGEFLOW_EVENT_KEYS = (
     "cohort_registered",
     "cohort_confirmed",
     # Free-trial memorize → SMS follow-up funnel
-    "ft_memorize_start",
+    "ft_start",            # landed on /freetrial
+    "ft_memorize_start",   # entered the memorize utility
+    "ft_cycle_1",          # completed N activity→gut cycles
+    "ft_cycle_2",
+    "ft_cycle_3",
+    "ft_cycle_4",
+    "ft_cycle_5",
+    "ft_cycle_6plus",
     "ft_mastered",
     "ft_signup_submitted",
     "ft_recall_open",
