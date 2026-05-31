@@ -16,6 +16,8 @@ class TrialReminder(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
     phone_number = Column(String, nullable=False)
+    # Short URL-safe code for the tiny SMS link (/r/<code>).
+    code = Column(String(16), unique=True, nullable=True, index=True)
     word_es = Column(String(500), nullable=False)
     word_en = Column(String(500), nullable=False)
     channel = Column(String(16), nullable=False, default="sms")

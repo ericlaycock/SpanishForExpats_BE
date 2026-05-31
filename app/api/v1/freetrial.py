@@ -75,6 +75,7 @@ def freetrial_signup(body: SignupRequest, request: Request, db: Session = Depend
     reminder = TrialReminder(
         user_id=user.id,
         phone_number=phone,
+        code=secrets.token_urlsafe(6),
         word_es=body.word_es.strip(),
         word_en=body.word_en.strip(),
         channel="sms",
@@ -126,10 +127,9 @@ def dispatch_reminders(
             r.sent_at = now  # supersede; don't send a duplicate
             continue
         seen_users.add(r.user_id)
-        token = create_access_token(
-            {"sub": str(r.user_id)}, expires_delta=timedelta(days=MAGIC_TOKEN_DAYS)
-        )
-        link = f"{base}/freetrial/recall?token={token}"
+        if not r.code:
+            r.code = secrets.token_urlsafe(6)  # backfill older rows
+        link = f"{base}/r/{r.code}"
         body = f'How do you say "{r.word_en}" in Spanish? {link}'
         if send_sms(r.phone_number, body):
             r.sent_at = now
@@ -137,6 +137,27 @@ def dispatch_reminders(
     db.commit()
     logger.info("freetrial/dispatch-reminders due=%d sent=%d", len(due), sent)
     return DispatchResponse(sent=sent)
+
+
+class RedeemResponse(BaseModel):
+    access_token: str
+    es: str
+    en: str
+
+
+@router.get("/redeem/{code}", response_model=RedeemResponse)
+def redeem(code: str, db: Session = Depends(get_db)):
+    """Exchange a short SMS-link code for a session token + the word. Public —
+    the code is the secret (8 random url-safe chars)."""
+    reminder = db.query(TrialReminder).filter(TrialReminder.code == code).first()
+    if not reminder:
+        raise HTTPException(status_code=404, detail="Link not found or expired")
+    token = create_access_token(
+        {"sub": str(reminder.user_id)}, expires_delta=timedelta(days=MAGIC_TOKEN_DAYS)
+    )
+    return RedeemResponse(
+        access_token=token, es=reminder.word_es, en=reminder.word_en
+    )
 
 
 class RecallWordResponse(BaseModel):
