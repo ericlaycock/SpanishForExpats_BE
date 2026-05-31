@@ -46,6 +46,16 @@ class Settings(BaseSettings):
 
     # Calendly (founder onboarding-call webhook)
     calendly_webhook_signing_key: Optional[str] = None
+
+    # Twilio SMS (free-trial next-day reminder). All optional — the SMS service
+    # no-ops + logs when unset (mirrors the SMTP email pattern). API key auth:
+    # Client(api_key_sid, api_key_secret, account_sid).
+    twilio_account_sid: Optional[str] = None
+    twilio_api_key_sid: Optional[str] = None
+    twilio_api_key_secret: Optional[str] = None
+    twilio_from_number: Optional[str] = None
+    # Shared secret guarding the reminder-dispatch cron endpoint.
+    cron_secret: Optional[str] = None
     stripe_price_pro_monthly: str = "price_STUB_pro_monthly"
     stripe_price_pro_6month: str = "price_STUB_pro_6month"
     stripe_price_fluency_monthly: str = "price_STUB_fluency_monthly"

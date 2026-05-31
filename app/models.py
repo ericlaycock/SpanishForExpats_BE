@@ -13,6 +13,10 @@ class User(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, nullable=False, index=True)
     password_hash = Column(String, nullable=False)
+    # Passwordless free-trial signup captures a phone number for the next-day
+    # SMS reminder. Nullable (email/password accounts don't set it); unique so a
+    # phone maps to one trial user (find-or-create keys on it).
+    phone_number = Column(String, unique=True, nullable=True, index=True)
     onboarding_completed = Column(Boolean, default=False, nullable=False)
     onboarding_completed_at = Column(DateTime(timezone=True), nullable=True)
     selected_animation_types = Column(JSONB, nullable=True)  # e.g., ["banking", "restaurant"]
