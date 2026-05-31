@@ -130,7 +130,11 @@ def dispatch_reminders(
         if not r.code:
             r.code = secrets.token_urlsafe(6)  # backfill older rows
         link = f"{base}/r/{r.code}"
-        body = f'How do you say "{r.word_en}" in Spanish? {link}'
+        body = (
+            "It's Eric from Spanish for Expats \U0001f44b Yesterday you memorized "
+            "a Spanish word in 60 seconds. Bet you still remember it — 10-sec "
+            f"test \U0001f449 {link}"
+        )
         if send_sms(r.phone_number, body):
             r.sent_at = now
             sent += 1
