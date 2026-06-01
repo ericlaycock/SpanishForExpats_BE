@@ -65,11 +65,16 @@ async def transcribe_audio(
     # Calculate hash
     audio_sha256 = sha256_hash(audio_bytes)
     
-    # Convert user_id to UUID if string
+    # Convert user_id to UUID if string. Tolerate a non-UUID / anonymous caller
+    # (e.g. the public free-trial pronunciation check) — just log it with no user
+    # rather than 500ing.
     user_id_uuid = None
     if user_id:
         if isinstance(user_id, str):
-            user_id_uuid = uuid.UUID(user_id)
+            try:
+                user_id_uuid = uuid.UUID(user_id)
+            except ValueError:
+                user_id_uuid = None
         else:
             user_id_uuid = user_id
     
@@ -292,11 +297,16 @@ async def synthesize_speech(
     # Detect output format from path
     output_format = output_path.split(".")[-1].lower() if "." in output_path else "mp3"
     
-    # Convert user_id to UUID if string
+    # Convert user_id to UUID if string. Tolerate a non-UUID / anonymous caller
+    # (e.g. the public free-trial pronunciation check) — just log it with no user
+    # rather than 500ing.
     user_id_uuid = None
     if user_id:
         if isinstance(user_id, str):
-            user_id_uuid = uuid.UUID(user_id)
+            try:
+                user_id_uuid = uuid.UUID(user_id)
+            except ValueError:
+                user_id_uuid = None
         else:
             user_id_uuid = user_id
     
