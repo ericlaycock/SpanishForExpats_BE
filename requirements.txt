@@ -24,6 +24,7 @@ flask
 phonemizer
 protobuf
 stripe>=9.0.0
+twilio>=9.0.0
 
 
 

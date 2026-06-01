@@ -67,6 +67,9 @@ from app.models.vocab import (
 # Memorize utility models
 from app.models.memorize import MemorizeCompletion
 
+# Free-trial next-day reminder
+from app.models.trial_reminder import TrialReminder
+
 # Teachers portal models
 from app.models.teacher import (
     TeacherStudent,
@@ -109,6 +112,7 @@ __all__ = [
     "VocabCard",
     "VocabChapterCompletion",
     "MemorizeCompletion",
+    "TrialReminder",
     "TeacherStudent",
     "TeacherStudentTopicState",
 ]

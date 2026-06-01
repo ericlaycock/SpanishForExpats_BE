@@ -4,12 +4,13 @@
 - `POST /v1/memorize/complete` → records a confirmed memorisation and
   awards +1 sun (rolls into `_user_points()` for the header HUD).
 """
+import json
 import logging
 import time
 import uuid
 from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from openai import OpenAI
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
@@ -158,12 +159,42 @@ class TranslateResponse(BaseModel):
     translated: str
 
 
+# Translate is public (the anonymous free trial calls it), so it carries a
+# simple in-memory per-IP rate limit to cap LLM cost/abuse. NOTE: in-memory →
+# resets on deploy and is per-process (not shared across instances); adequate as
+# a basic guard, not a hard quota.
+_TRANSLATE_RATE_LIMIT = 40        # max requests …
+_TRANSLATE_RATE_WINDOW = 3600.0   # … per IP per hour
+_translate_hits: dict[str, list[float]] = {}
+
+
+def _client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def _enforce_translate_rate_limit(request: Request) -> None:
+    ip = _client_ip(request)
+    now = time.time()
+    hits = [t for t in _translate_hits.get(ip, []) if now - t < _TRANSLATE_RATE_WINDOW]
+    if len(hits) >= _TRANSLATE_RATE_LIMIT:
+        raise HTTPException(
+            status_code=429,
+            detail="Too many translations right now. Please try again later.",
+        )
+    hits.append(now)
+    _translate_hits[ip] = hits
+
+
 @router.post("/translate", response_model=TranslateResponse)
-def memorize_translate(
-    body: TranslateRequest,
-    current_user: User = Depends(get_current_user),  # noqa: ARG001 — auth gate only
-):
-    """Translate a Spanish word/phrase to English or vice versa via gpt-4.1."""
+def memorize_translate(body: TranslateRequest, request: Request):
+    """Translate a Spanish word/phrase to English or vice versa via gpt-4.1.
+
+    Public (no auth) so the anonymous free trial can use it; rate-limited per IP.
+    """
+    _enforce_translate_rate_limit(request)
     text = body.text.strip()
     if not text:
         raise HTTPException(status_code=400, detail="text must not be empty")
@@ -198,3 +229,70 @@ def memorize_translate(
     )
 
     return TranslateResponse(translated=translated)
+
+
+class SentencesRequest(BaseModel):
+    es: str = Field(..., min_length=1, max_length=200)
+    en: str = Field(..., min_length=1, max_length=200)
+
+
+class SentenceItem(BaseModel):
+    en: str  # English translation of the sentence
+    blank: str  # Spanish sentence with the target word replaced by "_____"
+
+
+class SentencesResponse(BaseModel):
+    sentences: list[SentenceItem]
+
+
+@router.post("/sentences", response_model=SentencesResponse)
+def memorize_sentences(body: SentencesRequest, request: Request):
+    """Generate 3 simple Spanish practice sentences using the given word, each
+    with the word blanked out (for the free-trial application phase).
+
+    Public (no auth) so the anonymous free trial can use it; rate-limited per IP
+    (shares the translate limiter).
+    """
+    _enforce_translate_rate_limit(request)
+    es = body.es.strip()
+    en = body.en.strip()
+    system_prompt = (
+        "You generate beginner Spanish practice sentences for an English-speaking "
+        "learner in Latin America. Given a Spanish word/phrase and its English "
+        "meaning, write 3 SHORT, simple, everyday Latin American Spanish sentences "
+        "that use it naturally (never vosotros). For each sentence return the "
+        "English translation and the Spanish sentence with the target word/phrase "
+        'replaced by exactly "_____" (five underscores). Respond with ONLY a JSON '
+        'object: {"sentences": [{"en": "...", "blank": "..."}, ...]} — exactly 3 '
+        "items, no commentary."
+    )
+    user_prompt = f'Spanish word/phrase: "{es}"\nEnglish meaning: "{en}"'
+    try:
+        client = _get_client()
+        completion = client.chat.completions.create(
+            model=TRANSLATE_MODEL,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            temperature=0.4,
+            max_tokens=500,
+            response_format={"type": "json_object"},
+        )
+        raw = (completion.choices[0].message.content or "").strip()
+        data = json.loads(raw)
+        items = data.get("sentences", []) if isinstance(data, dict) else []
+        sentences = [
+            SentenceItem(en=str(it["en"]).strip(), blank=str(it["blank"]).strip())
+            for it in items
+            if isinstance(it, dict) and it.get("en") and it.get("blank")
+        ]
+    except Exception as exc:  # noqa: BLE001
+        logger.error("memorize/sentences failed for es=%r: %s", es, exc)
+        raise HTTPException(status_code=502, detail="Unable to reach the model. Try again.") from exc
+
+    if not sentences:
+        raise HTTPException(status_code=502, detail="No sentences generated. Try again.")
+
+    logger.info("memorize/sentences ok es=%r n=%d", es, len(sentences))
+    return SentencesResponse(sentences=sentences)

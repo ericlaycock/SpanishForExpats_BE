@@ -329,6 +329,9 @@ logger.info("  ✅ /v1/memorize (POST /connect - mnemonic decomposition via gpt-
 from app.api.v1 import teachers
 app.include_router(teachers.router, prefix="/v1/teachers", tags=["teachers"])
 logger.info("  ✅ /v1/teachers (GET /students, GET /students/{id}, PUT /students/{id}/state, GET /topics)")
+from app.api.v1 import freetrial
+app.include_router(freetrial.router, prefix="/v1/freetrial", tags=["freetrial"])
+logger.info("  ✅ /v1/freetrial (POST /signup, POST /dispatch-reminders)")
 logger.info("✅ All routes registered")
 
 

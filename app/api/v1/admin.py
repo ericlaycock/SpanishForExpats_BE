@@ -5,11 +5,11 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
-from sqlalchemy import text
+from sqlalchemy import text, func
 from app.auth import get_current_user, get_password_hash, create_access_token
 from app.database import get_db
 from datetime import timedelta
-from app.models import User, Subscription, Cohort, CohortRegistration
+from app.models import User, Subscription, Cohort, CohortRegistration, TrialReminder
 from app.schemas import (
     AdminCohortListResponse,
     AdminCohortRegistrant,
@@ -379,6 +379,22 @@ WEBPAGEFLOW_STEPS = [
     ("build_plan_click",  "Hero → How it Works"),
     ("how_it_works_cta",  "How it Works → Try Free"),
     ("book_call_click",   "Book free trial (Calendly)"),
+    # Free-trial memorize → SMS follow-up funnel (drop-off readable top→bottom).
+    ("ft_start",            "Free trial: start"),
+    ("ft_memorize_start",   "Free trial: memorize utility"),
+    ("ft_cycle_1",          "Free trial: 1 cycle done"),
+    ("ft_cycle_2",          "Free trial: 2 cycles done"),
+    ("ft_cycle_3",          "Free trial: 3 cycles done"),
+    ("ft_cycle_4",          "Free trial: 4 cycles done"),
+    ("ft_cycle_5",          "Free trial: 5 cycles done"),
+    ("ft_cycle_6plus",      "Free trial: 6+ cycles done"),
+    ("ft_mastered",         "Free trial: mastered (100%)"),
+    ("ft_signup_submitted", "Free trial: phone signup"),
+    ("ft_recall_open",      "Free trial: opened SMS link"),
+    ("ft_recall_correct",   "Free trial: recalled correctly"),
+    ("ft_recall_wrong",     "Free trial: recall missed"),
+    ("ft_application_done", "Free trial: finished speaking"),
+    ("ft_cta_view",         "Free trial: reached CTA"),
 ]
 
 
@@ -427,6 +443,65 @@ def get_webpageflow(
         WebpageflowStep(event_key=key, label=label, count=counts.get(key, 0))
         for key, label in WEBPAGEFLOW_STEPS
     ])
+
+
+class TrialConversionsResponse(BaseModel):
+    # Website → free-trial → call funnel (distinct anonymous sessions).
+    visits: int            # landing_view
+    trial_starts: int      # ft_start
+    memorize_started: int  # ft_memorize_start
+    mastered: int          # ft_mastered (finished the memorize loop)
+    calls_booked: int      # book_call_click
+    # Per-person SMS follow-up (trial_reminders — chains across the day gap).
+    phone_signups: int     # distinct users who gave a phone number
+    texts_sent: int        # reminders actually texted
+    returned: int          # reminders completed (came back + finished recall)
+
+
+@router.get("/trial-conversions", response_model=TrialConversionsResponse)
+def get_trial_conversions(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Full conversion: website visits → free-trial start → mastered → phone
+    signup → texted → returned → call booked."""
+    _require_admin(current_user)
+
+    rows = db.execute(text("""
+        SELECT event_key, COUNT(DISTINCT session_id) AS n
+        FROM anonymous_funnel_events
+        WHERE event_key IN (
+            'landing_view', 'ft_start', 'ft_memorize_start',
+            'ft_mastered', 'book_call_click'
+        )
+        GROUP BY event_key
+    """)).fetchall()
+    c = {r.event_key: int(r.n) for r in rows}
+
+    signups = db.query(func.count(func.distinct(TrialReminder.user_id))).scalar() or 0
+    texts = (
+        db.query(func.count(TrialReminder.id))
+        .filter(TrialReminder.sent_at.isnot(None))
+        .scalar()
+        or 0
+    )
+    returned = (
+        db.query(func.count(TrialReminder.id))
+        .filter(TrialReminder.completed_at.isnot(None))
+        .scalar()
+        or 0
+    )
+
+    return TrialConversionsResponse(
+        visits=c.get("landing_view", 0),
+        trial_starts=c.get("ft_start", 0),
+        memorize_started=c.get("ft_memorize_start", 0),
+        mastered=c.get("ft_mastered", 0),
+        calls_booked=c.get("book_call_click", 0),
+        phone_signups=int(signups),
+        texts_sent=int(texts),
+        returned=int(returned),
+    )
 
 
 @router.post("/webpageflow/reset")
