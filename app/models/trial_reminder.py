@@ -21,6 +21,12 @@ class TrialReminder(Base):
     word_es = Column(String(500), nullable=False)
     word_en = Column(String(500), nullable=False)
     channel = Column(String(16), nullable=False, default="sms")
+    # Anonymous funnel session this signup came from, and the campaign source
+    # (utm_source) resolved from that session's funnel events at signup time —
+    # lets admin map a real signed-up user back to the link they started on
+    # (e.g. /freetrial/pan → source="pan").
+    funnel_session_id = Column(String(64), nullable=True, index=True)
+    source = Column(String(64), nullable=True, index=True)
     scheduled_at = Column(DateTime(timezone=True), nullable=False, index=True)
     sent_at = Column(DateTime(timezone=True), nullable=True)
     completed_at = Column(DateTime(timezone=True), nullable=True)

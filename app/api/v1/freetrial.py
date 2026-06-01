@@ -14,6 +14,7 @@ from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel, Field
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.auth import create_access_token, get_current_user, get_password_hash
@@ -45,6 +46,30 @@ class SignupRequest(BaseModel):
     phone: str = Field(..., min_length=5, max_length=32)
     word_es: str = Field(..., min_length=1, max_length=500)
     word_en: str = Field(..., min_length=1, max_length=500)
+    # Anonymous funnel session id (from the browser) so we can map this signup
+    # back to the campaign link it started on.
+    session_id: str | None = Field(default=None, max_length=64)
+
+
+def _resolve_source(db: Session, session_id: str | None) -> str | None:
+    """The campaign source (utm_source) for a funnel session, taken from the
+    earliest event row that carries one. Returns None if unknown."""
+    if not session_id:
+        return None
+    row = db.execute(
+        text(
+            """
+            SELECT event_metadata ->> 'utm_source' AS src
+            FROM anonymous_funnel_events
+            WHERE session_id = :sid
+              AND event_metadata ->> 'utm_source' IS NOT NULL
+            ORDER BY occurred_at ASC
+            LIMIT 1
+            """
+        ),
+        {"sid": session_id},
+    ).fetchone()
+    return row.src if row else None
 
 
 class SignupResponse(BaseModel):
@@ -72,6 +97,7 @@ def freetrial_signup(body: SignupRequest, request: Request, db: Session = Depend
         db.flush()  # assign user.id
         db.add(Subscription(user_id=user.id, active=False))
 
+    source = _resolve_source(db, body.session_id)
     reminder = TrialReminder(
         user_id=user.id,
         phone_number=phone,
@@ -79,6 +105,8 @@ def freetrial_signup(body: SignupRequest, request: Request, db: Session = Depend
         word_es=body.word_es.strip(),
         word_en=body.word_en.strip(),
         channel="sms",
+        funnel_session_id=body.session_id,
+        source=source,
         scheduled_at=datetime.now(timezone.utc)
         + timedelta(seconds=settings.trial_reminder_delay_seconds),
     )
@@ -87,8 +115,8 @@ def freetrial_signup(body: SignupRequest, request: Request, db: Session = Depend
 
     token = create_access_token({"sub": str(user.id)})
     logger.info(
-        "freetrial/signup phone=%s user=%s word=%r delay_s=%d",
-        phone, user.id, body.word_es, settings.trial_reminder_delay_seconds,
+        "freetrial/signup phone=%s user=%s word=%r source=%s delay_s=%d",
+        phone, user.id, body.word_es, source, settings.trial_reminder_delay_seconds,
     )
     return SignupResponse(access_token=token)
 
