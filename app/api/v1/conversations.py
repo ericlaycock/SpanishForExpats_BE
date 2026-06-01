@@ -533,7 +533,7 @@ async def check_pronunciation_anonymous(
         prompt=f"The user is saying a Spanish word or phrase: {expected_word}. Transcribe exactly what they say.",
         language=None,
         request_id="freetrial-anon",
-        user_id="anonymous",
+        user_id=None,  # anonymous — no logged-in user (and no DB write)
     )
 
     def normalize(s: str) -> str:

@@ -160,7 +160,7 @@ def dispatch_reminders(
         link = f"{base}/r/{r.code}"
         body = (
             "It's Eric from Spanish for Expats \U0001f44b Yesterday you memorized "
-            "your first Spanish word. Bet you still remember it — 10-sec "
+            "a Spanish word. Bet you still remember it — 10-sec "
             f"test \U0001f449 {link}"
         )
         if send_sms(r.phone_number, body):
