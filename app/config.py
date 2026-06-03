@@ -65,6 +65,16 @@ class Settings(BaseSettings):
     stripe_price_fluency_6month: str = "price_STUB_fluency_6month"
     frontend_url: str = "https://www.spanishforexpats.com"
 
+    # Affiliate portal seed — on boot the app upserts a single read-only
+    # affiliate account scoped to AFFILIATE_SOURCE (see main.py lifespan).
+    # The password is supplied PRE-HASHED (bcrypt) so no plaintext credential
+    # ever lives in the repo or env in clear form. All three must be set for
+    # the seed to run; otherwise it no-ops (mirrors the SMS/SMTP optional
+    # pattern). Multiple affiliates would graduate to a real seed table.
+    affiliate_email: Optional[str] = None
+    affiliate_password_hash: Optional[str] = None
+    affiliate_source: Optional[str] = None
+
     class Config:
         env_file = ".env"
         case_sensitive = False
