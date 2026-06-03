@@ -117,6 +117,50 @@ async def lifespan(app: FastAPI):
     except Exception:
         pass  # DB might not be ready yet, that's OK
 
+    # Seed the read-only affiliate account from env (idempotent upsert). Needs
+    # AFFILIATE_EMAIL + AFFILIATE_PASSWORD_HASH (pre-hashed bcrypt) +
+    # AFFILIATE_SOURCE; no-ops if any is unset. Keeps the credential out of the
+    # repo — only the bcrypt hash lives in Railway env. is_admin stays false:
+    # an affiliate sees only /v1/affiliate/metrics for their own source.
+    try:
+        from app.config import settings as _cfg
+        if _cfg.affiliate_email and _cfg.affiliate_password_hash and _cfg.affiliate_source:
+            from sqlalchemy.orm import Session as _Session
+            from sqlalchemy import text as _text
+            with _Session(engine) as _db:
+                _existing = _db.execute(
+                    _text("SELECT id FROM users WHERE email = :email"),
+                    {"email": _cfg.affiliate_email},
+                ).first()
+                if _existing:
+                    _db.execute(
+                        _text(
+                            "UPDATE users SET password_hash = :ph, "
+                            "affiliate_source = :src, is_admin = false "
+                            "WHERE email = :email"
+                        ),
+                        {"ph": _cfg.affiliate_password_hash,
+                         "src": _cfg.affiliate_source,
+                         "email": _cfg.affiliate_email},
+                    )
+                else:
+                    import uuid as _uuid
+                    _uid = _uuid.uuid4()
+                    _db.execute(
+                        _text(
+                            "INSERT INTO users (id, email, password_hash, "
+                            "affiliate_source, is_admin, onboarding_completed) "
+                            "VALUES (:id, :email, :ph, :src, false, true)"
+                        ),
+                        {"id": _uid, "email": _cfg.affiliate_email,
+                         "ph": _cfg.affiliate_password_hash,
+                         "src": _cfg.affiliate_source},
+                    )
+                _db.commit()
+                logger.info(f"✅ Affiliate account seeded for source '{_cfg.affiliate_source}'")
+    except Exception as _e:
+        logger.warning(f"⚠️  Affiliate seed skipped: {_e}")
+
     yield
     # Shutdown
     print("👋 Spanish for Expats API shutting down...")
@@ -332,6 +376,9 @@ logger.info("  ✅ /v1/teachers (GET /students, GET /students/{id}, PUT /student
 from app.api.v1 import freetrial
 app.include_router(freetrial.router, prefix="/v1/freetrial", tags=["freetrial"])
 logger.info("  ✅ /v1/freetrial (POST /signup, POST /dispatch-reminders)")
+from app.api.v1 import affiliate
+app.include_router(affiliate.router, prefix="/v1/affiliate", tags=["affiliate"])
+logger.info("  ✅ /v1/affiliate (GET /metrics — source-scoped, read-only)")
 logger.info("✅ All routes registered")
 
 

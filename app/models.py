@@ -27,6 +27,12 @@ class User(Base):
     # Grants access to the teachers-only portal (/v1/teachers, FE /teachers).
     # Same boolean-flag pattern as is_admin; admins are implicitly allowed too.
     is_teacher = Column(Boolean, default=False, nullable=False, server_default="false")
+    # Scopes an external affiliate to ONE funnel source (utm_source, e.g. "pan").
+    # When set, the user is an affiliate: they may read /v1/affiliate/metrics for
+    # exactly this source and nothing else. NOT an admin — sees only their own
+    # funnel, never the user list or other sources. The source is bound here
+    # server-side so it can never be widened via a client-supplied query param.
+    affiliate_source = Column(String(64), nullable=True, index=True)
     alt_language = Column(String, nullable=True)  # null=Spanish, 'catalan', 'swedish'
     # Server-side flags for first-time feature explainers (coachmarks).
     # Shape: {"vocab_word_cards": true, "verb_lesson": true, ...}. Lookup
