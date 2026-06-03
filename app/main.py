@@ -379,6 +379,9 @@ logger.info("  ✅ /v1/freetrial (POST /signup, POST /dispatch-reminders)")
 from app.api.v1 import affiliate
 app.include_router(affiliate.router, prefix="/v1/affiliate", tags=["affiliate"])
 logger.info("  ✅ /v1/affiliate (GET /metrics — source-scoped, read-only)")
+from app.api.v1 import trial
+app.include_router(trial.router, prefix="/v1/trial", tags=["trial"])
+logger.info("  ✅ /v1/trial (POST /guide — Memory Miracle light AI guide, public)")
 logger.info("✅ All routes registered")
 
 
