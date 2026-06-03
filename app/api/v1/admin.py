@@ -520,6 +520,95 @@ def reset_webpageflow(
     return {"status": "ok", "rows_deleted": int(result.rowcount or 0)}
 
 
+class FunnelVariantRow(BaseModel):
+    # `variant` is read from event_metadata->>'variant' (set by the FE per
+    # funnel flow). Sessions with no variant bucket as "(unlabeled)".
+    variant: str
+    starts: int          # ft_start
+    teach_started: int    # ft_memorize_start
+    completed: int        # ft_mastered (finished the trial's core task)
+    phone_signups: int    # ft_signup_submitted
+    bookings: int         # Calendly bookings attributed via funnel_session_id
+
+
+class FunnelVariantsResponse(BaseModel):
+    rows: list[FunnelVariantRow]
+
+
+@router.get("/funnel-variants", response_model=FunnelVariantsResponse)
+def get_funnel_variants(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+    since: Optional[str] = Query(
+        None,
+        description="ISO date/datetime; only count events (and bookings) on/after this.",
+    ),
+):
+    """Per-variant free-trial funnel: starts -> completes -> phone signups ->
+    calendar bookings. Powers the admin Funnels (A/B) comparison dashboard.
+
+    Variant is a per-SESSION attribute (the FE stamps it once into the funnel
+    attribution, so it rides on every event_metadata). We resolve it per session
+    via MAX so a session counts under exactly one variant even if an early event
+    fired before the variant was stamped.
+    """
+    _require_admin(current_user)
+
+    ev_filter = "WHERE a.occurred_at >= :since" if since else ""
+    book_filter = "AND bc.created_at >= :since" if since else ""
+    params = {"since": since} if since else {}
+
+    rows = db.execute(
+        text(f"""
+            WITH sv AS (
+                SELECT session_id,
+                       COALESCE(MAX(event_metadata ->> 'variant'), '(unlabeled)') AS variant
+                FROM anonymous_funnel_events
+                GROUP BY session_id
+            ),
+            ev AS (
+                SELECT a.session_id, a.event_key, sv.variant
+                FROM anonymous_funnel_events a
+                JOIN sv USING (session_id)
+                {ev_filter}
+            ),
+            steps AS (
+                SELECT variant,
+                  COUNT(DISTINCT session_id) FILTER (WHERE event_key='ft_start')            AS starts,
+                  COUNT(DISTINCT session_id) FILTER (WHERE event_key='ft_memorize_start')   AS teach_started,
+                  COUNT(DISTINCT session_id) FILTER (WHERE event_key='ft_mastered')         AS completed,
+                  COUNT(DISTINCT session_id) FILTER (WHERE event_key='ft_signup_submitted') AS phone_signups
+                FROM ev GROUP BY variant
+            ),
+            book AS (
+                SELECT sv.variant, COUNT(DISTINCT bc.id) AS bookings
+                FROM booked_calls bc
+                JOIN sv ON sv.session_id = bc.funnel_session_id
+                WHERE bc.canceled_at IS NULL {book_filter}
+                GROUP BY sv.variant
+            )
+            SELECT s.variant, s.starts, s.teach_started, s.completed, s.phone_signups,
+                   COALESCE(b.bookings, 0) AS bookings
+            FROM steps s
+            LEFT JOIN book b USING (variant)
+            ORDER BY s.starts DESC, s.variant
+        """),
+        params,
+    ).fetchall()
+
+    return FunnelVariantsResponse(rows=[
+        FunnelVariantRow(
+            variant=r.variant,
+            starts=int(r.starts or 0),
+            teach_started=int(r.teach_started or 0),
+            completed=int(r.completed or 0),
+            phone_signups=int(r.phone_signups or 0),
+            bookings=int(r.bookings or 0),
+        )
+        for r in rows
+    ])
+
+
 @router.get("/cohorts", response_model=AdminCohortListResponse)
 def admin_list_cohorts(
     current_user: User = Depends(get_current_user),
