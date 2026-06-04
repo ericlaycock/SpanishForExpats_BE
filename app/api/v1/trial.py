@@ -13,6 +13,7 @@ System prompt is light; a couple of distilled Eric-voice exemplars are passed as
 few-shot context (NOT the whole transcript corpus). Mirrors the public + per-IP
 rate-limit pattern in `memorize.py`.
 """
+import json
 import logging
 import time
 from typing import Literal, Optional
@@ -51,6 +52,20 @@ _REFLECTION_INSTRUCTION = (
     "back so they feel seen, (2) de-shame why it's felt hard, (3) build a flicker "
     "of belief. Then hand off to the activity, e.g. 'Let's lock in your first "
     "real phrase right now.' Plain text, no markdown, no emoji spam (one max)."
+)
+
+_INTAKE_INSTRUCTION = (
+    "The user just told you IN THEIR OWN WORDS what happens when they try to speak "
+    "Spanish — their struggle / situation. Do three things: "
+    "(1) reflect their exact situation back warmly so they feel deeply SEEN, and "
+    "de-shame it (it's the tools/method, not them); "
+    "(2) silently identify the one real-life thing they most need to be able to say; "
+    "(3) choose ONE short, genuinely useful everyday Latin American Spanish phrase "
+    "(NEVER vosotros; complete and usable exactly as written) that directly helps "
+    "that exact situation — something they could use today. "
+    "The reflection is ~2-3 warm sentences, no lecturing, ending by handing them "
+    "into memorizing it. Respond ONLY as JSON: "
+    '{"reflection": "...", "phrase_es": "...", "phrase_en": "...", "goal": "<3-6 word goal label>"}'
 )
 
 _ROADMAP_INSTRUCTION = (
@@ -95,7 +110,7 @@ def _enforce_rate_limit(request: Request) -> None:
 
 
 class GuideRequest(BaseModel):
-    kind: Literal["reflection", "roadmap"]
+    kind: Literal["reflection", "roadmap", "intake"]
     goal_key: Optional[str] = Field(None, max_length=40)   # tapped option key, or "other"
     goal_text: str = Field("", max_length=300)             # human goal text (label or free text)
     level: Optional[str] = Field(None, max_length=40)      # "beginner" | "some" | None
@@ -114,6 +129,37 @@ class GuideResponse(BaseModel):
 def trial_guide(body: GuideRequest, request: Request):
     """Light AI guide turn for the Memory Miracle trial. Public, rate-limited."""
     _enforce_rate_limit(request)
+
+    # Conversational chat-intake: their free-text "what happens when you speak"
+    # answer -> warm reflection (feel seen + de-shame) + an AI-chosen phrase for
+    # THEIR exact situation. Returns JSON; falls back to a curated phrase.
+    if body.kind == "intake":
+        answer = (body.goal_text or "").strip() or "I struggle to speak Spanish with locals."
+        try:
+            completion = _get_client().chat.completions.create(
+                model=TRIAL_MODEL,
+                messages=[
+                    {"role": "system", "content": f"{_VOICE}\n\n{_INTAKE_INSTRUCTION}"},
+                    {"role": "user", "content": f"THEY SAID: {answer}"},
+                ],
+                temperature=0.6,
+                max_tokens=350,
+                response_format={"type": "json_object"},
+            )
+            data = json.loads(completion.choices[0].message.content or "{}")
+            text = (data.get("reflection") or "").strip()
+            pes = (data.get("phrase_es") or "").strip()
+            pen = (data.get("phrase_en") or "").strip()
+            if not (text and pes and pen):
+                raise ValueError("incomplete intake JSON")
+        except Exception as exc:  # noqa: BLE001
+            logger.error("trial/guide intake failed: %s", exc)
+            ph = phrase_for_goal(None)
+            text = ("Totally hear you — that stuck feeling is the tools, not you. "
+                    "Let's lock in one real phrase you can actually use, right now.")
+            pes, pen = ph["es"], ph["en"]
+        logger.info("trial/guide ok kind=intake answer=%r", answer[:50])
+        return GuideResponse(text=text, phrase_es=pes, phrase_en=pen)
 
     goal = (body.goal_text or "").strip() or "get comfortable speaking Spanish in everyday life"
     phrase = phrase_for_goal(body.goal_key) if body.kind == "reflection" else None
