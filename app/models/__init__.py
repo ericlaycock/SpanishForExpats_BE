@@ -70,6 +70,9 @@ from app.models.memorize import MemorizeCompletion
 # Free-trial next-day reminder
 from app.models.trial_reminder import TrialReminder
 
+# Affiliate payout ledger ($100 per referred paying student)
+from app.models.affiliate_payout import AffiliatePayout
+
 # Teachers portal models
 from app.models.teacher import (
     TeacherStudent,
@@ -113,6 +116,7 @@ __all__ = [
     "VocabChapterCompletion",
     "MemorizeCompletion",
     "TrialReminder",
+    "AffiliatePayout",
     "TeacherStudent",
     "TeacherStudentTopicState",
 ]

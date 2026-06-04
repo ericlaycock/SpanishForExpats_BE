@@ -44,6 +44,8 @@ class AffiliateMetricsResponse(BaseModel):
     phone_signups: int     # distinct users who gave a phone number
     texts_sent: int        # reminders actually texted
     returned: int          # reminders completed (came back + finished recall)
+    paying_students: int   # referred users who became paying (one payout each)
+    estimated_earnings_cents: int  # sum of this source's payout amounts
 
 
 @router.get("/metrics", response_model=AffiliateMetricsResponse)
@@ -97,6 +99,16 @@ def get_affiliate_metrics(
         or 0
     )
 
+    # Paying students attributed to this source (one AffiliatePayout row each,
+    # created by the Stripe webhook at first payment) + estimated earnings.
+    payout = db.execute(
+        text("""
+            SELECT COUNT(*) AS n, COALESCE(SUM(amount_cents), 0) AS cents
+            FROM affiliate_payouts WHERE affiliate_source = :source
+        """),
+        {"source": source},
+    ).fetchone()
+
     return AffiliateMetricsResponse(
         source=source,
         steps=steps,
@@ -108,4 +120,6 @@ def get_affiliate_metrics(
         phone_signups=int(signups),
         texts_sent=int(texts),
         returned=int(returned),
+        paying_students=int(payout.n),
+        estimated_earnings_cents=int(payout.cents),
     )

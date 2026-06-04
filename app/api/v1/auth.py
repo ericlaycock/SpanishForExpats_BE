@@ -104,6 +104,21 @@ async def register(credentials: RegisterRequest, db: Session = Depends(get_db)):
             logger.warning(f"BookedCall backfill skipped for {email}: {e}")
             db.rollback()
 
+        # Credit this user's onboarding to the affiliate source they came
+        # through (funnel session → prior trial → booking). Best-effort; a
+        # failure here must never block registration.
+        try:
+            from app.services.attribution import resolve_onboarding_source
+            src = resolve_onboarding_source(
+                db, user_id=user.id, email=email, session_id=credentials.session_id
+            )
+            if src:
+                user.onboarding_source = src
+                db.commit()
+        except Exception as e:
+            logger.warning(f"onboarding_source resolution skipped for {email}: {e}")
+            db.rollback()
+
         # Generate token with plan claim
         access_token = create_access_token(data={"sub": str(user.id), "plan": plan})
         logger.info(f"Registration successful for user: {user.id}")

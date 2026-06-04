@@ -6,10 +6,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 from sqlalchemy import text, func
+import re
 from app.auth import get_current_user, get_password_hash, create_access_token
+from app.config import settings
 from app.database import get_db
 from datetime import timedelta
-from app.models import User, Subscription, Cohort, CohortRegistration, TrialReminder
+from app.models import User, Subscription, Cohort, CohortRegistration, TrialReminder, AffiliatePayout
 from app.schemas import (
     AdminCohortListResponse,
     AdminCohortRegistrant,
@@ -365,6 +367,122 @@ def seed_test_user(
         is_admin=bool(user.is_admin),
         access_token=token,
     )
+
+
+# ---------------------------------------------------------------------------
+# Affiliate partners — onboard many + track payouts owed
+# ---------------------------------------------------------------------------
+
+class CreateAffiliateRequest(BaseModel):
+    email: EmailStr
+    password: str
+    source: str
+    name: Optional[str] = None
+
+
+class CreateAffiliateResponse(BaseModel):
+    user_id: str
+    email: str
+    source: str
+    referral_link: str
+    portal_url: str
+
+
+@router.post("/affiliates", response_model=CreateAffiliateResponse)
+def create_affiliate(
+    body: CreateAffiliateRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Onboard a referral partner: a login-able User bound to ONE funnel source.
+    They can then read /v1/affiliate/metrics for that source only (never admin).
+    The existing affiliate portal works for any source with no other changes."""
+    _require_admin(current_user)
+
+    src = (body.source or "").strip().lower()
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,30}", src):
+        raise HTTPException(
+            status_code=400,
+            detail="source must be 2–31 chars: lowercase letters, digits, hyphens",
+        )
+    email = body.email.strip().lower()
+    if db.query(User).filter(User.email == email).first():
+        raise HTTPException(status_code=400, detail="Email already registered")
+    if db.query(User).filter(User.affiliate_source == src).first():
+        raise HTTPException(status_code=400, detail=f"Source '{src}' is already taken")
+
+    user = User(
+        email=email,
+        password_hash=get_password_hash(body.password),
+        affiliate_source=src,
+        is_admin=False,
+        onboarding_completed=True,
+        name=(body.name or "").strip() or "Affiliate Partner",
+    )
+    db.add(user)
+    db.flush()
+    db.add(Subscription(user_id=user.id, active=False))
+    db.commit()
+    db.refresh(user)
+
+    base = settings.frontend_url.rstrip("/")
+    logger.info("[Admin] %s created affiliate %s (source=%s)", current_user.email, email, src)
+    return CreateAffiliateResponse(
+        user_id=str(user.id),
+        email=user.email,
+        source=src,
+        referral_link=f"{base}/freetrial/{src}",
+        portal_url=f"{base}/affiliate",
+    )
+
+
+@router.get("/affiliates")
+def list_affiliates(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Every affiliate partner with referral-payout counts ($ owed vs paid)."""
+    _require_admin(current_user)
+    rows = db.execute(text("""
+        SELECT u.affiliate_source AS source, u.email,
+               COUNT(p.id) FILTER (WHERE p.status='pending')                       AS pending_count,
+               COALESCE(SUM(p.amount_cents) FILTER (WHERE p.status='pending'), 0)  AS pending_cents,
+               COUNT(p.id) FILTER (WHERE p.status='paid')                          AS paid_count,
+               COALESCE(SUM(p.amount_cents) FILTER (WHERE p.status='paid'), 0)     AS paid_cents
+        FROM users u
+        LEFT JOIN affiliate_payouts p ON p.affiliate_source = u.affiliate_source
+        WHERE u.affiliate_source IS NOT NULL
+        GROUP BY u.affiliate_source, u.email
+        ORDER BY u.affiliate_source
+    """)).fetchall()
+    return [
+        {
+            "source": r.source,
+            "email": r.email,
+            "pending_count": int(r.pending_count),
+            "pending_owed_usd": round(int(r.pending_cents) / 100, 2),
+            "paid_count": int(r.paid_count),
+            "paid_usd": round(int(r.paid_cents) / 100, 2),
+        }
+        for r in rows
+    ]
+
+
+@router.patch("/affiliates/payouts/{payout_id}")
+def mark_payout_paid(
+    payout_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Mark a pending payout as paid (after the partner has actually been paid)."""
+    _require_admin(current_user)
+    p = db.query(AffiliatePayout).filter(AffiliatePayout.id == payout_id).first()
+    if not p:
+        raise HTTPException(status_code=404, detail="Payout not found")
+    p.status = "paid"
+    p.paid_at = datetime.now(timezone.utc)
+    db.commit()
+    return {"id": str(p.id), "status": p.status, "paid_at": p.paid_at.isoformat()}
 
 
 # ---------------------------------------------------------------------------

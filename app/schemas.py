@@ -41,6 +41,9 @@ class RegisterRequest(BaseModel):
     confirm_password: Optional[str] = None
     invite_token: Optional[str] = None
     name: Optional[str] = None
+    # Anonymous funnel session id (from the browser) so registration can credit
+    # this user's onboarding to the affiliate source they came through.
+    session_id: Optional[str] = None
 
 
 class LoginResponse(BaseModel):
