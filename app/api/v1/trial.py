@@ -62,7 +62,14 @@ _INTAKE_INSTRUCTION = (
     "(2) silently identify the one real-life thing they most need to be able to say; "
     "(3) choose ONE short, genuinely useful everyday Latin American Spanish phrase "
     "(NEVER vosotros; complete and usable exactly as written) that directly helps "
-    "that exact situation — something they could use today. "
+    "that exact situation — something they could use today and that produces a real "
+    "'I can say that now' win. "
+    "CRITICAL phrase rules: it must be something they very likely do NOT already "
+    "know. NEVER pick trivially-known basics (hola, gracias, por favor, buenos días, "
+    "¿cómo estás?, sí/no, numbers) and NEVER pick an English-crutch like "
+    "'¿Hablas inglés?' — we get them OUT of the English bubble, not deeper in. "
+    "Favour a real, slightly-stretch phrase that moves them toward speaking Spanish. "
+    "If told phrases they ALREADY KNOW, pick a clearly different one. "
     "The reflection is ~2-3 warm sentences, no lecturing, ending by handing them "
     "into memorizing it. Respond ONLY as JSON: "
     '{"reflection": "...", "phrase_es": "...", "phrase_en": "...", "goal": "<3-6 word goal label>"}'
@@ -115,6 +122,8 @@ class GuideRequest(BaseModel):
     goal_text: str = Field("", max_length=300)             # human goal text (label or free text)
     level: Optional[str] = Field(None, max_length=40)      # "beginner" | "some" | None
     phrase_en: Optional[str] = Field(None, max_length=200)  # what they memorized (roadmap)
+    exclude: Optional[list[str]] = None                    # phrases they already know — don't reuse
+    harder: bool = False                                   # bump difficulty (they knew the last one)
 
 
 class GuideResponse(BaseModel):
@@ -135,12 +144,15 @@ def trial_guide(body: GuideRequest, request: Request):
     # THEIR exact situation. Returns JSON; falls back to a curated phrase.
     if body.kind == "intake":
         answer = (body.goal_text or "").strip() or "I struggle to speak Spanish with locals."
+        excl = ", ".join(p for p in (body.exclude or []) if p) or "none"
+        bump = " They already know easier phrases — pick something a notch more advanced/useful." if body.harder else ""
+        user_msg = f"THEY SAID: {answer}\nALREADY KNOW (do NOT pick these or anything as basic): {excl}.{bump}"
         try:
             completion = _get_client().chat.completions.create(
                 model=TRIAL_MODEL,
                 messages=[
                     {"role": "system", "content": f"{_VOICE}\n\n{_INTAKE_INSTRUCTION}"},
-                    {"role": "user", "content": f"THEY SAID: {answer}"},
+                    {"role": "user", "content": user_msg},
                 ],
                 temperature=0.6,
                 max_tokens=350,
