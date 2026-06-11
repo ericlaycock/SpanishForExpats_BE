@@ -294,6 +294,28 @@ def _handle_checkout_completed(db: Session, session_obj) -> None:
     sub.stripe_subscription_id = session_obj.subscription
     db.commit()
 
+    # Affiliate payout: if this paying student was referred by a partner, record
+    # a pending $100 payout. Idempotent (one row per user) and fully isolated —
+    # a failure here must never break the subscription-activation path above.
+    try:
+        from app.models import User, AffiliatePayout
+        user = db.query(User).filter(User.id == user_id).first()
+        if user and user.onboarding_source:
+            exists = (
+                db.query(AffiliatePayout)
+                .filter(AffiliatePayout.user_id == user.id)
+                .first()
+            )
+            if not exists:
+                db.add(AffiliatePayout(
+                    affiliate_source=user.onboarding_source,
+                    user_id=user.id,
+                    subscription_id=session_obj.subscription,
+                ))
+                db.commit()
+    except Exception:
+        db.rollback()
+
 
 def _handle_subscription_updated(db: Session, stripe_sub) -> None:
     sub = db.query(Subscription).filter(

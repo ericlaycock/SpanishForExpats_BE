@@ -33,6 +33,10 @@ class User(Base):
     # funnel, never the user list or other sources. The source is bound here
     # server-side so it can never be widened via a client-supplied query param.
     affiliate_source = Column(String(64), nullable=True, index=True)
+    # The affiliate source this user was REFERRED BY (vs affiliate_source = "is an
+    # affiliate"). Resolved at registration from the funnel session's utm_source
+    # (with trial/booking fallbacks). Powers $100-per-paying-student payouts.
+    onboarding_source = Column(String(64), nullable=True, index=True)
     alt_language = Column(String, nullable=True)  # null=Spanish, 'catalan', 'swedish'
     # Server-side flags for first-time feature explainers (coachmarks).
     # Shape: {"vocab_word_cards": true, "verb_lesson": true, ...}. Lookup

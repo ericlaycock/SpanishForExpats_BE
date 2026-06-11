@@ -21,6 +21,7 @@ from app.auth import create_access_token, get_current_user, get_password_hash
 from app.config import settings
 from app.database import get_db
 from app.models import Subscription, TrialReminder, User
+from app.services.attribution import resolve_source_from_session as _resolve_source
 from app.services.sms_service import send_sms
 
 logger = logging.getLogger(__name__)
@@ -51,25 +52,8 @@ class SignupRequest(BaseModel):
     session_id: str | None = Field(default=None, max_length=64)
 
 
-def _resolve_source(db: Session, session_id: str | None) -> str | None:
-    """The campaign source (utm_source) for a funnel session, taken from the
-    earliest event row that carries one. Returns None if unknown."""
-    if not session_id:
-        return None
-    row = db.execute(
-        text(
-            """
-            SELECT event_metadata ->> 'utm_source' AS src
-            FROM anonymous_funnel_events
-            WHERE session_id = :sid
-              AND event_metadata ->> 'utm_source' IS NOT NULL
-            ORDER BY occurred_at ASC
-            LIMIT 1
-            """
-        ),
-        {"sid": session_id},
-    ).fetchone()
-    return row.src if row else None
+# _resolve_source now lives in app/services/attribution.py (imported above) so
+# registration and the Stripe webhook can reuse the same attribution logic.
 
 
 class SignupResponse(BaseModel):
