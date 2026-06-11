@@ -24,6 +24,7 @@ from pydantic import BaseModel, Field
 
 from app.config import settings
 from app.data.trial_phrases import phrase_for_goal
+from app.data.trial_first_words import TIER_BANKS, LEVEL_TO_TIER, MAX_TIER
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -132,6 +133,34 @@ class GuideResponse(BaseModel):
     # memorize next (one source of truth — the FE feeds it to the utility).
     phrase_es: Optional[str] = None
     phrase_en: Optional[str] = None
+
+
+class FirstWord(BaseModel):
+    es: str
+    en: str
+
+
+class FirstWordsResponse(BaseModel):
+    # Ordered tiers of "first perfect words" (absolute / mid-beginner / intermediate).
+    tiers: list[list[FirstWord]]
+    # Up-front self-rating level key -> starting tier index.
+    level_to_tier: dict[str, int]
+    max_tier: int
+
+
+@router.get("/first-words", response_model=FirstWordsResponse)
+def trial_first_words():
+    """The tiered first-word banks for the Memory Miracle opener. Public, static.
+
+    The FE owns the cheap tier/index math (recognize -> bump tier, capped;
+    memorize -> next word in tier); the words themselves stay server-authoritative.
+    See docs/proposals/trial-first-word-memory-loop.md.
+    """
+    return FirstWordsResponse(
+        tiers=[[FirstWord(**w) for w in bank] for bank in TIER_BANKS],
+        level_to_tier=LEVEL_TO_TIER,
+        max_tier=MAX_TIER,
+    )
 
 
 @router.post("/guide", response_model=GuideResponse)

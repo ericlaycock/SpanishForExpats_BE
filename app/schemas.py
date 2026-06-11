@@ -687,6 +687,8 @@ WEBPAGEFLOW_EVENT_KEYS = (
     "cohort_confirmed",
     # Free-trial memorize → SMS follow-up funnel
     "ft_start",            # landed on /freetrial
+    "ft_level_pick",       # picked their up-front self-rating (sets the word tier)
+    "ft_word_recognized",  # tapped "I recognize this word" → bumped up a tier
     "ft_memorize_start",   # entered the memorize utility
     "ft_cycle_1",          # completed N activity→gut cycles
     "ft_cycle_2",
