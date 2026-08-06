@@ -63,6 +63,12 @@ FREQ_MODULE_START = {
 # target comfortably.
 POOL_DEPTH = 90
 
+# Range the frequency band claims to cover on screen. The lowest module starts
+# at 500 and the highest is labelled 1900-1914; 2000 closes out that last band
+# so the spine reaches the end of what the map advertises.
+FREQ_SPINE_START = 500
+FREQ_SPINE_END = 2000
+
 
 def load_hf() -> list[dict]:
     from app.data.hf_words import HIGH_FREQUENCY_WORDS
@@ -110,10 +116,34 @@ def main() -> int:
                 continue
             if not keep(w["spanish"], w["english"]):
                 continue
-            pool.append({"es": w["spanish"], "en": w["english"]})
+            pool.append(
+                {"es": w["spanish"], "en": w["english"], "rank": w["frequency_rank"]}
+            )
             if len(pool) >= POOL_DEPTH:
                 break
         pools[module_id] = pool
+
+    # --- continuous frequency spine ---------------------------------------
+    # The per-module pools above each start at a round rank and stop after 30
+    # teachable words, which lands them well short of the next module's start:
+    # freq-1800-1814 really covers 1800-1860, then nothing until 1900. That
+    # leaves ~690 ranks of vocabulary the learner can never reach.
+    #
+    # This pool is every teachable word across the whole displayed range, in
+    # rank order, so the generator can fill the holes with new modules.
+    spine = []
+    for w in hf_sorted:
+        if not (FREQ_SPINE_START <= w["frequency_rank"] <= FREQ_SPINE_END):
+            continue
+        pos, _ = classify(w["spanish"], w["english"])
+        if pos is None:
+            continue
+        spine.append(
+            {"es": w["spanish"], "en": w["english"], "rank": w["frequency_rank"]}
+        )
+    pools["freq-spine"] = spine
+    print(f"  frequency spine: {len(spine)} teachable words "
+          f"across ranks {FREQ_SPINE_START}-{FREQ_SPINE_END}")
 
     # --- situation decks -------------------------------------------------
     # Encounter words are hand-curated per category, so they pass the filter at

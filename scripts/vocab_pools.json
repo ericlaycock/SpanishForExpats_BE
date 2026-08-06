@@ -2,5431 +2,11833 @@
  "freq-500-514": [
   {
    "es": "rojo",
-   "en": "red"
+   "en": "red",
+   "rank": 500
   },
   {
    "es": "reducir",
-   "en": "to reduce"
+   "en": "to reduce",
+   "rank": 501
   },
   {
    "es": "calor",
-   "en": "heat"
+   "en": "heat",
+   "rank": 502
   },
   {
    "es": "celular",
-   "en": "cell phone"
+   "en": "cell phone",
+   "rank": 503
   },
   {
    "es": "computadora",
-   "en": "computer"
+   "en": "computer",
+   "rank": 504
   },
   {
    "es": "lento",
-   "en": "slow"
+   "en": "slow",
+   "rank": 505
   },
   {
    "es": "derecha",
-   "en": "right (direction)"
+   "en": "right (direction)",
+   "rank": 506
   },
   {
    "es": "opinión",
-   "en": "opinion"
+   "en": "opinion",
+   "rank": 507
   },
   {
    "es": "organización",
-   "en": "organization"
+   "en": "organization",
+   "rank": 508
   },
   {
    "es": "territorio",
-   "en": "territory"
+   "en": "territory",
+   "rank": 509
   },
   {
    "es": "peligro",
-   "en": "danger"
+   "en": "danger",
+   "rank": 510
   },
   {
    "es": "ventana",
-   "en": "window"
+   "en": "window",
+   "rank": 511
   },
   {
    "es": "tamaño",
-   "en": "size"
+   "en": "size",
+   "rank": 512
   },
   {
    "es": "pareja",
-   "en": "couple; partner"
+   "en": "couple; partner",
+   "rank": 513
   },
   {
    "es": "ejército",
-   "en": "army"
+   "en": "army",
+   "rank": 514
   },
   {
    "es": "piedra",
-   "en": "stone"
+   "en": "stone",
+   "rank": 515
   },
   {
    "es": "voz",
-   "en": "voice"
+   "en": "voice",
+   "rank": 516
   },
   {
    "es": "gasto",
-   "en": "expense"
+   "en": "expense",
+   "rank": 517
   },
   {
    "es": "riesgo",
-   "en": "risk"
+   "en": "risk",
+   "rank": 518
   },
   {
    "es": "cama",
-   "en": "bed"
+   "en": "bed",
+   "rank": 519
   },
   {
    "es": "enfermo",
-   "en": "sick"
+   "en": "sick",
+   "rank": 520
   },
   {
    "es": "huevo",
-   "en": "egg"
+   "en": "egg",
+   "rank": 521
   },
   {
    "es": "máquina",
-   "en": "machine"
+   "en": "machine",
+   "rank": 522
   },
   {
    "es": "flor",
-   "en": "flower"
+   "en": "flower",
+   "rank": 523
   },
   {
    "es": "plato",
-   "en": "plate"
+   "en": "plate",
+   "rank": 524
   },
   {
    "es": "arena",
-   "en": "sand"
+   "en": "sand",
+   "rank": 525
   },
   {
    "es": "bosque",
-   "en": "forest"
+   "en": "forest",
+   "rank": 526
   },
   {
    "es": "nube",
-   "en": "cloud"
+   "en": "cloud",
+   "rank": 527
   },
   {
    "es": "viaje",
-   "en": "trip"
+   "en": "trip",
+   "rank": 528
   },
   {
    "es": "estrella",
-   "en": "star"
+   "en": "star",
+   "rank": 529
   },
   {
    "es": "broma",
-   "en": "joke"
+   "en": "joke",
+   "rank": 530
   },
   {
    "es": "hermana",
-   "en": "sister"
+   "en": "sister",
+   "rank": 531
   },
   {
    "es": "caballo",
-   "en": "horse"
+   "en": "horse",
+   "rank": 532
   },
   {
    "es": "pelo",
-   "en": "hair"
+   "en": "hair",
+   "rank": 533
   },
   {
    "es": "reloj",
-   "en": "clock"
+   "en": "clock",
+   "rank": 534
   },
   {
    "es": "cocina",
-   "en": "kitchen"
+   "en": "kitchen",
+   "rank": 535
   },
   {
    "es": "jardín",
-   "en": "garden"
+   "en": "garden",
+   "rank": 536
   },
   {
    "es": "ventaja",
-   "en": "advantage"
+   "en": "advantage",
+   "rank": 537
   },
   {
    "es": "mesa",
-   "en": "table"
+   "en": "table",
+   "rank": 538
   },
   {
    "es": "silla",
-   "en": "chair"
+   "en": "chair",
+   "rank": 539
   },
   {
    "es": "brazo",
-   "en": "arm"
+   "en": "arm",
+   "rank": 540
   },
   {
    "es": "pierna",
-   "en": "leg"
+   "en": "leg",
+   "rank": 541
   },
   {
    "es": "dedo",
-   "en": "finger"
+   "en": "finger",
+   "rank": 542
   },
   {
    "es": "ojo",
-   "en": "eye"
+   "en": "eye",
+   "rank": 543
   },
   {
    "es": "boca",
-   "en": "mouth"
+   "en": "mouth",
+   "rank": 544
   },
   {
    "es": "nariz",
-   "en": "nose"
+   "en": "nose",
+   "rank": 545
   },
   {
    "es": "oreja",
-   "en": "ear"
+   "en": "ear",
+   "rank": 546
   },
   {
    "es": "espalda",
-   "en": "back"
+   "en": "back",
+   "rank": 547
   },
   {
    "es": "pecho",
-   "en": "chest"
+   "en": "chest",
+   "rank": 548
   },
   {
    "es": "rodilla",
-   "en": "knee"
+   "en": "knee",
+   "rank": 549
   },
   {
    "es": "hombro",
-   "en": "shoulder"
+   "en": "shoulder",
+   "rank": 550
   },
   {
    "es": "cuello",
-   "en": "neck"
+   "en": "neck",
+   "rank": 551
   },
   {
    "es": "cerebro",
-   "en": "brain"
+   "en": "brain",
+   "rank": 552
   },
   {
    "es": "hueso",
-   "en": "bone"
+   "en": "bone",
+   "rank": 553
   },
   {
    "es": "piel",
-   "en": "skin"
+   "en": "skin",
+   "rank": 554
   },
   {
    "es": "labio",
-   "en": "lip"
+   "en": "lip",
+   "rank": 555
   },
   {
    "es": "lengua",
-   "en": "tongue"
+   "en": "tongue",
+   "rank": 556
   },
   {
    "es": "músculo",
-   "en": "muscle"
+   "en": "muscle",
+   "rank": 557
   },
   {
    "es": "barco",
-   "en": "ship"
+   "en": "ship",
+   "rank": 558
   },
   {
    "es": "avión",
-   "en": "airplane"
+   "en": "airplane",
+   "rank": 559
   },
   {
    "es": "tren",
-   "en": "train"
+   "en": "train",
+   "rank": 560
   },
   {
    "es": "camión",
-   "en": "truck"
+   "en": "truck",
+   "rank": 561
   },
   {
    "es": "bicicleta",
-   "en": "bicycle"
+   "en": "bicycle",
+   "rank": 562
   },
   {
    "es": "autobús",
-   "en": "bus"
+   "en": "bus",
+   "rank": 563
   },
   {
    "es": "puente",
-   "en": "bridge"
+   "en": "bridge",
+   "rank": 564
   },
   {
    "es": "camino",
-   "en": "road"
+   "en": "road",
+   "rank": 565
   },
   {
    "es": "esquina",
-   "en": "corner"
+   "en": "corner",
+   "rank": 566
   },
   {
    "es": "cuadra",
-   "en": "block"
+   "en": "block",
+   "rank": 567
   },
   {
    "es": "acera",
-   "en": "sidewalk"
+   "en": "sidewalk",
+   "rank": 568
   },
   {
    "es": "semáforo",
-   "en": "traffic light"
+   "en": "traffic light",
+   "rank": 569
   },
   {
    "es": "edificio",
-   "en": "building"
+   "en": "building",
+   "rank": 570
   },
   {
    "es": "torre",
-   "en": "tower"
+   "en": "tower",
+   "rank": 571
   },
   {
    "es": "pared",
-   "en": "wall"
+   "en": "wall",
+   "rank": 572
   },
   {
    "es": "escalera",
-   "en": "stairs"
+   "en": "stairs",
+   "rank": 573
   },
   {
    "es": "ascensor",
-   "en": "elevator"
+   "en": "elevator",
+   "rank": 574
   },
   {
    "es": "habitación",
-   "en": "room"
+   "en": "room",
+   "rank": 575
   },
   {
    "es": "baño",
-   "en": "bathroom"
+   "en": "bathroom",
+   "rank": 576
   },
   {
    "es": "espejo",
-   "en": "mirror"
+   "en": "mirror",
+   "rank": 577
   },
   {
    "es": "lámpara",
-   "en": "lamp"
+   "en": "lamp",
+   "rank": 578
   },
   {
    "es": "alfombra",
-   "en": "carpet"
+   "en": "carpet",
+   "rank": 579
   },
   {
    "es": "cortina",
-   "en": "curtain"
+   "en": "curtain",
+   "rank": 580
   },
   {
    "es": "almohada",
-   "en": "pillow"
+   "en": "pillow",
+   "rank": 581
   },
   {
    "es": "sábana",
-   "en": "sheet"
+   "en": "sheet",
+   "rank": 582
   },
   {
    "es": "cobija",
-   "en": "blanket"
+   "en": "blanket",
+   "rank": 583
   },
   {
    "es": "toalla",
-   "en": "towel"
+   "en": "towel",
+   "rank": 584
   },
   {
    "es": "jabón",
-   "en": "soap"
+   "en": "soap",
+   "rank": 585
   },
   {
    "es": "cepillo",
-   "en": "brush"
+   "en": "brush",
+   "rank": 586
   },
   {
    "es": "tijeras",
-   "en": "scissors"
+   "en": "scissors",
+   "rank": 587
   },
   {
    "es": "cuchara",
-   "en": "spoon"
+   "en": "spoon",
+   "rank": 588
   },
   {
    "es": "vaso",
-   "en": "glass"
+   "en": "glass",
+   "rank": 589
   }
  ],
  "freq-600-614": [
   {
    "es": "queso",
-   "en": "cheese"
+   "en": "cheese",
+   "rank": 600
   },
   {
    "es": "azúcar",
-   "en": "sugar"
+   "en": "sugar",
+   "rank": 601
   },
   {
    "es": "sal",
-   "en": "salt"
+   "en": "salt",
+   "rank": 602
   },
   {
    "es": "aceite",
-   "en": "oil"
+   "en": "oil",
+   "rank": 603
   },
   {
    "es": "manzana",
-   "en": "apple"
+   "en": "apple",
+   "rank": 604
   },
   {
    "es": "naranja",
-   "en": "orange"
+   "en": "orange",
+   "rank": 605
   },
   {
    "es": "limón",
-   "en": "lemon"
+   "en": "lemon",
+   "rank": 606
   },
   {
    "es": "papa",
-   "en": "potato"
+   "en": "potato",
+   "rank": 607
   },
   {
    "es": "cebolla",
-   "en": "onion"
+   "en": "onion",
+   "rank": 608
   },
   {
    "es": "tomate",
-   "en": "tomato"
+   "en": "tomato",
+   "rank": 609
   },
   {
    "es": "lechuga",
-   "en": "lettuce"
+   "en": "lettuce",
+   "rank": 610
   },
   {
    "es": "frijol",
-   "en": "bean"
+   "en": "bean",
+   "rank": 611
   },
   {
    "es": "maíz",
-   "en": "corn"
+   "en": "corn",
+   "rank": 612
   },
   {
    "es": "sopa",
-   "en": "soup"
+   "en": "soup",
+   "rank": 613
   },
   {
    "es": "ensalada",
-   "en": "salad"
+   "en": "salad",
+   "rank": 614
   },
   {
    "es": "postre",
-   "en": "dessert"
+   "en": "dessert",
+   "rank": 615
   },
   {
    "es": "helado",
-   "en": "ice cream"
+   "en": "ice cream",
+   "rank": 616
   },
   {
    "es": "pastel",
-   "en": "cake"
+   "en": "cake",
+   "rank": 617
   },
   {
    "es": "dulce",
-   "en": "candy"
+   "en": "candy",
+   "rank": 618
   },
   {
    "es": "receta",
-   "en": "recipe"
+   "en": "recipe",
+   "rank": 619
   },
   {
    "es": "sabor",
-   "en": "flavor"
+   "en": "flavor",
+   "rank": 620
   },
   {
    "es": "hambre",
-   "en": "hunger"
+   "en": "hunger",
+   "rank": 621
   },
   {
    "es": "sed",
-   "en": "thirst"
+   "en": "thirst",
+   "rank": 622
   },
   {
    "es": "desayuno",
-   "en": "breakfast"
+   "en": "breakfast",
+   "rank": 623
   },
   {
    "es": "almuerzo",
-   "en": "lunch"
+   "en": "lunch",
+   "rank": 624
   },
   {
    "es": "cena",
-   "en": "dinner"
+   "en": "dinner",
+   "rank": 625
   },
   {
    "es": "merienda",
-   "en": "snack"
+   "en": "snack",
+   "rank": 626
   },
   {
    "es": "perro",
-   "en": "dog"
+   "en": "dog",
+   "rank": 627
   },
   {
    "es": "pájaro",
-   "en": "bird"
+   "en": "bird",
+   "rank": 628
   },
   {
    "es": "pez",
-   "en": "fish (alive)"
+   "en": "fish (alive)",
+   "rank": 629
   },
   {
    "es": "vaca",
-   "en": "cow"
+   "en": "cow",
+   "rank": 630
   },
   {
    "es": "cerdo",
-   "en": "pig"
+   "en": "pig",
+   "rank": 631
   },
   {
    "es": "oveja",
-   "en": "sheep"
+   "en": "sheep",
+   "rank": 632
   },
   {
    "es": "gallina",
-   "en": "hen"
+   "en": "hen",
+   "rank": 633
   },
   {
    "es": "ratón",
-   "en": "mouse"
+   "en": "mouse",
+   "rank": 634
   },
   {
    "es": "serpiente",
-   "en": "snake"
+   "en": "snake",
+   "rank": 635
   },
   {
    "es": "insecto",
-   "en": "insect"
+   "en": "insect",
+   "rank": 636
   },
   {
    "es": "mariposa",
-   "en": "butterfly"
+   "en": "butterfly",
+   "rank": 637
   },
   {
    "es": "hormiga",
-   "en": "ant"
+   "en": "ant",
+   "rank": 638
   },
   {
    "es": "mosca",
-   "en": "fly"
+   "en": "fly",
+   "rank": 639
   },
   {
    "es": "araña",
-   "en": "spider"
+   "en": "spider",
+   "rank": 640
   },
   {
    "es": "lobo",
-   "en": "wolf"
+   "en": "wolf",
+   "rank": 641
   },
   {
    "es": "león",
-   "en": "lion"
+   "en": "lion",
+   "rank": 642
   },
   {
    "es": "oso",
-   "en": "bear"
+   "en": "bear",
+   "rank": 643
   },
   {
    "es": "mono",
-   "en": "monkey"
+   "en": "monkey",
+   "rank": 644
   },
   {
    "es": "toro",
-   "en": "bull"
+   "en": "bull",
+   "rank": 645
   },
   {
    "es": "arroyo",
-   "en": "stream; creek"
+   "en": "stream; creek",
+   "rank": 646
   },
   {
    "es": "lago",
-   "en": "lake"
+   "en": "lake",
+   "rank": 647
   },
   {
    "es": "mar",
-   "en": "sea"
+   "en": "sea",
+   "rank": 648
   },
   {
    "es": "playa",
-   "en": "beach"
+   "en": "beach",
+   "rank": 649
   },
   {
    "es": "montaña",
-   "en": "mountain"
+   "en": "mountain",
+   "rank": 650
   },
   {
    "es": "valle",
-   "en": "valley"
+   "en": "valley",
+   "rank": 651
   },
   {
    "es": "isla",
-   "en": "island"
+   "en": "island",
+   "rank": 652
   },
   {
    "es": "desierto",
-   "en": "desert"
+   "en": "desert",
+   "rank": 653
   },
   {
    "es": "selva",
-   "en": "jungle"
+   "en": "jungle",
+   "rank": 654
   },
   {
    "es": "cascada",
-   "en": "waterfall"
+   "en": "waterfall",
+   "rank": 655
   },
   {
    "es": "cueva",
-   "en": "cave"
+   "en": "cave",
+   "rank": 656
   },
   {
    "es": "pradera",
-   "en": "meadow"
+   "en": "meadow",
+   "rank": 657
   },
   {
    "es": "hierba",
-   "en": "grass"
+   "en": "grass",
+   "rank": 658
   },
   {
    "es": "árbol",
-   "en": "tree"
+   "en": "tree",
+   "rank": 659
   },
   {
    "es": "hoja",
-   "en": "leaf"
+   "en": "leaf",
+   "rank": 660
   },
   {
    "es": "raíz",
-   "en": "root"
+   "en": "root",
+   "rank": 661
   },
   {
    "es": "semilla",
-   "en": "seed"
+   "en": "seed",
+   "rank": 662
   },
   {
    "es": "rama",
-   "en": "branch"
+   "en": "branch",
+   "rank": 663
   },
   {
    "es": "tronco",
-   "en": "trunk"
+   "en": "trunk",
+   "rank": 664
   },
   {
    "es": "amanecer",
-   "en": "dawn; sunrise"
+   "en": "dawn; sunrise",
+   "rank": 665
   },
   {
    "es": "luna",
-   "en": "moon"
+   "en": "moon",
+   "rank": 666
   },
   {
    "es": "cielo",
-   "en": "sky"
+   "en": "sky",
+   "rank": 667
   },
   {
    "es": "lluvia",
-   "en": "rain"
+   "en": "rain",
+   "rank": 668
   },
   {
    "es": "viento",
-   "en": "wind"
+   "en": "wind",
+   "rank": 669
   },
   {
    "es": "tormenta",
-   "en": "storm"
+   "en": "storm",
+   "rank": 670
   },
   {
    "es": "nieve",
-   "en": "snow"
+   "en": "snow",
+   "rank": 671
   },
   {
    "es": "hielo",
-   "en": "ice"
+   "en": "ice",
+   "rank": 672
   },
   {
    "es": "fuego",
-   "en": "fire"
+   "en": "fire",
+   "rank": 673
   },
   {
    "es": "humo",
-   "en": "smoke"
+   "en": "smoke",
+   "rank": 674
   },
   {
    "es": "ceniza",
-   "en": "ash"
+   "en": "ash",
+   "rank": 675
   },
   {
    "es": "llama",
-   "en": "flame"
+   "en": "flame",
+   "rank": 676
   },
   {
    "es": "sombra",
-   "en": "shadow"
+   "en": "shadow",
+   "rank": 677
   },
   {
    "es": "rayo",
-   "en": "lightning"
+   "en": "lightning",
+   "rank": 678
   },
   {
    "es": "trueno",
-   "en": "thunder"
+   "en": "thunder",
+   "rank": 679
   },
   {
    "es": "terremoto",
-   "en": "earthquake"
+   "en": "earthquake",
+   "rank": 680
   },
   {
    "es": "inundación",
-   "en": "flood"
+   "en": "flood",
+   "rank": 681
   },
   {
    "es": "sequía",
-   "en": "drought"
+   "en": "drought",
+   "rank": 682
   },
   {
    "es": "medico",
-   "en": "doctor"
+   "en": "doctor",
+   "rank": 683
   },
   {
    "es": "abogado",
-   "en": "lawyer"
+   "en": "lawyer",
+   "rank": 684
   },
   {
    "es": "maestro",
-   "en": "teacher"
+   "en": "teacher",
+   "rank": 685
   },
   {
    "es": "ingeniero",
-   "en": "engineer"
+   "en": "engineer",
+   "rank": 686
   },
   {
    "es": "marinero",
-   "en": "sailor"
+   "en": "sailor",
+   "rank": 687
   },
   {
    "es": "bombero",
-   "en": "firefighter"
+   "en": "firefighter",
+   "rank": 688
   },
   {
    "es": "campesino",
-   "en": "farmer"
+   "en": "farmer",
+   "rank": 689
   }
  ],
  "freq-700-714": [
   {
    "es": "ladrón",
-   "en": "thief"
+   "en": "thief",
+   "rank": 700
   },
   {
    "es": "esclavo",
-   "en": "slave"
+   "en": "slave",
+   "rank": 701
   },
   {
    "es": "guerrero",
-   "en": "warrior"
+   "en": "warrior",
+   "rank": 702
   },
   {
    "es": "héroe",
-   "en": "hero"
+   "en": "hero",
+   "rank": 703
   },
   {
    "es": "victoria",
-   "en": "victory"
+   "en": "victory",
+   "rank": 704
   },
   {
    "es": "alianza",
-   "en": "alliance"
+   "en": "alliance",
+   "rank": 705
   },
   {
    "es": "paz",
-   "en": "peace"
+   "en": "peace",
+   "rank": 706
   },
   {
    "es": "espada",
-   "en": "sword"
+   "en": "sword",
+   "rank": 708
   },
   {
    "es": "escudo",
-   "en": "shield"
+   "en": "shield",
+   "rank": 709
   },
   {
    "es": "bandera",
-   "en": "flag"
+   "en": "flag",
+   "rank": 710
   },
   {
    "es": "corona",
-   "en": "crown"
+   "en": "crown",
+   "rank": 711
   },
   {
    "es": "cadena",
-   "en": "chain"
+   "en": "chain",
+   "rank": 712
   },
   {
    "es": "cuerda",
-   "en": "rope"
+   "en": "rope",
+   "rank": 713
   },
   {
    "es": "trampa",
-   "en": "trap"
+   "en": "trap",
+   "rank": 714
   },
   {
    "es": "tesoro",
-   "en": "treasure"
+   "en": "treasure",
+   "rank": 715
   },
   {
    "es": "moneda",
-   "en": "coin"
+   "en": "coin",
+   "rank": 716
   },
   {
    "es": "precio",
-   "en": "price"
+   "en": "price",
+   "rank": 717
   },
   {
    "es": "bolsillo",
-   "en": "pocket"
+   "en": "pocket",
+   "rank": 718
   },
   {
    "es": "deuda",
-   "en": "debt"
+   "en": "debt",
+   "rank": 719
   },
   {
    "es": "negocio",
-   "en": "business"
+   "en": "business",
+   "rank": 720
   },
   {
    "es": "tienda",
-   "en": "store"
+   "en": "store",
+   "rank": 721
   },
   {
    "es": "ferretería",
-   "en": "hardware store"
+   "en": "hardware store",
+   "rank": 722
   },
   {
    "es": "fábrica",
-   "en": "factory"
+   "en": "factory",
+   "rank": 723
   },
   {
    "es": "herramienta",
-   "en": "tool"
+   "en": "tool",
+   "rank": 724
   },
   {
    "es": "rueda",
-   "en": "wheel"
+   "en": "wheel",
+   "rank": 725
   },
   {
    "es": "motor",
-   "en": "engine"
+   "en": "engine",
+   "rank": 726
   },
   {
    "es": "teclado",
-   "en": "keyboard"
+   "en": "keyboard",
+   "rank": 727
   },
   {
    "es": "pantalla",
-   "en": "screen"
+   "en": "screen",
+   "rank": 728
   },
   {
    "es": "micrófono",
-   "en": "microphone"
+   "en": "microphone",
+   "rank": 729
   },
   {
    "es": "carta",
-   "en": "letter"
+   "en": "letter",
+   "rank": 730
   },
   {
    "es": "periódico",
-   "en": "newspaper"
+   "en": "newspaper",
+   "rank": 731
   },
   {
    "es": "revista",
-   "en": "magazine"
+   "en": "magazine",
+   "rank": 732
   },
   {
    "es": "canción",
-   "en": "song"
+   "en": "song",
+   "rank": 733
   },
   {
    "es": "baile",
-   "en": "dance"
+   "en": "dance",
+   "rank": 734
   },
   {
    "es": "guitarra",
-   "en": "guitar"
+   "en": "guitar",
+   "rank": 735
   },
   {
    "es": "tambor",
-   "en": "drum"
+   "en": "drum",
+   "rank": 736
   },
   {
    "es": "campana",
-   "en": "bell"
+   "en": "bell",
+   "rank": 737
   },
   {
    "es": "ruido",
-   "en": "noise"
+   "en": "noise",
+   "rank": 738
   },
   {
    "es": "silencio",
-   "en": "silence"
+   "en": "silence",
+   "rank": 739
   },
   {
    "es": "grito",
-   "en": "scream"
+   "en": "scream",
+   "rank": 740
   },
   {
    "es": "risa",
-   "en": "laughter"
+   "en": "laughter",
+   "rank": 741
   },
   {
    "es": "llanto",
-   "en": "crying"
+   "en": "crying",
+   "rank": 742
   },
   {
    "es": "suspiro",
-   "en": "sigh"
+   "en": "sigh",
+   "rank": 743
   },
   {
    "es": "beso",
-   "en": "kiss"
+   "en": "kiss",
+   "rank": 744
   },
   {
    "es": "abrazo",
-   "en": "hug"
+   "en": "hug",
+   "rank": 745
   },
   {
    "es": "golpe",
-   "en": "blow"
+   "en": "blow",
+   "rank": 746
   },
   {
    "es": "herida",
-   "en": "wound"
+   "en": "wound",
+   "rank": 747
   },
   {
    "es": "cicatriz",
-   "en": "scar"
+   "en": "scar",
+   "rank": 748
   },
   {
    "es": "equipaje",
-   "en": "luggage"
+   "en": "luggage",
+   "rank": 749
   },
   {
    "es": "aroma",
-   "en": "aroma; scent"
+   "en": "aroma; scent",
+   "rank": 750
   },
   {
    "es": "tejado",
-   "en": "tile roof"
+   "en": "tile roof",
+   "rank": 751
   },
   {
    "es": "escuela",
-   "en": "school"
+   "en": "school",
+   "rank": 752
   },
   {
    "es": "inquilino",
-   "en": "tenant"
+   "en": "tenant",
+   "rank": 753
   },
   {
    "es": "penumbra",
-   "en": "dim light"
+   "en": "dim light",
+   "rank": 754
   },
   {
    "es": "orilla",
-   "en": "shore"
+   "en": "shore",
+   "rank": 755
   },
   {
    "es": "estruendo",
-   "en": "loud noise; roar"
+   "en": "loud noise; roar",
+   "rank": 756
   },
   {
    "es": "centelleo",
-   "en": "sparkle; flicker"
+   "en": "sparkle; flicker",
+   "rank": 757
   },
   {
    "es": "polvo",
-   "en": "dust"
+   "en": "dust",
+   "rank": 758
   },
   {
    "es": "vinagre",
-   "en": "vinegar"
+   "en": "vinegar",
+   "rank": 759
   },
   {
    "es": "hierro",
-   "en": "iron"
+   "en": "iron",
+   "rank": 760
   },
   {
    "es": "bronce",
-   "en": "bronze"
+   "en": "bronze",
+   "rank": 761
   },
   {
    "es": "oro",
-   "en": "gold"
+   "en": "gold",
+   "rank": 762
   },
   {
    "es": "cobre",
-   "en": "copper"
+   "en": "copper",
+   "rank": 763
   },
   {
    "es": "cristal",
-   "en": "glass"
+   "en": "glass",
+   "rank": 764
   },
   {
    "es": "seda",
-   "en": "silk"
+   "en": "silk",
+   "rank": 765
   },
   {
    "es": "algodón",
-   "en": "cotton"
+   "en": "cotton",
+   "rank": 766
   },
   {
    "es": "lana",
-   "en": "wool"
+   "en": "wool",
+   "rank": 767
   },
   {
    "es": "cuero",
-   "en": "leather"
+   "en": "leather",
+   "rank": 768
   },
   {
    "es": "trigo",
-   "en": "wheat"
+   "en": "wheat",
+   "rank": 769
   },
   {
    "es": "avena",
-   "en": "oats"
+   "en": "oats",
+   "rank": 770
   },
   {
    "es": "lenteja",
-   "en": "lentil"
+   "en": "lentil",
+   "rank": 771
   },
   {
    "es": "yogur",
-   "en": "yogurt"
+   "en": "yogurt",
+   "rank": 772
   },
   {
    "es": "mantequilla",
-   "en": "butter"
+   "en": "butter",
+   "rank": 773
   },
   {
    "es": "galleta",
-   "en": "cookie; cracker"
+   "en": "cookie; cracker",
+   "rank": 774
   },
   {
    "es": "jamón",
-   "en": "ham"
+   "en": "ham",
+   "rank": 775
   },
   {
    "es": "camarón",
-   "en": "shrimp"
+   "en": "shrimp",
+   "rank": 776
   },
   {
    "es": "aguacate",
-   "en": "avocado"
+   "en": "avocado",
+   "rank": 777
   },
   {
    "es": "verdura",
-   "en": "vegetable"
+   "en": "vegetable",
+   "rank": 778
   },
   {
    "es": "pimienta",
-   "en": "pepper (spice)"
+   "en": "pepper (spice)",
+   "rank": 779
   },
   {
    "es": "miel",
-   "en": "honey"
+   "en": "honey",
+   "rank": 780
   },
   {
    "es": "champú",
-   "en": "shampoo"
+   "en": "shampoo",
+   "rank": 781
   },
   {
    "es": "peine",
-   "en": "comb"
+   "en": "comb",
+   "rank": 782
   },
   {
    "es": "edredón",
-   "en": "comforter"
+   "en": "comforter",
+   "rank": 783
   },
   {
    "es": "colcha",
-   "en": "bedspread"
+   "en": "bedspread",
+   "rank": 784
   },
   {
    "es": "vitrina",
-   "en": "display case"
+   "en": "display case",
+   "rank": 785
   },
   {
    "es": "rampa",
-   "en": "ramp"
+   "en": "ramp",
+   "rank": 786
   },
   {
    "es": "pasillo",
-   "en": "hallway"
+   "en": "hallway",
+   "rank": 787
   },
   {
    "es": "sueldo",
-   "en": "salary"
+   "en": "salary",
+   "rank": 788
   },
   {
    "es": "ahorro",
-   "en": "savings"
+   "en": "savings",
+   "rank": 789
   },
   {
    "es": "ganancia",
-   "en": "profit"
+   "en": "profit",
+   "rank": 790
   }
  ],
  "freq-800-814": [
   {
    "es": "brote",
-   "en": "sprout; bud"
+   "en": "sprout; bud",
+   "rank": 800
   },
   {
    "es": "tallo",
-   "en": "stem"
+   "en": "stem",
+   "rank": 801
   },
   {
    "es": "espina",
-   "en": "thorn"
+   "en": "thorn",
+   "rank": 802
   },
   {
    "es": "pétalo",
-   "en": "petal"
+   "en": "petal",
+   "rank": 803
   },
   {
    "es": "pasto",
-   "en": "grass"
+   "en": "grass",
+   "rank": 805
   },
   {
    "es": "pantano",
-   "en": "swamp"
+   "en": "swamp",
+   "rank": 806
   },
   {
    "es": "grava",
-   "en": "gravel"
+   "en": "gravel",
+   "rank": 807
   },
   {
    "es": "roca",
-   "en": "rock"
+   "en": "rock",
+   "rank": 808
   },
   {
    "es": "barro",
-   "en": "mud"
+   "en": "mud",
+   "rank": 809
   },
   {
    "es": "brasa",
-   "en": "ember"
+   "en": "ember",
+   "rank": 810
   },
   {
    "es": "hoguera",
-   "en": "bonfire"
+   "en": "bonfire",
+   "rank": 811
   },
   {
    "es": "chispa",
-   "en": "spark"
+   "en": "spark",
+   "rank": 812
   },
   {
    "es": "relámpago",
-   "en": "lightning flash"
+   "en": "lightning flash",
+   "rank": 813
   },
   {
    "es": "granizo",
-   "en": "hail"
+   "en": "hail",
+   "rank": 814
   },
   {
    "es": "huracán",
-   "en": "hurricane"
+   "en": "hurricane",
+   "rank": 815
   },
   {
    "es": "neblina",
-   "en": "fog"
+   "en": "fog",
+   "rank": 816
   },
   {
    "es": "rocío",
-   "en": "dew"
+   "en": "dew",
+   "rank": 817
   },
   {
    "es": "helada",
-   "en": "frost"
+   "en": "frost",
+   "rank": 818
   },
   {
    "es": "temporal",
-   "en": "storm (weather)"
+   "en": "storm (weather)",
+   "rank": 819
   },
   {
    "es": "maremoto",
-   "en": "tsunami"
+   "en": "tsunami",
+   "rank": 820
   },
   {
    "es": "derrumbe",
-   "en": "landslide; collapse"
+   "en": "landslide; collapse",
+   "rank": 821
   },
   {
    "es": "incendio",
-   "en": "fire"
+   "en": "fire",
+   "rank": 822
   },
   {
    "es": "rescate",
-   "en": "rescue"
+   "en": "rescue",
+   "rank": 823
   },
   {
    "es": "quemadura",
-   "en": "burn"
+   "en": "burn",
+   "rank": 824
   },
   {
    "es": "moretón",
-   "en": "bruise"
+   "en": "bruise",
+   "rank": 825
   },
   {
    "es": "fiebre",
-   "en": "fever"
+   "en": "fever",
+   "rank": 826
   },
   {
    "es": "gripe",
-   "en": "flu"
+   "en": "flu",
+   "rank": 827
   },
   {
    "es": "tos",
-   "en": "cough"
+   "en": "cough",
+   "rank": 828
   },
   {
    "es": "malestar",
-   "en": "discomfort"
+   "en": "discomfort",
+   "rank": 829
   },
   {
    "es": "remedio",
-   "en": "remedy"
+   "en": "remedy",
+   "rank": 830
   },
   {
    "es": "pastilla",
-   "en": "pill"
+   "en": "pill",
+   "rank": 831
   },
   {
    "es": "jeringa",
-   "en": "syringe"
+   "en": "syringe",
+   "rank": 832
   },
   {
    "es": "venda",
-   "en": "bandage"
+   "en": "bandage",
+   "rank": 833
   },
   {
    "es": "muleta",
-   "en": "crutch"
+   "en": "crutch",
+   "rank": 834
   },
   {
    "es": "cirugía",
-   "en": "surgery"
+   "en": "surgery",
+   "rank": 835
   },
   {
    "es": "consultorio",
-   "en": "doctor's office"
+   "en": "doctor's office",
+   "rank": 836
   },
   {
    "es": "diagnóstico",
-   "en": "diagnosis"
+   "en": "diagnosis",
+   "rank": 837
   },
   {
    "es": "corazón",
-   "en": "heart"
+   "en": "heart",
+   "rank": 838
   },
   {
    "es": "pulmón",
-   "en": "lung"
+   "en": "lung",
+   "rank": 839
   },
   {
    "es": "hígado",
-   "en": "liver"
+   "en": "liver",
+   "rank": 840
   },
   {
    "es": "riñón",
-   "en": "kidney"
+   "en": "kidney",
+   "rank": 841
   },
   {
    "es": "costilla",
-   "en": "rib"
+   "en": "rib",
+   "rank": 842
   },
   {
    "es": "tendón",
-   "en": "tendon"
+   "en": "tendon",
+   "rank": 843
   },
   {
    "es": "vena",
-   "en": "vein"
+   "en": "vein",
+   "rank": 844
   },
   {
    "es": "uña",
-   "en": "nail"
+   "en": "nail",
+   "rank": 845
   },
   {
    "es": "codo",
-   "en": "elbow"
+   "en": "elbow",
+   "rank": 846
   },
   {
    "es": "muñeca",
-   "en": "wrist"
+   "en": "wrist",
+   "rank": 847
   },
   {
    "es": "tobillo",
-   "en": "ankle"
+   "en": "ankle",
+   "rank": 848
   },
   {
    "es": "espinilla",
-   "en": "shin"
+   "en": "shin",
+   "rank": 849
   },
   {
    "es": "cadera",
-   "en": "hip"
+   "en": "hip",
+   "rank": 850
   },
   {
    "es": "cintura",
-   "en": "waist"
+   "en": "waist",
+   "rank": 851
   },
   {
    "es": "mejilla",
-   "en": "cheek"
+   "en": "cheek",
+   "rank": 852
   },
   {
    "es": "barbilla",
-   "en": "chin"
+   "en": "chin",
+   "rank": 853
   },
   {
    "es": "mentón",
-   "en": "chin"
+   "en": "chin",
+   "rank": 854
   },
   {
    "es": "ceja",
-   "en": "eyebrow"
+   "en": "eyebrow",
+   "rank": 855
   },
   {
    "es": "pestaña",
-   "en": "eyelash"
+   "en": "eyelash",
+   "rank": 856
   },
   {
    "es": "párpado",
-   "en": "eyelid"
+   "en": "eyelid",
+   "rank": 857
   },
   {
    "es": "pómulo",
-   "en": "cheekbone"
+   "en": "cheekbone",
+   "rank": 858
   },
   {
    "es": "encía",
-   "en": "gum (mouth)"
+   "en": "gum (mouth)",
+   "rank": 859
   },
   {
    "es": "garganta",
-   "en": "throat"
+   "en": "throat",
+   "rank": 860
   },
   {
    "es": "nudo",
-   "en": "knot"
+   "en": "knot",
+   "rank": 861
   },
   {
    "es": "lazo",
-   "en": "bow"
+   "en": "bow",
+   "rank": 862
   },
   {
    "es": "soga",
-   "en": "rope; cord"
+   "en": "rope; cord",
+   "rank": 863
   },
   {
    "es": "candado",
-   "en": "padlock"
+   "en": "padlock",
+   "rank": 864
   },
   {
    "es": "llave",
-   "en": "key"
+   "en": "key",
+   "rank": 865
   },
   {
    "es": "cerradura",
-   "en": "lock"
+   "en": "lock",
+   "rank": 866
   },
   {
    "es": "bisagra",
-   "en": "hinge"
+   "en": "hinge",
+   "rank": 867
   },
   {
    "es": "clavo",
-   "en": "nail"
+   "en": "nail",
+   "rank": 868
   },
   {
    "es": "tornillo",
-   "en": "screw"
+   "en": "screw",
+   "rank": 869
   },
   {
    "es": "martillo",
-   "en": "hammer"
+   "en": "hammer",
+   "rank": 870
   },
   {
    "es": "sierra",
-   "en": "saw"
+   "en": "saw",
+   "rank": 871
   },
   {
    "es": "pinza",
-   "en": "pliers"
+   "en": "pliers",
+   "rank": 872
   },
   {
    "es": "alambre",
-   "en": "wire"
+   "en": "wire",
+   "rank": 873
   },
   {
    "es": "tubería",
-   "en": "plumbing"
+   "en": "plumbing",
+   "rank": 874
   },
   {
    "es": "grifo",
-   "en": "faucet"
+   "en": "faucet",
+   "rank": 875
   },
   {
    "es": "ladrillo",
-   "en": "brick"
+   "en": "brick",
+   "rank": 876
   },
   {
    "es": "cemento",
-   "en": "cement"
+   "en": "cement",
+   "rank": 877
   },
   {
    "es": "columna",
-   "en": "column"
+   "en": "column",
+   "rank": 878
   },
   {
    "es": "viga",
-   "en": "beam"
+   "en": "beam",
+   "rank": 879
   },
   {
    "es": "andamio",
-   "en": "scaffold"
+   "en": "scaffold",
+   "rank": 880
   },
   {
    "es": "reja",
-   "en": "iron gate; bars"
+   "en": "iron gate; bars",
+   "rank": 881
   },
   {
    "es": "portón",
-   "en": "gate"
+   "en": "gate",
+   "rank": 882
   },
   {
    "es": "banqueta",
-   "en": "sidewalk"
+   "en": "sidewalk",
+   "rank": 883
   },
   {
    "es": "glorieta",
-   "en": "roundabout"
+   "en": "roundabout",
+   "rank": 884
   },
   {
    "es": "callejón",
-   "en": "alley"
+   "en": "alley",
+   "rank": 885
   },
   {
    "es": "señalización",
-   "en": "signage"
+   "en": "signage",
+   "rank": 886
   },
   {
    "es": "cruce",
-   "en": "intersection"
+   "en": "intersection",
+   "rank": 887
   },
   {
    "es": "autopista",
-   "en": "highway"
+   "en": "highway",
+   "rank": 888
   },
   {
    "es": "peaje",
-   "en": "toll"
+   "en": "toll",
+   "rank": 889
   },
   {
    "es": "gasolina",
-   "en": "gasoline"
+   "en": "gasoline",
+   "rank": 890
   }
  ],
  "freq-900-914": [
   {
    "es": "grúa",
-   "en": "tow truck"
+   "en": "tow truck",
+   "rank": 900
   },
   {
    "es": "mecánico",
-   "en": "mechanic"
+   "en": "mechanic",
+   "rank": 901
   },
   {
    "es": "repuesto",
-   "en": "spare part"
+   "en": "spare part",
+   "rank": 902
   },
   {
    "es": "acequia",
-   "en": "irrigation ditch"
+   "en": "irrigation ditch",
+   "rank": 903
   },
   {
    "es": "pozo",
-   "en": "well"
+   "en": "well",
+   "rank": 904
   },
   {
    "es": "manguera",
-   "en": "hose"
+   "en": "hose",
+   "rank": 905
   },
   {
    "es": "balde",
-   "en": "bucket"
+   "en": "bucket",
+   "rank": 906
   },
   {
    "es": "escoba",
-   "en": "broom"
+   "en": "broom",
+   "rank": 907
   },
   {
    "es": "trapeador",
-   "en": "mop"
+   "en": "mop",
+   "rank": 908
   },
   {
    "es": "trapo",
-   "en": "rag"
+   "en": "rag",
+   "rank": 909
   },
   {
    "es": "detergente",
-   "en": "detergent"
+   "en": "detergent",
+   "rank": 910
   },
   {
    "es": "lejía",
-   "en": "bleach"
+   "en": "bleach",
+   "rank": 911
   },
   {
    "es": "plancha",
-   "en": "iron"
+   "en": "iron",
+   "rank": 912
   },
   {
    "es": "tendedero",
-   "en": "clothesline"
+   "en": "clothesline",
+   "rank": 913
   },
   {
    "es": "gancho",
-   "en": "hanger"
+   "en": "hanger",
+   "rank": 914
   },
   {
    "es": "cajón",
-   "en": "drawer"
+   "en": "drawer",
+   "rank": 915
   },
   {
    "es": "estante",
-   "en": "shelf"
+   "en": "shelf",
+   "rank": 916
   },
   {
    "es": "repisa",
-   "en": "ledge"
+   "en": "ledge",
+   "rank": 917
   },
   {
    "es": "persiana",
-   "en": "blinds"
+   "en": "blinds",
+   "rank": 918
   },
   {
    "es": "tapete",
-   "en": "rug"
+   "en": "rug",
+   "rank": 919
   },
   {
    "es": "cojín",
-   "en": "cushion"
+   "en": "cushion",
+   "rank": 920
   },
   {
    "es": "colchón",
-   "en": "mattress"
+   "en": "mattress",
+   "rank": 921
   },
   {
    "es": "frazada",
-   "en": "blanket (heavy)"
+   "en": "blanket (heavy)",
+   "rank": 922
   },
   {
    "es": "foco",
-   "en": "light bulb"
+   "en": "light bulb",
+   "rank": 923
   },
   {
    "es": "interruptor",
-   "en": "switch"
+   "en": "switch",
+   "rank": 924
   },
   {
    "es": "buzón",
-   "en": "mailbox"
+   "en": "mailbox",
+   "rank": 925
   },
   {
    "es": "paquete",
-   "en": "package"
+   "en": "package",
+   "rank": 926
   },
   {
    "es": "envío",
-   "en": "shipment"
+   "en": "shipment",
+   "rank": 927
   },
   {
    "es": "sello",
-   "en": "stamp"
+   "en": "stamp",
+   "rank": 928
   },
   {
    "es": "remitente",
-   "en": "sender"
+   "en": "sender",
+   "rank": 929
   },
   {
    "es": "etiqueta",
-   "en": "label"
+   "en": "label",
+   "rank": 930
   },
   {
    "es": "cinta",
-   "en": "tape"
+   "en": "tape",
+   "rank": 931
   },
   {
    "es": "engrapadora",
-   "en": "stapler"
+   "en": "stapler",
+   "rank": 932
   },
   {
    "es": "pegamento",
-   "en": "glue"
+   "en": "glue",
+   "rank": 933
   },
   {
    "es": "grapa",
-   "en": "staple"
+   "en": "staple",
+   "rank": 934
   },
   {
    "es": "carpeta",
-   "en": "folder"
+   "en": "folder",
+   "rank": 935
   },
   {
    "es": "archivo",
-   "en": "file"
+   "en": "file",
+   "rank": 936
   },
   {
    "es": "tinta",
-   "en": "ink"
+   "en": "ink",
+   "rank": 937
   },
   {
    "es": "borrador",
-   "en": "eraser"
+   "en": "eraser",
+   "rank": 938
   },
   {
    "es": "regla",
-   "en": "ruler"
+   "en": "ruler",
+   "rank": 939
   },
   {
    "es": "pizarrón",
-   "en": "blackboard"
+   "en": "blackboard",
+   "rank": 940
   },
   {
    "es": "gis",
-   "en": "chalk"
+   "en": "chalk",
+   "rank": 941
   },
   {
    "es": "pupitre",
-   "en": "desk"
+   "en": "desk",
+   "rank": 942
   },
   {
    "es": "calificación",
-   "en": "grade"
+   "en": "grade",
+   "rank": 943
   },
   {
    "es": "materia",
-   "en": "subject"
+   "en": "subject",
+   "rank": 944
   },
   {
    "es": "tarea",
-   "en": "homework"
+   "en": "homework",
+   "rank": 945
   },
   {
    "es": "examen",
-   "en": "exam"
+   "en": "exam",
+   "rank": 946
   },
   {
    "es": "beca",
-   "en": "scholarship"
+   "en": "scholarship",
+   "rank": 947
   },
   {
    "es": "título",
-   "en": "degree"
+   "en": "degree",
+   "rank": 948
   },
   {
    "es": "carrera",
-   "en": "career"
+   "en": "career",
+   "rank": 949
   },
   {
    "es": "entrevista",
-   "en": "interview"
+   "en": "interview",
+   "rank": 950
   },
   {
    "es": "solicitud",
-   "en": "application"
+   "en": "application",
+   "rank": 951
   },
   {
    "es": "contrato",
-   "en": "contract"
+   "en": "contract",
+   "rank": 952
   },
   {
    "es": "renuncia",
-   "en": "resignation"
+   "en": "resignation",
+   "rank": 953
   },
   {
    "es": "despido",
-   "en": "dismissal"
+   "en": "dismissal",
+   "rank": 954
   },
   {
    "es": "jubilación",
-   "en": "retirement"
+   "en": "retirement",
+   "rank": 955
   },
   {
    "es": "sindicato",
-   "en": "union"
+   "en": "union",
+   "rank": 956
   },
   {
    "es": "huelga",
-   "en": "strike"
+   "en": "strike",
+   "rank": 957
   },
   {
    "es": "obligación",
-   "en": "obligation"
+   "en": "obligation",
+   "rank": 958
   },
   {
    "es": "deber",
-   "en": "duty"
+   "en": "duty",
+   "rank": 959
   },
   {
    "es": "ciudadano",
-   "en": "citizen"
+   "en": "citizen",
+   "rank": 960
   },
   {
    "es": "asamblea",
-   "en": "assembly"
+   "en": "assembly",
+   "rank": 961
   },
   {
    "es": "campaña",
-   "en": "campaign"
+   "en": "campaign",
+   "rank": 962
   },
   {
    "es": "partido",
-   "en": "party"
+   "en": "party",
+   "rank": 963
   },
   {
    "es": "candidato",
-   "en": "candidate"
+   "en": "candidate",
+   "rank": 964
   },
   {
    "es": "discurso",
-   "en": "speech"
+   "en": "speech",
+   "rank": 965
   },
   {
    "es": "protesta",
-   "en": "protest"
+   "en": "protest",
+   "rank": 966
   },
   {
    "es": "marcha",
-   "en": "march"
+   "en": "march",
+   "rank": 967
   },
   {
    "es": "pancarta",
-   "en": "banner; placard"
+   "en": "banner; placard",
+   "rank": 968
   },
   {
    "es": "himno",
-   "en": "anthem"
+   "en": "anthem",
+   "rank": 969
   },
   {
    "es": "frontera",
-   "en": "border"
+   "en": "border",
+   "rank": 970
   },
   {
    "es": "aduana",
-   "en": "customs"
+   "en": "customs",
+   "rank": 971
   },
   {
    "es": "pasaporte",
-   "en": "passport"
+   "en": "passport",
+   "rank": 972
   },
   {
    "es": "visa",
-   "en": "visa (travel document)"
+   "en": "visa (travel document)",
+   "rank": 973
   },
   {
    "es": "embajada",
-   "en": "embassy"
+   "en": "embassy",
+   "rank": 974
   },
   {
    "es": "trámite",
-   "en": "procedure"
+   "en": "procedure",
+   "rank": 975
   },
   {
    "es": "formulario",
-   "en": "form"
+   "en": "form",
+   "rank": 976
   },
   {
    "es": "firma",
-   "en": "signature"
+   "en": "signature",
+   "rank": 977
   },
   {
    "es": "notario",
-   "en": "notary"
+   "en": "notary",
+   "rank": 978
   },
   {
    "es": "juicio",
-   "en": "trial"
+   "en": "trial",
+   "rank": 979
   },
   {
    "es": "fiscal",
-   "en": "prosecutor"
+   "en": "prosecutor",
+   "rank": 980
   },
   {
    "es": "demanda",
-   "en": "lawsuit"
+   "en": "lawsuit",
+   "rank": 981
   },
   {
    "es": "evidencia",
-   "en": "evidence"
+   "en": "evidence",
+   "rank": 982
   },
   {
    "es": "sentencia",
-   "en": "sentence"
+   "en": "sentence",
+   "rank": 983
   },
   {
    "es": "multa",
-   "en": "fine"
+   "en": "fine",
+   "rank": 984
   },
   {
    "es": "delito",
-   "en": "crime"
+   "en": "crime",
+   "rank": 985
   },
   {
    "es": "robo",
-   "en": "robbery"
+   "en": "robbery",
+   "rank": 986
   },
   {
    "es": "estafa",
-   "en": "scam"
+   "en": "scam",
+   "rank": 987
   },
   {
    "es": "soborno",
-   "en": "bribe"
+   "en": "bribe",
+   "rank": 988
   },
   {
    "es": "cárcel",
-   "en": "jail"
+   "en": "jail",
+   "rank": 989
   }
  ],
  "freq-1000-1014": [
   {
    "es": "favor",
-   "en": "favor"
+   "en": "favor",
+   "rank": 1000
   },
   {
    "es": "ver",
-   "en": "to see"
+   "en": "to see",
+   "rank": 1009
   },
   {
    "es": "alguien",
-   "en": "someone"
+   "en": "someone",
+   "rank": 1010
   },
   {
    "es": "cosas",
-   "en": "things"
+   "en": "things",
+   "rank": 1011
   },
   {
    "es": "ahí",
-   "en": "there"
+   "en": "there",
+   "rank": 1012
   },
   {
    "es": "uno",
-   "en": "one"
+   "en": "one",
+   "rank": 1013
   },
   {
    "es": "fuera",
-   "en": "outside; to be (subjunctive past)"
+   "en": "outside; to be (subjunctive past)",
+   "rank": 1023
   },
   {
    "es": "hijo",
-   "en": "son"
+   "en": "son",
+   "rank": 1032
   },
   {
    "es": "allí",
-   "en": "there"
+   "en": "there",
+   "rank": 1033
   },
   {
    "es": "amigo",
-   "en": "friend (masc.)"
+   "en": "friend (masc.)",
+   "rank": 1034
   },
   {
    "es": "nuestro",
-   "en": "our (masc.)"
+   "en": "our (masc.)",
+   "rank": 1035
   },
   {
    "es": "mamá",
-   "en": "mom"
+   "en": "mom",
+   "rank": 1036
   },
   {
    "es": "luego",
-   "en": "later; then"
+   "en": "later; then",
+   "rank": 1037
   },
   {
    "es": "buen",
-   "en": "good (before noun)"
+   "en": "good (before noun)",
+   "rank": 1044
   },
   {
    "es": "conmigo",
-   "en": "with me"
+   "en": "with me",
+   "rank": 1045
   },
   {
    "es": "nuestra",
-   "en": "our (fem.)"
+   "en": "our (fem.)",
+   "rank": 1047
   },
   {
    "es": "mal",
-   "en": "bad"
+   "en": "bad",
+   "rank": 1048
   },
   {
    "es": "realmente",
-   "en": "really"
+   "en": "really",
+   "rank": 1049
   },
   {
    "es": "aún",
-   "en": "still; yet"
+   "en": "still; yet",
+   "rank": 1050
   },
   {
    "es": "mío",
-   "en": "mine (masc.)"
+   "en": "mine (masc.)",
+   "rank": 1051
   },
   {
    "es": "contigo",
-   "en": "with you"
+   "en": "with you",
+   "rank": 1055
   },
   {
    "es": "alguna",
-   "en": "some; any (fem.)"
+   "en": "some; any (fem.)",
+   "rank": 1058
   },
   {
    "es": "veces",
-   "en": "times"
+   "en": "times",
+   "rank": 1059
   },
   {
    "es": "serio",
-   "en": "serious"
+   "en": "serious",
+   "rank": 1060
   },
   {
    "es": "demasiado",
-   "en": "too much"
+   "en": "too much",
+   "rank": 1063
   },
   {
    "es": "amor",
-   "en": "love"
+   "en": "love",
+   "rank": 1064
   },
   {
    "es": "chica",
-   "en": "girl"
+   "en": "girl",
+   "rank": 1067
   },
   {
    "es": "chicos",
-   "en": "boys; guys"
+   "en": "boys; guys",
+   "rank": 1068
   },
   {
    "es": "algún",
-   "en": "some; any (masc.)"
+   "en": "some; any (masc.)",
+   "rank": 1070
   },
   {
    "es": "amigos",
-   "en": "friends (masc.)"
+   "en": "friends (masc.)",
+   "rank": 1073
   },
   {
    "es": "cariño",
-   "en": "darling; affection"
+   "en": "darling; affection",
+   "rank": 1077
   },
   {
    "es": "hombres",
-   "en": "men"
+   "en": "men",
+   "rank": 1080
   },
   {
    "es": "buenas",
-   "en": "good (fem. pl.)"
+   "en": "good (fem. pl.)",
+   "rank": 1081
   },
   {
    "es": "cualquier",
-   "en": "any"
+   "en": "any",
+   "rank": 1082
   },
   {
    "es": "genial",
-   "en": "great"
+   "en": "great",
+   "rank": 1086
   },
   {
    "es": "chico",
-   "en": "boy"
+   "en": "boy",
+   "rank": 1087
   },
   {
    "es": "supuesto",
-   "en": "supposed; assumption"
+   "en": "supposed; assumption",
+   "rank": 1088
   },
   {
    "es": "quizá",
-   "en": "maybe"
+   "en": "maybe",
+   "rank": 1090
   },
   {
    "es": "ayuda",
-   "en": "help"
+   "en": "help",
+   "rank": 1093
   },
   {
    "es": "primero",
-   "en": "first"
+   "en": "first",
+   "rank": 1097
   },
   {
    "es": "quizás",
-   "en": "perhaps"
+   "en": "perhaps",
+   "rank": 1099
   },
   {
    "es": "niños",
-   "en": "children; boys"
+   "en": "children; boys",
+   "rank": 1100
   },
   {
    "es": "pronto",
-   "en": "soon"
+   "en": "soon",
+   "rank": 1101
   },
   {
    "es": "tío",
-   "en": "uncle; guy"
+   "en": "uncle; guy",
+   "rank": 1102
   },
   {
    "es": "siquiera",
-   "en": "even; at least"
+   "en": "even; at least",
+   "rank": 1103
   },
   {
    "es": "feliz",
-   "en": "happy"
+   "en": "happy",
+   "rank": 1104
   },
   {
    "es": "venir",
-   "en": "to come"
+   "en": "to come",
+   "rank": 1105
   },
   {
    "es": "hija",
-   "en": "daughter"
+   "en": "daughter",
+   "rank": 1106
   },
   {
    "es": "minutos",
-   "en": "minutes"
+   "en": "minutes",
+   "rank": 1108
   },
   {
    "es": "cuánto",
-   "en": "how much; how many"
+   "en": "how much; how many",
+   "rank": 1109
   },
   {
    "es": "hey",
-   "en": "hey"
+   "en": "hey",
+   "rank": 1111
   },
   {
    "es": "dejar",
-   "en": "to leave; to let"
+   "en": "to leave; to let",
+   "rank": 1113
   },
   {
    "es": "problemas",
-   "en": "problems"
+   "en": "problems",
+   "rank": 1115
   },
   {
    "es": "miedo",
-   "en": "fear"
+   "en": "fear",
+   "rank": 1119
   },
   {
    "es": "jefe",
-   "en": "boss"
+   "en": "boss",
+   "rank": 1120
   },
   {
    "es": "justo",
-   "en": "just; fair"
+   "en": "just; fair",
+   "rank": 1122
   },
   {
    "es": "horas",
-   "en": "hours"
+   "en": "hours",
+   "rank": 1123
   },
   {
    "es": "buenos",
-   "en": "good (masc. pl.)"
+   "en": "good (masc. pl.)",
+   "rank": 1124
   },
   {
    "es": "esposa",
-   "en": "wife"
+   "en": "wife",
+   "rank": 1125
   },
   {
    "es": "manos",
-   "en": "hands"
+   "en": "hands",
+   "rank": 1126
   },
   {
    "es": "nuestros",
-   "en": "our (masc. pl.)"
+   "en": "our (masc. pl.)",
+   "rank": 1130
   },
   {
    "es": "adelante",
-   "en": "forward; go ahead"
+   "en": "forward; go ahead",
+   "rank": 1131
   },
   {
    "es": "ninguna",
-   "en": "none; no (fem.)"
+   "en": "none; no (fem.)",
+   "rank": 1132
   },
   {
    "es": "cara",
-   "en": "face"
+   "en": "face",
+   "rank": 1133
   },
   {
    "es": "cuidado",
-   "en": "careful; care"
+   "en": "careful; care",
+   "rank": 1134
   },
   {
    "es": "noches",
-   "en": "nights"
+   "en": "nights",
+   "rank": 1136
   },
   {
    "es": "bastante",
-   "en": "enough; quite"
+   "en": "enough; quite",
+   "rank": 1137
   },
   {
    "es": "fin",
-   "en": "end"
+   "en": "end",
+   "rank": 1138
   },
   {
    "es": "tomar",
-   "en": "to take; to drink"
+   "en": "to take; to drink",
+   "rank": 1139
   },
   {
    "es": "incluso",
-   "en": "even"
+   "en": "even",
+   "rank": 1144
   },
   {
    "es": "doctor",
-   "en": "doctor"
+   "en": "doctor",
+   "rank": 1145
   },
   {
    "es": "difícil",
-   "en": "difficult"
+   "en": "difficult",
+   "rank": 1146
   },
   {
    "es": "coche",
-   "en": "car"
+   "en": "car",
+   "rank": 1148
   },
   {
    "es": "allá",
-   "en": "there"
+   "en": "there",
+   "rank": 1153
   },
   {
    "es": "pueda",
-   "en": "can (subjunctive)"
+   "en": "can (subjunctive)",
+   "rank": 1154
   },
   {
    "es": "igual",
-   "en": "equal; same"
+   "en": "equal; same",
+   "rank": 1155
   },
   {
    "es": "loco",
-   "en": "crazy"
+   "en": "crazy",
+   "rank": 1156
   },
   {
    "es": "mujeres",
-   "en": "women"
+   "en": "women",
+   "rank": 1157
   },
   {
    "es": "vuelta",
-   "en": "turn; return"
+   "en": "turn; return",
+   "rank": 1158
   },
   {
    "es": "trabajar",
-   "en": "to work"
+   "en": "to work",
+   "rank": 1160
   },
   {
    "es": "juego",
-   "en": "game"
+   "en": "game",
+   "rank": 1162
   },
   {
    "es": "teléfono",
-   "en": "telephone"
+   "en": "telephone",
+   "rank": 1167
   },
   {
    "es": "final",
-   "en": "final; end"
+   "en": "final; end",
+   "rank": 1169
   },
   {
    "es": "vete",
-   "en": "go away!"
+   "en": "go away!",
+   "rank": 1172
   },
   {
    "es": "auto",
-   "en": "car"
+   "en": "car",
+   "rank": 1173
   },
   {
    "es": "vivir",
-   "en": "to live"
+   "en": "to live",
+   "rank": 1174
   },
   {
    "es": "meses",
-   "en": "months"
+   "en": "months",
+   "rank": 1176
   },
   {
    "es": "exactamente",
-   "en": "exactly"
+   "en": "exactly",
+   "rank": 1177
   },
   {
    "es": "culpa",
-   "en": "fault; blame"
+   "en": "fault; blame",
+   "rank": 1178
   },
   {
    "es": "pregunta",
-   "en": "question; he/she/it asks"
+   "en": "question; he/she/it asks",
+   "rank": 1183
   }
  ],
  "freq-1100-1114": [
   {
    "es": "niños",
-   "en": "children; boys"
+   "en": "children; boys",
+   "rank": 1100
   },
   {
    "es": "pronto",
-   "en": "soon"
+   "en": "soon",
+   "rank": 1101
   },
   {
    "es": "tío",
-   "en": "uncle; guy"
+   "en": "uncle; guy",
+   "rank": 1102
   },
   {
    "es": "siquiera",
-   "en": "even; at least"
+   "en": "even; at least",
+   "rank": 1103
   },
   {
    "es": "feliz",
-   "en": "happy"
+   "en": "happy",
+   "rank": 1104
   },
   {
    "es": "venir",
-   "en": "to come"
+   "en": "to come",
+   "rank": 1105
   },
   {
    "es": "hija",
-   "en": "daughter"
+   "en": "daughter",
+   "rank": 1106
   },
   {
    "es": "minutos",
-   "en": "minutes"
+   "en": "minutes",
+   "rank": 1108
   },
   {
    "es": "cuánto",
-   "en": "how much; how many"
+   "en": "how much; how many",
+   "rank": 1109
   },
   {
    "es": "hey",
-   "en": "hey"
+   "en": "hey",
+   "rank": 1111
   },
   {
    "es": "dejar",
-   "en": "to leave; to let"
+   "en": "to leave; to let",
+   "rank": 1113
   },
   {
    "es": "problemas",
-   "en": "problems"
+   "en": "problems",
+   "rank": 1115
   },
   {
    "es": "miedo",
-   "en": "fear"
+   "en": "fear",
+   "rank": 1119
   },
   {
    "es": "jefe",
-   "en": "boss"
+   "en": "boss",
+   "rank": 1120
   },
   {
    "es": "justo",
-   "en": "just; fair"
+   "en": "just; fair",
+   "rank": 1122
   },
   {
    "es": "horas",
-   "en": "hours"
+   "en": "hours",
+   "rank": 1123
   },
   {
    "es": "buenos",
-   "en": "good (masc. pl.)"
+   "en": "good (masc. pl.)",
+   "rank": 1124
   },
   {
    "es": "esposa",
-   "en": "wife"
+   "en": "wife",
+   "rank": 1125
   },
   {
    "es": "manos",
-   "en": "hands"
+   "en": "hands",
+   "rank": 1126
   },
   {
    "es": "nuestros",
-   "en": "our (masc. pl.)"
+   "en": "our (masc. pl.)",
+   "rank": 1130
   },
   {
    "es": "adelante",
-   "en": "forward; go ahead"
+   "en": "forward; go ahead",
+   "rank": 1131
   },
   {
    "es": "ninguna",
-   "en": "none; no (fem.)"
+   "en": "none; no (fem.)",
+   "rank": 1132
   },
   {
    "es": "cara",
-   "en": "face"
+   "en": "face",
+   "rank": 1133
   },
   {
    "es": "cuidado",
-   "en": "careful; care"
+   "en": "careful; care",
+   "rank": 1134
   },
   {
    "es": "noches",
-   "en": "nights"
+   "en": "nights",
+   "rank": 1136
   },
   {
    "es": "bastante",
-   "en": "enough; quite"
+   "en": "enough; quite",
+   "rank": 1137
   },
   {
    "es": "fin",
-   "en": "end"
+   "en": "end",
+   "rank": 1138
   },
   {
    "es": "tomar",
-   "en": "to take; to drink"
+   "en": "to take; to drink",
+   "rank": 1139
   },
   {
    "es": "incluso",
-   "en": "even"
+   "en": "even",
+   "rank": 1144
   },
   {
    "es": "doctor",
-   "en": "doctor"
+   "en": "doctor",
+   "rank": 1145
   },
   {
    "es": "difícil",
-   "en": "difficult"
+   "en": "difficult",
+   "rank": 1146
   },
   {
    "es": "coche",
-   "en": "car"
+   "en": "car",
+   "rank": 1148
   },
   {
    "es": "allá",
-   "en": "there"
+   "en": "there",
+   "rank": 1153
   },
   {
    "es": "pueda",
-   "en": "can (subjunctive)"
+   "en": "can (subjunctive)",
+   "rank": 1154
   },
   {
    "es": "igual",
-   "en": "equal; same"
+   "en": "equal; same",
+   "rank": 1155
   },
   {
    "es": "loco",
-   "en": "crazy"
+   "en": "crazy",
+   "rank": 1156
   },
   {
    "es": "mujeres",
-   "en": "women"
+   "en": "women",
+   "rank": 1157
   },
   {
    "es": "vuelta",
-   "en": "turn; return"
+   "en": "turn; return",
+   "rank": 1158
   },
   {
    "es": "trabajar",
-   "en": "to work"
+   "en": "to work",
+   "rank": 1160
   },
   {
    "es": "juego",
-   "en": "game"
+   "en": "game",
+   "rank": 1162
   },
   {
    "es": "teléfono",
-   "en": "telephone"
+   "en": "telephone",
+   "rank": 1167
   },
   {
    "es": "final",
-   "en": "final; end"
+   "en": "final; end",
+   "rank": 1169
   },
   {
    "es": "vete",
-   "en": "go away!"
+   "en": "go away!",
+   "rank": 1172
   },
   {
    "es": "auto",
-   "en": "car"
+   "en": "car",
+   "rank": 1173
   },
   {
    "es": "vivir",
-   "en": "to live"
+   "en": "to live",
+   "rank": 1174
   },
   {
    "es": "meses",
-   "en": "months"
+   "en": "months",
+   "rank": 1176
   },
   {
    "es": "exactamente",
-   "en": "exactly"
+   "en": "exactly",
+   "rank": 1177
   },
   {
    "es": "culpa",
-   "en": "fault; blame"
+   "en": "fault; blame",
+   "rank": 1178
   },
   {
    "es": "pregunta",
-   "en": "question; he/she/it asks"
+   "en": "question; he/she/it asks",
+   "rank": 1183
   },
   {
    "es": "chicas",
-   "en": "girls"
+   "en": "girls",
+   "rank": 1184
   },
   {
    "es": "malo",
-   "en": "bad"
+   "en": "bad",
+   "rank": 1187
   },
   {
    "es": "capitán",
-   "en": "captain"
+   "en": "captain",
+   "rank": 1188
   },
   {
    "es": "bebé",
-   "en": "baby"
+   "en": "baby",
+   "rank": 1190
   },
   {
    "es": "mayor",
-   "en": "older; mayor"
+   "en": "older; mayor",
+   "rank": 1192
   },
   {
    "es": "morir",
-   "en": "to die"
+   "en": "to die",
+   "rank": 1193
   },
   {
    "es": "fácil",
-   "en": "easy"
+   "en": "easy",
+   "rank": 1196
   },
   {
    "es": "lista",
-   "en": "list; ready (fem.)"
+   "en": "list; ready (fem.)",
+   "rank": 1197
   },
   {
    "es": "hijos",
-   "en": "children; sons"
+   "en": "children; sons",
+   "rank": 1200
   },
   {
    "es": "probablemente",
-   "en": "probably"
+   "en": "probably",
+   "rank": 1201
   },
   {
    "es": "padres",
-   "en": "parents"
+   "en": "parents",
+   "rank": 1202
   },
   {
    "es": "trata",
-   "en": "tries; treat"
+   "en": "tries; treat",
+   "rank": 1205
   },
   {
    "es": "tampoco",
-   "en": "neither; either"
+   "en": "neither; either",
+   "rank": 1208
   },
   {
    "es": "sola",
-   "en": "alone (fem.)"
+   "en": "alone (fem.)",
+   "rank": 1211
   },
   {
    "es": "par",
-   "en": "pair; couple"
+   "en": "pair; couple",
+   "rank": 1212
   },
   {
    "es": "única",
-   "en": "only; unique (fem.)"
+   "en": "only; unique (fem.)",
+   "rank": 1213
   },
   {
    "es": "simplemente",
-   "en": "simply"
+   "en": "simply",
+   "rank": 1216
   },
   {
    "es": "sentido",
-   "en": "sense; meaning"
+   "en": "sense; meaning",
+   "rank": 1220
   },
   {
    "es": "segura",
-   "en": "sure; safe (fem.)"
+   "en": "sure; safe (fem.)",
+   "rank": 1222
   },
   {
    "es": "pequeña",
-   "en": "small (fem.)"
+   "en": "small (fem.)",
+   "rank": 1223
   },
   {
    "es": "dólares",
-   "en": "dollars"
+   "en": "dollars",
+   "rank": 1224
   },
   {
    "es": "seis",
-   "en": "six"
+   "en": "six",
+   "rank": 1225
   },
   {
    "es": "palabra",
-   "en": "word"
+   "en": "word",
+   "rank": 1230
   },
   {
    "es": "queda",
-   "en": "remains; stays"
+   "en": "remains; stays",
+   "rank": 1232
   },
   {
    "es": "oficina",
-   "en": "office"
+   "en": "office",
+   "rank": 1233
   },
   {
    "es": "además",
-   "en": "besides; moreover"
+   "en": "besides; moreover",
+   "rank": 1235
   },
   {
    "es": "oído",
-   "en": "ear; heard"
+   "en": "ear; heard",
+   "rank": 1236
   },
   {
    "es": "habría",
-   "en": "there would be"
+   "en": "there would be",
+   "rank": 1237
   },
   {
    "es": "recuerdo",
-   "en": "memory; I remember"
+   "en": "memory; I remember",
+   "rank": 1240
   },
   {
    "es": "acerca",
-   "en": "about"
+   "en": "about",
+   "rank": 1242
   },
   {
    "es": "correcto",
-   "en": "correct; right"
+   "en": "correct; right",
+   "rank": 1244
   },
   {
    "es": "demonios",
-   "en": "damn; devils"
+   "en": "damn; devils",
+   "rank": 1246
   },
   {
    "es": "nuestras",
-   "en": "our (fem. pl.)"
+   "en": "our (fem. pl.)",
+   "rank": 1247
   },
   {
    "es": "dormir",
-   "en": "to sleep"
+   "en": "to sleep",
+   "rank": 1249
   },
   {
    "es": "marido",
-   "en": "husband"
+   "en": "husband",
+   "rank": 1251
   },
   {
    "es": "peor",
-   "en": "worse"
+   "en": "worse",
+   "rank": 1253
   },
   {
    "es": "vivo",
-   "en": "alive; I live"
+   "en": "alive; I live",
+   "rank": 1255
   },
   {
    "es": "venido",
-   "en": "come (past participle)"
+   "en": "come (past participle)",
+   "rank": 1256
   },
   {
    "es": "basta",
-   "en": "enough"
+   "en": "enough",
+   "rank": 1258
   },
   {
    "es": "minuto",
-   "en": "minute"
+   "en": "minute",
+   "rank": 1261
   },
   {
    "es": "mucha",
-   "en": "much; many (fem.)"
+   "en": "much; many (fem.)",
+   "rank": 1264
   }
  ],
  "freq-1200-1214": [
   {
    "es": "hijos",
-   "en": "children; sons"
+   "en": "children; sons",
+   "rank": 1200
   },
   {
    "es": "probablemente",
-   "en": "probably"
+   "en": "probably",
+   "rank": 1201
   },
   {
    "es": "padres",
-   "en": "parents"
+   "en": "parents",
+   "rank": 1202
   },
   {
    "es": "trata",
-   "en": "tries; treat"
+   "en": "tries; treat",
+   "rank": 1205
   },
   {
    "es": "tampoco",
-   "en": "neither; either"
+   "en": "neither; either",
+   "rank": 1208
   },
   {
    "es": "sola",
-   "en": "alone (fem.)"
+   "en": "alone (fem.)",
+   "rank": 1211
   },
   {
    "es": "par",
-   "en": "pair; couple"
+   "en": "pair; couple",
+   "rank": 1212
   },
   {
    "es": "única",
-   "en": "only; unique (fem.)"
+   "en": "only; unique (fem.)",
+   "rank": 1213
   },
   {
    "es": "simplemente",
-   "en": "simply"
+   "en": "simply",
+   "rank": 1216
   },
   {
    "es": "sentido",
-   "en": "sense; meaning"
+   "en": "sense; meaning",
+   "rank": 1220
   },
   {
    "es": "segura",
-   "en": "sure; safe (fem.)"
+   "en": "sure; safe (fem.)",
+   "rank": 1222
   },
   {
    "es": "pequeña",
-   "en": "small (fem.)"
+   "en": "small (fem.)",
+   "rank": 1223
   },
   {
    "es": "dólares",
-   "en": "dollars"
+   "en": "dollars",
+   "rank": 1224
   },
   {
    "es": "seis",
-   "en": "six"
+   "en": "six",
+   "rank": 1225
   },
   {
    "es": "palabra",
-   "en": "word"
+   "en": "word",
+   "rank": 1230
   },
   {
    "es": "queda",
-   "en": "remains; stays"
+   "en": "remains; stays",
+   "rank": 1232
   },
   {
    "es": "oficina",
-   "en": "office"
+   "en": "office",
+   "rank": 1233
   },
   {
    "es": "además",
-   "en": "besides; moreover"
+   "en": "besides; moreover",
+   "rank": 1235
   },
   {
    "es": "oído",
-   "en": "ear; heard"
+   "en": "ear; heard",
+   "rank": 1236
   },
   {
    "es": "habría",
-   "en": "there would be"
+   "en": "there would be",
+   "rank": 1237
   },
   {
    "es": "recuerdo",
-   "en": "memory; I remember"
+   "en": "memory; I remember",
+   "rank": 1240
   },
   {
    "es": "acerca",
-   "en": "about"
+   "en": "about",
+   "rank": 1242
   },
   {
    "es": "correcto",
-   "en": "correct; right"
+   "en": "correct; right",
+   "rank": 1244
   },
   {
    "es": "demonios",
-   "en": "damn; devils"
+   "en": "damn; devils",
+   "rank": 1246
   },
   {
    "es": "nuestras",
-   "en": "our (fem. pl.)"
+   "en": "our (fem. pl.)",
+   "rank": 1247
   },
   {
    "es": "dormir",
-   "en": "to sleep"
+   "en": "to sleep",
+   "rank": 1249
   },
   {
    "es": "marido",
-   "en": "husband"
+   "en": "husband",
+   "rank": 1251
   },
   {
    "es": "peor",
-   "en": "worse"
+   "en": "worse",
+   "rank": 1253
   },
   {
    "es": "vivo",
-   "en": "alive; I live"
+   "en": "alive; I live",
+   "rank": 1255
   },
   {
    "es": "venido",
-   "en": "come (past participle)"
+   "en": "come (past participle)",
+   "rank": 1256
   },
   {
    "es": "basta",
-   "en": "enough"
+   "en": "enough",
+   "rank": 1258
   },
   {
    "es": "minuto",
-   "en": "minute"
+   "en": "minute",
+   "rank": 1261
   },
   {
    "es": "mucha",
-   "en": "much; many (fem.)"
+   "en": "much; many (fem.)",
+   "rank": 1264
   },
   {
    "es": "perdido",
-   "en": "lost"
+   "en": "lost",
+   "rank": 1267
   },
   {
    "es": "señorita",
-   "en": "miss"
+   "en": "miss",
+   "rank": 1268
   },
   {
    "es": "diez",
-   "en": "ten"
+   "en": "ten",
+   "rank": 1269
   },
   {
    "es": "grandes",
-   "en": "big; great (pl.)"
+   "en": "big; great (pl.)",
+   "rank": 1270
   },
   {
    "es": "otras",
-   "en": "others (fem. pl.)"
+   "en": "others (fem. pl.)",
+   "rank": 1272
   },
   {
    "es": "poner",
-   "en": "to put"
+   "en": "to put",
+   "rank": 1276
   },
   {
    "es": "increíble",
-   "en": "incredible"
+   "en": "incredible",
+   "rank": 1278
   },
   {
    "es": "real",
-   "en": "real"
+   "en": "real",
+   "rank": 1279
   },
   {
    "es": "libro",
-   "en": "book"
+   "en": "book",
+   "rank": 1280
   },
   {
    "es": "orden",
-   "en": "order"
+   "en": "order",
+   "rank": 1281
   },
   {
    "es": "semanas",
-   "en": "weeks"
+   "en": "weeks",
+   "rank": 1282
   },
   {
    "es": "especial",
-   "en": "special"
+   "en": "special",
+   "rank": 1283
   },
   {
    "es": "mía",
-   "en": "mine (fem.)"
+   "en": "mine (fem.)",
+   "rank": 1284
   },
   {
    "es": "café",
-   "en": "coffee"
+   "en": "coffee",
+   "rank": 1285
   },
   {
    "es": "duro",
-   "en": "hard"
+   "en": "hard",
+   "rank": 1286
   },
   {
    "es": "empezar",
-   "en": "to start"
+   "en": "to start",
+   "rank": 1287
   },
   {
    "es": "puesto",
-   "en": "position; put"
+   "en": "position; put",
+   "rank": 1290
   },
   {
    "es": "detrás",
-   "en": "behind"
+   "en": "behind",
+   "rank": 1291
   },
   {
    "es": "cuarto",
-   "en": "room; fourth"
+   "en": "room; fourth",
+   "rank": 1292
   },
   {
    "es": "querida",
-   "en": "dear (fem.)"
+   "en": "dear (fem.)",
+   "rank": 1293
   },
   {
    "es": "preguntas",
-   "en": "questions"
+   "en": "questions",
+   "rank": 1295
   },
   {
    "es": "querido",
-   "en": "dear (masc.)"
+   "en": "dear (masc.)",
+   "rank": 1297
   },
   {
    "es": "buscar",
-   "en": "to look for"
+   "en": "to look for",
+   "rank": 1298
   },
   {
    "es": "película",
-   "en": "movie"
+   "en": "movie",
+   "rank": 1301
   },
   {
    "es": "millones",
-   "en": "millions"
+   "en": "millions",
+   "rank": 1302
   },
   {
    "es": "habrá",
-   "en": "there will be"
+   "en": "there will be",
+   "rank": 1303
   },
   {
    "es": "llamada",
-   "en": "call"
+   "en": "call",
+   "rank": 1304
   },
   {
    "es": "resto",
-   "en": "rest; remainder"
+   "en": "rest; remainder",
+   "rank": 1305
   },
   {
    "es": "extraño",
-   "en": "strange; I miss"
+   "en": "strange; I miss",
+   "rank": 1307
   },
   {
    "es": "mala",
-   "en": "bad (fem.)"
+   "en": "bad (fem.)",
+   "rank": 1308
   },
   {
    "es": "raro",
-   "en": "strange; rare"
+   "en": "strange; rare",
+   "rank": 1312
   },
   {
    "es": "trato",
-   "en": "deal; I try"
+   "en": "deal; I try",
+   "rank": 1317
   },
   {
    "es": "usar",
-   "en": "to use"
+   "en": "to use",
+   "rank": 1318
   },
   {
    "es": "perfecto",
-   "en": "perfect"
+   "en": "perfect",
+   "rank": 1319
   },
   {
    "es": "modo",
-   "en": "way; mode"
+   "en": "way; mode",
+   "rank": 1320
   },
   {
    "es": "noticias",
-   "en": "news"
+   "en": "news",
+   "rank": 1324
   },
   {
    "es": "odio",
-   "en": "hate"
+   "en": "hate",
+   "rank": 1327
   },
   {
    "es": "sexo",
-   "en": "sex"
+   "en": "sex",
+   "rank": 1328
   },
   {
    "es": "divertido",
-   "en": "fun; funny"
+   "en": "fun; funny",
+   "rank": 1331
   },
   {
    "es": "armas",
-   "en": "weapons"
+   "en": "weapons",
+   "rank": 1332
   },
   {
    "es": "amiga",
-   "en": "friend (fem.)"
+   "en": "friend (fem.)",
+   "rank": 1334
   },
   {
    "es": "mensaje",
-   "en": "message"
+   "en": "message",
+   "rank": 1336
   },
   {
    "es": "daño",
-   "en": "damage; harm"
+   "en": "damage; harm",
+   "rank": 1339
   },
   {
    "es": "cambiar",
-   "en": "to change"
+   "en": "to change",
+   "rank": 1341
   },
   {
    "es": "the",
-   "en": "the (English)"
+   "en": "the (English)",
+   "rank": 1343
   },
   {
    "es": "jamás",
-   "en": "never"
+   "en": "never",
+   "rank": 1346
   },
   {
    "es": "pena",
-   "en": "pity; sorrow"
+   "en": "pity; sorrow",
+   "rank": 1347
   },
   {
    "es": "futuro",
-   "en": "future"
+   "en": "future",
+   "rank": 1348
   },
   {
    "es": "secreto",
-   "en": "secret"
+   "en": "secret",
+   "rank": 1350
   },
   {
    "es": "mil",
-   "en": "thousand"
+   "en": "thousand",
+   "rank": 1351
   },
   {
    "es": "novia",
-   "en": "girlfriend; bride"
+   "en": "girlfriend; bride",
+   "rank": 1355
   },
   {
    "es": "propia",
-   "en": "own (fem.)"
+   "en": "own (fem.)",
+   "rank": 1356
   },
   {
    "es": "sueño",
-   "en": "dream"
+   "en": "dream",
+   "rank": 1357
   },
   {
    "es": "haz",
-   "en": "do (imperative)"
+   "en": "do (imperative)",
+   "rank": 1358
   },
   {
    "es": "ambos",
-   "en": "both"
+   "en": "both",
+   "rank": 1362
   },
   {
    "es": "vuelto",
-   "en": "returned"
+   "en": "returned",
+   "rank": 1366
   },
   {
    "es": "dile",
-   "en": "tell him/her"
+   "en": "tell him/her",
+   "rank": 1367
   }
  ],
  "freq-1300-1314": [
   {
    "es": "película",
-   "en": "movie"
+   "en": "movie",
+   "rank": 1301
   },
   {
    "es": "millones",
-   "en": "millions"
+   "en": "millions",
+   "rank": 1302
   },
   {
    "es": "habrá",
-   "en": "there will be"
+   "en": "there will be",
+   "rank": 1303
   },
   {
    "es": "llamada",
-   "en": "call"
+   "en": "call",
+   "rank": 1304
   },
   {
    "es": "resto",
-   "en": "rest; remainder"
+   "en": "rest; remainder",
+   "rank": 1305
   },
   {
    "es": "extraño",
-   "en": "strange; I miss"
+   "en": "strange; I miss",
+   "rank": 1307
   },
   {
    "es": "mala",
-   "en": "bad (fem.)"
+   "en": "bad (fem.)",
+   "rank": 1308
   },
   {
    "es": "raro",
-   "en": "strange; rare"
+   "en": "strange; rare",
+   "rank": 1312
   },
   {
    "es": "trato",
-   "en": "deal; I try"
+   "en": "deal; I try",
+   "rank": 1317
   },
   {
    "es": "usar",
-   "en": "to use"
+   "en": "to use",
+   "rank": 1318
   },
   {
    "es": "perfecto",
-   "en": "perfect"
+   "en": "perfect",
+   "rank": 1319
   },
   {
    "es": "modo",
-   "en": "way; mode"
+   "en": "way; mode",
+   "rank": 1320
   },
   {
    "es": "noticias",
-   "en": "news"
+   "en": "news",
+   "rank": 1324
   },
   {
    "es": "odio",
-   "en": "hate"
+   "en": "hate",
+   "rank": 1327
   },
   {
    "es": "sexo",
-   "en": "sex"
+   "en": "sex",
+   "rank": 1328
   },
   {
    "es": "divertido",
-   "en": "fun; funny"
+   "en": "fun; funny",
+   "rank": 1331
   },
   {
    "es": "armas",
-   "en": "weapons"
+   "en": "weapons",
+   "rank": 1332
   },
   {
    "es": "amiga",
-   "en": "friend (fem.)"
+   "en": "friend (fem.)",
+   "rank": 1334
   },
   {
    "es": "mensaje",
-   "en": "message"
+   "en": "message",
+   "rank": 1336
   },
   {
    "es": "daño",
-   "en": "damage; harm"
+   "en": "damage; harm",
+   "rank": 1339
   },
   {
    "es": "cambiar",
-   "en": "to change"
+   "en": "to change",
+   "rank": 1341
   },
   {
    "es": "the",
-   "en": "the (English)"
+   "en": "the (English)",
+   "rank": 1343
   },
   {
    "es": "jamás",
-   "en": "never"
+   "en": "never",
+   "rank": 1346
   },
   {
    "es": "pena",
-   "en": "pity; sorrow"
+   "en": "pity; sorrow",
+   "rank": 1347
   },
   {
    "es": "futuro",
-   "en": "future"
+   "en": "future",
+   "rank": 1348
   },
   {
    "es": "secreto",
-   "en": "secret"
+   "en": "secret",
+   "rank": 1350
   },
   {
    "es": "mil",
-   "en": "thousand"
+   "en": "thousand",
+   "rank": 1351
   },
   {
    "es": "novia",
-   "en": "girlfriend; bride"
+   "en": "girlfriend; bride",
+   "rank": 1355
   },
   {
    "es": "propia",
-   "en": "own (fem.)"
+   "en": "own (fem.)",
+   "rank": 1356
   },
   {
    "es": "sueño",
-   "en": "dream"
+   "en": "dream",
+   "rank": 1357
   },
   {
    "es": "haz",
-   "en": "do (imperative)"
+   "en": "do (imperative)",
+   "rank": 1358
   },
   {
    "es": "ambos",
-   "en": "both"
+   "en": "both",
+   "rank": 1362
   },
   {
    "es": "vuelto",
-   "en": "returned"
+   "en": "returned",
+   "rank": 1366
   },
   {
    "es": "dile",
-   "en": "tell him/her"
+   "en": "tell him/her",
+   "rank": 1367
   },
   {
    "es": "pie",
-   "en": "foot"
+   "en": "foot",
+   "rank": 1370
   },
   {
    "es": "ganar",
-   "en": "to win"
+   "en": "to win",
+   "rank": 1371
   },
   {
    "es": "aire",
-   "en": "air"
+   "en": "air",
+   "rank": 1373
   },
   {
    "es": "lamento",
-   "en": "sorry; regret"
+   "en": "sorry; regret",
+   "rank": 1374
   },
   {
    "es": "adónde",
-   "en": "where to"
+   "en": "where to",
+   "rank": 1378
   },
   {
    "es": "disculpe",
-   "en": "excuse me"
+   "en": "excuse me",
+   "rank": 1380
   },
   {
    "es": "cita",
-   "en": "appointment; date"
+   "en": "appointment; date",
+   "rank": 1381
   },
   {
    "es": "gusto",
-   "en": "taste; pleasure"
+   "en": "taste; pleasure",
+   "rank": 1384
   },
   {
    "es": "tuyo",
-   "en": "yours (masc.)"
+   "en": "yours (masc.)",
+   "rank": 1385
   },
   {
    "es": "tras",
-   "en": "after; behind"
+   "en": "after; behind",
+   "rank": 1387
   },
   {
    "es": "hotel",
-   "en": "hotel"
+   "en": "hotel",
+   "rank": 1388
   },
   {
    "es": "foto",
-   "en": "photo"
+   "en": "photo",
+   "rank": 1391
   },
   {
    "es": "loca",
-   "en": "crazy (fem.)"
+   "en": "crazy (fem.)",
+   "rank": 1392
   },
   {
    "es": "alrededor",
-   "en": "around"
+   "en": "around",
+   "rank": 1393
   },
   {
    "es": "próxima",
-   "en": "next (fem.)"
+   "en": "next (fem.)",
+   "rank": 1394
   },
   {
    "es": "mitad",
-   "en": "half"
+   "en": "half",
+   "rank": 1402
   },
   {
    "es": "quiera",
-   "en": "wants; may want"
+   "en": "wants; may want",
+   "rank": 1403
   },
   {
    "es": "compañía",
-   "en": "company"
+   "en": "company",
+   "rank": 1407
   },
   {
    "es": "montón",
-   "en": "pile; lot"
+   "en": "pile; lot",
+   "rank": 1410
   },
   {
    "es": "mejores",
-   "en": "better; best (pl.)"
+   "en": "better; best (pl.)",
+   "rank": 1411
   },
   {
    "es": "través",
-   "en": "through"
+   "en": "through",
+   "rank": 1413
   },
   {
    "es": "bonito",
-   "en": "pretty"
+   "en": "pretty",
+   "rank": 1414
   },
   {
    "es": "vista",
-   "en": "view; sight"
+   "en": "view; sight",
+   "rank": 1418
   },
   {
    "es": "línea",
-   "en": "line"
+   "en": "line",
+   "rank": 1420
   },
   {
    "es": "caballeros",
-   "en": "gentlemen"
+   "en": "gentlemen",
+   "rank": 1421
   },
   {
    "es": "quédate",
-   "en": "stay (command)"
+   "en": "stay (command)",
+   "rank": 1424
   },
   {
    "es": "comprar",
-   "en": "to buy"
+   "en": "to buy",
+   "rank": 1425
   },
   {
    "es": "salvo",
-   "en": "except; safe"
+   "en": "except; safe",
+   "rank": 1427
   },
   {
    "es": "mes",
-   "en": "month"
+   "en": "month",
+   "rank": 1428
   },
   {
    "es": "completamente",
-   "en": "completely"
+   "en": "completely",
+   "rank": 1432
   },
   {
    "es": "totalmente",
-   "en": "totally"
+   "en": "totally",
+   "rank": 1434
   },
   {
    "es": "imposible",
-   "en": "impossible"
+   "en": "impossible",
+   "rank": 1435
   },
   {
    "es": "pruebas",
-   "en": "tests; evidence"
+   "en": "tests; evidence",
+   "rank": 1436
   },
   {
    "es": "novio",
-   "en": "boyfriend; groom"
+   "en": "boyfriend; groom",
+   "rank": 1437
   },
   {
    "es": "normal",
-   "en": "normal"
+   "en": "normal",
+   "rank": 1438
   },
   {
    "es": "traje",
-   "en": "suit; I brought"
+   "en": "suit; I brought",
+   "rank": 1443
   },
   {
    "es": "siete",
-   "en": "seven"
+   "en": "seven",
+   "rank": 1444
   },
   {
    "es": "placer",
-   "en": "pleasure"
+   "en": "pleasure",
+   "rank": 1446
   },
   {
    "es": "profesor",
-   "en": "teacher"
+   "en": "teacher",
+   "rank": 1450
   },
   {
    "es": "muchacho",
-   "en": "boy"
+   "en": "boy",
+   "rank": 1451
   },
   {
    "es": "cumpleaños",
-   "en": "birthday"
+   "en": "birthday",
+   "rank": 1456
   },
   {
    "es": "muchachos",
-   "en": "boys; guys"
+   "en": "boys; guys",
+   "rank": 1457
   },
   {
    "es": "culo",
-   "en": "ass"
+   "en": "ass",
+   "rank": 1458
   },
   {
    "es": "hermosa",
-   "en": "beautiful (fem.)"
+   "en": "beautiful (fem.)",
+   "rank": 1459
   },
   {
    "es": "universidad",
-   "en": "university"
+   "en": "university",
+   "rank": 1460
   },
   {
    "es": "boda",
-   "en": "wedding"
+   "en": "wedding",
+   "rank": 1461
   },
   {
    "es": "cualquiera",
-   "en": "anyone; whichever"
+   "en": "anyone; whichever",
+   "rank": 1463
   },
   {
    "es": "sala",
-   "en": "room; living room"
+   "en": "room; living room",
+   "rank": 1466
   },
   {
    "es": "decisión",
-   "en": "decision"
+   "en": "decision",
+   "rank": 1468
   },
   {
    "es": "don",
-   "en": "Mr.; gift"
+   "en": "Mr.; gift",
+   "rank": 1470
   },
   {
    "es": "prisa",
-   "en": "hurry"
+   "en": "hurry",
+   "rank": 1472
   },
   {
    "es": "interesante",
-   "en": "interesting"
+   "en": "interesting",
+   "rank": 1474
   },
   {
    "es": "escuchar",
-   "en": "to listen"
+   "en": "to listen",
+   "rank": 1476
   },
   {
    "es": "abuela",
-   "en": "grandmother"
+   "en": "grandmother",
+   "rank": 1477
   },
   {
    "es": "detective",
-   "en": "detective"
+   "en": "detective",
+   "rank": 1479
   },
   {
    "es": "horrible",
-   "en": "horrible"
+   "en": "horrible",
+   "rank": 1480
   }
  ],
  "freq-1400-1414": [
   {
    "es": "mitad",
-   "en": "half"
+   "en": "half",
+   "rank": 1402
   },
   {
    "es": "quiera",
-   "en": "wants; may want"
+   "en": "wants; may want",
+   "rank": 1403
   },
   {
    "es": "compañía",
-   "en": "company"
+   "en": "company",
+   "rank": 1407
   },
   {
    "es": "montón",
-   "en": "pile; lot"
+   "en": "pile; lot",
+   "rank": 1410
   },
   {
    "es": "mejores",
-   "en": "better; best (pl.)"
+   "en": "better; best (pl.)",
+   "rank": 1411
   },
   {
    "es": "través",
-   "en": "through"
+   "en": "through",
+   "rank": 1413
   },
   {
    "es": "bonito",
-   "en": "pretty"
+   "en": "pretty",
+   "rank": 1414
   },
   {
    "es": "vista",
-   "en": "view; sight"
+   "en": "view; sight",
+   "rank": 1418
   },
   {
    "es": "línea",
-   "en": "line"
+   "en": "line",
+   "rank": 1420
   },
   {
    "es": "caballeros",
-   "en": "gentlemen"
+   "en": "gentlemen",
+   "rank": 1421
   },
   {
    "es": "quédate",
-   "en": "stay (command)"
+   "en": "stay (command)",
+   "rank": 1424
   },
   {
    "es": "comprar",
-   "en": "to buy"
+   "en": "to buy",
+   "rank": 1425
   },
   {
    "es": "salvo",
-   "en": "except; safe"
+   "en": "except; safe",
+   "rank": 1427
   },
   {
    "es": "mes",
-   "en": "month"
+   "en": "month",
+   "rank": 1428
   },
   {
    "es": "completamente",
-   "en": "completely"
+   "en": "completely",
+   "rank": 1432
   },
   {
    "es": "totalmente",
-   "en": "totally"
+   "en": "totally",
+   "rank": 1434
   },
   {
    "es": "imposible",
-   "en": "impossible"
+   "en": "impossible",
+   "rank": 1435
   },
   {
    "es": "pruebas",
-   "en": "tests; evidence"
+   "en": "tests; evidence",
+   "rank": 1436
   },
   {
    "es": "novio",
-   "en": "boyfriend; groom"
+   "en": "boyfriend; groom",
+   "rank": 1437
   },
   {
    "es": "normal",
-   "en": "normal"
+   "en": "normal",
+   "rank": 1438
   },
   {
    "es": "traje",
-   "en": "suit; I brought"
+   "en": "suit; I brought",
+   "rank": 1443
   },
   {
    "es": "siete",
-   "en": "seven"
+   "en": "seven",
+   "rank": 1444
   },
   {
    "es": "placer",
-   "en": "pleasure"
+   "en": "pleasure",
+   "rank": 1446
   },
   {
    "es": "profesor",
-   "en": "teacher"
+   "en": "teacher",
+   "rank": 1450
   },
   {
    "es": "muchacho",
-   "en": "boy"
+   "en": "boy",
+   "rank": 1451
   },
   {
    "es": "cumpleaños",
-   "en": "birthday"
+   "en": "birthday",
+   "rank": 1456
   },
   {
    "es": "muchachos",
-   "en": "boys; guys"
+   "en": "boys; guys",
+   "rank": 1457
   },
   {
    "es": "culo",
-   "en": "ass"
+   "en": "ass",
+   "rank": 1458
   },
   {
    "es": "hermosa",
-   "en": "beautiful (fem.)"
+   "en": "beautiful (fem.)",
+   "rank": 1459
   },
   {
    "es": "universidad",
-   "en": "university"
+   "en": "university",
+   "rank": 1460
   },
   {
    "es": "boda",
-   "en": "wedding"
+   "en": "wedding",
+   "rank": 1461
   },
   {
    "es": "cualquiera",
-   "en": "anyone; whichever"
+   "en": "anyone; whichever",
+   "rank": 1463
   },
   {
    "es": "sala",
-   "en": "room; living room"
+   "en": "room; living room",
+   "rank": 1466
   },
   {
    "es": "decisión",
-   "en": "decision"
+   "en": "decision",
+   "rank": 1468
   },
   {
    "es": "don",
-   "en": "Mr.; gift"
+   "en": "Mr.; gift",
+   "rank": 1470
   },
   {
    "es": "prisa",
-   "en": "hurry"
+   "en": "hurry",
+   "rank": 1472
   },
   {
    "es": "interesante",
-   "en": "interesting"
+   "en": "interesting",
+   "rank": 1474
   },
   {
    "es": "escuchar",
-   "en": "to listen"
+   "en": "to listen",
+   "rank": 1476
   },
   {
    "es": "abuela",
-   "en": "grandmother"
+   "en": "grandmother",
+   "rank": 1477
   },
   {
    "es": "detective",
-   "en": "detective"
+   "en": "detective",
+   "rank": 1479
   },
   {
    "es": "horrible",
-   "en": "horrible"
+   "en": "horrible",
+   "rank": 1480
   },
   {
    "es": "fotos",
-   "en": "photos"
+   "en": "photos",
+   "rank": 1481
   },
   {
    "es": "acá",
-   "en": "here"
+   "en": "here",
+   "rank": 1482
   },
   {
    "es": "maldición",
-   "en": "damn; curse"
+   "en": "damn; curse",
+   "rank": 1489
   },
   {
    "es": "club",
-   "en": "club"
+   "en": "club",
+   "rank": 1492
   },
   {
    "es": "terminar",
-   "en": "to finish"
+   "en": "to finish",
+   "rank": 1493
   },
   {
    "es": "media",
-   "en": "half; stocking"
+   "en": "half; stocking",
+   "rank": 1496
   },
   {
    "es": "terrible",
-   "en": "terrible"
+   "en": "terrible",
+   "rank": 1497
   },
   {
    "es": "regalo",
-   "en": "gift"
+   "en": "gift",
+   "rank": 1498
   },
   {
    "es": "amable",
-   "en": "kind"
+   "en": "kind",
+   "rank": 1499
   },
   {
    "es": "muertos",
-   "en": "dead (pl.)"
+   "en": "dead (pl.)",
+   "rank": 1500
   },
   {
    "es": "ataque",
-   "en": "attack"
+   "en": "attack",
+   "rank": 1502
   },
   {
    "es": "navidad",
-   "en": "Christmas"
+   "en": "Christmas",
+   "rank": 1504
   },
   {
    "es": "negocios",
-   "en": "business"
+   "en": "business",
+   "rank": 1505
   },
   {
    "es": "ocho",
-   "en": "eight"
+   "en": "eight",
+   "rank": 1507
   },
   {
    "es": "partes",
-   "en": "parts"
+   "en": "parts",
+   "rank": 1509
   },
   {
    "es": "ten",
-   "en": "have (command)"
+   "en": "have (command)",
+   "rank": 1510
   },
   {
    "es": "gracioso",
-   "en": "funny"
+   "en": "funny",
+   "rank": 1511
   },
   {
    "es": "delante",
-   "en": "in front"
+   "en": "in front",
+   "rank": 1513
   },
   {
    "es": "teniente",
-   "en": "lieutenant"
+   "en": "lieutenant",
+   "rank": 1514
   },
   {
    "es": "deseo",
-   "en": "wish; desire"
+   "en": "wish; desire",
+   "rank": 1515
   },
   {
    "es": "nave",
-   "en": "ship; spacecraft"
+   "en": "ship; spacecraft",
+   "rank": 1517
   },
   {
    "es": "contacto",
-   "en": "contact"
+   "en": "contact",
+   "rank": 1520
   },
   {
    "es": "esposo",
-   "en": "husband"
+   "en": "husband",
+   "rank": 1521
   },
   {
    "es": "dale",
-   "en": "give it; go ahead"
+   "en": "give it; go ahead",
+   "rank": 1523
   },
   {
    "es": "verdadero",
-   "en": "true"
+   "en": "true",
+   "rank": 1524
   },
   {
    "es": "tuya",
-   "en": "yours (fem.)"
+   "en": "yours (fem.)",
+   "rank": 1525
   },
   {
    "es": "alma",
-   "en": "soul"
+   "en": "soul",
+   "rank": 1526
   },
   {
    "es": "hazlo",
-   "en": "do it (command)"
+   "en": "do it (command)",
+   "rank": 1527
   },
   {
    "es": "junto",
-   "en": "together"
+   "en": "together",
+   "rank": 1528
   },
   {
    "es": "matrimonio",
-   "en": "marriage"
+   "en": "marriage",
+   "rank": 1531
   },
   {
    "es": "locura",
-   "en": "madness"
+   "en": "madness",
+   "rank": 1533
   },
   {
    "es": "libertad",
-   "en": "freedom"
+   "en": "freedom",
+   "rank": 1534
   },
   {
    "es": "baja",
-   "en": "low; leave (command)"
+   "en": "low; leave (command)",
+   "rank": 1536
   },
   {
    "es": "pies",
-   "en": "feet"
+   "en": "feet",
+   "rank": 1539
   },
   {
    "es": "segunda",
-   "en": "second (fem.)"
+   "en": "second (fem.)",
+   "rank": 1540
   },
   {
    "es": "maravilloso",
-   "en": "wonderful"
+   "en": "wonderful",
+   "rank": 1541
   },
   {
    "es": "rato",
-   "en": "while; moment"
+   "en": "while; moment",
+   "rank": 1542
   },
   {
    "es": "abuelo",
-   "en": "grandfather"
+   "en": "grandfather",
+   "rank": 1543
   },
   {
    "es": "salud",
-   "en": "health; cheers"
+   "en": "health; cheers",
+   "rank": 1546
   },
   {
    "es": "sorpresa",
-   "en": "surprise"
+   "en": "surprise",
+   "rank": 1547
   },
   {
    "es": "ninguno",
-   "en": "none"
+   "en": "none",
+   "rank": 1548
   },
   {
    "es": "tipos",
-   "en": "types; guys"
+   "en": "types; guys",
+   "rank": 1553
   },
   {
    "es": "tía",
-   "en": "aunt"
+   "en": "aunt",
+   "rank": 1554
   },
   {
    "es": "crimen",
-   "en": "crime"
+   "en": "crime",
+   "rank": 1555
   },
   {
    "es": "consejo",
-   "en": "advice; council"
+   "en": "advice; council",
+   "rank": 1557
   },
   {
    "es": "intento",
-   "en": "attempt"
+   "en": "attempt",
+   "rank": 1558
   },
   {
    "es": "mayoría",
-   "en": "majority"
+   "en": "majority",
+   "rank": 1559
   },
   {
    "es": "escena",
-   "en": "scene"
+   "en": "scene",
+   "rank": 1563
   },
   {
    "es": "honor",
-   "en": "honor"
+   "en": "honor",
+   "rank": 1564
   }
  ],
  "freq-1500-1514": [
   {
    "es": "muertos",
-   "en": "dead (pl.)"
+   "en": "dead (pl.)",
+   "rank": 1500
   },
   {
    "es": "ataque",
-   "en": "attack"
+   "en": "attack",
+   "rank": 1502
   },
   {
    "es": "navidad",
-   "en": "Christmas"
+   "en": "Christmas",
+   "rank": 1504
   },
   {
    "es": "negocios",
-   "en": "business"
+   "en": "business",
+   "rank": 1505
   },
   {
    "es": "ocho",
-   "en": "eight"
+   "en": "eight",
+   "rank": 1507
   },
   {
    "es": "partes",
-   "en": "parts"
+   "en": "parts",
+   "rank": 1509
   },
   {
    "es": "ten",
-   "en": "have (command)"
+   "en": "have (command)",
+   "rank": 1510
   },
   {
    "es": "gracioso",
-   "en": "funny"
+   "en": "funny",
+   "rank": 1511
   },
   {
    "es": "delante",
-   "en": "in front"
+   "en": "in front",
+   "rank": 1513
   },
   {
    "es": "teniente",
-   "en": "lieutenant"
+   "en": "lieutenant",
+   "rank": 1514
   },
   {
    "es": "deseo",
-   "en": "wish; desire"
+   "en": "wish; desire",
+   "rank": 1515
   },
   {
    "es": "nave",
-   "en": "ship; spacecraft"
+   "en": "ship; spacecraft",
+   "rank": 1517
   },
   {
    "es": "contacto",
-   "en": "contact"
+   "en": "contact",
+   "rank": 1520
   },
   {
    "es": "esposo",
-   "en": "husband"
+   "en": "husband",
+   "rank": 1521
   },
   {
    "es": "dale",
-   "en": "give it; go ahead"
+   "en": "give it; go ahead",
+   "rank": 1523
   },
   {
    "es": "verdadero",
-   "en": "true"
+   "en": "true",
+   "rank": 1524
   },
   {
    "es": "tuya",
-   "en": "yours (fem.)"
+   "en": "yours (fem.)",
+   "rank": 1525
   },
   {
    "es": "alma",
-   "en": "soul"
+   "en": "soul",
+   "rank": 1526
   },
   {
    "es": "hazlo",
-   "en": "do it (command)"
+   "en": "do it (command)",
+   "rank": 1527
   },
   {
    "es": "junto",
-   "en": "together"
+   "en": "together",
+   "rank": 1528
   },
   {
    "es": "matrimonio",
-   "en": "marriage"
+   "en": "marriage",
+   "rank": 1531
   },
   {
    "es": "locura",
-   "en": "madness"
+   "en": "madness",
+   "rank": 1533
   },
   {
    "es": "libertad",
-   "en": "freedom"
+   "en": "freedom",
+   "rank": 1534
   },
   {
    "es": "baja",
-   "en": "low; leave (command)"
+   "en": "low; leave (command)",
+   "rank": 1536
   },
   {
    "es": "pies",
-   "en": "feet"
+   "en": "feet",
+   "rank": 1539
   },
   {
    "es": "segunda",
-   "en": "second (fem.)"
+   "en": "second (fem.)",
+   "rank": 1540
   },
   {
    "es": "maravilloso",
-   "en": "wonderful"
+   "en": "wonderful",
+   "rank": 1541
   },
   {
    "es": "rato",
-   "en": "while; moment"
+   "en": "while; moment",
+   "rank": 1542
   },
   {
    "es": "abuelo",
-   "en": "grandfather"
+   "en": "grandfather",
+   "rank": 1543
   },
   {
    "es": "salud",
-   "en": "health; cheers"
+   "en": "health; cheers",
+   "rank": 1546
   },
   {
    "es": "sorpresa",
-   "en": "surprise"
+   "en": "surprise",
+   "rank": 1547
   },
   {
    "es": "ninguno",
-   "en": "none"
+   "en": "none",
+   "rank": 1548
   },
   {
    "es": "tipos",
-   "en": "types; guys"
+   "en": "types; guys",
+   "rank": 1553
   },
   {
    "es": "tía",
-   "en": "aunt"
+   "en": "aunt",
+   "rank": 1554
   },
   {
    "es": "crimen",
-   "en": "crime"
+   "en": "crime",
+   "rank": 1555
   },
   {
    "es": "consejo",
-   "en": "advice; council"
+   "en": "advice; council",
+   "rank": 1557
   },
   {
    "es": "intento",
-   "en": "attempt"
+   "en": "attempt",
+   "rank": 1558
   },
   {
    "es": "mayoría",
-   "en": "majority"
+   "en": "majority",
+   "rank": 1559
   },
   {
    "es": "escena",
-   "en": "scene"
+   "en": "scene",
+   "rank": 1563
   },
   {
    "es": "honor",
-   "en": "honor"
+   "en": "honor",
+   "rank": 1564
   },
   {
    "es": "vieja",
-   "en": "old (fem.); old woman"
+   "en": "old (fem.); old woman",
+   "rank": 1570
   },
   {
    "es": "vidas",
-   "en": "lives"
+   "en": "lives",
+   "rank": 1572
   },
   {
    "es": "bar",
-   "en": "bar"
+   "en": "bar",
+   "rank": 1573
   },
   {
    "es": "drogas",
-   "en": "drugs"
+   "en": "drugs",
+   "rank": 1575
   },
   {
    "es": "enseguida",
-   "en": "right away"
+   "en": "right away",
+   "rank": 1576
   },
   {
    "es": "agradable",
-   "en": "pleasant"
+   "en": "pleasant",
+   "rank": 1578
   },
   {
    "es": "duda",
-   "en": "doubt"
+   "en": "doubt",
+   "rank": 1580
   },
   {
    "es": "energía",
-   "en": "energy"
+   "en": "energy",
+   "rank": 1581
   },
   {
    "es": "misión",
-   "en": "mission"
+   "en": "mission",
+   "rank": 1584
   },
   {
    "es": "listos",
-   "en": "ready (pl.)"
+   "en": "ready (pl.)",
+   "rank": 1585
   },
   {
    "es": "izquierda",
-   "en": "left"
+   "en": "left",
+   "rank": 1587
   },
   {
    "es": "beber",
-   "en": "to drink"
+   "en": "to drink",
+   "rank": 1589
   },
   {
    "es": "finalmente",
-   "en": "finally"
+   "en": "finally",
+   "rank": 1591
   },
   {
    "es": "simple",
-   "en": "simple"
+   "en": "simple",
+   "rank": 1592
   },
   {
    "es": "regresar",
-   "en": "to return"
+   "en": "to return",
+   "rank": 1598
   },
   {
    "es": "mirar",
-   "en": "to look"
+   "en": "to look",
+   "rank": 1600
   },
   {
    "es": "hermoso",
-   "en": "beautiful"
+   "en": "beautiful",
+   "rank": 1602
   },
   {
    "es": "linda",
-   "en": "pretty"
+   "en": "pretty",
+   "rank": 1603
   },
   {
    "es": "segundos",
-   "en": "seconds"
+   "en": "seconds",
+   "rank": 1604
   },
   {
    "es": "oír",
-   "en": "to hear"
+   "en": "to hear",
+   "rank": 1608
   },
   {
    "es": "cuántos",
-   "en": "how many"
+   "en": "how many",
+   "rank": 1610
   },
   {
    "es": "tema",
-   "en": "topic; theme"
+   "en": "topic; theme",
+   "rank": 1613
   },
   {
    "es": "prisión",
-   "en": "prison"
+   "en": "prison",
+   "rank": 1614
   },
   {
    "es": "salvar",
-   "en": "to save"
+   "en": "to save",
+   "rank": 1618
   },
   {
    "es": "bonita",
-   "en": "pretty"
+   "en": "pretty",
+   "rank": 1619
   },
   {
    "es": "causa",
-   "en": "cause"
+   "en": "cause",
+   "rank": 1621
   },
   {
    "es": "sargento",
-   "en": "sergeant"
+   "en": "sergeant",
+   "rank": 1622
   },
   {
    "es": "cenar",
-   "en": "to have dinner"
+   "en": "to have dinner",
+   "rank": 1623
   },
   {
    "es": "compañero",
-   "en": "companion; partner"
+   "en": "companion; partner",
+   "rank": 1624
   },
   {
    "es": "solía",
-   "en": "used to"
+   "en": "used to",
+   "rank": 1628
   },
   {
    "es": "encuentro",
-   "en": "meeting; I find"
+   "en": "meeting; I find",
+   "rank": 1632
   },
   {
    "es": "pelea",
-   "en": "fight"
+   "en": "fight",
+   "rank": 1634
   },
   {
    "es": "san",
-   "en": "Saint (title)"
+   "en": "Saint (title)",
+   "rank": 1635
   },
   {
    "es": "coronel",
-   "en": "colonel"
+   "en": "colonel",
+   "rank": 1637
   },
   {
    "es": "apuesto",
-   "en": "handsome; I bet"
+   "en": "handsome; I bet",
+   "rank": 1638
   },
   {
    "es": "viva",
-   "en": "alive; long live"
+   "en": "alive; long live",
+   "rank": 1639
   },
   {
    "es": "excepto",
-   "en": "except"
+   "en": "except",
+   "rank": 1643
   },
   {
    "es": "posición",
-   "en": "position"
+   "en": "position",
+   "rank": 1645
   },
   {
    "es": "trasero",
-   "en": "rear; butt"
+   "en": "rear; butt",
+   "rank": 1646
   },
   {
    "es": "excelente",
-   "en": "excellent"
+   "en": "excellent",
+   "rank": 1648
   },
   {
    "es": "modos",
-   "en": "ways; manners"
+   "en": "ways; manners",
+   "rank": 1649
   },
   {
    "es": "diferencia",
-   "en": "difference"
+   "en": "difference",
+   "rank": 1652
   },
   {
    "es": "formas",
-   "en": "forms; ways"
+   "en": "forms; ways",
+   "rank": 1653
   },
   {
    "es": "últimos",
-   "en": "last; latest"
+   "en": "last; latest",
+   "rank": 1654
   },
   {
    "es": "radio",
-   "en": "radio"
+   "en": "radio",
+   "rank": 1656
   },
   {
    "es": "calma",
-   "en": "calm"
+   "en": "calm",
+   "rank": 1658
   },
   {
    "es": "hogar",
-   "en": "home"
+   "en": "home",
+   "rank": 1659
   },
   {
    "es": "unidos",
-   "en": "united"
+   "en": "united",
+   "rank": 1663
   },
   {
    "es": "planeta",
-   "en": "planet"
+   "en": "planet",
+   "rank": 1666
   },
   {
    "es": "respecto",
-   "en": "regarding"
+   "en": "regarding",
+   "rank": 1668
   }
  ],
  "freq-1600-1614": [
   {
    "es": "mirar",
-   "en": "to look"
+   "en": "to look",
+   "rank": 1600
   },
   {
    "es": "hermoso",
-   "en": "beautiful"
+   "en": "beautiful",
+   "rank": 1602
   },
   {
    "es": "linda",
-   "en": "pretty"
+   "en": "pretty",
+   "rank": 1603
   },
   {
    "es": "segundos",
-   "en": "seconds"
+   "en": "seconds",
+   "rank": 1604
   },
   {
    "es": "oír",
-   "en": "to hear"
+   "en": "to hear",
+   "rank": 1608
   },
   {
    "es": "cuántos",
-   "en": "how many"
+   "en": "how many",
+   "rank": 1610
   },
   {
    "es": "tema",
-   "en": "topic; theme"
+   "en": "topic; theme",
+   "rank": 1613
   },
   {
    "es": "prisión",
-   "en": "prison"
+   "en": "prison",
+   "rank": 1614
   },
   {
    "es": "salvar",
-   "en": "to save"
+   "en": "to save",
+   "rank": 1618
   },
   {
    "es": "bonita",
-   "en": "pretty"
+   "en": "pretty",
+   "rank": 1619
   },
   {
    "es": "causa",
-   "en": "cause"
+   "en": "cause",
+   "rank": 1621
   },
   {
    "es": "sargento",
-   "en": "sergeant"
+   "en": "sergeant",
+   "rank": 1622
   },
   {
    "es": "cenar",
-   "en": "to have dinner"
+   "en": "to have dinner",
+   "rank": 1623
   },
   {
    "es": "compañero",
-   "en": "companion; partner"
+   "en": "companion; partner",
+   "rank": 1624
   },
   {
    "es": "solía",
-   "en": "used to"
+   "en": "used to",
+   "rank": 1628
   },
   {
    "es": "encuentro",
-   "en": "meeting; I find"
+   "en": "meeting; I find",
+   "rank": 1632
   },
   {
    "es": "pelea",
-   "en": "fight"
+   "en": "fight",
+   "rank": 1634
   },
   {
    "es": "san",
-   "en": "Saint (title)"
+   "en": "Saint (title)",
+   "rank": 1635
   },
   {
    "es": "coronel",
-   "en": "colonel"
+   "en": "colonel",
+   "rank": 1637
   },
   {
    "es": "apuesto",
-   "en": "handsome; I bet"
+   "en": "handsome; I bet",
+   "rank": 1638
   },
   {
    "es": "viva",
-   "en": "alive; long live"
+   "en": "alive; long live",
+   "rank": 1639
   },
   {
    "es": "excepto",
-   "en": "except"
+   "en": "except",
+   "rank": 1643
   },
   {
    "es": "posición",
-   "en": "position"
+   "en": "position",
+   "rank": 1645
   },
   {
    "es": "trasero",
-   "en": "rear; butt"
+   "en": "rear; butt",
+   "rank": 1646
   },
   {
    "es": "excelente",
-   "en": "excellent"
+   "en": "excellent",
+   "rank": 1648
   },
   {
    "es": "modos",
-   "en": "ways; manners"
+   "en": "ways; manners",
+   "rank": 1649
   },
   {
    "es": "diferencia",
-   "en": "difference"
+   "en": "difference",
+   "rank": 1652
   },
   {
    "es": "formas",
-   "en": "forms; ways"
+   "en": "forms; ways",
+   "rank": 1653
   },
   {
    "es": "últimos",
-   "en": "last; latest"
+   "en": "last; latest",
+   "rank": 1654
   },
   {
    "es": "radio",
-   "en": "radio"
+   "en": "radio",
+   "rank": 1656
   },
   {
    "es": "calma",
-   "en": "calm"
+   "en": "calm",
+   "rank": 1658
   },
   {
    "es": "hogar",
-   "en": "home"
+   "en": "home",
+   "rank": 1659
   },
   {
    "es": "unidos",
-   "en": "united"
+   "en": "united",
+   "rank": 1663
   },
   {
    "es": "planeta",
-   "en": "planet"
+   "en": "planet",
+   "rank": 1666
   },
   {
    "es": "respecto",
-   "en": "regarding"
+   "en": "regarding",
+   "rank": 1668
   },
   {
    "es": "regreso",
-   "en": "return"
+   "en": "return",
+   "rank": 1669
   },
   {
    "es": "debido",
-   "en": "due"
+   "en": "due",
+   "rank": 1670
   },
   {
    "es": "parar",
-   "en": "to stop"
+   "en": "to stop",
+   "rank": 1673
   },
   {
    "es": "respeto",
-   "en": "respect"
+   "en": "respect",
+   "rank": 1674
   },
   {
    "es": "debajo",
-   "en": "under; below"
+   "en": "under; below",
+   "rank": 1675
   },
   {
    "es": "estación",
-   "en": "station; season"
+   "en": "station; season",
+   "rank": 1677
   },
   {
    "es": "alta",
-   "en": "high; tall; discharge (fem.)"
+   "en": "high; tall; discharge (fem.)",
+   "rank": 1679
   },
   {
    "es": "pista",
-   "en": "track; clue"
+   "en": "track; clue",
+   "rank": 1680
   },
   {
    "es": "sueños",
-   "en": "dreams"
+   "en": "dreams",
+   "rank": 1682
   },
   {
    "es": "miles",
-   "en": "thousands"
+   "en": "thousands",
+   "rank": 1684
   },
   {
    "es": "órdenes",
-   "en": "orders"
+   "en": "orders",
+   "rank": 1686
   },
   {
    "es": "podido",
-   "en": "been able"
+   "en": "been able",
+   "rank": 1689
   },
   {
    "es": "confiar",
-   "en": "to trust"
+   "en": "to trust",
+   "rank": 1694
   },
   {
    "es": "hermanos",
-   "en": "brothers; siblings"
+   "en": "brothers; siblings",
+   "rank": 1697
   },
   {
    "es": "zapatos",
-   "en": "shoes"
+   "en": "shoes",
+   "rank": 1698
   },
   {
    "es": "vistazo",
-   "en": "glance"
+   "en": "glance",
+   "rank": 1699
   },
   {
    "es": "parecer",
-   "en": "to seem"
+   "en": "to seem",
+   "rank": 1701
   },
   {
    "es": "próximo",
-   "en": "next"
+   "en": "next",
+   "rank": 1702
   },
   {
    "es": "paciente",
-   "en": "patient"
+   "en": "patient",
+   "rank": 1703
   },
   {
    "es": "arte",
-   "en": "art"
+   "en": "art",
+   "rank": 1705
   },
   {
    "es": "bailar",
-   "en": "to dance"
+   "en": "to dance",
+   "rank": 1710
   },
   {
    "es": "sur",
-   "en": "south"
+   "en": "south",
+   "rank": 1715
   },
   {
    "es": "banda",
-   "en": "band; gang"
+   "en": "band; gang",
+   "rank": 1716
   },
   {
    "es": "aprender",
-   "en": "to learn"
+   "en": "to learn",
+   "rank": 1717
   },
   {
    "es": "completo",
-   "en": "complete"
+   "en": "complete",
+   "rank": 1718
   },
   {
    "es": "santo",
-   "en": "saint"
+   "en": "saint",
+   "rank": 1719
   },
   {
    "es": "culpable",
-   "en": "guilty"
+   "en": "guilty",
+   "rank": 1720
   },
   {
    "es": "ganas",
-   "en": "desire; you win"
+   "en": "desire; you win",
+   "rank": 1721
   },
   {
    "es": "libros",
-   "en": "books"
+   "en": "books",
+   "rank": 1726
   },
   {
    "es": "azul",
-   "en": "blue"
+   "en": "blue",
+   "rank": 1730
   },
   {
    "es": "diferentes",
-   "en": "different"
+   "en": "different",
+   "rank": 1731
   },
   {
    "es": "comandante",
-   "en": "commander"
+   "en": "commander",
+   "rank": 1734
   },
   {
    "es": "reglas",
-   "en": "rules"
+   "en": "rules",
+   "rank": 1735
   },
   {
    "es": "esperanza",
-   "en": "hope"
+   "en": "hope",
+   "rank": 1736
   },
   {
    "es": "cuestión",
-   "en": "matter; question"
+   "en": "matter; question",
+   "rank": 1737
   },
   {
    "es": "molesta",
-   "en": "annoyed; he/she bothers"
+   "en": "annoyed; he/she bothers",
+   "rank": 1738
   },
   {
    "es": "informe",
-   "en": "report"
+   "en": "report",
+   "rank": 1741
   },
   {
    "es": "bienvenido",
-   "en": "welcome"
+   "en": "welcome",
+   "rank": 1743
   },
   {
    "es": "abrir",
-   "en": "to open"
+   "en": "to open",
+   "rank": 1744
   },
   {
    "es": "contar",
-   "en": "to tell; to count"
+   "en": "to tell; to count",
+   "rank": 1746
   },
   {
    "es": "apartamento",
-   "en": "apartment"
+   "en": "apartment",
+   "rank": 1748
   },
   {
    "es": "estados",
-   "en": "states"
+   "en": "states",
+   "rank": 1750
   },
   {
    "es": "principal",
-   "en": "main; principal"
+   "en": "main; principal",
+   "rank": 1754
   },
   {
    "es": "ojalá",
-   "en": "hopefully"
+   "en": "hopefully",
+   "rank": 1761
   },
   {
    "es": "estilo",
-   "en": "style"
+   "en": "style",
+   "rank": 1766
   },
   {
    "es": "nueve",
-   "en": "nine"
+   "en": "nine",
+   "rank": 1767
   },
   {
    "es": "definitivamente",
-   "en": "definitely"
+   "en": "definitely",
+   "rank": 1768
   },
   {
    "es": "quedar",
-   "en": "to stay; to remain"
+   "en": "to stay; to remain",
+   "rank": 1769
   },
   {
    "es": "cartas",
-   "en": "letters; cards"
+   "en": "letters; cards",
+   "rank": 1770
   },
   {
    "es": "bomba",
-   "en": "bomb"
+   "en": "bomb",
+   "rank": 1771
   },
   {
    "es": "guardia",
-   "en": "guard"
+   "en": "guard",
+   "rank": 1772
   },
   {
    "es": "probar",
-   "en": "to try; to test"
+   "en": "to try; to test",
+   "rank": 1774
   },
   {
    "es": "majestad",
-   "en": "majesty"
+   "en": "majesty",
+   "rank": 1775
   },
   {
    "es": "traer",
-   "en": "to bring"
+   "en": "to bring",
+   "rank": 1776
   },
   {
    "es": "común",
-   "en": "common"
+   "en": "common",
+   "rank": 1778
   }
  ],
  "freq-1700-1714": [
   {
    "es": "parecer",
-   "en": "to seem"
+   "en": "to seem",
+   "rank": 1701
   },
   {
    "es": "próximo",
-   "en": "next"
+   "en": "next",
+   "rank": 1702
   },
   {
    "es": "paciente",
-   "en": "patient"
+   "en": "patient",
+   "rank": 1703
   },
   {
    "es": "arte",
-   "en": "art"
+   "en": "art",
+   "rank": 1705
   },
   {
    "es": "bailar",
-   "en": "to dance"
+   "en": "to dance",
+   "rank": 1710
   },
   {
    "es": "sur",
-   "en": "south"
+   "en": "south",
+   "rank": 1715
   },
   {
    "es": "banda",
-   "en": "band; gang"
+   "en": "band; gang",
+   "rank": 1716
   },
   {
    "es": "aprender",
-   "en": "to learn"
+   "en": "to learn",
+   "rank": 1717
   },
   {
    "es": "completo",
-   "en": "complete"
+   "en": "complete",
+   "rank": 1718
   },
   {
    "es": "santo",
-   "en": "saint"
+   "en": "saint",
+   "rank": 1719
   },
   {
    "es": "culpable",
-   "en": "guilty"
+   "en": "guilty",
+   "rank": 1720
   },
   {
    "es": "ganas",
-   "en": "desire; you win"
+   "en": "desire; you win",
+   "rank": 1721
   },
   {
    "es": "libros",
-   "en": "books"
+   "en": "books",
+   "rank": 1726
   },
   {
    "es": "azul",
-   "en": "blue"
+   "en": "blue",
+   "rank": 1730
   },
   {
    "es": "diferentes",
-   "en": "different"
+   "en": "different",
+   "rank": 1731
   },
   {
    "es": "comandante",
-   "en": "commander"
+   "en": "commander",
+   "rank": 1734
   },
   {
    "es": "reglas",
-   "en": "rules"
+   "en": "rules",
+   "rank": 1735
   },
   {
    "es": "esperanza",
-   "en": "hope"
+   "en": "hope",
+   "rank": 1736
   },
   {
    "es": "cuestión",
-   "en": "matter; question"
+   "en": "matter; question",
+   "rank": 1737
   },
   {
    "es": "molesta",
-   "en": "annoyed; he/she bothers"
+   "en": "annoyed; he/she bothers",
+   "rank": 1738
   },
   {
    "es": "informe",
-   "en": "report"
+   "en": "report",
+   "rank": 1741
   },
   {
    "es": "bienvenido",
-   "en": "welcome"
+   "en": "welcome",
+   "rank": 1743
   },
   {
    "es": "abrir",
-   "en": "to open"
+   "en": "to open",
+   "rank": 1744
   },
   {
    "es": "contar",
-   "en": "to tell; to count"
+   "en": "to tell; to count",
+   "rank": 1746
   },
   {
    "es": "apartamento",
-   "en": "apartment"
+   "en": "apartment",
+   "rank": 1748
   },
   {
    "es": "estados",
-   "en": "states"
+   "en": "states",
+   "rank": 1750
   },
   {
    "es": "principal",
-   "en": "main; principal"
+   "en": "main; principal",
+   "rank": 1754
   },
   {
    "es": "ojalá",
-   "en": "hopefully"
+   "en": "hopefully",
+   "rank": 1761
   },
   {
    "es": "estilo",
-   "en": "style"
+   "en": "style",
+   "rank": 1766
   },
   {
    "es": "nueve",
-   "en": "nine"
+   "en": "nine",
+   "rank": 1767
   },
   {
    "es": "definitivamente",
-   "en": "definitely"
+   "en": "definitely",
+   "rank": 1768
   },
   {
    "es": "quedar",
-   "en": "to stay; to remain"
+   "en": "to stay; to remain",
+   "rank": 1769
   },
   {
    "es": "cartas",
-   "en": "letters; cards"
+   "en": "letters; cards",
+   "rank": 1770
   },
   {
    "es": "bomba",
-   "en": "bomb"
+   "en": "bomb",
+   "rank": 1771
   },
   {
    "es": "guardia",
-   "en": "guard"
+   "en": "guard",
+   "rank": 1772
   },
   {
    "es": "probar",
-   "en": "to try; to test"
+   "en": "to try; to test",
+   "rank": 1774
   },
   {
    "es": "majestad",
-   "en": "majesty"
+   "en": "majesty",
+   "rank": 1775
   },
   {
    "es": "traer",
-   "en": "to bring"
+   "en": "to bring",
+   "rank": 1776
   },
   {
    "es": "común",
-   "en": "common"
+   "en": "common",
+   "rank": 1778
   },
   {
    "es": "nota",
-   "en": "note"
+   "en": "note",
+   "rank": 1780
   },
   {
    "es": "humanos",
-   "en": "humans"
+   "en": "humans",
+   "rank": 1782
   },
   {
    "es": "suyo",
-   "en": "his; hers; yours"
+   "en": "his; hers; yours",
+   "rank": 1784
   },
   {
    "es": "repente",
-   "en": "sudden"
+   "en": "sudden",
+   "rank": 1785
   },
   {
    "es": "doble",
-   "en": "double"
+   "en": "double",
+   "rank": 1789
   },
   {
    "es": "evitar",
-   "en": "to avoid"
+   "en": "to avoid",
+   "rank": 1791
   },
   {
    "es": "tiempos",
-   "en": "times"
+   "en": "times",
+   "rank": 1793
   },
   {
    "es": "animales",
-   "en": "animals"
+   "en": "animals",
+   "rank": 1796
   },
   {
    "es": "acaso",
-   "en": "perhaps; maybe"
+   "en": "perhaps; maybe",
+   "rank": 1798
   },
   {
    "es": "verano",
-   "en": "summer"
+   "en": "summer",
+   "rank": 1800
   },
   {
    "es": "mentira",
-   "en": "lie"
+   "en": "lie",
+   "rank": 1804
   },
   {
    "es": "intentar",
-   "en": "to try"
+   "en": "to try",
+   "rank": 1814
   },
   {
    "es": "flores",
-   "en": "flowers"
+   "en": "flowers",
+   "rank": 1816
   },
   {
    "es": "opción",
-   "en": "option"
+   "en": "option",
+   "rank": 1819
   },
   {
    "es": "exacto",
-   "en": "exact"
+   "en": "exact",
+   "rank": 1820
   },
   {
    "es": "jóvenes",
-   "en": "young people"
+   "en": "young people",
+   "rank": 1822
   },
   {
    "es": "larga",
-   "en": "long (fem.)"
+   "en": "long (fem.)",
+   "rank": 1823
   },
   {
    "es": "justicia",
-   "en": "justice"
+   "en": "justice",
+   "rank": 1824
   },
   {
    "es": "nuevos",
-   "en": "new (pl.)"
+   "en": "new (pl.)",
+   "rank": 1825
   },
   {
    "es": "obviamente",
-   "en": "obviously"
+   "en": "obviously",
+   "rank": 1826
   },
   {
    "es": "fantástico",
-   "en": "fantastic"
+   "en": "fantastic",
+   "rank": 1833
   },
   {
    "es": "absolutamente",
-   "en": "absolutely"
+   "en": "absolutely",
+   "rank": 1834
   },
   {
    "es": "llena",
-   "en": "full (fem.)"
+   "en": "full (fem.)",
+   "rank": 1835
   },
   {
    "es": "escapar",
-   "en": "to escape"
+   "en": "to escape",
+   "rank": 1838
   },
   {
    "es": "gay",
-   "en": "gay"
+   "en": "gay",
+   "rank": 1839
   },
   {
    "es": "señores",
-   "en": "gentlemen"
+   "en": "gentlemen",
+   "rank": 1840
   },
   {
    "es": "piernas",
-   "en": "legs"
+   "en": "legs",
+   "rank": 1842
   },
   {
    "es": "ganado",
-   "en": "cattle; won"
+   "en": "cattle; won",
+   "rank": 1845
   },
   {
    "es": "blanca",
-   "en": "white (fem.)"
+   "en": "white (fem.)",
+   "rank": 1846
   },
   {
    "es": "rico",
-   "en": "rich; tasty"
+   "en": "rich; tasty",
+   "rank": 1847
   },
   {
    "es": "inocente",
-   "en": "innocent"
+   "en": "innocent",
+   "rank": 1848
   },
   {
    "es": "pesar",
-   "en": "to weigh; regret"
+   "en": "to weigh; regret",
+   "rank": 1849
   },
   {
    "es": "absoluto",
-   "en": "absolute"
+   "en": "absolute",
+   "rank": 1850
   },
   {
    "es": "vacaciones",
-   "en": "vacation"
+   "en": "vacation",
+   "rank": 1851
   },
   {
    "es": "mismos",
-   "en": "same (pl.)"
+   "en": "same (pl.)",
+   "rank": 1853
   },
   {
    "es": "planes",
-   "en": "plans"
+   "en": "plans",
+   "rank": 1856
   },
   {
    "es": "cine",
-   "en": "cinema; movies"
+   "en": "cinema; movies",
+   "rank": 1857
   },
   {
    "es": "brillante",
-   "en": "brilliant"
+   "en": "brilliant",
+   "rank": 1859
   },
   {
    "es": "confianza",
-   "en": "trust; confidence"
+   "en": "trust; confidence",
+   "rank": 1860
   },
   {
    "es": "vuestra",
-   "en": "your (fem. pl.)"
+   "en": "your (fem. pl.)",
+   "rank": 1861
   },
   {
    "es": "nombres",
-   "en": "names"
+   "en": "names",
+   "rank": 1862
   },
   {
    "es": "especialmente",
-   "en": "especially"
+   "en": "especially",
+   "rank": 1863
   },
   {
    "es": "embarazada",
-   "en": "pregnant"
+   "en": "pregnant",
+   "rank": 1865
   },
   {
    "es": "pantalones",
-   "en": "pants"
+   "en": "pants",
+   "rank": 1867
   },
   {
    "es": "defensa",
-   "en": "defense"
+   "en": "defense",
+   "rank": 1868
   },
   {
    "es": "salido",
-   "en": "gone out"
+   "en": "gone out",
+   "rank": 1870
   },
   {
    "es": "estupendo",
-   "en": "great"
+   "en": "great",
+   "rank": 1871
   },
   {
    "es": "inmediatamente",
-   "en": "immediately"
+   "en": "immediately",
+   "rank": 1873
   },
   {
    "es": "soldados",
-   "en": "soldiers"
+   "en": "soldiers",
+   "rank": 1876
   },
   {
    "es": "inglés",
-   "en": "English; English person"
+   "en": "English; English person",
+   "rank": 1880
   },
   {
    "es": "suya",
-   "en": "his/hers/yours (fem.)"
+   "en": "his/hers/yours (fem.)",
+   "rank": 1881
   }
  ],
  "freq-1800-1814": [
   {
    "es": "verano",
-   "en": "summer"
+   "en": "summer",
+   "rank": 1800
   },
   {
    "es": "mentira",
-   "en": "lie"
+   "en": "lie",
+   "rank": 1804
   },
   {
    "es": "intentar",
-   "en": "to try"
+   "en": "to try",
+   "rank": 1814
   },
   {
    "es": "flores",
-   "en": "flowers"
+   "en": "flowers",
+   "rank": 1816
   },
   {
    "es": "opción",
-   "en": "option"
+   "en": "option",
+   "rank": 1819
   },
   {
    "es": "exacto",
-   "en": "exact"
+   "en": "exact",
+   "rank": 1820
   },
   {
    "es": "jóvenes",
-   "en": "young people"
+   "en": "young people",
+   "rank": 1822
   },
   {
    "es": "larga",
-   "en": "long (fem.)"
+   "en": "long (fem.)",
+   "rank": 1823
   },
   {
    "es": "justicia",
-   "en": "justice"
+   "en": "justice",
+   "rank": 1824
   },
   {
    "es": "nuevos",
-   "en": "new (pl.)"
+   "en": "new (pl.)",
+   "rank": 1825
   },
   {
    "es": "obviamente",
-   "en": "obviously"
+   "en": "obviously",
+   "rank": 1826
   },
   {
    "es": "fantástico",
-   "en": "fantastic"
+   "en": "fantastic",
+   "rank": 1833
   },
   {
    "es": "absolutamente",
-   "en": "absolutely"
+   "en": "absolutely",
+   "rank": 1834
   },
   {
    "es": "llena",
-   "en": "full (fem.)"
+   "en": "full (fem.)",
+   "rank": 1835
   },
   {
    "es": "escapar",
-   "en": "to escape"
+   "en": "to escape",
+   "rank": 1838
   },
   {
    "es": "gay",
-   "en": "gay"
+   "en": "gay",
+   "rank": 1839
   },
   {
    "es": "señores",
-   "en": "gentlemen"
+   "en": "gentlemen",
+   "rank": 1840
   },
   {
    "es": "piernas",
-   "en": "legs"
+   "en": "legs",
+   "rank": 1842
   },
   {
    "es": "ganado",
-   "en": "cattle; won"
+   "en": "cattle; won",
+   "rank": 1845
   },
   {
    "es": "blanca",
-   "en": "white (fem.)"
+   "en": "white (fem.)",
+   "rank": 1846
   },
   {
    "es": "rico",
-   "en": "rich; tasty"
+   "en": "rich; tasty",
+   "rank": 1847
   },
   {
    "es": "inocente",
-   "en": "innocent"
+   "en": "innocent",
+   "rank": 1848
   },
   {
    "es": "pesar",
-   "en": "to weigh; regret"
+   "en": "to weigh; regret",
+   "rank": 1849
   },
   {
    "es": "absoluto",
-   "en": "absolute"
+   "en": "absolute",
+   "rank": 1850
   },
   {
    "es": "vacaciones",
-   "en": "vacation"
+   "en": "vacation",
+   "rank": 1851
   },
   {
    "es": "mismos",
-   "en": "same (pl.)"
+   "en": "same (pl.)",
+   "rank": 1853
   },
   {
    "es": "planes",
-   "en": "plans"
+   "en": "plans",
+   "rank": 1856
   },
   {
    "es": "cine",
-   "en": "cinema; movies"
+   "en": "cinema; movies",
+   "rank": 1857
   },
   {
    "es": "brillante",
-   "en": "brilliant"
+   "en": "brilliant",
+   "rank": 1859
   },
   {
    "es": "confianza",
-   "en": "trust; confidence"
+   "en": "trust; confidence",
+   "rank": 1860
   },
   {
    "es": "vuestra",
-   "en": "your (fem. pl.)"
+   "en": "your (fem. pl.)",
+   "rank": 1861
   },
   {
    "es": "nombres",
-   "en": "names"
+   "en": "names",
+   "rank": 1862
   },
   {
    "es": "especialmente",
-   "en": "especially"
+   "en": "especially",
+   "rank": 1863
   },
   {
    "es": "embarazada",
-   "en": "pregnant"
+   "en": "pregnant",
+   "rank": 1865
   },
   {
    "es": "pantalones",
-   "en": "pants"
+   "en": "pants",
+   "rank": 1867
   },
   {
    "es": "defensa",
-   "en": "defense"
+   "en": "defense",
+   "rank": 1868
   },
   {
    "es": "salido",
-   "en": "gone out"
+   "en": "gone out",
+   "rank": 1870
   },
   {
    "es": "estupendo",
-   "en": "great"
+   "en": "great",
+   "rank": 1871
   },
   {
    "es": "inmediatamente",
-   "en": "immediately"
+   "en": "immediately",
+   "rank": 1873
   },
   {
    "es": "soldados",
-   "en": "soldiers"
+   "en": "soldiers",
+   "rank": 1876
   },
   {
    "es": "inglés",
-   "en": "English; English person"
+   "en": "English; English person",
+   "rank": 1880
   },
   {
    "es": "suya",
-   "en": "his/hers/yours (fem.)"
+   "en": "his/hers/yours (fem.)",
+   "rank": 1881
   },
   {
    "es": "estudio",
-   "en": "study; studio"
+   "en": "study; studio",
+   "rank": 1882
   },
   {
    "es": "sentimientos",
-   "en": "feelings"
+   "en": "feelings",
+   "rank": 1883
   },
   {
    "es": "llaves",
-   "en": "keys"
+   "en": "keys",
+   "rank": 1887
   },
   {
    "es": "perros",
-   "en": "dogs"
+   "en": "dogs",
+   "rank": 1888
   },
   {
    "es": "partir",
-   "en": "to leave; to split"
+   "en": "to leave; to split",
+   "rank": 1889
   },
   {
    "es": "vuestro",
-   "en": "your (masc. pl.)"
+   "en": "your (masc. pl.)",
+   "rank": 1890
   },
   {
    "es": "metros",
-   "en": "meters"
+   "en": "meters",
+   "rank": 1891
   },
   {
    "es": "santa",
-   "en": "saint (fem.)"
+   "en": "saint (fem.)",
+   "rank": 1892
   },
   {
    "es": "clientes",
-   "en": "clients"
+   "en": "clients",
+   "rank": 1894
   },
   {
    "es": "cuántas",
-   "en": "how many (fem.)"
+   "en": "how many (fem.)",
+   "rank": 1896
   },
   {
    "es": "ridículo",
-   "en": "ridiculous"
+   "en": "ridiculous",
+   "rank": 1897
   },
   {
    "es": "damas",
-   "en": "ladies"
+   "en": "ladies",
+   "rank": 1898
   },
   {
    "es": "tranquila",
-   "en": "calm (fem.)"
+   "en": "calm (fem.)",
+   "rank": 1900
   },
   {
    "es": "operación",
-   "en": "operation"
+   "en": "operation",
+   "rank": 1901
   },
   {
    "es": "laboratorio",
-   "en": "laboratory"
+   "en": "laboratory",
+   "rank": 1904
   },
   {
    "es": "menudo",
-   "en": "small; menudo (tripe soup)"
+   "en": "small; menudo (tripe soup)",
+   "rank": 1905
   },
   {
    "es": "conversación",
-   "en": "conversation"
+   "en": "conversation",
+   "rank": 1906
   },
   {
    "es": "brazos",
-   "en": "arms"
+   "en": "arms",
+   "rank": 1907
   },
   {
    "es": "espíritu",
-   "en": "spirit"
+   "en": "spirit",
+   "rank": 1908
   },
   {
    "es": "cansado",
-   "en": "tired"
+   "en": "tired",
+   "rank": 1910
   },
   {
    "es": "casado",
-   "en": "married"
+   "en": "married",
+   "rank": 1913
   },
   {
    "es": "enorme",
-   "en": "huge"
+   "en": "huge",
+   "rank": 1914
   },
   {
    "es": "asuntos",
-   "en": "matters; affairs"
+   "en": "matters; affairs",
+   "rank": 1915
   },
   {
    "es": "fe",
-   "en": "faith"
+   "en": "faith",
+   "rank": 1916
   },
   {
    "es": "muestra",
-   "en": "sample; he/she shows"
+   "en": "sample; he/she shows",
+   "rank": 1917
   },
   {
    "es": "contrario",
-   "en": "opposite"
+   "en": "opposite",
+   "rank": 1921
   },
   {
    "es": "subir",
-   "en": "to go up; to climb"
+   "en": "to go up; to climb",
+   "rank": 1922
   },
   {
    "es": "preocupado",
-   "en": "worried"
+   "en": "worried",
+   "rank": 1924
   },
   {
    "es": "restaurante",
-   "en": "restaurant"
+   "en": "restaurant",
+   "rank": 1925
   },
   {
    "es": "bienvenida",
-   "en": "welcome (fem.)"
+   "en": "welcome (fem.)",
+   "rank": 1929
   },
   {
    "es": "estrellas",
-   "en": "stars"
+   "en": "stars",
+   "rank": 1931
   },
   {
    "es": "red",
-   "en": "network; net"
+   "en": "network; net",
+   "rank": 1933
   },
   {
    "es": "viejos",
-   "en": "old (pl.)"
+   "en": "old (pl.)",
+   "rank": 1934
   },
   {
    "es": "solamente",
-   "en": "only"
+   "en": "only",
+   "rank": 1935
   },
   {
    "es": "cuentas",
-   "en": "accounts; bills"
+   "en": "accounts; bills",
+   "rank": 1938
   },
   {
    "es": "taxi",
-   "en": "taxi"
+   "en": "taxi",
+   "rank": 1939
   },
   {
    "es": "anillo",
-   "en": "ring"
+   "en": "ring",
+   "rank": 1940
   },
   {
    "es": "preguntar",
-   "en": "to ask"
+   "en": "to ask",
+   "rank": 1942
   },
   {
    "es": "quiénes",
-   "en": "who (pl.)"
+   "en": "who (pl.)",
+   "rank": 1943
   },
   {
    "es": "pequeños",
-   "en": "small; little (pl.)"
+   "en": "small; little (pl.)",
+   "rank": 1944
   },
   {
    "es": "películas",
-   "en": "movies"
+   "en": "movies",
+   "rank": 1946
   },
   {
    "es": "responsable",
-   "en": "responsible"
+   "en": "responsible",
+   "rank": 1947
   },
   {
    "es": "trago",
-   "en": "drink; sip"
+   "en": "drink; sip",
+   "rank": 1948
   },
   {
    "es": "dientes",
-   "en": "teeth"
+   "en": "teeth",
+   "rank": 1951
   },
   {
    "es": "vender",
-   "en": "to sell"
+   "en": "to sell",
+   "rank": 1953
   },
   {
    "es": "detente",
-   "en": "stop"
+   "en": "stop",
+   "rank": 1955
   },
   {
    "es": "luchar",
-   "en": "to fight"
+   "en": "to fight",
+   "rank": 1956
   },
   {
    "es": "cabo",
-   "en": "cape; corporal"
+   "en": "cape; corporal",
+   "rank": 1957
   }
  ],
  "freq-1900-1914": [
   {
    "es": "tranquila",
-   "en": "calm (fem.)"
+   "en": "calm (fem.)",
+   "rank": 1900
   },
   {
    "es": "operación",
-   "en": "operation"
+   "en": "operation",
+   "rank": 1901
   },
   {
    "es": "laboratorio",
-   "en": "laboratory"
+   "en": "laboratory",
+   "rank": 1904
   },
   {
    "es": "menudo",
-   "en": "small; menudo (tripe soup)"
+   "en": "small; menudo (tripe soup)",
+   "rank": 1905
   },
   {
    "es": "conversación",
-   "en": "conversation"
+   "en": "conversation",
+   "rank": 1906
   },
   {
    "es": "brazos",
-   "en": "arms"
+   "en": "arms",
+   "rank": 1907
   },
   {
    "es": "espíritu",
-   "en": "spirit"
+   "en": "spirit",
+   "rank": 1908
   },
   {
    "es": "cansado",
-   "en": "tired"
+   "en": "tired",
+   "rank": 1910
   },
   {
    "es": "casado",
-   "en": "married"
+   "en": "married",
+   "rank": 1913
   },
   {
    "es": "enorme",
-   "en": "huge"
+   "en": "huge",
+   "rank": 1914
   },
   {
    "es": "asuntos",
-   "en": "matters; affairs"
+   "en": "matters; affairs",
+   "rank": 1915
   },
   {
    "es": "fe",
-   "en": "faith"
+   "en": "faith",
+   "rank": 1916
   },
   {
    "es": "muestra",
-   "en": "sample; he/she shows"
+   "en": "sample; he/she shows",
+   "rank": 1917
   },
   {
    "es": "contrario",
-   "en": "opposite"
+   "en": "opposite",
+   "rank": 1921
   },
   {
    "es": "subir",
-   "en": "to go up; to climb"
+   "en": "to go up; to climb",
+   "rank": 1922
   },
   {
    "es": "preocupado",
-   "en": "worried"
+   "en": "worried",
+   "rank": 1924
   },
   {
    "es": "restaurante",
-   "en": "restaurant"
+   "en": "restaurant",
+   "rank": 1925
   },
   {
    "es": "bienvenida",
-   "en": "welcome (fem.)"
+   "en": "welcome (fem.)",
+   "rank": 1929
   },
   {
    "es": "estrellas",
-   "en": "stars"
+   "en": "stars",
+   "rank": 1931
   },
   {
    "es": "red",
-   "en": "network; net"
+   "en": "network; net",
+   "rank": 1933
   },
   {
    "es": "viejos",
-   "en": "old (pl.)"
+   "en": "old (pl.)",
+   "rank": 1934
   },
   {
    "es": "solamente",
-   "en": "only"
+   "en": "only",
+   "rank": 1935
   },
   {
    "es": "cuentas",
-   "en": "accounts; bills"
+   "en": "accounts; bills",
+   "rank": 1938
   },
   {
    "es": "taxi",
-   "en": "taxi"
+   "en": "taxi",
+   "rank": 1939
   },
   {
    "es": "anillo",
-   "en": "ring"
+   "en": "ring",
+   "rank": 1940
   },
   {
    "es": "preguntar",
-   "en": "to ask"
+   "en": "to ask",
+   "rank": 1942
   },
   {
    "es": "quiénes",
-   "en": "who (pl.)"
+   "en": "who (pl.)",
+   "rank": 1943
   },
   {
    "es": "pequeños",
-   "en": "small; little (pl.)"
+   "en": "small; little (pl.)",
+   "rank": 1944
   },
   {
    "es": "películas",
-   "en": "movies"
+   "en": "movies",
+   "rank": 1946
   },
   {
    "es": "responsable",
-   "en": "responsible"
+   "en": "responsible",
+   "rank": 1947
   },
   {
    "es": "trago",
-   "en": "drink; sip"
+   "en": "drink; sip",
+   "rank": 1948
   },
   {
    "es": "dientes",
-   "en": "teeth"
+   "en": "teeth",
+   "rank": 1951
   },
   {
    "es": "vender",
-   "en": "to sell"
+   "en": "to sell",
+   "rank": 1953
   },
   {
    "es": "detente",
-   "en": "stop"
+   "en": "stop",
+   "rank": 1955
   },
   {
    "es": "luchar",
-   "en": "to fight"
+   "en": "to fight",
+   "rank": 1956
   },
   {
    "es": "cabo",
-   "en": "cape; corporal"
+   "en": "cape; corporal",
+   "rank": 1957
   },
   {
    "es": "lucha",
-   "en": "fight; struggle"
+   "en": "fight; struggle",
+   "rank": 1958
   },
   {
    "es": "averiguar",
-   "en": "to find out"
+   "en": "to find out",
+   "rank": 1960
   },
   {
    "es": "volar",
-   "en": "to fly"
+   "en": "to fly",
+   "rank": 1961
   },
   {
    "es": "tanta",
-   "en": "so much (fem.)"
+   "en": "so much (fem.)",
+   "rank": 1963
   },
   {
    "es": "colegio",
-   "en": "school"
+   "en": "school",
+   "rank": 1967
   },
   {
    "es": "sonido",
-   "en": "sound"
+   "en": "sound",
+   "rank": 1968
   },
   {
    "es": "caballero",
-   "en": "gentleman; knight"
+   "en": "gentleman; knight",
+   "rank": 1969
   },
   {
    "es": "pasada",
-   "en": "past; last (fem.)"
+   "en": "past; last (fem.)",
+   "rank": 1970
   },
   {
    "es": "código",
-   "en": "code"
+   "en": "code",
+   "rank": 1971
   },
   {
    "es": "alguno",
-   "en": "some; any"
+   "en": "some; any",
+   "rank": 1974
   },
   {
    "es": "millón",
-   "en": "million"
+   "en": "million",
+   "rank": 1975
   },
   {
    "es": "malas",
-   "en": "bad (fem. pl.)"
+   "en": "bad (fem. pl.)",
+   "rank": 1976
   },
   {
    "es": "dama",
-   "en": "lady"
+   "en": "lady",
+   "rank": 1977
   },
   {
    "es": "prensa",
-   "en": "press"
+   "en": "press",
+   "rank": 1980
   },
   {
    "es": "vengan",
-   "en": "come (they imperative)"
+   "en": "come (they imperative)",
+   "rank": 1981
   },
   {
    "es": "caminar",
-   "en": "to walk"
+   "en": "to walk",
+   "rank": 1983
   },
   {
    "es": "momentos",
-   "en": "moments"
+   "en": "moments",
+   "rank": 1985
   },
   {
    "es": "coger",
-   "en": "to take; to catch"
+   "en": "to take; to catch",
+   "rank": 1986
   },
   {
    "es": "posibilidad",
-   "en": "possibility"
+   "en": "possibility",
+   "rank": 1987
   },
   {
    "es": "herido",
-   "en": "injured; wounded"
+   "en": "injured; wounded",
+   "rank": 1991
   },
   {
    "es": "seguramente",
-   "en": "surely"
+   "en": "surely",
+   "rank": 1993
   },
   {
    "es": "sospechoso",
-   "en": "suspicious; suspect"
+   "en": "suspicious; suspect",
+   "rank": 1995
   },
   {
    "es": "naturaleza",
-   "en": "nature"
+   "en": "nature",
+   "rank": 1996
   },
   {
    "es": "policías",
-   "en": "police (pl.)"
+   "en": "police (pl.)",
+   "rank": 1999
   },
   {
    "es": "arreglar",
-   "en": "to fix"
+   "en": "to fix",
+   "rank": 2000
   },
   {
    "es": "sentado",
-   "en": "seated"
+   "en": "seated",
+   "rank": 2001
   },
   {
    "es": "papi",
-   "en": "daddy"
+   "en": "daddy",
+   "rank": 2002
   },
   {
    "es": "ideas",
-   "en": "ideas"
+   "en": "ideas",
+   "rank": 2003
   },
   {
    "es": "obtener",
-   "en": "to obtain"
+   "en": "to obtain",
+   "rank": 2004
   },
   {
    "es": "felices",
-   "en": "happy (pl.)"
+   "en": "happy (pl.)",
+   "rank": 2005
   },
   {
    "es": "señoría",
-   "en": "your honor"
+   "en": "your honor",
+   "rank": 2006
   },
   {
    "es": "llorar",
-   "en": "to cry"
+   "en": "to cry",
+   "rank": 2009
   },
   {
    "es": "familiar",
-   "en": "familiar; relative"
+   "en": "familiar; relative",
+   "rank": 2011
   },
   {
    "es": "desastre",
-   "en": "disaster"
+   "en": "disaster",
+   "rank": 2012
   },
   {
    "es": "locos",
-   "en": "crazy (pl.)"
+   "en": "crazy (pl.)",
+   "rank": 2013
   },
   {
    "es": "will",
-   "en": "will (name/auxiliary)"
+   "en": "will (name/auxiliary)",
+   "rank": 2018
   },
   {
    "es": "enfermedad",
-   "en": "illness"
+   "en": "illness",
+   "rank": 2019
   },
   {
    "es": "colega",
-   "en": "colleague; buddy"
+   "en": "colleague; buddy",
+   "rank": 2021
   },
   {
    "es": "bajar",
-   "en": "to go down; to lower"
+   "en": "to go down; to lower",
+   "rank": 2022
   },
   {
    "es": "nervioso",
-   "en": "nervous"
+   "en": "nervous",
+   "rank": 2023
   },
   {
    "es": "puertas",
-   "en": "doors"
+   "en": "doors",
+   "rank": 2025
   },
   {
    "es": "fuerzas",
-   "en": "forces; strength (pl.)"
+   "en": "forces; strength (pl.)",
+   "rank": 2026
   },
   {
    "es": "cantar",
-   "en": "to sing"
+   "en": "to sing",
+   "rank": 2027
   },
   {
    "es": "cabello",
-   "en": "hair"
+   "en": "hair",
+   "rank": 2029
   },
   {
    "es": "suficientemente",
-   "en": "sufficiently"
+   "en": "sufficiently",
+   "rank": 2030
   },
   {
    "es": "huellas",
-   "en": "footprints; traces"
+   "en": "footprints; traces",
+   "rank": 2031
   },
   {
    "es": "unidad",
-   "en": "unit"
+   "en": "unit",
+   "rank": 2034
   },
   {
    "es": "gana",
-   "en": "desire; win"
+   "en": "desire; win",
+   "rank": 2036
   },
   {
    "es": "tonterías",
-   "en": "nonsense; foolishness"
+   "en": "nonsense; foolishness",
+   "rank": 2037
   },
   {
    "es": "emergencia",
-   "en": "emergency"
+   "en": "emergency",
+   "rank": 2038
   },
   {
    "es": "perfecta",
-   "en": "perfect (fem.)"
+   "en": "perfect (fem.)",
+   "rank": 2039
   },
   {
    "es": "lugares",
-   "en": "places"
+   "en": "places",
+   "rank": 2042
   },
   {
    "es": "show",
-   "en": "show"
+   "en": "show",
+   "rank": 2044
   },
   {
    "es": "parque",
-   "en": "park"
+   "en": "park",
+   "rank": 2046
+  }
+ ],
+ "freq-spine": [
+  {
+   "es": "rojo",
+   "en": "red",
+   "rank": 500
+  },
+  {
+   "es": "reducir",
+   "en": "to reduce",
+   "rank": 501
+  },
+  {
+   "es": "calor",
+   "en": "heat",
+   "rank": 502
+  },
+  {
+   "es": "celular",
+   "en": "cell phone",
+   "rank": 503
+  },
+  {
+   "es": "computadora",
+   "en": "computer",
+   "rank": 504
+  },
+  {
+   "es": "lento",
+   "en": "slow",
+   "rank": 505
+  },
+  {
+   "es": "derecha",
+   "en": "right (direction)",
+   "rank": 506
+  },
+  {
+   "es": "opinión",
+   "en": "opinion",
+   "rank": 507
+  },
+  {
+   "es": "organización",
+   "en": "organization",
+   "rank": 508
+  },
+  {
+   "es": "territorio",
+   "en": "territory",
+   "rank": 509
+  },
+  {
+   "es": "peligro",
+   "en": "danger",
+   "rank": 510
+  },
+  {
+   "es": "ventana",
+   "en": "window",
+   "rank": 511
+  },
+  {
+   "es": "tamaño",
+   "en": "size",
+   "rank": 512
+  },
+  {
+   "es": "pareja",
+   "en": "couple; partner",
+   "rank": 513
+  },
+  {
+   "es": "ejército",
+   "en": "army",
+   "rank": 514
+  },
+  {
+   "es": "piedra",
+   "en": "stone",
+   "rank": 515
+  },
+  {
+   "es": "voz",
+   "en": "voice",
+   "rank": 516
+  },
+  {
+   "es": "gasto",
+   "en": "expense",
+   "rank": 517
+  },
+  {
+   "es": "riesgo",
+   "en": "risk",
+   "rank": 518
+  },
+  {
+   "es": "cama",
+   "en": "bed",
+   "rank": 519
+  },
+  {
+   "es": "enfermo",
+   "en": "sick",
+   "rank": 520
+  },
+  {
+   "es": "huevo",
+   "en": "egg",
+   "rank": 521
+  },
+  {
+   "es": "máquina",
+   "en": "machine",
+   "rank": 522
+  },
+  {
+   "es": "flor",
+   "en": "flower",
+   "rank": 523
+  },
+  {
+   "es": "plato",
+   "en": "plate",
+   "rank": 524
+  },
+  {
+   "es": "arena",
+   "en": "sand",
+   "rank": 525
+  },
+  {
+   "es": "bosque",
+   "en": "forest",
+   "rank": 526
+  },
+  {
+   "es": "nube",
+   "en": "cloud",
+   "rank": 527
+  },
+  {
+   "es": "viaje",
+   "en": "trip",
+   "rank": 528
+  },
+  {
+   "es": "estrella",
+   "en": "star",
+   "rank": 529
+  },
+  {
+   "es": "broma",
+   "en": "joke",
+   "rank": 530
+  },
+  {
+   "es": "hermana",
+   "en": "sister",
+   "rank": 531
+  },
+  {
+   "es": "caballo",
+   "en": "horse",
+   "rank": 532
+  },
+  {
+   "es": "pelo",
+   "en": "hair",
+   "rank": 533
+  },
+  {
+   "es": "reloj",
+   "en": "clock",
+   "rank": 534
+  },
+  {
+   "es": "cocina",
+   "en": "kitchen",
+   "rank": 535
+  },
+  {
+   "es": "jardín",
+   "en": "garden",
+   "rank": 536
+  },
+  {
+   "es": "ventaja",
+   "en": "advantage",
+   "rank": 537
+  },
+  {
+   "es": "mesa",
+   "en": "table",
+   "rank": 538
+  },
+  {
+   "es": "silla",
+   "en": "chair",
+   "rank": 539
+  },
+  {
+   "es": "brazo",
+   "en": "arm",
+   "rank": 540
+  },
+  {
+   "es": "pierna",
+   "en": "leg",
+   "rank": 541
+  },
+  {
+   "es": "dedo",
+   "en": "finger",
+   "rank": 542
+  },
+  {
+   "es": "ojo",
+   "en": "eye",
+   "rank": 543
+  },
+  {
+   "es": "boca",
+   "en": "mouth",
+   "rank": 544
+  },
+  {
+   "es": "nariz",
+   "en": "nose",
+   "rank": 545
+  },
+  {
+   "es": "oreja",
+   "en": "ear",
+   "rank": 546
+  },
+  {
+   "es": "espalda",
+   "en": "back",
+   "rank": 547
+  },
+  {
+   "es": "pecho",
+   "en": "chest",
+   "rank": 548
+  },
+  {
+   "es": "rodilla",
+   "en": "knee",
+   "rank": 549
+  },
+  {
+   "es": "hombro",
+   "en": "shoulder",
+   "rank": 550
+  },
+  {
+   "es": "cuello",
+   "en": "neck",
+   "rank": 551
+  },
+  {
+   "es": "cerebro",
+   "en": "brain",
+   "rank": 552
+  },
+  {
+   "es": "hueso",
+   "en": "bone",
+   "rank": 553
+  },
+  {
+   "es": "piel",
+   "en": "skin",
+   "rank": 554
+  },
+  {
+   "es": "labio",
+   "en": "lip",
+   "rank": 555
+  },
+  {
+   "es": "lengua",
+   "en": "tongue",
+   "rank": 556
+  },
+  {
+   "es": "músculo",
+   "en": "muscle",
+   "rank": 557
+  },
+  {
+   "es": "barco",
+   "en": "ship",
+   "rank": 558
+  },
+  {
+   "es": "avión",
+   "en": "airplane",
+   "rank": 559
+  },
+  {
+   "es": "tren",
+   "en": "train",
+   "rank": 560
+  },
+  {
+   "es": "camión",
+   "en": "truck",
+   "rank": 561
+  },
+  {
+   "es": "bicicleta",
+   "en": "bicycle",
+   "rank": 562
+  },
+  {
+   "es": "autobús",
+   "en": "bus",
+   "rank": 563
+  },
+  {
+   "es": "puente",
+   "en": "bridge",
+   "rank": 564
+  },
+  {
+   "es": "camino",
+   "en": "road",
+   "rank": 565
+  },
+  {
+   "es": "esquina",
+   "en": "corner",
+   "rank": 566
+  },
+  {
+   "es": "cuadra",
+   "en": "block",
+   "rank": 567
+  },
+  {
+   "es": "acera",
+   "en": "sidewalk",
+   "rank": 568
+  },
+  {
+   "es": "semáforo",
+   "en": "traffic light",
+   "rank": 569
+  },
+  {
+   "es": "edificio",
+   "en": "building",
+   "rank": 570
+  },
+  {
+   "es": "torre",
+   "en": "tower",
+   "rank": 571
+  },
+  {
+   "es": "pared",
+   "en": "wall",
+   "rank": 572
+  },
+  {
+   "es": "escalera",
+   "en": "stairs",
+   "rank": 573
+  },
+  {
+   "es": "ascensor",
+   "en": "elevator",
+   "rank": 574
+  },
+  {
+   "es": "habitación",
+   "en": "room",
+   "rank": 575
+  },
+  {
+   "es": "baño",
+   "en": "bathroom",
+   "rank": 576
+  },
+  {
+   "es": "espejo",
+   "en": "mirror",
+   "rank": 577
+  },
+  {
+   "es": "lámpara",
+   "en": "lamp",
+   "rank": 578
+  },
+  {
+   "es": "alfombra",
+   "en": "carpet",
+   "rank": 579
+  },
+  {
+   "es": "cortina",
+   "en": "curtain",
+   "rank": 580
+  },
+  {
+   "es": "almohada",
+   "en": "pillow",
+   "rank": 581
+  },
+  {
+   "es": "sábana",
+   "en": "sheet",
+   "rank": 582
+  },
+  {
+   "es": "cobija",
+   "en": "blanket",
+   "rank": 583
+  },
+  {
+   "es": "toalla",
+   "en": "towel",
+   "rank": 584
+  },
+  {
+   "es": "jabón",
+   "en": "soap",
+   "rank": 585
+  },
+  {
+   "es": "cepillo",
+   "en": "brush",
+   "rank": 586
+  },
+  {
+   "es": "tijeras",
+   "en": "scissors",
+   "rank": 587
+  },
+  {
+   "es": "cuchara",
+   "en": "spoon",
+   "rank": 588
+  },
+  {
+   "es": "vaso",
+   "en": "glass",
+   "rank": 589
+  },
+  {
+   "es": "botella",
+   "en": "bottle",
+   "rank": 590
+  },
+  {
+   "es": "olla",
+   "en": "pot",
+   "rank": 591
+  },
+  {
+   "es": "sartén",
+   "en": "frying pan",
+   "rank": 592
+  },
+  {
+   "es": "horno",
+   "en": "oven",
+   "rank": 593
+  },
+  {
+   "es": "estufa",
+   "en": "stove",
+   "rank": 594
+  },
+  {
+   "es": "nevera",
+   "en": "refrigerator",
+   "rank": 595
+  },
+  {
+   "es": "pan",
+   "en": "bread",
+   "rank": 596
+  },
+  {
+   "es": "arroz",
+   "en": "rice",
+   "rank": 597
+  },
+  {
+   "es": "pollo",
+   "en": "chicken",
+   "rank": 598
+  },
+  {
+   "es": "leche",
+   "en": "milk",
+   "rank": 599
+  },
+  {
+   "es": "queso",
+   "en": "cheese",
+   "rank": 600
+  },
+  {
+   "es": "azúcar",
+   "en": "sugar",
+   "rank": 601
+  },
+  {
+   "es": "sal",
+   "en": "salt",
+   "rank": 602
+  },
+  {
+   "es": "aceite",
+   "en": "oil",
+   "rank": 603
+  },
+  {
+   "es": "manzana",
+   "en": "apple",
+   "rank": 604
+  },
+  {
+   "es": "naranja",
+   "en": "orange",
+   "rank": 605
+  },
+  {
+   "es": "limón",
+   "en": "lemon",
+   "rank": 606
+  },
+  {
+   "es": "papa",
+   "en": "potato",
+   "rank": 607
+  },
+  {
+   "es": "cebolla",
+   "en": "onion",
+   "rank": 608
+  },
+  {
+   "es": "tomate",
+   "en": "tomato",
+   "rank": 609
+  },
+  {
+   "es": "lechuga",
+   "en": "lettuce",
+   "rank": 610
+  },
+  {
+   "es": "frijol",
+   "en": "bean",
+   "rank": 611
+  },
+  {
+   "es": "maíz",
+   "en": "corn",
+   "rank": 612
+  },
+  {
+   "es": "sopa",
+   "en": "soup",
+   "rank": 613
+  },
+  {
+   "es": "ensalada",
+   "en": "salad",
+   "rank": 614
+  },
+  {
+   "es": "postre",
+   "en": "dessert",
+   "rank": 615
+  },
+  {
+   "es": "helado",
+   "en": "ice cream",
+   "rank": 616
+  },
+  {
+   "es": "pastel",
+   "en": "cake",
+   "rank": 617
+  },
+  {
+   "es": "dulce",
+   "en": "candy",
+   "rank": 618
+  },
+  {
+   "es": "receta",
+   "en": "recipe",
+   "rank": 619
+  },
+  {
+   "es": "sabor",
+   "en": "flavor",
+   "rank": 620
+  },
+  {
+   "es": "hambre",
+   "en": "hunger",
+   "rank": 621
+  },
+  {
+   "es": "sed",
+   "en": "thirst",
+   "rank": 622
+  },
+  {
+   "es": "desayuno",
+   "en": "breakfast",
+   "rank": 623
+  },
+  {
+   "es": "almuerzo",
+   "en": "lunch",
+   "rank": 624
+  },
+  {
+   "es": "cena",
+   "en": "dinner",
+   "rank": 625
+  },
+  {
+   "es": "merienda",
+   "en": "snack",
+   "rank": 626
+  },
+  {
+   "es": "perro",
+   "en": "dog",
+   "rank": 627
+  },
+  {
+   "es": "pájaro",
+   "en": "bird",
+   "rank": 628
+  },
+  {
+   "es": "pez",
+   "en": "fish (alive)",
+   "rank": 629
+  },
+  {
+   "es": "vaca",
+   "en": "cow",
+   "rank": 630
+  },
+  {
+   "es": "cerdo",
+   "en": "pig",
+   "rank": 631
+  },
+  {
+   "es": "oveja",
+   "en": "sheep",
+   "rank": 632
+  },
+  {
+   "es": "gallina",
+   "en": "hen",
+   "rank": 633
+  },
+  {
+   "es": "ratón",
+   "en": "mouse",
+   "rank": 634
+  },
+  {
+   "es": "serpiente",
+   "en": "snake",
+   "rank": 635
+  },
+  {
+   "es": "insecto",
+   "en": "insect",
+   "rank": 636
+  },
+  {
+   "es": "mariposa",
+   "en": "butterfly",
+   "rank": 637
+  },
+  {
+   "es": "hormiga",
+   "en": "ant",
+   "rank": 638
+  },
+  {
+   "es": "mosca",
+   "en": "fly",
+   "rank": 639
+  },
+  {
+   "es": "araña",
+   "en": "spider",
+   "rank": 640
+  },
+  {
+   "es": "lobo",
+   "en": "wolf",
+   "rank": 641
+  },
+  {
+   "es": "león",
+   "en": "lion",
+   "rank": 642
+  },
+  {
+   "es": "oso",
+   "en": "bear",
+   "rank": 643
+  },
+  {
+   "es": "mono",
+   "en": "monkey",
+   "rank": 644
+  },
+  {
+   "es": "toro",
+   "en": "bull",
+   "rank": 645
+  },
+  {
+   "es": "arroyo",
+   "en": "stream; creek",
+   "rank": 646
+  },
+  {
+   "es": "lago",
+   "en": "lake",
+   "rank": 647
+  },
+  {
+   "es": "mar",
+   "en": "sea",
+   "rank": 648
+  },
+  {
+   "es": "playa",
+   "en": "beach",
+   "rank": 649
+  },
+  {
+   "es": "montaña",
+   "en": "mountain",
+   "rank": 650
+  },
+  {
+   "es": "valle",
+   "en": "valley",
+   "rank": 651
+  },
+  {
+   "es": "isla",
+   "en": "island",
+   "rank": 652
+  },
+  {
+   "es": "desierto",
+   "en": "desert",
+   "rank": 653
+  },
+  {
+   "es": "selva",
+   "en": "jungle",
+   "rank": 654
+  },
+  {
+   "es": "cascada",
+   "en": "waterfall",
+   "rank": 655
+  },
+  {
+   "es": "cueva",
+   "en": "cave",
+   "rank": 656
+  },
+  {
+   "es": "pradera",
+   "en": "meadow",
+   "rank": 657
+  },
+  {
+   "es": "hierba",
+   "en": "grass",
+   "rank": 658
+  },
+  {
+   "es": "árbol",
+   "en": "tree",
+   "rank": 659
+  },
+  {
+   "es": "hoja",
+   "en": "leaf",
+   "rank": 660
+  },
+  {
+   "es": "raíz",
+   "en": "root",
+   "rank": 661
+  },
+  {
+   "es": "semilla",
+   "en": "seed",
+   "rank": 662
+  },
+  {
+   "es": "rama",
+   "en": "branch",
+   "rank": 663
+  },
+  {
+   "es": "tronco",
+   "en": "trunk",
+   "rank": 664
+  },
+  {
+   "es": "amanecer",
+   "en": "dawn; sunrise",
+   "rank": 665
+  },
+  {
+   "es": "luna",
+   "en": "moon",
+   "rank": 666
+  },
+  {
+   "es": "cielo",
+   "en": "sky",
+   "rank": 667
+  },
+  {
+   "es": "lluvia",
+   "en": "rain",
+   "rank": 668
+  },
+  {
+   "es": "viento",
+   "en": "wind",
+   "rank": 669
+  },
+  {
+   "es": "tormenta",
+   "en": "storm",
+   "rank": 670
+  },
+  {
+   "es": "nieve",
+   "en": "snow",
+   "rank": 671
+  },
+  {
+   "es": "hielo",
+   "en": "ice",
+   "rank": 672
+  },
+  {
+   "es": "fuego",
+   "en": "fire",
+   "rank": 673
+  },
+  {
+   "es": "humo",
+   "en": "smoke",
+   "rank": 674
+  },
+  {
+   "es": "ceniza",
+   "en": "ash",
+   "rank": 675
+  },
+  {
+   "es": "llama",
+   "en": "flame",
+   "rank": 676
+  },
+  {
+   "es": "sombra",
+   "en": "shadow",
+   "rank": 677
+  },
+  {
+   "es": "rayo",
+   "en": "lightning",
+   "rank": 678
+  },
+  {
+   "es": "trueno",
+   "en": "thunder",
+   "rank": 679
+  },
+  {
+   "es": "terremoto",
+   "en": "earthquake",
+   "rank": 680
+  },
+  {
+   "es": "inundación",
+   "en": "flood",
+   "rank": 681
+  },
+  {
+   "es": "sequía",
+   "en": "drought",
+   "rank": 682
+  },
+  {
+   "es": "medico",
+   "en": "doctor",
+   "rank": 683
+  },
+  {
+   "es": "abogado",
+   "en": "lawyer",
+   "rank": 684
+  },
+  {
+   "es": "maestro",
+   "en": "teacher",
+   "rank": 685
+  },
+  {
+   "es": "ingeniero",
+   "en": "engineer",
+   "rank": 686
+  },
+  {
+   "es": "marinero",
+   "en": "sailor",
+   "rank": 687
+  },
+  {
+   "es": "bombero",
+   "en": "firefighter",
+   "rank": 688
+  },
+  {
+   "es": "campesino",
+   "en": "farmer",
+   "rank": 689
+  },
+  {
+   "es": "sacerdote",
+   "en": "priest",
+   "rank": 690
+  },
+  {
+   "es": "juez",
+   "en": "judge",
+   "rank": 691
+  },
+  {
+   "es": "reina",
+   "en": "queen",
+   "rank": 692
+  },
+  {
+   "es": "príncipe",
+   "en": "prince",
+   "rank": 693
+  },
+  {
+   "es": "princesa",
+   "en": "princess",
+   "rank": 694
+  },
+  {
+   "es": "enemigo",
+   "en": "enemy",
+   "rank": 695
+  },
+  {
+   "es": "vecino",
+   "en": "neighbor",
+   "rank": 696
+  },
+  {
+   "es": "invitado",
+   "en": "guest",
+   "rank": 697
+  },
+  {
+   "es": "testigo",
+   "en": "witness",
+   "rank": 698
+  },
+  {
+   "es": "víctima",
+   "en": "victim",
+   "rank": 699
+  },
+  {
+   "es": "ladrón",
+   "en": "thief",
+   "rank": 700
+  },
+  {
+   "es": "esclavo",
+   "en": "slave",
+   "rank": 701
+  },
+  {
+   "es": "guerrero",
+   "en": "warrior",
+   "rank": 702
+  },
+  {
+   "es": "héroe",
+   "en": "hero",
+   "rank": 703
+  },
+  {
+   "es": "victoria",
+   "en": "victory",
+   "rank": 704
+  },
+  {
+   "es": "alianza",
+   "en": "alliance",
+   "rank": 705
+  },
+  {
+   "es": "paz",
+   "en": "peace",
+   "rank": 706
+  },
+  {
+   "es": "espada",
+   "en": "sword",
+   "rank": 708
+  },
+  {
+   "es": "escudo",
+   "en": "shield",
+   "rank": 709
+  },
+  {
+   "es": "bandera",
+   "en": "flag",
+   "rank": 710
+  },
+  {
+   "es": "corona",
+   "en": "crown",
+   "rank": 711
+  },
+  {
+   "es": "cadena",
+   "en": "chain",
+   "rank": 712
+  },
+  {
+   "es": "cuerda",
+   "en": "rope",
+   "rank": 713
+  },
+  {
+   "es": "trampa",
+   "en": "trap",
+   "rank": 714
+  },
+  {
+   "es": "tesoro",
+   "en": "treasure",
+   "rank": 715
+  },
+  {
+   "es": "moneda",
+   "en": "coin",
+   "rank": 716
+  },
+  {
+   "es": "precio",
+   "en": "price",
+   "rank": 717
+  },
+  {
+   "es": "bolsillo",
+   "en": "pocket",
+   "rank": 718
+  },
+  {
+   "es": "deuda",
+   "en": "debt",
+   "rank": 719
+  },
+  {
+   "es": "negocio",
+   "en": "business",
+   "rank": 720
+  },
+  {
+   "es": "tienda",
+   "en": "store",
+   "rank": 721
+  },
+  {
+   "es": "ferretería",
+   "en": "hardware store",
+   "rank": 722
+  },
+  {
+   "es": "fábrica",
+   "en": "factory",
+   "rank": 723
+  },
+  {
+   "es": "herramienta",
+   "en": "tool",
+   "rank": 724
+  },
+  {
+   "es": "rueda",
+   "en": "wheel",
+   "rank": 725
+  },
+  {
+   "es": "motor",
+   "en": "engine",
+   "rank": 726
+  },
+  {
+   "es": "teclado",
+   "en": "keyboard",
+   "rank": 727
+  },
+  {
+   "es": "pantalla",
+   "en": "screen",
+   "rank": 728
+  },
+  {
+   "es": "micrófono",
+   "en": "microphone",
+   "rank": 729
+  },
+  {
+   "es": "carta",
+   "en": "letter",
+   "rank": 730
+  },
+  {
+   "es": "periódico",
+   "en": "newspaper",
+   "rank": 731
+  },
+  {
+   "es": "revista",
+   "en": "magazine",
+   "rank": 732
+  },
+  {
+   "es": "canción",
+   "en": "song",
+   "rank": 733
+  },
+  {
+   "es": "baile",
+   "en": "dance",
+   "rank": 734
+  },
+  {
+   "es": "guitarra",
+   "en": "guitar",
+   "rank": 735
+  },
+  {
+   "es": "tambor",
+   "en": "drum",
+   "rank": 736
+  },
+  {
+   "es": "campana",
+   "en": "bell",
+   "rank": 737
+  },
+  {
+   "es": "ruido",
+   "en": "noise",
+   "rank": 738
+  },
+  {
+   "es": "silencio",
+   "en": "silence",
+   "rank": 739
+  },
+  {
+   "es": "grito",
+   "en": "scream",
+   "rank": 740
+  },
+  {
+   "es": "risa",
+   "en": "laughter",
+   "rank": 741
+  },
+  {
+   "es": "llanto",
+   "en": "crying",
+   "rank": 742
+  },
+  {
+   "es": "suspiro",
+   "en": "sigh",
+   "rank": 743
+  },
+  {
+   "es": "beso",
+   "en": "kiss",
+   "rank": 744
+  },
+  {
+   "es": "abrazo",
+   "en": "hug",
+   "rank": 745
+  },
+  {
+   "es": "golpe",
+   "en": "blow",
+   "rank": 746
+  },
+  {
+   "es": "herida",
+   "en": "wound",
+   "rank": 747
+  },
+  {
+   "es": "cicatriz",
+   "en": "scar",
+   "rank": 748
+  },
+  {
+   "es": "equipaje",
+   "en": "luggage",
+   "rank": 749
+  },
+  {
+   "es": "aroma",
+   "en": "aroma; scent",
+   "rank": 750
+  },
+  {
+   "es": "tejado",
+   "en": "tile roof",
+   "rank": 751
+  },
+  {
+   "es": "escuela",
+   "en": "school",
+   "rank": 752
+  },
+  {
+   "es": "inquilino",
+   "en": "tenant",
+   "rank": 753
+  },
+  {
+   "es": "penumbra",
+   "en": "dim light",
+   "rank": 754
+  },
+  {
+   "es": "orilla",
+   "en": "shore",
+   "rank": 755
+  },
+  {
+   "es": "estruendo",
+   "en": "loud noise; roar",
+   "rank": 756
+  },
+  {
+   "es": "centelleo",
+   "en": "sparkle; flicker",
+   "rank": 757
+  },
+  {
+   "es": "polvo",
+   "en": "dust",
+   "rank": 758
+  },
+  {
+   "es": "vinagre",
+   "en": "vinegar",
+   "rank": 759
+  },
+  {
+   "es": "hierro",
+   "en": "iron",
+   "rank": 760
+  },
+  {
+   "es": "bronce",
+   "en": "bronze",
+   "rank": 761
+  },
+  {
+   "es": "oro",
+   "en": "gold",
+   "rank": 762
+  },
+  {
+   "es": "cobre",
+   "en": "copper",
+   "rank": 763
+  },
+  {
+   "es": "cristal",
+   "en": "glass",
+   "rank": 764
+  },
+  {
+   "es": "seda",
+   "en": "silk",
+   "rank": 765
+  },
+  {
+   "es": "algodón",
+   "en": "cotton",
+   "rank": 766
+  },
+  {
+   "es": "lana",
+   "en": "wool",
+   "rank": 767
+  },
+  {
+   "es": "cuero",
+   "en": "leather",
+   "rank": 768
+  },
+  {
+   "es": "trigo",
+   "en": "wheat",
+   "rank": 769
+  },
+  {
+   "es": "avena",
+   "en": "oats",
+   "rank": 770
+  },
+  {
+   "es": "lenteja",
+   "en": "lentil",
+   "rank": 771
+  },
+  {
+   "es": "yogur",
+   "en": "yogurt",
+   "rank": 772
+  },
+  {
+   "es": "mantequilla",
+   "en": "butter",
+   "rank": 773
+  },
+  {
+   "es": "galleta",
+   "en": "cookie; cracker",
+   "rank": 774
+  },
+  {
+   "es": "jamón",
+   "en": "ham",
+   "rank": 775
+  },
+  {
+   "es": "camarón",
+   "en": "shrimp",
+   "rank": 776
+  },
+  {
+   "es": "aguacate",
+   "en": "avocado",
+   "rank": 777
+  },
+  {
+   "es": "verdura",
+   "en": "vegetable",
+   "rank": 778
+  },
+  {
+   "es": "pimienta",
+   "en": "pepper (spice)",
+   "rank": 779
+  },
+  {
+   "es": "miel",
+   "en": "honey",
+   "rank": 780
+  },
+  {
+   "es": "champú",
+   "en": "shampoo",
+   "rank": 781
+  },
+  {
+   "es": "peine",
+   "en": "comb",
+   "rank": 782
+  },
+  {
+   "es": "edredón",
+   "en": "comforter",
+   "rank": 783
+  },
+  {
+   "es": "colcha",
+   "en": "bedspread",
+   "rank": 784
+  },
+  {
+   "es": "vitrina",
+   "en": "display case",
+   "rank": 785
+  },
+  {
+   "es": "rampa",
+   "en": "ramp",
+   "rank": 786
+  },
+  {
+   "es": "pasillo",
+   "en": "hallway",
+   "rank": 787
+  },
+  {
+   "es": "sueldo",
+   "en": "salary",
+   "rank": 788
+  },
+  {
+   "es": "ahorro",
+   "en": "savings",
+   "rank": 789
+  },
+  {
+   "es": "ganancia",
+   "en": "profit",
+   "rank": 790
+  },
+  {
+   "es": "impuesto",
+   "en": "tax",
+   "rank": 791
+  },
+  {
+   "es": "inversión",
+   "en": "investment",
+   "rank": 792
+  },
+  {
+   "es": "importación",
+   "en": "import",
+   "rank": 793
+  },
+  {
+   "es": "sucursal",
+   "en": "branch office",
+   "rank": 794
+  },
+  {
+   "es": "taller",
+   "en": "workshop",
+   "rank": 795
+  },
+  {
+   "es": "depósito",
+   "en": "depot; deposit",
+   "rank": 796
+  },
+  {
+   "es": "almacén",
+   "en": "warehouse",
+   "rank": 797
+  },
+  {
+   "es": "bodega",
+   "en": "cellar",
+   "rank": 798
+  },
+  {
+   "es": "cosecha",
+   "en": "harvest",
+   "rank": 799
+  },
+  {
+   "es": "brote",
+   "en": "sprout; bud",
+   "rank": 800
+  },
+  {
+   "es": "tallo",
+   "en": "stem",
+   "rank": 801
+  },
+  {
+   "es": "espina",
+   "en": "thorn",
+   "rank": 802
+  },
+  {
+   "es": "pétalo",
+   "en": "petal",
+   "rank": 803
+  },
+  {
+   "es": "pasto",
+   "en": "grass",
+   "rank": 805
+  },
+  {
+   "es": "pantano",
+   "en": "swamp",
+   "rank": 806
+  },
+  {
+   "es": "grava",
+   "en": "gravel",
+   "rank": 807
+  },
+  {
+   "es": "roca",
+   "en": "rock",
+   "rank": 808
+  },
+  {
+   "es": "barro",
+   "en": "mud",
+   "rank": 809
+  },
+  {
+   "es": "brasa",
+   "en": "ember",
+   "rank": 810
+  },
+  {
+   "es": "hoguera",
+   "en": "bonfire",
+   "rank": 811
+  },
+  {
+   "es": "chispa",
+   "en": "spark",
+   "rank": 812
+  },
+  {
+   "es": "relámpago",
+   "en": "lightning flash",
+   "rank": 813
+  },
+  {
+   "es": "granizo",
+   "en": "hail",
+   "rank": 814
+  },
+  {
+   "es": "huracán",
+   "en": "hurricane",
+   "rank": 815
+  },
+  {
+   "es": "neblina",
+   "en": "fog",
+   "rank": 816
+  },
+  {
+   "es": "rocío",
+   "en": "dew",
+   "rank": 817
+  },
+  {
+   "es": "helada",
+   "en": "frost",
+   "rank": 818
+  },
+  {
+   "es": "temporal",
+   "en": "storm (weather)",
+   "rank": 819
+  },
+  {
+   "es": "maremoto",
+   "en": "tsunami",
+   "rank": 820
+  },
+  {
+   "es": "derrumbe",
+   "en": "landslide; collapse",
+   "rank": 821
+  },
+  {
+   "es": "incendio",
+   "en": "fire",
+   "rank": 822
+  },
+  {
+   "es": "rescate",
+   "en": "rescue",
+   "rank": 823
+  },
+  {
+   "es": "quemadura",
+   "en": "burn",
+   "rank": 824
+  },
+  {
+   "es": "moretón",
+   "en": "bruise",
+   "rank": 825
+  },
+  {
+   "es": "fiebre",
+   "en": "fever",
+   "rank": 826
+  },
+  {
+   "es": "gripe",
+   "en": "flu",
+   "rank": 827
+  },
+  {
+   "es": "tos",
+   "en": "cough",
+   "rank": 828
+  },
+  {
+   "es": "malestar",
+   "en": "discomfort",
+   "rank": 829
+  },
+  {
+   "es": "remedio",
+   "en": "remedy",
+   "rank": 830
+  },
+  {
+   "es": "pastilla",
+   "en": "pill",
+   "rank": 831
+  },
+  {
+   "es": "jeringa",
+   "en": "syringe",
+   "rank": 832
+  },
+  {
+   "es": "venda",
+   "en": "bandage",
+   "rank": 833
+  },
+  {
+   "es": "muleta",
+   "en": "crutch",
+   "rank": 834
+  },
+  {
+   "es": "cirugía",
+   "en": "surgery",
+   "rank": 835
+  },
+  {
+   "es": "consultorio",
+   "en": "doctor's office",
+   "rank": 836
+  },
+  {
+   "es": "diagnóstico",
+   "en": "diagnosis",
+   "rank": 837
+  },
+  {
+   "es": "corazón",
+   "en": "heart",
+   "rank": 838
+  },
+  {
+   "es": "pulmón",
+   "en": "lung",
+   "rank": 839
+  },
+  {
+   "es": "hígado",
+   "en": "liver",
+   "rank": 840
+  },
+  {
+   "es": "riñón",
+   "en": "kidney",
+   "rank": 841
+  },
+  {
+   "es": "costilla",
+   "en": "rib",
+   "rank": 842
+  },
+  {
+   "es": "tendón",
+   "en": "tendon",
+   "rank": 843
+  },
+  {
+   "es": "vena",
+   "en": "vein",
+   "rank": 844
+  },
+  {
+   "es": "uña",
+   "en": "nail",
+   "rank": 845
+  },
+  {
+   "es": "codo",
+   "en": "elbow",
+   "rank": 846
+  },
+  {
+   "es": "muñeca",
+   "en": "wrist",
+   "rank": 847
+  },
+  {
+   "es": "tobillo",
+   "en": "ankle",
+   "rank": 848
+  },
+  {
+   "es": "espinilla",
+   "en": "shin",
+   "rank": 849
+  },
+  {
+   "es": "cadera",
+   "en": "hip",
+   "rank": 850
+  },
+  {
+   "es": "cintura",
+   "en": "waist",
+   "rank": 851
+  },
+  {
+   "es": "mejilla",
+   "en": "cheek",
+   "rank": 852
+  },
+  {
+   "es": "barbilla",
+   "en": "chin",
+   "rank": 853
+  },
+  {
+   "es": "mentón",
+   "en": "chin",
+   "rank": 854
+  },
+  {
+   "es": "ceja",
+   "en": "eyebrow",
+   "rank": 855
+  },
+  {
+   "es": "pestaña",
+   "en": "eyelash",
+   "rank": 856
+  },
+  {
+   "es": "párpado",
+   "en": "eyelid",
+   "rank": 857
+  },
+  {
+   "es": "pómulo",
+   "en": "cheekbone",
+   "rank": 858
+  },
+  {
+   "es": "encía",
+   "en": "gum (mouth)",
+   "rank": 859
+  },
+  {
+   "es": "garganta",
+   "en": "throat",
+   "rank": 860
+  },
+  {
+   "es": "nudo",
+   "en": "knot",
+   "rank": 861
+  },
+  {
+   "es": "lazo",
+   "en": "bow",
+   "rank": 862
+  },
+  {
+   "es": "soga",
+   "en": "rope; cord",
+   "rank": 863
+  },
+  {
+   "es": "candado",
+   "en": "padlock",
+   "rank": 864
+  },
+  {
+   "es": "llave",
+   "en": "key",
+   "rank": 865
+  },
+  {
+   "es": "cerradura",
+   "en": "lock",
+   "rank": 866
+  },
+  {
+   "es": "bisagra",
+   "en": "hinge",
+   "rank": 867
+  },
+  {
+   "es": "clavo",
+   "en": "nail",
+   "rank": 868
+  },
+  {
+   "es": "tornillo",
+   "en": "screw",
+   "rank": 869
+  },
+  {
+   "es": "martillo",
+   "en": "hammer",
+   "rank": 870
+  },
+  {
+   "es": "sierra",
+   "en": "saw",
+   "rank": 871
+  },
+  {
+   "es": "pinza",
+   "en": "pliers",
+   "rank": 872
+  },
+  {
+   "es": "alambre",
+   "en": "wire",
+   "rank": 873
+  },
+  {
+   "es": "tubería",
+   "en": "plumbing",
+   "rank": 874
+  },
+  {
+   "es": "grifo",
+   "en": "faucet",
+   "rank": 875
+  },
+  {
+   "es": "ladrillo",
+   "en": "brick",
+   "rank": 876
+  },
+  {
+   "es": "cemento",
+   "en": "cement",
+   "rank": 877
+  },
+  {
+   "es": "columna",
+   "en": "column",
+   "rank": 878
+  },
+  {
+   "es": "viga",
+   "en": "beam",
+   "rank": 879
+  },
+  {
+   "es": "andamio",
+   "en": "scaffold",
+   "rank": 880
+  },
+  {
+   "es": "reja",
+   "en": "iron gate; bars",
+   "rank": 881
+  },
+  {
+   "es": "portón",
+   "en": "gate",
+   "rank": 882
+  },
+  {
+   "es": "banqueta",
+   "en": "sidewalk",
+   "rank": 883
+  },
+  {
+   "es": "glorieta",
+   "en": "roundabout",
+   "rank": 884
+  },
+  {
+   "es": "callejón",
+   "en": "alley",
+   "rank": 885
+  },
+  {
+   "es": "señalización",
+   "en": "signage",
+   "rank": 886
+  },
+  {
+   "es": "cruce",
+   "en": "intersection",
+   "rank": 887
+  },
+  {
+   "es": "autopista",
+   "en": "highway",
+   "rank": 888
+  },
+  {
+   "es": "peaje",
+   "en": "toll",
+   "rank": 889
+  },
+  {
+   "es": "gasolina",
+   "en": "gasoline",
+   "rank": 890
+  },
+  {
+   "es": "llanta",
+   "en": "tire",
+   "rank": 891
+  },
+  {
+   "es": "volante",
+   "en": "steering wheel",
+   "rank": 892
+  },
+  {
+   "es": "parabrisas",
+   "en": "windshield",
+   "rank": 893
+  },
+  {
+   "es": "cajuela",
+   "en": "trunk",
+   "rank": 894
+  },
+  {
+   "es": "cofre",
+   "en": "hood",
+   "rank": 895
+  },
+  {
+   "es": "freno",
+   "en": "brake",
+   "rank": 896
+  },
+  {
+   "es": "velocidad",
+   "en": "speed",
+   "rank": 897
+  },
+  {
+   "es": "arranque",
+   "en": "ignition",
+   "rank": 898
+  },
+  {
+   "es": "choque",
+   "en": "crash",
+   "rank": 899
+  },
+  {
+   "es": "grúa",
+   "en": "tow truck",
+   "rank": 900
+  },
+  {
+   "es": "mecánico",
+   "en": "mechanic",
+   "rank": 901
+  },
+  {
+   "es": "repuesto",
+   "en": "spare part",
+   "rank": 902
+  },
+  {
+   "es": "acequia",
+   "en": "irrigation ditch",
+   "rank": 903
+  },
+  {
+   "es": "pozo",
+   "en": "well",
+   "rank": 904
+  },
+  {
+   "es": "manguera",
+   "en": "hose",
+   "rank": 905
+  },
+  {
+   "es": "balde",
+   "en": "bucket",
+   "rank": 906
+  },
+  {
+   "es": "escoba",
+   "en": "broom",
+   "rank": 907
+  },
+  {
+   "es": "trapeador",
+   "en": "mop",
+   "rank": 908
+  },
+  {
+   "es": "trapo",
+   "en": "rag",
+   "rank": 909
+  },
+  {
+   "es": "detergente",
+   "en": "detergent",
+   "rank": 910
+  },
+  {
+   "es": "lejía",
+   "en": "bleach",
+   "rank": 911
+  },
+  {
+   "es": "plancha",
+   "en": "iron",
+   "rank": 912
+  },
+  {
+   "es": "tendedero",
+   "en": "clothesline",
+   "rank": 913
+  },
+  {
+   "es": "gancho",
+   "en": "hanger",
+   "rank": 914
+  },
+  {
+   "es": "cajón",
+   "en": "drawer",
+   "rank": 915
+  },
+  {
+   "es": "estante",
+   "en": "shelf",
+   "rank": 916
+  },
+  {
+   "es": "repisa",
+   "en": "ledge",
+   "rank": 917
+  },
+  {
+   "es": "persiana",
+   "en": "blinds",
+   "rank": 918
+  },
+  {
+   "es": "tapete",
+   "en": "rug",
+   "rank": 919
+  },
+  {
+   "es": "cojín",
+   "en": "cushion",
+   "rank": 920
+  },
+  {
+   "es": "colchón",
+   "en": "mattress",
+   "rank": 921
+  },
+  {
+   "es": "frazada",
+   "en": "blanket (heavy)",
+   "rank": 922
+  },
+  {
+   "es": "foco",
+   "en": "light bulb",
+   "rank": 923
+  },
+  {
+   "es": "interruptor",
+   "en": "switch",
+   "rank": 924
+  },
+  {
+   "es": "buzón",
+   "en": "mailbox",
+   "rank": 925
+  },
+  {
+   "es": "paquete",
+   "en": "package",
+   "rank": 926
+  },
+  {
+   "es": "envío",
+   "en": "shipment",
+   "rank": 927
+  },
+  {
+   "es": "sello",
+   "en": "stamp",
+   "rank": 928
+  },
+  {
+   "es": "remitente",
+   "en": "sender",
+   "rank": 929
+  },
+  {
+   "es": "etiqueta",
+   "en": "label",
+   "rank": 930
+  },
+  {
+   "es": "cinta",
+   "en": "tape",
+   "rank": 931
+  },
+  {
+   "es": "engrapadora",
+   "en": "stapler",
+   "rank": 932
+  },
+  {
+   "es": "pegamento",
+   "en": "glue",
+   "rank": 933
+  },
+  {
+   "es": "grapa",
+   "en": "staple",
+   "rank": 934
+  },
+  {
+   "es": "carpeta",
+   "en": "folder",
+   "rank": 935
+  },
+  {
+   "es": "archivo",
+   "en": "file",
+   "rank": 936
+  },
+  {
+   "es": "tinta",
+   "en": "ink",
+   "rank": 937
+  },
+  {
+   "es": "borrador",
+   "en": "eraser",
+   "rank": 938
+  },
+  {
+   "es": "regla",
+   "en": "ruler",
+   "rank": 939
+  },
+  {
+   "es": "pizarrón",
+   "en": "blackboard",
+   "rank": 940
+  },
+  {
+   "es": "gis",
+   "en": "chalk",
+   "rank": 941
+  },
+  {
+   "es": "pupitre",
+   "en": "desk",
+   "rank": 942
+  },
+  {
+   "es": "calificación",
+   "en": "grade",
+   "rank": 943
+  },
+  {
+   "es": "materia",
+   "en": "subject",
+   "rank": 944
+  },
+  {
+   "es": "tarea",
+   "en": "homework",
+   "rank": 945
+  },
+  {
+   "es": "examen",
+   "en": "exam",
+   "rank": 946
+  },
+  {
+   "es": "beca",
+   "en": "scholarship",
+   "rank": 947
+  },
+  {
+   "es": "título",
+   "en": "degree",
+   "rank": 948
+  },
+  {
+   "es": "carrera",
+   "en": "career",
+   "rank": 949
+  },
+  {
+   "es": "entrevista",
+   "en": "interview",
+   "rank": 950
+  },
+  {
+   "es": "solicitud",
+   "en": "application",
+   "rank": 951
+  },
+  {
+   "es": "contrato",
+   "en": "contract",
+   "rank": 952
+  },
+  {
+   "es": "renuncia",
+   "en": "resignation",
+   "rank": 953
+  },
+  {
+   "es": "despido",
+   "en": "dismissal",
+   "rank": 954
+  },
+  {
+   "es": "jubilación",
+   "en": "retirement",
+   "rank": 955
+  },
+  {
+   "es": "sindicato",
+   "en": "union",
+   "rank": 956
+  },
+  {
+   "es": "huelga",
+   "en": "strike",
+   "rank": 957
+  },
+  {
+   "es": "obligación",
+   "en": "obligation",
+   "rank": 958
+  },
+  {
+   "es": "deber",
+   "en": "duty",
+   "rank": 959
+  },
+  {
+   "es": "ciudadano",
+   "en": "citizen",
+   "rank": 960
+  },
+  {
+   "es": "asamblea",
+   "en": "assembly",
+   "rank": 961
+  },
+  {
+   "es": "campaña",
+   "en": "campaign",
+   "rank": 962
+  },
+  {
+   "es": "partido",
+   "en": "party",
+   "rank": 963
+  },
+  {
+   "es": "candidato",
+   "en": "candidate",
+   "rank": 964
+  },
+  {
+   "es": "discurso",
+   "en": "speech",
+   "rank": 965
+  },
+  {
+   "es": "protesta",
+   "en": "protest",
+   "rank": 966
+  },
+  {
+   "es": "marcha",
+   "en": "march",
+   "rank": 967
+  },
+  {
+   "es": "pancarta",
+   "en": "banner; placard",
+   "rank": 968
+  },
+  {
+   "es": "himno",
+   "en": "anthem",
+   "rank": 969
+  },
+  {
+   "es": "frontera",
+   "en": "border",
+   "rank": 970
+  },
+  {
+   "es": "aduana",
+   "en": "customs",
+   "rank": 971
+  },
+  {
+   "es": "pasaporte",
+   "en": "passport",
+   "rank": 972
+  },
+  {
+   "es": "visa",
+   "en": "visa (travel document)",
+   "rank": 973
+  },
+  {
+   "es": "embajada",
+   "en": "embassy",
+   "rank": 974
+  },
+  {
+   "es": "trámite",
+   "en": "procedure",
+   "rank": 975
+  },
+  {
+   "es": "formulario",
+   "en": "form",
+   "rank": 976
+  },
+  {
+   "es": "firma",
+   "en": "signature",
+   "rank": 977
+  },
+  {
+   "es": "notario",
+   "en": "notary",
+   "rank": 978
+  },
+  {
+   "es": "juicio",
+   "en": "trial",
+   "rank": 979
+  },
+  {
+   "es": "fiscal",
+   "en": "prosecutor",
+   "rank": 980
+  },
+  {
+   "es": "demanda",
+   "en": "lawsuit",
+   "rank": 981
+  },
+  {
+   "es": "evidencia",
+   "en": "evidence",
+   "rank": 982
+  },
+  {
+   "es": "sentencia",
+   "en": "sentence",
+   "rank": 983
+  },
+  {
+   "es": "multa",
+   "en": "fine",
+   "rank": 984
+  },
+  {
+   "es": "delito",
+   "en": "crime",
+   "rank": 985
+  },
+  {
+   "es": "robo",
+   "en": "robbery",
+   "rank": 986
+  },
+  {
+   "es": "estafa",
+   "en": "scam",
+   "rank": 987
+  },
+  {
+   "es": "soborno",
+   "en": "bribe",
+   "rank": 988
+  },
+  {
+   "es": "cárcel",
+   "en": "jail",
+   "rank": 989
+  },
+  {
+   "es": "favor",
+   "en": "favor",
+   "rank": 1000
+  },
+  {
+   "es": "ver",
+   "en": "to see",
+   "rank": 1009
+  },
+  {
+   "es": "alguien",
+   "en": "someone",
+   "rank": 1010
+  },
+  {
+   "es": "cosas",
+   "en": "things",
+   "rank": 1011
+  },
+  {
+   "es": "ahí",
+   "en": "there",
+   "rank": 1012
+  },
+  {
+   "es": "uno",
+   "en": "one",
+   "rank": 1013
+  },
+  {
+   "es": "fuera",
+   "en": "outside; to be (subjunctive past)",
+   "rank": 1023
+  },
+  {
+   "es": "hijo",
+   "en": "son",
+   "rank": 1032
+  },
+  {
+   "es": "allí",
+   "en": "there",
+   "rank": 1033
+  },
+  {
+   "es": "amigo",
+   "en": "friend (masc.)",
+   "rank": 1034
+  },
+  {
+   "es": "nuestro",
+   "en": "our (masc.)",
+   "rank": 1035
+  },
+  {
+   "es": "mamá",
+   "en": "mom",
+   "rank": 1036
+  },
+  {
+   "es": "luego",
+   "en": "later; then",
+   "rank": 1037
+  },
+  {
+   "es": "buen",
+   "en": "good (before noun)",
+   "rank": 1044
+  },
+  {
+   "es": "conmigo",
+   "en": "with me",
+   "rank": 1045
+  },
+  {
+   "es": "nuestra",
+   "en": "our (fem.)",
+   "rank": 1047
+  },
+  {
+   "es": "mal",
+   "en": "bad",
+   "rank": 1048
+  },
+  {
+   "es": "realmente",
+   "en": "really",
+   "rank": 1049
+  },
+  {
+   "es": "aún",
+   "en": "still; yet",
+   "rank": 1050
+  },
+  {
+   "es": "mío",
+   "en": "mine (masc.)",
+   "rank": 1051
+  },
+  {
+   "es": "contigo",
+   "en": "with you",
+   "rank": 1055
+  },
+  {
+   "es": "alguna",
+   "en": "some; any (fem.)",
+   "rank": 1058
+  },
+  {
+   "es": "veces",
+   "en": "times",
+   "rank": 1059
+  },
+  {
+   "es": "serio",
+   "en": "serious",
+   "rank": 1060
+  },
+  {
+   "es": "demasiado",
+   "en": "too much",
+   "rank": 1063
+  },
+  {
+   "es": "amor",
+   "en": "love",
+   "rank": 1064
+  },
+  {
+   "es": "chica",
+   "en": "girl",
+   "rank": 1067
+  },
+  {
+   "es": "chicos",
+   "en": "boys; guys",
+   "rank": 1068
+  },
+  {
+   "es": "algún",
+   "en": "some; any (masc.)",
+   "rank": 1070
+  },
+  {
+   "es": "amigos",
+   "en": "friends (masc.)",
+   "rank": 1073
+  },
+  {
+   "es": "cariño",
+   "en": "darling; affection",
+   "rank": 1077
+  },
+  {
+   "es": "hombres",
+   "en": "men",
+   "rank": 1080
+  },
+  {
+   "es": "buenas",
+   "en": "good (fem. pl.)",
+   "rank": 1081
+  },
+  {
+   "es": "cualquier",
+   "en": "any",
+   "rank": 1082
+  },
+  {
+   "es": "genial",
+   "en": "great",
+   "rank": 1086
+  },
+  {
+   "es": "chico",
+   "en": "boy",
+   "rank": 1087
+  },
+  {
+   "es": "supuesto",
+   "en": "supposed; assumption",
+   "rank": 1088
+  },
+  {
+   "es": "quizá",
+   "en": "maybe",
+   "rank": 1090
+  },
+  {
+   "es": "ayuda",
+   "en": "help",
+   "rank": 1093
+  },
+  {
+   "es": "primero",
+   "en": "first",
+   "rank": 1097
+  },
+  {
+   "es": "quizás",
+   "en": "perhaps",
+   "rank": 1099
+  },
+  {
+   "es": "niños",
+   "en": "children; boys",
+   "rank": 1100
+  },
+  {
+   "es": "pronto",
+   "en": "soon",
+   "rank": 1101
+  },
+  {
+   "es": "tío",
+   "en": "uncle; guy",
+   "rank": 1102
+  },
+  {
+   "es": "siquiera",
+   "en": "even; at least",
+   "rank": 1103
+  },
+  {
+   "es": "feliz",
+   "en": "happy",
+   "rank": 1104
+  },
+  {
+   "es": "venir",
+   "en": "to come",
+   "rank": 1105
+  },
+  {
+   "es": "hija",
+   "en": "daughter",
+   "rank": 1106
+  },
+  {
+   "es": "minutos",
+   "en": "minutes",
+   "rank": 1108
+  },
+  {
+   "es": "cuánto",
+   "en": "how much; how many",
+   "rank": 1109
+  },
+  {
+   "es": "hey",
+   "en": "hey",
+   "rank": 1111
+  },
+  {
+   "es": "dejar",
+   "en": "to leave; to let",
+   "rank": 1113
+  },
+  {
+   "es": "problemas",
+   "en": "problems",
+   "rank": 1115
+  },
+  {
+   "es": "miedo",
+   "en": "fear",
+   "rank": 1119
+  },
+  {
+   "es": "jefe",
+   "en": "boss",
+   "rank": 1120
+  },
+  {
+   "es": "justo",
+   "en": "just; fair",
+   "rank": 1122
+  },
+  {
+   "es": "horas",
+   "en": "hours",
+   "rank": 1123
+  },
+  {
+   "es": "buenos",
+   "en": "good (masc. pl.)",
+   "rank": 1124
+  },
+  {
+   "es": "esposa",
+   "en": "wife",
+   "rank": 1125
+  },
+  {
+   "es": "manos",
+   "en": "hands",
+   "rank": 1126
+  },
+  {
+   "es": "nuestros",
+   "en": "our (masc. pl.)",
+   "rank": 1130
+  },
+  {
+   "es": "adelante",
+   "en": "forward; go ahead",
+   "rank": 1131
+  },
+  {
+   "es": "ninguna",
+   "en": "none; no (fem.)",
+   "rank": 1132
+  },
+  {
+   "es": "cara",
+   "en": "face",
+   "rank": 1133
+  },
+  {
+   "es": "cuidado",
+   "en": "careful; care",
+   "rank": 1134
+  },
+  {
+   "es": "noches",
+   "en": "nights",
+   "rank": 1136
+  },
+  {
+   "es": "bastante",
+   "en": "enough; quite",
+   "rank": 1137
+  },
+  {
+   "es": "fin",
+   "en": "end",
+   "rank": 1138
+  },
+  {
+   "es": "tomar",
+   "en": "to take; to drink",
+   "rank": 1139
+  },
+  {
+   "es": "incluso",
+   "en": "even",
+   "rank": 1144
+  },
+  {
+   "es": "doctor",
+   "en": "doctor",
+   "rank": 1145
+  },
+  {
+   "es": "difícil",
+   "en": "difficult",
+   "rank": 1146
+  },
+  {
+   "es": "coche",
+   "en": "car",
+   "rank": 1148
+  },
+  {
+   "es": "allá",
+   "en": "there",
+   "rank": 1153
+  },
+  {
+   "es": "pueda",
+   "en": "can (subjunctive)",
+   "rank": 1154
+  },
+  {
+   "es": "igual",
+   "en": "equal; same",
+   "rank": 1155
+  },
+  {
+   "es": "loco",
+   "en": "crazy",
+   "rank": 1156
+  },
+  {
+   "es": "mujeres",
+   "en": "women",
+   "rank": 1157
+  },
+  {
+   "es": "vuelta",
+   "en": "turn; return",
+   "rank": 1158
+  },
+  {
+   "es": "trabajar",
+   "en": "to work",
+   "rank": 1160
+  },
+  {
+   "es": "juego",
+   "en": "game",
+   "rank": 1162
+  },
+  {
+   "es": "teléfono",
+   "en": "telephone",
+   "rank": 1167
+  },
+  {
+   "es": "final",
+   "en": "final; end",
+   "rank": 1169
+  },
+  {
+   "es": "vete",
+   "en": "go away!",
+   "rank": 1172
+  },
+  {
+   "es": "auto",
+   "en": "car",
+   "rank": 1173
+  },
+  {
+   "es": "vivir",
+   "en": "to live",
+   "rank": 1174
+  },
+  {
+   "es": "meses",
+   "en": "months",
+   "rank": 1176
+  },
+  {
+   "es": "exactamente",
+   "en": "exactly",
+   "rank": 1177
+  },
+  {
+   "es": "culpa",
+   "en": "fault; blame",
+   "rank": 1178
+  },
+  {
+   "es": "pregunta",
+   "en": "question; he/she/it asks",
+   "rank": 1183
+  },
+  {
+   "es": "chicas",
+   "en": "girls",
+   "rank": 1184
+  },
+  {
+   "es": "malo",
+   "en": "bad",
+   "rank": 1187
+  },
+  {
+   "es": "capitán",
+   "en": "captain",
+   "rank": 1188
+  },
+  {
+   "es": "bebé",
+   "en": "baby",
+   "rank": 1190
+  },
+  {
+   "es": "mayor",
+   "en": "older; mayor",
+   "rank": 1192
+  },
+  {
+   "es": "morir",
+   "en": "to die",
+   "rank": 1193
+  },
+  {
+   "es": "fácil",
+   "en": "easy",
+   "rank": 1196
+  },
+  {
+   "es": "lista",
+   "en": "list; ready (fem.)",
+   "rank": 1197
+  },
+  {
+   "es": "hijos",
+   "en": "children; sons",
+   "rank": 1200
+  },
+  {
+   "es": "probablemente",
+   "en": "probably",
+   "rank": 1201
+  },
+  {
+   "es": "padres",
+   "en": "parents",
+   "rank": 1202
+  },
+  {
+   "es": "trata",
+   "en": "tries; treat",
+   "rank": 1205
+  },
+  {
+   "es": "tampoco",
+   "en": "neither; either",
+   "rank": 1208
+  },
+  {
+   "es": "sola",
+   "en": "alone (fem.)",
+   "rank": 1211
+  },
+  {
+   "es": "par",
+   "en": "pair; couple",
+   "rank": 1212
+  },
+  {
+   "es": "única",
+   "en": "only; unique (fem.)",
+   "rank": 1213
+  },
+  {
+   "es": "simplemente",
+   "en": "simply",
+   "rank": 1216
+  },
+  {
+   "es": "sentido",
+   "en": "sense; meaning",
+   "rank": 1220
+  },
+  {
+   "es": "segura",
+   "en": "sure; safe (fem.)",
+   "rank": 1222
+  },
+  {
+   "es": "pequeña",
+   "en": "small (fem.)",
+   "rank": 1223
+  },
+  {
+   "es": "dólares",
+   "en": "dollars",
+   "rank": 1224
+  },
+  {
+   "es": "seis",
+   "en": "six",
+   "rank": 1225
+  },
+  {
+   "es": "palabra",
+   "en": "word",
+   "rank": 1230
+  },
+  {
+   "es": "queda",
+   "en": "remains; stays",
+   "rank": 1232
+  },
+  {
+   "es": "oficina",
+   "en": "office",
+   "rank": 1233
+  },
+  {
+   "es": "además",
+   "en": "besides; moreover",
+   "rank": 1235
+  },
+  {
+   "es": "oído",
+   "en": "ear; heard",
+   "rank": 1236
+  },
+  {
+   "es": "habría",
+   "en": "there would be",
+   "rank": 1237
+  },
+  {
+   "es": "recuerdo",
+   "en": "memory; I remember",
+   "rank": 1240
+  },
+  {
+   "es": "acerca",
+   "en": "about",
+   "rank": 1242
+  },
+  {
+   "es": "correcto",
+   "en": "correct; right",
+   "rank": 1244
+  },
+  {
+   "es": "demonios",
+   "en": "damn; devils",
+   "rank": 1246
+  },
+  {
+   "es": "nuestras",
+   "en": "our (fem. pl.)",
+   "rank": 1247
+  },
+  {
+   "es": "dormir",
+   "en": "to sleep",
+   "rank": 1249
+  },
+  {
+   "es": "marido",
+   "en": "husband",
+   "rank": 1251
+  },
+  {
+   "es": "peor",
+   "en": "worse",
+   "rank": 1253
+  },
+  {
+   "es": "vivo",
+   "en": "alive; I live",
+   "rank": 1255
+  },
+  {
+   "es": "venido",
+   "en": "come (past participle)",
+   "rank": 1256
+  },
+  {
+   "es": "basta",
+   "en": "enough",
+   "rank": 1258
+  },
+  {
+   "es": "minuto",
+   "en": "minute",
+   "rank": 1261
+  },
+  {
+   "es": "mucha",
+   "en": "much; many (fem.)",
+   "rank": 1264
+  },
+  {
+   "es": "perdido",
+   "en": "lost",
+   "rank": 1267
+  },
+  {
+   "es": "señorita",
+   "en": "miss",
+   "rank": 1268
+  },
+  {
+   "es": "diez",
+   "en": "ten",
+   "rank": 1269
+  },
+  {
+   "es": "grandes",
+   "en": "big; great (pl.)",
+   "rank": 1270
+  },
+  {
+   "es": "otras",
+   "en": "others (fem. pl.)",
+   "rank": 1272
+  },
+  {
+   "es": "poner",
+   "en": "to put",
+   "rank": 1276
+  },
+  {
+   "es": "increíble",
+   "en": "incredible",
+   "rank": 1278
+  },
+  {
+   "es": "real",
+   "en": "real",
+   "rank": 1279
+  },
+  {
+   "es": "libro",
+   "en": "book",
+   "rank": 1280
+  },
+  {
+   "es": "orden",
+   "en": "order",
+   "rank": 1281
+  },
+  {
+   "es": "semanas",
+   "en": "weeks",
+   "rank": 1282
+  },
+  {
+   "es": "especial",
+   "en": "special",
+   "rank": 1283
+  },
+  {
+   "es": "mía",
+   "en": "mine (fem.)",
+   "rank": 1284
+  },
+  {
+   "es": "café",
+   "en": "coffee",
+   "rank": 1285
+  },
+  {
+   "es": "duro",
+   "en": "hard",
+   "rank": 1286
+  },
+  {
+   "es": "empezar",
+   "en": "to start",
+   "rank": 1287
+  },
+  {
+   "es": "puesto",
+   "en": "position; put",
+   "rank": 1290
+  },
+  {
+   "es": "detrás",
+   "en": "behind",
+   "rank": 1291
+  },
+  {
+   "es": "cuarto",
+   "en": "room; fourth",
+   "rank": 1292
+  },
+  {
+   "es": "querida",
+   "en": "dear (fem.)",
+   "rank": 1293
+  },
+  {
+   "es": "preguntas",
+   "en": "questions",
+   "rank": 1295
+  },
+  {
+   "es": "querido",
+   "en": "dear (masc.)",
+   "rank": 1297
+  },
+  {
+   "es": "buscar",
+   "en": "to look for",
+   "rank": 1298
+  },
+  {
+   "es": "película",
+   "en": "movie",
+   "rank": 1301
+  },
+  {
+   "es": "millones",
+   "en": "millions",
+   "rank": 1302
+  },
+  {
+   "es": "habrá",
+   "en": "there will be",
+   "rank": 1303
+  },
+  {
+   "es": "llamada",
+   "en": "call",
+   "rank": 1304
+  },
+  {
+   "es": "resto",
+   "en": "rest; remainder",
+   "rank": 1305
+  },
+  {
+   "es": "extraño",
+   "en": "strange; I miss",
+   "rank": 1307
+  },
+  {
+   "es": "mala",
+   "en": "bad (fem.)",
+   "rank": 1308
+  },
+  {
+   "es": "raro",
+   "en": "strange; rare",
+   "rank": 1312
+  },
+  {
+   "es": "trato",
+   "en": "deal; I try",
+   "rank": 1317
+  },
+  {
+   "es": "usar",
+   "en": "to use",
+   "rank": 1318
+  },
+  {
+   "es": "perfecto",
+   "en": "perfect",
+   "rank": 1319
+  },
+  {
+   "es": "modo",
+   "en": "way; mode",
+   "rank": 1320
+  },
+  {
+   "es": "noticias",
+   "en": "news",
+   "rank": 1324
+  },
+  {
+   "es": "odio",
+   "en": "hate",
+   "rank": 1327
+  },
+  {
+   "es": "sexo",
+   "en": "sex",
+   "rank": 1328
+  },
+  {
+   "es": "divertido",
+   "en": "fun; funny",
+   "rank": 1331
+  },
+  {
+   "es": "armas",
+   "en": "weapons",
+   "rank": 1332
+  },
+  {
+   "es": "amiga",
+   "en": "friend (fem.)",
+   "rank": 1334
+  },
+  {
+   "es": "mensaje",
+   "en": "message",
+   "rank": 1336
+  },
+  {
+   "es": "daño",
+   "en": "damage; harm",
+   "rank": 1339
+  },
+  {
+   "es": "cambiar",
+   "en": "to change",
+   "rank": 1341
+  },
+  {
+   "es": "the",
+   "en": "the (English)",
+   "rank": 1343
+  },
+  {
+   "es": "jamás",
+   "en": "never",
+   "rank": 1346
+  },
+  {
+   "es": "pena",
+   "en": "pity; sorrow",
+   "rank": 1347
+  },
+  {
+   "es": "futuro",
+   "en": "future",
+   "rank": 1348
+  },
+  {
+   "es": "secreto",
+   "en": "secret",
+   "rank": 1350
+  },
+  {
+   "es": "mil",
+   "en": "thousand",
+   "rank": 1351
+  },
+  {
+   "es": "novia",
+   "en": "girlfriend; bride",
+   "rank": 1355
+  },
+  {
+   "es": "propia",
+   "en": "own (fem.)",
+   "rank": 1356
+  },
+  {
+   "es": "sueño",
+   "en": "dream",
+   "rank": 1357
+  },
+  {
+   "es": "haz",
+   "en": "do (imperative)",
+   "rank": 1358
+  },
+  {
+   "es": "ambos",
+   "en": "both",
+   "rank": 1362
+  },
+  {
+   "es": "vuelto",
+   "en": "returned",
+   "rank": 1366
+  },
+  {
+   "es": "dile",
+   "en": "tell him/her",
+   "rank": 1367
+  },
+  {
+   "es": "pie",
+   "en": "foot",
+   "rank": 1370
+  },
+  {
+   "es": "ganar",
+   "en": "to win",
+   "rank": 1371
+  },
+  {
+   "es": "aire",
+   "en": "air",
+   "rank": 1373
+  },
+  {
+   "es": "lamento",
+   "en": "sorry; regret",
+   "rank": 1374
+  },
+  {
+   "es": "adónde",
+   "en": "where to",
+   "rank": 1378
+  },
+  {
+   "es": "disculpe",
+   "en": "excuse me",
+   "rank": 1380
+  },
+  {
+   "es": "cita",
+   "en": "appointment; date",
+   "rank": 1381
+  },
+  {
+   "es": "gusto",
+   "en": "taste; pleasure",
+   "rank": 1384
+  },
+  {
+   "es": "tuyo",
+   "en": "yours (masc.)",
+   "rank": 1385
+  },
+  {
+   "es": "tras",
+   "en": "after; behind",
+   "rank": 1387
+  },
+  {
+   "es": "hotel",
+   "en": "hotel",
+   "rank": 1388
+  },
+  {
+   "es": "foto",
+   "en": "photo",
+   "rank": 1391
+  },
+  {
+   "es": "loca",
+   "en": "crazy (fem.)",
+   "rank": 1392
+  },
+  {
+   "es": "alrededor",
+   "en": "around",
+   "rank": 1393
+  },
+  {
+   "es": "próxima",
+   "en": "next (fem.)",
+   "rank": 1394
+  },
+  {
+   "es": "mitad",
+   "en": "half",
+   "rank": 1402
+  },
+  {
+   "es": "quiera",
+   "en": "wants; may want",
+   "rank": 1403
+  },
+  {
+   "es": "compañía",
+   "en": "company",
+   "rank": 1407
+  },
+  {
+   "es": "montón",
+   "en": "pile; lot",
+   "rank": 1410
+  },
+  {
+   "es": "mejores",
+   "en": "better; best (pl.)",
+   "rank": 1411
+  },
+  {
+   "es": "través",
+   "en": "through",
+   "rank": 1413
+  },
+  {
+   "es": "bonito",
+   "en": "pretty",
+   "rank": 1414
+  },
+  {
+   "es": "vista",
+   "en": "view; sight",
+   "rank": 1418
+  },
+  {
+   "es": "línea",
+   "en": "line",
+   "rank": 1420
+  },
+  {
+   "es": "caballeros",
+   "en": "gentlemen",
+   "rank": 1421
+  },
+  {
+   "es": "quédate",
+   "en": "stay (command)",
+   "rank": 1424
+  },
+  {
+   "es": "comprar",
+   "en": "to buy",
+   "rank": 1425
+  },
+  {
+   "es": "salvo",
+   "en": "except; safe",
+   "rank": 1427
+  },
+  {
+   "es": "mes",
+   "en": "month",
+   "rank": 1428
+  },
+  {
+   "es": "completamente",
+   "en": "completely",
+   "rank": 1432
+  },
+  {
+   "es": "totalmente",
+   "en": "totally",
+   "rank": 1434
+  },
+  {
+   "es": "imposible",
+   "en": "impossible",
+   "rank": 1435
+  },
+  {
+   "es": "pruebas",
+   "en": "tests; evidence",
+   "rank": 1436
+  },
+  {
+   "es": "novio",
+   "en": "boyfriend; groom",
+   "rank": 1437
+  },
+  {
+   "es": "normal",
+   "en": "normal",
+   "rank": 1438
+  },
+  {
+   "es": "traje",
+   "en": "suit; I brought",
+   "rank": 1443
+  },
+  {
+   "es": "siete",
+   "en": "seven",
+   "rank": 1444
+  },
+  {
+   "es": "placer",
+   "en": "pleasure",
+   "rank": 1446
+  },
+  {
+   "es": "profesor",
+   "en": "teacher",
+   "rank": 1450
+  },
+  {
+   "es": "muchacho",
+   "en": "boy",
+   "rank": 1451
+  },
+  {
+   "es": "cumpleaños",
+   "en": "birthday",
+   "rank": 1456
+  },
+  {
+   "es": "muchachos",
+   "en": "boys; guys",
+   "rank": 1457
+  },
+  {
+   "es": "culo",
+   "en": "ass",
+   "rank": 1458
+  },
+  {
+   "es": "hermosa",
+   "en": "beautiful (fem.)",
+   "rank": 1459
+  },
+  {
+   "es": "universidad",
+   "en": "university",
+   "rank": 1460
+  },
+  {
+   "es": "boda",
+   "en": "wedding",
+   "rank": 1461
+  },
+  {
+   "es": "cualquiera",
+   "en": "anyone; whichever",
+   "rank": 1463
+  },
+  {
+   "es": "sala",
+   "en": "room; living room",
+   "rank": 1466
+  },
+  {
+   "es": "decisión",
+   "en": "decision",
+   "rank": 1468
+  },
+  {
+   "es": "don",
+   "en": "Mr.; gift",
+   "rank": 1470
+  },
+  {
+   "es": "prisa",
+   "en": "hurry",
+   "rank": 1472
+  },
+  {
+   "es": "interesante",
+   "en": "interesting",
+   "rank": 1474
+  },
+  {
+   "es": "escuchar",
+   "en": "to listen",
+   "rank": 1476
+  },
+  {
+   "es": "abuela",
+   "en": "grandmother",
+   "rank": 1477
+  },
+  {
+   "es": "detective",
+   "en": "detective",
+   "rank": 1479
+  },
+  {
+   "es": "horrible",
+   "en": "horrible",
+   "rank": 1480
+  },
+  {
+   "es": "fotos",
+   "en": "photos",
+   "rank": 1481
+  },
+  {
+   "es": "acá",
+   "en": "here",
+   "rank": 1482
+  },
+  {
+   "es": "maldición",
+   "en": "damn; curse",
+   "rank": 1489
+  },
+  {
+   "es": "club",
+   "en": "club",
+   "rank": 1492
+  },
+  {
+   "es": "terminar",
+   "en": "to finish",
+   "rank": 1493
+  },
+  {
+   "es": "media",
+   "en": "half; stocking",
+   "rank": 1496
+  },
+  {
+   "es": "terrible",
+   "en": "terrible",
+   "rank": 1497
+  },
+  {
+   "es": "regalo",
+   "en": "gift",
+   "rank": 1498
+  },
+  {
+   "es": "amable",
+   "en": "kind",
+   "rank": 1499
+  },
+  {
+   "es": "muertos",
+   "en": "dead (pl.)",
+   "rank": 1500
+  },
+  {
+   "es": "ataque",
+   "en": "attack",
+   "rank": 1502
+  },
+  {
+   "es": "navidad",
+   "en": "Christmas",
+   "rank": 1504
+  },
+  {
+   "es": "negocios",
+   "en": "business",
+   "rank": 1505
+  },
+  {
+   "es": "ocho",
+   "en": "eight",
+   "rank": 1507
+  },
+  {
+   "es": "partes",
+   "en": "parts",
+   "rank": 1509
+  },
+  {
+   "es": "ten",
+   "en": "have (command)",
+   "rank": 1510
+  },
+  {
+   "es": "gracioso",
+   "en": "funny",
+   "rank": 1511
+  },
+  {
+   "es": "delante",
+   "en": "in front",
+   "rank": 1513
+  },
+  {
+   "es": "teniente",
+   "en": "lieutenant",
+   "rank": 1514
+  },
+  {
+   "es": "deseo",
+   "en": "wish; desire",
+   "rank": 1515
+  },
+  {
+   "es": "nave",
+   "en": "ship; spacecraft",
+   "rank": 1517
+  },
+  {
+   "es": "contacto",
+   "en": "contact",
+   "rank": 1520
+  },
+  {
+   "es": "esposo",
+   "en": "husband",
+   "rank": 1521
+  },
+  {
+   "es": "dale",
+   "en": "give it; go ahead",
+   "rank": 1523
+  },
+  {
+   "es": "verdadero",
+   "en": "true",
+   "rank": 1524
+  },
+  {
+   "es": "tuya",
+   "en": "yours (fem.)",
+   "rank": 1525
+  },
+  {
+   "es": "alma",
+   "en": "soul",
+   "rank": 1526
+  },
+  {
+   "es": "hazlo",
+   "en": "do it (command)",
+   "rank": 1527
+  },
+  {
+   "es": "junto",
+   "en": "together",
+   "rank": 1528
+  },
+  {
+   "es": "matrimonio",
+   "en": "marriage",
+   "rank": 1531
+  },
+  {
+   "es": "locura",
+   "en": "madness",
+   "rank": 1533
+  },
+  {
+   "es": "libertad",
+   "en": "freedom",
+   "rank": 1534
+  },
+  {
+   "es": "baja",
+   "en": "low; leave (command)",
+   "rank": 1536
+  },
+  {
+   "es": "pies",
+   "en": "feet",
+   "rank": 1539
+  },
+  {
+   "es": "segunda",
+   "en": "second (fem.)",
+   "rank": 1540
+  },
+  {
+   "es": "maravilloso",
+   "en": "wonderful",
+   "rank": 1541
+  },
+  {
+   "es": "rato",
+   "en": "while; moment",
+   "rank": 1542
+  },
+  {
+   "es": "abuelo",
+   "en": "grandfather",
+   "rank": 1543
+  },
+  {
+   "es": "salud",
+   "en": "health; cheers",
+   "rank": 1546
+  },
+  {
+   "es": "sorpresa",
+   "en": "surprise",
+   "rank": 1547
+  },
+  {
+   "es": "ninguno",
+   "en": "none",
+   "rank": 1548
+  },
+  {
+   "es": "tipos",
+   "en": "types; guys",
+   "rank": 1553
+  },
+  {
+   "es": "tía",
+   "en": "aunt",
+   "rank": 1554
+  },
+  {
+   "es": "crimen",
+   "en": "crime",
+   "rank": 1555
+  },
+  {
+   "es": "consejo",
+   "en": "advice; council",
+   "rank": 1557
+  },
+  {
+   "es": "intento",
+   "en": "attempt",
+   "rank": 1558
+  },
+  {
+   "es": "mayoría",
+   "en": "majority",
+   "rank": 1559
+  },
+  {
+   "es": "escena",
+   "en": "scene",
+   "rank": 1563
+  },
+  {
+   "es": "honor",
+   "en": "honor",
+   "rank": 1564
+  },
+  {
+   "es": "vieja",
+   "en": "old (fem.); old woman",
+   "rank": 1570
+  },
+  {
+   "es": "vidas",
+   "en": "lives",
+   "rank": 1572
+  },
+  {
+   "es": "bar",
+   "en": "bar",
+   "rank": 1573
+  },
+  {
+   "es": "drogas",
+   "en": "drugs",
+   "rank": 1575
+  },
+  {
+   "es": "enseguida",
+   "en": "right away",
+   "rank": 1576
+  },
+  {
+   "es": "agradable",
+   "en": "pleasant",
+   "rank": 1578
+  },
+  {
+   "es": "duda",
+   "en": "doubt",
+   "rank": 1580
+  },
+  {
+   "es": "energía",
+   "en": "energy",
+   "rank": 1581
+  },
+  {
+   "es": "misión",
+   "en": "mission",
+   "rank": 1584
+  },
+  {
+   "es": "listos",
+   "en": "ready (pl.)",
+   "rank": 1585
+  },
+  {
+   "es": "izquierda",
+   "en": "left",
+   "rank": 1587
+  },
+  {
+   "es": "beber",
+   "en": "to drink",
+   "rank": 1589
+  },
+  {
+   "es": "finalmente",
+   "en": "finally",
+   "rank": 1591
+  },
+  {
+   "es": "simple",
+   "en": "simple",
+   "rank": 1592
+  },
+  {
+   "es": "regresar",
+   "en": "to return",
+   "rank": 1598
+  },
+  {
+   "es": "mirar",
+   "en": "to look",
+   "rank": 1600
+  },
+  {
+   "es": "hermoso",
+   "en": "beautiful",
+   "rank": 1602
+  },
+  {
+   "es": "linda",
+   "en": "pretty",
+   "rank": 1603
+  },
+  {
+   "es": "segundos",
+   "en": "seconds",
+   "rank": 1604
+  },
+  {
+   "es": "oír",
+   "en": "to hear",
+   "rank": 1608
+  },
+  {
+   "es": "cuántos",
+   "en": "how many",
+   "rank": 1610
+  },
+  {
+   "es": "tema",
+   "en": "topic; theme",
+   "rank": 1613
+  },
+  {
+   "es": "prisión",
+   "en": "prison",
+   "rank": 1614
+  },
+  {
+   "es": "salvar",
+   "en": "to save",
+   "rank": 1618
+  },
+  {
+   "es": "bonita",
+   "en": "pretty",
+   "rank": 1619
+  },
+  {
+   "es": "causa",
+   "en": "cause",
+   "rank": 1621
+  },
+  {
+   "es": "sargento",
+   "en": "sergeant",
+   "rank": 1622
+  },
+  {
+   "es": "cenar",
+   "en": "to have dinner",
+   "rank": 1623
+  },
+  {
+   "es": "compañero",
+   "en": "companion; partner",
+   "rank": 1624
+  },
+  {
+   "es": "solía",
+   "en": "used to",
+   "rank": 1628
+  },
+  {
+   "es": "encuentro",
+   "en": "meeting; I find",
+   "rank": 1632
+  },
+  {
+   "es": "pelea",
+   "en": "fight",
+   "rank": 1634
+  },
+  {
+   "es": "san",
+   "en": "Saint (title)",
+   "rank": 1635
+  },
+  {
+   "es": "coronel",
+   "en": "colonel",
+   "rank": 1637
+  },
+  {
+   "es": "apuesto",
+   "en": "handsome; I bet",
+   "rank": 1638
+  },
+  {
+   "es": "viva",
+   "en": "alive; long live",
+   "rank": 1639
+  },
+  {
+   "es": "excepto",
+   "en": "except",
+   "rank": 1643
+  },
+  {
+   "es": "posición",
+   "en": "position",
+   "rank": 1645
+  },
+  {
+   "es": "trasero",
+   "en": "rear; butt",
+   "rank": 1646
+  },
+  {
+   "es": "excelente",
+   "en": "excellent",
+   "rank": 1648
+  },
+  {
+   "es": "modos",
+   "en": "ways; manners",
+   "rank": 1649
+  },
+  {
+   "es": "diferencia",
+   "en": "difference",
+   "rank": 1652
+  },
+  {
+   "es": "formas",
+   "en": "forms; ways",
+   "rank": 1653
+  },
+  {
+   "es": "últimos",
+   "en": "last; latest",
+   "rank": 1654
+  },
+  {
+   "es": "radio",
+   "en": "radio",
+   "rank": 1656
+  },
+  {
+   "es": "calma",
+   "en": "calm",
+   "rank": 1658
+  },
+  {
+   "es": "hogar",
+   "en": "home",
+   "rank": 1659
+  },
+  {
+   "es": "unidos",
+   "en": "united",
+   "rank": 1663
+  },
+  {
+   "es": "planeta",
+   "en": "planet",
+   "rank": 1666
+  },
+  {
+   "es": "respecto",
+   "en": "regarding",
+   "rank": 1668
+  },
+  {
+   "es": "regreso",
+   "en": "return",
+   "rank": 1669
+  },
+  {
+   "es": "debido",
+   "en": "due",
+   "rank": 1670
+  },
+  {
+   "es": "parar",
+   "en": "to stop",
+   "rank": 1673
+  },
+  {
+   "es": "respeto",
+   "en": "respect",
+   "rank": 1674
+  },
+  {
+   "es": "debajo",
+   "en": "under; below",
+   "rank": 1675
+  },
+  {
+   "es": "estación",
+   "en": "station; season",
+   "rank": 1677
+  },
+  {
+   "es": "alta",
+   "en": "high; tall; discharge (fem.)",
+   "rank": 1679
+  },
+  {
+   "es": "pista",
+   "en": "track; clue",
+   "rank": 1680
+  },
+  {
+   "es": "sueños",
+   "en": "dreams",
+   "rank": 1682
+  },
+  {
+   "es": "miles",
+   "en": "thousands",
+   "rank": 1684
+  },
+  {
+   "es": "órdenes",
+   "en": "orders",
+   "rank": 1686
+  },
+  {
+   "es": "podido",
+   "en": "been able",
+   "rank": 1689
+  },
+  {
+   "es": "confiar",
+   "en": "to trust",
+   "rank": 1694
+  },
+  {
+   "es": "hermanos",
+   "en": "brothers; siblings",
+   "rank": 1697
+  },
+  {
+   "es": "zapatos",
+   "en": "shoes",
+   "rank": 1698
+  },
+  {
+   "es": "vistazo",
+   "en": "glance",
+   "rank": 1699
+  },
+  {
+   "es": "parecer",
+   "en": "to seem",
+   "rank": 1701
+  },
+  {
+   "es": "próximo",
+   "en": "next",
+   "rank": 1702
+  },
+  {
+   "es": "paciente",
+   "en": "patient",
+   "rank": 1703
+  },
+  {
+   "es": "arte",
+   "en": "art",
+   "rank": 1705
+  },
+  {
+   "es": "bailar",
+   "en": "to dance",
+   "rank": 1710
+  },
+  {
+   "es": "sur",
+   "en": "south",
+   "rank": 1715
+  },
+  {
+   "es": "banda",
+   "en": "band; gang",
+   "rank": 1716
+  },
+  {
+   "es": "aprender",
+   "en": "to learn",
+   "rank": 1717
+  },
+  {
+   "es": "completo",
+   "en": "complete",
+   "rank": 1718
+  },
+  {
+   "es": "santo",
+   "en": "saint",
+   "rank": 1719
+  },
+  {
+   "es": "culpable",
+   "en": "guilty",
+   "rank": 1720
+  },
+  {
+   "es": "ganas",
+   "en": "desire; you win",
+   "rank": 1721
+  },
+  {
+   "es": "libros",
+   "en": "books",
+   "rank": 1726
+  },
+  {
+   "es": "azul",
+   "en": "blue",
+   "rank": 1730
+  },
+  {
+   "es": "diferentes",
+   "en": "different",
+   "rank": 1731
+  },
+  {
+   "es": "comandante",
+   "en": "commander",
+   "rank": 1734
+  },
+  {
+   "es": "reglas",
+   "en": "rules",
+   "rank": 1735
+  },
+  {
+   "es": "esperanza",
+   "en": "hope",
+   "rank": 1736
+  },
+  {
+   "es": "cuestión",
+   "en": "matter; question",
+   "rank": 1737
+  },
+  {
+   "es": "molesta",
+   "en": "annoyed; he/she bothers",
+   "rank": 1738
+  },
+  {
+   "es": "informe",
+   "en": "report",
+   "rank": 1741
+  },
+  {
+   "es": "bienvenido",
+   "en": "welcome",
+   "rank": 1743
+  },
+  {
+   "es": "abrir",
+   "en": "to open",
+   "rank": 1744
+  },
+  {
+   "es": "contar",
+   "en": "to tell; to count",
+   "rank": 1746
+  },
+  {
+   "es": "apartamento",
+   "en": "apartment",
+   "rank": 1748
+  },
+  {
+   "es": "estados",
+   "en": "states",
+   "rank": 1750
+  },
+  {
+   "es": "principal",
+   "en": "main; principal",
+   "rank": 1754
+  },
+  {
+   "es": "ojalá",
+   "en": "hopefully",
+   "rank": 1761
+  },
+  {
+   "es": "estilo",
+   "en": "style",
+   "rank": 1766
+  },
+  {
+   "es": "nueve",
+   "en": "nine",
+   "rank": 1767
+  },
+  {
+   "es": "definitivamente",
+   "en": "definitely",
+   "rank": 1768
+  },
+  {
+   "es": "quedar",
+   "en": "to stay; to remain",
+   "rank": 1769
+  },
+  {
+   "es": "cartas",
+   "en": "letters; cards",
+   "rank": 1770
+  },
+  {
+   "es": "bomba",
+   "en": "bomb",
+   "rank": 1771
+  },
+  {
+   "es": "guardia",
+   "en": "guard",
+   "rank": 1772
+  },
+  {
+   "es": "probar",
+   "en": "to try; to test",
+   "rank": 1774
+  },
+  {
+   "es": "majestad",
+   "en": "majesty",
+   "rank": 1775
+  },
+  {
+   "es": "traer",
+   "en": "to bring",
+   "rank": 1776
+  },
+  {
+   "es": "común",
+   "en": "common",
+   "rank": 1778
+  },
+  {
+   "es": "nota",
+   "en": "note",
+   "rank": 1780
+  },
+  {
+   "es": "humanos",
+   "en": "humans",
+   "rank": 1782
+  },
+  {
+   "es": "suyo",
+   "en": "his; hers; yours",
+   "rank": 1784
+  },
+  {
+   "es": "repente",
+   "en": "sudden",
+   "rank": 1785
+  },
+  {
+   "es": "doble",
+   "en": "double",
+   "rank": 1789
+  },
+  {
+   "es": "evitar",
+   "en": "to avoid",
+   "rank": 1791
+  },
+  {
+   "es": "tiempos",
+   "en": "times",
+   "rank": 1793
+  },
+  {
+   "es": "animales",
+   "en": "animals",
+   "rank": 1796
+  },
+  {
+   "es": "acaso",
+   "en": "perhaps; maybe",
+   "rank": 1798
+  },
+  {
+   "es": "verano",
+   "en": "summer",
+   "rank": 1800
+  },
+  {
+   "es": "mentira",
+   "en": "lie",
+   "rank": 1804
+  },
+  {
+   "es": "intentar",
+   "en": "to try",
+   "rank": 1814
+  },
+  {
+   "es": "flores",
+   "en": "flowers",
+   "rank": 1816
+  },
+  {
+   "es": "opción",
+   "en": "option",
+   "rank": 1819
+  },
+  {
+   "es": "exacto",
+   "en": "exact",
+   "rank": 1820
+  },
+  {
+   "es": "jóvenes",
+   "en": "young people",
+   "rank": 1822
+  },
+  {
+   "es": "larga",
+   "en": "long (fem.)",
+   "rank": 1823
+  },
+  {
+   "es": "justicia",
+   "en": "justice",
+   "rank": 1824
+  },
+  {
+   "es": "nuevos",
+   "en": "new (pl.)",
+   "rank": 1825
+  },
+  {
+   "es": "obviamente",
+   "en": "obviously",
+   "rank": 1826
+  },
+  {
+   "es": "fantástico",
+   "en": "fantastic",
+   "rank": 1833
+  },
+  {
+   "es": "absolutamente",
+   "en": "absolutely",
+   "rank": 1834
+  },
+  {
+   "es": "llena",
+   "en": "full (fem.)",
+   "rank": 1835
+  },
+  {
+   "es": "escapar",
+   "en": "to escape",
+   "rank": 1838
+  },
+  {
+   "es": "gay",
+   "en": "gay",
+   "rank": 1839
+  },
+  {
+   "es": "señores",
+   "en": "gentlemen",
+   "rank": 1840
+  },
+  {
+   "es": "piernas",
+   "en": "legs",
+   "rank": 1842
+  },
+  {
+   "es": "ganado",
+   "en": "cattle; won",
+   "rank": 1845
+  },
+  {
+   "es": "blanca",
+   "en": "white (fem.)",
+   "rank": 1846
+  },
+  {
+   "es": "rico",
+   "en": "rich; tasty",
+   "rank": 1847
+  },
+  {
+   "es": "inocente",
+   "en": "innocent",
+   "rank": 1848
+  },
+  {
+   "es": "pesar",
+   "en": "to weigh; regret",
+   "rank": 1849
+  },
+  {
+   "es": "absoluto",
+   "en": "absolute",
+   "rank": 1850
+  },
+  {
+   "es": "vacaciones",
+   "en": "vacation",
+   "rank": 1851
+  },
+  {
+   "es": "mismos",
+   "en": "same (pl.)",
+   "rank": 1853
+  },
+  {
+   "es": "planes",
+   "en": "plans",
+   "rank": 1856
+  },
+  {
+   "es": "cine",
+   "en": "cinema; movies",
+   "rank": 1857
+  },
+  {
+   "es": "brillante",
+   "en": "brilliant",
+   "rank": 1859
+  },
+  {
+   "es": "confianza",
+   "en": "trust; confidence",
+   "rank": 1860
+  },
+  {
+   "es": "vuestra",
+   "en": "your (fem. pl.)",
+   "rank": 1861
+  },
+  {
+   "es": "nombres",
+   "en": "names",
+   "rank": 1862
+  },
+  {
+   "es": "especialmente",
+   "en": "especially",
+   "rank": 1863
+  },
+  {
+   "es": "embarazada",
+   "en": "pregnant",
+   "rank": 1865
+  },
+  {
+   "es": "pantalones",
+   "en": "pants",
+   "rank": 1867
+  },
+  {
+   "es": "defensa",
+   "en": "defense",
+   "rank": 1868
+  },
+  {
+   "es": "salido",
+   "en": "gone out",
+   "rank": 1870
+  },
+  {
+   "es": "estupendo",
+   "en": "great",
+   "rank": 1871
+  },
+  {
+   "es": "inmediatamente",
+   "en": "immediately",
+   "rank": 1873
+  },
+  {
+   "es": "soldados",
+   "en": "soldiers",
+   "rank": 1876
+  },
+  {
+   "es": "inglés",
+   "en": "English; English person",
+   "rank": 1880
+  },
+  {
+   "es": "suya",
+   "en": "his/hers/yours (fem.)",
+   "rank": 1881
+  },
+  {
+   "es": "estudio",
+   "en": "study; studio",
+   "rank": 1882
+  },
+  {
+   "es": "sentimientos",
+   "en": "feelings",
+   "rank": 1883
+  },
+  {
+   "es": "llaves",
+   "en": "keys",
+   "rank": 1887
+  },
+  {
+   "es": "perros",
+   "en": "dogs",
+   "rank": 1888
+  },
+  {
+   "es": "partir",
+   "en": "to leave; to split",
+   "rank": 1889
+  },
+  {
+   "es": "vuestro",
+   "en": "your (masc. pl.)",
+   "rank": 1890
+  },
+  {
+   "es": "metros",
+   "en": "meters",
+   "rank": 1891
+  },
+  {
+   "es": "santa",
+   "en": "saint (fem.)",
+   "rank": 1892
+  },
+  {
+   "es": "clientes",
+   "en": "clients",
+   "rank": 1894
+  },
+  {
+   "es": "cuántas",
+   "en": "how many (fem.)",
+   "rank": 1896
+  },
+  {
+   "es": "ridículo",
+   "en": "ridiculous",
+   "rank": 1897
+  },
+  {
+   "es": "damas",
+   "en": "ladies",
+   "rank": 1898
+  },
+  {
+   "es": "tranquila",
+   "en": "calm (fem.)",
+   "rank": 1900
+  },
+  {
+   "es": "operación",
+   "en": "operation",
+   "rank": 1901
+  },
+  {
+   "es": "laboratorio",
+   "en": "laboratory",
+   "rank": 1904
+  },
+  {
+   "es": "menudo",
+   "en": "small; menudo (tripe soup)",
+   "rank": 1905
+  },
+  {
+   "es": "conversación",
+   "en": "conversation",
+   "rank": 1906
+  },
+  {
+   "es": "brazos",
+   "en": "arms",
+   "rank": 1907
+  },
+  {
+   "es": "espíritu",
+   "en": "spirit",
+   "rank": 1908
+  },
+  {
+   "es": "cansado",
+   "en": "tired",
+   "rank": 1910
+  },
+  {
+   "es": "casado",
+   "en": "married",
+   "rank": 1913
+  },
+  {
+   "es": "enorme",
+   "en": "huge",
+   "rank": 1914
+  },
+  {
+   "es": "asuntos",
+   "en": "matters; affairs",
+   "rank": 1915
+  },
+  {
+   "es": "fe",
+   "en": "faith",
+   "rank": 1916
+  },
+  {
+   "es": "muestra",
+   "en": "sample; he/she shows",
+   "rank": 1917
+  },
+  {
+   "es": "contrario",
+   "en": "opposite",
+   "rank": 1921
+  },
+  {
+   "es": "subir",
+   "en": "to go up; to climb",
+   "rank": 1922
+  },
+  {
+   "es": "preocupado",
+   "en": "worried",
+   "rank": 1924
+  },
+  {
+   "es": "restaurante",
+   "en": "restaurant",
+   "rank": 1925
+  },
+  {
+   "es": "bienvenida",
+   "en": "welcome (fem.)",
+   "rank": 1929
+  },
+  {
+   "es": "estrellas",
+   "en": "stars",
+   "rank": 1931
+  },
+  {
+   "es": "red",
+   "en": "network; net",
+   "rank": 1933
+  },
+  {
+   "es": "viejos",
+   "en": "old (pl.)",
+   "rank": 1934
+  },
+  {
+   "es": "solamente",
+   "en": "only",
+   "rank": 1935
+  },
+  {
+   "es": "cuentas",
+   "en": "accounts; bills",
+   "rank": 1938
+  },
+  {
+   "es": "taxi",
+   "en": "taxi",
+   "rank": 1939
+  },
+  {
+   "es": "anillo",
+   "en": "ring",
+   "rank": 1940
+  },
+  {
+   "es": "preguntar",
+   "en": "to ask",
+   "rank": 1942
+  },
+  {
+   "es": "quiénes",
+   "en": "who (pl.)",
+   "rank": 1943
+  },
+  {
+   "es": "pequeños",
+   "en": "small; little (pl.)",
+   "rank": 1944
+  },
+  {
+   "es": "películas",
+   "en": "movies",
+   "rank": 1946
+  },
+  {
+   "es": "responsable",
+   "en": "responsible",
+   "rank": 1947
+  },
+  {
+   "es": "trago",
+   "en": "drink; sip",
+   "rank": 1948
+  },
+  {
+   "es": "dientes",
+   "en": "teeth",
+   "rank": 1951
+  },
+  {
+   "es": "vender",
+   "en": "to sell",
+   "rank": 1953
+  },
+  {
+   "es": "detente",
+   "en": "stop",
+   "rank": 1955
+  },
+  {
+   "es": "luchar",
+   "en": "to fight",
+   "rank": 1956
+  },
+  {
+   "es": "cabo",
+   "en": "cape; corporal",
+   "rank": 1957
+  },
+  {
+   "es": "lucha",
+   "en": "fight; struggle",
+   "rank": 1958
+  },
+  {
+   "es": "averiguar",
+   "en": "to find out",
+   "rank": 1960
+  },
+  {
+   "es": "volar",
+   "en": "to fly",
+   "rank": 1961
+  },
+  {
+   "es": "tanta",
+   "en": "so much (fem.)",
+   "rank": 1963
+  },
+  {
+   "es": "colegio",
+   "en": "school",
+   "rank": 1967
+  },
+  {
+   "es": "sonido",
+   "en": "sound",
+   "rank": 1968
+  },
+  {
+   "es": "caballero",
+   "en": "gentleman; knight",
+   "rank": 1969
+  },
+  {
+   "es": "pasada",
+   "en": "past; last (fem.)",
+   "rank": 1970
+  },
+  {
+   "es": "código",
+   "en": "code",
+   "rank": 1971
+  },
+  {
+   "es": "alguno",
+   "en": "some; any",
+   "rank": 1974
+  },
+  {
+   "es": "millón",
+   "en": "million",
+   "rank": 1975
+  },
+  {
+   "es": "malas",
+   "en": "bad (fem. pl.)",
+   "rank": 1976
+  },
+  {
+   "es": "dama",
+   "en": "lady",
+   "rank": 1977
+  },
+  {
+   "es": "prensa",
+   "en": "press",
+   "rank": 1980
+  },
+  {
+   "es": "vengan",
+   "en": "come (they imperative)",
+   "rank": 1981
+  },
+  {
+   "es": "caminar",
+   "en": "to walk",
+   "rank": 1983
+  },
+  {
+   "es": "momentos",
+   "en": "moments",
+   "rank": 1985
+  },
+  {
+   "es": "coger",
+   "en": "to take; to catch",
+   "rank": 1986
+  },
+  {
+   "es": "posibilidad",
+   "en": "possibility",
+   "rank": 1987
+  },
+  {
+   "es": "herido",
+   "en": "injured; wounded",
+   "rank": 1991
+  },
+  {
+   "es": "seguramente",
+   "en": "surely",
+   "rank": 1993
+  },
+  {
+   "es": "sospechoso",
+   "en": "suspicious; suspect",
+   "rank": 1995
+  },
+  {
+   "es": "naturaleza",
+   "en": "nature",
+   "rank": 1996
+  },
+  {
+   "es": "policías",
+   "en": "police (pl.)",
+   "rank": 1999
+  },
+  {
+   "es": "arreglar",
+   "en": "to fix",
+   "rank": 2000
   }
  ],
  "airport-shared": [
