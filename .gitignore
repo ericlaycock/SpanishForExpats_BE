@@ -26,3 +26,7 @@ dmypy.json
 
 
 
+
+# vocab generation intermediates (reproducible via --dump / build_vocab_pools.py)
+scripts/vocab_current_words.json
+scripts/vocab_verdicts.json

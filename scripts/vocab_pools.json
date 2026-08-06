@@ -1,0 +1,9444 @@
+{
+ "freq-500-514": [
+  {
+   "es": "rojo",
+   "en": "red"
+  },
+  {
+   "es": "reducir",
+   "en": "to reduce"
+  },
+  {
+   "es": "calor",
+   "en": "heat"
+  },
+  {
+   "es": "celular",
+   "en": "cell phone"
+  },
+  {
+   "es": "computadora",
+   "en": "computer"
+  },
+  {
+   "es": "lento",
+   "en": "slow"
+  },
+  {
+   "es": "derecha",
+   "en": "right (direction)"
+  },
+  {
+   "es": "opinión",
+   "en": "opinion"
+  },
+  {
+   "es": "organización",
+   "en": "organization"
+  },
+  {
+   "es": "territorio",
+   "en": "territory"
+  },
+  {
+   "es": "peligro",
+   "en": "danger"
+  },
+  {
+   "es": "ventana",
+   "en": "window"
+  },
+  {
+   "es": "tamaño",
+   "en": "size"
+  },
+  {
+   "es": "pareja",
+   "en": "couple; partner"
+  },
+  {
+   "es": "ejército",
+   "en": "army"
+  },
+  {
+   "es": "piedra",
+   "en": "stone"
+  },
+  {
+   "es": "voz",
+   "en": "voice"
+  },
+  {
+   "es": "gasto",
+   "en": "expense"
+  },
+  {
+   "es": "riesgo",
+   "en": "risk"
+  },
+  {
+   "es": "cama",
+   "en": "bed"
+  },
+  {
+   "es": "enfermo",
+   "en": "sick"
+  },
+  {
+   "es": "huevo",
+   "en": "egg"
+  },
+  {
+   "es": "máquina",
+   "en": "machine"
+  },
+  {
+   "es": "flor",
+   "en": "flower"
+  },
+  {
+   "es": "plato",
+   "en": "plate"
+  },
+  {
+   "es": "arena",
+   "en": "sand"
+  },
+  {
+   "es": "bosque",
+   "en": "forest"
+  },
+  {
+   "es": "nube",
+   "en": "cloud"
+  },
+  {
+   "es": "viaje",
+   "en": "trip"
+  },
+  {
+   "es": "estrella",
+   "en": "star"
+  },
+  {
+   "es": "broma",
+   "en": "joke"
+  },
+  {
+   "es": "hermana",
+   "en": "sister"
+  },
+  {
+   "es": "caballo",
+   "en": "horse"
+  },
+  {
+   "es": "pelo",
+   "en": "hair"
+  },
+  {
+   "es": "reloj",
+   "en": "clock"
+  },
+  {
+   "es": "cocina",
+   "en": "kitchen"
+  },
+  {
+   "es": "jardín",
+   "en": "garden"
+  },
+  {
+   "es": "ventaja",
+   "en": "advantage"
+  },
+  {
+   "es": "mesa",
+   "en": "table"
+  },
+  {
+   "es": "silla",
+   "en": "chair"
+  },
+  {
+   "es": "brazo",
+   "en": "arm"
+  },
+  {
+   "es": "pierna",
+   "en": "leg"
+  },
+  {
+   "es": "dedo",
+   "en": "finger"
+  },
+  {
+   "es": "ojo",
+   "en": "eye"
+  },
+  {
+   "es": "boca",
+   "en": "mouth"
+  },
+  {
+   "es": "nariz",
+   "en": "nose"
+  },
+  {
+   "es": "oreja",
+   "en": "ear"
+  },
+  {
+   "es": "espalda",
+   "en": "back"
+  },
+  {
+   "es": "pecho",
+   "en": "chest"
+  },
+  {
+   "es": "rodilla",
+   "en": "knee"
+  },
+  {
+   "es": "hombro",
+   "en": "shoulder"
+  },
+  {
+   "es": "cuello",
+   "en": "neck"
+  },
+  {
+   "es": "cerebro",
+   "en": "brain"
+  },
+  {
+   "es": "hueso",
+   "en": "bone"
+  },
+  {
+   "es": "piel",
+   "en": "skin"
+  },
+  {
+   "es": "labio",
+   "en": "lip"
+  },
+  {
+   "es": "lengua",
+   "en": "tongue"
+  },
+  {
+   "es": "músculo",
+   "en": "muscle"
+  },
+  {
+   "es": "barco",
+   "en": "ship"
+  },
+  {
+   "es": "avión",
+   "en": "airplane"
+  },
+  {
+   "es": "tren",
+   "en": "train"
+  },
+  {
+   "es": "camión",
+   "en": "truck"
+  },
+  {
+   "es": "bicicleta",
+   "en": "bicycle"
+  },
+  {
+   "es": "autobús",
+   "en": "bus"
+  },
+  {
+   "es": "puente",
+   "en": "bridge"
+  },
+  {
+   "es": "camino",
+   "en": "road"
+  },
+  {
+   "es": "esquina",
+   "en": "corner"
+  },
+  {
+   "es": "cuadra",
+   "en": "block"
+  },
+  {
+   "es": "acera",
+   "en": "sidewalk"
+  },
+  {
+   "es": "semáforo",
+   "en": "traffic light"
+  },
+  {
+   "es": "edificio",
+   "en": "building"
+  },
+  {
+   "es": "torre",
+   "en": "tower"
+  },
+  {
+   "es": "pared",
+   "en": "wall"
+  },
+  {
+   "es": "escalera",
+   "en": "stairs"
+  },
+  {
+   "es": "ascensor",
+   "en": "elevator"
+  },
+  {
+   "es": "habitación",
+   "en": "room"
+  },
+  {
+   "es": "baño",
+   "en": "bathroom"
+  },
+  {
+   "es": "espejo",
+   "en": "mirror"
+  },
+  {
+   "es": "lámpara",
+   "en": "lamp"
+  },
+  {
+   "es": "alfombra",
+   "en": "carpet"
+  },
+  {
+   "es": "cortina",
+   "en": "curtain"
+  },
+  {
+   "es": "almohada",
+   "en": "pillow"
+  },
+  {
+   "es": "sábana",
+   "en": "sheet"
+  },
+  {
+   "es": "cobija",
+   "en": "blanket"
+  },
+  {
+   "es": "toalla",
+   "en": "towel"
+  },
+  {
+   "es": "jabón",
+   "en": "soap"
+  },
+  {
+   "es": "cepillo",
+   "en": "brush"
+  },
+  {
+   "es": "tijeras",
+   "en": "scissors"
+  },
+  {
+   "es": "cuchara",
+   "en": "spoon"
+  },
+  {
+   "es": "vaso",
+   "en": "glass"
+  }
+ ],
+ "freq-600-614": [
+  {
+   "es": "queso",
+   "en": "cheese"
+  },
+  {
+   "es": "azúcar",
+   "en": "sugar"
+  },
+  {
+   "es": "sal",
+   "en": "salt"
+  },
+  {
+   "es": "aceite",
+   "en": "oil"
+  },
+  {
+   "es": "manzana",
+   "en": "apple"
+  },
+  {
+   "es": "naranja",
+   "en": "orange"
+  },
+  {
+   "es": "limón",
+   "en": "lemon"
+  },
+  {
+   "es": "papa",
+   "en": "potato"
+  },
+  {
+   "es": "cebolla",
+   "en": "onion"
+  },
+  {
+   "es": "tomate",
+   "en": "tomato"
+  },
+  {
+   "es": "lechuga",
+   "en": "lettuce"
+  },
+  {
+   "es": "frijol",
+   "en": "bean"
+  },
+  {
+   "es": "maíz",
+   "en": "corn"
+  },
+  {
+   "es": "sopa",
+   "en": "soup"
+  },
+  {
+   "es": "ensalada",
+   "en": "salad"
+  },
+  {
+   "es": "postre",
+   "en": "dessert"
+  },
+  {
+   "es": "helado",
+   "en": "ice cream"
+  },
+  {
+   "es": "pastel",
+   "en": "cake"
+  },
+  {
+   "es": "dulce",
+   "en": "candy"
+  },
+  {
+   "es": "receta",
+   "en": "recipe"
+  },
+  {
+   "es": "sabor",
+   "en": "flavor"
+  },
+  {
+   "es": "hambre",
+   "en": "hunger"
+  },
+  {
+   "es": "sed",
+   "en": "thirst"
+  },
+  {
+   "es": "desayuno",
+   "en": "breakfast"
+  },
+  {
+   "es": "almuerzo",
+   "en": "lunch"
+  },
+  {
+   "es": "cena",
+   "en": "dinner"
+  },
+  {
+   "es": "merienda",
+   "en": "snack"
+  },
+  {
+   "es": "perro",
+   "en": "dog"
+  },
+  {
+   "es": "pájaro",
+   "en": "bird"
+  },
+  {
+   "es": "pez",
+   "en": "fish (alive)"
+  },
+  {
+   "es": "vaca",
+   "en": "cow"
+  },
+  {
+   "es": "cerdo",
+   "en": "pig"
+  },
+  {
+   "es": "oveja",
+   "en": "sheep"
+  },
+  {
+   "es": "gallina",
+   "en": "hen"
+  },
+  {
+   "es": "ratón",
+   "en": "mouse"
+  },
+  {
+   "es": "serpiente",
+   "en": "snake"
+  },
+  {
+   "es": "insecto",
+   "en": "insect"
+  },
+  {
+   "es": "mariposa",
+   "en": "butterfly"
+  },
+  {
+   "es": "hormiga",
+   "en": "ant"
+  },
+  {
+   "es": "mosca",
+   "en": "fly"
+  },
+  {
+   "es": "araña",
+   "en": "spider"
+  },
+  {
+   "es": "lobo",
+   "en": "wolf"
+  },
+  {
+   "es": "león",
+   "en": "lion"
+  },
+  {
+   "es": "oso",
+   "en": "bear"
+  },
+  {
+   "es": "mono",
+   "en": "monkey"
+  },
+  {
+   "es": "toro",
+   "en": "bull"
+  },
+  {
+   "es": "arroyo",
+   "en": "stream; creek"
+  },
+  {
+   "es": "lago",
+   "en": "lake"
+  },
+  {
+   "es": "mar",
+   "en": "sea"
+  },
+  {
+   "es": "playa",
+   "en": "beach"
+  },
+  {
+   "es": "montaña",
+   "en": "mountain"
+  },
+  {
+   "es": "valle",
+   "en": "valley"
+  },
+  {
+   "es": "isla",
+   "en": "island"
+  },
+  {
+   "es": "desierto",
+   "en": "desert"
+  },
+  {
+   "es": "selva",
+   "en": "jungle"
+  },
+  {
+   "es": "cascada",
+   "en": "waterfall"
+  },
+  {
+   "es": "cueva",
+   "en": "cave"
+  },
+  {
+   "es": "pradera",
+   "en": "meadow"
+  },
+  {
+   "es": "hierba",
+   "en": "grass"
+  },
+  {
+   "es": "árbol",
+   "en": "tree"
+  },
+  {
+   "es": "hoja",
+   "en": "leaf"
+  },
+  {
+   "es": "raíz",
+   "en": "root"
+  },
+  {
+   "es": "semilla",
+   "en": "seed"
+  },
+  {
+   "es": "rama",
+   "en": "branch"
+  },
+  {
+   "es": "tronco",
+   "en": "trunk"
+  },
+  {
+   "es": "amanecer",
+   "en": "dawn; sunrise"
+  },
+  {
+   "es": "luna",
+   "en": "moon"
+  },
+  {
+   "es": "cielo",
+   "en": "sky"
+  },
+  {
+   "es": "lluvia",
+   "en": "rain"
+  },
+  {
+   "es": "viento",
+   "en": "wind"
+  },
+  {
+   "es": "tormenta",
+   "en": "storm"
+  },
+  {
+   "es": "nieve",
+   "en": "snow"
+  },
+  {
+   "es": "hielo",
+   "en": "ice"
+  },
+  {
+   "es": "fuego",
+   "en": "fire"
+  },
+  {
+   "es": "humo",
+   "en": "smoke"
+  },
+  {
+   "es": "ceniza",
+   "en": "ash"
+  },
+  {
+   "es": "llama",
+   "en": "flame"
+  },
+  {
+   "es": "sombra",
+   "en": "shadow"
+  },
+  {
+   "es": "rayo",
+   "en": "lightning"
+  },
+  {
+   "es": "trueno",
+   "en": "thunder"
+  },
+  {
+   "es": "terremoto",
+   "en": "earthquake"
+  },
+  {
+   "es": "inundación",
+   "en": "flood"
+  },
+  {
+   "es": "sequía",
+   "en": "drought"
+  },
+  {
+   "es": "medico",
+   "en": "doctor"
+  },
+  {
+   "es": "abogado",
+   "en": "lawyer"
+  },
+  {
+   "es": "maestro",
+   "en": "teacher"
+  },
+  {
+   "es": "ingeniero",
+   "en": "engineer"
+  },
+  {
+   "es": "marinero",
+   "en": "sailor"
+  },
+  {
+   "es": "bombero",
+   "en": "firefighter"
+  },
+  {
+   "es": "campesino",
+   "en": "farmer"
+  }
+ ],
+ "freq-700-714": [
+  {
+   "es": "ladrón",
+   "en": "thief"
+  },
+  {
+   "es": "esclavo",
+   "en": "slave"
+  },
+  {
+   "es": "guerrero",
+   "en": "warrior"
+  },
+  {
+   "es": "héroe",
+   "en": "hero"
+  },
+  {
+   "es": "victoria",
+   "en": "victory"
+  },
+  {
+   "es": "alianza",
+   "en": "alliance"
+  },
+  {
+   "es": "paz",
+   "en": "peace"
+  },
+  {
+   "es": "espada",
+   "en": "sword"
+  },
+  {
+   "es": "escudo",
+   "en": "shield"
+  },
+  {
+   "es": "bandera",
+   "en": "flag"
+  },
+  {
+   "es": "corona",
+   "en": "crown"
+  },
+  {
+   "es": "cadena",
+   "en": "chain"
+  },
+  {
+   "es": "cuerda",
+   "en": "rope"
+  },
+  {
+   "es": "trampa",
+   "en": "trap"
+  },
+  {
+   "es": "tesoro",
+   "en": "treasure"
+  },
+  {
+   "es": "moneda",
+   "en": "coin"
+  },
+  {
+   "es": "precio",
+   "en": "price"
+  },
+  {
+   "es": "bolsillo",
+   "en": "pocket"
+  },
+  {
+   "es": "deuda",
+   "en": "debt"
+  },
+  {
+   "es": "negocio",
+   "en": "business"
+  },
+  {
+   "es": "tienda",
+   "en": "store"
+  },
+  {
+   "es": "ferretería",
+   "en": "hardware store"
+  },
+  {
+   "es": "fábrica",
+   "en": "factory"
+  },
+  {
+   "es": "herramienta",
+   "en": "tool"
+  },
+  {
+   "es": "rueda",
+   "en": "wheel"
+  },
+  {
+   "es": "motor",
+   "en": "engine"
+  },
+  {
+   "es": "teclado",
+   "en": "keyboard"
+  },
+  {
+   "es": "pantalla",
+   "en": "screen"
+  },
+  {
+   "es": "micrófono",
+   "en": "microphone"
+  },
+  {
+   "es": "carta",
+   "en": "letter"
+  },
+  {
+   "es": "periódico",
+   "en": "newspaper"
+  },
+  {
+   "es": "revista",
+   "en": "magazine"
+  },
+  {
+   "es": "canción",
+   "en": "song"
+  },
+  {
+   "es": "baile",
+   "en": "dance"
+  },
+  {
+   "es": "guitarra",
+   "en": "guitar"
+  },
+  {
+   "es": "tambor",
+   "en": "drum"
+  },
+  {
+   "es": "campana",
+   "en": "bell"
+  },
+  {
+   "es": "ruido",
+   "en": "noise"
+  },
+  {
+   "es": "silencio",
+   "en": "silence"
+  },
+  {
+   "es": "grito",
+   "en": "scream"
+  },
+  {
+   "es": "risa",
+   "en": "laughter"
+  },
+  {
+   "es": "llanto",
+   "en": "crying"
+  },
+  {
+   "es": "suspiro",
+   "en": "sigh"
+  },
+  {
+   "es": "beso",
+   "en": "kiss"
+  },
+  {
+   "es": "abrazo",
+   "en": "hug"
+  },
+  {
+   "es": "golpe",
+   "en": "blow"
+  },
+  {
+   "es": "herida",
+   "en": "wound"
+  },
+  {
+   "es": "cicatriz",
+   "en": "scar"
+  },
+  {
+   "es": "equipaje",
+   "en": "luggage"
+  },
+  {
+   "es": "aroma",
+   "en": "aroma; scent"
+  },
+  {
+   "es": "tejado",
+   "en": "tile roof"
+  },
+  {
+   "es": "escuela",
+   "en": "school"
+  },
+  {
+   "es": "inquilino",
+   "en": "tenant"
+  },
+  {
+   "es": "penumbra",
+   "en": "dim light"
+  },
+  {
+   "es": "orilla",
+   "en": "shore"
+  },
+  {
+   "es": "estruendo",
+   "en": "loud noise; roar"
+  },
+  {
+   "es": "centelleo",
+   "en": "sparkle; flicker"
+  },
+  {
+   "es": "polvo",
+   "en": "dust"
+  },
+  {
+   "es": "vinagre",
+   "en": "vinegar"
+  },
+  {
+   "es": "hierro",
+   "en": "iron"
+  },
+  {
+   "es": "bronce",
+   "en": "bronze"
+  },
+  {
+   "es": "oro",
+   "en": "gold"
+  },
+  {
+   "es": "cobre",
+   "en": "copper"
+  },
+  {
+   "es": "cristal",
+   "en": "glass"
+  },
+  {
+   "es": "seda",
+   "en": "silk"
+  },
+  {
+   "es": "algodón",
+   "en": "cotton"
+  },
+  {
+   "es": "lana",
+   "en": "wool"
+  },
+  {
+   "es": "cuero",
+   "en": "leather"
+  },
+  {
+   "es": "trigo",
+   "en": "wheat"
+  },
+  {
+   "es": "avena",
+   "en": "oats"
+  },
+  {
+   "es": "lenteja",
+   "en": "lentil"
+  },
+  {
+   "es": "yogur",
+   "en": "yogurt"
+  },
+  {
+   "es": "mantequilla",
+   "en": "butter"
+  },
+  {
+   "es": "galleta",
+   "en": "cookie; cracker"
+  },
+  {
+   "es": "jamón",
+   "en": "ham"
+  },
+  {
+   "es": "camarón",
+   "en": "shrimp"
+  },
+  {
+   "es": "aguacate",
+   "en": "avocado"
+  },
+  {
+   "es": "verdura",
+   "en": "vegetable"
+  },
+  {
+   "es": "pimienta",
+   "en": "pepper (spice)"
+  },
+  {
+   "es": "miel",
+   "en": "honey"
+  },
+  {
+   "es": "champú",
+   "en": "shampoo"
+  },
+  {
+   "es": "peine",
+   "en": "comb"
+  },
+  {
+   "es": "edredón",
+   "en": "comforter"
+  },
+  {
+   "es": "colcha",
+   "en": "bedspread"
+  },
+  {
+   "es": "vitrina",
+   "en": "display case"
+  },
+  {
+   "es": "rampa",
+   "en": "ramp"
+  },
+  {
+   "es": "pasillo",
+   "en": "hallway"
+  },
+  {
+   "es": "sueldo",
+   "en": "salary"
+  },
+  {
+   "es": "ahorro",
+   "en": "savings"
+  },
+  {
+   "es": "ganancia",
+   "en": "profit"
+  }
+ ],
+ "freq-800-814": [
+  {
+   "es": "brote",
+   "en": "sprout; bud"
+  },
+  {
+   "es": "tallo",
+   "en": "stem"
+  },
+  {
+   "es": "espina",
+   "en": "thorn"
+  },
+  {
+   "es": "pétalo",
+   "en": "petal"
+  },
+  {
+   "es": "pasto",
+   "en": "grass"
+  },
+  {
+   "es": "pantano",
+   "en": "swamp"
+  },
+  {
+   "es": "grava",
+   "en": "gravel"
+  },
+  {
+   "es": "roca",
+   "en": "rock"
+  },
+  {
+   "es": "barro",
+   "en": "mud"
+  },
+  {
+   "es": "brasa",
+   "en": "ember"
+  },
+  {
+   "es": "hoguera",
+   "en": "bonfire"
+  },
+  {
+   "es": "chispa",
+   "en": "spark"
+  },
+  {
+   "es": "relámpago",
+   "en": "lightning flash"
+  },
+  {
+   "es": "granizo",
+   "en": "hail"
+  },
+  {
+   "es": "huracán",
+   "en": "hurricane"
+  },
+  {
+   "es": "neblina",
+   "en": "fog"
+  },
+  {
+   "es": "rocío",
+   "en": "dew"
+  },
+  {
+   "es": "helada",
+   "en": "frost"
+  },
+  {
+   "es": "temporal",
+   "en": "storm (weather)"
+  },
+  {
+   "es": "maremoto",
+   "en": "tsunami"
+  },
+  {
+   "es": "derrumbe",
+   "en": "landslide; collapse"
+  },
+  {
+   "es": "incendio",
+   "en": "fire"
+  },
+  {
+   "es": "rescate",
+   "en": "rescue"
+  },
+  {
+   "es": "quemadura",
+   "en": "burn"
+  },
+  {
+   "es": "moretón",
+   "en": "bruise"
+  },
+  {
+   "es": "fiebre",
+   "en": "fever"
+  },
+  {
+   "es": "gripe",
+   "en": "flu"
+  },
+  {
+   "es": "tos",
+   "en": "cough"
+  },
+  {
+   "es": "malestar",
+   "en": "discomfort"
+  },
+  {
+   "es": "remedio",
+   "en": "remedy"
+  },
+  {
+   "es": "pastilla",
+   "en": "pill"
+  },
+  {
+   "es": "jeringa",
+   "en": "syringe"
+  },
+  {
+   "es": "venda",
+   "en": "bandage"
+  },
+  {
+   "es": "muleta",
+   "en": "crutch"
+  },
+  {
+   "es": "cirugía",
+   "en": "surgery"
+  },
+  {
+   "es": "consultorio",
+   "en": "doctor's office"
+  },
+  {
+   "es": "diagnóstico",
+   "en": "diagnosis"
+  },
+  {
+   "es": "corazón",
+   "en": "heart"
+  },
+  {
+   "es": "pulmón",
+   "en": "lung"
+  },
+  {
+   "es": "hígado",
+   "en": "liver"
+  },
+  {
+   "es": "riñón",
+   "en": "kidney"
+  },
+  {
+   "es": "costilla",
+   "en": "rib"
+  },
+  {
+   "es": "tendón",
+   "en": "tendon"
+  },
+  {
+   "es": "vena",
+   "en": "vein"
+  },
+  {
+   "es": "uña",
+   "en": "nail"
+  },
+  {
+   "es": "codo",
+   "en": "elbow"
+  },
+  {
+   "es": "muñeca",
+   "en": "wrist"
+  },
+  {
+   "es": "tobillo",
+   "en": "ankle"
+  },
+  {
+   "es": "espinilla",
+   "en": "shin"
+  },
+  {
+   "es": "cadera",
+   "en": "hip"
+  },
+  {
+   "es": "cintura",
+   "en": "waist"
+  },
+  {
+   "es": "mejilla",
+   "en": "cheek"
+  },
+  {
+   "es": "barbilla",
+   "en": "chin"
+  },
+  {
+   "es": "mentón",
+   "en": "chin"
+  },
+  {
+   "es": "ceja",
+   "en": "eyebrow"
+  },
+  {
+   "es": "pestaña",
+   "en": "eyelash"
+  },
+  {
+   "es": "párpado",
+   "en": "eyelid"
+  },
+  {
+   "es": "pómulo",
+   "en": "cheekbone"
+  },
+  {
+   "es": "encía",
+   "en": "gum (mouth)"
+  },
+  {
+   "es": "garganta",
+   "en": "throat"
+  },
+  {
+   "es": "nudo",
+   "en": "knot"
+  },
+  {
+   "es": "lazo",
+   "en": "bow"
+  },
+  {
+   "es": "soga",
+   "en": "rope; cord"
+  },
+  {
+   "es": "candado",
+   "en": "padlock"
+  },
+  {
+   "es": "llave",
+   "en": "key"
+  },
+  {
+   "es": "cerradura",
+   "en": "lock"
+  },
+  {
+   "es": "bisagra",
+   "en": "hinge"
+  },
+  {
+   "es": "clavo",
+   "en": "nail"
+  },
+  {
+   "es": "tornillo",
+   "en": "screw"
+  },
+  {
+   "es": "martillo",
+   "en": "hammer"
+  },
+  {
+   "es": "sierra",
+   "en": "saw"
+  },
+  {
+   "es": "pinza",
+   "en": "pliers"
+  },
+  {
+   "es": "alambre",
+   "en": "wire"
+  },
+  {
+   "es": "tubería",
+   "en": "plumbing"
+  },
+  {
+   "es": "grifo",
+   "en": "faucet"
+  },
+  {
+   "es": "ladrillo",
+   "en": "brick"
+  },
+  {
+   "es": "cemento",
+   "en": "cement"
+  },
+  {
+   "es": "columna",
+   "en": "column"
+  },
+  {
+   "es": "viga",
+   "en": "beam"
+  },
+  {
+   "es": "andamio",
+   "en": "scaffold"
+  },
+  {
+   "es": "reja",
+   "en": "iron gate; bars"
+  },
+  {
+   "es": "portón",
+   "en": "gate"
+  },
+  {
+   "es": "banqueta",
+   "en": "sidewalk"
+  },
+  {
+   "es": "glorieta",
+   "en": "roundabout"
+  },
+  {
+   "es": "callejón",
+   "en": "alley"
+  },
+  {
+   "es": "señalización",
+   "en": "signage"
+  },
+  {
+   "es": "cruce",
+   "en": "intersection"
+  },
+  {
+   "es": "autopista",
+   "en": "highway"
+  },
+  {
+   "es": "peaje",
+   "en": "toll"
+  },
+  {
+   "es": "gasolina",
+   "en": "gasoline"
+  }
+ ],
+ "freq-900-914": [
+  {
+   "es": "grúa",
+   "en": "tow truck"
+  },
+  {
+   "es": "mecánico",
+   "en": "mechanic"
+  },
+  {
+   "es": "repuesto",
+   "en": "spare part"
+  },
+  {
+   "es": "acequia",
+   "en": "irrigation ditch"
+  },
+  {
+   "es": "pozo",
+   "en": "well"
+  },
+  {
+   "es": "manguera",
+   "en": "hose"
+  },
+  {
+   "es": "balde",
+   "en": "bucket"
+  },
+  {
+   "es": "escoba",
+   "en": "broom"
+  },
+  {
+   "es": "trapeador",
+   "en": "mop"
+  },
+  {
+   "es": "trapo",
+   "en": "rag"
+  },
+  {
+   "es": "detergente",
+   "en": "detergent"
+  },
+  {
+   "es": "lejía",
+   "en": "bleach"
+  },
+  {
+   "es": "plancha",
+   "en": "iron"
+  },
+  {
+   "es": "tendedero",
+   "en": "clothesline"
+  },
+  {
+   "es": "gancho",
+   "en": "hanger"
+  },
+  {
+   "es": "cajón",
+   "en": "drawer"
+  },
+  {
+   "es": "estante",
+   "en": "shelf"
+  },
+  {
+   "es": "repisa",
+   "en": "ledge"
+  },
+  {
+   "es": "persiana",
+   "en": "blinds"
+  },
+  {
+   "es": "tapete",
+   "en": "rug"
+  },
+  {
+   "es": "cojín",
+   "en": "cushion"
+  },
+  {
+   "es": "colchón",
+   "en": "mattress"
+  },
+  {
+   "es": "frazada",
+   "en": "blanket (heavy)"
+  },
+  {
+   "es": "foco",
+   "en": "light bulb"
+  },
+  {
+   "es": "interruptor",
+   "en": "switch"
+  },
+  {
+   "es": "buzón",
+   "en": "mailbox"
+  },
+  {
+   "es": "paquete",
+   "en": "package"
+  },
+  {
+   "es": "envío",
+   "en": "shipment"
+  },
+  {
+   "es": "sello",
+   "en": "stamp"
+  },
+  {
+   "es": "remitente",
+   "en": "sender"
+  },
+  {
+   "es": "etiqueta",
+   "en": "label"
+  },
+  {
+   "es": "cinta",
+   "en": "tape"
+  },
+  {
+   "es": "engrapadora",
+   "en": "stapler"
+  },
+  {
+   "es": "pegamento",
+   "en": "glue"
+  },
+  {
+   "es": "grapa",
+   "en": "staple"
+  },
+  {
+   "es": "carpeta",
+   "en": "folder"
+  },
+  {
+   "es": "archivo",
+   "en": "file"
+  },
+  {
+   "es": "tinta",
+   "en": "ink"
+  },
+  {
+   "es": "borrador",
+   "en": "eraser"
+  },
+  {
+   "es": "regla",
+   "en": "ruler"
+  },
+  {
+   "es": "pizarrón",
+   "en": "blackboard"
+  },
+  {
+   "es": "gis",
+   "en": "chalk"
+  },
+  {
+   "es": "pupitre",
+   "en": "desk"
+  },
+  {
+   "es": "calificación",
+   "en": "grade"
+  },
+  {
+   "es": "materia",
+   "en": "subject"
+  },
+  {
+   "es": "tarea",
+   "en": "homework"
+  },
+  {
+   "es": "examen",
+   "en": "exam"
+  },
+  {
+   "es": "beca",
+   "en": "scholarship"
+  },
+  {
+   "es": "título",
+   "en": "degree"
+  },
+  {
+   "es": "carrera",
+   "en": "career"
+  },
+  {
+   "es": "entrevista",
+   "en": "interview"
+  },
+  {
+   "es": "solicitud",
+   "en": "application"
+  },
+  {
+   "es": "contrato",
+   "en": "contract"
+  },
+  {
+   "es": "renuncia",
+   "en": "resignation"
+  },
+  {
+   "es": "despido",
+   "en": "dismissal"
+  },
+  {
+   "es": "jubilación",
+   "en": "retirement"
+  },
+  {
+   "es": "sindicato",
+   "en": "union"
+  },
+  {
+   "es": "huelga",
+   "en": "strike"
+  },
+  {
+   "es": "obligación",
+   "en": "obligation"
+  },
+  {
+   "es": "deber",
+   "en": "duty"
+  },
+  {
+   "es": "ciudadano",
+   "en": "citizen"
+  },
+  {
+   "es": "asamblea",
+   "en": "assembly"
+  },
+  {
+   "es": "campaña",
+   "en": "campaign"
+  },
+  {
+   "es": "partido",
+   "en": "party"
+  },
+  {
+   "es": "candidato",
+   "en": "candidate"
+  },
+  {
+   "es": "discurso",
+   "en": "speech"
+  },
+  {
+   "es": "protesta",
+   "en": "protest"
+  },
+  {
+   "es": "marcha",
+   "en": "march"
+  },
+  {
+   "es": "pancarta",
+   "en": "banner; placard"
+  },
+  {
+   "es": "himno",
+   "en": "anthem"
+  },
+  {
+   "es": "frontera",
+   "en": "border"
+  },
+  {
+   "es": "aduana",
+   "en": "customs"
+  },
+  {
+   "es": "pasaporte",
+   "en": "passport"
+  },
+  {
+   "es": "visa",
+   "en": "visa (travel document)"
+  },
+  {
+   "es": "embajada",
+   "en": "embassy"
+  },
+  {
+   "es": "trámite",
+   "en": "procedure"
+  },
+  {
+   "es": "formulario",
+   "en": "form"
+  },
+  {
+   "es": "firma",
+   "en": "signature"
+  },
+  {
+   "es": "notario",
+   "en": "notary"
+  },
+  {
+   "es": "juicio",
+   "en": "trial"
+  },
+  {
+   "es": "fiscal",
+   "en": "prosecutor"
+  },
+  {
+   "es": "demanda",
+   "en": "lawsuit"
+  },
+  {
+   "es": "evidencia",
+   "en": "evidence"
+  },
+  {
+   "es": "sentencia",
+   "en": "sentence"
+  },
+  {
+   "es": "multa",
+   "en": "fine"
+  },
+  {
+   "es": "delito",
+   "en": "crime"
+  },
+  {
+   "es": "robo",
+   "en": "robbery"
+  },
+  {
+   "es": "estafa",
+   "en": "scam"
+  },
+  {
+   "es": "soborno",
+   "en": "bribe"
+  },
+  {
+   "es": "cárcel",
+   "en": "jail"
+  }
+ ],
+ "freq-1000-1014": [
+  {
+   "es": "favor",
+   "en": "favor"
+  },
+  {
+   "es": "ver",
+   "en": "to see"
+  },
+  {
+   "es": "alguien",
+   "en": "someone"
+  },
+  {
+   "es": "cosas",
+   "en": "things"
+  },
+  {
+   "es": "ahí",
+   "en": "there"
+  },
+  {
+   "es": "uno",
+   "en": "one"
+  },
+  {
+   "es": "fuera",
+   "en": "outside; to be (subjunctive past)"
+  },
+  {
+   "es": "hijo",
+   "en": "son"
+  },
+  {
+   "es": "allí",
+   "en": "there"
+  },
+  {
+   "es": "amigo",
+   "en": "friend (masc.)"
+  },
+  {
+   "es": "nuestro",
+   "en": "our (masc.)"
+  },
+  {
+   "es": "mamá",
+   "en": "mom"
+  },
+  {
+   "es": "luego",
+   "en": "later; then"
+  },
+  {
+   "es": "buen",
+   "en": "good (before noun)"
+  },
+  {
+   "es": "conmigo",
+   "en": "with me"
+  },
+  {
+   "es": "nuestra",
+   "en": "our (fem.)"
+  },
+  {
+   "es": "mal",
+   "en": "bad"
+  },
+  {
+   "es": "realmente",
+   "en": "really"
+  },
+  {
+   "es": "aún",
+   "en": "still; yet"
+  },
+  {
+   "es": "mío",
+   "en": "mine (masc.)"
+  },
+  {
+   "es": "contigo",
+   "en": "with you"
+  },
+  {
+   "es": "alguna",
+   "en": "some; any (fem.)"
+  },
+  {
+   "es": "veces",
+   "en": "times"
+  },
+  {
+   "es": "serio",
+   "en": "serious"
+  },
+  {
+   "es": "demasiado",
+   "en": "too much"
+  },
+  {
+   "es": "amor",
+   "en": "love"
+  },
+  {
+   "es": "chica",
+   "en": "girl"
+  },
+  {
+   "es": "chicos",
+   "en": "boys; guys"
+  },
+  {
+   "es": "algún",
+   "en": "some; any (masc.)"
+  },
+  {
+   "es": "amigos",
+   "en": "friends (masc.)"
+  },
+  {
+   "es": "cariño",
+   "en": "darling; affection"
+  },
+  {
+   "es": "hombres",
+   "en": "men"
+  },
+  {
+   "es": "buenas",
+   "en": "good (fem. pl.)"
+  },
+  {
+   "es": "cualquier",
+   "en": "any"
+  },
+  {
+   "es": "genial",
+   "en": "great"
+  },
+  {
+   "es": "chico",
+   "en": "boy"
+  },
+  {
+   "es": "supuesto",
+   "en": "supposed; assumption"
+  },
+  {
+   "es": "quizá",
+   "en": "maybe"
+  },
+  {
+   "es": "ayuda",
+   "en": "help"
+  },
+  {
+   "es": "primero",
+   "en": "first"
+  },
+  {
+   "es": "quizás",
+   "en": "perhaps"
+  },
+  {
+   "es": "niños",
+   "en": "children; boys"
+  },
+  {
+   "es": "pronto",
+   "en": "soon"
+  },
+  {
+   "es": "tío",
+   "en": "uncle; guy"
+  },
+  {
+   "es": "siquiera",
+   "en": "even; at least"
+  },
+  {
+   "es": "feliz",
+   "en": "happy"
+  },
+  {
+   "es": "venir",
+   "en": "to come"
+  },
+  {
+   "es": "hija",
+   "en": "daughter"
+  },
+  {
+   "es": "minutos",
+   "en": "minutes"
+  },
+  {
+   "es": "cuánto",
+   "en": "how much; how many"
+  },
+  {
+   "es": "hey",
+   "en": "hey"
+  },
+  {
+   "es": "dejar",
+   "en": "to leave; to let"
+  },
+  {
+   "es": "problemas",
+   "en": "problems"
+  },
+  {
+   "es": "miedo",
+   "en": "fear"
+  },
+  {
+   "es": "jefe",
+   "en": "boss"
+  },
+  {
+   "es": "justo",
+   "en": "just; fair"
+  },
+  {
+   "es": "horas",
+   "en": "hours"
+  },
+  {
+   "es": "buenos",
+   "en": "good (masc. pl.)"
+  },
+  {
+   "es": "esposa",
+   "en": "wife"
+  },
+  {
+   "es": "manos",
+   "en": "hands"
+  },
+  {
+   "es": "nuestros",
+   "en": "our (masc. pl.)"
+  },
+  {
+   "es": "adelante",
+   "en": "forward; go ahead"
+  },
+  {
+   "es": "ninguna",
+   "en": "none; no (fem.)"
+  },
+  {
+   "es": "cara",
+   "en": "face"
+  },
+  {
+   "es": "cuidado",
+   "en": "careful; care"
+  },
+  {
+   "es": "noches",
+   "en": "nights"
+  },
+  {
+   "es": "bastante",
+   "en": "enough; quite"
+  },
+  {
+   "es": "fin",
+   "en": "end"
+  },
+  {
+   "es": "tomar",
+   "en": "to take; to drink"
+  },
+  {
+   "es": "incluso",
+   "en": "even"
+  },
+  {
+   "es": "doctor",
+   "en": "doctor"
+  },
+  {
+   "es": "difícil",
+   "en": "difficult"
+  },
+  {
+   "es": "coche",
+   "en": "car"
+  },
+  {
+   "es": "allá",
+   "en": "there"
+  },
+  {
+   "es": "pueda",
+   "en": "can (subjunctive)"
+  },
+  {
+   "es": "igual",
+   "en": "equal; same"
+  },
+  {
+   "es": "loco",
+   "en": "crazy"
+  },
+  {
+   "es": "mujeres",
+   "en": "women"
+  },
+  {
+   "es": "vuelta",
+   "en": "turn; return"
+  },
+  {
+   "es": "trabajar",
+   "en": "to work"
+  },
+  {
+   "es": "juego",
+   "en": "game"
+  },
+  {
+   "es": "teléfono",
+   "en": "telephone"
+  },
+  {
+   "es": "final",
+   "en": "final; end"
+  },
+  {
+   "es": "vete",
+   "en": "go away!"
+  },
+  {
+   "es": "auto",
+   "en": "car"
+  },
+  {
+   "es": "vivir",
+   "en": "to live"
+  },
+  {
+   "es": "meses",
+   "en": "months"
+  },
+  {
+   "es": "exactamente",
+   "en": "exactly"
+  },
+  {
+   "es": "culpa",
+   "en": "fault; blame"
+  },
+  {
+   "es": "pregunta",
+   "en": "question; he/she/it asks"
+  }
+ ],
+ "freq-1100-1114": [
+  {
+   "es": "niños",
+   "en": "children; boys"
+  },
+  {
+   "es": "pronto",
+   "en": "soon"
+  },
+  {
+   "es": "tío",
+   "en": "uncle; guy"
+  },
+  {
+   "es": "siquiera",
+   "en": "even; at least"
+  },
+  {
+   "es": "feliz",
+   "en": "happy"
+  },
+  {
+   "es": "venir",
+   "en": "to come"
+  },
+  {
+   "es": "hija",
+   "en": "daughter"
+  },
+  {
+   "es": "minutos",
+   "en": "minutes"
+  },
+  {
+   "es": "cuánto",
+   "en": "how much; how many"
+  },
+  {
+   "es": "hey",
+   "en": "hey"
+  },
+  {
+   "es": "dejar",
+   "en": "to leave; to let"
+  },
+  {
+   "es": "problemas",
+   "en": "problems"
+  },
+  {
+   "es": "miedo",
+   "en": "fear"
+  },
+  {
+   "es": "jefe",
+   "en": "boss"
+  },
+  {
+   "es": "justo",
+   "en": "just; fair"
+  },
+  {
+   "es": "horas",
+   "en": "hours"
+  },
+  {
+   "es": "buenos",
+   "en": "good (masc. pl.)"
+  },
+  {
+   "es": "esposa",
+   "en": "wife"
+  },
+  {
+   "es": "manos",
+   "en": "hands"
+  },
+  {
+   "es": "nuestros",
+   "en": "our (masc. pl.)"
+  },
+  {
+   "es": "adelante",
+   "en": "forward; go ahead"
+  },
+  {
+   "es": "ninguna",
+   "en": "none; no (fem.)"
+  },
+  {
+   "es": "cara",
+   "en": "face"
+  },
+  {
+   "es": "cuidado",
+   "en": "careful; care"
+  },
+  {
+   "es": "noches",
+   "en": "nights"
+  },
+  {
+   "es": "bastante",
+   "en": "enough; quite"
+  },
+  {
+   "es": "fin",
+   "en": "end"
+  },
+  {
+   "es": "tomar",
+   "en": "to take; to drink"
+  },
+  {
+   "es": "incluso",
+   "en": "even"
+  },
+  {
+   "es": "doctor",
+   "en": "doctor"
+  },
+  {
+   "es": "difícil",
+   "en": "difficult"
+  },
+  {
+   "es": "coche",
+   "en": "car"
+  },
+  {
+   "es": "allá",
+   "en": "there"
+  },
+  {
+   "es": "pueda",
+   "en": "can (subjunctive)"
+  },
+  {
+   "es": "igual",
+   "en": "equal; same"
+  },
+  {
+   "es": "loco",
+   "en": "crazy"
+  },
+  {
+   "es": "mujeres",
+   "en": "women"
+  },
+  {
+   "es": "vuelta",
+   "en": "turn; return"
+  },
+  {
+   "es": "trabajar",
+   "en": "to work"
+  },
+  {
+   "es": "juego",
+   "en": "game"
+  },
+  {
+   "es": "teléfono",
+   "en": "telephone"
+  },
+  {
+   "es": "final",
+   "en": "final; end"
+  },
+  {
+   "es": "vete",
+   "en": "go away!"
+  },
+  {
+   "es": "auto",
+   "en": "car"
+  },
+  {
+   "es": "vivir",
+   "en": "to live"
+  },
+  {
+   "es": "meses",
+   "en": "months"
+  },
+  {
+   "es": "exactamente",
+   "en": "exactly"
+  },
+  {
+   "es": "culpa",
+   "en": "fault; blame"
+  },
+  {
+   "es": "pregunta",
+   "en": "question; he/she/it asks"
+  },
+  {
+   "es": "chicas",
+   "en": "girls"
+  },
+  {
+   "es": "malo",
+   "en": "bad"
+  },
+  {
+   "es": "capitán",
+   "en": "captain"
+  },
+  {
+   "es": "bebé",
+   "en": "baby"
+  },
+  {
+   "es": "mayor",
+   "en": "older; mayor"
+  },
+  {
+   "es": "morir",
+   "en": "to die"
+  },
+  {
+   "es": "fácil",
+   "en": "easy"
+  },
+  {
+   "es": "lista",
+   "en": "list; ready (fem.)"
+  },
+  {
+   "es": "hijos",
+   "en": "children; sons"
+  },
+  {
+   "es": "probablemente",
+   "en": "probably"
+  },
+  {
+   "es": "padres",
+   "en": "parents"
+  },
+  {
+   "es": "trata",
+   "en": "tries; treat"
+  },
+  {
+   "es": "tampoco",
+   "en": "neither; either"
+  },
+  {
+   "es": "sola",
+   "en": "alone (fem.)"
+  },
+  {
+   "es": "par",
+   "en": "pair; couple"
+  },
+  {
+   "es": "única",
+   "en": "only; unique (fem.)"
+  },
+  {
+   "es": "simplemente",
+   "en": "simply"
+  },
+  {
+   "es": "sentido",
+   "en": "sense; meaning"
+  },
+  {
+   "es": "segura",
+   "en": "sure; safe (fem.)"
+  },
+  {
+   "es": "pequeña",
+   "en": "small (fem.)"
+  },
+  {
+   "es": "dólares",
+   "en": "dollars"
+  },
+  {
+   "es": "seis",
+   "en": "six"
+  },
+  {
+   "es": "palabra",
+   "en": "word"
+  },
+  {
+   "es": "queda",
+   "en": "remains; stays"
+  },
+  {
+   "es": "oficina",
+   "en": "office"
+  },
+  {
+   "es": "además",
+   "en": "besides; moreover"
+  },
+  {
+   "es": "oído",
+   "en": "ear; heard"
+  },
+  {
+   "es": "habría",
+   "en": "there would be"
+  },
+  {
+   "es": "recuerdo",
+   "en": "memory; I remember"
+  },
+  {
+   "es": "acerca",
+   "en": "about"
+  },
+  {
+   "es": "correcto",
+   "en": "correct; right"
+  },
+  {
+   "es": "demonios",
+   "en": "damn; devils"
+  },
+  {
+   "es": "nuestras",
+   "en": "our (fem. pl.)"
+  },
+  {
+   "es": "dormir",
+   "en": "to sleep"
+  },
+  {
+   "es": "marido",
+   "en": "husband"
+  },
+  {
+   "es": "peor",
+   "en": "worse"
+  },
+  {
+   "es": "vivo",
+   "en": "alive; I live"
+  },
+  {
+   "es": "venido",
+   "en": "come (past participle)"
+  },
+  {
+   "es": "basta",
+   "en": "enough"
+  },
+  {
+   "es": "minuto",
+   "en": "minute"
+  },
+  {
+   "es": "mucha",
+   "en": "much; many (fem.)"
+  }
+ ],
+ "freq-1200-1214": [
+  {
+   "es": "hijos",
+   "en": "children; sons"
+  },
+  {
+   "es": "probablemente",
+   "en": "probably"
+  },
+  {
+   "es": "padres",
+   "en": "parents"
+  },
+  {
+   "es": "trata",
+   "en": "tries; treat"
+  },
+  {
+   "es": "tampoco",
+   "en": "neither; either"
+  },
+  {
+   "es": "sola",
+   "en": "alone (fem.)"
+  },
+  {
+   "es": "par",
+   "en": "pair; couple"
+  },
+  {
+   "es": "única",
+   "en": "only; unique (fem.)"
+  },
+  {
+   "es": "simplemente",
+   "en": "simply"
+  },
+  {
+   "es": "sentido",
+   "en": "sense; meaning"
+  },
+  {
+   "es": "segura",
+   "en": "sure; safe (fem.)"
+  },
+  {
+   "es": "pequeña",
+   "en": "small (fem.)"
+  },
+  {
+   "es": "dólares",
+   "en": "dollars"
+  },
+  {
+   "es": "seis",
+   "en": "six"
+  },
+  {
+   "es": "palabra",
+   "en": "word"
+  },
+  {
+   "es": "queda",
+   "en": "remains; stays"
+  },
+  {
+   "es": "oficina",
+   "en": "office"
+  },
+  {
+   "es": "además",
+   "en": "besides; moreover"
+  },
+  {
+   "es": "oído",
+   "en": "ear; heard"
+  },
+  {
+   "es": "habría",
+   "en": "there would be"
+  },
+  {
+   "es": "recuerdo",
+   "en": "memory; I remember"
+  },
+  {
+   "es": "acerca",
+   "en": "about"
+  },
+  {
+   "es": "correcto",
+   "en": "correct; right"
+  },
+  {
+   "es": "demonios",
+   "en": "damn; devils"
+  },
+  {
+   "es": "nuestras",
+   "en": "our (fem. pl.)"
+  },
+  {
+   "es": "dormir",
+   "en": "to sleep"
+  },
+  {
+   "es": "marido",
+   "en": "husband"
+  },
+  {
+   "es": "peor",
+   "en": "worse"
+  },
+  {
+   "es": "vivo",
+   "en": "alive; I live"
+  },
+  {
+   "es": "venido",
+   "en": "come (past participle)"
+  },
+  {
+   "es": "basta",
+   "en": "enough"
+  },
+  {
+   "es": "minuto",
+   "en": "minute"
+  },
+  {
+   "es": "mucha",
+   "en": "much; many (fem.)"
+  },
+  {
+   "es": "perdido",
+   "en": "lost"
+  },
+  {
+   "es": "señorita",
+   "en": "miss"
+  },
+  {
+   "es": "diez",
+   "en": "ten"
+  },
+  {
+   "es": "grandes",
+   "en": "big; great (pl.)"
+  },
+  {
+   "es": "otras",
+   "en": "others (fem. pl.)"
+  },
+  {
+   "es": "poner",
+   "en": "to put"
+  },
+  {
+   "es": "increíble",
+   "en": "incredible"
+  },
+  {
+   "es": "real",
+   "en": "real"
+  },
+  {
+   "es": "libro",
+   "en": "book"
+  },
+  {
+   "es": "orden",
+   "en": "order"
+  },
+  {
+   "es": "semanas",
+   "en": "weeks"
+  },
+  {
+   "es": "especial",
+   "en": "special"
+  },
+  {
+   "es": "mía",
+   "en": "mine (fem.)"
+  },
+  {
+   "es": "café",
+   "en": "coffee"
+  },
+  {
+   "es": "duro",
+   "en": "hard"
+  },
+  {
+   "es": "empezar",
+   "en": "to start"
+  },
+  {
+   "es": "puesto",
+   "en": "position; put"
+  },
+  {
+   "es": "detrás",
+   "en": "behind"
+  },
+  {
+   "es": "cuarto",
+   "en": "room; fourth"
+  },
+  {
+   "es": "querida",
+   "en": "dear (fem.)"
+  },
+  {
+   "es": "preguntas",
+   "en": "questions"
+  },
+  {
+   "es": "querido",
+   "en": "dear (masc.)"
+  },
+  {
+   "es": "buscar",
+   "en": "to look for"
+  },
+  {
+   "es": "película",
+   "en": "movie"
+  },
+  {
+   "es": "millones",
+   "en": "millions"
+  },
+  {
+   "es": "habrá",
+   "en": "there will be"
+  },
+  {
+   "es": "llamada",
+   "en": "call"
+  },
+  {
+   "es": "resto",
+   "en": "rest; remainder"
+  },
+  {
+   "es": "extraño",
+   "en": "strange; I miss"
+  },
+  {
+   "es": "mala",
+   "en": "bad (fem.)"
+  },
+  {
+   "es": "raro",
+   "en": "strange; rare"
+  },
+  {
+   "es": "trato",
+   "en": "deal; I try"
+  },
+  {
+   "es": "usar",
+   "en": "to use"
+  },
+  {
+   "es": "perfecto",
+   "en": "perfect"
+  },
+  {
+   "es": "modo",
+   "en": "way; mode"
+  },
+  {
+   "es": "noticias",
+   "en": "news"
+  },
+  {
+   "es": "odio",
+   "en": "hate"
+  },
+  {
+   "es": "sexo",
+   "en": "sex"
+  },
+  {
+   "es": "divertido",
+   "en": "fun; funny"
+  },
+  {
+   "es": "armas",
+   "en": "weapons"
+  },
+  {
+   "es": "amiga",
+   "en": "friend (fem.)"
+  },
+  {
+   "es": "mensaje",
+   "en": "message"
+  },
+  {
+   "es": "daño",
+   "en": "damage; harm"
+  },
+  {
+   "es": "cambiar",
+   "en": "to change"
+  },
+  {
+   "es": "the",
+   "en": "the (English)"
+  },
+  {
+   "es": "jamás",
+   "en": "never"
+  },
+  {
+   "es": "pena",
+   "en": "pity; sorrow"
+  },
+  {
+   "es": "futuro",
+   "en": "future"
+  },
+  {
+   "es": "secreto",
+   "en": "secret"
+  },
+  {
+   "es": "mil",
+   "en": "thousand"
+  },
+  {
+   "es": "novia",
+   "en": "girlfriend; bride"
+  },
+  {
+   "es": "propia",
+   "en": "own (fem.)"
+  },
+  {
+   "es": "sueño",
+   "en": "dream"
+  },
+  {
+   "es": "haz",
+   "en": "do (imperative)"
+  },
+  {
+   "es": "ambos",
+   "en": "both"
+  },
+  {
+   "es": "vuelto",
+   "en": "returned"
+  },
+  {
+   "es": "dile",
+   "en": "tell him/her"
+  }
+ ],
+ "freq-1300-1314": [
+  {
+   "es": "película",
+   "en": "movie"
+  },
+  {
+   "es": "millones",
+   "en": "millions"
+  },
+  {
+   "es": "habrá",
+   "en": "there will be"
+  },
+  {
+   "es": "llamada",
+   "en": "call"
+  },
+  {
+   "es": "resto",
+   "en": "rest; remainder"
+  },
+  {
+   "es": "extraño",
+   "en": "strange; I miss"
+  },
+  {
+   "es": "mala",
+   "en": "bad (fem.)"
+  },
+  {
+   "es": "raro",
+   "en": "strange; rare"
+  },
+  {
+   "es": "trato",
+   "en": "deal; I try"
+  },
+  {
+   "es": "usar",
+   "en": "to use"
+  },
+  {
+   "es": "perfecto",
+   "en": "perfect"
+  },
+  {
+   "es": "modo",
+   "en": "way; mode"
+  },
+  {
+   "es": "noticias",
+   "en": "news"
+  },
+  {
+   "es": "odio",
+   "en": "hate"
+  },
+  {
+   "es": "sexo",
+   "en": "sex"
+  },
+  {
+   "es": "divertido",
+   "en": "fun; funny"
+  },
+  {
+   "es": "armas",
+   "en": "weapons"
+  },
+  {
+   "es": "amiga",
+   "en": "friend (fem.)"
+  },
+  {
+   "es": "mensaje",
+   "en": "message"
+  },
+  {
+   "es": "daño",
+   "en": "damage; harm"
+  },
+  {
+   "es": "cambiar",
+   "en": "to change"
+  },
+  {
+   "es": "the",
+   "en": "the (English)"
+  },
+  {
+   "es": "jamás",
+   "en": "never"
+  },
+  {
+   "es": "pena",
+   "en": "pity; sorrow"
+  },
+  {
+   "es": "futuro",
+   "en": "future"
+  },
+  {
+   "es": "secreto",
+   "en": "secret"
+  },
+  {
+   "es": "mil",
+   "en": "thousand"
+  },
+  {
+   "es": "novia",
+   "en": "girlfriend; bride"
+  },
+  {
+   "es": "propia",
+   "en": "own (fem.)"
+  },
+  {
+   "es": "sueño",
+   "en": "dream"
+  },
+  {
+   "es": "haz",
+   "en": "do (imperative)"
+  },
+  {
+   "es": "ambos",
+   "en": "both"
+  },
+  {
+   "es": "vuelto",
+   "en": "returned"
+  },
+  {
+   "es": "dile",
+   "en": "tell him/her"
+  },
+  {
+   "es": "pie",
+   "en": "foot"
+  },
+  {
+   "es": "ganar",
+   "en": "to win"
+  },
+  {
+   "es": "aire",
+   "en": "air"
+  },
+  {
+   "es": "lamento",
+   "en": "sorry; regret"
+  },
+  {
+   "es": "adónde",
+   "en": "where to"
+  },
+  {
+   "es": "disculpe",
+   "en": "excuse me"
+  },
+  {
+   "es": "cita",
+   "en": "appointment; date"
+  },
+  {
+   "es": "gusto",
+   "en": "taste; pleasure"
+  },
+  {
+   "es": "tuyo",
+   "en": "yours (masc.)"
+  },
+  {
+   "es": "tras",
+   "en": "after; behind"
+  },
+  {
+   "es": "hotel",
+   "en": "hotel"
+  },
+  {
+   "es": "foto",
+   "en": "photo"
+  },
+  {
+   "es": "loca",
+   "en": "crazy (fem.)"
+  },
+  {
+   "es": "alrededor",
+   "en": "around"
+  },
+  {
+   "es": "próxima",
+   "en": "next (fem.)"
+  },
+  {
+   "es": "mitad",
+   "en": "half"
+  },
+  {
+   "es": "quiera",
+   "en": "wants; may want"
+  },
+  {
+   "es": "compañía",
+   "en": "company"
+  },
+  {
+   "es": "montón",
+   "en": "pile; lot"
+  },
+  {
+   "es": "mejores",
+   "en": "better; best (pl.)"
+  },
+  {
+   "es": "través",
+   "en": "through"
+  },
+  {
+   "es": "bonito",
+   "en": "pretty"
+  },
+  {
+   "es": "vista",
+   "en": "view; sight"
+  },
+  {
+   "es": "línea",
+   "en": "line"
+  },
+  {
+   "es": "caballeros",
+   "en": "gentlemen"
+  },
+  {
+   "es": "quédate",
+   "en": "stay (command)"
+  },
+  {
+   "es": "comprar",
+   "en": "to buy"
+  },
+  {
+   "es": "salvo",
+   "en": "except; safe"
+  },
+  {
+   "es": "mes",
+   "en": "month"
+  },
+  {
+   "es": "completamente",
+   "en": "completely"
+  },
+  {
+   "es": "totalmente",
+   "en": "totally"
+  },
+  {
+   "es": "imposible",
+   "en": "impossible"
+  },
+  {
+   "es": "pruebas",
+   "en": "tests; evidence"
+  },
+  {
+   "es": "novio",
+   "en": "boyfriend; groom"
+  },
+  {
+   "es": "normal",
+   "en": "normal"
+  },
+  {
+   "es": "traje",
+   "en": "suit; I brought"
+  },
+  {
+   "es": "siete",
+   "en": "seven"
+  },
+  {
+   "es": "placer",
+   "en": "pleasure"
+  },
+  {
+   "es": "profesor",
+   "en": "teacher"
+  },
+  {
+   "es": "muchacho",
+   "en": "boy"
+  },
+  {
+   "es": "cumpleaños",
+   "en": "birthday"
+  },
+  {
+   "es": "muchachos",
+   "en": "boys; guys"
+  },
+  {
+   "es": "culo",
+   "en": "ass"
+  },
+  {
+   "es": "hermosa",
+   "en": "beautiful (fem.)"
+  },
+  {
+   "es": "universidad",
+   "en": "university"
+  },
+  {
+   "es": "boda",
+   "en": "wedding"
+  },
+  {
+   "es": "cualquiera",
+   "en": "anyone; whichever"
+  },
+  {
+   "es": "sala",
+   "en": "room; living room"
+  },
+  {
+   "es": "decisión",
+   "en": "decision"
+  },
+  {
+   "es": "don",
+   "en": "Mr.; gift"
+  },
+  {
+   "es": "prisa",
+   "en": "hurry"
+  },
+  {
+   "es": "interesante",
+   "en": "interesting"
+  },
+  {
+   "es": "escuchar",
+   "en": "to listen"
+  },
+  {
+   "es": "abuela",
+   "en": "grandmother"
+  },
+  {
+   "es": "detective",
+   "en": "detective"
+  },
+  {
+   "es": "horrible",
+   "en": "horrible"
+  }
+ ],
+ "freq-1400-1414": [
+  {
+   "es": "mitad",
+   "en": "half"
+  },
+  {
+   "es": "quiera",
+   "en": "wants; may want"
+  },
+  {
+   "es": "compañía",
+   "en": "company"
+  },
+  {
+   "es": "montón",
+   "en": "pile; lot"
+  },
+  {
+   "es": "mejores",
+   "en": "better; best (pl.)"
+  },
+  {
+   "es": "través",
+   "en": "through"
+  },
+  {
+   "es": "bonito",
+   "en": "pretty"
+  },
+  {
+   "es": "vista",
+   "en": "view; sight"
+  },
+  {
+   "es": "línea",
+   "en": "line"
+  },
+  {
+   "es": "caballeros",
+   "en": "gentlemen"
+  },
+  {
+   "es": "quédate",
+   "en": "stay (command)"
+  },
+  {
+   "es": "comprar",
+   "en": "to buy"
+  },
+  {
+   "es": "salvo",
+   "en": "except; safe"
+  },
+  {
+   "es": "mes",
+   "en": "month"
+  },
+  {
+   "es": "completamente",
+   "en": "completely"
+  },
+  {
+   "es": "totalmente",
+   "en": "totally"
+  },
+  {
+   "es": "imposible",
+   "en": "impossible"
+  },
+  {
+   "es": "pruebas",
+   "en": "tests; evidence"
+  },
+  {
+   "es": "novio",
+   "en": "boyfriend; groom"
+  },
+  {
+   "es": "normal",
+   "en": "normal"
+  },
+  {
+   "es": "traje",
+   "en": "suit; I brought"
+  },
+  {
+   "es": "siete",
+   "en": "seven"
+  },
+  {
+   "es": "placer",
+   "en": "pleasure"
+  },
+  {
+   "es": "profesor",
+   "en": "teacher"
+  },
+  {
+   "es": "muchacho",
+   "en": "boy"
+  },
+  {
+   "es": "cumpleaños",
+   "en": "birthday"
+  },
+  {
+   "es": "muchachos",
+   "en": "boys; guys"
+  },
+  {
+   "es": "culo",
+   "en": "ass"
+  },
+  {
+   "es": "hermosa",
+   "en": "beautiful (fem.)"
+  },
+  {
+   "es": "universidad",
+   "en": "university"
+  },
+  {
+   "es": "boda",
+   "en": "wedding"
+  },
+  {
+   "es": "cualquiera",
+   "en": "anyone; whichever"
+  },
+  {
+   "es": "sala",
+   "en": "room; living room"
+  },
+  {
+   "es": "decisión",
+   "en": "decision"
+  },
+  {
+   "es": "don",
+   "en": "Mr.; gift"
+  },
+  {
+   "es": "prisa",
+   "en": "hurry"
+  },
+  {
+   "es": "interesante",
+   "en": "interesting"
+  },
+  {
+   "es": "escuchar",
+   "en": "to listen"
+  },
+  {
+   "es": "abuela",
+   "en": "grandmother"
+  },
+  {
+   "es": "detective",
+   "en": "detective"
+  },
+  {
+   "es": "horrible",
+   "en": "horrible"
+  },
+  {
+   "es": "fotos",
+   "en": "photos"
+  },
+  {
+   "es": "acá",
+   "en": "here"
+  },
+  {
+   "es": "maldición",
+   "en": "damn; curse"
+  },
+  {
+   "es": "club",
+   "en": "club"
+  },
+  {
+   "es": "terminar",
+   "en": "to finish"
+  },
+  {
+   "es": "media",
+   "en": "half; stocking"
+  },
+  {
+   "es": "terrible",
+   "en": "terrible"
+  },
+  {
+   "es": "regalo",
+   "en": "gift"
+  },
+  {
+   "es": "amable",
+   "en": "kind"
+  },
+  {
+   "es": "muertos",
+   "en": "dead (pl.)"
+  },
+  {
+   "es": "ataque",
+   "en": "attack"
+  },
+  {
+   "es": "navidad",
+   "en": "Christmas"
+  },
+  {
+   "es": "negocios",
+   "en": "business"
+  },
+  {
+   "es": "ocho",
+   "en": "eight"
+  },
+  {
+   "es": "partes",
+   "en": "parts"
+  },
+  {
+   "es": "ten",
+   "en": "have (command)"
+  },
+  {
+   "es": "gracioso",
+   "en": "funny"
+  },
+  {
+   "es": "delante",
+   "en": "in front"
+  },
+  {
+   "es": "teniente",
+   "en": "lieutenant"
+  },
+  {
+   "es": "deseo",
+   "en": "wish; desire"
+  },
+  {
+   "es": "nave",
+   "en": "ship; spacecraft"
+  },
+  {
+   "es": "contacto",
+   "en": "contact"
+  },
+  {
+   "es": "esposo",
+   "en": "husband"
+  },
+  {
+   "es": "dale",
+   "en": "give it; go ahead"
+  },
+  {
+   "es": "verdadero",
+   "en": "true"
+  },
+  {
+   "es": "tuya",
+   "en": "yours (fem.)"
+  },
+  {
+   "es": "alma",
+   "en": "soul"
+  },
+  {
+   "es": "hazlo",
+   "en": "do it (command)"
+  },
+  {
+   "es": "junto",
+   "en": "together"
+  },
+  {
+   "es": "matrimonio",
+   "en": "marriage"
+  },
+  {
+   "es": "locura",
+   "en": "madness"
+  },
+  {
+   "es": "libertad",
+   "en": "freedom"
+  },
+  {
+   "es": "baja",
+   "en": "low; leave (command)"
+  },
+  {
+   "es": "pies",
+   "en": "feet"
+  },
+  {
+   "es": "segunda",
+   "en": "second (fem.)"
+  },
+  {
+   "es": "maravilloso",
+   "en": "wonderful"
+  },
+  {
+   "es": "rato",
+   "en": "while; moment"
+  },
+  {
+   "es": "abuelo",
+   "en": "grandfather"
+  },
+  {
+   "es": "salud",
+   "en": "health; cheers"
+  },
+  {
+   "es": "sorpresa",
+   "en": "surprise"
+  },
+  {
+   "es": "ninguno",
+   "en": "none"
+  },
+  {
+   "es": "tipos",
+   "en": "types; guys"
+  },
+  {
+   "es": "tía",
+   "en": "aunt"
+  },
+  {
+   "es": "crimen",
+   "en": "crime"
+  },
+  {
+   "es": "consejo",
+   "en": "advice; council"
+  },
+  {
+   "es": "intento",
+   "en": "attempt"
+  },
+  {
+   "es": "mayoría",
+   "en": "majority"
+  },
+  {
+   "es": "escena",
+   "en": "scene"
+  },
+  {
+   "es": "honor",
+   "en": "honor"
+  }
+ ],
+ "freq-1500-1514": [
+  {
+   "es": "muertos",
+   "en": "dead (pl.)"
+  },
+  {
+   "es": "ataque",
+   "en": "attack"
+  },
+  {
+   "es": "navidad",
+   "en": "Christmas"
+  },
+  {
+   "es": "negocios",
+   "en": "business"
+  },
+  {
+   "es": "ocho",
+   "en": "eight"
+  },
+  {
+   "es": "partes",
+   "en": "parts"
+  },
+  {
+   "es": "ten",
+   "en": "have (command)"
+  },
+  {
+   "es": "gracioso",
+   "en": "funny"
+  },
+  {
+   "es": "delante",
+   "en": "in front"
+  },
+  {
+   "es": "teniente",
+   "en": "lieutenant"
+  },
+  {
+   "es": "deseo",
+   "en": "wish; desire"
+  },
+  {
+   "es": "nave",
+   "en": "ship; spacecraft"
+  },
+  {
+   "es": "contacto",
+   "en": "contact"
+  },
+  {
+   "es": "esposo",
+   "en": "husband"
+  },
+  {
+   "es": "dale",
+   "en": "give it; go ahead"
+  },
+  {
+   "es": "verdadero",
+   "en": "true"
+  },
+  {
+   "es": "tuya",
+   "en": "yours (fem.)"
+  },
+  {
+   "es": "alma",
+   "en": "soul"
+  },
+  {
+   "es": "hazlo",
+   "en": "do it (command)"
+  },
+  {
+   "es": "junto",
+   "en": "together"
+  },
+  {
+   "es": "matrimonio",
+   "en": "marriage"
+  },
+  {
+   "es": "locura",
+   "en": "madness"
+  },
+  {
+   "es": "libertad",
+   "en": "freedom"
+  },
+  {
+   "es": "baja",
+   "en": "low; leave (command)"
+  },
+  {
+   "es": "pies",
+   "en": "feet"
+  },
+  {
+   "es": "segunda",
+   "en": "second (fem.)"
+  },
+  {
+   "es": "maravilloso",
+   "en": "wonderful"
+  },
+  {
+   "es": "rato",
+   "en": "while; moment"
+  },
+  {
+   "es": "abuelo",
+   "en": "grandfather"
+  },
+  {
+   "es": "salud",
+   "en": "health; cheers"
+  },
+  {
+   "es": "sorpresa",
+   "en": "surprise"
+  },
+  {
+   "es": "ninguno",
+   "en": "none"
+  },
+  {
+   "es": "tipos",
+   "en": "types; guys"
+  },
+  {
+   "es": "tía",
+   "en": "aunt"
+  },
+  {
+   "es": "crimen",
+   "en": "crime"
+  },
+  {
+   "es": "consejo",
+   "en": "advice; council"
+  },
+  {
+   "es": "intento",
+   "en": "attempt"
+  },
+  {
+   "es": "mayoría",
+   "en": "majority"
+  },
+  {
+   "es": "escena",
+   "en": "scene"
+  },
+  {
+   "es": "honor",
+   "en": "honor"
+  },
+  {
+   "es": "vieja",
+   "en": "old (fem.); old woman"
+  },
+  {
+   "es": "vidas",
+   "en": "lives"
+  },
+  {
+   "es": "bar",
+   "en": "bar"
+  },
+  {
+   "es": "drogas",
+   "en": "drugs"
+  },
+  {
+   "es": "enseguida",
+   "en": "right away"
+  },
+  {
+   "es": "agradable",
+   "en": "pleasant"
+  },
+  {
+   "es": "duda",
+   "en": "doubt"
+  },
+  {
+   "es": "energía",
+   "en": "energy"
+  },
+  {
+   "es": "misión",
+   "en": "mission"
+  },
+  {
+   "es": "listos",
+   "en": "ready (pl.)"
+  },
+  {
+   "es": "izquierda",
+   "en": "left"
+  },
+  {
+   "es": "beber",
+   "en": "to drink"
+  },
+  {
+   "es": "finalmente",
+   "en": "finally"
+  },
+  {
+   "es": "simple",
+   "en": "simple"
+  },
+  {
+   "es": "regresar",
+   "en": "to return"
+  },
+  {
+   "es": "mirar",
+   "en": "to look"
+  },
+  {
+   "es": "hermoso",
+   "en": "beautiful"
+  },
+  {
+   "es": "linda",
+   "en": "pretty"
+  },
+  {
+   "es": "segundos",
+   "en": "seconds"
+  },
+  {
+   "es": "oír",
+   "en": "to hear"
+  },
+  {
+   "es": "cuántos",
+   "en": "how many"
+  },
+  {
+   "es": "tema",
+   "en": "topic; theme"
+  },
+  {
+   "es": "prisión",
+   "en": "prison"
+  },
+  {
+   "es": "salvar",
+   "en": "to save"
+  },
+  {
+   "es": "bonita",
+   "en": "pretty"
+  },
+  {
+   "es": "causa",
+   "en": "cause"
+  },
+  {
+   "es": "sargento",
+   "en": "sergeant"
+  },
+  {
+   "es": "cenar",
+   "en": "to have dinner"
+  },
+  {
+   "es": "compañero",
+   "en": "companion; partner"
+  },
+  {
+   "es": "solía",
+   "en": "used to"
+  },
+  {
+   "es": "encuentro",
+   "en": "meeting; I find"
+  },
+  {
+   "es": "pelea",
+   "en": "fight"
+  },
+  {
+   "es": "san",
+   "en": "Saint (title)"
+  },
+  {
+   "es": "coronel",
+   "en": "colonel"
+  },
+  {
+   "es": "apuesto",
+   "en": "handsome; I bet"
+  },
+  {
+   "es": "viva",
+   "en": "alive; long live"
+  },
+  {
+   "es": "excepto",
+   "en": "except"
+  },
+  {
+   "es": "posición",
+   "en": "position"
+  },
+  {
+   "es": "trasero",
+   "en": "rear; butt"
+  },
+  {
+   "es": "excelente",
+   "en": "excellent"
+  },
+  {
+   "es": "modos",
+   "en": "ways; manners"
+  },
+  {
+   "es": "diferencia",
+   "en": "difference"
+  },
+  {
+   "es": "formas",
+   "en": "forms; ways"
+  },
+  {
+   "es": "últimos",
+   "en": "last; latest"
+  },
+  {
+   "es": "radio",
+   "en": "radio"
+  },
+  {
+   "es": "calma",
+   "en": "calm"
+  },
+  {
+   "es": "hogar",
+   "en": "home"
+  },
+  {
+   "es": "unidos",
+   "en": "united"
+  },
+  {
+   "es": "planeta",
+   "en": "planet"
+  },
+  {
+   "es": "respecto",
+   "en": "regarding"
+  }
+ ],
+ "freq-1600-1614": [
+  {
+   "es": "mirar",
+   "en": "to look"
+  },
+  {
+   "es": "hermoso",
+   "en": "beautiful"
+  },
+  {
+   "es": "linda",
+   "en": "pretty"
+  },
+  {
+   "es": "segundos",
+   "en": "seconds"
+  },
+  {
+   "es": "oír",
+   "en": "to hear"
+  },
+  {
+   "es": "cuántos",
+   "en": "how many"
+  },
+  {
+   "es": "tema",
+   "en": "topic; theme"
+  },
+  {
+   "es": "prisión",
+   "en": "prison"
+  },
+  {
+   "es": "salvar",
+   "en": "to save"
+  },
+  {
+   "es": "bonita",
+   "en": "pretty"
+  },
+  {
+   "es": "causa",
+   "en": "cause"
+  },
+  {
+   "es": "sargento",
+   "en": "sergeant"
+  },
+  {
+   "es": "cenar",
+   "en": "to have dinner"
+  },
+  {
+   "es": "compañero",
+   "en": "companion; partner"
+  },
+  {
+   "es": "solía",
+   "en": "used to"
+  },
+  {
+   "es": "encuentro",
+   "en": "meeting; I find"
+  },
+  {
+   "es": "pelea",
+   "en": "fight"
+  },
+  {
+   "es": "san",
+   "en": "Saint (title)"
+  },
+  {
+   "es": "coronel",
+   "en": "colonel"
+  },
+  {
+   "es": "apuesto",
+   "en": "handsome; I bet"
+  },
+  {
+   "es": "viva",
+   "en": "alive; long live"
+  },
+  {
+   "es": "excepto",
+   "en": "except"
+  },
+  {
+   "es": "posición",
+   "en": "position"
+  },
+  {
+   "es": "trasero",
+   "en": "rear; butt"
+  },
+  {
+   "es": "excelente",
+   "en": "excellent"
+  },
+  {
+   "es": "modos",
+   "en": "ways; manners"
+  },
+  {
+   "es": "diferencia",
+   "en": "difference"
+  },
+  {
+   "es": "formas",
+   "en": "forms; ways"
+  },
+  {
+   "es": "últimos",
+   "en": "last; latest"
+  },
+  {
+   "es": "radio",
+   "en": "radio"
+  },
+  {
+   "es": "calma",
+   "en": "calm"
+  },
+  {
+   "es": "hogar",
+   "en": "home"
+  },
+  {
+   "es": "unidos",
+   "en": "united"
+  },
+  {
+   "es": "planeta",
+   "en": "planet"
+  },
+  {
+   "es": "respecto",
+   "en": "regarding"
+  },
+  {
+   "es": "regreso",
+   "en": "return"
+  },
+  {
+   "es": "debido",
+   "en": "due"
+  },
+  {
+   "es": "parar",
+   "en": "to stop"
+  },
+  {
+   "es": "respeto",
+   "en": "respect"
+  },
+  {
+   "es": "debajo",
+   "en": "under; below"
+  },
+  {
+   "es": "estación",
+   "en": "station; season"
+  },
+  {
+   "es": "alta",
+   "en": "high; tall; discharge (fem.)"
+  },
+  {
+   "es": "pista",
+   "en": "track; clue"
+  },
+  {
+   "es": "sueños",
+   "en": "dreams"
+  },
+  {
+   "es": "miles",
+   "en": "thousands"
+  },
+  {
+   "es": "órdenes",
+   "en": "orders"
+  },
+  {
+   "es": "podido",
+   "en": "been able"
+  },
+  {
+   "es": "confiar",
+   "en": "to trust"
+  },
+  {
+   "es": "hermanos",
+   "en": "brothers; siblings"
+  },
+  {
+   "es": "zapatos",
+   "en": "shoes"
+  },
+  {
+   "es": "vistazo",
+   "en": "glance"
+  },
+  {
+   "es": "parecer",
+   "en": "to seem"
+  },
+  {
+   "es": "próximo",
+   "en": "next"
+  },
+  {
+   "es": "paciente",
+   "en": "patient"
+  },
+  {
+   "es": "arte",
+   "en": "art"
+  },
+  {
+   "es": "bailar",
+   "en": "to dance"
+  },
+  {
+   "es": "sur",
+   "en": "south"
+  },
+  {
+   "es": "banda",
+   "en": "band; gang"
+  },
+  {
+   "es": "aprender",
+   "en": "to learn"
+  },
+  {
+   "es": "completo",
+   "en": "complete"
+  },
+  {
+   "es": "santo",
+   "en": "saint"
+  },
+  {
+   "es": "culpable",
+   "en": "guilty"
+  },
+  {
+   "es": "ganas",
+   "en": "desire; you win"
+  },
+  {
+   "es": "libros",
+   "en": "books"
+  },
+  {
+   "es": "azul",
+   "en": "blue"
+  },
+  {
+   "es": "diferentes",
+   "en": "different"
+  },
+  {
+   "es": "comandante",
+   "en": "commander"
+  },
+  {
+   "es": "reglas",
+   "en": "rules"
+  },
+  {
+   "es": "esperanza",
+   "en": "hope"
+  },
+  {
+   "es": "cuestión",
+   "en": "matter; question"
+  },
+  {
+   "es": "molesta",
+   "en": "annoyed; he/she bothers"
+  },
+  {
+   "es": "informe",
+   "en": "report"
+  },
+  {
+   "es": "bienvenido",
+   "en": "welcome"
+  },
+  {
+   "es": "abrir",
+   "en": "to open"
+  },
+  {
+   "es": "contar",
+   "en": "to tell; to count"
+  },
+  {
+   "es": "apartamento",
+   "en": "apartment"
+  },
+  {
+   "es": "estados",
+   "en": "states"
+  },
+  {
+   "es": "principal",
+   "en": "main; principal"
+  },
+  {
+   "es": "ojalá",
+   "en": "hopefully"
+  },
+  {
+   "es": "estilo",
+   "en": "style"
+  },
+  {
+   "es": "nueve",
+   "en": "nine"
+  },
+  {
+   "es": "definitivamente",
+   "en": "definitely"
+  },
+  {
+   "es": "quedar",
+   "en": "to stay; to remain"
+  },
+  {
+   "es": "cartas",
+   "en": "letters; cards"
+  },
+  {
+   "es": "bomba",
+   "en": "bomb"
+  },
+  {
+   "es": "guardia",
+   "en": "guard"
+  },
+  {
+   "es": "probar",
+   "en": "to try; to test"
+  },
+  {
+   "es": "majestad",
+   "en": "majesty"
+  },
+  {
+   "es": "traer",
+   "en": "to bring"
+  },
+  {
+   "es": "común",
+   "en": "common"
+  }
+ ],
+ "freq-1700-1714": [
+  {
+   "es": "parecer",
+   "en": "to seem"
+  },
+  {
+   "es": "próximo",
+   "en": "next"
+  },
+  {
+   "es": "paciente",
+   "en": "patient"
+  },
+  {
+   "es": "arte",
+   "en": "art"
+  },
+  {
+   "es": "bailar",
+   "en": "to dance"
+  },
+  {
+   "es": "sur",
+   "en": "south"
+  },
+  {
+   "es": "banda",
+   "en": "band; gang"
+  },
+  {
+   "es": "aprender",
+   "en": "to learn"
+  },
+  {
+   "es": "completo",
+   "en": "complete"
+  },
+  {
+   "es": "santo",
+   "en": "saint"
+  },
+  {
+   "es": "culpable",
+   "en": "guilty"
+  },
+  {
+   "es": "ganas",
+   "en": "desire; you win"
+  },
+  {
+   "es": "libros",
+   "en": "books"
+  },
+  {
+   "es": "azul",
+   "en": "blue"
+  },
+  {
+   "es": "diferentes",
+   "en": "different"
+  },
+  {
+   "es": "comandante",
+   "en": "commander"
+  },
+  {
+   "es": "reglas",
+   "en": "rules"
+  },
+  {
+   "es": "esperanza",
+   "en": "hope"
+  },
+  {
+   "es": "cuestión",
+   "en": "matter; question"
+  },
+  {
+   "es": "molesta",
+   "en": "annoyed; he/she bothers"
+  },
+  {
+   "es": "informe",
+   "en": "report"
+  },
+  {
+   "es": "bienvenido",
+   "en": "welcome"
+  },
+  {
+   "es": "abrir",
+   "en": "to open"
+  },
+  {
+   "es": "contar",
+   "en": "to tell; to count"
+  },
+  {
+   "es": "apartamento",
+   "en": "apartment"
+  },
+  {
+   "es": "estados",
+   "en": "states"
+  },
+  {
+   "es": "principal",
+   "en": "main; principal"
+  },
+  {
+   "es": "ojalá",
+   "en": "hopefully"
+  },
+  {
+   "es": "estilo",
+   "en": "style"
+  },
+  {
+   "es": "nueve",
+   "en": "nine"
+  },
+  {
+   "es": "definitivamente",
+   "en": "definitely"
+  },
+  {
+   "es": "quedar",
+   "en": "to stay; to remain"
+  },
+  {
+   "es": "cartas",
+   "en": "letters; cards"
+  },
+  {
+   "es": "bomba",
+   "en": "bomb"
+  },
+  {
+   "es": "guardia",
+   "en": "guard"
+  },
+  {
+   "es": "probar",
+   "en": "to try; to test"
+  },
+  {
+   "es": "majestad",
+   "en": "majesty"
+  },
+  {
+   "es": "traer",
+   "en": "to bring"
+  },
+  {
+   "es": "común",
+   "en": "common"
+  },
+  {
+   "es": "nota",
+   "en": "note"
+  },
+  {
+   "es": "humanos",
+   "en": "humans"
+  },
+  {
+   "es": "suyo",
+   "en": "his; hers; yours"
+  },
+  {
+   "es": "repente",
+   "en": "sudden"
+  },
+  {
+   "es": "doble",
+   "en": "double"
+  },
+  {
+   "es": "evitar",
+   "en": "to avoid"
+  },
+  {
+   "es": "tiempos",
+   "en": "times"
+  },
+  {
+   "es": "animales",
+   "en": "animals"
+  },
+  {
+   "es": "acaso",
+   "en": "perhaps; maybe"
+  },
+  {
+   "es": "verano",
+   "en": "summer"
+  },
+  {
+   "es": "mentira",
+   "en": "lie"
+  },
+  {
+   "es": "intentar",
+   "en": "to try"
+  },
+  {
+   "es": "flores",
+   "en": "flowers"
+  },
+  {
+   "es": "opción",
+   "en": "option"
+  },
+  {
+   "es": "exacto",
+   "en": "exact"
+  },
+  {
+   "es": "jóvenes",
+   "en": "young people"
+  },
+  {
+   "es": "larga",
+   "en": "long (fem.)"
+  },
+  {
+   "es": "justicia",
+   "en": "justice"
+  },
+  {
+   "es": "nuevos",
+   "en": "new (pl.)"
+  },
+  {
+   "es": "obviamente",
+   "en": "obviously"
+  },
+  {
+   "es": "fantástico",
+   "en": "fantastic"
+  },
+  {
+   "es": "absolutamente",
+   "en": "absolutely"
+  },
+  {
+   "es": "llena",
+   "en": "full (fem.)"
+  },
+  {
+   "es": "escapar",
+   "en": "to escape"
+  },
+  {
+   "es": "gay",
+   "en": "gay"
+  },
+  {
+   "es": "señores",
+   "en": "gentlemen"
+  },
+  {
+   "es": "piernas",
+   "en": "legs"
+  },
+  {
+   "es": "ganado",
+   "en": "cattle; won"
+  },
+  {
+   "es": "blanca",
+   "en": "white (fem.)"
+  },
+  {
+   "es": "rico",
+   "en": "rich; tasty"
+  },
+  {
+   "es": "inocente",
+   "en": "innocent"
+  },
+  {
+   "es": "pesar",
+   "en": "to weigh; regret"
+  },
+  {
+   "es": "absoluto",
+   "en": "absolute"
+  },
+  {
+   "es": "vacaciones",
+   "en": "vacation"
+  },
+  {
+   "es": "mismos",
+   "en": "same (pl.)"
+  },
+  {
+   "es": "planes",
+   "en": "plans"
+  },
+  {
+   "es": "cine",
+   "en": "cinema; movies"
+  },
+  {
+   "es": "brillante",
+   "en": "brilliant"
+  },
+  {
+   "es": "confianza",
+   "en": "trust; confidence"
+  },
+  {
+   "es": "vuestra",
+   "en": "your (fem. pl.)"
+  },
+  {
+   "es": "nombres",
+   "en": "names"
+  },
+  {
+   "es": "especialmente",
+   "en": "especially"
+  },
+  {
+   "es": "embarazada",
+   "en": "pregnant"
+  },
+  {
+   "es": "pantalones",
+   "en": "pants"
+  },
+  {
+   "es": "defensa",
+   "en": "defense"
+  },
+  {
+   "es": "salido",
+   "en": "gone out"
+  },
+  {
+   "es": "estupendo",
+   "en": "great"
+  },
+  {
+   "es": "inmediatamente",
+   "en": "immediately"
+  },
+  {
+   "es": "soldados",
+   "en": "soldiers"
+  },
+  {
+   "es": "inglés",
+   "en": "English; English person"
+  },
+  {
+   "es": "suya",
+   "en": "his/hers/yours (fem.)"
+  }
+ ],
+ "freq-1800-1814": [
+  {
+   "es": "verano",
+   "en": "summer"
+  },
+  {
+   "es": "mentira",
+   "en": "lie"
+  },
+  {
+   "es": "intentar",
+   "en": "to try"
+  },
+  {
+   "es": "flores",
+   "en": "flowers"
+  },
+  {
+   "es": "opción",
+   "en": "option"
+  },
+  {
+   "es": "exacto",
+   "en": "exact"
+  },
+  {
+   "es": "jóvenes",
+   "en": "young people"
+  },
+  {
+   "es": "larga",
+   "en": "long (fem.)"
+  },
+  {
+   "es": "justicia",
+   "en": "justice"
+  },
+  {
+   "es": "nuevos",
+   "en": "new (pl.)"
+  },
+  {
+   "es": "obviamente",
+   "en": "obviously"
+  },
+  {
+   "es": "fantástico",
+   "en": "fantastic"
+  },
+  {
+   "es": "absolutamente",
+   "en": "absolutely"
+  },
+  {
+   "es": "llena",
+   "en": "full (fem.)"
+  },
+  {
+   "es": "escapar",
+   "en": "to escape"
+  },
+  {
+   "es": "gay",
+   "en": "gay"
+  },
+  {
+   "es": "señores",
+   "en": "gentlemen"
+  },
+  {
+   "es": "piernas",
+   "en": "legs"
+  },
+  {
+   "es": "ganado",
+   "en": "cattle; won"
+  },
+  {
+   "es": "blanca",
+   "en": "white (fem.)"
+  },
+  {
+   "es": "rico",
+   "en": "rich; tasty"
+  },
+  {
+   "es": "inocente",
+   "en": "innocent"
+  },
+  {
+   "es": "pesar",
+   "en": "to weigh; regret"
+  },
+  {
+   "es": "absoluto",
+   "en": "absolute"
+  },
+  {
+   "es": "vacaciones",
+   "en": "vacation"
+  },
+  {
+   "es": "mismos",
+   "en": "same (pl.)"
+  },
+  {
+   "es": "planes",
+   "en": "plans"
+  },
+  {
+   "es": "cine",
+   "en": "cinema; movies"
+  },
+  {
+   "es": "brillante",
+   "en": "brilliant"
+  },
+  {
+   "es": "confianza",
+   "en": "trust; confidence"
+  },
+  {
+   "es": "vuestra",
+   "en": "your (fem. pl.)"
+  },
+  {
+   "es": "nombres",
+   "en": "names"
+  },
+  {
+   "es": "especialmente",
+   "en": "especially"
+  },
+  {
+   "es": "embarazada",
+   "en": "pregnant"
+  },
+  {
+   "es": "pantalones",
+   "en": "pants"
+  },
+  {
+   "es": "defensa",
+   "en": "defense"
+  },
+  {
+   "es": "salido",
+   "en": "gone out"
+  },
+  {
+   "es": "estupendo",
+   "en": "great"
+  },
+  {
+   "es": "inmediatamente",
+   "en": "immediately"
+  },
+  {
+   "es": "soldados",
+   "en": "soldiers"
+  },
+  {
+   "es": "inglés",
+   "en": "English; English person"
+  },
+  {
+   "es": "suya",
+   "en": "his/hers/yours (fem.)"
+  },
+  {
+   "es": "estudio",
+   "en": "study; studio"
+  },
+  {
+   "es": "sentimientos",
+   "en": "feelings"
+  },
+  {
+   "es": "llaves",
+   "en": "keys"
+  },
+  {
+   "es": "perros",
+   "en": "dogs"
+  },
+  {
+   "es": "partir",
+   "en": "to leave; to split"
+  },
+  {
+   "es": "vuestro",
+   "en": "your (masc. pl.)"
+  },
+  {
+   "es": "metros",
+   "en": "meters"
+  },
+  {
+   "es": "santa",
+   "en": "saint (fem.)"
+  },
+  {
+   "es": "clientes",
+   "en": "clients"
+  },
+  {
+   "es": "cuántas",
+   "en": "how many (fem.)"
+  },
+  {
+   "es": "ridículo",
+   "en": "ridiculous"
+  },
+  {
+   "es": "damas",
+   "en": "ladies"
+  },
+  {
+   "es": "tranquila",
+   "en": "calm (fem.)"
+  },
+  {
+   "es": "operación",
+   "en": "operation"
+  },
+  {
+   "es": "laboratorio",
+   "en": "laboratory"
+  },
+  {
+   "es": "menudo",
+   "en": "small; menudo (tripe soup)"
+  },
+  {
+   "es": "conversación",
+   "en": "conversation"
+  },
+  {
+   "es": "brazos",
+   "en": "arms"
+  },
+  {
+   "es": "espíritu",
+   "en": "spirit"
+  },
+  {
+   "es": "cansado",
+   "en": "tired"
+  },
+  {
+   "es": "casado",
+   "en": "married"
+  },
+  {
+   "es": "enorme",
+   "en": "huge"
+  },
+  {
+   "es": "asuntos",
+   "en": "matters; affairs"
+  },
+  {
+   "es": "fe",
+   "en": "faith"
+  },
+  {
+   "es": "muestra",
+   "en": "sample; he/she shows"
+  },
+  {
+   "es": "contrario",
+   "en": "opposite"
+  },
+  {
+   "es": "subir",
+   "en": "to go up; to climb"
+  },
+  {
+   "es": "preocupado",
+   "en": "worried"
+  },
+  {
+   "es": "restaurante",
+   "en": "restaurant"
+  },
+  {
+   "es": "bienvenida",
+   "en": "welcome (fem.)"
+  },
+  {
+   "es": "estrellas",
+   "en": "stars"
+  },
+  {
+   "es": "red",
+   "en": "network; net"
+  },
+  {
+   "es": "viejos",
+   "en": "old (pl.)"
+  },
+  {
+   "es": "solamente",
+   "en": "only"
+  },
+  {
+   "es": "cuentas",
+   "en": "accounts; bills"
+  },
+  {
+   "es": "taxi",
+   "en": "taxi"
+  },
+  {
+   "es": "anillo",
+   "en": "ring"
+  },
+  {
+   "es": "preguntar",
+   "en": "to ask"
+  },
+  {
+   "es": "quiénes",
+   "en": "who (pl.)"
+  },
+  {
+   "es": "pequeños",
+   "en": "small; little (pl.)"
+  },
+  {
+   "es": "películas",
+   "en": "movies"
+  },
+  {
+   "es": "responsable",
+   "en": "responsible"
+  },
+  {
+   "es": "trago",
+   "en": "drink; sip"
+  },
+  {
+   "es": "dientes",
+   "en": "teeth"
+  },
+  {
+   "es": "vender",
+   "en": "to sell"
+  },
+  {
+   "es": "detente",
+   "en": "stop"
+  },
+  {
+   "es": "luchar",
+   "en": "to fight"
+  },
+  {
+   "es": "cabo",
+   "en": "cape; corporal"
+  }
+ ],
+ "freq-1900-1914": [
+  {
+   "es": "tranquila",
+   "en": "calm (fem.)"
+  },
+  {
+   "es": "operación",
+   "en": "operation"
+  },
+  {
+   "es": "laboratorio",
+   "en": "laboratory"
+  },
+  {
+   "es": "menudo",
+   "en": "small; menudo (tripe soup)"
+  },
+  {
+   "es": "conversación",
+   "en": "conversation"
+  },
+  {
+   "es": "brazos",
+   "en": "arms"
+  },
+  {
+   "es": "espíritu",
+   "en": "spirit"
+  },
+  {
+   "es": "cansado",
+   "en": "tired"
+  },
+  {
+   "es": "casado",
+   "en": "married"
+  },
+  {
+   "es": "enorme",
+   "en": "huge"
+  },
+  {
+   "es": "asuntos",
+   "en": "matters; affairs"
+  },
+  {
+   "es": "fe",
+   "en": "faith"
+  },
+  {
+   "es": "muestra",
+   "en": "sample; he/she shows"
+  },
+  {
+   "es": "contrario",
+   "en": "opposite"
+  },
+  {
+   "es": "subir",
+   "en": "to go up; to climb"
+  },
+  {
+   "es": "preocupado",
+   "en": "worried"
+  },
+  {
+   "es": "restaurante",
+   "en": "restaurant"
+  },
+  {
+   "es": "bienvenida",
+   "en": "welcome (fem.)"
+  },
+  {
+   "es": "estrellas",
+   "en": "stars"
+  },
+  {
+   "es": "red",
+   "en": "network; net"
+  },
+  {
+   "es": "viejos",
+   "en": "old (pl.)"
+  },
+  {
+   "es": "solamente",
+   "en": "only"
+  },
+  {
+   "es": "cuentas",
+   "en": "accounts; bills"
+  },
+  {
+   "es": "taxi",
+   "en": "taxi"
+  },
+  {
+   "es": "anillo",
+   "en": "ring"
+  },
+  {
+   "es": "preguntar",
+   "en": "to ask"
+  },
+  {
+   "es": "quiénes",
+   "en": "who (pl.)"
+  },
+  {
+   "es": "pequeños",
+   "en": "small; little (pl.)"
+  },
+  {
+   "es": "películas",
+   "en": "movies"
+  },
+  {
+   "es": "responsable",
+   "en": "responsible"
+  },
+  {
+   "es": "trago",
+   "en": "drink; sip"
+  },
+  {
+   "es": "dientes",
+   "en": "teeth"
+  },
+  {
+   "es": "vender",
+   "en": "to sell"
+  },
+  {
+   "es": "detente",
+   "en": "stop"
+  },
+  {
+   "es": "luchar",
+   "en": "to fight"
+  },
+  {
+   "es": "cabo",
+   "en": "cape; corporal"
+  },
+  {
+   "es": "lucha",
+   "en": "fight; struggle"
+  },
+  {
+   "es": "averiguar",
+   "en": "to find out"
+  },
+  {
+   "es": "volar",
+   "en": "to fly"
+  },
+  {
+   "es": "tanta",
+   "en": "so much (fem.)"
+  },
+  {
+   "es": "colegio",
+   "en": "school"
+  },
+  {
+   "es": "sonido",
+   "en": "sound"
+  },
+  {
+   "es": "caballero",
+   "en": "gentleman; knight"
+  },
+  {
+   "es": "pasada",
+   "en": "past; last (fem.)"
+  },
+  {
+   "es": "código",
+   "en": "code"
+  },
+  {
+   "es": "alguno",
+   "en": "some; any"
+  },
+  {
+   "es": "millón",
+   "en": "million"
+  },
+  {
+   "es": "malas",
+   "en": "bad (fem. pl.)"
+  },
+  {
+   "es": "dama",
+   "en": "lady"
+  },
+  {
+   "es": "prensa",
+   "en": "press"
+  },
+  {
+   "es": "vengan",
+   "en": "come (they imperative)"
+  },
+  {
+   "es": "caminar",
+   "en": "to walk"
+  },
+  {
+   "es": "momentos",
+   "en": "moments"
+  },
+  {
+   "es": "coger",
+   "en": "to take; to catch"
+  },
+  {
+   "es": "posibilidad",
+   "en": "possibility"
+  },
+  {
+   "es": "herido",
+   "en": "injured; wounded"
+  },
+  {
+   "es": "seguramente",
+   "en": "surely"
+  },
+  {
+   "es": "sospechoso",
+   "en": "suspicious; suspect"
+  },
+  {
+   "es": "naturaleza",
+   "en": "nature"
+  },
+  {
+   "es": "policías",
+   "en": "police (pl.)"
+  },
+  {
+   "es": "arreglar",
+   "en": "to fix"
+  },
+  {
+   "es": "sentado",
+   "en": "seated"
+  },
+  {
+   "es": "papi",
+   "en": "daddy"
+  },
+  {
+   "es": "ideas",
+   "en": "ideas"
+  },
+  {
+   "es": "obtener",
+   "en": "to obtain"
+  },
+  {
+   "es": "felices",
+   "en": "happy (pl.)"
+  },
+  {
+   "es": "señoría",
+   "en": "your honor"
+  },
+  {
+   "es": "llorar",
+   "en": "to cry"
+  },
+  {
+   "es": "familiar",
+   "en": "familiar; relative"
+  },
+  {
+   "es": "desastre",
+   "en": "disaster"
+  },
+  {
+   "es": "locos",
+   "en": "crazy (pl.)"
+  },
+  {
+   "es": "will",
+   "en": "will (name/auxiliary)"
+  },
+  {
+   "es": "enfermedad",
+   "en": "illness"
+  },
+  {
+   "es": "colega",
+   "en": "colleague; buddy"
+  },
+  {
+   "es": "bajar",
+   "en": "to go down; to lower"
+  },
+  {
+   "es": "nervioso",
+   "en": "nervous"
+  },
+  {
+   "es": "puertas",
+   "en": "doors"
+  },
+  {
+   "es": "fuerzas",
+   "en": "forces; strength (pl.)"
+  },
+  {
+   "es": "cantar",
+   "en": "to sing"
+  },
+  {
+   "es": "cabello",
+   "en": "hair"
+  },
+  {
+   "es": "suficientemente",
+   "en": "sufficiently"
+  },
+  {
+   "es": "huellas",
+   "en": "footprints; traces"
+  },
+  {
+   "es": "unidad",
+   "en": "unit"
+  },
+  {
+   "es": "gana",
+   "en": "desire; win"
+  },
+  {
+   "es": "tonterías",
+   "en": "nonsense; foolishness"
+  },
+  {
+   "es": "emergencia",
+   "en": "emergency"
+  },
+  {
+   "es": "perfecta",
+   "en": "perfect (fem.)"
+  },
+  {
+   "es": "lugares",
+   "en": "places"
+  },
+  {
+   "es": "show",
+   "en": "show"
+  },
+  {
+   "es": "parque",
+   "en": "park"
+  }
+ ],
+ "airport-shared": [
+  {
+   "es": "pasaporte",
+   "en": "passport"
+  },
+  {
+   "es": "reserva",
+   "en": "reservation"
+  },
+  {
+   "es": "confirmación",
+   "en": "confirmation"
+  },
+  {
+   "es": "número de reserva",
+   "en": "reservation number"
+  },
+  {
+   "es": "nombre",
+   "en": "first name"
+  },
+  {
+   "es": "apellido",
+   "en": "last name"
+  },
+  {
+   "es": "documento",
+   "en": "document"
+  },
+  {
+   "es": "visa",
+   "en": "visa"
+  },
+  {
+   "es": "permiso",
+   "en": "permit"
+  },
+  {
+   "es": "documentos de viaje",
+   "en": "travel documents"
+  },
+  {
+   "es": "fecha de vencimiento",
+   "en": "expiration date"
+  },
+  {
+   "es": "vuelo",
+   "en": "flight"
+  },
+  {
+   "es": "número de vuelo",
+   "en": "flight number"
+  },
+  {
+   "es": "destino",
+   "en": "destination"
+  },
+  {
+   "es": "destino final",
+   "en": "final destination"
+  },
+  {
+   "es": "origen",
+   "en": "origin"
+  },
+  {
+   "es": "conexión",
+   "en": "connection"
+  },
+  {
+   "es": "vuelo de conexión",
+   "en": "connecting flight"
+  },
+  {
+   "es": "vuelo directo",
+   "en": "direct flight"
+  },
+  {
+   "es": "vuelo lleno",
+   "en": "full flight"
+  },
+  {
+   "es": "vuelo anterior",
+   "en": "previous flight"
+  },
+  {
+   "es": "vuelo siguiente",
+   "en": "next flight"
+  },
+  {
+   "es": "salida",
+   "en": "departure"
+  },
+  {
+   "es": "llegada",
+   "en": "arrival"
+  },
+  {
+   "es": "embarque",
+   "en": "boarding"
+  },
+  {
+   "es": "hora de embarque",
+   "en": "boarding time"
+  },
+  {
+   "es": "hora de salida",
+   "en": "departure time"
+  },
+  {
+   "es": "puerta",
+   "en": "gate"
+  },
+  {
+   "es": "número de puerta",
+   "en": "gate number"
+  },
+  {
+   "es": "puerta de embarque",
+   "en": "boarding gate"
+  },
+  {
+   "es": "zona de embarque",
+   "en": "boarding area"
+  },
+  {
+   "es": "preembarque",
+   "en": "preboarding"
+  },
+  {
+   "es": "prioridad",
+   "en": "priority"
+  },
+  {
+   "es": "retraso",
+   "en": "delay"
+  },
+  {
+   "es": "demora",
+   "en": "delay (alt.)"
+  },
+  {
+   "es": "cambio de puerta",
+   "en": "gate change"
+  },
+  {
+   "es": "asiento",
+   "en": "seat"
+  },
+  {
+   "es": "número de asiento",
+   "en": "seat number"
+  },
+  {
+   "es": "fila",
+   "en": "row"
+  },
+  {
+   "es": "ventana",
+   "en": "window"
+  },
+  {
+   "es": "pasillo",
+   "en": "aisle"
+  },
+  {
+   "es": "asiento del medio",
+   "en": "middle seat"
+  },
+  {
+   "es": "asiento de ventana",
+   "en": "window seat"
+  },
+  {
+   "es": "asiento de pasillo",
+   "en": "aisle seat"
+  },
+  {
+   "es": "salida de emergencia",
+   "en": "exit row"
+  },
+  {
+   "es": "juntos",
+   "en": "together"
+  },
+  {
+   "es": "separados",
+   "en": "separate"
+  },
+  {
+   "es": "cambio de asiento",
+   "en": "seat change"
+  },
+  {
+   "es": "equipaje",
+   "en": "luggage"
+  },
+  {
+   "es": "maleta",
+   "en": "suitcase"
+  },
+  {
+   "es": "equipaje de mano",
+   "en": "carry-on"
+  },
+  {
+   "es": "equipaje facturado",
+   "en": "checked baggage"
+  },
+  {
+   "es": "maleta de cabina",
+   "en": "cabin bag"
+  },
+  {
+   "es": "artículo personal",
+   "en": "personal item"
+  },
+  {
+   "es": "primera maleta",
+   "en": "first bag"
+  },
+  {
+   "es": "segunda maleta",
+   "en": "second bag"
+  },
+  {
+   "es": "etiqueta",
+   "en": "tag"
+  },
+  {
+   "es": "recibo de equipaje",
+   "en": "baggage receipt"
+  },
+  {
+   "es": "cinta",
+   "en": "carousel"
+  },
+  {
+   "es": "recogida de equipaje",
+   "en": "baggage claim"
+  },
+  {
+   "es": "balanza",
+   "en": "scale"
+  },
+  {
+   "es": "peso",
+   "en": "weight"
+  },
+  {
+   "es": "límite",
+   "en": "limit"
+  },
+  {
+   "es": "exceso",
+   "en": "excess"
+  },
+  {
+   "es": "sobrepeso",
+   "en": "overweight"
+  },
+  {
+   "es": "medidas",
+   "en": "dimensions"
+  },
+  {
+   "es": "medidas permitidas",
+   "en": "allowed dimensions"
+  },
+  {
+   "es": "póngalo en la balanza",
+   "en": "put it on the scale (Ud.)"
+  },
+  {
+   "es": "abre la maleta",
+   "en": "open the suitcase (Ud.)"
+  },
+  {
+   "es": "saca los objetos",
+   "en": "take the items out (Ud.)"
+  },
+  {
+   "es": "líquidos",
+   "en": "liquids"
+  },
+  {
+   "es": "batería portátil",
+   "en": "power bank"
+  },
+  {
+   "es": "cargador",
+   "en": "charger"
+  },
+  {
+   "es": "computadora",
+   "en": "laptop"
+  },
+  {
+   "es": "objetos de valor",
+   "en": "valuables"
+  },
+  {
+   "es": "medicinas",
+   "en": "medication"
+  },
+  {
+   "es": "control de seguridad",
+   "en": "security check"
+  },
+  {
+   "es": "revisión",
+   "en": "inspection"
+  },
+  {
+   "es": "revisión adicional",
+   "en": "additional screening"
+  },
+  {
+   "es": "selección aleatoria",
+   "en": "random selection"
+  },
+  {
+   "es": "control",
+   "en": "checkpoint"
+  },
+  {
+   "es": "seguridad",
+   "en": "security"
+  },
+  {
+   "es": "terminal",
+   "en": "terminal"
+  },
+  {
+   "es": "aeropuerto",
+   "en": "airport"
+  },
+  {
+   "es": "aerolínea",
+   "en": "airline"
+  },
+  {
+   "es": "mostrador",
+   "en": "counter"
+  },
+  {
+   "es": "sistema",
+   "en": "system"
+  },
+  {
+   "es": "exceso de equipaje",
+   "en": "excess baggage"
+  },
+  {
+   "es": "paga el exceso",
+   "en": "pay the excess fee (Ud.)"
+  },
+  {
+   "es": "tarifa",
+   "en": "fee"
+  },
+  {
+   "es": "total",
+   "en": "total"
+  },
+  {
+   "es": "recibo",
+   "en": "receipt"
+  },
+  {
+   "es": "pasajero",
+   "en": "passenger"
+  },
+  {
+   "es": "familia",
+   "en": "family"
+  },
+  {
+   "es": "niño",
+   "en": "child"
+  },
+  {
+   "es": "niña",
+   "en": "girl"
+  },
+  {
+   "es": "coche de bebé",
+   "en": "stroller"
+  },
+  {
+   "es": "hasta la puerta",
+   "en": "up to the gate"
+  },
+  {
+   "es": "tarjeta de embarque",
+   "en": "boarding pass"
+  },
+  {
+   "es": "celular",
+   "en": "cellphone"
+  },
+  {
+   "es": "correo",
+   "en": "email"
+  },
+  {
+   "es": "confirmación por correo",
+   "en": "email confirmation"
+  },
+  {
+   "es": "conexión corta",
+   "en": "short connection"
+  },
+  {
+   "es": "conexión larga",
+   "en": "long connection"
+  },
+  {
+   "es": "aduana",
+   "en": "customs"
+  },
+  {
+   "es": "migración",
+   "en": "immigration"
+  },
+  {
+   "es": "control migratorio",
+   "en": "immigration control"
+  },
+  {
+   "es": "formulario de aduana",
+   "en": "customs form"
+  }
+ ],
+ "banking-shared": [
+  {
+   "es": "banco",
+   "en": "bank"
+  },
+  {
+   "es": "cajero",
+   "en": "teller"
+  },
+  {
+   "es": "cliente",
+   "en": "customer"
+  },
+  {
+   "es": "cuenta",
+   "en": "account"
+  },
+  {
+   "es": "cuenta bancaria",
+   "en": "bank account"
+  },
+  {
+   "es": "saldo",
+   "en": "balance"
+  },
+  {
+   "es": "saldo disponible",
+   "en": "available balance"
+  },
+  {
+   "es": "saldo actual",
+   "en": "current balance"
+  },
+  {
+   "es": "tarjeta",
+   "en": "card"
+  },
+  {
+   "es": "tarjeta de débito",
+   "en": "debit card"
+  },
+  {
+   "es": "tarjeta de crédito",
+   "en": "credit card"
+  },
+  {
+   "es": "tarjeta bloqueada",
+   "en": "blocked card"
+  },
+  {
+   "es": "tarjeta nueva",
+   "en": "new card"
+  },
+  {
+   "es": "PIN",
+   "en": "PIN"
+  },
+  {
+   "es": "contraseña",
+   "en": "password"
+  },
+  {
+   "es": "número de cuenta",
+   "en": "account number"
+  },
+  {
+   "es": "número incorrecto",
+   "en": "wrong number"
+  },
+  {
+   "es": "transferencia",
+   "en": "transfer"
+  },
+  {
+   "es": "transferencia enviada",
+   "en": "sent transfer"
+  },
+  {
+   "es": "transferencia recibida",
+   "en": "received transfer"
+  },
+  {
+   "es": "comprobante",
+   "en": "receipt"
+  },
+  {
+   "es": "movimientos",
+   "en": "transactions"
+  },
+  {
+   "es": "cargo",
+   "en": "charge"
+  },
+  {
+   "es": "cargos extra",
+   "en": "extra charges"
+  },
+  {
+   "es": "cargo sospechoso",
+   "en": "suspicious charge"
+  },
+  {
+   "es": "intento sospechoso",
+   "en": "suspicious attempt"
+  },
+  {
+   "es": "bloqueo",
+   "en": "block"
+  },
+  {
+   "es": "pago rechazado",
+   "en": "declined payment"
+  },
+  {
+   "es": "pago aprobado",
+   "en": "approved payment"
+  },
+  {
+   "es": "pago pendiente",
+   "en": "pending payment"
+  },
+  {
+   "es": "monto",
+   "en": "amount"
+  },
+  {
+   "es": "monto total",
+   "en": "total amount"
+  },
+  {
+   "es": "cantidad",
+   "en": "quantity"
+  },
+  {
+   "es": "retiro",
+   "en": "withdrawal"
+  },
+  {
+   "es": "efectivo",
+   "en": "cash"
+  },
+  {
+   "es": "cajero automático",
+   "en": "ATM"
+  },
+  {
+   "es": "saldo insuficiente",
+   "en": "insufficient funds"
+  },
+  {
+   "es": "cambio de cuenta",
+   "en": "account change"
+  },
+  {
+   "es": "tipo de cuenta",
+   "en": "account type"
+  },
+  {
+   "es": "cuenta principal",
+   "en": "main account"
+  },
+  {
+   "es": "cuenta de ahorros",
+   "en": "savings account"
+  },
+  {
+   "es": "cuenta corriente",
+   "en": "checking account"
+  },
+  {
+   "es": "comisión",
+   "en": "fee"
+  },
+  {
+   "es": "comisión mensual",
+   "en": "monthly fee"
+  },
+  {
+   "es": "contrato",
+   "en": "contract"
+  },
+  {
+   "es": "condiciones",
+   "en": "terms"
+  },
+  {
+   "es": "saldo mínimo",
+   "en": "minimum balance"
+  },
+  {
+   "es": "historial",
+   "en": "history"
+  },
+  {
+   "es": "historial crediticio",
+   "en": "credit history"
+  },
+  {
+   "es": "crédito",
+   "en": "credit"
+  },
+  {
+   "es": "buen crédito",
+   "en": "good credit"
+  },
+  {
+   "es": "mal crédito",
+   "en": "bad credit"
+  },
+  {
+   "es": "préstamo",
+   "en": "loan"
+  },
+  {
+   "es": "monto del préstamo",
+   "en": "loan amount"
+  },
+  {
+   "es": "aprobación",
+   "en": "approval"
+  },
+  {
+   "es": "solicitud",
+   "en": "application"
+  },
+  {
+   "es": "documentos",
+   "en": "documents"
+  },
+  {
+   "es": "falta un documento",
+   "en": "one document is missing"
+  },
+  {
+   "es": "comprobante de ingresos",
+   "en": "proof of income"
+  },
+  {
+   "es": "error del sistema",
+   "en": "system error"
+  },
+  {
+   "es": "número de caso",
+   "en": "case number"
+  },
+  {
+   "es": "seguimiento del caso",
+   "en": "case follow-up"
+  },
+  {
+   "es": "tiempo estimado",
+   "en": "estimated time"
+  },
+  {
+   "es": "hoy no",
+   "en": "not today"
+  },
+  {
+   "es": "mañana sí",
+   "en": "tomorrow yes"
+  },
+  {
+   "es": "atención al cliente",
+   "en": "customer service"
+  },
+  {
+   "es": "fecha de nacimiento",
+   "en": "birth date"
+  },
+  {
+   "es": "dirección",
+   "en": "address"
+  },
+  {
+   "es": "número de teléfono",
+   "en": "phone number"
+  },
+  {
+   "es": "correo electrónico",
+   "en": "email"
+  },
+  {
+   "es": "datos incorrectos",
+   "en": "incorrect information"
+  },
+  {
+   "es": "código de seguridad",
+   "en": "security code"
+  },
+  {
+   "es": "código válido",
+   "en": "valid code"
+  },
+  {
+   "es": "código inválido",
+   "en": "invalid code"
+  },
+  {
+   "es": "acceso a la cuenta",
+   "en": "account access"
+  },
+  {
+   "es": "acceso activo",
+   "en": "active access"
+  },
+  {
+   "es": "sucursal",
+   "en": "branch"
+  },
+  {
+   "es": "ejecutivo",
+   "en": "bank advisor"
+  },
+  {
+   "es": "ventanilla",
+   "en": "teller window"
+  },
+  {
+   "es": "firma registrada",
+   "en": "signature on file"
+  },
+  {
+   "es": "transferencia internacional",
+   "en": "international transfer"
+  },
+  {
+   "es": "tipo de cambio",
+   "en": "exchange rate"
+  },
+  {
+   "es": "comisión por transferencia",
+   "en": "transfer fee"
+  },
+  {
+   "es": "fondos retenidos",
+   "en": "held funds"
+  }
+ ],
+ "clothing-shared": [
+  {
+   "es": "vendedor",
+   "en": "salesperson"
+  },
+  {
+   "es": "cliente",
+   "en": "customer"
+  },
+  {
+   "es": "tienda",
+   "en": "store"
+  },
+  {
+   "es": "ropa",
+   "en": "clothing"
+  },
+  {
+   "es": "camisa",
+   "en": "shirt"
+  },
+  {
+   "es": "pantalón",
+   "en": "pants"
+  },
+  {
+   "es": "chaqueta",
+   "en": "jacket"
+  },
+  {
+   "es": "vestido",
+   "en": "dress"
+  },
+  {
+   "es": "falda",
+   "en": "skirt"
+  },
+  {
+   "es": "talla",
+   "en": "size"
+  },
+  {
+   "es": "otra talla",
+   "en": "another size"
+  },
+  {
+   "es": "probador",
+   "en": "fitting room"
+  },
+  {
+   "es": "usa el probador",
+   "en": "use the fitting room"
+  },
+  {
+   "es": "modelo",
+   "en": "style"
+  },
+  {
+   "es": "mismo modelo",
+   "en": "same style"
+  },
+  {
+   "es": "modelo diferente",
+   "en": "different style"
+  },
+  {
+   "es": "color",
+   "en": "color"
+  },
+  {
+   "es": "otro color",
+   "en": "another color"
+  },
+  {
+   "es": "otra sucursal",
+   "en": "another branch"
+  },
+  {
+   "es": "apartado",
+   "en": "item on hold"
+  },
+  {
+   "es": "precio",
+   "en": "price"
+  },
+  {
+   "es": "precio normal",
+   "en": "regular price"
+  },
+  {
+   "es": "precio de oferta",
+   "en": "sale price"
+  },
+  {
+   "es": "descuento",
+   "en": "discount"
+  },
+  {
+   "es": "promoción",
+   "en": "promotion"
+  },
+  {
+   "es": "condición",
+   "en": "condition"
+  },
+  {
+   "es": "registro",
+   "en": "sign-up"
+  },
+  {
+   "es": "ajuste manual",
+   "en": "manual adjustment"
+  },
+  {
+   "es": "etiqueta",
+   "en": "tag"
+  },
+  {
+   "es": "mal etiquetado",
+   "en": "mislabeled"
+  },
+  {
+   "es": "letrero",
+   "en": "sign"
+  },
+  {
+   "es": "política de la tienda",
+   "en": "store policy"
+  },
+  {
+   "es": "crédito de tienda",
+   "en": "store credit"
+  },
+  {
+   "es": "devolución",
+   "en": "refund"
+  },
+  {
+   "es": "cambio de producto",
+   "en": "exchange"
+  },
+  {
+   "es": "producto defectuoso",
+   "en": "defective item"
+  },
+  {
+   "es": "costura rota",
+   "en": "torn seam"
+  },
+  {
+   "es": "recibo",
+   "en": "receipt"
+  },
+  {
+   "es": "tiene recibo",
+   "en": "do you have a receipt?"
+  },
+  {
+   "es": "dentro del plazo",
+   "en": "within the return window"
+  },
+  {
+   "es": "fuera del plazo",
+   "en": "outside the return window"
+  },
+  {
+   "es": "gerente",
+   "en": "manager"
+  },
+  {
+   "es": "excepción",
+   "en": "exception"
+  },
+  {
+   "es": "caja",
+   "en": "checkout"
+  },
+  {
+   "es": "total",
+   "en": "total"
+  },
+  {
+   "es": "monto total",
+   "en": "total amount"
+  },
+  {
+   "es": "pago",
+   "en": "payment"
+  },
+  {
+   "es": "inserta la tarjeta",
+   "en": "insert the card"
+  },
+  {
+   "es": "acerca la tarjeta",
+   "en": "tap the card"
+  },
+  {
+   "es": "pasa la tarjeta",
+   "en": "swipe the card"
+  },
+  {
+   "es": "inténtalo otra vez",
+   "en": "try again"
+  },
+  {
+   "es": "pago aprobado",
+   "en": "approved payment"
+  },
+  {
+   "es": "pago rechazado",
+   "en": "declined payment"
+  },
+  {
+   "es": "otra tarjeta",
+   "en": "another card"
+  },
+  {
+   "es": "efectivo",
+   "en": "cash"
+  },
+  {
+   "es": "pago en efectivo",
+   "en": "cash payment"
+  },
+  {
+   "es": "firma aquí",
+   "en": "sign here (Ud.)"
+  },
+  {
+   "es": "bolsa",
+   "en": "bag"
+  },
+  {
+   "es": "bolsa grande",
+   "en": "big bag"
+  },
+  {
+   "es": "bolsa pequeña",
+   "en": "small bag"
+  },
+  {
+   "es": "fila larga",
+   "en": "long line"
+  },
+  {
+   "es": "mucha gente",
+   "en": "many people"
+  },
+  {
+   "es": "espera larga",
+   "en": "long wait"
+  },
+  {
+   "es": "servicio lento",
+   "en": "slow service"
+  },
+  {
+   "es": "horario",
+   "en": "store hours"
+  },
+  {
+   "es": "muestra su identificación",
+   "en": "show your ID (Ud.)"
+  },
+  {
+   "es": "alarma",
+   "en": "alarm"
+  },
+  {
+   "es": "sensor",
+   "en": "security tag"
+  },
+  {
+   "es": "sensor activo",
+   "en": "active security tag"
+  },
+  {
+   "es": "ingreso manual",
+   "en": "manual entry"
+  },
+  {
+   "es": "código manual",
+   "en": "manual code"
+  },
+  {
+   "es": "problema del sistema",
+   "en": "system issue"
+  },
+  {
+   "es": "talla correcta",
+   "en": "correct size"
+  },
+  {
+   "es": "talla incorrecta",
+   "en": "wrong size"
+  },
+  {
+   "es": "devolución parcial",
+   "en": "partial refund"
+  },
+  {
+   "es": "monto reembolsado",
+   "en": "refunded amount"
+  },
+  {
+   "es": "caja abierta",
+   "en": "open register"
+  },
+  {
+   "es": "caja cerrada",
+   "en": "closed register"
+  },
+  {
+   "es": "precio final",
+   "en": "final price"
+  },
+  {
+   "es": "cupón",
+   "en": "coupon"
+  },
+  {
+   "es": "temporada",
+   "en": "season"
+  },
+  {
+   "es": "colección nueva",
+   "en": "new collection"
+  },
+  {
+   "es": "prenda",
+   "en": "garment"
+  },
+  {
+   "es": "prenda dañada",
+   "en": "damaged garment"
+  },
+  {
+   "es": "defecto de fábrica",
+   "en": "manufacturing defect"
+  },
+  {
+   "es": "marca",
+   "en": "brand"
+  },
+  {
+   "es": "misma marca",
+   "en": "same brand"
+  },
+  {
+   "es": "línea premium",
+   "en": "premium line"
+  },
+  {
+   "es": "material",
+   "en": "material"
+  },
+  {
+   "es": "algodón",
+   "en": "cotton"
+  },
+  {
+   "es": "tela",
+   "en": "fabric"
+  }
+ ],
+ "contractor-shared": [
+  {
+   "es": "contratista",
+   "en": "contractor"
+  },
+  {
+   "es": "trabajador",
+   "en": "worker"
+  },
+  {
+   "es": "equipo",
+   "en": "crew"
+  },
+  {
+   "es": "proyecto",
+   "en": "project"
+  },
+  {
+   "es": "obra",
+   "en": "construction work"
+  },
+  {
+   "es": "trabajo",
+   "en": "work"
+  },
+  {
+   "es": "plano",
+   "en": "plan"
+  },
+  {
+   "es": "diseño",
+   "en": "design"
+  },
+  {
+   "es": "presupuesto",
+   "en": "budget"
+  },
+  {
+   "es": "estimado",
+   "en": "estimate"
+  },
+  {
+   "es": "costo",
+   "en": "cost"
+  },
+  {
+   "es": "precio",
+   "en": "price"
+  },
+  {
+   "es": "total",
+   "en": "total"
+  },
+  {
+   "es": "pago",
+   "en": "payment"
+  },
+  {
+   "es": "anticipo",
+   "en": "deposit"
+  },
+  {
+   "es": "pago final",
+   "en": "final payment"
+  },
+  {
+   "es": "material",
+   "en": "material"
+  },
+  {
+   "es": "materiales",
+   "en": "materials"
+  },
+  {
+   "es": "proveedor",
+   "en": "supplier"
+  },
+  {
+   "es": "disponibilidad",
+   "en": "availability"
+  },
+  {
+   "es": "retraso",
+   "en": "delay"
+  },
+  {
+   "es": "atraso",
+   "en": "delay (alt.)"
+  },
+  {
+   "es": "horario",
+   "en": "schedule"
+  },
+  {
+   "es": "tiempo estimado",
+   "en": "estimated time"
+  },
+  {
+   "es": "trabajo detenido",
+   "en": "stopped work"
+  },
+  {
+   "es": "inspección",
+   "en": "inspection"
+  },
+  {
+   "es": "ajuste",
+   "en": "adjustment"
+  },
+  {
+   "es": "alternativa",
+   "en": "alternative"
+  },
+  {
+   "es": "calidad",
+   "en": "quality"
+  },
+  {
+   "es": "misma calidad",
+   "en": "same quality"
+  },
+  {
+   "es": "mejor opción",
+   "en": "better option"
+  },
+  {
+   "es": "costo adicional",
+   "en": "additional cost"
+  },
+  {
+   "es": "fuera del presupuesto",
+   "en": "over budget"
+  },
+  {
+   "es": "falta trabajo",
+   "en": "work is still missing"
+  },
+  {
+   "es": "superficie",
+   "en": "surface"
+  },
+  {
+   "es": "pared",
+   "en": "wall"
+  },
+  {
+   "es": "piso",
+   "en": "floor"
+  },
+  {
+   "es": "techo",
+   "en": "ceiling"
+  },
+  {
+   "es": "pintura",
+   "en": "paint"
+  },
+  {
+   "es": "acabado",
+   "en": "finish"
+  },
+  {
+   "es": "humedad",
+   "en": "moisture"
+  },
+  {
+   "es": "tubería",
+   "en": "pipe"
+  },
+  {
+   "es": "instalación",
+   "en": "installation"
+  },
+  {
+   "es": "sistema eléctrico",
+   "en": "electrical system"
+  },
+  {
+   "es": "cable",
+   "en": "wire"
+  },
+  {
+   "es": "enchufe",
+   "en": "outlet"
+  },
+  {
+   "es": "interruptor",
+   "en": "switch"
+  },
+  {
+   "es": "agua",
+   "en": "water"
+  },
+  {
+   "es": "llave de agua",
+   "en": "water valve"
+  },
+  {
+   "es": "falta comunicación",
+   "en": "there is poor communication"
+  },
+  {
+   "es": "nadie vino",
+   "en": "nobody came"
+  },
+  {
+   "es": "plazo",
+   "en": "deadline"
+  },
+  {
+   "es": "entrega",
+   "en": "delivery"
+  },
+  {
+   "es": "entrega final",
+   "en": "final delivery"
+  },
+  {
+   "es": "inspección final",
+   "en": "final inspection"
+  },
+  {
+   "es": "garantía",
+   "en": "warranty"
+  },
+  {
+   "es": "herramienta",
+   "en": "tool"
+  },
+  {
+   "es": "maquinaria",
+   "en": "machinery"
+  },
+  {
+   "es": "escombros",
+   "en": "debris"
+  },
+  {
+   "es": "limpieza final",
+   "en": "final cleanup"
+  },
+  {
+   "es": "área",
+   "en": "area"
+  },
+  {
+   "es": "espacio",
+   "en": "space"
+  },
+  {
+   "es": "acceso",
+   "en": "access"
+  },
+  {
+   "es": "entrada",
+   "en": "entrance"
+  },
+  {
+   "es": "salida",
+   "en": "exit"
+  },
+  {
+   "es": "vecino",
+   "en": "neighbor"
+  },
+  {
+   "es": "ruido",
+   "en": "noise"
+  },
+  {
+   "es": "polvo",
+   "en": "dust"
+  },
+  {
+   "es": "seguridad",
+   "en": "safety"
+  },
+  {
+   "es": "riesgo",
+   "en": "risk"
+  },
+  {
+   "es": "protección",
+   "en": "protection"
+  },
+  {
+   "es": "equipo de seguridad",
+   "en": "safety gear"
+  },
+  {
+   "es": "casco",
+   "en": "helmet"
+  },
+  {
+   "es": "guantes",
+   "en": "gloves"
+  },
+  {
+   "es": "gafas de seguridad",
+   "en": "safety glasses"
+  },
+  {
+   "es": "azulejo",
+   "en": "tile"
+  },
+  {
+   "es": "baldosa",
+   "en": "floor tile"
+  },
+  {
+   "es": "madera",
+   "en": "wood"
+  },
+  {
+   "es": "cemento",
+   "en": "cement"
+  },
+  {
+   "es": "yeso",
+   "en": "plaster"
+  },
+  {
+   "es": "sellador",
+   "en": "sealant"
+  },
+  {
+   "es": "impermeabilización",
+   "en": "waterproofing"
+  },
+  {
+   "es": "permiso",
+   "en": "permit"
+  },
+  {
+   "es": "inspector",
+   "en": "inspector"
+  }
+ ],
+ "groceries-shared": [
+  {
+   "es": "cajero",
+   "en": "cashier"
+  },
+  {
+   "es": "cliente",
+   "en": "customer"
+  },
+  {
+   "es": "caja",
+   "en": "checkout"
+  },
+  {
+   "es": "fila",
+   "en": "line"
+  },
+  {
+   "es": "turno",
+   "en": "turn"
+  },
+  {
+   "es": "siguiente",
+   "en": "next"
+  },
+  {
+   "es": "productos",
+   "en": "products"
+  },
+  {
+   "es": "artículo",
+   "en": "item"
+  },
+  {
+   "es": "código de barras",
+   "en": "barcode"
+  },
+  {
+   "es": "precio",
+   "en": "price"
+  },
+  {
+   "es": "precio correcto",
+   "en": "correct price"
+  },
+  {
+   "es": "precio incorrecto",
+   "en": "wrong price"
+  },
+  {
+   "es": "oferta",
+   "en": "sale"
+  },
+  {
+   "es": "descuento",
+   "en": "discount"
+  },
+  {
+   "es": "promoción",
+   "en": "promotion"
+  },
+  {
+   "es": "sistema",
+   "en": "system"
+  },
+  {
+   "es": "letrero",
+   "en": "sign"
+  },
+  {
+   "es": "estante",
+   "en": "shelf"
+  },
+  {
+   "es": "pasillo",
+   "en": "aisle"
+  },
+  {
+   "es": "supervisor",
+   "en": "supervisor"
+  },
+  {
+   "es": "total",
+   "en": "total"
+  },
+  {
+   "es": "monto total",
+   "en": "total amount"
+  },
+  {
+   "es": "subtotal",
+   "en": "subtotal"
+  },
+  {
+   "es": "impuesto",
+   "en": "tax"
+  },
+  {
+   "es": "pago",
+   "en": "payment"
+  },
+  {
+   "es": "pago aprobado",
+   "en": "approved payment"
+  },
+  {
+   "es": "pago rechazado",
+   "en": "declined payment"
+  },
+  {
+   "es": "tarjeta",
+   "en": "card"
+  },
+  {
+   "es": "tarjeta rechazada",
+   "en": "declined card"
+  },
+  {
+   "es": "inserta la tarjeta",
+   "en": "insert the card"
+  },
+  {
+   "es": "pasa la tarjeta",
+   "en": "swipe the card"
+  },
+  {
+   "es": "acerca la tarjeta",
+   "en": "tap the card"
+  },
+  {
+   "es": "ingresa el PIN",
+   "en": "enter the PIN"
+  },
+  {
+   "es": "firma aquí",
+   "en": "sign here (Ud.)"
+  },
+  {
+   "es": "efectivo",
+   "en": "cash"
+  },
+  {
+   "es": "pago en efectivo",
+   "en": "cash payment"
+  },
+  {
+   "es": "dividir el pago",
+   "en": "split the payment"
+  },
+  {
+   "es": "pago dividido",
+   "en": "split payment"
+  },
+  {
+   "es": "pago parcial",
+   "en": "partial payment"
+  },
+  {
+   "es": "pago completo",
+   "en": "full payment"
+  },
+  {
+   "es": "cambio",
+   "en": "change"
+  },
+  {
+   "es": "recibo",
+   "en": "receipt"
+  },
+  {
+   "es": "bolsa",
+   "en": "bag"
+  },
+  {
+   "es": "bolsa grande",
+   "en": "big bag"
+  },
+  {
+   "es": "bolsa pequeña",
+   "en": "small bag"
+  },
+  {
+   "es": "producto frío",
+   "en": "cold item"
+  },
+  {
+   "es": "producto congelado",
+   "en": "frozen item"
+  },
+  {
+   "es": "producto seco",
+   "en": "dry item"
+  },
+  {
+   "es": "huevos",
+   "en": "eggs"
+  },
+  {
+   "es": "frágil",
+   "en": "fragile"
+  },
+  {
+   "es": "pesado",
+   "en": "heavy"
+  },
+  {
+   "es": "liviano",
+   "en": "light"
+  },
+  {
+   "es": "cantidad",
+   "en": "quantity"
+  },
+  {
+   "es": "dos unidades",
+   "en": "two units"
+  },
+  {
+   "es": "escaneo doble",
+   "en": "double scan"
+  },
+  {
+   "es": "error del sistema",
+   "en": "system error"
+  },
+  {
+   "es": "cliente siguiente",
+   "en": "next customer"
+  },
+  {
+   "es": "fila larga",
+   "en": "long line"
+  },
+  {
+   "es": "mucha gente",
+   "en": "many people"
+  },
+  {
+   "es": "servicio",
+   "en": "service"
+  },
+  {
+   "es": "horario",
+   "en": "store hours"
+  },
+  {
+   "es": "muestra su identificación",
+   "en": "show your ID (Ud.)"
+  },
+  {
+   "es": "producto restringido",
+   "en": "restricted item"
+  },
+  {
+   "es": "alcohol",
+   "en": "alcohol"
+  },
+  {
+   "es": "tabaco",
+   "en": "tobacco"
+  },
+  {
+   "es": "bebida",
+   "en": "drink"
+  },
+  {
+   "es": "comida",
+   "en": "food"
+  },
+  {
+   "es": "pan",
+   "en": "bread"
+  },
+  {
+   "es": "leche",
+   "en": "milk"
+  },
+  {
+   "es": "carne",
+   "en": "meat"
+  },
+  {
+   "es": "verduras",
+   "en": "vegetables"
+  },
+  {
+   "es": "fruta",
+   "en": "fruit"
+  },
+  {
+   "es": "caja rápida",
+   "en": "express checkout"
+  },
+  {
+   "es": "pocos productos",
+   "en": "few items"
+  },
+  {
+   "es": "muchos productos",
+   "en": "many items"
+  },
+  {
+   "es": "carrito",
+   "en": "cart"
+  },
+  {
+   "es": "canasta",
+   "en": "basket"
+  },
+  {
+   "es": "cliente espera",
+   "en": "the customer waits"
+  },
+  {
+   "es": "número de caja",
+   "en": "register number"
+  },
+  {
+   "es": "caja abierta",
+   "en": "open register"
+  },
+  {
+   "es": "caja cerrada",
+   "en": "closed register"
+  },
+  {
+   "es": "cambio exacto",
+   "en": "exact change"
+  },
+  {
+   "es": "pago exacto",
+   "en": "exact payment"
+  },
+  {
+   "es": "tarjeta válida",
+   "en": "valid card"
+  },
+  {
+   "es": "tarjeta inválida",
+   "en": "invalid card"
+  },
+  {
+   "es": "saldo insuficiente",
+   "en": "insufficient funds"
+  },
+  {
+   "es": "listo para pagar",
+   "en": "ready to pay"
+  },
+  {
+   "es": "ingresa el código",
+   "en": "enter the code"
+  },
+  {
+   "es": "código manual",
+   "en": "manual code"
+  },
+  {
+   "es": "ingreso manual",
+   "en": "manual entry"
+  },
+  {
+   "es": "producto sin código",
+   "en": "item without a barcode"
+  },
+  {
+   "es": "pesa el producto",
+   "en": "weigh the item"
+  },
+  {
+   "es": "balanza",
+   "en": "scale"
+  },
+  {
+   "es": "etiqueta de precio",
+   "en": "price label"
+  },
+  {
+   "es": "revise la etiqueta",
+   "en": "check the label (Ud.)"
+  },
+  {
+   "es": "precio actualizado",
+   "en": "updated price"
+  },
+  {
+   "es": "inténtalo otra vez",
+   "en": "try again"
+  },
+  {
+   "es": "caja central",
+   "en": "main checkout"
+  },
+  {
+   "es": "lector",
+   "en": "scanner"
+  },
+  {
+   "es": "promoción vencida",
+   "en": "expired promotion"
+  },
+  {
+   "es": "unidad equivocada",
+   "en": "wrong unit"
+  },
+  {
+   "es": "precio por kilo",
+   "en": "price per kilo"
+  },
+  {
+   "es": "precio por unidad",
+   "en": "price per unit"
+  },
+  {
+   "es": "producto abierto",
+   "en": "opened item"
+  },
+  {
+   "es": "producto dañado",
+   "en": "damaged item"
+  },
+  {
+   "es": "reemplazo",
+   "en": "replacement"
+  }
+ ],
+ "mechanic-shared": [
+  {
+   "es": "carro",
+   "en": "car"
+  },
+  {
+   "es": "vehículo",
+   "en": "vehicle"
+  },
+  {
+   "es": "motor",
+   "en": "engine"
+  },
+  {
+   "es": "batería",
+   "en": "battery"
+  },
+  {
+   "es": "frenos",
+   "en": "brakes"
+  },
+  {
+   "es": "aceite",
+   "en": "oil"
+  },
+  {
+   "es": "filtro",
+   "en": "filter"
+  },
+  {
+   "es": "transmisión",
+   "en": "transmission"
+  },
+  {
+   "es": "suspensión",
+   "en": "suspension"
+  },
+  {
+   "es": "llanta",
+   "en": "tire"
+  },
+  {
+   "es": "rueda",
+   "en": "wheel"
+  },
+  {
+   "es": "radiador",
+   "en": "radiator"
+  },
+  {
+   "es": "bujía",
+   "en": "spark plug"
+  },
+  {
+   "es": "correa",
+   "en": "belt"
+  },
+  {
+   "es": "alternador",
+   "en": "alternator"
+  },
+  {
+   "es": "falla",
+   "en": "issue"
+  },
+  {
+   "es": "ruido",
+   "en": "noise"
+  },
+  {
+   "es": "vibración",
+   "en": "vibration"
+  },
+  {
+   "es": "fuga",
+   "en": "leak"
+  },
+  {
+   "es": "frenos débiles",
+   "en": "weak brakes"
+  },
+  {
+   "es": "pedal suave",
+   "en": "soft pedal"
+  },
+  {
+   "es": "inspección",
+   "en": "inspection"
+  },
+  {
+   "es": "diagnóstico",
+   "en": "diagnosis"
+  },
+  {
+   "es": "cambio de aceite",
+   "en": "oil change"
+  },
+  {
+   "es": "precio",
+   "en": "price"
+  },
+  {
+   "es": "costo",
+   "en": "cost"
+  },
+  {
+   "es": "total",
+   "en": "total"
+  },
+  {
+   "es": "estimado",
+   "en": "estimate"
+  },
+  {
+   "es": "mano de obra",
+   "en": "labor"
+  },
+  {
+   "es": "piezas",
+   "en": "parts"
+  },
+  {
+   "es": "adicional",
+   "en": "additional"
+  },
+  {
+   "es": "presupuesto",
+   "en": "quote"
+  },
+  {
+   "es": "pago",
+   "en": "payment"
+  },
+  {
+   "es": "factura",
+   "en": "invoice"
+  },
+  {
+   "es": "recibo",
+   "en": "receipt"
+  },
+  {
+   "es": "desgastado",
+   "en": "worn out"
+  },
+  {
+   "es": "sucio",
+   "en": "dirty"
+  },
+  {
+   "es": "flojo",
+   "en": "loose"
+  },
+  {
+   "es": "apretado",
+   "en": "tight"
+  },
+  {
+   "es": "urgente",
+   "en": "urgent"
+  },
+  {
+   "es": "peligroso",
+   "en": "dangerous"
+  },
+  {
+   "es": "sistema de frenos",
+   "en": "brake system"
+  },
+  {
+   "es": "sistema eléctrico",
+   "en": "electrical system"
+  },
+  {
+   "es": "presión",
+   "en": "pressure"
+  },
+  {
+   "es": "nivel",
+   "en": "level"
+  },
+  {
+   "es": "nivel de aceite",
+   "en": "oil level"
+  },
+  {
+   "es": "nivel bajo",
+   "en": "low level"
+  },
+  {
+   "es": "nivel alto",
+   "en": "high level"
+  },
+  {
+   "es": "luz de motor",
+   "en": "check-engine light"
+  },
+  {
+   "es": "código de error",
+   "en": "error code"
+  },
+  {
+   "es": "listo",
+   "en": "ready"
+  },
+  {
+   "es": "todavía no",
+   "en": "not yet"
+  },
+  {
+   "es": "hoy",
+   "en": "today"
+  },
+  {
+   "es": "mañana",
+   "en": "tomorrow"
+  },
+  {
+   "es": "tiempo estimado",
+   "en": "estimated time"
+  },
+  {
+   "es": "solo eso",
+   "en": "just that"
+  },
+  {
+   "es": "líquido de frenos",
+   "en": "brake fluid"
+  },
+  {
+   "es": "aceite de motor",
+   "en": "engine oil"
+  },
+  {
+   "es": "refrigerante",
+   "en": "coolant"
+  },
+  {
+   "es": "líquido",
+   "en": "fluid"
+  },
+  {
+   "es": "combustible",
+   "en": "fuel"
+  },
+  {
+   "es": "gasolina",
+   "en": "gasoline"
+  },
+  {
+   "es": "diésel",
+   "en": "diesel"
+  },
+  {
+   "es": "tanque",
+   "en": "tank"
+  },
+  {
+   "es": "manguera",
+   "en": "hose"
+  },
+  {
+   "es": "válvula",
+   "en": "valve"
+  },
+  {
+   "es": "mecánico",
+   "en": "mechanic"
+  },
+  {
+   "es": "taller",
+   "en": "shop"
+  },
+  {
+   "es": "herramienta",
+   "en": "tool"
+  },
+  {
+   "es": "elevador",
+   "en": "lift"
+  },
+  {
+   "es": "garantía",
+   "en": "warranty"
+  },
+  {
+   "es": "servicio",
+   "en": "service"
+  },
+  {
+   "es": "revisión general",
+   "en": "general inspection"
+  },
+  {
+   "es": "mantenimiento",
+   "en": "maintenance"
+  },
+  {
+   "es": "historial",
+   "en": "service history"
+  },
+  {
+   "es": "diagnóstico completo",
+   "en": "full diagnosis"
+  },
+  {
+   "es": "pastillas de freno",
+   "en": "brake pads"
+  },
+  {
+   "es": "disco de freno",
+   "en": "brake rotor"
+  },
+  {
+   "es": "amortiguador",
+   "en": "shock absorber"
+  },
+  {
+   "es": "dirección",
+   "en": "steering"
+  },
+  {
+   "es": "alineación",
+   "en": "alignment"
+  },
+  {
+   "es": "balanceo",
+   "en": "wheel balancing"
+  },
+  {
+   "es": "embrague",
+   "en": "clutch"
+  },
+  {
+   "es": "escape",
+   "en": "exhaust"
+  },
+  {
+   "es": "filtro de aire",
+   "en": "air filter"
+  }
+ ],
+ "police-shared": [
+  {
+   "es": "policía",
+   "en": "police officer"
+  },
+  {
+   "es": "agente",
+   "en": "officer"
+  },
+  {
+   "es": "patrulla",
+   "en": "patrol car"
+  },
+  {
+   "es": "control policial",
+   "en": "traffic stop"
+  },
+  {
+   "es": "licencia de conducir",
+   "en": "driver's license"
+  },
+  {
+   "es": "registro del vehículo",
+   "en": "vehicle registration"
+  },
+  {
+   "es": "prueba de seguro",
+   "en": "proof of insurance"
+  },
+  {
+   "es": "documentos",
+   "en": "documents"
+  },
+  {
+   "es": "aquí tiene",
+   "en": "here you are"
+  },
+  {
+   "es": "parada",
+   "en": "stop"
+  },
+  {
+   "es": "exceso de velocidad",
+   "en": "speeding"
+  },
+  {
+   "es": "velocidad",
+   "en": "speed"
+  },
+  {
+   "es": "límite de velocidad",
+   "en": "speed limit"
+  },
+  {
+   "es": "zona",
+   "en": "zone"
+  },
+  {
+   "es": "iba a",
+   "en": "were going at (speed)"
+  },
+  {
+   "es": "infracción",
+   "en": "violation"
+  },
+  {
+   "es": "motivo",
+   "en": "reason"
+  },
+  {
+   "es": "vehículo",
+   "en": "vehicle"
+  },
+  {
+   "es": "carro",
+   "en": "car"
+  },
+  {
+   "es": "luces",
+   "en": "lights"
+  },
+  {
+   "es": "luz trasera",
+   "en": "tail light"
+  },
+  {
+   "es": "luz delantera",
+   "en": "headlight"
+  },
+  {
+   "es": "placa",
+   "en": "plate"
+  },
+  {
+   "es": "parabrisas",
+   "en": "windshield"
+  },
+  {
+   "es": "cinturón",
+   "en": "seatbelt"
+  },
+  {
+   "es": "apague el motor",
+   "en": "turn off the engine (Ud.)"
+  },
+  {
+   "es": "baje la ventana",
+   "en": "roll down the window (Ud.)"
+  },
+  {
+   "es": "salga del vehículo",
+   "en": "get out of the vehicle (Ud.)"
+  },
+  {
+   "es": "quédese en el vehículo",
+   "en": "stay in the vehicle (Ud.)"
+  },
+  {
+   "es": "despacio",
+   "en": "slowly"
+  },
+  {
+   "es": "siga mis instrucciones",
+   "en": "follow my instructions (Ud.)"
+  },
+  {
+   "es": "frenó fuerte",
+   "en": "braked hard (past)"
+  },
+  {
+   "es": "cambió de carril",
+   "en": "changed lanes (past)"
+  },
+  {
+   "es": "conducción peligrosa",
+   "en": "dangerous driving"
+  },
+  {
+   "es": "carril",
+   "en": "lane"
+  },
+  {
+   "es": "carril restringido",
+   "en": "restricted lane"
+  },
+  {
+   "es": "giro",
+   "en": "turn"
+  },
+  {
+   "es": "tráfico",
+   "en": "traffic"
+  },
+  {
+   "es": "intersección",
+   "en": "intersection"
+  },
+  {
+   "es": "semáforo",
+   "en": "traffic light"
+  },
+  {
+   "es": "luz roja",
+   "en": "red light"
+  },
+  {
+   "es": "luz verde",
+   "en": "green light"
+  },
+  {
+   "es": "¿entiende?",
+   "en": "do you understand?"
+  },
+  {
+   "es": "alcohol",
+   "en": "alcohol"
+  },
+  {
+   "es": "prueba",
+   "en": "test"
+  },
+  {
+   "es": "prueba de alcohol",
+   "en": "breath test"
+  },
+  {
+   "es": "sople aquí",
+   "en": "blow here (Ud.)"
+  },
+  {
+   "es": "resultado",
+   "en": "result"
+  },
+  {
+   "es": "negativo",
+   "en": "negative"
+  },
+  {
+   "es": "positivo",
+   "en": "positive"
+  },
+  {
+   "es": "bajo la influencia",
+   "en": "under the influence"
+  },
+  {
+   "es": "sobrio",
+   "en": "sober"
+  },
+  {
+   "es": "registro activo",
+   "en": "active registration"
+  },
+  {
+   "es": "seguro activo",
+   "en": "active insurance"
+  },
+  {
+   "es": "pendiente",
+   "en": "pending"
+  },
+  {
+   "es": "multa",
+   "en": "ticket"
+  },
+  {
+   "es": "advertencia",
+   "en": "warning"
+  },
+  {
+   "es": "sanción",
+   "en": "penalty"
+  },
+  {
+   "es": "paga la multa",
+   "en": "pay the ticket"
+  },
+  {
+   "es": "plazo",
+   "en": "deadline"
+  },
+  {
+   "es": "monto",
+   "en": "amount"
+  },
+  {
+   "es": "carretera",
+   "en": "road"
+  },
+  {
+   "es": "calle",
+   "en": "street"
+  },
+  {
+   "es": "zona urbana",
+   "en": "urban area"
+  },
+  {
+   "es": "zona escolar",
+   "en": "school zone"
+  },
+  {
+   "es": "autopista",
+   "en": "highway"
+  },
+  {
+   "es": "señal",
+   "en": "sign"
+  },
+  {
+   "es": "señalización",
+   "en": "road signage"
+  },
+  {
+   "es": "dirección",
+   "en": "direction"
+  },
+  {
+   "es": "carril derecho",
+   "en": "right lane"
+  },
+  {
+   "es": "alquiler",
+   "en": "rental"
+  },
+  {
+   "es": "contrato",
+   "en": "contract"
+  },
+  {
+   "es": "propietario",
+   "en": "owner"
+  },
+  {
+   "es": "vehículo prestado",
+   "en": "borrowed vehicle"
+  },
+  {
+   "es": "permiso del dueño",
+   "en": "owner's permission"
+  },
+  {
+   "es": "copia digital",
+   "en": "digital copy"
+  },
+  {
+   "es": "control",
+   "en": "checkpoint"
+  },
+  {
+   "es": "oríllese",
+   "en": "pull over (Ud.)"
+  },
+  {
+   "es": "orilla",
+   "en": "roadside"
+  },
+  {
+   "es": "luces de emergencia",
+   "en": "hazard lights"
+  },
+  {
+   "es": "documento físico",
+   "en": "physical document"
+  },
+  {
+   "es": "permiso de conducir",
+   "en": "driver's license"
+  },
+  {
+   "es": "matrícula",
+   "en": "license plate"
+  },
+  {
+   "es": "agente de tránsito",
+   "en": "traffic officer"
+  },
+  {
+   "es": "triángulo",
+   "en": "warning triangle"
+  },
+  {
+   "es": "chaleco reflectante",
+   "en": "reflective vest"
+  },
+  {
+   "es": "accidente",
+   "en": "accident"
+  },
+  {
+   "es": "choque",
+   "en": "crash"
+  },
+  {
+   "es": "reporte",
+   "en": "report"
+  },
+  {
+   "es": "reporte policial",
+   "en": "police report"
+  },
+  {
+   "es": "testigo",
+   "en": "witness"
+  },
+  {
+   "es": "declaración",
+   "en": "statement"
+  },
+  {
+   "es": "firme aquí",
+   "en": "sign here (Ud.)"
+  },
+  {
+   "es": "corte",
+   "en": "court"
+  },
+  {
+   "es": "fecha de corte",
+   "en": "court date"
+  },
+  {
+   "es": "comparecencia",
+   "en": "court appearance"
+  },
+  {
+   "es": "grúa",
+   "en": "tow truck"
+  },
+  {
+   "es": "remolque",
+   "en": "towing"
+  }
+ ],
+ "restaurant-shared": [
+  {
+   "es": "menú",
+   "en": "menu"
+  },
+  {
+   "es": "carta",
+   "en": "menu (à la carte)"
+  },
+  {
+   "es": "mesero",
+   "en": "waiter"
+  },
+  {
+   "es": "mesa",
+   "en": "table"
+  },
+  {
+   "es": "reserva",
+   "en": "reservation"
+  },
+  {
+   "es": "mesa para dos",
+   "en": "table for two"
+  },
+  {
+   "es": "aquí está el menú",
+   "en": "here is the menu"
+  },
+  {
+   "es": "recomendación",
+   "en": "recommendation"
+  },
+  {
+   "es": "plato",
+   "en": "dish"
+  },
+  {
+   "es": "entrada",
+   "en": "appetizer"
+  },
+  {
+   "es": "plato principal",
+   "en": "main dish"
+  },
+  {
+   "es": "postre",
+   "en": "dessert"
+  },
+  {
+   "es": "acompañamiento",
+   "en": "side dish"
+  },
+  {
+   "es": "guarnición",
+   "en": "garnish"
+  },
+  {
+   "es": "porción",
+   "en": "portion"
+  },
+  {
+   "es": "ingrediente",
+   "en": "ingredient"
+  },
+  {
+   "es": "salsa",
+   "en": "sauce"
+  },
+  {
+   "es": "arroz",
+   "en": "rice"
+  },
+  {
+   "es": "pollo",
+   "en": "chicken"
+  },
+  {
+   "es": "carne",
+   "en": "meat"
+  },
+  {
+   "es": "pescado",
+   "en": "fish"
+  },
+  {
+   "es": "verduras",
+   "en": "vegetables"
+  },
+  {
+   "es": "ensalada",
+   "en": "salad"
+  },
+  {
+   "es": "vegetariano",
+   "en": "vegetarian"
+  },
+  {
+   "es": "vegano",
+   "en": "vegan"
+  },
+  {
+   "es": "alergia",
+   "en": "allergy"
+  },
+  {
+   "es": "alérgico",
+   "en": "allergic"
+  },
+  {
+   "es": "frutos secos",
+   "en": "nuts"
+  },
+  {
+   "es": "¿tiene…?",
+   "en": "does it have…?"
+  },
+  {
+   "es": "¿lleva…?",
+   "en": "does it come with…?"
+  },
+  {
+   "es": "picante",
+   "en": "spicy"
+  },
+  {
+   "es": "poco picante",
+   "en": "mildly spicy"
+  },
+  {
+   "es": "bebida",
+   "en": "drink"
+  },
+  {
+   "es": "agua",
+   "en": "water"
+  },
+  {
+   "es": "refresco",
+   "en": "soda"
+  },
+  {
+   "es": "jugo",
+   "en": "juice"
+  },
+  {
+   "es": "cerveza",
+   "en": "beer"
+  },
+  {
+   "es": "vino",
+   "en": "wine"
+  },
+  {
+   "es": "copa",
+   "en": "glass"
+  },
+  {
+   "es": "botella",
+   "en": "bottle"
+  },
+  {
+   "es": "aquí está",
+   "en": "here it is"
+  },
+  {
+   "es": "trae",
+   "en": "bring (command)"
+  },
+  {
+   "es": "mesa lista",
+   "en": "ready table"
+  },
+  {
+   "es": "error",
+   "en": "mistake"
+  },
+  {
+   "es": "equivocado",
+   "en": "wrong"
+  },
+  {
+   "es": "falta esto",
+   "en": "this is missing"
+  },
+  {
+   "es": "cambio",
+   "en": "change"
+  },
+  {
+   "es": "cocina",
+   "en": "kitchen"
+  },
+  {
+   "es": "frío",
+   "en": "cold"
+  },
+  {
+   "es": "caliente",
+   "en": "hot"
+  },
+  {
+   "es": "repítalo",
+   "en": "repeat it (Ud.)"
+  },
+  {
+   "es": "aclárelo",
+   "en": "clarify it (Ud.)"
+  },
+  {
+   "es": "cuenta",
+   "en": "bill"
+  },
+  {
+   "es": "total",
+   "en": "total"
+  },
+  {
+   "es": "precio",
+   "en": "price"
+  },
+  {
+   "es": "propina",
+   "en": "tip"
+  },
+  {
+   "es": "servicio",
+   "en": "service"
+  },
+  {
+   "es": "pago",
+   "en": "payment"
+  },
+  {
+   "es": "terminal",
+   "en": "card terminal"
+  },
+  {
+   "es": "recibo",
+   "en": "receipt"
+  },
+  {
+   "es": "mesa libre",
+   "en": "free table"
+  },
+  {
+   "es": "ocupado",
+   "en": "occupied"
+  },
+  {
+   "es": "lleno",
+   "en": "full"
+  },
+  {
+   "es": "afuera",
+   "en": "outside"
+  },
+  {
+   "es": "adentro",
+   "en": "inside"
+  },
+  {
+   "es": "terraza",
+   "en": "patio"
+  },
+  {
+   "es": "aire acondicionado",
+   "en": "air conditioning"
+  },
+  {
+   "es": "ruido",
+   "en": "noise"
+  },
+  {
+   "es": "tranquilo",
+   "en": "quiet"
+  },
+  {
+   "es": "ambiente",
+   "en": "atmosphere"
+  },
+  {
+   "es": "suficiente",
+   "en": "enough"
+  },
+  {
+   "es": "extra",
+   "en": "extra"
+  },
+  {
+   "es": "otra",
+   "en": "another one"
+  },
+  {
+   "es": "pedido",
+   "en": "order"
+  },
+  {
+   "es": "factura",
+   "en": "invoice"
+  },
+  {
+   "es": "reserva confirmada",
+   "en": "confirmed reservation"
+  },
+  {
+   "es": "mesa asignada",
+   "en": "assigned table"
+  },
+  {
+   "es": "lista de espera",
+   "en": "waitlist"
+  },
+  {
+   "es": "disponibilidad",
+   "en": "availability"
+  },
+  {
+   "es": "horario",
+   "en": "opening hours"
+  },
+  {
+   "es": "cubiertos",
+   "en": "utensils"
+  },
+  {
+   "es": "cuchara",
+   "en": "spoon"
+  },
+  {
+   "es": "tenedor",
+   "en": "fork"
+  },
+  {
+   "es": "cuchillo",
+   "en": "knife"
+  },
+  {
+   "es": "servilleta",
+   "en": "napkin"
+  },
+  {
+   "es": "vaso",
+   "en": "glass"
+  },
+  {
+   "es": "taza",
+   "en": "cup"
+  },
+  {
+   "es": "hielo",
+   "en": "ice"
+  },
+  {
+   "es": "otra ronda",
+   "en": "another round"
+  },
+  {
+   "es": "cobro adicional",
+   "en": "extra charge"
+  },
+  {
+   "es": "cargo por servicio",
+   "en": "service charge"
+  },
+  {
+   "es": "plato hondo",
+   "en": "bowl"
+  },
+  {
+   "es": "plato llano",
+   "en": "dinner plate"
+  },
+  {
+   "es": "cubierto extra",
+   "en": "extra utensil"
+  },
+  {
+   "es": "mesa sucia",
+   "en": "dirty table"
+  },
+  {
+   "es": "mesa limpia",
+   "en": "clean table"
+  }
+ ],
+ "small-talk-shared": [
+  {
+   "es": "vecino",
+   "en": "neighbor"
+  },
+  {
+   "es": "vecina",
+   "en": "female neighbor"
+  },
+  {
+   "es": "edificio",
+   "en": "building"
+  },
+  {
+   "es": "departamento",
+   "en": "apartment"
+  },
+  {
+   "es": "casa",
+   "en": "house"
+  },
+  {
+   "es": "zona",
+   "en": "area"
+  },
+  {
+   "es": "barrio",
+   "en": "neighborhood"
+  },
+  {
+   "es": "ruido",
+   "en": "noise"
+  },
+  {
+   "es": "música",
+   "en": "music"
+  },
+  {
+   "es": "volumen",
+   "en": "volume"
+  },
+  {
+   "es": "baja el volumen",
+   "en": "lower the volume"
+  },
+  {
+   "es": "reunión",
+   "en": "gathering"
+  },
+  {
+   "es": "fiesta",
+   "en": "party"
+  },
+  {
+   "es": "anoche",
+   "en": "last night"
+  },
+  {
+   "es": "tarde",
+   "en": "late"
+  },
+  {
+   "es": "temprano",
+   "en": "early"
+  },
+  {
+   "es": "tenga cuidado",
+   "en": "be careful (Ud.)"
+  },
+  {
+   "es": "estacionamiento",
+   "en": "parking"
+  },
+  {
+   "es": "lugar",
+   "en": "spot"
+  },
+  {
+   "es": "espacio",
+   "en": "space"
+  },
+  {
+   "es": "visitante",
+   "en": "visitor"
+  },
+  {
+   "es": "mueve el carro",
+   "en": "move the car"
+  },
+  {
+   "es": "paquete",
+   "en": "package"
+  },
+  {
+   "es": "entrega",
+   "en": "delivery"
+  },
+  {
+   "es": "repartidor",
+   "en": "delivery person"
+  },
+  {
+   "es": "puerta",
+   "en": "door"
+  },
+  {
+   "es": "nombre",
+   "en": "name"
+  },
+  {
+   "es": "aquí está su paquete",
+   "en": "here is your package"
+  },
+  {
+   "es": "hace tiempo",
+   "en": "a long time ago"
+  },
+  {
+   "es": "hace meses",
+   "en": "months ago"
+  },
+  {
+   "es": "hace un año",
+   "en": "a year ago"
+  },
+  {
+   "es": "agua",
+   "en": "water"
+  },
+  {
+   "es": "fuga",
+   "en": "leak"
+  },
+  {
+   "es": "humedad",
+   "en": "dampness"
+  },
+  {
+   "es": "pared",
+   "en": "wall"
+  },
+  {
+   "es": "tubería",
+   "en": "pipe"
+  },
+  {
+   "es": "problema de agua",
+   "en": "water issue"
+  },
+  {
+   "es": "administración",
+   "en": "building management"
+  },
+  {
+   "es": "llave de agua",
+   "en": "water valve"
+  },
+  {
+   "es": "cerca",
+   "en": "nearby"
+  },
+  {
+   "es": "lejos",
+   "en": "far"
+  },
+  {
+   "es": "piso",
+   "en": "floor"
+  },
+  {
+   "es": "mismo piso",
+   "en": "same floor"
+  },
+  {
+   "es": "arriba",
+   "en": "upstairs"
+  },
+  {
+   "es": "abajo",
+   "en": "downstairs"
+  },
+  {
+   "es": "toca la puerta",
+   "en": "knock on the door"
+  },
+  {
+   "es": "trabajo",
+   "en": "work"
+  },
+  {
+   "es": "horario",
+   "en": "schedule"
+  },
+  {
+   "es": "ocupado",
+   "en": "busy"
+  },
+  {
+   "es": "libre",
+   "en": "free"
+  },
+  {
+   "es": "fin de semana",
+   "en": "weekend"
+  },
+  {
+   "es": "hoy",
+   "en": "today"
+  },
+  {
+   "es": "mañana",
+   "en": "tomorrow"
+  },
+  {
+   "es": "ayer",
+   "en": "yesterday"
+  },
+  {
+   "es": "prestas una herramienta",
+   "en": "lend a tool"
+  },
+  {
+   "es": "herramienta",
+   "en": "tool"
+  },
+  {
+   "es": "llave inglesa",
+   "en": "wrench"
+  },
+  {
+   "es": "taladro",
+   "en": "drill"
+  },
+  {
+   "es": "escalera",
+   "en": "ladder"
+  },
+  {
+   "es": "reciclaje",
+   "en": "recycling"
+  },
+  {
+   "es": "ascensor",
+   "en": "elevator"
+  },
+  {
+   "es": "timbre",
+   "en": "doorbell"
+  },
+  {
+   "es": "portón",
+   "en": "gate"
+  },
+  {
+   "es": "entrada principal",
+   "en": "main entrance"
+  },
+  {
+   "es": "llave",
+   "en": "key"
+  },
+  {
+   "es": "copia de llave",
+   "en": "spare key"
+  },
+  {
+   "es": "administración del edificio",
+   "en": "building management"
+  },
+  {
+   "es": "portero",
+   "en": "doorman"
+  },
+  {
+   "es": "conserje",
+   "en": "caretaker"
+  },
+  {
+   "es": "paquete equivocado",
+   "en": "wrong package"
+  },
+  {
+   "es": "visita",
+   "en": "visitor"
+  },
+  {
+   "es": "visitas",
+   "en": "guests"
+  },
+  {
+   "es": "mudanza",
+   "en": "move"
+  },
+  {
+   "es": "camión de mudanza",
+   "en": "moving truck"
+  },
+  {
+   "es": "mascota",
+   "en": "pet"
+  },
+  {
+   "es": "perro",
+   "en": "dog"
+  },
+  {
+   "es": "gato",
+   "en": "cat"
+  },
+  {
+   "es": "correa",
+   "en": "leash"
+  },
+  {
+   "es": "jardín",
+   "en": "garden"
+  },
+  {
+   "es": "plantas",
+   "en": "plants"
+  },
+  {
+   "es": "riego",
+   "en": "watering"
+  },
+  {
+   "es": "riega las plantas",
+   "en": "water the plants"
+  },
+  {
+   "es": "balcón",
+   "en": "balcony"
+  },
+  {
+   "es": "ventana",
+   "en": "window"
+  },
+  {
+   "es": "corriente de aire",
+   "en": "draft"
+  },
+  {
+   "es": "humedad en el techo",
+   "en": "moisture on the ceiling"
+  },
+  {
+   "es": "corte de agua",
+   "en": "water outage"
+  },
+  {
+   "es": "corte de luz",
+   "en": "power outage"
+  },
+  {
+   "es": "luz",
+   "en": "electricity"
+  },
+  {
+   "es": "vecino nuevo",
+   "en": "new neighbor"
+  },
+  {
+   "es": "recién llegado",
+   "en": "newly arrived"
+  },
+  {
+   "es": "alquiler",
+   "en": "rent"
+  },
+  {
+   "es": "subió el alquiler",
+   "en": "the rent went up"
+  },
+  {
+   "es": "administración no responde",
+   "en": "management does not respond"
+  },
+  {
+   "es": "queja",
+   "en": "complaint"
+  },
+  {
+   "es": "ruido arriba",
+   "en": "upstairs noise"
+  },
+  {
+   "es": "ruido abajo",
+   "en": "downstairs noise"
+  },
+  {
+   "es": "pasillo",
+   "en": "hallway"
+  },
+  {
+   "es": "entrada trasera",
+   "en": "back entrance"
+  },
+  {
+   "es": "puerta principal",
+   "en": "front door"
+  },
+  {
+   "es": "buzón",
+   "en": "mailbox"
+  },
+  {
+   "es": "correo",
+   "en": "mail"
+  }
+ ],
+ "internet-shared": [
+  {
+   "es": "internet",
+   "en": "internet"
+  },
+  {
+   "es": "red inalámbrica",
+   "en": "wireless network"
+  },
+  {
+   "es": "wifi doméstico",
+   "en": "home WiFi"
+  },
+  {
+   "es": "clave de acceso",
+   "en": "access code"
+  },
+  {
+   "es": "red local",
+   "en": "local network"
+  },
+  {
+   "es": "router",
+   "en": "router"
+  },
+  {
+   "es": "cable",
+   "en": "cable"
+  },
+  {
+   "es": "intensidad",
+   "en": "signal strength"
+  },
+  {
+   "es": "enrutador",
+   "en": "router"
+  },
+  {
+   "es": "cable de red",
+   "en": "network cable"
+  },
+  {
+   "es": "tomacorriente",
+   "en": "outlet"
+  },
+  {
+   "es": "plan",
+   "en": "plan"
+  },
+  {
+   "es": "pausado",
+   "en": "slow"
+  },
+  {
+   "es": "rapidez",
+   "en": "speed"
+  },
+  {
+   "es": "paquete de datos",
+   "en": "data plan"
+  },
+  {
+   "es": "cuota mensual",
+   "en": "monthly fee"
+  },
+  {
+   "es": "visita",
+   "en": "visit"
+  },
+  {
+   "es": "nombre de red",
+   "en": "network name"
+  },
+  {
+   "es": "colocar",
+   "en": "to install"
+  },
+  {
+   "es": "configurar",
+   "en": "to configure"
+  },
+  {
+   "es": "conectar",
+   "en": "to connect"
+  },
+  {
+   "es": "desconectar",
+   "en": "to disconnect"
+  },
+  {
+   "es": "reiniciar",
+   "en": "to restart"
+  },
+  {
+   "es": "especialista",
+   "en": "specialist"
+  },
+  {
+   "es": "cita de servicio",
+   "en": "service appointment"
+  },
+  {
+   "es": "SSID",
+   "en": "SSID"
+  },
+  {
+   "es": "funcionar",
+   "en": "to work/function"
+  },
+  {
+   "es": "renombrar",
+   "en": "to rename"
+  },
+  {
+   "es": "solución",
+   "en": "solution"
+  },
+  {
+   "es": "banda ancha",
+   "en": "broadband"
+  },
+  {
+   "es": "fibra óptica",
+   "en": "fiber optic"
+  },
+  {
+   "es": "megabits",
+   "en": "megabits"
+  },
+  {
+   "es": "descargar",
+   "en": "to download"
+  },
+  {
+   "es": "ajustar",
+   "en": "to adjust"
+  },
+  {
+   "es": "enlazar",
+   "en": "to connect"
+  },
+  {
+   "es": "cortar enlace",
+   "en": "to disconnect"
+  },
+  {
+   "es": "rearrancar",
+   "en": "to restart"
+  },
+  {
+   "es": "aparato",
+   "en": "device"
+  },
+  {
+   "es": "portátil",
+   "en": "laptop"
+  },
+  {
+   "es": "teléfono móvil",
+   "en": "mobile phone"
+  },
+  {
+   "es": "operar",
+   "en": "to work/operate"
+  },
+  {
+   "es": "modem",
+   "en": "modem"
+  },
+  {
+   "es": "antena",
+   "en": "antenna"
+  },
+  {
+   "es": "inconveniente",
+   "en": "issue"
+  },
+  {
+   "es": "conexión de alta velocidad",
+   "en": "high-speed connection"
+  },
+  {
+   "es": "cable óptico",
+   "en": "fiber optic cable"
+  },
+  {
+   "es": "alcance",
+   "en": "range"
+  },
+  {
+   "es": "corte",
+   "en": "outage"
+  },
+  {
+   "es": "interrupción",
+   "en": "interruption"
+  },
+  {
+   "es": "megabytes",
+   "en": "megabytes"
+  },
+  {
+   "es": "bajar archivos",
+   "en": "to download files"
+  },
+  {
+   "es": "permanencia",
+   "en": "commitment period"
+  },
+  {
+   "es": "cargar archivos",
+   "en": "to upload files"
+  },
+  {
+   "es": "fecha de pago",
+   "en": "payment date"
+  },
+  {
+   "es": "mejorar",
+   "en": "to improve"
+  },
+  {
+   "es": "soporte al cliente",
+   "en": "customer support"
+  },
+  {
+   "es": "televisión",
+   "en": "television"
+  },
+  {
+   "es": "combo",
+   "en": "bundle"
+  },
+  {
+   "es": "streaming",
+   "en": "streaming"
+  },
+  {
+   "es": "videollamada",
+   "en": "video call"
+  },
+  {
+   "es": "juego en línea",
+   "en": "online gaming"
+  },
+  {
+   "es": "módem",
+   "en": "modem"
+  },
+  {
+   "es": "antena receptora",
+   "en": "receiving antenna"
+  },
+  {
+   "es": "decodificador",
+   "en": "decoder"
+  },
+  {
+   "es": "firewall",
+   "en": "firewall"
+  },
+  {
+   "es": "área de cobertura",
+   "en": "coverage area"
+  },
+  {
+   "es": "virus",
+   "en": "virus"
+  },
+  {
+   "es": "malware",
+   "en": "malware"
+  },
+  {
+   "es": "antivirus",
+   "en": "antivirus"
+  },
+  {
+   "es": "extensión",
+   "en": "extension/extender"
+  },
+  {
+   "es": "repetidor",
+   "en": "repeater"
+  },
+  {
+   "es": "amplificar",
+   "en": "to amplify"
+  },
+  {
+   "es": "dirección IP",
+   "en": "IP address"
+  },
+  {
+   "es": "DNS",
+   "en": "DNS"
+  },
+  {
+   "es": "puerto",
+   "en": "port"
+  },
+  {
+   "es": "ethernet",
+   "en": "ethernet"
+  },
+  {
+   "es": "inalámbrico",
+   "en": "wireless"
+  },
+  {
+   "es": "bluetooth",
+   "en": "bluetooth"
+  },
+  {
+   "es": "latencia",
+   "en": "latency"
+  },
+  {
+   "es": "ping",
+   "en": "ping"
+  },
+  {
+   "es": "estabilidad",
+   "en": "stability"
+  },
+  {
+   "es": "asistencia técnica",
+   "en": "technical support"
+  },
+  {
+   "es": "soporte",
+   "en": "support"
+  },
+  {
+   "es": "extensión de señal",
+   "en": "signal range"
+  },
+  {
+   "es": "apagón",
+   "en": "outage"
+  },
+  {
+   "es": "navegador",
+   "en": "browser"
+  },
+  {
+   "es": "página web",
+   "en": "webpage"
+  },
+  {
+   "es": "usuario",
+   "en": "username"
+  },
+  {
+   "es": "falla",
+   "en": "failure"
+  },
+  {
+   "es": "registrar",
+   "en": "to register"
+  },
+  {
+   "es": "restablecer",
+   "en": "to restore"
+  },
+  {
+   "es": "acuerdo de servicio",
+   "en": "service agreement"
+  },
+  {
+   "es": "periodo de permanencia",
+   "en": "commitment period"
+  },
+  {
+   "es": "control parental",
+   "en": "parental controls"
+  },
+  {
+   "es": "dar de baja",
+   "en": "to cancel"
+  },
+  {
+   "es": "renovar plan",
+   "en": "to upgrade plan"
+  },
+  {
+   "es": "cámara",
+   "en": "camera"
+  },
+  {
+   "es": "monitor",
+   "en": "monitor"
+  },
+  {
+   "es": "vigilancia",
+   "en": "surveillance"
+  },
+  {
+   "es": "domótica",
+   "en": "home automation"
+  },
+  {
+   "es": "inteligente",
+   "en": "smart"
+  },
+  {
+   "es": "automatizar",
+   "en": "to automate"
+  },
+  {
+   "es": "optimizar",
+   "en": "to improve"
+  },
+  {
+   "es": "almacenar",
+   "en": "to store"
+  },
+  {
+   "es": "combo de servicios",
+   "en": "service bundle"
+  },
+  {
+   "es": "impresora",
+   "en": "printer"
+  },
+  {
+   "es": "compartir",
+   "en": "to share"
+  },
+  {
+   "es": "acceso remoto",
+   "en": "remote access"
+  },
+  {
+   "es": "VPN",
+   "en": "VPN"
+  },
+  {
+   "es": "privacidad",
+   "en": "privacy"
+  },
+  {
+   "es": "encriptar",
+   "en": "to encrypt"
+  },
+  {
+   "es": "ancho de banda",
+   "en": "bandwidth"
+  },
+  {
+   "es": "TV por cable",
+   "en": "cable TV"
+  },
+  {
+   "es": "línea fija",
+   "en": "landline"
+  },
+  {
+   "es": "competencia",
+   "en": "competition"
+  },
+  {
+   "es": "paquete triple",
+   "en": "triple bundle"
+  },
+  {
+   "es": "instalación",
+   "en": "installation"
+  },
+  {
+   "es": "cableado",
+   "en": "wiring"
+  },
+  {
+   "es": "infraestructura",
+   "en": "infrastructure"
+  },
+  {
+   "es": "contratación",
+   "en": "hiring/contracting"
+  },
+  {
+   "es": "video en vivo",
+   "en": "live streaming"
+  },
+  {
+   "es": "llamada de video",
+   "en": "video call"
+  },
+  {
+   "es": "migración",
+   "en": "migration"
+  },
+  {
+   "es": "portabilidad",
+   "en": "portability"
+  },
+  {
+   "es": "juego en red",
+   "en": "online gaming"
+  },
+  {
+   "es": "tope de datos",
+   "en": "data cap"
+  },
+  {
+   "es": "uso de datos",
+   "en": "data usage"
+  },
+  {
+   "es": "queja",
+   "en": "complaint"
+  },
+  {
+   "es": "protección de red",
+   "en": "network security"
+  },
+  {
+   "es": "cortafuegos",
+   "en": "firewall"
+  },
+  {
+   "es": "resguardar",
+   "en": "to protect"
+  },
+  {
+   "es": "consumo real",
+   "en": "actual usage"
+  },
+  {
+   "es": "programa malicioso",
+   "en": "malicious software"
+  },
+  {
+   "es": "satelital",
+   "en": "satellite"
+  },
+  {
+   "es": "rural",
+   "en": "rural"
+  },
+  {
+   "es": "urbano",
+   "en": "urban"
+  },
+  {
+   "es": "mantenimiento",
+   "en": "maintenance"
+  },
+  {
+   "es": "actualización",
+   "en": "update"
+  },
+  {
+   "es": "software dañino",
+   "en": "harmful software"
+  },
+  {
+   "es": "programa de protección",
+   "en": "protection software"
+  },
+  {
+   "es": "amplificador",
+   "en": "amplifier"
+  },
+  {
+   "es": "encuesta",
+   "en": "survey"
+  },
+  {
+   "es": "listo",
+   "en": "ready"
+  },
+  {
+   "es": "repetidor de señal",
+   "en": "signal repeater"
+  }
+ ]
+}
