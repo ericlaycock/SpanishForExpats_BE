@@ -1,11 +1,13 @@
 """Vocab Map — chapter learning + spaced-repetition API (FE route /expatquest/vocab).
 
-The vocab module taxonomy lives in the FE (`components/tensequest/vocabData.ts`)
-because the cap is 25 words = 5 chapters of 5, and the actual content is
-hand-curated per module. This router does not maintain a parallel Python copy
-of that taxonomy — instead the FE submits the word list when it completes a
-chapter, and the BE just stores what it's told. STT for the press-and-speak
-gauntlet reuses `POST /v1/tensequest/transcribe`.
+The vocab module taxonomy lives in the FE (`components/tensequest/vocabData.ts`,
+a generated file) and module length is NOT fixed — decks currently run to 30
+words / 6 chapters and will grow again. This router deliberately keeps no
+parallel Python copy of that taxonomy: the FE submits the word list when it
+completes a chapter and the BE stores what it is told. Do not reintroduce a
+chapters-per-module constant here — see MAX_CHAPTER_INDEX below for what
+happened last time. STT for the press-and-speak gauntlet reuses
+`POST /v1/tensequest/transcribe`.
 
 The two segregated decks (module-only vs main vocab) are encoded in the
 `status` column on `vocab_card`. Promotion from module → main is the whole
@@ -38,7 +40,20 @@ router = APIRouter()
 # answered correctly within the (typed) slow ceiling promotes to the main deck
 # at box 1; everything else re-queues ~10 min out. Main-deck cards then space out
 # along the shared ladder (box 1 = 4h … box 7 = 60d), demoting by 2 on a lapse.
-CHAPTERS_PER_MODULE = 3  # 3 chapters × 5 words = 15-word module cap
+
+# Defensive upper bound on `chapter_idx`, NOT a statement about how long a
+# module is. The FE owns the taxonomy (see module docstring), so any number the
+# BE hardcodes here is a second copy of that truth and will drift.
+#
+# It did drift: this was `CHAPTERS_PER_MODULE = 3` while modules were 15 words.
+# When the decks grew to 30 words / 6 chapters, every learner who finished
+# chapter 3 got a 400 on chapter 4 and the FE showed "Could not save your
+# progress". Because ChapterSidebar unlocks chapter N only once N-1 is
+# recorded, chapters 5 and 6 became permanently unreachable.
+#
+# So this is deliberately far above any plausible module length: it exists to
+# reject garbage (negative, absurd) indices, not to enforce content policy.
+MAX_CHAPTER_INDEX = 200
 
 
 # ── response models ─────────────────────────────────────────────────────────
@@ -212,7 +227,7 @@ async def complete_chapter(
     """Record a finished chapter + seed its words into the module SRS deck.
     Both halves are idempotent: replaying the chapter does not double-credit
     completion and does not duplicate cards."""
-    if chapter_idx < 0 or chapter_idx >= CHAPTERS_PER_MODULE:
+    if chapter_idx < 0 or chapter_idx > MAX_CHAPTER_INDEX:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid chapter index")
 
     # Record completion (idempotent).

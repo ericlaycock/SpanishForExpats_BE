@@ -55,6 +55,40 @@ def test_complete_chapter_seeds_module_cards_idempotently(client):
     assert prog["main_deck"]["total"] == 0
 
 
+def test_chapters_beyond_the_third_are_accepted(client):
+    """Regression: the BE used to cap chapter_idx at CHAPTERS_PER_MODULE = 3.
+
+    Vocab decks grew from 15 words / 3 chapters to 30 words / 6 chapters, and
+    that stale constant rejected chapter 4 onward with a 400. Learners saw
+    "Could not save your progress", and because the sidebar unlocks chapter N
+    only once N-1 is recorded, chapters 5 and 6 became unreachable entirely.
+
+    Module length is the FE's business, so the BE must accept whatever index it
+    is handed rather than keeping a second copy of the taxonomy.
+    """
+    _, headers = register_user(client)
+
+    for idx in range(6):
+        words = [{"es": f"palabra{idx}", "en": f"word{idx}"}]
+        r = _complete_chapter(client, headers, idx=idx, words=words)
+        assert r.status_code == 200, f"chapter index {idx} rejected: {r.text}"
+        assert r.json()["was_new"] is True
+
+    prog = client.get("/v1/vocab/progress", headers=headers).json()
+    completions = next(
+        c for c in prog["chapter_completions"] if c["module_id"] == MODULE
+    )
+    assert completions["chapter_indices"] == [0, 1, 2, 3, 4, 5]
+
+
+def test_absurd_chapter_index_still_rejected(client):
+    """The bound is relaxed, not removed — garbage indices are still 400s."""
+    _, headers = register_user(client)
+
+    assert _complete_chapter(client, headers, idx=-1).status_code == 400
+    assert _complete_chapter(client, headers, idx=99999).status_code == 400
+
+
 # ── module deck: promote vs. re-queue ───────────────────────────────────────────
 
 def test_fast_correct_promotes_module_card_to_main_at_box1(client, db):
