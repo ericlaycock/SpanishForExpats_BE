@@ -9,6 +9,20 @@ os.environ.setdefault("DATABASE_URL", "postgresql://test:test@localhost:5432/tes
 os.environ.setdefault("OPENAI_API_KEY", "fake-key-for-tests")
 os.environ.setdefault("JWT_SECRET", "test-secret")
 
+# `setdefault` above means an already-exported DATABASE_URL wins — and this
+# suite's teardown runs `DROP SCHEMA public CASCADE`. Anyone who sources .env
+# (which points at Railway) and then runs pytest would drop the live database.
+# Refuse to start unless the target is unmistakably a local throwaway.
+_DB_URL = os.environ["DATABASE_URL"]
+if not any(h in _DB_URL for h in ("@localhost", "@127.0.0.1", "@postgres:", "@db:")):
+    raise RuntimeError(
+        "Refusing to run tests against a non-local database.\n"
+        f"  DATABASE_URL host: {_DB_URL.rsplit('@', 1)[-1]}\n"
+        "This suite ends with `DROP SCHEMA public CASCADE`; pointing it at\n"
+        "Railway would destroy production data. Use an explicit local URL:\n"
+        "  DATABASE_URL=postgresql://test:test@localhost:5432/test_db pytest"
+    )
+
 from app.database import Base, get_db
 from app.main import app
 from app.models import Word, Situation, SituationWord
